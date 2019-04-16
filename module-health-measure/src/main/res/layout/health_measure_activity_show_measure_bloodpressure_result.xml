@@ -20,7 +20,7 @@
             android:id="@+id/tv_measure_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="本周测量次数"
+            android:text="@string/xml_number_of_measurements_this_week"
             android:textSize="56pt"
             android:textColor="#333"
             android:textStyle="bold"
@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="偏高"
+                android:text="@string/xml_high"
                 android:textSize="48pt"
                 android:textColor="#999"
                 android:layout_marginLeft="40pt"
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="正常"
+                android:text="@string/xml_normal"
                 android:textSize="48pt"
                 android:textColor="#999"
                 android:layout_marginLeft="40pt"/>
@@ -114,7 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="偏低"
+                android:text="@string/xml_low"
                 android:textSize="48pt"
                 android:textColor="#999"
                 android:layout_marginLeft="40pt"/>
@@ -150,7 +150,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="本周平均血压"
+            android:text="@string/xml_average_blood_pressure_this_week"
             android:textSize="56pt"
             android:textColor="#333"
             android:textStyle="bold"
@@ -163,7 +163,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="高压"
+                android:text="@string/xml_high_pressure"
                 android:textSize="48pt"
                 android:textColor="#999"
                 android:layout_marginLeft="40pt"/>
@@ -204,7 +204,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="低压"
+                android:text="@string/xml_low_pressure"
                 android:textSize="48pt"
                 android:textColor="#999"
                 android:layout_marginLeft="40pt"/>
@@ -264,7 +264,7 @@
                 android:id="@+id/tv_result_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本次测量结果"
+                android:text="@string/xml_this_time_measure_result"
                 android:textSize="40pt"
                 android:textColor="#999"
                 app:layout_constraintTop_toTopOf="parent"
@@ -285,7 +285,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="56pt"
                     android:textColor="#333"
-                    android:text="高压"/>
+                    android:text="@string/xml_high_pressure"/>
                 <TextView
                     android:id="@+id/current_gaoya"
                     android:layout_width="wrap_content"
@@ -309,7 +309,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="56pt"
                     android:textColor="#333"
-                    android:text="低压"/>
+                    android:text="@string/xml_low_pressure"/>
                 <TextView
                     android:id="@+id/current_diya"
                     android:layout_width="wrap_content"
@@ -333,7 +333,7 @@
                 android:id="@+id/tv_score_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="健康分数"
+                android:text="@string/xml_health_score"
                 android:textColor="#999"
                 android:textSize="40pt"
                 android:layout_marginTop="41pt"
@@ -389,7 +389,7 @@
                 android:id="@+id/tv_suggest_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="健康建议"
+                android:text="@string/xml_health_suggest"
 
                 android:textSize="56pt"
                 android:textColor="#333"

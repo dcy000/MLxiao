@@ -8,7 +8,7 @@ import android.content.res.Configuration;
 
 import com.gcml.common.api.AppLifecycleCallbacks;
 import com.gcml.common.utils.JPushMessageHelper;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.ui.UiUtils;
 import com.google.auto.service.AutoService;
 import com.iflytek.cloud.SpeechConstant;
@@ -27,7 +27,7 @@ public class BizApp implements AppLifecycleCallbacks {
     @Override
     public void onCreate(Application app) {
         //初始化工具类
-        UtilsManager.init(app);
+        UM.init(app);
         UiUtils.init(app, 1920, 1200);
         app.registerComponentCallbacks(new ComponentCallbacks2() {
             @Override

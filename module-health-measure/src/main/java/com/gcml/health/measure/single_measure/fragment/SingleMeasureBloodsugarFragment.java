@@ -8,9 +8,10 @@ import android.view.View;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -48,7 +49,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
         if (bundle != null) {
             if (bundle.getBoolean("isOnlyShowBtnHealthRecord")) {
                 mBtnVideoDemo.setVisibility(View.GONE);
-                mBtnHealthHistory.setText("下一步");
+                mBtnHealthHistory.setText(R.string.next_step);
             }
         }
     }
@@ -58,7 +59,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
             String roundUp = DataUtils.getRoundUp(results[0], 1);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + roundUp, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.this_time_blood_glucose) + roundUp, false);
 
             datas = new ArrayList<>();
             DetectionData data = new DetectionData();
@@ -112,12 +113,12 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
                 .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
                     public void onNext(List<DetectionResult> o) {
-                        ToastUtils.showShort("数据上传成功");
+                        ToastUtils.showShort(R.string.upload_data_success);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("数据上传失败:" + e.getMessage());
+                        ToastUtils.showShort(UM.getString(R.string.upload_data_fail)+":" + e.getMessage());
                     }
 
                     @Override
@@ -136,7 +137,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
                     boolean booleanExtra = data.getBooleanExtra(HealthMeasureAbnormalActivity.KEY_HAS_ABNIRMAL_REASULT, false);
                     if (booleanExtra) {
                         //数据异常
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.will_not_be_used_as_historical_data));
                     } else {
                         uploadData();
                     }

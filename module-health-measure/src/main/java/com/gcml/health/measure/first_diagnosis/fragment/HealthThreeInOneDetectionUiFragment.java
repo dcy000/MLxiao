@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -35,7 +35,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
         super.onStart();
         isJump2Next = false;
         mBtnVideoDemo.setVisibility(View.GONE);
-        mBtnHealthHistory.setText("下一步");
+        mBtnHealthHistory.setText(R.string.next_step);
         setBtnClickableState(false);
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -45,25 +45,25 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
         switch (selectMeasureSugarTime) {
             case 0:
                 //空腹
-                mTitle1.setText("血糖(空腹)");
+                mTitle1.setText(R.string.title_blood_glucose_empty);
                 mTitle12.setText("3.9~6.1");
                 mTitle13.setText(">6.1");
                 break;
             case 1:
                 //饭后1小时
-                mTitle1.setText("血糖(饭后1小时)");
+                mTitle1.setText(R.string.title_blood_glucose_one);
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
             case 2:
                 //饭后2小时
-                mTitle1.setText("血糖(饭后2小时)");
+                mTitle1.setText(R.string.title_blood_glucose_two);
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
             case 3:
                 //其他时间
-                mTitle1.setText("血糖(其他时间)");
+                mTitle1.setText(R.string.title_blood_glucose_other);
                 mTitle12.setText("3.9~11.1");
                 mTitle13.setText(">11.1");
                 break;
@@ -75,7 +75,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请将试纸插入仪器，开始测量", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.test_strip_insertion_instrument_and_measure), false);
     }
 
 
@@ -89,7 +89,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.this_time_blood_glucose) + sugarData.getBloodSugar());
                 uploadData(datas);
             }
             if (results[0].equals("cholesterol")) {
@@ -97,7 +97,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
                 datas.add(cholesterolData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.this_time_cholesterol) + cholesterolData.getCholesterol());
                 uploadData(datas);
             }
 
@@ -107,7 +107,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
 
                 datas.add(lithicAcidData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.this_time_uric_acid) + lithicAcidData.getUricAcid());
                 uploadData(datas);
             }
         }
@@ -115,8 +115,8 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
 
     @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
-        if (fragmentDatas!=null){
-            fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_THREE,datas));
+        if (fragmentDatas != null) {
+            fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_THREE, datas));
         }
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
@@ -125,14 +125,14 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 .subscribeWith(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        ToastUtils.showLong("数据上传成功");
+                        ToastUtils.showLong(R.string.upload_data_success);
                         setBtnClickableState(true);
                         datas.clear();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        ToastUtils.showLong(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                         datas.clear();
                     }
 

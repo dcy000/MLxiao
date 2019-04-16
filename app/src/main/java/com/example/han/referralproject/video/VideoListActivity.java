@@ -13,7 +13,6 @@ import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.gcml.common.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 

@@ -6,7 +6,7 @@ import android.view.View;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -61,7 +61,7 @@ public class WeightFollowUpFragment extends WeightFragment {
                 }
             }
             data.putString("weight", results[0]);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量体重" + results[0] + "公斤", false);
             DataInfoBean info = new DataInfoBean();
             info.weight = Float.parseFloat(results[0]);
             NetworkApi.postData(info, response -> {

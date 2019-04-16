@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
@@ -34,7 +35,7 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
         super.onStart();
         isJump2Next = false;
         mBtnVideoDemo.setVisibility(View.GONE);
-        mBtnHealthHistory.setText("下一步");
+        mBtnHealthHistory.setText(R.string.next_step);
         setBtnClickableState(false);
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -46,7 +47,7 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请将试纸插入仪器，开始测量", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.test_strip_insertion_instrument_and_measure), false);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
             data.setBloodSugar(Float.parseFloat(results[0]));
             datas.add(data);
 
-            if (fragmentDatas!=null){
-                fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_BLOOD_SUGAR,datas));
+            if (fragmentDatas != null) {
+                fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_BLOOD_SUGAR, datas));
             }
 
             HealthMeasureRepository.postMeasureData(datas)
@@ -85,7 +86,7 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            ToastUtils.showShort(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                         }
 
                         @Override

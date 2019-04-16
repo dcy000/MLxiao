@@ -2,7 +2,8 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 
 import android.annotation.SuppressLint;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
+import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -22,8 +23,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends BloodpressureFr
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3&&!isOnPause) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.this_time_blood_pressure) + results[0] + UM.getString(R.string.voice_low_pressure) + results[1] + UM.getString(R.string.voice_pulse) + results[2], false);
         }
     }
 

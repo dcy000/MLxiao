@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.model.DetailsModel;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.picker.RulerView;
 import com.gcml.common.widget.picker.SelecterView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -113,7 +113,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
         svUnits = findViewById(R.id.health_diary_sv_selecter);
         tvAction = findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请" + mModel.getTitle(), false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请" + mModel.getTitle(), false);
         tvTitle.setText(mModel.getTitle());
         tvCount.setText(getCount(
                 mModel.getSelectedValues()[mModel.getUnitPosition()],

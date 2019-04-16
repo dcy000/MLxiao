@@ -47,7 +47,7 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
 
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
-        mTvEmptyDataTips.setText("啊哦!你还没有测量数据");
+        mTvEmptyDataTips.setText(R.string.woo_no_data);
         view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
     }
 

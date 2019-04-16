@@ -10,8 +10,9 @@ import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.recommend.bean.post.DetectionData;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
@@ -83,7 +84,7 @@ public class SingleMeasureWeightFragment extends WeightFragment {
                         });
 
             }
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.this_time_weight) + results[0] + UM.getString(R.string.kg), false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //0血压 01左侧血压 02右侧血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 10腰围 11呼吸频率 12身高 13心率
@@ -98,7 +99,7 @@ public class SingleMeasureWeightFragment extends WeightFragment {
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
-                            ToastUtils.showLong("数据上传成功");
+                            ToastUtils.showLong(R.string.upload_data_success);
                             if (isMeasureTask && !mActivity.isFinishing()) {
                                 mActivity.finish();
                             }
@@ -106,7 +107,7 @@ public class SingleMeasureWeightFragment extends WeightFragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                            ToastUtils.showLong(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                         }
 
                         @Override

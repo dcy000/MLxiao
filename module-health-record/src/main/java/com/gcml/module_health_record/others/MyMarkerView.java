@@ -78,34 +78,34 @@ public class MyMarkerView extends MarkerView {
                 case "1"://体温
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("体温");
+                    title_1.setText(R.string.radio_button_temperature);
                     text_1.setText(e.getY() + "");
                     break;
                 case "2"://血压
                     ll2.setVisibility(VISIBLE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_gao));
                     color_2.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("高压");
-                    title_2.setText("低压");
+                    title_1.setText(R.string.radio_button_gaoya);
+                    title_2.setText(R.string.radio_button_diya);
                     text_1.setText(xueya.get((int) e.getX()).high_pressure + "");
                     text_2.setText(xueya.get((int) e.getX()).low_pressure + "");
                     break;
                 case "3"://心率
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("心率");
+                    title_1.setText(R.string.radio_button_heart_rate);
                     text_1.setText(e.getY() + "");
                     break;
                 case "4"://血糖
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("血糖");
+                    title_1.setText(R.string.radio_button_blood_sugar);
                     text_1.setText(e.getY() + "");
                     break;
                 case "5"://血氧
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("血氧");
+                    title_1.setText(R.string.radio_button_blood_oxygen);
                     text_1.setText(e.getY() + "");
                     break;
                 case "6"://脉搏
@@ -113,19 +113,19 @@ public class MyMarkerView extends MarkerView {
                 case "7":
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("胆固醇");
+                    title_1.setText(R.string.radio_button_cholesterol);
                     text_1.setText(String.format("%.2f", e.getY()));
                     break;
                 case "8":
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("血尿酸");
+                    title_1.setText(R.string.radio_button_blood_uric_acid);
                     text_1.setText(e.getY() + "");
                     break;
                 case "10":
                     ll2.setVisibility(GONE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("体重");
+                    title_1.setText(R.string.radio_button_weight);
                     text_1.setText(e.getY() + "");
                     break;
             }

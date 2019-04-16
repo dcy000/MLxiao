@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.bumptech.glide.Glide;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.PersonSplitterActivity;
@@ -22,7 +21,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -128,7 +127,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                                 .callAsync();
                         if (user != null) {
                             if (!TextUtils.isEmpty(user.avatar)) {
-                                Glide.with(UtilsManager.getApplication())
+                                Glide.with(UM.getApp())
                                         .load(user.avatar)
                                         .into(mCvHead);
                             }

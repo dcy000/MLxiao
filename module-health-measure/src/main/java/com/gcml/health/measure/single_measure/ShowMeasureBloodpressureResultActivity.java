@@ -101,9 +101,9 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
-                    mTitleText.setText("血 压 结 果 分 析");
+                    mTitleText.setText(R.string.title_analysis_of_blood_pressure_results);
                 } else if (position == 1) {
-                    mTitleText.setText("智 能 推 荐");
+                    mTitleText.setText(R.string.title_intelligent_recommendation);
                 }
             }
 
@@ -146,7 +146,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     private void initView() {
         mViewpage = (ViewPager) findViewById(R.id.viewpage);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("血 压 结 果 分 析");
+        mTitleText.setText(R.string.title_analysis_of_blood_pressure_results);
 
     }
 }

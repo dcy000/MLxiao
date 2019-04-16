@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class MeasureXueyaWarningFragment extends HealthMeasureAbnormalBaseFragment implements View.OnClickListener {
 
     private ArrayList<Integer> reasons;
-    private String titleString = "主人，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
     /**
      * 主人，您最新的测量数据与历史数据存在较大偏差，您是否在测量时存在以下情况
      */
@@ -48,7 +47,7 @@ public class MeasureXueyaWarningFragment extends HealthMeasureAbnormalBaseFragme
     protected void initView(View view, Bundle bundle) {
 
         mTitle = (TextView) view.findViewById(R.id.title);
-        mTitle.setText(titleString);
+        mTitle.setText(R.string.big_difference_between_measured_data_and_historical_data);
         mList = (RecyclerView) view.findViewById(R.id.list);
         mOtherReason = (TextView) view.findViewById(R.id.other_reason);
         mOtherReason.setOnClickListener(this);

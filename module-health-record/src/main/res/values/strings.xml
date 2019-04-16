@@ -1,4 +1,35 @@
 <resources>
-    <string name="app_name">module-health_record</string>
     <string name="noData">暂无数据</string>
+    <string name="title_jiankangshuju">健 康 数 据</string>
+    <string name="download_file">档案下载</string>
+    <string name="radio_button_temperature">体温</string>
+    <string name="radio_button_blood_pressure">血压</string>
+    <string name="radio_button_blood_sugar">血糖</string>
+    <string name="radio_button_blood_oxygen">血氧</string>
+    <string name="radio_button_heart_rate">心率</string>
+    <string name="radio_button_cholesterol">胆固醇</string>
+    <string name="radio_button_blood_uric_acid">血尿酸</string>
+    <string name="radio_button_ecg">心电图</string>
+    <string name="radio_button_weight">体 重</string>
+    <string name="xml_select_date">查询日期</string>
+    <string name="history_year">年</string>
+    <string name="history_month">月</string>
+    <string name="history_day">日</string>
+    <string name="select_date_error">选择时间错误</string>
+    <string name="scan_qr_download_file">扫一扫，下载详细报告</string>
+    <string name="voice_see_your_health_data">主人，请查看您的健康数据</string>
+    <string name="woo_no_data">啊哦!你还没有测量数据</string>
+    <string name="indicator_gaoya">高压(mmHg)</string>
+    <string name="indicator_diya">低压(mmHg)</string>
+    <string name="indicator_xuetang">血糖(mmol/L)</string>
+    <string name="indicator_male">男性</string>
+    <string name="indicator_female">女性</string>
+    <string name="indicator_adult">成人(mmol/L)</string>
+    <string name="indicator_children">儿童(mmol/L)</string>
+    <string name="indicator_heart_rate">心率(次/分钟)</string>
+    <string name="indicator_temperature">体温(℃)</string>
+    <string name="indicator_weight">体重(Kg)</string>
+    <string name="radio_button_gaoya">高压</string>
+    <string name="radio_button_diya">低压</string>
+    <string name="toolbar_back_last">返回</string>
 </resources>

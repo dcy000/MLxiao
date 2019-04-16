@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
@@ -36,14 +37,14 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
     public void onStart() {
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
-        mBtnHealthHistory.setText("下一步");
+        mBtnHealthHistory.setText(UM.getString(R.string.next_step));
         setBtnClickableState(false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请打开设备开关,开始测量", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.open_device_and_detection), false);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
             data.setPulse(Integer.parseInt(results[1]));
             datas.add(data);
             if (fragmentDatas != null) {
-                fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_BLOOD_OXYGEN,datas));
+                fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_BLOOD_OXYGEN, datas));
             }
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())
@@ -81,7 +82,7 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            ToastUtils.showShort(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                         }
 
                         @Override

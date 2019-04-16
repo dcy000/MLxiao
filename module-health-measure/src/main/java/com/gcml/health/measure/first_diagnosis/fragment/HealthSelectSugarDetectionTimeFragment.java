@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.gcml.common.utils.UM;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
@@ -37,7 +38,7 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请选择您当前的状态",false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),UM.getString(R.string.choose_your_current_state),false);
     }
 
     @Override

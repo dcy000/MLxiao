@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.health.measure.R;
@@ -55,7 +56,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         super.onCreate(savedInstanceState);
         cacheDatas = ((HealthIntelligentDetectionActivity) mActivity).getCacheDatas();
         if (cacheDatas.isEmpty()) {
-            ToastUtils.showShortOnTop("您还没有测量哦，快去测量哦！");
+            ToastUtils.showShortOnTop(UM.getString(R.string.no_mesure_must_measure));
             return;
         }
         String json = new Gson().toJson(cacheDatas);
@@ -66,7 +67,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
                     @Override
                     public void onSuccess(Response<String> response) {
                         if (!response.isSuccessful()) {
-                            ToastUtils.showLong("服务器繁忙");
+                            ToastUtils.showLong(UM.getString(R.string.busy_network));
                             return;
                         }
                         String body = response.body();
@@ -83,13 +84,13 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
                         } catch (Throwable e) {
                             e.printStackTrace();
                         }
-                        ToastUtils.showLong("服务器繁忙");
+                        ToastUtils.showLong(UM.getString(R.string.busy_network));
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        ToastUtils.showLong("服务器繁忙");
+                        ToastUtils.showLong(UM.getString(R.string.busy_network));
                     }
                 });
     }

@@ -259,7 +259,7 @@
 
 
     <View
-        android:layout_width="880pt"
+        android:layout_width="@dimen/left_white_witdth"
         android:layout_height="match_parent"
         android:background="@color/bluetooth_white" />
 

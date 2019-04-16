@@ -7,7 +7,7 @@
         android:id="@+id/tv_device_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="检测设备：科瑞康心电仪"
+        android:text="@string/xml_medical_equipment"
         android:textColor="@color/bluetooth_white"
         android:textSize="56pt"
         android:layout_marginTop="60pt"
@@ -18,7 +18,7 @@
         android:layout_height="100pt"
         android:textSize="56pt"
         android:textColor="@color/bluetooth_white"
-        android:text="切换"
+        android:text="@string/xml_device_change"
         android:layout_marginLeft="736pt"
         android:layout_marginTop="40pt"
         android:gravity="center"
@@ -44,14 +44,14 @@
     <include
         android:id="@+id/bottom_btn"
         layout="@layout/bluetooth_layout_two_button"
-        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100pt"
-        android:layout_marginLeft="100pt"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="100pt"
+        android:layout_marginBottom="28dp" />
     <TextView
         android:id="@+id/tv_next"
-        android:layout_width="320pt"
+        android:layout_width="420pt"
         android:layout_height="120pt"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
@@ -60,7 +60,7 @@
         android:background="@drawable/bluetooth_btn_health_history_set"
         android:gravity="center"
         android:visibility="visible"
-        android:text="下一步"
+        android:text="@string/next_step"
         android:textColor="#FFFFFF"
         android:textSize="56pt" />
 

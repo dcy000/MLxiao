@@ -8,17 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.CustomDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.health.measure.BuildConfig;
@@ -36,7 +32,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -63,7 +58,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_report_form);
         initView();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的疾病风险评估报告，向左滑动查看详情");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.disease_risk_assessment_report_slide_left));
         getData();
 
     }
@@ -87,7 +82,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("加载中");
+                        showLoading(UM.getString(R.string.dialog_loading));
                     }
                 })
                 .doOnNext(new Consumer<FirstReportReceiveBean>() {
@@ -103,13 +98,13 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                         if (firstReportBean != null) {
                             dealData(firstReportBean);
                         } else {
-                            ToastUtils.showShort("数据为空");
+                            ToastUtils.showShort(R.string.toast_empty_data);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("数据为空");
+                        ToastUtils.showShort(R.string.toast_empty_data);
                     }
 
                     @Override
@@ -179,23 +174,23 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
                 switch (position) {
                     case 0:
-                        mTitleText.setText("健 康 报 告");
+                        mTitleText.setText(R.string.title_health_report);
                         break;
                     case 1:
-                        mTitleText.setText("高 血 压 评 估 报 告");
+                        mTitleText.setText(R.string.title_high_blood_pressure_assessment_report);
 
                         break;
                     case 2:
-                        mTitleText.setText("糖 尿 病 评 估 报 告");
+                        mTitleText.setText(R.string.title_diabetes_assessment_report);
                         break;
                     case 3:
-                        mTitleText.setText("肥 胖 症 评 估 报 告");
+                        mTitleText.setText(R.string.title_fatty_assessment_report);
                         break;
                     case 4:
-                        mTitleText.setText("缺 血 性 心 血 管 病 评 估 报 告");
+                        mTitleText.setText(R.string.title_hemolytic_vascular_disease_report);
                         break;
                     case 5:
-                        mTitleText.setText("智 能 推 荐");
+                        mTitleText.setText(R.string.title_intelligent_recommendation);
                         break;
                     default:
                         break;
@@ -215,8 +210,8 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         checkViewpageState = fragments.size() - 1;
         new CustomDialog(this).builder()
                 .setImg(0)
-                .setMsg("主人，您已完成风险评估，为了更好的体验，您可以通过每日任务引导开启健康之旅。")
-                .setPositiveButton("开始体验", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_complete_risk_assessment_start_other_travel))
+                .setPositiveButton(UM.getString(R.string.dialog_button_start_the_experience), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         CCAppActions.jump2MainActivity();
@@ -226,7 +221,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
     private void initView() {
         mViewpage = (ViewPager) findViewById(R.id.viewpage);
-        mTitleText.setText("健 康 报 告");
+        mTitleText.setText(R.string.title_health_report);
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
@@ -36,12 +37,12 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
     @Override
     protected void dealLogic() {
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-        jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
+        jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_pressure_detection));
         super.dealLogic();
     }
 
     private void initFragment() {
-        mTitleText.setText("血 压 测 量");
+        mTitleText.setText(UM.getString(R.string.title_blood_pressure_detection));
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         baseFragment = new HealthBloodDetectionOnlyOneFragment();
         baseFragment.setOnDealVoiceAndJumpListener(this);

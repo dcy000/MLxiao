@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.picker.RulerView;
 import com.gcml.common.widget.picker.SelecterView;
 import com.gcml.health.measure.R;
@@ -25,7 +25,6 @@ import java.util.Arrays;
 
 public class HealthDiaryDetailsFragment extends Fragment {
 
-    public static final String TAG = "HealthDiaryDetailsFragment";
 
     private DetailsModel mModel;
 
@@ -112,7 +111,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
         svUnits = findViewById(R.id.health_diary_sv_selecter);
         tvAction = findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请" + mModel.getTitle(), false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "master，please" + mModel.getTitle(), false);
         tvTitle.setText(mModel.getTitle());
         tvCount.setText(getCount(
                 mModel.getSelectedValues()[mModel.getUnitPosition()],

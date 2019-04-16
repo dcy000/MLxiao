@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.common.divider.GridViewDividerItemDecoration;
@@ -68,7 +68,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
             if (questionListBean != null) {
                 mData = questionListBean.getAnswerList();
             } else {
-                ToastUtils.showShort("获取数据失败");
+                ToastUtils.showShort(R.string.get_data_fail);
                 return;
             }
         }
@@ -88,7 +88,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
     private void changeTips() {
         for (HealthInquiryBean.QuestionListBean.AnswerListBean bean : mData) {
             if ("1".equals(bean.getExclusiveStatus())) {
-                mQuestionTip.setText("(可多选，选择“"+bean.getAnswerInfo()+"”后自动跳转到下一页)");
+                mQuestionTip.setText("(+" + UM.getString(R.string.tips_multiple_selection) + "“" + bean.getAnswerInfo() + "”" + UM.getString(R.string.tips_auto_goto_next) + ")");
                 break;
             }
         }
@@ -202,9 +202,9 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btnNext) {
-            if (!checkSelectOne()){
-                ToastUtils.showShort("请至少选择一项");
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"请至少选择一项",false);
+            if (!checkSelectOne()) {
+                ToastUtils.showShort(R.string.select_at_least_one);
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.select_at_least_one), false);
                 return;
             }
             dealClick();
@@ -215,6 +215,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
 
     /**
      * 检查是否至少选中一个
+     *
      * @return
      */
     private boolean checkSelectOne() {

@@ -40,7 +40,7 @@
         android:background="@drawable/health_measure_selector_btn_blue"
         android:textColor="@color/white"
         android:textSize="56pt"
-        android:text="下一步"
+        android:text="@string/next_step"
         android:gravity="center"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"

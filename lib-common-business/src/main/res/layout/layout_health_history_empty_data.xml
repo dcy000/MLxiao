@@ -33,7 +33,7 @@
         android:layout_marginBottom="100pt"
         android:background="@drawable/selector_empty_data_btn"
         android:clickable="true"
-        android:text="马上去测量"
+        android:text="@string/measure_right_now"
         android:textColor="@color/white"
         android:textSize="54pt"
         android:gravity="center"/>

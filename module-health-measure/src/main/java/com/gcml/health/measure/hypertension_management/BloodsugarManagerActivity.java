@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
@@ -37,12 +38,12 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
     @Override
     protected void dealLogic() {
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-        jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
+        jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_glucose_detection));
         super.dealLogic();
     }
 
     private void initFragment() {
-        mTitleText.setText("血 糖 测 量");
+        mTitleText.setText(R.string.title_blood_glucose_detection);
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         baseFragment = new SingleMeasureBloodsugarFragment();
         baseFragment.setOnDealVoiceAndJumpListener(this);

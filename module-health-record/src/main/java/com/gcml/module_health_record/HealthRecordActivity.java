@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.qrcode.QRCodeUtils;
@@ -146,7 +146,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的健康数据", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请查看您的健康数据", false);
 
         initView();
         initDialog();
@@ -177,36 +177,36 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                         selectorDay);
                 if (isSelectEndTime) {
                     if (selectorYear < selectStartYear) {
-                        ToastUtils.showShort("选择时间错误");
+                        ToastUtils.showShort(R.string.select_date_error);
                     } else if (selectorYear == selectStartYear && selectorMonth < selectStartMonth) {
-                        ToastUtils.showShort("选择时间错误");
+                        ToastUtils.showShort(R.string.select_date_error);
                     } else if (selectorYear == selectStartYear
                             && selectorMonth == selectStartMonth
                             && selectorDay < selectStartDay) {
-                        ToastUtils.showShort("选择时间错误");
+                        ToastUtils.showShort(R.string.select_date_error);
                     } else {
                         selectEndYear = selectorYear;
                         selectEndMonth = selectorMonth;
                         selectEndDay = selectorDay;
-                        mTvTimeEnd.setText(selectorYear + "年" + selectorMonth + "月"
-                                + selectorDay + '日');
+                        mTvTimeEnd.setText(selectorYear + UM.getString(R.string.history_year) + selectorMonth + UM.getString(R.string.history_month)
+                                + selectorDay + UM.getString(R.string.history_day));
                         dialogWheelYearMonthDay.dismiss();
                     }
                 } else {
                     if (selectorYear > selectEndYear) {
-                        ToastUtils.showShort("选择时间错误");
+                        ToastUtils.showShort(R.string.select_date_error);
                     } else if (selectorYear == selectStartYear && selectorMonth > selectEndMonth) {
-                        ToastUtils.showShort("选择时间错误");
+                        ToastUtils.showShort(R.string.select_date_error);
                     } else if (selectorYear == selectStartYear
                             && selectorMonth == selectStartMonth
                             && selectorDay > selectStartDay) {
-                        ToastUtils.showShort("选择时间错误");
+                        ToastUtils.showShort(R.string.select_date_error);
                     } else {
                         selectStartYear = selectorYear;
                         selectStartMonth = selectorMonth;
                         selectStartDay = selectorDay;
-                        mTvTimeStart.setText(selectorYear + "年" + selectorMonth + "月"
-                                + selectorDay + "日");
+                        mTvTimeStart.setText(selectorYear + UM.getString(R.string.history_year) + selectorMonth + UM.getString(R.string.history_month)
+                                + selectorDay + UM.getString(R.string.history_day));
                         dialogWheelYearMonthDay.dismiss();
                     }
                 }
@@ -305,7 +305,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         mLlBack = findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(this);
         mTvTopTitle = findViewById(R.id.tv_top_title);
-        mTvTopTitle.setText("健 康 数 据");
+        mTvTopTitle.setText(R.string.title_jiankangshuju);
         mIvTopRight = findViewById(R.id.iv_top_right);
         mIvTopRight.setOnClickListener(this);
 
@@ -331,8 +331,8 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         startMillisecond = TimeUtils.string2Milliseconds(selectStartYear + "-" + selectStartMonth + "-" +
                 selectStartDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
 
-        mTvTimeStart.setText(selectStartYear + "年" + selectStartMonth + "月" + selectStartDay + "日");
-        mTvTimeEnd.setText(selectEndYear + "年" + selectEndMonth + "月" + selectEndDay + "日");
+        mTvTimeStart.setText(selectStartYear + UM.getString(R.string.history_year) + selectStartMonth + UM.getString(R.string.history_month) + selectStartDay + UM.getString(R.string.history_day));
+        mTvTimeEnd.setText(selectEndYear + UM.getString(R.string.history_year) + selectEndMonth + UM.getString(R.string.history_month) + selectEndDay + UM.getString(R.string.history_day));
 
         radioGroupPosition = getIntent().getIntExtra("position", 0);
         initFragments();
@@ -426,7 +426,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        temperatureFragment.refreshErrorData("暂无该项数据");
+                        temperatureFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -442,7 +442,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> bloodoxygenFragment.refreshData(response, temp),
 //                message -> bloodoxygenFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getBloodOxygenHistory(start,end,temp)
+        HealthRecordRepository.getBloodOxygenHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -454,7 +454,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        bloodoxygenFragment.refreshErrorData("暂无该项数据");
+                        bloodoxygenFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -470,7 +470,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> bloodpressureFragment.refreshData(response, temp),
 //                message -> bloodpressureFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getBloodpressureHistory(start,end,temp)
+        HealthRecordRepository.getBloodpressureHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -482,7 +482,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        bloodpressureFragment.refreshErrorData("暂无该项数据");
+                        bloodpressureFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -499,7 +499,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                message -> bloodsugarFragment.refreshErrorData(message));
 //
 
-        HealthRecordRepository.getBloodSugarHistory(start,end,temp)
+        HealthRecordRepository.getBloodSugarHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -511,7 +511,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        bloodsugarFragment.refreshErrorData("暂无该项数据");
+                        bloodsugarFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -527,7 +527,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> buaFragment.refreshData(response, temp),
 //                message -> buaFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getBUAHistory(start,end,temp)
+        HealthRecordRepository.getBUAHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -539,7 +539,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        buaFragment.refreshErrorData("暂无该项数据");
+                        buaFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -556,7 +556,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> cholesterolFragment.refreshData(response, temp),
 //                message -> cholesterolFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getCholesterolHistory(start,end,temp)
+        HealthRecordRepository.getCholesterolHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -568,7 +568,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        cholesterolFragment.refreshErrorData("暂无该项数据");
+                        cholesterolFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -584,7 +584,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> heartrateFragment.refreshData(response, temp),
 //                message -> heartrateFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getHeartRateHistory(start,end,temp)
+        HealthRecordRepository.getHeartRateHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -596,7 +596,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        heartrateFragment.refreshErrorData("暂无该项数据");
+                        heartrateFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -612,7 +612,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> weightFragment.refreshData(response, temp),
 //                message -> weightFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getWeight(start,end,temp)
+        HealthRecordRepository.getWeight(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -624,7 +624,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        weightFragment.refreshErrorData("暂无该项数据");
+                        weightFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -640,7 +640,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> ecgFragment.refreshData(response, temp),
 //                message -> ecgFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getECGHistory(start,end,temp)
+        HealthRecordRepository.getECGHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -652,7 +652,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        ecgFragment.refreshErrorData("暂无该项数据");
+                        ecgFragment.refreshErrorData(UM.getString(R.string.noData));
                     }
 
                     @Override
@@ -712,7 +712,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
             String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + UserSpHelper.getUserId() + "&bname=" + UserSpHelper.getUserName();
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
-            dialogImage.setDescription("扫一扫，下载详细报告");
+            dialogImage.setDescription(UM.getString(R.string.scan_qr_download_file));
             dialogImage.show();
         }
     }

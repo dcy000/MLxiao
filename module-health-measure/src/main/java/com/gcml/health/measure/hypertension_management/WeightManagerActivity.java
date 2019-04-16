@@ -32,7 +32,7 @@ public class WeightManagerActivity extends BaseManagementActivity {
 
     @Override
     protected void dealLogic() {
-        mTitleText.setText("体 重 测 量");
+        mTitleText.setText(R.string.title_weight_detection);
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         baseFragment = new HealthWeightDetectionUiFragment();
         baseFragment.setOnDealVoiceAndJumpListener(this);

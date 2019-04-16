@@ -6,10 +6,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -48,11 +47,11 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
         if (bundle != null) {
             String title = bundle.getString("title");
             ((TextView) view.findViewById(R.id.tv_tips)).setText(title);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "初次见面，我是小易！为了更好地了解您的身体，先来做一个全套体检吧", onSynthesizerListener, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                    UM.getString(R.string.health_measure_first_detect_tips), onSynthesizerListener, false);
         } else {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "恭喜您完成问卷，下面让我们进行身体指标检测吧", onSynthesizerListener, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                    UM.getString(R.string.complete_questionnaire_and_measure), onSynthesizerListener, false);
         }
         ivGrayBack = view.findViewById(R.id.ivGrayBack);
         ivGrayBack.setOnClickListener(this);
@@ -105,7 +104,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
         @Override
         public void onCompleted(SpeechError speechError) {
-            Timber.e("语音耗时：" + (System.currentTimeMillis() - time));
+//            Timber.e("语音耗时：" + (System.currentTimeMillis() - time));
 //            if (fragmentChanged != null) {
 //                fragmentChanged.onFragmentChanged(
 //                        HealthFirstTipsFragment.this, null);

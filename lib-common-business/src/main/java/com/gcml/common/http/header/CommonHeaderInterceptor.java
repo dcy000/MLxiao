@@ -2,7 +2,7 @@ package com.gcml.common.http.header;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.Utils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class CommonHeaderInterceptor implements Interceptor {
         Request newRequest = chain.request().newBuilder()
                 .addHeader("version", "1.0")
                 .addHeader("Authorization", UserSpHelper.getToken())
-                .addHeader("equipmentId", Utils.getDeviceId(UtilsManager.getApplication().getContentResolver()))
+                .addHeader("equipmentId", Utils.getDeviceId(UM.getApp().getContentResolver()))
                 .addHeader("serverId", "1")
                 .addHeader("followUpDoctor", UserSpHelper.getDoctorId())
                 .build();

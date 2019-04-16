@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">lib-common-business</string>
     <string name="common_copy_right">\&#064;杭州国辰迈联机器人科技有限公司</string>
 
     <string name="common_user_protocol">用户协议</string>
@@ -88,5 +87,6 @@
         <item>偶尔喝酒</item>
         <item>从不喝酒</item>
     </string-array>
-
+    <string name="toolbar_back">返回</string>
+    <string name="measure_right_now">马上去测量</string>
 </resources>

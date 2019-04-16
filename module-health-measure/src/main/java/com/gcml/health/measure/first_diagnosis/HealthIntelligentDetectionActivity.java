@@ -14,7 +14,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.recommend.bean.post.DetectionData;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
@@ -106,15 +106,15 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     private void showRefreshBluetoothDialog() {
         new AlertDialog(this)
                 .builder()
-                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_unbind_device_and_reconnet))
+                .setPositiveButton(UM.getString(R.string.dialog_button_ok), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                         baseFragment.autoConnect();
                     }
                 })
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setNegativeButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -141,19 +141,19 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         if (fragment instanceof HealthFirstTipsFragment) {
             requestPlayVideoCode = BLOODPRESSURE_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-            jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_pressure_detection));
         } else if (fragment instanceof HealthBloodDetectionOnlyOneFragment) {
             move2Weight();
         } else if (fragment instanceof HealthWeightDetectionUiFragment) {
             requestPlayVideoCode = BLOODSUGAR_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-            jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_glucose_detection));
         } else if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             move2Bloodsugar(bundle);
         } else if (fragment instanceof HealthSugarDetectionUiFragment) {
             requestPlayVideoCode = ECG_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-            jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_ECG_detection));
         } else if (fragment instanceof HealthThreeInOneDetectionUiFragment) {
             move2FirstDiagnosisReport();
         }
@@ -218,7 +218,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
                 }
                 requestPlayVideoCode = THREE_IN_ONE_VIDEO;
                 Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
+                jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_multi_monitoring_meter_detection));
             }
         }
     }
@@ -232,7 +232,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         }
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        mTitleText.setText("智能检测");
+        mTitleText.setText(R.string.title_intelligence_detection);
     }
 
     private void move2FirstDiagnosisReport() {
@@ -349,7 +349,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         } else if (disconnected.equals(voice)) {
             mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         }
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
@@ -130,11 +131,11 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
                 String illnessName = reportListBean.getIllnessName();
                 if (illnessName.equals(type)){
                     if ("0".equals(controlStatus)){
-                        mTvResult1.setText("您的"+type+"控制较好,");
-                        mTvResult2.setText("达标");
+                        mTvResult1.setText(UM.getString(R.string.your) +type+UM.getString(R.string.control_better));
+                        mTvResult2.setText(UM.getString(R.string.reaching_the_standard));
                     }else{
-                        mTvResult1.setText("您的"+type+"控制较差,");
-                        mTvResult2.setText("未达标");
+                        mTvResult1.setText(UM.getString(R.string.your)+type+UM.getString(R.string.control_bad));
+                        mTvResult2.setText(UM.getString(R.string.not_up_to_standard));
                     }
                     factorList=reportListBean.getFactorList();
                     riskLevel=reportListBean.getRiskLevel();
@@ -146,19 +147,19 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
             }
             switch (riskLevel) {
                 case 1:
-                    mTvBottom.setText("您未来"+type+"发病等级为低风险。小E给您的建议，");
+                    mTvBottom.setText(UM.getString(R.string.your_future)+type+UM.getString(R.string.low_risk_suggest));
                     break;
                 case 2:
-                    mTvBottom.setText("您未来"+type+"发病等级为较低风险。小E给您的建议，");
+                    mTvBottom.setText(UM.getString(R.string.your_future)+type+UM.getString(R.string.lower_risk_suggest));
                     break;
                 case 3:
-                    mTvBottom.setText("您未来"+type+"发病等级为中等风险。小E给您的建议，");
+                    mTvBottom.setText(UM.getString(R.string.your_future)+type+UM.getString(R.string.medium_risk_suggest));
                     break;
                 case 4:
-                    mTvBottom.setText("您未来"+type+"发病等级为较高风险。小E给您的建议，");
+                    mTvBottom.setText(UM.getString(R.string.your_future)+type+UM.getString(R.string.higher_risk_suggest));
                     break;
                 case 5:
-                    mTvBottom.setText("您未来"+type+"发病等级为高风险。小E给您的建议，");
+                    mTvBottom.setText(UM.getString(R.string.your_future)+type+UM.getString(R.string.high_risk_suggest));
                     break;
                 default:
                     break;

@@ -1,0 +1,187 @@
+<resources>
+    <string name="health_measure_first_detect_tips">I met for the first time, I am xiao E! \n In order to better understand your body, first do a full physical examination!</string>
+    <string name="health_measure_first_detect_tips_1">I met for the first time, I am xiao E! In order to better understand your body, first do a full physical examination!</string>
+    <string name="health_measure_tips_left_1">In order to ensure the accuracy of the measurement data, please perform <font color="#F56C6C">2–3 times</font> measurements on the left and right hand blood pressure according to the xiao E prompt. Please measure with your left hand first!</string>
+    <string name="health_measure_tips_left_1_speak">In order to ensure the accuracy of the measurement data, please measure 2~3 times of the left and right hand blood pressure according to Xiao E prompt. Please measure the left hand first!</string>
+    <string name="complete_questionnaire_and_measure">Congratulations on completing the questionnaire. Lets take a physical indicator test</string>
+    <string name="health_measure_tips_left_2">Please deflate the arm band, and then measure the left hand blood pressure again!</string>
+    <string name="health_measure_tips_left_3">Your blood pressure values are quite different twice, please measure again!</string>
+    <string name="health_measure_tips_right_1">Please measure your right hand blood pressure!</string>
+    <string name="health_measure_tips_right_2">Please deflate the arm band, and then measure the right hand blood pressure again!</string>
+    <string name="health_measure_tips_right_3">Your blood pressure values ​​are quite different twice, please check again!</string>
+    <string name="health_measure_detection_weight_title">Choose your weight, if you have a scale, you can also connect to Bluetooth to measure directly</string>
+    <string name="health_measure_tips_detection_left">Please measure left hand blood pressure</string>
+    <string name="health_measure_tips_detection_left_again">Please measure left hand blood pressure</string>
+    <string name="health_measure_tips_detection_right">Please measure your right hand blood pressure</string>
+    <string name="health_measure_tips_detection_right_again">Please measure your right hand blood pressure again</string>
+
+    <string name="connect_connect_off">Disconnected from the device</string>
+    <string name="measure_ecg_file_ing">Receiving file</string>
+    <string name="measure_ecg_file_end">Receiving completed</string>
+    <string name="measure_ecg_time_out">Receive timeout</string>
+    <string name="measure_ecg_time_err">Error receiving file</string>
+    <string name="measure_lead_off">Lead off</string>
+    <string name="const_data_nodata">--</string>
+    <string name="connect_opening">Opening Bluetooth</string>
+    <string name="connect_openfail">Bluetooth failed to open</string>
+    <string name="connect_startseach">Searching for devices</string>
+    <string name="connect_startconnect">Connecting to device</string>
+    <string name="connect_success">Successfully connected to the device</string>
+    <string name="connect_fail">Failed to connect to device,Click to restart connection</string>
+    <string name="connect_close">Bluetooth detected is turned off</string>
+
+    <string name="title_health_detection">Health Detection</string>
+    <string name="title_temperature_detection">Temperature Detection</string>
+    <string name="title_blood_pressure_detection">Blood Pressure Detection</string>
+    <string name="title_blood_glucose_detection">Blood Glucose Detection</string>
+    <string name="title_blood_oxygen_detection">Blood Oxygen Detection</string>
+    <string name="title_weight_detection">Weight Detection</string>
+    <string name="title_ECG_detection">ECG Detection</string>
+    <string name="title_multi_monitoring_meter_detection">Multi-Monitoring Meter</string>
+    <string name="title_device_choose">Choose Medical Equipment</string>
+    <string name="title_ecg_devices_choose">Choose ECG Equipment</string>
+    <string name="title_blood_glucose_time_choose">Choose Meal Time</string>
+    <string name="title_height_detection">Height Detection</string>
+
+    <string name="previous">Back</string>
+
+    <string name="voice_high_pressure_this_time">Master, This time your measure systolic blood pressure is</string>
+    <string name="voice_low_pressure">Diastolic blood pressure is</string>
+    <string name="voice_high_pressure">Systolic blood pressure is</string>
+    <string name="voice_pulse">pulse is</string>
+    <string name="upload_data_success">upload data successfully</string>
+    <string name="upload_data_fail">upload data failed</string>
+    <string name="dialog_button_ok">Ok</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="not_enough_measurements">Not enough measurements</string>
+    <string name="open_device_and_detection">Master, please turn on the device switch and start measuring</string>
+
+    <string name="choose_your_devices">Please select the Equipment you have. Xiao E has made a choice for you by default. If you do not have the device, please click the device again to cancel.</string>
+    <string name="stay_tuned">Stay tuned</string>
+    <string name="must_choose_devices">Please select at least one device</string>
+    <string name="no_mesure_must_measure">You have not measured yet, go and measure!</string>
+    <string name="on_searching_devices">Searching for devices...</string>
+    <string name="connct_failed_click_retry">Connection failed, click the button in the upper right corner to reconnect</string>
+    <string name="choose_your_height">Please choose your height:</string>
+    <string name="choose_your_current_state">Master, please choose your current status</string>
+    <string name="test_strip_insertion_instrument_and_measure">Master, please insert the test paper into the equipment and start measuring</string>
+    <string name="title_blood_glucose_empty">Blood glucose(empty stomach)</string>
+    <string name="title_blood_glucose_one">Blood glucose(1 hour after a meal)</string>
+    <string name="title_blood_glucose_two">Blood glucose(2 hours after a meal)</string>
+    <string name="title_blood_glucose_other">Blood glucose(other time)</string>
+    <string name="this_time_blood_glucose">Master, you measure blood sugar this time is</string>
+    <string name="this_time_cholesterol">Master, you measure cholesterol this time is</string>
+    <string name="this_time_uric_acid">Master, you measure uric acid this time is</string>
+    <string name="commit_success_doctor_deal">Submitted successfully, waiting for the doctor to process</string>
+    <string name="video_blood_pressure_detection">Measuring blood pressure demo video</string>
+    <string name="video_blood_glucose_detection">Measuring blood glucose demo video</string>
+    <string name="video_temperature_detection">Measuring ear temperature demo video</string>
+    <string name="video_blood_oxygen_detection">Measuring blood oxygen demonstration video</string>
+    <string name="video_ECG_detection">Measuring ECG demo video</string>
+    <string name="video_multi_monitoring_meter_detection">Multi-Monitoring Meter measurement demo video</string>
+    <string name="dialog_unbind_device_and_reconnet">Are you sure to unbind the device and reconnecting it?</string>
+
+    <string name="title_intelligence_detection">Intelligence Detection</string>
+    <string name="get_data_fail">get data fail</string>
+    <string name="title_health_inquiry">Health Questionnaire</string>
+    <string name="dialog_do_question_are_you_leave">You have started to do the question, do you want to leave the current page?</string>
+    <string name="dialog_button_leave">Go away</string>
+    <string name="tips_multiple_selection">Multiple choices, after choose</string>
+    <string name="tips_auto_goto_next">auto go to next page</string>
+    <string name="select_at_least_one">Please select at least one </string>
+
+    <string name="disease_risk_assessment_report_slide_left">Master, please check your disease risk assessment report, swipe left to view details</string>
+    <string name="dialog_loading">Loading</string>
+    <string name="toast_empty_data">The data is empty</string>
+    <string name="title_health_report">Health Report</string>
+    <string name="title_high_blood_pressure_assessment_report">High Blood Pressure Assessment Report</string>
+    <string name="title_diabetes_assessment_report">Diabetes Assessment Report</string>
+    <string name="title_fatty_assessment_report">Fatty Assessment Report</string>
+    <string name="title_hemolytic_vascular_disease_report">Hemolytic Vascular Disease Assessment Report</string>
+    <string name="title_intelligent_recommendation">Intelligent Recommendation</string>
+    <string name="dialog_complete_risk_assessment_start_other_travel">Master, you have completed the risk assessment, for a better experience, you can start a health journey through daily tasks.</string>
+    <string name="dialog_button_start_the_experience">Start the experience</string>
+    <string name="guidance_advice">Guidance advice</string>
+    <string name="title_evaluation_result">Evaluation Result</string>
+
+    <string name="your">Your</string>
+    <string name="incidence_rate">incidence rate is</string>
+    <string name="your_future">Your future</string>
+    <string name="low_risk_suggest">the incidence level is low risk. xiao E gives you advice,</string>
+    <string name="lower_risk_suggest">the incidence level is a lower risk. xiao E gives you advice,</string>
+    <string name="medium_risk_suggest">the incidence level is moderate. xiao E gives you advice,</string>
+    <string name="higher_risk_suggest">the incidence level is a higher risk. xiao E gives you advice,</string>
+    <string name="high_risk_suggest">the incidence level is high risk. xiao E gives you advice,</string>
+    <string name="low_risk">low risk</string>
+    <string name="lower_risk">lower risk</string>
+    <string name="medium_risk">medium risk</string>
+    <string name="higher_risk">higher risk</string>
+    <string name="high_risk">high risk</string>
+    <string name="control_better"> control better,</string>
+    <string name="control_bad"> control bad,</string>
+    <string name="reaching_the_standard">reaching the standard</string>
+    <string name="not_up_to_standard">not up to standard</string>
+
+    <string name="data_differs_greatly_from_standard_value">Master, your measurement data differs greatly from the standard value, do you have the following:</string>
+    <string name="title_measuring_abnormality">Measuring Abnormality</string>
+    <string name="big_difference_between_measured_data_and_historical_data">Master, your latest measurement data is quite different from historical data. Do you have the following conditions:</string>
+
+    <string name="return_health_task">Return health task</string>
+    <string name="health_plan">health plan</string>
+    <string name="score_unit"> </string>
+    <string name="health_score">health score</string>
+    <string name="dialog_ask_process_has_not_been_completed">Your previous process has not been completed. Do you want to continue?</string>
+    <string name="dialog_button_yes">Yes</string>
+    <string name="dialog_button_no">No</string>
+    <string name="dialog_health_plan_has_finished_click_detail">You have generated a health plan within 7 days, click on the health plan to view it directly.</string>
+    <string name="no_recommendation">No recommendation</string>
+
+    <string name="dialog_have_you_diagnosed_essential_hypertension">Have you diagnosed essential hypertension and are undergoing standardized treatment for hypertension? (Your choice will affect your health plan, and once you choose not to change, please be cautious)</string>
+    <string name="unsatisfied_3_day_measurement_standard">Master, you have not met the 3-day measurement standard, please measure for three days in health monitoring.</string>
+    <string name="this_time_blood_oxygen">Master, you measure blood oxygen this time is</string>
+    <string name="this_time_blood_pressure">Master, you measure high voltage this time is</string>
+    <string name="this_time_temperature">Master, you measure the ear temperature this time is</string>
+    <string name="this_time_weight">Master, you measure weight this time is</string>
+    <string name="will_not_be_used_as_historical_data">Master, because your measurement is biased, this measurement will not be used as historical data</string>
+    <string name="celsius">℃</string>
+    <string name="kg">Kg</string>
+
+    <string name="video_there_no">Master, there is no video for this device</string>
+    <string name="scan_qr_code">Scan the QR code and download the report</string>
+    <string name="choose_your_detection_project">Master, please select the item you need to measure</string>
+    <string name="title_analysis_of_blood_pressure_results">Analysis Of Blood Pressure Results</string>
+    <string name="times_unit"> </string>
+    <string name="xml_bloodpressure_detection">Blood Pressure</string>
+    <string name="xml_bloodoxygen_detection">Blood Oxygen</string>
+    <string name="xml_temperature_detection">Temperature</string>
+    <string name="xml_bloodsugar_detection">Blood Glucose</string>
+    <string name="xml_ecg_detection">ECG</string>
+    <string name="xml_weight_detection">Weight</string>
+    <string name="xml_three_in_one_detection">Multi-Monitoring</string>
+
+    <string name="xml_number_of_measurements_this_week">Number of this week</string>
+    <string name="xml_high">High</string>
+    <string name="xml_normal">Normal</string>
+    <string name="xml_low">Low</string>
+    <string name="xml_average_blood_pressure_this_week">Average this week</string>
+
+    <string name="xml_high_pressure">Systolic pressure</string>
+    <string name="xml_low_pressure">Diastolic pressure</string>
+    <string name="xml_health_score">Health Score</string>
+    <string name="xml_health_suggest">Health Advice</string>
+    <string name="xml_this_time_measure_result">This measurement result</string>
+    <string name="xml_medical_equipment">Medical Equipment:PC80</string>
+    <string name="xml_confirm">Confirm</string>
+    <string name="xml_instrument_you_own">Please select equipments you own</string>
+
+    <string name="xml_ecg_pc80">ECG-PC80</string>
+    <string name="xml_ecg_bosheng">ECG-Borsam</string>
+    <string name="xml_salt_intake">Salt Intake</string>
+    <string name="xml_risk_assessment_result">Disease Risk Assessment Results</string>
+    <string name="xml_risk_factor">Risk Factor</string>
+    <string name="xml_result">Result</string>
+    <string name="xml_range">Range</string>
+    <string name="xml_risk_assessment">Risk Assessment</string>
+    <string name="xml_guideline">Reference Standards</string>
+    <string name="xml_confirmed_diagnosis">Confirmed Diagnosis</string>
+</resources>

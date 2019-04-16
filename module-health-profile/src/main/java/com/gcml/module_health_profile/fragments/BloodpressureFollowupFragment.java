@@ -20,11 +20,10 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.divider.LinearLayoutDividerItemDecoration;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.HealthProfileActivity;
-import com.gcml.module_health_profile.OutputResultActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
@@ -39,7 +38,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class BloodpressureFollowupFragment extends RecycleBaseFragment implements View.OnClickListener {
     private String recordId;
@@ -204,12 +202,12 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
                     public void onNext(UserEntity user) {
 //                        if (TextUtils.isEmpty(user.doctorId)) {
 //                            ToastUtils.showShort("请先签约医生");
-//                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先签约医生");
+//                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先签约医生");
 //                            return;
 //                        }
                         if (!isBuildHealthRecord) {
                             ToastUtils.showShort("请先在居民健康档案中进行建档");
-                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先建立个人档案");
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
                             return;
                         }
                         getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)

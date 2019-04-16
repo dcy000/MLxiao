@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
@@ -50,7 +50,7 @@ public class SugarFollowUpFragment extends BloodSugarFragment {
         if (results.length == 1 && !isOnPause) {
             data.putString("sugar", results[0]);
             String roundUp = DataUtils.getRoundUp(results[0], 1);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + roundUp, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量血糖" + roundUp, false);
             DataInfoBean info = new DataInfoBean();
             info.blood_sugar = roundUp;
             info.upload_state = true;

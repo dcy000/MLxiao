@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.ecg.BackGround;
@@ -95,7 +95,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         mTvNext.setOnClickListener(this);
         view.findViewById(R.id.tv_change_device).setOnClickListener(this);
         setBtnClickableState(false);
-        MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
+        MLVoiceSynthetize.startSynthesize(context, UM.getString(R.string.open_device_and_detection), false);
         initOther();
     }
 
@@ -107,10 +107,8 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     private static final String TAG = "SelfECGDetectionFragmen";
 
     public void startDiscovery() {
-        Timber.i("可瑞康心电开始搜索");
-        Log.e(TAG, "可瑞康心电开始搜索 ");
         if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
-            ToastUtils.showShort("正在搜索设备...");
+            ToastUtils.showShort(R.string.on_searching_devices);
             context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
                     .putExtra("device", 3));
         }
@@ -159,15 +157,14 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     Timber.i("connecting the bluetooth device");
                 } else if (state.equals("CONNECTED")) {
                     if (dealVoiceAndJump != null) {
-                        dealVoiceAndJump.updateVoice("设备已连接");
+                        dealVoiceAndJump.updateVoice(UM.getString(R.string.bluetooth_device_connected));
                     }
                     StaticReceive.setmHandler(mHandler);
 
                 } else if (state.equals("CONNECTFILE") || state.equals("DISCOVERYED")) {
                     if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
-                        String message = "连接失败，点击右上角按钮重连";
-                        ToastUtils.showShort(message);
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), message);
+                        ToastUtils.showShort(R.string.connct_failed_click_retry);
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.connct_failed_click_retry));
                     }
                 }
             } else if (action.equals(ReceiveService.ACTION_BLUETOOH_OFF)) {
@@ -176,9 +173,9 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                         ReceiveService.BLU_ACTION_STOPDISCOVERY));
                 context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
             } else if (action.equals(ReceiveService.ACTION_BLU_DISCONNECT)) {
-                ToastUtils.showShort("设备已断开");
+                ToastUtils.showShort(R.string.bluetooth_device_disconnected);
                 if (dealVoiceAndJump != null) {
-                    dealVoiceAndJump.updateVoice("设备已断开");
+                    dealVoiceAndJump.updateVoice(UM.getString(R.string.bluetooth_device_disconnected));
                 }
             }
         }
@@ -280,20 +277,20 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     switch (msg.arg1) {
                         case StatusMsg.FILE_TRANSMIT_START: {
                             // 接收文件 receive file
-                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_file_ing));
+                            setMSG(UM.getString(R.string.measure_ecg_file_ing));
 
                         }
                         break;
                         case StatusMsg.FILE_TRANSMIT_SUCCESS: {
-                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_file_end));
+                            setMSG(UM.getString(R.string.measure_ecg_file_end));
                         }
                         break;
                         case StatusMsg.FILE_TRANSMIT_ERROR: {
-                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_time_err));
+                            setMSG(UM.getString(R.string.measure_ecg_time_err));
                         }
                         break;
                         case StaticReceive.MSG_DATA_TIMEOUT: {
-                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_time_out));
+                            setMSG(UM.getString(R.string.measure_ecg_time_out));
                         }
                         break;
                         case 4: {
@@ -303,7 +300,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(context.getApplicationContext().getString(R.string.measure_lead_off));
+                                setMSG(UM.getString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
@@ -316,7 +313,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(context.getApplicationContext().getString(R.string.measure_lead_off));
+                                setMSG(UM.getString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
@@ -348,7 +345,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             // 传输模式   transmission mode
                             nTransMode = (Integer) msg.obj;
                             if (nTransMode == StatusMsg.TRANSMIT_MODE_FILE) {
-                                setMSG(context.getApplicationContext().getString(R.string.measure_ecg_file_ing));
+                                setMSG(UM.getString(R.string.measure_ecg_file_ing));
                             } else if (nTransMode == StatusMsg.TRANSMIT_MODE_CONTINUOUS) {
                                 setMSG("");
                             }
@@ -386,7 +383,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         ecgData.setDetectionType("2");
         ecgData.setEcg(String.valueOf(ecg));
         ecgData.setHeartRate(heartRate);
-        String s = UtilsManager.getApplication().getResources().getStringArray(R.array.ecg_measureres)[ecg];
+        String s = UM.getApp().getResources().getStringArray(R.array.ecg_measureres)[ecg];
         ecgData.setResult(s);
         datas.add(ecgData);
 
@@ -398,13 +395,13 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                 .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
                     public void onNext(List<DetectionResult> o) {
-                        ToastUtils.showShort("数据上传成功");
+                        ToastUtils.showShort(R.string.upload_data_success);
                         setBtnClickableState(true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        ToastUtils.showLong(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                     }
 
                     @Override

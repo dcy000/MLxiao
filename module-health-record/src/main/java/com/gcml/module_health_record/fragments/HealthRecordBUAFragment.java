@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         mRgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
         mColor2.setBackgroundColor(Color.parseColor("#9CD793"));
-        mIndicator2.setText("女性");
+        mIndicator2.setText(R.string.indicator_female);
         mColor1.setBackgroundColor(Color.parseColor("#6D80E2"));
-        mIndicator1.setText("男性");
+        mIndicator1.setText(R.string.indicator_male);
         mLlSecond.setVisibility(View.VISIBLE);
 
         mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
@@ -170,7 +171,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
                 colors.add(Color.RED);
             } else {
 //                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
-                colors.add(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_text_color));//正常字体的颜色
+                colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));//正常字体的颜色
             }
             value.add(new Entry(i, response.get(i).uric_acid));
             times.add(response.get(i).time);
@@ -201,9 +202,9 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
 
                 //走势线的样式
 //                set1.setColor(getResources().getColor(R.color.health_record_line_color));
-                set1.setColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_line_color));
 //                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
-                set1.setCircleColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
                 set1.setValueTextColors(colors);
 
 
@@ -244,13 +245,14 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
             }
         }
     }
+
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
         if (mChart != null && isAdded()) {
             mChart.setNoDataText(getResources().getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();
-            mTvEmptyDataTips.setText("啊哦!你还没有测量数据");
+            mTvEmptyDataTips.setText(R.string.woo_no_data);
             view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
         }
     }

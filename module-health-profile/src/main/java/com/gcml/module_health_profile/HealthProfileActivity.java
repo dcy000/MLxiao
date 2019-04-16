@@ -19,7 +19,7 @@ import android.widget.RadioGroup;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -29,7 +29,6 @@ import com.gcml.module_health_profile.fragments.BloodSugarFollowupFragment;
 import com.gcml.module_health_profile.fragments.BloodpressureFollowupFragment;
 import com.gcml.module_health_profile.fragments.HealthCheckupFragment;
 import com.gcml.module_health_profile.fragments.HealthFileFragment;
-import com.gcml.module_health_profile.fragments.PersonalnforFragment;
 import com.gcml.module_health_profile.fragments.UerInfoListFragment;
 import com.gcml.module_health_profile.fragments.ZhongyiFollowupFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -60,7 +59,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("家 庭 医 生 服 务");
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，欢迎来到家庭医生服务");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，欢迎来到家庭医生服务");
         mRgMenu = (RadioGroup) findViewById(R.id.rg_menu);
         mVpGoods = (ViewPager) findViewById(R.id.vp_goods);
         mRgMenu.setOnCheckedChangeListener(this);

@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.SupportActivity;
 
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.common.utils.thread.ThreadUtils;
@@ -55,19 +56,19 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     break;
                 // 设备超时
                 case 3:
-                    baseView.updateState("设备连接超时");
+                    baseView.updateState(UM.getString(R.string.connect_device_timeout));
                     break;
                 // 充不上气
                 case 4:
-                    baseView.updateState("设备充不上气");
+                    baseView.updateState(UM.getString(R.string.device_is_not_full_of_gas));
                     break;
                 // 测量中发生错误
                 case 5:
-                    baseView.updateState("设备检测发生错误");
+                    baseView.updateState(UM.getString(R.string.device_detection_error));
                     break;
                 // 血压计低电量
                 case 6:
-                    baseView.updateState("设备电量不足");
+                    baseView.updateState(UM.getString(R.string.device_insufficient_battery));
                     break;
                 case 7:
                     break;
@@ -153,7 +154,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
      */
     public void start() {
         if (!isSuccess) {
-            baseView.updateState("请先连接设备");
+            baseView.updateState(UM.getString(R.string.connect_device_first));
             return;
         }
         if (startDeviceTask == null) {

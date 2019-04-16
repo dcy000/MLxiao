@@ -18,7 +18,6 @@ import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
  * description: 心电选择界面
  */
 public class ChooseECGDeviceFragment extends BluetoothBaseFragment implements View.OnClickListener {
-    private View view;
     private LinearLayout mLlKeruikang;
     private LinearLayout mLlBosheng;
     /**

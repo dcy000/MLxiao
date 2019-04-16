@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bluetooth_device_connected">Device is connected</string>
+    <string name="bluetooth_device_disconnected">Device is disconnected</string>
+    <string name="bluetooth_device_connect_fail">Bluetooth connection failed</string>
+    <string name="unfind_devices">Device not found</string>
+    <string name="health_data">Health Datas</string>
+
+    <string name="xml_blood_oxygen">B-Oxygen</string>
+    <string name="xml_oxygen_saturation">Oxygen Saturation</string>
+    <string name="xml_normal">Normal</string>
+    <string name="xml_gaoya">Systolic-P</string>
+    <string name="xml_diya">Diastolic-P</string>
+    <string name="xml_maibo">Pulse</string>
+    <string name="xml_gaoxueya">Hypertension</string>
+    <string name="xml_dixueya">Hypopiesia</string>
+    <string name="xml_xuetang">B-Glucose</string>
+    <string name="xml_kongfu">Empty Stomach</string>
+    <string name="xml_dixuetang">Hypoglycemia</string>
+    <string name="xml_gaoxuetang">Hyperglycemia</string>
+    <string name="xml_2_hours">Two Hours After Meal</string>
+    <string name="xml_others_hours">Random Blood Glucose</string>
+    <string name="xml_bosheng">Medical Equipment:Borsam</string>
+    <string name="xml_device_change">Switch</string>
+    <string name="next_step">Next Step</string>
+    <string name="distance_ends">Distance measurement ends：</string>
+    <string name="xml_tiwen">Temperature</string>
+    <string name="xml_normal_temperature">Normal temperature</string>
+    <string name="xml_niaosuan">Uric Acid</string>
+    <string name="xml_danguchun">Cholesterol</string>
+    <string name="xml_xuetang_kongfu">Blood sugar (empty stomach)</string>
+    <string name="xml_niaosuan_unit">Uric Acid(mmol/L)</string>
+    <string name="xml_male">Male</string>
+    <string name="xml_female">Female</string>
+    <string name="xml_ganguchun_unit">Cholesterol(mmol/L)</string>
+    <string name="xml_tizhong">Weight</string>
+    <string name="xml_tizhi">BMI</string>
+    <string name="xml_tizhi_zhishu">Body mass index（BMI）</string>
+    <string name="xml_pianshou">Thin</string>
+    <string name="xml_pianpang">Overweight</string>
+    <string name="bluetooth_control">Bluetooth operation is required to operate Bluetooth</string>
+
+    <string name="no_support_bluetooth">Bluetooth is not turned on or does not support Bluetooth</string>
+    <string name="not_compatible_with_this_device">未兼容该设备:</string>
+    <string name="connect_device_first">Please connect the device first</string>
+    <string name="connect_device_timeout">Device connection timed out</string>
+    <string name="device_is_not_full_of_gas">The device is not full of gas</string>
+    <string name="device_detection_error">Device detection error</string>
+    <string name="device_insufficient_battery">Insufficient battery</string>
+    <string name="collect_data_failure">Failed to collect data. Please clean the instrument and measure again.</string>
+    <string name="improve_gender_and_age">Please go to the personal center to improve gender and age information.</string>
+    <string name="analysis_data_failed">Analysis of data failed</string>
+    <string name="end_of_measurement">End of measurement</string>
+    <string name="analyzing_data">Analyzing data...</string>
+    <string name="abnormal_temperature">Abnormal temperature</string>
+</resources>

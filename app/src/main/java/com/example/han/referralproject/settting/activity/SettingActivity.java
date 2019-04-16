@@ -1,15 +1,19 @@
 package com.example.han.referralproject.settting.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -25,11 +29,20 @@ import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import java.util.Locale;
+
+import tech.linjiang.pandora.Pandora;
 
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
@@ -41,6 +54,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
     // 下载应用存放全路径
     private static final String FILE_NAME = FILE_PATH + "xiaoe_autoupdate.apk";
+    private TextView mLanguage;
+    private TextView mDebug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +67,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private void bindView() {
         mToolBar = findViewById(R.id.tb_setting);
+        mDebug = findViewById(R.id.tv_setting_debug);
+        if (BuildConfig.DEBUG) {
+            mDebug.setVisibility(View.VISIBLE);
+        } else {
+            mDebug.setVisibility(View.GONE);
+        }
+        mLanguage = findViewById(R.id.tv_setting_language);
         mVoice = findViewById(R.id.tv_setting_voice);
         mWifi = findViewById(R.id.tv_setting_wifi);
         mKeyword = findViewById(R.id.tv_setting_keyword);
@@ -64,6 +86,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         exit = findViewById(R.id.tv_exit);
         llExitDoctorAccount = findViewById(R.id.ll_exit_doctor_account);
 
+        mDebug.setOnClickListener(this);
+        mLanguage.setOnClickListener(this);
         mVoice.setOnClickListener(this);
         mWifi.setOnClickListener(this);
         mKeyword.setOnClickListener(this);
@@ -105,6 +129,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_setting_debug:
+                Pandora.get().open();
+                break;
+            case R.id.tv_setting_language:
+                showLanguageDialog();
+                break;
             case R.id.tv_setting_voice:
                 //声音设置
                 startActivity(new Intent(this, VoiceSettingActivity.class));
@@ -144,6 +174,49 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 exitDoctorAccount("退出当前医生账号");
                 break;
         }
+    }
+
+    private void showLanguageDialog() {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_layout_language)
+
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.getView(R.id.language_simplified_chinese).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Resources resources = SettingActivity.this.getResources();
+                                DisplayMetrics dm = resources.getDisplayMetrics();
+                                Configuration config = resources.getConfiguration();
+                                // 应用用户选择语言
+                                config.locale = Locale.SIMPLIFIED_CHINESE;
+                                resources.updateConfiguration(config, dm);
+
+                                Intent intent = new Intent(SettingActivity.this, HospitalMainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                        holder.getView(R.id.language_english).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Resources resources = SettingActivity.this.getResources();
+                                DisplayMetrics dm = resources.getDisplayMetrics();
+                                Configuration config = resources.getConfiguration();
+                                // 应用用户选择语言
+                                config.locale = Locale.ENGLISH;
+                                resources.updateConfiguration(config, dm);
+
+                                Intent intent = new Intent(SettingActivity.this, HospitalMainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                })
+                .setWidth(600)
+                .show(getSupportFragmentManager());
     }
 
 

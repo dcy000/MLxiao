@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
@@ -38,7 +38,7 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
     public void onStart() {
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
-        mBtnHealthHistory.setText("下一步");
+        mBtnHealthHistory.setText(R.string.next_step);
         setBtnClickableState(false);
     }
 
@@ -46,9 +46,8 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压"
-                    + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
-
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.voice_high_pressure_this_time)
+                    + results[0] + UM.getString(R.string.voice_low_pressure) + results[1] + UM.getString(R.string.voice_pulse) + results[2], false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData pressureData = new DetectionData();
             DetectionData dataPulse = new DetectionData();
@@ -72,13 +71,13 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
-                            ToastUtils.showLong("上传数据成功");
+                            ToastUtils.showLong(UM.getString(R.string.upload_data_success));
                             setBtnClickableState(true);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            ToastUtils.showShort(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                         }
 
                         @Override

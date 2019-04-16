@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">lib-common-repository</string>
     <string name="app_id_bugly">082d769382</string>
+    <string name="busy_network">网络繁忙</string>
 </resources>

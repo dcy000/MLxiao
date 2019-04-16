@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -102,10 +102,10 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                             HealthInquiryActivity.this.healthInquiryBean = healthInquiryBeans;
                             //如果已经做过风险评估则不需要引导页
 //                            if (UserSpHelper.getRiskAssessmentState()) {
-                                List<HealthInquiryBean.QuestionListBean> questionList = healthInquiryBean.getQuestionList();
-                                if (questionList != null && questionList.size() > pageIndex) {
-                                    replaceFragment(questionList.get(pageIndex), pageIndex++);
-                                }
+                            List<HealthInquiryBean.QuestionListBean> questionList = healthInquiryBean.getQuestionList();
+                            if (questionList != null && questionList.size() > pageIndex) {
+                                replaceFragment(questionList.get(pageIndex), pageIndex++);
+                            }
 //                            } else {
 //                                addFirstTipFragment();
 //                            }
@@ -115,7 +115,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                     @Override
                     public void onError(Throwable e) {
                         if (!BuildConfig.DEBUG) {
-                            ToastUtils.showShort("获取数据失败");
+                            ToastUtils.showShort(R.string.get_data_fail);
                         } else {
                             ToastUtils.showShort("获取数据失败:" + e.getMessage());
                         }
@@ -133,7 +133,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.GONE);
         HealthFirstTipsFragment firstTipsFragment = new HealthFirstTipsFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", "初次见面，我是小E！为了更好地了解您的身体，先来做一个全套体检吧!");
+        bundle.putString("title", UM.getString(R.string.health_measure_first_detect_tips_1));
         firstTipsFragment.setArguments(bundle);
         firstTipsFragment.setOnFragmentChangedListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, firstTipsFragment).commit();
@@ -153,12 +153,12 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         //播报语音
         Timber.d(questionListBean.getQuestionName());
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，" + questionListBean.getQuestionName(), false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "master，" + questionListBean.getQuestionName(), false);
     }
 
     private void initView() {
         mFrame = (FrameLayout) findViewById(R.id.frame);
-        mTitleText.setText("健 康 调 查");
+        mTitleText.setText(R.string.title_health_inquiry);
         userId = UserSpHelper.getUserId();
     }
 
@@ -189,13 +189,13 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
 
         new AlertDialog(this)
                 .builder()
-                .setMsg("您已经开始做题，是否要离开当前页面")
-                .setNegativeButton("确认离开", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_do_question_are_you_leave))
+                .setNegativeButton(UM.getString(R.string.dialog_button_leave), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         CCAppActions.jump2MainActivity();
                     }
-                }).setPositiveButton("继续做题", new View.OnClickListener() {
+                }).setPositiveButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -246,14 +246,14 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                             public void onNext(Object o) {
                                 //问题回答结束就算是做过风险评估了 下次再进入就不需要引导页了 为了保证唯一性，需要和userId进行绑定
                                 UserSpHelper.setRiskAssessmentState(true);
-                                ToastUtils.showShort("上传数据成功");
+                                ToastUtils.showShort(R.string.upload_data_success);
                                 FirstDiagnosisActivity.startActivity(HealthInquiryActivity.this);
                                 finish();
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                                ToastUtils.showShort(UM.getString(R.string.upload_data_fail)+":" + e.getMessage());
                             }
 
                             @Override

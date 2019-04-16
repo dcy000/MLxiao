@@ -5,24 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.recommend.bean.post.DetectionData;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
-import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
-import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodOxygenDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthChooseDevicesFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthECGBoShengFragment;
@@ -54,7 +50,6 @@ import java.util.Set;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class AddFollowupActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump, ThisFragmentDatas {
     private Uri uri;
@@ -132,36 +127,36 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                 fragment = new HealthChooseDevicesFragment();
                 mToolbar.setVisibility(View.VISIBLE);
                 mRightView.setImageResource(R.drawable.common_icon_home);
-                mTitleText.setText("仪 器 选 择");
+                mTitleText.setText(R.string.title_device_choose);
                 break;
             case "HealthBloodDetectionOnlyOneFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("血 压 测 量");
+                mTitleText.setText(R.string.title_blood_pressure_detection);
                 fragment = new HealthBloodDetectionOnlyOneFragment();
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                 break;
             case "HealthBloodOxygenDetectionFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("血 氧 测 量");
+                mTitleText.setText(R.string.title_blood_oxygen_detection);
                 fragment = new HealthBloodOxygenDetectionFragment();
                 measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
                 break;
             case "HealthTemperatureDetectionFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("体 温 测 量");
+                mTitleText.setText(R.string.title_temperature_detection);
                 fragment = new HealthTemperatureDetectionFragment();
                 measureType = IPresenter.MEASURE_TEMPERATURE;
                 break;
             case "ChooseECGDeviceFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("心 电 设 备 选 择");
+                mTitleText.setText(R.string.title_ecg_devices_choose);
                 fragment = new ChooseECGDeviceFragment();
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 isShowSelectECGDevice = true;
                 break;
             case "ECGFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("心 电 测 量");
+                mTitleText.setText(R.string.title_ECG_detection);
                 if (ecgDevice == 1) {
                     fragment = new HealthECGDetectionFragment();
                 } else {
@@ -171,35 +166,35 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("选 择 测 量 时 间");
+                mTitleText.setText(R.string.title_blood_glucose_time_choose);
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 fragment = new HealthSelectSugarDetectionTimeFragment();
                 isShowSelectBloodsugarMeasureTime = true;
                 break;
             case "HealthSugarDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("血 糖 测 量");
+                mTitleText.setText(R.string.title_blood_glucose_detection);
                 fragment = new HealthSugarDetectionUiFragment();
                 measureType = IPresenter.MEASURE_BLOOD_SUGAR;
                 fragment.setArguments(bundle);
                 break;
             case "HealthThreeInOneDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("三 合 一 测 量");
+                mTitleText.setText(R.string.title_multi_monitoring_meter_detection);
                 fragment = new HealthThreeInOneDetectionUiFragment();
                 measureType = IPresenter.MEASURE_THREE;
                 fragment.setArguments(bundle);
                 break;
             case "HealthWeightDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("体 重 测 量");
+                mTitleText.setText(R.string.title_weight_detection);
                 fragment = new HealthWeightDetectionUiFragment();
                 measureType = IPresenter.MEASURE_WEIGHT;
                 break;
             case "HealthHeightDetectionUiFragment":
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("身 高 测 量");
+                mTitleText.setText(R.string.title_height_detection);
                 fragment = new HealthHeightDetectionUiFragment();
                 measureType = IPresenter.MEASURE_HEIGHT;
                 break;
@@ -304,14 +299,14 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                     //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
                     FirstDiagnosisBean bloodpressure = new FirstDiagnosisBean(
-                            HealthBloodDetectionOnlyOneFragment.class.getSimpleName(), uri, "测量血压演示视频");
+                            HealthBloodDetectionOnlyOneFragment.class.getSimpleName(), uri, UM.getString(R.string.video_blood_pressure_detection));
                     firstDiagnosisBeans.add(bloodpressure);
                     break;
                 case 5:
                     //血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
                     FirstDiagnosisBean selectSugarTime = new FirstDiagnosisBean(
-                            HealthSelectSugarDetectionTimeFragment.class.getSimpleName(), uri, "测量血糖演示视频");
+                            HealthSelectSugarDetectionTimeFragment.class.getSimpleName(), uri, UM.getString(R.string.video_blood_glucose_detection));
                     firstDiagnosisBeans.add(selectSugarTime);
 
                     FirstDiagnosisBean bloodsugar = new FirstDiagnosisBean(
@@ -322,14 +317,15 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                     //耳温枪
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
                     FirstDiagnosisBean temperature = new FirstDiagnosisBean(
-                            HealthTemperatureDetectionFragment.class.getSimpleName(), uri, "测量耳温演示视频");
+                            HealthTemperatureDetectionFragment.class.getSimpleName(), uri, UM.getString(R.string.video_temperature_detection));
                     firstDiagnosisBeans.add(temperature);
                     break;
                 case 2:
                     //血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
                     FirstDiagnosisBean bloodoxygen = new FirstDiagnosisBean(
-                            HealthBloodOxygenDetectionFragment.class.getSimpleName(), uri, "测量血氧演示视频");
+                            HealthBloodOxygenDetectionFragment.class.getSimpleName(), uri, UM.getString(R.string.video_blood_oxygen_detection));
+
                     firstDiagnosisBeans.add(bloodoxygen);
                     break;
                 case 4:
@@ -338,7 +334,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
 
                     FirstDiagnosisBean ecgSelectDevice = new FirstDiagnosisBean(
-                            ChooseECGDeviceFragment.class.getSimpleName(), uri, "测量心电演示视频");
+                            ChooseECGDeviceFragment.class.getSimpleName(), uri, UM.getString(R.string.video_ECG_detection));
                     firstDiagnosisBeans.add(ecgSelectDevice);
                     FirstDiagnosisBean ecg = new FirstDiagnosisBean(
                             ECGFragment.class.getSimpleName(), null, null);
@@ -348,7 +344,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                     //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
                     FirstDiagnosisBean selectSugarTime1 = new FirstDiagnosisBean(
-                            HealthSelectSugarDetectionTimeFragment.class.getSimpleName(), uri, "三合一测量演示视频");
+                            HealthSelectSugarDetectionTimeFragment.class.getSimpleName(), uri, UM.getString(R.string.video_multi_monitoring_meter_detection));
                     firstDiagnosisBeans.add(selectSugarTime1);
 
 
@@ -443,7 +439,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
         } else if (disconnected.equals(voice)) {
             mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         }
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
     }
 
     @Override
@@ -469,7 +465,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
     @Override
     protected void backMainActivity() {
         if (fragment instanceof HealthHeightDetectionUiFragment) {
-            ToastUtils.showShort("请选择您的身高");
+            ToastUtils.showShort(R.string.choose_your_height);
             return;
         }
         if (isShowSelectBloodsugarMeasureTime || isShowSelectECGDevice) {
@@ -485,14 +481,14 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
     private void showRefreshBluetoothDialog() {
         new AlertDialog(this)
                 .builder()
-                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_unbind_device_and_reconnet))
+                .setNegativeButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                     }
                 })
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_ok), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         fragment.autoConnect();

@@ -15,7 +15,7 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.qrcode.QRCodeUtils;
@@ -271,12 +271,12 @@ public class WenZenOutputActivity extends ToolbarBaseActivity implements View.On
         } else if (i == R.id.ll_2) {
             if (printerHelper == null) {
                 ToastUtils.showShort("连接打印机出错");
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "连接打印机出错");
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), "连接打印机出错");
                 return;
             }
             if (printerHelper != null && !printerHelper.isConnected()) {
                 ToastUtils.showShort("请先连接打印机");
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先连接打印机");
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先连接打印机");
                 return;
             }
             try {

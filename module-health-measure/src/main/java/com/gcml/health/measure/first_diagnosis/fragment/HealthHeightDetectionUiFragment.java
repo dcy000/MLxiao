@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.UM;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
@@ -27,7 +28,7 @@ public class HealthHeightDetectionUiFragment extends BluetoothBaseFragment imple
         super.onCreate(savedInstanceState);
         mUiModel = new DetailsModel();
         mUiModel.setWhat(WHAT_HEIGHT_DETECTION);
-        mUiModel.setTitle("请选择您的身高：");
+        mUiModel.setTitle(UM.getString(R.string.choose_your_height));
         mUiModel.setUnitPosition(0);
         mUiModel.setUnits(new String[]{"cm"});
         mUiModel.setUnitSum(new String[]{"cm"});
@@ -35,7 +36,7 @@ public class HealthHeightDetectionUiFragment extends BluetoothBaseFragment imple
         mUiModel.setMinValues(new float[]{50f});
         mUiModel.setMaxValues(new float[]{240f});
         mUiModel.setPerValues(new float[]{1f});
-        mUiModel.setAction("下一步");
+        mUiModel.setAction(UM.getString(R.string.next_step));
     }
 
     @Override

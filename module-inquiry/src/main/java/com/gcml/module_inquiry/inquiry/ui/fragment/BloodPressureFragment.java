@@ -2,15 +2,13 @@ package com.gcml.module_inquiry.inquiry.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.DetectionResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
@@ -135,7 +133,7 @@ public class BloodPressureFragment extends BloodpressureFragment {
                     @Override
                     public void onNext(List<DetectionResult> detectionResults) {
                         ToastUtils.showLong("上传数据成功");
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + highPressure + ",低压" + lowPressure + ",脉搏" + pulse, new MLSynthesizerListener() {
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量高压" + highPressure + ",低压" + lowPressure + ",脉搏" + pulse, new MLSynthesizerListener() {
                             @Override
                             public void onCompleted(SpeechError speechError) {
                                 super.onCompleted(speechError);

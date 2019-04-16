@@ -1,7 +1,9 @@
 package com.gcml.module_blutooth_devices.temperature;
 
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.DeviceBrand;
@@ -49,7 +51,7 @@ public class TemperaturePresenter extends BaseBluetooth {
             handleSelf(address);
             return;
         }
-        baseView.updateState("未兼容该设备:" + name + ":::" + address);
+        baseView.updateState(UM.getString(R.string.not_compatible_with_this_device) + name + ":::" + address);
     }
 
 
@@ -85,7 +87,7 @@ public class TemperaturePresenter extends BaseBluetooth {
                 if (bytes.length > 6) {
                     int data = bytes[6] & 0xff;
                     if (data < 44) {
-                        ToastUtils.showShort("测量温度不正常");
+                        ToastUtils.showShort(R.string.abnormal_temperature);
                         return;
                     }
                     double v = (data - 44.0) % 10;

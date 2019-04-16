@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
@@ -37,7 +38,7 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
         super.onCreate(savedInstanceState);
         mUiModel = new DetailsModel();
         mUiModel.setWhat(WHAT_WEIGHT_DETECTION);
-        mUiModel.setTitle(getResources().getString(R.string.health_measure_detection_weight_title));
+        mUiModel.setTitle(UM.getString(R.string.health_measure_detection_weight_title));
         mUiModel.setUnitPosition(0);
         mUiModel.setUnits(new String[]{"kg"});
         mUiModel.setUnitSum(new String[]{"kg"});
@@ -45,7 +46,7 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
         mUiModel.setMinValues(new float[]{0f});
         mUiModel.setMaxValues(new float[]{200f});
         mUiModel.setPerValues(new float[]{0.2f});
-        mUiModel.setAction("下一步");
+        mUiModel.setAction(UM.getString(R.string.next_step));
     }
 
     @Override
@@ -105,7 +106,7 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        ToastUtils.showLong(UM.getString(R.string.upload_data_fail)+":" + e.getMessage());
                     }
 
                     @Override

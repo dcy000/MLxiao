@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
@@ -48,7 +49,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     private List<ChooseDeviceBean> deviceBeans;
     private BaseQuickAdapter<ChooseDeviceBean, BaseViewHolder> adapter;
     public static final String KEY_DEVICE_NUM = "key_device_num";
-    private String userId="100206";
+    private String userId = "100206";
 
     @Override
     protected int initLayout() {
@@ -69,7 +70,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(),"请选择您拥有的仪器，小易默认给您做了选择，如果没有该设备请再次点击该设备取消",false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.choose_your_devices), false);
     }
 
     private void initRecycleview() {
@@ -93,11 +94,11 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //TODO:默认体重必选，不能去掉
-                if (position==6){
+                if (position == 6) {
                     return;
                 }
                 if (position == 7) {
-                    ToastUtils.showShort("敬请期待");
+                    ToastUtils.showShort(UM.getString(R.string.stay_tuned));
                     return;
                 }
                 ChooseDeviceBean chooseDeviceBean = deviceBeans.get(position);
@@ -205,7 +206,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         int i = v.getId();
         if (i == R.id.btn_sure) {
             if (selectedDevices().size() == 0) {
-                ToastUtils.showShort("请至少选择一个设备");
+                ToastUtils.showShort(UM.getString(R.string.must_choose_devices));
                 return;
             }
             postDevices();
@@ -242,7 +243,8 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("同步拥有的设备信息失败：" + e.getMessage());
+//                        ToastUtils.showShort("同步拥有的设备信息失败：" + e.getMessage());
+                        Timber.e("同步拥有的设备信息失败：" + e.getMessage());
                     }
 
                     @Override
@@ -260,7 +262,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             }
         }
         //TODO:默认体重必选,如果需要去掉，只需把下面代码去掉即可，其他地方不用修改
-        if (!deviceNum.contains(7)){
+        if (!deviceNum.contains(7)) {
             deviceNum.add(7);
         }
         return deviceNum;

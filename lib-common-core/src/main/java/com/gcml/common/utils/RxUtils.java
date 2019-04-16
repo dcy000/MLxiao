@@ -14,6 +14,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
+import com.gcml.common.AppDelegate;
+import com.gcml.common.R;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.http.ApiResult;
 import com.google.gson.Gson;
@@ -97,7 +99,7 @@ public class RxUtils {
 //                        return Observable.just(result);
 //                    }
 //                }
-                return Observable.error(new ApiException("网络繁忙"));
+                return Observable.error(new ApiException(AppDelegate.INSTANCE.app().getString(R.string.busy_network)));
             }
         };
     }

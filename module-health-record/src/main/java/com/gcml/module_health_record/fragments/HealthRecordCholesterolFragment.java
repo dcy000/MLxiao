@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -72,9 +72,9 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
         mRgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
         mColor1.setBackgroundColor(Color.parseColor("#9CD793"));
-        mIndicator1.setText("成人(mmol/L)");
+        mIndicator1.setText(R.string.indicator_adult);
         mColor2.setBackgroundColor(Color.parseColor("#6D80E2"));
-        mIndicator2.setText("儿童(mmol/L)");
+        mIndicator2.setText(R.string.indicator_children);
         mLlSecond.setVisibility(View.VISIBLE);
 
         mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
@@ -177,7 +177,7 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
                 colors.add(Color.RED);
             } else {
 //                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
-                colors.add(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_text_color));//正常字体的颜色
+                colors.add(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_text_color));//正常字体的颜色
             }
             value.add(new Entry(i, response.get(i).cholesterol));
             times.add(response.get(i).time);
@@ -209,9 +209,9 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
 
                 //走势线的样式
 //                set1.setColor(getResources().getColor(R.color.health_record_line_color));
-                set1.setColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_line_color));
 //                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
-                set1.setCircleColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_color));
 
 
                 set1.setValueTextColors(colors);
@@ -259,7 +259,7 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
             mChart.setNoDataText(getResources().getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();
-            mTvEmptyDataTips.setText("啊哦!你还没有测量数据");
+            mTvEmptyDataTips.setText(R.string.woo_no_data);
             view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
         }
     }

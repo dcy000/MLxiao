@@ -9,7 +9,7 @@ import android.view.View;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -39,7 +39,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
     public void onStart() {
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
-        mBtnHealthHistory.setText("下一步");
+        mBtnHealthHistory.setText(UM.getString(R.string.next_step));
         setBtnClickableState(false);
         notifyDetectionStepChanged(detectionStep);
     }
@@ -143,24 +143,24 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
         this.detectionStep = detectionStep;
         switch (detectionStep) {
             case DetectionStep.LEFT_1:
-                showFirstDialog(tips_first, tips_first_speak);
+                showFirstDialog(UM.getString(R.string.health_measure_tips_left_1), UM.getString(R.string.health_measure_tips_left_1_speak));
                 break;
             case DetectionStep.LEFT_2:
-                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_left_2));
+                showDialog(UM.getApp().getString(R.string.health_measure_tips_left_2));
                 break;
             case DetectionStep.LEFT_3:
                 hasLeft3 = true;
-                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_left_3));
+                showDialog(UM.getApp().getString(R.string.health_measure_tips_left_3));
                 break;
             case DetectionStep.RIGHT_1:
-                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_right_1));
+                showDialog(UM.getApp().getString(R.string.health_measure_tips_right_1));
                 break;
             case DetectionStep.RIGHT_2:
-                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_right_2));
+                showDialog(UM.getApp().getString(R.string.health_measure_tips_right_2));
                 break;
             case DetectionStep.RIGHT_3:
                 hasRight3 = true;
-                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_right_3));
+                showDialog(UM.getApp().getString(R.string.health_measure_tips_right_3));
                 break;
             case DetectionStep.DONE:
                 uploadHandData(prepareData());
@@ -176,7 +176,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
         new AlertDialog(mContext)
                 .builder()
                 .setMsg(message)
-                .setPositiveButton("确定", new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_ok), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         MLVoiceSynthetize.stop();
@@ -190,7 +190,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
         new AlertDialog(mContext)
                 .builder()
                 .setMsg(Html.fromHtml(message))
-                .setPositiveButton("确定", new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         MLVoiceSynthetize.stop();
@@ -200,8 +200,6 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
 
     @SuppressLint("CheckResult")
     private void uploadHandData(final Data data) {
-        Timber.i("开始上传惯用手到服务器");
-
         HealthMeasureRepository.postHypertensionHand(data.right)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -209,7 +207,6 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
                 .subscribeWith(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        Timber.i("上传惯用手成功");
                         UserSpHelper.setUserHypertensionHand(data.right + "");
                         uploadHandStateFinished();
                         uploadData(data);
@@ -217,7 +214,8 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("惯用手上传失败：" + e.getMessage());
+//                        ToastUtils.showShort("惯用手上传失败：" + e.getMessage());
+                        Timber.e("上传惯用手失败：" + e.getMessage());
                     }
 
                     @Override
@@ -264,7 +262,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("上传数据失败：" + e.getMessage());
+                        ToastUtils.showShort(UM.getString(R.string.upload_data_fail) + "：" + e.getMessage());
                     }
 
                     @Override
@@ -358,7 +356,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
                 fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
             }
         } else {
-            ToastUtils.showShort("测量次数不够");
+            ToastUtils.showShort(UM.getString(R.string.not_enough_measurements));
         }
     }
 

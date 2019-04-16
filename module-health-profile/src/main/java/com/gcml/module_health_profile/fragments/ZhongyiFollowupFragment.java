@@ -3,28 +3,23 @@ package com.gcml.module_health_profile.fragments;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.gcml.common.FilterClickListener;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -33,7 +28,6 @@ import com.gcml.module_health_profile.HealthProfileActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.TiZhiBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
-import com.gcml.module_health_profile.webview.AddHealthProfileActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
@@ -208,12 +202,12 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
                         public void onNext(UserEntity user) {
 //                            if (TextUtils.isEmpty(user.doctorId)) {
 //                                ToastUtils.showShort("请先签约医生");
-//                                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先签约医生");
+//                                MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先签约医生");
 //                                return;
 //                            }
                             if (!isBuildHealthRecord) {
                                 ToastUtils.showShort("请先在居民健康档案中进行建档");
-                                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先建立个人档案");
+                                MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
                                 return;
                             }
                             CC.obtainBuilder("app.chinese.consititution").build().call();

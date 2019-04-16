@@ -14,7 +14,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
@@ -26,7 +26,6 @@ import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
 import com.gcml.lib_widget.dialog.FllowUpTimesDialog;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.littlejie.circleprogress.WaveProgress;
@@ -177,20 +176,20 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
             isTask = bundle.getBoolean("isTask");
         }
         if (isTask) {
-            mHealthKnowledge.setText("返回任务");
+            mHealthKnowledge.setText(R.string.return_health_task);
         } else {
-            mHealthKnowledge.setText("健康方案");
+            mHealthKnowledge.setText(R.string.health_plan);
         }
         mTvState.setText(healthState);
         mWaveProgressBar.setValue(healthScore);
-        mWaveProgressBar.setHealthValue(healthScore + "分");
+        mWaveProgressBar.setHealthValue(healthScore + UM.getString(R.string.score_unit));
         mCurrentGaoya.setText(String.valueOf(currentHighBloodpressure));
         mCurrentDiya.setText(String.valueOf(currentLowBloodpressure));
         mTvSuggest.setText(currentSuggest);
 
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                "主人，您本次测量高压" + currentHighBloodpressure + ",低压"
-                        + currentLowBloodpressure + ",健康分数" + healthScore + "分。" + currentSuggest);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                UM.getString(R.string.voice_high_pressure_this_time) + currentHighBloodpressure + "," + UM.getString(R.string.voice_low_pressure)
+                        + currentLowBloodpressure + "," + UM.getString(R.string.health_score) + healthScore + UM.getString(R.string.score_unit) + "。" + currentSuggest);
         initViewColor();
         getData();
         getDiagnoseInfo();
@@ -298,15 +297,15 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                 int num = targetListBean.getNum();
                 switch (target) {
                     case -1:
-                        mTvDi.setText(num + "次");
+                        mTvDi.setText(num + UM.getString(R.string.times_unit));
                         mRpbDi.setProgress(num);
                         break;
                     case 0:
-                        mTvZhengchang.setText(num + "次");
+                        mTvZhengchang.setText(num + UM.getString(R.string.times_unit));
                         mRpbZhengchang.setProgress(num);
                         break;
                     case 1:
-                        mTvGao.setText(num + "次");
+                        mTvGao.setText(num + UM.getString(R.string.times_unit));
                         mRpbGao.setProgress(num);
                         break;
                     default:
@@ -380,21 +379,21 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
 
         new AlertDialog(getContext())
                 .builder()
-                .setMsg("您之前的流程还未完成，是否要继续？")
-                .setNegativeButton("是", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_ask_process_has_not_been_completed))
+                .setNegativeButton(UM.getString(R.string.dialog_button_yes), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         clickWithoutContinueJudge();
                     }
                 })
-                .setPositiveButton("否", new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_no), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         getDiagnoseInfoNew();
                     }
                 }).show();
 
-        mlSpeak("您之前的流程还未完成，是否要继续？");
+        mlSpeak(UM.getString(R.string.dialog_ask_process_has_not_been_completed));
     }
 
     private void getDiagnoseInfoNew() {
@@ -437,8 +436,8 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
             } else {
                 new AlertDialog(mContext)
                         .builder()
-                        .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
-                        .setPositiveButton("健康方案", new View.OnClickListener() {
+                        .setMsg(UM.getString(R.string.dialog_health_plan_has_finished_click_detail))
+                        .setPositiveButton(UM.getString(R.string.health_plan), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 toSulotion();
@@ -447,15 +446,15 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
             }
 
         } else {
-            ToastUtils.showShort("暂无推荐");
+            ToastUtils.showShort(R.string.no_recommendation);
         }
     }
 
     private void showOriginHypertensionDialog() {
         new AlertDialog(mContext)
                 .builder()
-                .setMsg("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)")
-                .setPositiveButton("是", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_have_you_diagnosed_essential_hypertension))
+                .setPositiveButton(UM.getString(R.string.dialog_button_yes), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         postOriginPertensionState("1");
@@ -465,7 +464,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                                 .call();
                     }
                 })
-                .setNegativeButton("否", new View.OnClickListener() {
+                .setNegativeButton(UM.getString(R.string.dialog_button_no), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -626,7 +625,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
     }
 
     private void showLessThan3Dialog(String notice) {
-        if (!isAdded()){
+        if (!isAdded()) {
             return;
         }
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
@@ -638,7 +637,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         });
 
         dialog.show(getFragmentManager(), "less3");
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您尚未满足3天测量标准，请在健康监测中测量三日", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.unsatisfied_3_day_measurement_standard), false);
     }
 
     /**

@@ -4,8 +4,9 @@ import android.annotation.SuppressLint;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenFragment;
@@ -29,8 +30,8 @@ public class SingleMeasureBloodoxygenFragment extends BloodOxygenFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "主人，您本次测量血氧" + results[0] + "%", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                    UM.getString(R.string.this_time_blood_oxygen) + results[0] + "%", false);
 
 
             ArrayList<DetectionData> datas = new ArrayList<>();
@@ -51,12 +52,12 @@ public class SingleMeasureBloodoxygenFragment extends BloodOxygenFragment {
                     .subscribeWith(new DefaultObserver<Object>() {
                         @Override
                         public void onNext(Object o) {
-                            ToastUtils.showShort("上传数据成功");
+                            ToastUtils.showShort(R.string.upload_data_success);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            ToastUtils.showShort(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                         }
 
                         @Override

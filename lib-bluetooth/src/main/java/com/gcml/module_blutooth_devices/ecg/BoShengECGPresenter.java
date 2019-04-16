@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -35,7 +34,7 @@ import com.clj.fastble.callback.BleNotifyCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.data.StreamUtils;
@@ -110,7 +109,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         public void onSuccess(@Nullable byte[] result) {
                             if (result != null) {
                                 if (result.length == 0) {
-                                    baseView.updateState("采集数据失败，请先清洁仪器，再次测量。");
+                                    baseView.updateState(UM.getString(R.string.collect_data_failure));
                                     if (mLoadingDialog != null) {
                                         mLoadingDialog.dismiss();
                                     }
@@ -159,14 +158,14 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
             isMeasureEnd = false;
             lockedDevice = bleDevice;
-            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+            baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
 
             BleManager.getInstance().notify(bleDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
                         @Override
                         public void onNotifySuccess() {
-                            if (timeCount!=null){
+                            if (timeCount != null) {
                                 timeCount.start();
                             }
                         }
@@ -192,14 +191,14 @@ public class BoShengECGPresenter implements LifecycleObserver {
         @Override
         public void onDisConnected(boolean isActiveDisConnected, BleDevice device, BluetoothGatt gatt, int status) {
             if (baseView instanceof Activity) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
             } else if (baseView instanceof Fragment) {
                 if (((Fragment) baseView).isAdded()) {
-                    baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
+                    baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
                 }
             }
             isMeasureEnd = true;
-            if (timeCount!=null){
+            if (timeCount != null) {
                 timeCount.cancel();
             }
             new WeakHandler().postDelayed(new Runnable() {
@@ -253,7 +252,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             sex = userEntity.sex;
 
                             if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(userEntity.name) || TextUtils.isEmpty(sex)) {
-                                ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                                ToastUtils.showShort(R.string.improve_gender_and_age);
                                 return;
                             }
                             getNetConfig(phone, birth, userEntity.name, sex);
@@ -391,7 +390,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
     //上传数据到博声后台
     private void uploadDatas(byte[] stream) {
         if (!isLoginBoShengSuccess) {
-            ToastUtils.showShort("分析数据失败");
+            ToastUtils.showShort(R.string.analysis_data_failed);
             return;
         }
         BorsamHttpUtil.getInstance().add("BoShengECGPresenter", PatientApi.uploadFile(StreamUtils.bytes2InputStream(stream)))
@@ -415,7 +414,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        ToastUtils.showShort("分析数据失败");
+                        ToastUtils.showShort(R.string.analysis_data_failed);
                     }
                 });
     }
@@ -430,7 +429,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        if (entity!=null) {
+                        if (entity != null) {
                             BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
                             baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
                         }
@@ -497,13 +496,13 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
             if (fragment.get() != null) {
-                fragment.get().updateData("tip", "测量结束");
+                fragment.get().updateData("tip", UM.getString(R.string.end_of_measurement));
             }
 
             if (activity != null) {
                 mLoadingDialog = new LoadingDialog.Builder(activity)
                         .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                        .setTipWord("正在分析数据...")
+                        .setTipWord(UM.getString(R.string.analyzing_data))
                         .create();
                 if (mLoadingDialog != null) {
                     mLoadingDialog.show();
@@ -518,7 +517,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
             if (fragment.get() != null) {
-                fragment.get().updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+                fragment.get().updateData("tip", UM.getString(R.string.distance_ends) + millisUntilFinished / 1000 + "s");
             }
         }
     }

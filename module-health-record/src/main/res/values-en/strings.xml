@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="noData">No data</string>
+    <string name="title_jiankangshuju">Health Datas</string>
+    <string name="download_file">Download</string>
+    <string name="radio_button_temperature">Temperature</string>
+    <string name="radio_button_blood_pressure">B-Pressure</string>
+    <string name="radio_button_blood_sugar">B-Glucose</string>
+    <string name="radio_button_blood_oxygen">B-Oxygen</string>
+    <string name="radio_button_heart_rate">Heart-Rate</string>
+    <string name="radio_button_cholesterol">Cholesterol</string>
+    <string name="radio_button_blood_uric_acid">Uric-Acid</string>
+    <string name="radio_button_ecg">ECG</string>
+    <string name="radio_button_weight">Weight</string>
+    <string name="xml_select_date">Select Date</string>
+
+    <string name="history_year">.</string>
+    <string name="history_month">.</string>
+    <string name="history_day">.</string>
+    <string name="select_date_error">Select Date Error</string>
+    <string name="scan_qr_download_file">Scan QR code and download detailed report</string>
+    <string name="voice_see_your_health_data">Master, please check your health data</string>
+    <string name="woo_no_data">Hey! You have not measured the data yet</string>
+    <string name="indicator_gaoya">Systolic(mmHg)</string>
+    <string name="indicator_diya">Diastolic(mmHg)</string>
+    <string name="indicator_xuetang">B-glucose(mmol/L)</string>
+    <string name="indicator_male">Male</string>
+    <string name="indicator_female">Famale</string>
+    <string name="indicator_adult">Adult(mmol/L)</string>
+    <string name="indicator_children">Children(mmol/L)</string>
+    <string name="indicator_heart_rate">Heart-Rate(one/min)</string>
+    <string name="indicator_temperature">Temperature(℃)</string>
+    <string name="indicator_weight">Weight(Kg)</string>
+    <string name="radio_button_gaoya">Systolic</string>
+    <string name="radio_button_diya">Diastolic</string>
+    <string name="toolbar_back_last">Back</string>
+</resources>

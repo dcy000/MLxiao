@@ -5,6 +5,7 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -12,6 +13,7 @@ import android.os.Process;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 
 import com.baidu.location.BDLocation;
 import com.example.han.referralproject.BuildConfig;
@@ -19,12 +21,13 @@ import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
+import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.OkHttpClientHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.location.BdLocationHelper;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.ui.UiUtils;
@@ -41,6 +44,7 @@ import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -83,7 +87,7 @@ public class MyApplication extends Application {
     public String eqid;
     public static final int PLAN_ID_KSY = 1;
     public MutableLiveData<String[]> timeData = new MutableLiveData<>();
-    public MutableLiveData<HomepageWeatherBean> weatherData=new MutableLiveData<>();
+    public MutableLiveData<HomepageWeatherBean> weatherData = new MutableLiveData<>();
     public BdLocationHelper bdLocation = new BdLocationHelper();
 
     @Override
@@ -102,9 +106,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        setDefaultLanguage();
         AppDelegate.INSTANCE.onCreate(this);
 //        String curProcessName = ProcessUtils.getCurProcessName(this);
-        UtilsManager.init(this);
+        UM.init(this);
         UiUtils.init(this, 1920, 1200);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -136,6 +141,15 @@ public class MyApplication extends Application {
         initVideoPlay();
         initOkGo();
         syncWeatherAndTime();
+    }
+
+    private void setDefaultLanguage() {
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        // 应用用户选择语言
+        config.locale = Locale.ENGLISH;
+        resources.updateConfiguration(config, dm);
     }
 
     private void syncWeatherAndTime() {

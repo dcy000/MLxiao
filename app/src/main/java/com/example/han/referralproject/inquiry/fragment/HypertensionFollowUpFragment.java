@@ -6,8 +6,7 @@ import android.view.View;
 
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -43,7 +42,7 @@ public class HypertensionFollowUpFragment extends BloodpressureFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3 && !isOnPause) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
             int highPressure = Integer.parseInt(results[0]);
             int lowPressure = Integer.parseInt(results[1]);
             int pulse = Integer.parseInt(results[2]);

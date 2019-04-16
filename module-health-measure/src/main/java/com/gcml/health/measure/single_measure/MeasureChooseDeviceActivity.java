@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
@@ -30,10 +30,11 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     private LinearLayout llTizhong;
     private LinearLayout llSan;
     private LinearLayout llMore;
-    public static final String IS_FACE_SKIP="isFaceSkip";
-    public static void startActivity(Context context,boolean isFaceSkip) {
+    public static final String IS_FACE_SKIP = "isFaceSkip";
+
+    public static void startActivity(Context context, boolean isFaceSkip) {
         Intent intent = new Intent(context, MeasureChooseDeviceActivity.class);
-        intent.putExtra(IS_FACE_SKIP,isFaceSkip);
+        intent.putExtra(IS_FACE_SKIP, isFaceSkip);
         if (context instanceof Application) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -64,11 +65,11 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_choose_device);
-        mTitleText.setText("健 康 检 测");
+        mTitleText.setText(getString(R.string.title_health_detection));
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.choose_your_detection_project), false);
     }
 
     @Override
@@ -79,35 +80,35 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         if (i == R.id.ll_xueya) {
             measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-            jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_pressure_detection));
         } else if (i == R.id.ll_xueyang) {
             measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-            jump2MeasureVideoPlayActivity(uri, "血氧测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_oxygen_detection));
         } else if (i == R.id.ll_tiwen) {
             measureType = IPresenter.MEASURE_TEMPERATURE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-            jump2MeasureVideoPlayActivity(uri, "耳温测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_temperature_detection));
         } else if (i == R.id.ll_xuetang) {
             measureType = IPresenter.MEASURE_BLOOD_SUGAR;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-            jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_glucose_detection));
         } else if (i == R.id.ll_xindian) {
             measureType = IPresenter.MEASURE_ECG;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-            jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_ECG_detection));
         } else if (i == R.id.ll_san) {
             measureType = IPresenter.MEASURE_THREE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-            jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
+            jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_multi_monitoring_meter_detection));
         } else if (i == R.id.ll_tizhong) {
             //体重
             measureType = IPresenter.MEASURE_WEIGHT;
             AllMeasureActivity.startActivity(this, measureType);
 
         } else if (i == R.id.ll_more) {
-            measureType=IPresenter.MEASURE_HAND_RING;
-            AllMeasureActivity.startActivity(this,measureType);
+            measureType = IPresenter.MEASURE_HAND_RING;
+            AllMeasureActivity.startActivity(this, measureType);
 
         } else {
         }
@@ -148,7 +149,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
-        intent.putExtra(IS_FACE_SKIP,getIntent().getBooleanExtra(IS_FACE_SKIP,false));
+        intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
         startActivity(intent);
     }
 

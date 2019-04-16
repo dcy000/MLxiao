@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25pt"
-            android:text="科瑞康心电仪"
+            android:text="@string/xml_ecg_pc80"
             android:textColor="#333"
             android:textSize="56pt"
             android:textStyle="bold" />
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25pt"
-            android:text="博声心电仪"
+            android:text="@string/xml_ecg_bosheng"
             android:textColor="#333"
             android:textSize="56pt"
             android:textStyle="bold" />

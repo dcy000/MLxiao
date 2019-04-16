@@ -18,7 +18,7 @@
             android:id="@+id/title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="正常"
+            android:text="@string/xml_normal"
             android:textColor="#333"
             android:textSize="56pt"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高压"
+            android:text="@string/xml_gaoya"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="低压"
+            android:text="@string/xml_diya"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +83,7 @@
             android:id="@+id/title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高血压"
+            android:text="@string/xml_gaoxueya"
             android:textColor="#333"
             android:textSize="56pt"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -114,7 +114,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高压"
+            android:text="@string/xml_gaoya"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -125,7 +125,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="低压"
+            android:text="@string/xml_diya"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -148,7 +148,7 @@
             android:id="@+id/title3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="低血压"
+            android:text="@string/xml_dixueya"
             android:textColor="#333"
             android:textSize="56pt"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -179,7 +179,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高压"
+            android:text="@string/xml_gaoya"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -190,7 +190,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="低压"
+            android:text="@string/xml_diya"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -200,7 +200,7 @@
             />
     </android.support.constraint.ConstraintLayout>
     <View
-        android:layout_width="880pt"
+        android:layout_width="@dimen/left_white_witdth"
         android:layout_height="match_parent"
         android:background="@color/bluetooth_white"/>
     <include
@@ -231,7 +231,7 @@
             android:id="@+id/tv_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高压"
+            android:text="@string/xml_gaoya"
             android:textColor="#333"
             android:textSize="88pt"
             app:layout_constraintRight_toLeftOf="@id/tv_gaoya"
@@ -271,7 +271,7 @@
             android:id="@+id/tv_title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="低压"
+            android:text="@string/xml_diya"
             android:textColor="#333"
             android:textSize="88pt"
             app:layout_constraintRight_toLeftOf="@id/tv_diya"
@@ -311,7 +311,7 @@
             android:id="@+id/tv_title3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="脉搏"
+            android:text="@string/xml_maibo"
             android:textColor="#333"
             android:textSize="88pt"
             app:layout_constraintRight_toLeftOf="@id/tv_maibo"

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.google.gson.Gson;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class NetworkManager {
     private NetworkManager(){
         client = new OkHttpClient();
         mGson = new Gson();
-        mContext = UtilsManager.getApplication();
+        mContext = UM.getApp();
     }
 
     public interface SuccessCallback<T> {

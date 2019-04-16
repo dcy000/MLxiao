@@ -2,8 +2,9 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 
 import android.annotation.SuppressLint;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
+import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -20,7 +21,7 @@ public class NonUploadSingleMeasureBloodsugarFragment extends BloodSugarFragment
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
             String roundUp = DataUtils.getRoundUp(results[0], 1);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + roundUp, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.this_time_blood_glucose) + roundUp, false);
         }
     }
 

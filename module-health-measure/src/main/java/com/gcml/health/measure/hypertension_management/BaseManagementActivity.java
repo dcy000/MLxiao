@@ -1,29 +1,20 @@
 package com.gcml.health.measure.hypertension_management;
 
-import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
-import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.inuker.bluetooth.library.utils.BluetoothUtils;
-
-import java.lang.reflect.Method;
-import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -61,25 +52,24 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
     private void showRefreshBluetoothDialog() {
         new AlertDialog(BaseManagementActivity.this)
                 .builder()
-                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_unbind_device_and_reconnet))
+                .setNegativeButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                     }
                 })
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_ok), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         untieDevice();
                     }
                 }).show();
     }
+
     protected void untieDevice() {
 
     }
-
-
 
 
     @CallSuper
@@ -101,7 +91,7 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
             mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         }
 
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
     }
 
     @Override

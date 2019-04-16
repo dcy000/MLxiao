@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.littlejie.circleprogress.CircleProgress;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
     private String result;
     private String advice;
     private String morbidity;
-    private int riskLevel=1;
+    private int riskLevel = 1;
     private List<FirstReportReceiveBean.FactorListBeanX> factorList;
 
     @Override
@@ -114,45 +114,45 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
             firstReportBean = bundle.getParcelable(HealthReportFormActivity.KEY_DATA);
             List<FirstReportReceiveBean.ReportListBean> reportList = firstReportBean.getReportList();
 
-            for (FirstReportReceiveBean.ReportListBean reportListBean:reportList){
-                if (reportListBean.getIllnessName().equals(type)){
-                    factorList=reportListBean.getFactorList();
-                    result=reportListBean.getResult();
-                    advice=reportListBean.getAdvice();
-                    morbidity=reportListBean.getMorbidity();
-                    riskLevel=reportListBean.getRiskLevel();
+            for (FirstReportReceiveBean.ReportListBean reportListBean : reportList) {
+                if (reportListBean.getIllnessName().equals(type)) {
+                    factorList = reportListBean.getFactorList();
+                    result = reportListBean.getResult();
+                    advice = reportListBean.getAdvice();
+                    morbidity = reportListBean.getMorbidity();
+                    riskLevel = reportListBean.getRiskLevel();
                     break;
                 }
             }
-            mTvResultProbability.setText("您的" + type + "发病率为" + morbidity + "%");
+            mTvResultProbability.setText(UM.getString(R.string.your) + type + UM.getString(R.string.incidence_rate) + morbidity + "%");
             switch (riskLevel) {
                 case 1:
-                    mCpChart.setValueWithString("低风险");
-                    mTvBottom.setText("您未来"+type+"发病等级为低风险。小E给您的建议，");
+                    mCpChart.setValueWithString(UM.getString(R.string.low_risk));
+                    mTvBottom.setText(UM.getString(R.string.your_future) + type + UM.getString(R.string.low_risk_suggest));
                     mCpChart.setValue(6.0f);
                     safeGetColorArrays(R.array.circle_progress_color_0DD192);
                     break;
                 case 2:
-                    mCpChart.setValueWithString("较低风险");
-                    mTvBottom.setText("您未来"+type+"发病等级为较低风险。小E给您的建议，");
+                    mCpChart.setValueWithString(UM.getString(R.string.lower_risk));
+                    mTvBottom.setText(UM.getString(R.string.your_future) + type + UM.getString(R.string.lower_risk_suggest));
                     mCpChart.setValue(12.0f);
                     safeGetColorArrays(R.array.circle_progress_color_FFCE00);
                     break;
                 case 3:
-                    mCpChart.setValueWithString("中等风险");
-                    mTvBottom.setText("您未来"+type+"发病等级为中等风险。小E给您的建议，");
+                    mCpChart.setValueWithString(UM.getString(R.string.medium_risk));
+                    mTvBottom.setText(UM.getString(R.string.your_future) + type + UM.getString(R.string.medium_risk_suggest));
                     mCpChart.setValue(18.0f);
                     safeGetColorArrays(R.array.circle_progress_color_F3AA43);
                     break;
                 case 4:
-                    mCpChart.setValueWithString("较高风险");
-                    mTvBottom.setText("您未来"+type+"发病等级为较高风险。小E给您的建议，");
+                    mCpChart.setValueWithString(UM.getString(R.string.higher_risk));
+                    mTvBottom.setText(UM.getString(R.string.your_future) + type + UM.getString(R.string.higher_risk_suggest));
                     mCpChart.setValue(24.0f);
                     safeGetColorArrays(R.array.circle_progress_color_F08A40);
                     break;
                 case 5:
-                    mCpChart.setValueWithString("高风险");
-                    mTvBottom.setText("您未来"+type+"发病等级为高风险。小E给您的建议，");
+                    mCpChart.setValueWithString(UM.getString(R.string.high_risk));
+                    mTvBottom.setText(UM.getString(R.string.your_future) + type + UM.getString(R.string.high_risk_suggest));
                     mCpChart.setValue(30.0f);
                     safeGetColorArrays(R.array.circle_progress_color_F56C6B);
                     break;
@@ -182,16 +182,18 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
         }
 
     }
-    private void safeGetColorArrays(int colorArray){
+
+    private void safeGetColorArrays(int colorArray) {
         Resources resources = getResources();
-        if (resources!=null){
+        if (resources != null) {
             int[] intArray = resources.getIntArray(colorArray);
-            if (intArray!=null){
+            if (intArray != null) {
                 mCpChart.setGradientColors(intArray);
             }
 
         }
     }
+
     private void setRecycleview(List<FirstReportParseBean> factorList) {
         mRvReport.setLayoutManager(new LinearLayoutManager(mContext));
         mRvReport.setAdapter(new BaseQuickAdapter<FirstReportParseBean, BaseViewHolder>(R.layout.health_measure_item_risk_assessment, factorList) {
@@ -221,17 +223,18 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
                     ((TextView) helper.getView(R.id.tv_middle)).setCompoundDrawables(null, null, drawableUp, null);
                 } else if ("3".equals(anomalyStatus)) {
                     ((TextView) helper.getView(R.id.tv_middle)).setCompoundDrawables(null, null, drawableDown, null);
-                }else{
+                } else {
 
                 }
             }
         });
     }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_see_detail) {
-            HealthReportFormDetailActivity.startActivity(mContext,result,advice);
+            HealthReportFormDetailActivity.startActivity(mContext, result, advice);
         } else {
         }
     }

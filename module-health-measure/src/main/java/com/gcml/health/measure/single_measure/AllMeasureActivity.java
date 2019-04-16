@@ -18,7 +18,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
@@ -120,7 +120,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_TEMPERATURE:
                 //体温测量
                 if (baseFragment == null) {
-                    mTitleText.setText("体 温 测 量");
+                    mTitleText.setText(R.string.title_temperature_detection);
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureTemperatureFragment();
                     } else {
@@ -131,7 +131,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_BLOOD_PRESSURE:
                 //血压
                 if (baseFragment == null) {
-                    mTitleText.setText("血 压 测 量");
+                    mTitleText.setText(R.string.title_blood_pressure_detection);
                     if (isFaceSkip) {
                         //因为血压相比于其他检测项多出来一个惯用手判断 所以需要单独处理
                         baseFragment = new NonUploadSingleMeasureBloodpressureFragment();
@@ -146,7 +146,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 //血糖
                 if (baseFragment == null) {
-                    mTitleText.setText("血 糖 测 量");
+                    mTitleText.setText(R.string.title_blood_glucose_detection);
                     mRightView.setImageResource(R.drawable.common_icon_home);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
@@ -155,7 +155,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_BLOOD_OXYGEN:
                 //血氧
                 if (baseFragment == null) {
-                    mTitleText.setText("血 氧 测 量");
+                    mTitleText.setText(R.string.title_blood_oxygen_detection);
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureBloodoxygenFragment();
                     } else {
@@ -166,7 +166,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_WEIGHT:
                 //体重
                 if (baseFragment == null) {
-                    mTitleText.setText("体 重 测 量");
+                    mTitleText.setText(R.string.title_weight_detection);
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureWeightFragment();
                     } else {
@@ -180,13 +180,13 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_ECG:
                 //心电
                 int device = (int) SPUtil.get(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 0);
-                mTitleText.setText("心 电 测 量");
+                mTitleText.setText(R.string.title_ECG_detection);
                 if (device == 1) {
                     baseFragment = new SelfECGDetectionFragment();
                 } else if (device == 2) {
                     baseFragment = new ECGFragment();
                 } else {
-                    mTitleText.setText("心 电 设 备 选 择");
+                    mTitleText.setText(R.string.title_ecg_devices_choose);
                     baseFragment = new ChooseECGDeviceFragment();
                     mRightView.setImageResource(R.drawable.common_icon_home);
                 }
@@ -194,7 +194,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_THREE:
                 //三合一
                 if (baseFragment == null) {
-                    mTitleText.setText("三 合 一 测 量");
+                    mTitleText.setText(R.string.title_multi_monitoring_meter_detection);
                     mRightView.setImageResource(R.drawable.common_icon_home);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
@@ -239,7 +239,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
             }
 
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
         }
 
         @Override
@@ -288,36 +288,36 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 case IPresenter.MEASURE_TEMPERATURE:
                     //体温测量
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                    jump2MeasureVideoPlayActivity(uri, "耳温枪测量演示视频");
+                    jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_temperature_detection));
                     break;
                 case IPresenter.MEASURE_BLOOD_PRESSURE:
                     //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                    jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
+                    jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_pressure_detection));
                     break;
                 case IPresenter.MEASURE_BLOOD_SUGAR:
                     //血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                    jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
+                    jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_glucose_detection));
                     break;
                 case IPresenter.MEASURE_BLOOD_OXYGEN:
                     //血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                    jump2MeasureVideoPlayActivity(uri, "血氧测量演示视频");
+                    jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_blood_oxygen_detection));
                     break;
                 case IPresenter.MEASURE_ECG:
                     //心电
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                    jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
+                    jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_ECG_detection));
                     break;
                 case IPresenter.MEASURE_THREE:
                     //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                    jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
+                    jump2MeasureVideoPlayActivity(uri, UM.getString(R.string.video_multi_monitoring_meter_detection));
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     //体重
-                    ToastUtils.showShort("主人，该设备暂无演示视频");
+                    ToastUtils.showShort(R.string.video_there_no);
                     break;
                 default:
                     break;
@@ -369,7 +369,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             Bitmap bitmap = QRCodeUtils.creatQRCode(pdfUrl, 600, 600);
             DialogImage dialogImage = new DialogImage(AllMeasureActivity.this);
             dialogImage.setImage(bitmap);
-            dialogImage.setDescription("扫一扫，下载该报告");
+            dialogImage.setDescription(UM.getString(R.string.scan_qr_code));
             dialogImage.setCanceledOnTouchOutside(true);
             dialogImage.show();
         }
@@ -381,13 +381,13 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private void showRefreshBluetoothDialog() {
         new AlertDialog(AllMeasureActivity.this)
                 .builder()
-                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_unbind_device_and_reconnet))
+                .setNegativeButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     }
                 })
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_ok), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
@@ -437,13 +437,13 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 } else if (bundleInt == 2) {
                     baseFragment = new ECGFragment();
                 }
-                mTitleText.setText("心 电 测 量");
+                mTitleText.setText(R.string.title_ECG_detection);
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
             }
         } else if (fragment instanceof ECGFragment || fragment instanceof SelfECGDetectionFragment) {
             //先清除本地的缓存
             SPUtil.remove(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG);
-            mTitleText.setText("心 电 设 备 选 择");
+            mTitleText.setText(R.string.title_ecg_devices_choose);
             baseFragment = new ChooseECGDeviceFragment();
             mRightView.setImageResource(R.drawable.common_icon_home);
         }
@@ -482,12 +482,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                             .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                                 @Override
                                 public void onNext(List<DetectionResult> o) {
-                                    ToastUtils.showShort("数据上传成功");
+                                    ToastUtils.showShort(R.string.upload_data_success);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                                    ToastUtils.showLong(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                                 }
 
                                 @Override

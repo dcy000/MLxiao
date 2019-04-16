@@ -18,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="选择盐摄入"/>
+        tools:text="@string/xml_salt_intake"/>
 
     <TextView
         android:id="@+id/health_diary_tv_count"
@@ -97,6 +97,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="下一步"/>
+        tools:text="@string/next_step"/>
 
 </android.support.constraint.ConstraintLayout>
