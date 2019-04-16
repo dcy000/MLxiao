@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">module-inquiry</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--预诊-->
+    <string name="prediagnosis_title">Prediagnosis</string>
+    <string name="prediagnosis_next_tips">Next</string>
+    <string name="prediagnosis_pre_tips">Prediagnosis</string>
+
+    <string name="prediagnosis_height_tips">Height</string>
+    <string name="prediagnosis_weight_tips">Weight</string>
+    <string name="prediagnosis_address_tips">Current address</string>
+</resources>
