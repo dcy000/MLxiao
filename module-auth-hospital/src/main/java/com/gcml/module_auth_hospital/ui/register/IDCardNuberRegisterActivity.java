@@ -56,7 +56,7 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
 
 //        ccetPhone.setValue("340321199112256551");
 
-        translucentToolBar.setData(getString(R.string.loign_register_scan_titl),
+        translucentToolBar.setData(getString(R.string.loign_register_id_number_titl),
                 R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override

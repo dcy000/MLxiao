@@ -115,8 +115,8 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
         authTvMan.setSelected(true);
         authTvWoman.setSelected(false);
 
-        translucentToolBar.setData("账 号 注 册",
-                R.drawable.common_btn_back, "返回",
+        translucentToolBar.setData(getString(R.string.loign_register_registers_title),
+                R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -170,8 +170,8 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                 etRegisterMinzu.setText(nation);
             }
         })
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(getString(R.string.common_cancel))
+                .setSubmitText(getString(R.string.common_confirm))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
@@ -263,15 +263,15 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
         String detailName = etRegisterDetailAddress.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)) {
-            ToastUtils.showShort("请输入姓名");
+            ToastUtils.showShort(getString(R.string.loign_register_enter_name_tips));
             return;
         }
         if (TextUtils.isEmpty(address)) {
-            ToastUtils.showShort("请输入地址");
+            ToastUtils.showShort(getString(R.string.loign_register_enter_address_tips));
             return;
         }
         if (TextUtils.isEmpty(detailName)) {
-            ToastUtils.showShort("请输入详细地址");
+            ToastUtils.showShort(getString(R.string.loign_register_enter_better_address_tips));
             return;
         }
         repository.signUpByIdCard(deviceId, name, sex, number, address + detailName)
@@ -280,7 +280,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在注册...");
+                        showLoading(getString(R.string.loign_register_tips));
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -294,7 +294,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                     @Override
                     public void onNext(UserEntity userEntity) {
                         UserSpHelper.setUserId(userEntity.id);
-                        ToastUtils.showLong("身份证注册成功");
+                        ToastUtils.showLong(getString(R.string.loign_register_sucess_tips));
                         ActivityHelper.finishAll();
                         CC.obtainBuilder("com.gcml.auth.face2.signup")
                                 .build()
@@ -306,7 +306,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                                             startActivity(new Intent(IDCardNumberRegisterInfoActivity.this, RegisterSuccessActivity.class)
                                                     .putExtra("idcard", number));
                                         } else {
-                                            ToastUtils.showShort("人脸注册失败");
+                                            ToastUtils.showShort(getString(R.string.loign_register_face_tips));
                                             toLogin();
                                         }
                                     }
@@ -364,8 +364,8 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
             }
         })
 
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(getString(R.string.common_cancel))
+                .setSubmitText(getString(R.string.common_confirm))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)

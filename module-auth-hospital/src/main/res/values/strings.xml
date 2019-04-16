@@ -5,9 +5,13 @@
     <string name="coming_soon_tips">敬请期待</string>
     <string name="common_back_title">返回</string>
     <string name="common_next">下一步</string>
+    <string name="common_confirm">确认</string>
+    <string name="common_cancel">取消</string>
 
     <!--提示-->
-    <string name="loign_load_tips">登陆中</string>
+    <string name="loign_load_tips">加载中</string>
+    <string name="loign_register_tips">注册中</string>
+    <string name="loign_register_sucess_tips">注册成功</string>
 
     <!--医生登陆-->
     <string name="loign_doctor_account_tips">请输入您的医生账号</string>
@@ -46,10 +50,33 @@
     <!--用户注册-->
     <string name="loign_register_registers_title">居 民 注 册</string>
 
-    <!--身份证扫描登录-->
+    <!--身份证扫描注册-->
     <string name="loign_register_scan_titl">身 份 证 扫 描 注 册</string>
     <string name="loign_register_has_registed_tips">身份证已注册，是否直接登录？</string>
+
+    <!--身份证号码注册-->
+    <string name="loign_register_id_number_titl">身 份 证 号 码 注 册</string>
     <string name="loign_register_id_number_tips">身份证号码注册</string>
+
+    <!--人脸注册-->
+    <string name="loign_register_face_tips">人脸注册失败</string>
+
+
+    <!--注册信息-->
+    <string name="loign_register_name_tips">姓名</string>
+    <string name="loign_register_nation_tips">民族</string>
+    <string name="loign_register_sex_tips">性别</string>
+    <string name="loign_register_sex_man_tips">男</string>
+    <string name="loign_register_sex_woman_tips">女</string>
+    <string name="loign_register_ID_number_tips">身份证号码</string>
+    <string name="loign_register_address01_tips">户籍地址</string>
+    <string name="loign_register_address02_tips">详细地址</string>
+
+
+    <string name="loign_register_enter_name_tips">请输入姓名</string>
+    <string name="loign_register_enter_nation_tips">请输入民族</string>
+    <string name="loign_register_enter_address_tips">请输入地址</string>
+    <string name="loign_register_enter_better_address_tips">请输入详细地址</string>
 
 
 </resources>
