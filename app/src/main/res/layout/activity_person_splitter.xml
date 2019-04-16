@@ -12,74 +12,79 @@
     android:layout_height="476pt"
     android:layout_marginTop="258pt"
     android:orientation="horizontal"
-    android:paddingLeft="230pt"
-    android:paddingRight="230pt">
+    android:gravity="center">
 
     <RelativeLayout
         android:id="@+id/rl_inquiry_home_manage"
-        android:layout_width="400pt"
+        android:layout_width="500pt"
         android:layout_height="476pt">
 
         <com.gcml.lib_widget.EclipseImageView
             android:id="@+id/iv_person_center"
             android:layout_width="380pt"
             android:layout_height="380pt"
-            android:background="@drawable/img_user_info" />
+            android:background="@drawable/img_user_info"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:text="个人信息"
+            android:text="@string/person_informa"
             android:textColor="#ff333333"
-            android:textSize="64pt" />
+            android:textSize="64pt"
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_inquiry_home_file"
-        android:layout_width="400pt"
+        android:layout_width="500pt"
         android:layout_height="476pt"
-        android:layout_marginLeft="160pt">
+        android:layout_marginLeft="60pt">
 
         <com.gcml.lib_widget.EclipseImageView
             android:id="@+id/iv_health_record"
             android:layout_width="380pt"
             android:layout_height="380pt"
-            android:background="@drawable/img_detect_history" />
+            android:background="@drawable/img_detect_history"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:text="检测记录"
+            android:text="@string/xml_app_health_datas"
             android:textColor="#ff333333"
-            android:textSize="64pt" />
+            android:textSize="64pt"
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_inquiry_home_home"
-        android:layout_width="400pt"
+        android:layout_width="500pt"
         android:layout_height="476pt"
-        android:layout_marginLeft="160pt">
+        android:layout_marginLeft="60pt">
 
         <com.gcml.lib_widget.EclipseImageView
             android:id="@+id/iv_health_bracelet"
             android:layout_width="380pt"
             android:layout_height="380pt"
-            android:background="@drawable/img_bracelet" />
+            android:background="@drawable/img_bracelet"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:text="手环设备"
+            android:text="@string/xml_app_health_watch"
             android:textColor="#ff333333"
-            android:textSize="64pt" />
+            android:textSize="64pt"
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 </LinearLayout>

@@ -206,8 +206,8 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
 //                                return;
 //                            }
                             if (!isBuildHealthRecord) {
-                                ToastUtils.showShort("请先在居民健康档案中进行建档");
-                                MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
+                                ToastUtils.showShort(R.string.resident_health_file);
+                                MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.resident_health_file));
                                 return;
                             }
                             CC.obtainBuilder("app.chinese.consititution").build().call();

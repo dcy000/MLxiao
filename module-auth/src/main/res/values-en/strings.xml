@@ -1,0 +1,23 @@
+<resources>
+    <string name="auth_id_card_tip">Please enter a valid ID number</string>
+    <string name="auth_empty_name">Enter name cannot be empty</string>
+    <string name="xml_personal_name">Name</string>
+    <string name="xml_personal_age">Age</string>
+    <string name="xml_personal_gender">Gender</string>
+    <string name="xml_personal_height">Height</string>
+    <string name="xml_personal_weight">Weight</string>
+    <string name="xml_personal_blood_type">Blood-G</string>
+    <string name="xml_personal_waistline">Waistline</string>
+    <string name="xml_personal_Identity_information">Identity Information</string>
+    <string name="xml_personal_name_telephone_number">Tel-number</string>
+    <string name="xml_personal_identity_number">ID number</string>
+    <string name="xml_personal_device_number">Equipment number</string>
+    <string name="xml_personal_address">Detailed address</string>
+    <string name="xml_personal_health_status">Health Status</string>
+    <string name="xml_personal_exercise_situation">Exercise situation</string>
+    <string name="xml_personal_smoking_situation">Smoking situation</string>
+    <string name="xml_personal_diet">Diet situation</string>
+    <string name="xml_personal_drinking_situation">Drinking situation</string>
+    <string name="xml_personal_medical_history">Medical history</string>
+    <string name="title_personal_detail">Personal Details</string>
+</resources>

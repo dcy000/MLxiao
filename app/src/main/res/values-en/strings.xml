@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="person_information">Personal Center</string>
+    <string name="person_informa">Personal Details</string>
+    <string name="xml_app_health_datas">Health Datas</string>
+    <string name="xml_app_health_watch">Health Watch</string>
+    <string name="app_title_health_videos">Health Videos</string>
+    <string name="xml_app_radio_button_video">H-Videos</string>
+</resources>

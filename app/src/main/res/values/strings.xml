@@ -564,4 +564,14 @@
     <string name="tips_detection_left_again">请测量左手血压</string>
     <string name="tips_detection_right">请测量右手血压</string>
     <string name="tips_detection_right_again">请再测量右手血压</string>
+
+
+
+    <!--+++++++++++++++++++++++++++++++++++++++++++++++风骚的分割线++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+    <string name="person_informa">个人信息</string>
+    <string name="xml_app_health_datas">检测记录</string>
+    <string name="xml_app_health_watch">手环设备</string>
+    <string name="app_title_health_videos">健 康 宣 教</string>
+    <string name="xml_app_radio_button_video">健康宣教</string>
+
 </resources>

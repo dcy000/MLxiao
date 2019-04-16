@@ -1,4 +1,23 @@
 <resources>
     <string name="auth_id_card_tip">主人,请输入正确的身份证号码</string>
     <string name="auth_empty_name">输入姓名不能为空</string>
+    <string name="xml_personal_name">姓名</string>
+    <string name="xml_personal_age">年龄</string>
+    <string name="xml_personal_gender">性别</string>
+    <string name="xml_personal_height">身高</string>
+    <string name="xml_personal_weight">体重</string>
+    <string name="xml_personal_blood_type">血型</string>
+    <string name="xml_personal_waistline">腰围</string>
+    <string name="xml_personal_Identity_information">身份信息</string>
+    <string name="xml_personal_name_telephone_number">电话号码</string>
+    <string name="xml_personal_identity_number">身份证号</string>
+    <string name="xml_personal_device_number">仪器编号</string>
+    <string name="xml_personal_address">详细地址</string>
+    <string name="xml_personal_health_status">健康状态</string>
+    <string name="xml_personal_exercise_situation">运动情况</string>
+    <string name="xml_personal_smoking_situation">吸烟情况</string>
+    <string name="xml_personal_diet">饮食情况</string>
+    <string name="xml_personal_drinking_situation">饮酒情况</string>
+    <string name="xml_personal_medical_history">病史</string>
+    <string name="title_personal_detail">个 人 信 息</string>
 </resources>
