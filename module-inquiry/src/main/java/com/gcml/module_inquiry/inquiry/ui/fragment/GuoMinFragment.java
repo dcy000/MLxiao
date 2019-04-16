@@ -79,12 +79,12 @@ public class GuoMinFragment extends InquiryBaseFrament implements View.OnClickLi
 
     private void nextStep() {
         if (TextUtils.isEmpty(getGuoMin())) {
-            ToastUtils.showShort("主人,您是否有过敏史");
+            ToastUtils.showShort(getString(R.string.prediagnosis_guomin_or_not_tips));
             return;
         }
 
         if (TextUtils.isEmpty(getJiBing())) {
-            ToastUtils.showShort("主人,您是否有疾病史");
+            ToastUtils.showShort(getString(R.string.prediagnosis_disease_or_not_tips));
             return;
         }
 

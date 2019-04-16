@@ -34,4 +34,5 @@
     <string name="radio_button_gaoya">Systolic</string>
     <string name="radio_button_diya">Diastolic</string>
     <string name="toolbar_back_last">Back</string>
+    <string name="xml_to">to</string>
 </resources>

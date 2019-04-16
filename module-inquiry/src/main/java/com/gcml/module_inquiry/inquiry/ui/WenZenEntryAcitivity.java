@@ -70,39 +70,52 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
         Observable<UserEntity> user = call.getDataItem("data");
         user.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> showLoading("页面加载中"))
+                .doOnSubscribe(disposable -> showLoading(getString(R.string.prediagnosis_loading_tips)))
                 .doOnTerminate(() -> dismissLoading())
-                .subscribe(userEntity -> {
-                    HeightFragment heightFragment = HeightFragment.newInstance(null, null);//1
-                    WeightFragment weightFragment = WeightFragment.newInstance(null, null);//2
-                    AddressFragment addressFragment = AddressFragment.newInstance(null, null);//3
-                    DrinkFramgment drinkFramgment = DrinkFramgment.newInstance(null, null);//4
-
-                    fragments.add(heightFragment);
-                    fragments.add(weightFragment);
-                    fragments.add(addressFragment);
-                    fragments.add(drinkFramgment);
-                    heightFragment.setListenerAdapter(listenerAdapter);
-                    weightFragment.setListenerAdapter(listenerAdapter);
-                    addressFragment.setListenerAdapter(listenerAdapter);
-                    drinkFramgment.setListenerAdapter(listenerAdapter);
-
-                    if (!TextUtils.equals(userEntity.sex, "男")) {
-                        PregnancyFragment pregnancyFragment = PregnancyFragment.newInstance(null, null);//5
-                        YueJingTimeFragment yueJingTimeFragment = YueJingTimeFragment.newInstance(null, null);//6
-
-                        pregnancyFragment.setListenerAdapter(listenerAdapter);
-                        yueJingTimeFragment.setListenerAdapter(listenerAdapter);
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        ToastUtils.showShort(throwable.getMessage());
                     }
 
-                    GuoMinFragment guoMinFragment = GuoMinFragment.newInstance(null, null);//7
-                    fragments.add(guoMinFragment);
-                    guoMinFragment.setListenerAdapter(listenerAdapter);
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        HeightFragment heightFragment = HeightFragment.newInstance(null, null);//1
+                        WeightFragment weightFragment = WeightFragment.newInstance(null, null);//2
+                        AddressFragment addressFragment = AddressFragment.newInstance(null, null);//3
+                        DrinkFramgment drinkFramgment = DrinkFramgment.newInstance(null, null);//4
 
-                    BloodPressureFragment bloodpressureFragment = BloodPressureFragment.newInstance(null, null);//8
-                    fragments.add(bloodpressureFragment);
-                    bloodpressureFragment.setListenerAdapter(listenerAdapter);
-                    initBody();
+                        fragments.add(heightFragment);
+                        fragments.add(weightFragment);
+                        fragments.add(addressFragment);
+                        fragments.add(drinkFramgment);
+                        heightFragment.setListenerAdapter(listenerAdapter);
+                        weightFragment.setListenerAdapter(listenerAdapter);
+                        addressFragment.setListenerAdapter(listenerAdapter);
+                        drinkFramgment.setListenerAdapter(listenerAdapter);
+
+                        if (!TextUtils.equals(userEntity.sex, "男")) {
+                            PregnancyFragment pregnancyFragment = PregnancyFragment.newInstance(null, null);//5
+                            YueJingTimeFragment yueJingTimeFragment = YueJingTimeFragment.newInstance(null, null);//6
+
+                            pregnancyFragment.setListenerAdapter(listenerAdapter);
+                            yueJingTimeFragment.setListenerAdapter(listenerAdapter);
+                        }
+
+                        GuoMinFragment guoMinFragment = GuoMinFragment.newInstance(null, null);//7
+                        fragments.add(guoMinFragment);
+                        guoMinFragment.setListenerAdapter(listenerAdapter);
+
+                        BloodPressureFragment bloodpressureFragment = BloodPressureFragment.newInstance(null, null);//8
+                        fragments.add(bloodpressureFragment);
+                        bloodpressureFragment.setListenerAdapter(listenerAdapter);
+                        initBody();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                    }
                 });
 
     }
@@ -155,8 +168,8 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     };
 
     public void setBlueTitle(int rightIconResourse, BloodPressurePresenter presenter) {
-        tb.setData("预 诊",
-                R.drawable.common_btn_back, "返回",
+        tb.setData(getString(R.string.prediagnosis_title),
+                R.drawable.common_btn_back, getString(R.string.prediagnosis_back_tips),
                 rightIconResourse, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -174,12 +187,12 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
         new AlertDialog(WenZenEntryAcitivity.this)
                 .builder()
                 .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setNegativeButton(getString(R.string.prediagnosis_cancel_tips), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     }
                 })
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setPositiveButton(getString(R.string.prediagnosis_cancel_tips), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (presenter != null) {
@@ -190,8 +203,8 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     }
 
     public void setNormalTitle() {
-        tb.setData("预 诊",
-                R.drawable.common_btn_back, "返回",
+        tb.setData(getString(R.string.prediagnosis_title),
+                R.drawable.common_btn_back, getString(R.string.prediagnosis_back_tips),
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -268,7 +281,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     @Override
                     public void onNext(ApiResult<Object> objectApiResult) {
                         super.onNext(objectApiResult);
-                        ToastUtils.showShort("提交成功");
+                        ToastUtils.showShort(getString(R.string.prediagnosis_submit_success_tips));
 //                        CC.obtainBuilder("health.profile.wenzen.output")
 //                                .addParam("highPrssure", bean.highPressure)
 //                                .addParam("lowPressure", bean.lowPressure)

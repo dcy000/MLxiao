@@ -76,8 +76,8 @@ public class BloodPressureFragment extends BloodpressureFragment {
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
-        mBtnHealthHistory.setText("上一步");
-        mBtnVideoDemo.setText("下一步");
+        mBtnHealthHistory.setText(getString(R.string.prediagnosis_next_tips));
+        mBtnVideoDemo.setText(getString(R.string.prediagnosis_pre_tips));
         mBtnVideoDemo.setVisibility(View.GONE);
 
 //        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
@@ -111,7 +111,7 @@ public class BloodPressureFragment extends BloodpressureFragment {
         }
         LoadingDialog dialog = new LoadingDialog.Builder(mContext)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
+                .setTipWord(getString(R.string.prediagnosis_loading_tips))
                 .create();
         fileRepostory.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
@@ -132,8 +132,8 @@ public class BloodPressureFragment extends BloodpressureFragment {
                 .subscribe(new DefaultObserver<List<DetectionResult>>() {
                     @Override
                     public void onNext(List<DetectionResult> detectionResults) {
-                        ToastUtils.showLong("上传数据成功");
-                        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量高压" + highPressure + ",低压" + lowPressure + ",脉搏" + pulse, new MLSynthesizerListener() {
+                        ToastUtils.showLong(getString(R.string.prediagnosis_data_submit_success_tips));
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), getString(R.string.prediagnosis_height_pressure_tips) + highPressure + getString(R.string.prediagnosis_height_low_tips) + lowPressure + getString(R.string.prediagnosis_pulse_tips) + pulse, new MLSynthesizerListener() {
                             @Override
                             public void onCompleted(SpeechError speechError) {
                                 super.onCompleted(speechError);
@@ -176,9 +176,9 @@ public class BloodPressureFragment extends BloodpressureFragment {
     @Override
     public void updateState(String datas) {
         if (listenerAdapter != null) {
-            if (!TextUtils.isEmpty(datas) && TextUtils.equals(datas, "设备已连接")) {
+            if (!TextUtils.isEmpty(datas) && TextUtils.equals(datas, getString(R.string.bluetooth_device_connected))) {
                 listenerAdapter.onBluetoothConnect(bloodPressurePresenter);
-            } else if (!TextUtils.isEmpty(datas) && TextUtils.equals(datas, "设备已断开")) {
+            } else if (!TextUtils.isEmpty(datas) && TextUtils.equals(datas, getString(R.string.bluetooth_device_disconnected))) {
                 listenerAdapter.onBluetoothBreak(bloodPressurePresenter);
             }
         }

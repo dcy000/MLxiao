@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
         android:layout_marginTop="90pt"
-        android:text="三天内是否有饮酒?"
+        android:text="@string/prediagnosis_drink_or_not_tips"
         android:textColor="#FF333333"
         android:textSize="72pt" />
 
@@ -29,7 +29,7 @@
             android:drawableLeft="@drawable/icon_huaiyun_not"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:text="是"
+            android:text="@string/prediagnosis_yes_tips"
             android:textColor="#666"
             android:textSize="72pt" />
 
@@ -42,7 +42,7 @@
             android:drawableLeft="@drawable/icon_huaiyun_not"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:text="否"
+            android:text="@string/prediagnosis_not_tips"
             android:textColor="#666"
             android:textSize="72pt" />
 
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
         android:layout_marginTop="186pt"
-        android:text="请选择三天内喝的酒"
+        android:text="@string/prediagnosis_drink_what_tips"
         android:textColor="#FF333333"
         android:textSize="72pt" />
 
@@ -74,7 +74,7 @@
             android:drawableLeft="@drawable/icon_huaiyun_not"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:text="白酒"
+            android:text="@string/prediagnosis_drink_baijiu_tips"
             android:textColor="#666"
             android:textSize="72pt" />
 
@@ -87,7 +87,7 @@
             android:drawableLeft="@drawable/icon_huaiyun_not"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:text="料酒"
+            android:text="@string/prediagnosis_drink_liaojiu_tips"
             android:textColor="#666"
             android:textSize="72pt" />
 
@@ -100,7 +100,7 @@
             android:drawableLeft="@drawable/icon_huaiyun_not"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:text="啤酒"
+            android:text="@string/prediagnosis_drink_pijiu_tips"
             android:textColor="#666"
             android:textSize="72pt" />
 
@@ -113,7 +113,7 @@
             android:drawableLeft="@drawable/icon_huaiyun_not"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:text="米酒"
+            android:text="@string/prediagnosis_drink_mijiu_tips"
             android:textColor="#666"
             android:textSize="72pt" />
 
@@ -134,7 +134,7 @@
             android:layout_marginLeft="35dp"
             android:background="@drawable/bg_selector_btn_go_back"
             android:gravity="center"
-            android:text="上一步"
+            android:text="@string/prediagnosis_next_tips"
             android:textColor="#3F85FC"
             android:textSize="35sp" />
 
@@ -147,7 +147,7 @@
             android:layout_marginRight="35dp"
             android:background="@drawable/bg_selector_btn_go_forward"
             android:gravity="center"
-            android:text="下一步"
+            android:text="@string/prediagnosis_pre_tips"
             android:textColor="@android:color/white"
             android:textSize="35sp" />
 

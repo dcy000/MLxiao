@@ -96,7 +96,7 @@ public class DrinkFramgment extends InquiryBaseFrament implements View.OnClickLi
         }
 
         if ((!tvDrinkNot.isSelected()) && (!tvDrinkYes.isSelected())) {
-            ToastUtils.showShort("主人,您本周内是否有饮酒");
+            ToastUtils.showShort(getString(R.string.prediagnosis_drink_or_not_tips));
             return;
         }
 

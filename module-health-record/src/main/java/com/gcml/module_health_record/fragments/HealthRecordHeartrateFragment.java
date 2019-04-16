@@ -244,9 +244,9 @@ public class HealthRecordHeartrateFragment extends RecycleBaseFragment implement
     }
 
     public void refreshErrorData(String message) {
-        ToastUtils.showShort(message);
+        ToastUtils.showShort(UM.getString(R.string.noData));
         if (mChart != null && isAdded()) {
-            mChart.setNoDataText(getResources().getString(R.string.noData));
+            mChart.setNoDataText(UM.getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();
             mTvEmptyDataTips.setText(R.string.woo_no_data);

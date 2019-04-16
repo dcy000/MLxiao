@@ -566,12 +566,20 @@
     <string name="tips_detection_right_again">请再测量右手血压</string>
 
 
-
     <!--+++++++++++++++++++++++++++++++++++++++++++++++风骚的分割线++++++++++++++++++++++++++++++++++++++++++++++++++++-->
     <string name="person_informa">个人信息</string>
     <string name="xml_app_health_datas">检测记录</string>
     <string name="xml_app_health_watch">手环设备</string>
     <string name="app_title_health_videos">健 康 宣 教</string>
     <string name="xml_app_radio_button_video">健康宣教</string>
+
+    <!--健康管理(登陆时)-->
+    <string name="health_management_title">健 康 管 理</string>
+    <string name="health_management_tips">健康管理</string>
+    <string name="health_management_file_tips">建档</string>
+    <string name="health_management_home_tips">主页</string>
+    <string name="dialog_button_no">取消</string>
+    <string name="dialog_button_yes">确定</string>
+    <string name="dialog_quit_account">确定退出当前账号吗？</string>
 
 </resources>

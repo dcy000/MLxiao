@@ -128,8 +128,8 @@ public class AddressFragment extends InquiryBaseFrament implements View.OnClickL
 
         })
 
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(getString(R.string.prediagnosis_cancel_tips))
+                .setSubmitText(getString(R.string.prediagnosis_confirm_tips))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
@@ -280,12 +280,12 @@ public class AddressFragment extends InquiryBaseFrament implements View.OnClickL
             }
         } else if (id == R.id.tv_sign_up_go_forward) {
             if (TextUtils.isEmpty(getAddress().replaceAll(" ", ""))) {
-                ToastUtils.showShort("请完善地址信息");
+                ToastUtils.showShort(getString(R.string.prediagnosis_complete_address_tips));
                 return;
             }
 
             if (TextUtils.isEmpty(etAddress.getText().toString().trim())) {
-                ToastUtils.showShort("请完善地址信息");
+                ToastUtils.showShort(getString(R.string.prediagnosis_complete_address_tips));
                 return;
             }
             if (listenerAdapter != null) {

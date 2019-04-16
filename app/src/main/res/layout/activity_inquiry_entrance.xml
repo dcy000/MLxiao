@@ -15,71 +15,78 @@
         android:layout_height="476pt"
         android:layout_marginTop="258pt"
         android:orientation="horizontal"
-        android:paddingLeft="230pt"
-        android:paddingRight="230pt">
+        android:gravity="center"
+        >
 
         <RelativeLayout
             android:id="@+id/rl_inquiry_home_manage"
-            android:layout_width="400pt"
+            android:layout_width="500pt"
             android:layout_height="476pt">
 
             <ImageView
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:background="@drawable/selector_selector_health_manager" />
+                android:background="@drawable/selector_selector_health_manager"
+                android:layout_centerHorizontal="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="健康管理"
+                android:text="@string/health_management_title"
                 android:textColor="#ff333333"
-                android:textSize="64pt" />
+                android:textSize="64pt"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_inquiry_home_file"
-            android:layout_width="400pt"
+            android:layout_width="500pt"
             android:layout_height="476pt"
-            android:layout_marginLeft="160pt">
+            android:layout_marginLeft="60pt"
+           >
 
             <ImageView
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:background="@drawable/selector_health_manager_file" />
+                android:background="@drawable/selector_health_manager_file"
+                android:layout_centerHorizontal="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="建档"
+                android:text="@string/health_management_file_tips"
                 android:textColor="#ff333333"
-                android:textSize="64pt" />
+                android:textSize="64pt"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_inquiry_home_home"
-            android:layout_width="400pt"
+            android:layout_width="500pt"
             android:layout_height="476pt"
-            android:layout_marginLeft="160pt">
+            android:layout_marginLeft="60pt">
 
             <ImageView
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:background="@drawable/selector_health_manager_home"/>
+                android:background="@drawable/selector_health_manager_home"
+                android:layout_centerHorizontal="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="主页"
+                android:text="@string/health_management_home_tips"
                 android:textColor="#ff333333"
-                android:textSize="64pt" />
+                android:textSize="64pt"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 

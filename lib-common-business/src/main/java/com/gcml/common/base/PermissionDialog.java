@@ -65,7 +65,7 @@ public class PermissionDialog extends DialogFragment implements View.OnClickList
             if (onClickListener != null) {
                 String passWord = this.passWord.getText().toString().trim();
                 if (TextUtils.isEmpty(passWord)){
-                    ToastUtils.showShort("请输入管理员密码");
+                    ToastUtils.showShort(getString(R.string.business_perimission_dialog_title));
                     return;
                 }else{
                     onClickListener.onClick(passWord);
