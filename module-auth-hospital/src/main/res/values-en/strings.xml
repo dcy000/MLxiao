@@ -2,7 +2,7 @@
     <string name="app_name">module-auth-hospital</string>
     <!--全局-->
     <string name="company_name">Hangzhou Guochen med-link Robot Technology Co., Ltd.</string>
-    <string name="coming_soon_tips">coming soon</string>
+    <string name="coming_soon_tips">Coming soon</string>
     <string name="common_back_title">Back</string>
 
     <!--提示-->
@@ -11,10 +11,10 @@
     <!--医生登陆-->
     <string name="loign_doctor_account_tips">please input account</string>
     <string name="loign_doctor_password_tips">please input password</string>
-    <string name="loign_doctor_login">login in</string>
-    <string name="loign_doctor_change_account">change login type</string>
+    <string name="loign_doctor_login">Login in</string>
+    <string name="loign_doctor_change_account">Change login type</string>
 
-    <string name="has_no_account_tips">has no account?</string>
+    <string name="has_no_account_tips">Has no account?</string>
     <string name="sign_up_tips">Sign Up</string>
 
     <!--用户登录方式-->
@@ -38,6 +38,7 @@
     <string name="loign_login_id_number_title">Login ID Number</string>
     <string name="loign_login_id_number_tips">Login ID Number</string>
     <string name="loign_id_number_input_tips">Please enter your ID number</string>
+    <string name="loign_id_number_confirm_tips">Please enter sure ID number</string>
 
 
 </resources>
