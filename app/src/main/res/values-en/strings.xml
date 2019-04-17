@@ -580,4 +580,25 @@
     <string name="dialog_button_yes">Yes</string>
     <string name="dialog_quit_account">Are you sure you want to quit your current account?</string>
 
+
+    <!--设置界面-->
+    <string name="set_voice_tips">Master, welcome to the settings page</string>
+    <string name="set_dialog_clear_tips">Confirm clear local cache?</string>
+    <string name="set_dialog_reset_tips">Confirm the factory reset?</string>
+    <string name="set_dialog_exit_tips">Exit current doctor account</string>
+    <string name="set_dialog_version_tips">当前已经是最新版本了</string>
+
+    <string name="set_title">Settings</string>
+    <string name="set_back">Back</string>
+    <string name="set_language_tips">Language</string>
+    <string name="set_wifi_tips">Wifi</string>
+    <string name="set_volume_tips">Volume</string>
+    <string name="set_debug_tips">Debugging tool</string>
+    <string name="set_clear_cache_tips">Clear cache</string>
+    <string name="set_check_update_tips">Check for updates</string>
+    <string name="set_about_tips">About</string>
+    <string name="set_reset_tips">Reset</string>
+    <string name="set_exit_doctor_account_tips">Exit doctor account</string>
+
+
 </resources>
