@@ -31,11 +31,15 @@
     <string name="sex">性别</string>
     <string name="address">地址</string>
     <string name="birthday">出生年月</string>
-    <string name="year">年</string>
-    <string name="month">月</string>
+    <string name="year"> </string>
+    <string name="month"> </string>
+    <string name="day"> </string>
+    <string name="hour">h</string>
+    <string name="minute">m</string>
+    <string name="second">s</string>
     <string name="telephone">手机号码</string>
     <string name="pwd_set">设置密码</string>
-    <string name="next_step">下一步</string>
+    <string name="next_step">Next Step</string>
     <string name="history_disease">既往病史</string>
     <string name="health_record">健康档案</string>
     <string name="sign_logo">\&#064;国辰迈联机器人--2017-2019</string>
@@ -576,8 +580,56 @@
     <string name="health_management_tips">Health management</string>
     <string name="health_management_file_tips">Create file</string>
     <string name="health_management_home_tips">Homepage</string>
-    <string name="dialog_button_no">No</string>
-    <string name="dialog_button_yes">Yes</string>
+    <string name="dialog_button_cancel">No</string>
+    <string name="dialog_button_determine">Yes</string>
     <string name="dialog_quit_account">Are you sure you want to quit your current account?</string>
 
+
+    <string name="title_health_manager">Health Management</string>
+    <string name="improve_weight_and_height_information">Please go to the personal center to improve your weight and height</string>
+    <string name="age_gender_height_weight_information_is_perfect">Please ensure that the age, gender, height and weight information is perfect</string>
+    <string name="xml_risk_assessment">Risk Assessment</string>
+    <string name="xml_hypertension_program">Hypertension Program</string>
+    <string name="xml_health_task">Health Task</string>
+    <string name="title_health_plan">Health Plan</string>
+    <string name="welcome_to_health_plan">Welcome to the health plan</string>
+    <string name="java_stay_tuned">Stay tuned</string>
+    <string name="click_on_health_plan_to_view_directly">You have generated a health plan within 7 days, click on the health plan to view it directly.</string>
+    <string name="remeasure">Remeasure</string>
+    <string name="health_plan">Health Plan</string>
+    <string name="no_recommendation">No recommendation</string>
+    <string name="dialog_button_no">No</string>
+    <string name="dialog_button_yes">Yes</string>
+    <string name="ongoing_treatment_of_hypertension">Have you diagnosed essential hypertension and are undergoing standardized treatment for hypertension?</string>
+    <string name="diagnosed_hypertension_and_are_being_treated">Have you diagnosed hypertension and are being treated?</string>
+    <string name="process_has_not_been_completed_going_to_continue">Your previous process has not been completed. Do you want to continue?</string>
+    <string name="follow_xiao_E_to_test">Follow xiao E to make it</string>
+    <string name="voice_health_manager">Master, xiao E will help you control your blood pressure.</string>
+
+    <string name="connect_disase">To give you a better health plan, during the planning process, please measure blood pressure, blood fat, blood sugar, height, weight, and waist circumference according to the tips. If the content of the consultation is not actual, or the lack of equipment, it will affect the accuracy of the program. To purchase equipment, please go to the mall, if you have existing equipment, please click next.</string>
+    <string name="please_confirm_your_basic_information">Master, please confirm your basic information</string>
+
+    <string name="Basic_information_list">Basic Information List</string>
+    <string name="Successfully_modified">Successfully modified</string>
+    <string name="fail_to_edit">Fail to modified</string>
+    <string name="xml_basic_information">Basic Information</string>
+    <string name="xml_name">Name：</string>
+    <string name="xml_gender">Gender：</string>
+    <string name="xml_birthday">Birthday：</string>
+    <string name="xml_height">Height：</string>
+    <string name="xml_modify">Modify</string>
+    <string name="title_health_survey">Health Survey</string>
+    <string name="answer_the_question_carefully">In order to provide you with a better solution, please answer the following questions carefully.</string>
+    <string name="register_for_certification">请认证阅读</string>
+    <string name="close_5">(Closed 5S)</string>
+    <string name="close">Close</string>
+    <string name="select_at_least_one">Please select at least one option</string>
+    <string name="none_click_next">(Multiple choices, select "None" and then automatically jump to the next page)</string>
+    <string name="xml_no_bind_watch">Health management is a personalized contract service, and you\n need to manage your health through the bracelet. For purchase, please contact the field staff.</string>
+    <string name="dialog_less_3">Your current measurement times have not met the 3 measurements on the same day, and the %s day can be opened for you.</string>
+    <string name="tips_more">and the</string>
+    <string name="for_you">for you</string>
+    <string name="xml_detect">Detect</string>
+    <string name="xml_next_time">Next Time</string>
+    <string name="go_mall">Go Mall</string>
 </resources>

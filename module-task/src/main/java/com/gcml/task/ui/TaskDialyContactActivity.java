@@ -13,6 +13,7 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -49,7 +50,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
         mToolBar = findViewById(R.id.tb_task);
-        mToolBar.setData("健  康  日  记", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData(UM.getString(R.string.Health_diary), R.drawable.common_btn_back, UM.getString(R.string.toolbar_back), R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 if (what <= 0) {
@@ -69,66 +70,65 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
 
         DetailsModel detailsModel0 = new DetailsModel();
         detailsModel0.setWhat(0);
-        detailsModel0.setAction("下一步");
-        detailsModel0.setTitle("选择盐的摄入量");
+        detailsModel0.setAction(UM.getString(R.string.next_step));
+        detailsModel0.setTitle(UM.getString(R.string.Choose_salt_intake));
         detailsModel0.setUnitPosition(0);
-        detailsModel0.setUnits(new String[]{"勺", "克"});
-        detailsModel0.setUnitSum(new String[]{"勺(1勺约等于2克)", "克"});
+        detailsModel0.setUnits(new String[]{UM.getString(R.string.spoon), UM.getString(R.string.gram)});
+        detailsModel0.setUnitSum(new String[]{UM.getString(R.string.spoon_gram), UM.getString(R.string.gram)});
         detailsModel0.setSelectedValues(new float[]{0f, 0f});
         detailsModel0.setMinValues(new float[]{0f, 0f});
         detailsModel0.setMaxValues(new float[]{99f, 99f});
         detailsModel0.setPerValues(new float[]{1f, 1f});
         DetailsModel detailsModel1 = new DetailsModel();
         detailsModel1.setWhat(1);
-        detailsModel1.setAction("下一步");
-        detailsModel1.setTitle("选择运动时间");
+        detailsModel1.setAction(UM.getString(R.string.next_step));
+        detailsModel1.setTitle(UM.getString(R.string.Choose_exercise_time));
         detailsModel1.setUnitPosition(0);
-        detailsModel1.setUnits(new String[]{"分钟", "小时"});
-        detailsModel1.setUnitSum(new String[]{"分钟", "小时"});
+        detailsModel1.setUnits(new String[]{UM.getString(R.string.minute), UM.getString(R.string.hour)});
+        detailsModel1.setUnitSum(new String[]{UM.getString(R.string.minute), UM.getString(R.string.hour)});
         detailsModel1.setSelectedValues(new float[]{0f, 0f});
         detailsModel1.setMinValues(new float[]{0f, 0f});
         detailsModel1.setMaxValues(new float[]{999f, 99f});
         detailsModel1.setPerValues(new float[]{1f, 1f});
         DetailsModel detailsModel2 = new DetailsModel();
         detailsModel2.setWhat(2);
-        detailsModel2.setAction("提交");
-        detailsModel2.setTitle("选择饮酒量");
+        detailsModel2.setAction(UM.getString(R.string.Submission));
+        detailsModel2.setTitle(UM.getString(R.string.choose_drinking_amount));
         detailsModel2.setUnitPosition(0);
-        detailsModel2.setUnits(new String[]{"杯", "瓶", "毫升"});
-        detailsModel2.setUnitSum(new String[]{"杯(一杯约等于100毫升)", "瓶(一瓶约等于500毫升)", "毫升"});
+        detailsModel2.setUnits(new String[]{UM.getString(R.string.glass), UM.getString(R.string.bottle), UM.getString(R.string.minute)});
+        detailsModel2.setUnitSum(new String[]{UM.getString(R.string.glass_milliliter), UM.getString(R.string.bottle_milliliter), UM.getString(R.string.minute)});
         detailsModel2.setSelectedValues(new float[]{0f, 0f, 0f});
         detailsModel2.setMinValues(new float[]{0f, 0f, 0f});
         detailsModel2.setMaxValues(new float[]{99f, 99f, 9999f});
         detailsModel2.setPerValues(new float[]{1f, 1f, 100f});
 
         ItemsModel itemsModel0 = new ItemsModel();
-        itemsModel0.setTitle("选择运动项目");
-        ArrayList<String> items0 = new ArrayList<>();
-        items0.add("足球");
-        items0.add("羽毛球");
-        items0.add("网球");
-        items0.add("打篮球");
-        items0.add("乒乓球");
-        items0.add("桌球");
-        items0.add("高尔夫球");
-        items0.add("仰卧起坐");
-        items0.add("俯卧撑");
-        items0.add("太极");
-        items0.add("跑步");
-        items0.add("游泳");
-        items0.add("瑜伽");
-        items0.add("跳舞");
-        items0.add("体操");
-        itemsModel0.setItems(items0);
+        itemsModel0.setTitle(UM.getString(R.string.Select_sports));
+        ArrayList<String> sportList = new ArrayList<>();
+        sportList.add(UM.getString(R.string.football));
+        sportList.add(UM.getString(R.string.badminton));
+        sportList.add(UM.getString(R.string.tennis));
+        sportList.add(UM.getString(R.string.play_basketball));
+        sportList.add(UM.getString(R.string.pingpong));
+        sportList.add(UM.getString(R.string.golf));
+        sportList.add(UM.getString(R.string.Sit_ups));
+        sportList.add(UM.getString(R.string.push_ups));
+        sportList.add(UM.getString(R.string.Tai_Chi));
+        sportList.add(UM.getString(R.string.Run));
+        sportList.add(UM.getString(R.string.Swim));
+        sportList.add(UM.getString(R.string.Yoga));
+        sportList.add(UM.getString(R.string.dancing));
+        sportList.add(UM.getString(R.string.gymnastics));
+        itemsModel0.setItems(sportList);
         ItemsModel itemsModel1 = new ItemsModel();
-        itemsModel1.setTitle("选择酒类与度数");
-        ArrayList<String> items1 = new ArrayList<>();
-        items1.add("白酒");
-        items1.add("啤酒");
-        items1.add("红酒");
-        items1.add("黄酒");
-        items1.add("威士忌");
-        itemsModel1.setItems(items1);
+        itemsModel1.setTitle(UM.getString(R.string.Alcohol_and_degree));
+        ArrayList<String> wineList = new ArrayList<>();
+        wineList.add(UM.getString(R.string.Liquor));
+        wineList.add(UM.getString(R.string.beer));
+        wineList.add(UM.getString(R.string.Red_wine));
+        wineList.add(UM.getString(R.string.Yellow_wine));
+        wineList.add(UM.getString(R.string.Whisky));
+        itemsModel1.setItems(wineList);
         mFragments = new Fragment[]{
                 TaskDialyDetailsFragment.newInstance(detailsModel0),
                 TaskDialyGroupFragment.newInstance(itemsModel0, detailsModel1),
@@ -196,7 +196,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
     private void postWheelData(TaskWheelBean wheel) {
         LoadingDialog upDialog = new LoadingDialog.Builder(TaskDialyContactActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在上传")
+                .setTipWord(UM.getString(R.string.uploading))
                 .create();
         mTaskRepository.taskWheelListForApi(wheel, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
@@ -220,7 +220,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
                         super.onNext(body);
                         LoadingDialog successDialog = new LoadingDialog.Builder(TaskDialyContactActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_SUCCESS)
-                                .setTipWord("上传成功")
+                                .setTipWord(UM.getString(R.string.upload_success))
                                 .create();
                         successDialog.show();
                         mHandler.postDelayed(new Runnable() {

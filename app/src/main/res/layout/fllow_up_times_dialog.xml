@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="去测量"
+                android:text="@string/xml_detect"
                 android:textColor="#3F86FC"
                 android:textSize="68pt" />
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="下次再说"
+                android:text="@string/xml_next_time"
                 android:textColor="#999999"
                 android:textSize="68pt" />
 

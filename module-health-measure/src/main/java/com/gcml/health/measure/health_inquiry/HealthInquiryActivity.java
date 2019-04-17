@@ -253,7 +253,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
 
                             @Override
                             public void onError(Throwable e) {
-                                ToastUtils.showShort(UM.getString(R.string.upload_data_fail)+":" + e.getMessage());
+                                ToastUtils.showShort(UM.getString(R.string.upload_data_fail) + ":" + e.getMessage());
                             }
 
                             @Override

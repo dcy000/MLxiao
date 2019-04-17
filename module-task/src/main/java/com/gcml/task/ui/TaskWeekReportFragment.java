@@ -25,6 +25,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -100,7 +101,7 @@ public class TaskWeekReportFragment extends Fragment {
     }
 
     private void bindData() {
-        mToolBar.setData("周 目 标 差 距", R.drawable.common_btn_back, "返回", 0, null, new ToolBarClickListener() {
+        mToolBar.setData(UM.getString(R.string.Week_target_difference), R.drawable.common_btn_back, UM.getString(R.string.toolbar_back), 0, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 getActivity().finish();
@@ -149,7 +150,7 @@ public class TaskWeekReportFragment extends Fragment {
         super.onResume();
         LoadingDialog tipDialog = new LoadingDialog.Builder(getContext())
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
+                .setTipWord(UM.getString(R.string.loading))
                 .create();
         mTaskRepository.taskReportListFromApi(UserSpHelper.getUserId(), "1")
                 .subscribeOn(Schedulers.io())
@@ -211,32 +212,32 @@ public class TaskWeekReportFragment extends Fragment {
         }
         mTargetModels.clear();
         TargetModel targetModel = new TargetModel();
-        targetModel.title = "本周盐摄入量";
+        targetModel.title = UM.getString(R.string.Salt_intake_this_week);
         if (response.lastWeek.nam == null || response.lastWeek.nam.equals("-1")) {
             response.lastWeek.nam = "42.00";
         }
         if (response.currentWeek.na == null || response.currentWeek.na.equals("-1")) {
             response.currentWeek.na = "0.00";
         }
-        String target = Float.parseFloat(response.currentWeek.na) < Float.parseFloat(response.lastWeek.nam) ? "少于" : "少于";
-        targetModel.target = target + response.lastWeek.nam + "克";
+        String target = Float.parseFloat(response.currentWeek.na) < Float.parseFloat(response.lastWeek.nam) ? UM.getString(R.string.less_than) : UM.getString(R.string.less_than);
+        targetModel.target = target + response.lastWeek.nam + "g";
         targetModel.targetLength = response.lastWeek.nam.length();
         targetModel.sourceLength = response.currentWeek.na == null ? 0 : response.currentWeek.na.length();
-        targetModel.source = "摄入" + response.currentWeek.na + "克";
+        targetModel.source = UM.getString(R.string.intake_g, response.currentWeek.na);
         mTargetModels.add(targetModel);
         targetModel = new TargetModel();
-        targetModel.title = "本周酒精摄入量";
+        targetModel.title = UM.getString(R.string.Alcohol_intake_this_week);
         if (response.lastWeek.drinkm == null || response.lastWeek.drinkm.equals("-1")) {
             response.lastWeek.drinkm = "0.00";
         }
         if (response.currentWeek.drink == null || response.currentWeek.drink.equals("-1")) {
             response.currentWeek.drink = "0.00";
         }
-        target = Float.parseFloat(response.currentWeek.drink) < Float.parseFloat(response.lastWeek.drinkm) ? "少于" : "少于";
+        target = Float.parseFloat(response.currentWeek.drink) < Float.parseFloat(response.lastWeek.drinkm) ? UM.getString(R.string.less_than) : UM.getString(R.string.less_than);
         targetModel.target = target + response.lastWeek.drinkm + "ml";
         targetModel.targetLength = response.lastWeek.drinkm.length();
         targetModel.sourceLength = response.lastWeek.drinkm.length();
-        targetModel.source = "已饮" + response.currentWeek.drink + "ml";
+        targetModel.source = UM.getString(R.string.drink_ml, response.currentWeek.drink);
         mTargetModels.add(targetModel);
         targetModel = new TargetModel();
         if (response.lastWeek.sportsm == null || response.lastWeek.sportsm.equals("-1")) {
@@ -245,15 +246,15 @@ public class TaskWeekReportFragment extends Fragment {
         if (response.currentWeek.sports == null || response.currentWeek.sports.equals("-1")) {
             response.currentWeek.sports = "0.00";
         }
-        target = Float.parseFloat(response.currentWeek.sports) < Float.parseFloat(response.lastWeek.sportsm) ? "大于" : "大于";
-        targetModel.title = "本周运动时间";
-        targetModel.target = target + response.lastWeek.sportsm + "分钟";
+        target = Float.parseFloat(response.currentWeek.sports) < Float.parseFloat(response.lastWeek.sportsm) ? UM.getString(R.string.more_than) : UM.getString(R.string.more_than);
+        targetModel.title = UM.getString(R.string.Sports_time_this_week);
+        targetModel.target = target + response.lastWeek.sportsm + UM.getString(R.string.minute);
         targetModel.targetLength = response.lastWeek.sportsm.length();
         targetModel.sourceLength = response.currentWeek.sports.length();
-        targetModel.source = "运动" + response.currentWeek.sports + "分钟";
+        targetModel.source = UM.getString(R.string.sport_min, response.currentWeek.sports);
         mTargetModels.add(targetModel);
         targetModel = new TargetModel();
-        targetModel.title = "体重";
+        targetModel.title = UM.getString(R.string.weight);
         float targetWeight = 0.00f;
         float weight = 0.00f;
         if (response.lastWeek.bmim == null || response.lastWeek.bmim.equals("-1")) {
@@ -269,13 +270,13 @@ public class TaskWeekReportFragment extends Fragment {
             targetWeight = targetBmi / height / height * 10000;
             weight = bmi / height / height * 10000;
         }
-        target = bmi < targetBmi ? "少于" : "少于";
+        target = bmi < targetBmi ? UM.getString(R.string.less_than) : UM.getString(R.string.less_than);
         String s = String.valueOf(targetWeight);
         String s1 = String.valueOf(weight);
         targetModel.target = target + s + "kg";
         targetModel.targetLength = s.length();
         targetModel.sourceLength = s1.length();
-        targetModel.source = "体重" + s1 + "kg";
+        targetModel.source = UM.getString(R.string.weight_kg, s1);
         mTargetModels.add(targetModel);
         mAdapter.notifyDataSetChanged();
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -43,7 +44,7 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
         unbinder = ButterKnife.bind(this, view);
         arguments = getArguments();
         tvTipContent.setText(arguments.getString(TIP_CONTENT));
-        tvButton.setText(arguments.getString(BUTTON_TEXT) + "(关闭5S)");
+        tvButton.setText(arguments.getString(BUTTON_TEXT) + UM.getString(R.string.close_5));
         btnCountDown(tvButton);
         tvButton.setOnClickListener(this);
         return view;
@@ -60,7 +61,7 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
                     listener.onFragmentBtnTimeOut();
                     return;
                 }
-                view.setText(arguments.getString(BUTTON_TEXT) + "(关闭" + COUNT_DOWN_TIME + "S)");
+                view.setText(arguments.getString(BUTTON_TEXT) + "("+UM.getString(R.string.close) + COUNT_DOWN_TIME + "S)");
                 view.postDelayed(this, 1000);
             }
         };

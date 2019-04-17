@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
+import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ public class MultipleChoiceFragment extends Fragment {
 
         if (listener != null) {
             if (checked.length == 0) {
-                MLVoiceSynthetize.startSynthesize(getActivity(), "请至少选择一个选项", false);
+                MLVoiceSynthetize.startSynthesize(getActivity(), UM.getString(R.string.select_at_least_one), false);
                 return;
             }
             listener.onNextStep(checked, questionBean);

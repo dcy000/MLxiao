@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_welcome_day_task">Master, welcome to the daily task.</string>
+    <string name="title_daily_task">Daily Task</string>
+    <string name="have_a_questionnaire">Please come to Xiao E to have a questionnaire，</string>
+    <string name="develop_health_tasks">Xiao E will give you a health task based on the results of your questionnaire.</string>
+    <string name="make_a_questionnaire">Please come to Xiaoyi to make a questionnaire. Xiaoyi will give you a health task based on the results of your questionnaire.</string>
+    <string name="health_question">Health Question</string>
+    <string name="leave_the_current_page">You have started to do the question, do you want to leave the current page?</string>
+    <string name="continue_question">Continue Question</string>
+    <string name="confirm_to_leave">Go Away</string>
+    <string name="uploading">Uploading</string>
+    <string name="upload_success">Upload Success</string>
+    <string name="title_health_report">Health Report</string>
+    <string name="leave_this_page">Do you want to leave the current page?</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_confirm">Yes</string>
+    <string name="none">None</string>
+    <string name="peer_weak_times">%u times per week</string>
+    <string name="will_it_continue">Re-answering will clear the original result, will it continue?</string>
+    <string name="Continue">Continue</string>
+    <string name="title_salt_control">Salt Control</string>
+    <string name="title_sport_control">Sport Control</string>
+    <string name="title_drinking_control">Drinking Control</string>
+    <string name="finished">Completed</string>
+    <string name="choose_salt_intake">Choose salt intake</string>
+    <string name="spoon">Spoon</string>
+    <string name="gram">g</string>
+    <string name="spoon_gram">Spoon(1Spoon=2g)</string>
+    <string name="Choose_exercise_time">Choose exercise time</string>
+    <string name="minute">Minute</string>
+    <string name="hour">Hour</string>
+    <string name="choose_drinking_amount">Choose amount of drinking</string>
+    <string name="glass">Glass</string>
+    <string name="bottle">Bottle</string>
+    <string name="Milliliter">Milliliter</string>
+    <string name="glass_milliliter">Glass(1Glass=100ml)</string>
+    <string name="bottle_milliliter">1Bottle(1Bottle=500ml)</string>
+    <string name="Select_sports">Select sports</string>
+
+    <string name="football">Football</string>
+    <string name="badminton">Badminton</string>
+    <string name="tennis">Tennis</string>
+    <string name="play_basketball">Play basketball</string>
+    <string name="pingpong">Pingpong</string>
+    <string name="golf">Golf</string>
+    <string name="Sit_ups">Sit ups</string>
+    <string name="push_ups">Push ups</string>
+    <string name="Tai_Chi">Tai Chi</string>
+    <string name="Run">Run</string>
+    <string name="Swim">Swim</string>
+    <string name="Yoga">Yoga</string>
+    <string name="dancing">Dancing</string>
+    <string name="gymnastics">Gymnastics</string>
+    <string name="Choose_type_of_drinking">Choose type of drinking</string>
+    <string name="Liquor">Liquor</string>
+    <string name="beer">Beer</string>
+    <string name="Red_wine">Red wine</string>
+    <string name="Yellow_wine">Yellow wine</string>
+    <string name="Whisky">Whisky</string>
+    <string name="Health_diary">Health Diary</string>
+    <string name="next_step">Next Step</string>
+    <string name="Choose_salt_intake">Choose salt intake</string>
+    <string name="Submission">Commit</string>
+    <string name="Alcohol_and_degree">Alcohol and degree</string>
+    <string name="Week_target_difference">Week Target Difference</string>
+    <string name="Salt_intake_this_week">Salt intake this week</string>
+    <string name="less_than">less than</string>
+    <string name="more_than">more than</string>
+    <string name="intake_g">Intake of %s g</string>
+    <string name="Alcohol_intake_this_week">Alcohol intake this week</string>
+    <string name="drink_ml">Already drinking %sml</string>
+    <string name="Sports_time_this_week">Sports time this week</string>
+    <string name="weight">Weight</string>
+    <string name="sport_min">Sports %s minutes</string>
+    <string name="weight_kg">Weight %s kg</string>
+</resources>

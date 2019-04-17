@@ -199,13 +199,13 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
         new AlertDialog(getActivity())
                 .builder()
                 .setMsg(UM.getString(R.string.dialog_quit_account))
-                .setNegativeButton(UM.getString(R.string.dialog_button_no), new View.OnClickListener() {
+                .setNegativeButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     }
                 })
                 .setNegativeButtonColor(R.color.toolbar_bg)
-                .setPositiveButton(UM.getString(R.string.dialog_button_yes), new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_determine), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         MobclickAgent.onProfileSignOff();

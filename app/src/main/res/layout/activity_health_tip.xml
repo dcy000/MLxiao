@@ -19,9 +19,7 @@
         android:drawablePadding="60pt"
         android:drawableTop="@drawable/img_health_manage_tip"
         android:gravity="center"
-        android:text="健康管理为个性化签约服务项目，需通过手环对您
-
-的健康进行管理。如需购买，请联系现场工作人员。"
+        android:text="@string/xml_no_bind_watch"
         android:textSize="48pt" />
 
     <TextView
@@ -34,6 +32,6 @@
         android:background="@drawable/shape_rectangle_next_btn"
         android:gravity="center"
         android:textColor="#fff"
-        android:text="确定" />
+        android:text="@string/dialog_button_determine" />
 
 </LinearLayout>

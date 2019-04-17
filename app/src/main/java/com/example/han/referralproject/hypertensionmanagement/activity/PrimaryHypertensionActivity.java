@@ -22,6 +22,7 @@ import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.common.utils.UM;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -57,7 +58,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
     }
 
     private void initVP() {
-        showLoadingDialog("正在加载...");
+        showLoadingDialog(UM.getString(R.string.loading));
         NetworkApi.getPrimaryHypertensionQuestion(new StringCallback() {
 
             @Override

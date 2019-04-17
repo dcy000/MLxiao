@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.annotation.StringRes;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 
 public class UM {
@@ -58,5 +59,9 @@ public class UM {
      */
     public static String getString(@StringRes int id) {
         return getApp().getResources().getString(id);
+    }
+
+    public static String getString(@StringRes int id, Object... formatArms) {
+        return  String.format(getApp().getString(id),formatArms);
     }
 }

@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,7 @@ public class DetecteTipActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detecte_tip);
         fromeWhere = getIntent().getStringExtra("fromWhere");
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "接下来，跟着小E来检测吧");
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), UM.getString(R.string.follow_xiao_E_to_test));
         initEvent();
     }
 

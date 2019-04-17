@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.business.R;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.tencent.smtt.export.external.interfaces.WebResourceError;
@@ -135,7 +136,7 @@ public abstract class BaseX5WebViewActivity extends BaseActivity implements View
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                showLoading("正在加载页面");
+                showLoading(UM.getString(R.string.on_loading_page));
                 time = System.currentTimeMillis();
                 Timber.i("X5WebView loading start>>>" + url);
                 onWebViewPageStart(view);

@@ -19,6 +19,7 @@ import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -59,8 +60,8 @@ public class HealthManageActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
-        tbHealthManage.setData("健 康 管 理",
-                com.gcml.module_auth_hospital.R.drawable.common_btn_back, "返回",
+        tbHealthManage.setData(UM.getString(R.string.title_health_manager),
+                com.gcml.module_auth_hospital.R.drawable.common_btn_back, UM.getString(R.string.toolbar_back),
                 com.gcml.module_auth_hospital.R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -94,10 +95,10 @@ public class HealthManageActivity extends BaseActivity implements View.OnClickLi
                         @Override
                         public void onNext(UserEntity user) {
                             if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
-                                ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+                                ToastUtils.showShort(R.string.improve_weight_and_height_information);
                                 MLVoiceSynthetize.startSynthesize(
                                         HealthManageActivity.this.getApplicationContext(),
-                                        "请先去个人中心完善体重和身高信息");
+                                        UM.getString(R.string.improve_weight_and_height_information));
                             } else {
                                 CC.obtainBuilder("com.gcml.task.isTask")
                                         .build()
@@ -124,10 +125,10 @@ public class HealthManageActivity extends BaseActivity implements View.OnClickLi
                         public void onNext(UserEntity user) {
                             if (TextUtils.isEmpty(user.sex) || TextUtils.isEmpty(user.birthday) ||
                                     TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
-                                ToastUtils.showShort("请确保年龄性别身高体重信息已完善");
+                                ToastUtils.showShort(R.string.age_gender_height_weight_information_is_perfect);
                                 MLVoiceSynthetize.startSynthesize(
                                         getApplicationContext(),
-                                        "请确保年龄性别身高体重信息已完善");
+                                        UM.getString(R.string.age_gender_height_weight_information_is_perfect));
                             } else {
                                 toRisk();
                             }

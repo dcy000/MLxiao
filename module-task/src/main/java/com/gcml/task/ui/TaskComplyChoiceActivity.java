@@ -15,6 +15,7 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -77,7 +78,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     }
 
     private void bindData() {
-        mToolBar.setData("健 康 问 答", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData(UM.getString(R.string.health_question), R.drawable.common_btn_back, UM.getString(R.string.toolbar_back), R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 if (mViewPager.getCurrentItem() == 0) {
@@ -96,14 +97,14 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
             @Override
             public void onRightClick() {
                 new AlertDialog(TaskComplyChoiceActivity.this).builder()
-                        .setMsg("您已经开始做题，是否要离开当前页面？")
-                        .setPositiveButton("继续做题", new View.OnClickListener() {
+                        .setMsg(UM.getString(R.string.leave_the_current_page))
+                        .setPositiveButton(UM.getString(R.string.continue_question), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
                             }
                         })
-                        .setNegativeButton("确认离开", new View.OnClickListener() {
+                        .setNegativeButton(UM.getString(R.string.confirm_to_leave), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
@@ -122,7 +123,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
         }
         mTipDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
+                .setTipWord(UM.getString(R.string.loading))
                 .create();
         mTaskRepository.taskHealthListFromApi()
                 .subscribeOn(Schedulers.io())
@@ -170,7 +171,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
 
                         mViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), fragments));
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                               "主人" + mList.get(0).questionName,
+                                "主人" + mList.get(0).questionName,
                                 false);
                     }
 
@@ -230,7 +231,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
         int score = 0;
         for (int i = 0; i < questionList.answerList.size(); i++) {
             if (questionList.answerList.get(i).isChoosed) {
-                score =  questionList.answerList.get(i).answerScore;
+                score = questionList.answerList.get(i).answerScore;
             }
         }
         return score;
@@ -240,7 +241,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     private void postHealthData() {
         LoadingDialog upDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在上传")
+                .setTipWord(UM.getString(R.string.uploading))
                 .create();
         mTaskRepository.taskHealthListForApi(mPostData, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
@@ -264,7 +265,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                         super.onNext(body);
                         LoadingDialog successDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_SUCCESS)
-                                .setTipWord("上传成功")
+                                .setTipWord(UM.getString(R.string.upload_success))
                                 .create();
                         mViewPager.postDelayed(new Runnable() {
                             @Override

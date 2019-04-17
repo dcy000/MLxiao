@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30pt"
                 android:gravity="center"
-                android:text="风险评估"
+                android:text="@string/xml_risk_assessment"
                 android:textColor="#f333"
                 android:textSize="64pt" />
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30pt"
                 android:gravity="center"
-                android:text="高血压方案"
+                android:text="@string/xml_hypertension_program"
                 android:textColor="#f333"
                 android:textSize="64pt" />
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30pt"
                 android:gravity="center"
-                android:text="健康任务"
+                android:text="@string/xml_health_task"
                 android:textColor="#f333"
                 android:textSize="64pt" />
 

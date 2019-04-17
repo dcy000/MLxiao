@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -55,10 +56,10 @@ public class FllowUpTimesDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fllow_up_times_dialog, container, false);
         unbinder = ButterKnife.bind(this, view);
-        String source = "您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测" + notice + "日即可为您开启方案。";
+        String source = UM.getString(R.string.dialog_less_3, notice);
         SpannableString colorText = new SpannableString(source);
         ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#F56C6C"));
-        colorText.setSpan(what, source.indexOf("再测"), source.indexOf("即可为您"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        colorText.setSpan(what, source.indexOf(UM.getString(R.string.tips_more)), source.indexOf(UM.getString(R.string.for_you)), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         tvTitle.setText(colorText);
         return view;
@@ -68,7 +69,7 @@ public class FllowUpTimesDialog extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getActivity().getApplicationContext(), "您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测" + notice + "日即可为您开启方案。");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.dialog_less_3, notice));
     }
 
     @Override

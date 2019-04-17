@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.utils.UM;
 import com.gcml.task.R;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
@@ -40,8 +41,8 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void bindData() {
-        mTitle.setText("请跟小E来做个问卷吧，");
-        mMessage.setText("小E会根据您的问卷结果给您制定健康任务。");
+        mTitle.setText(R.string.have_a_questionnaire);
+        mMessage.setText(R.string.develop_health_tasks);
         mBack.setOnClickListener(this);
     }
 
@@ -56,7 +57,7 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请跟小忆来做个问卷吧，小忆会根据您的问卷结果给您制定健康任务",
+                UM.getString(R.string.make_a_questionnaire),
                 new MLSynthesizerListener() {
                     @Override
                     public void onCompleted(SpeechError speechError) {

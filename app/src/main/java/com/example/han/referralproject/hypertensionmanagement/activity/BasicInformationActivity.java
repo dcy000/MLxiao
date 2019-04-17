@@ -20,6 +20,7 @@ import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -60,7 +61,7 @@ public class BasicInformationActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
-        mlSpeak("主人，请确认您的基本信息");
+        mlSpeak(UM.getString(R.string.please_confirm_your_basic_information));
         AppManager.getAppManager().addActivity(this);
     }
 
@@ -83,7 +84,7 @@ public class BasicInformationActivity extends BaseActivity {
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText(R.string.Basic_information_list);
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(this, WifiConnectActivity.class)));
@@ -137,8 +138,8 @@ public class BasicInformationActivity extends BaseActivity {
 
             }
         })
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(UM.getString(R.string.dialog_button_cancel))
+                .setSubmitText(UM.getString(R.string.dialog_button_determine))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
@@ -185,14 +186,14 @@ public class BasicInformationActivity extends BaseActivity {
             }
         })
                 .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(UM.getString(R.string.dialog_button_cancel))
+                .setSubmitText(UM.getString(R.string.dialog_button_determine))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
                 .setTextColorOut(Color.parseColor("#FF999999"))
                 .setTextColorCenter(Color.parseColor("#FF333333"))
-                .setSubmitText("确认")
+                .setSubmitText(UM.getString(R.string.dialog_button_determine))
                 .setOutSideCancelable(false)
                 .setDividerColor(Color.WHITE)
                 .isCyclic(true)
@@ -202,7 +203,7 @@ public class BasicInformationActivity extends BaseActivity {
                 .setBgColor(Color.WHITE)
                 .setDate(selectedDate)
                 .setRangDate(startDate, endDate)
-                .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                .setLabel(UM.getString(R.string.year), UM.getString(R.string.month), UM.getString(R.string.day), UM.getString(R.string.hour), UM.getString(R.string.minute), UM.getString(R.string.second))//默认设置为年月日时分秒
                 .isCenterLabel(false)
                 .build();
 
@@ -224,13 +225,13 @@ public class BasicInformationActivity extends BaseActivity {
                     public void onNext(UserEntity o) {
                         tvHeightInfo.setText(o.height + "cm");
                         tvBirthInfo.setText(o.birthday);
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "修改成功");
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), UM.getString(R.string.Successfully_modified));
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "修改失败");
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), UM.getString(R.string.fail_to_edit));
                     }
                 });
     }

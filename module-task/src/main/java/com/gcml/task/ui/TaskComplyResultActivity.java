@@ -12,6 +12,7 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -83,7 +84,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
 
     private void bindData() {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), resultBean.result, false);
-        mToolBar.setData("健 康 报 告", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData(UM.getString(R.string.title_health_report), R.drawable.common_btn_back, UM.getString(R.string.toolbar_back), R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -92,14 +93,14 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
             @Override
             public void onRightClick() {
                 new AlertDialog(TaskComplyResultActivity.this).builder()
-                        .setMsg("您是否要离开当前页面？")
-                        .setNegativeButton("取消", new View.OnClickListener() {
+                        .setMsg(UM.getString(R.string.leave_this_page))
+                        .setNegativeButton(UM.getString(R.string.dialog_button_cancel), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
                             }
                         })
-                        .setPositiveButton("确认", new View.OnClickListener() {
+                        .setPositiveButton(UM.getString(R.string.dialog_button_confirm), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
@@ -109,28 +110,28 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
         });
         resultTitle.setText(resultBean.result);
 
-        totalContent1.setText(resultBean.initiative == null ? "暂无": resultBean.initiative);
-        totalContent2.setText(resultBean.compliance == null ? "暂无": resultBean.compliance);
-        totalContent3.setText(resultBean.attitude == null ? "暂无": resultBean.attitude);
-        totalContent4.setText(resultBean.awareness == null ? "暂无": resultBean.awareness);
+        totalContent1.setText(resultBean.initiative == null ? UM.getString(R.string.none) : resultBean.initiative);
+        totalContent2.setText(resultBean.compliance == null ? UM.getString(R.string.none) : resultBean.compliance);
+        totalContent3.setText(resultBean.attitude == null ? UM.getString(R.string.none) : resultBean.attitude);
+        totalContent4.setText(resultBean.awareness == null ? UM.getString(R.string.none) : resultBean.awareness);
 
-        testContent1.setText(resultBean.detectionPlan.HTN == null ? "暂无": resultBean.detectionPlan.HTN);
-        testContent2.setText(resultBean.detectionPlan.weight == null ? "暂无": resultBean.detectionPlan.weight);
-        testContent3.setText(resultBean.detectionPlan.GLU == null ? "暂无": resultBean.detectionPlan.GLU);
+        testContent1.setText(resultBean.detectionPlan.HTN == null ? UM.getString(R.string.none) : resultBean.detectionPlan.HTN);
+        testContent2.setText(resultBean.detectionPlan.weight == null ? UM.getString(R.string.none) : resultBean.detectionPlan.weight);
+        testContent3.setText(resultBean.detectionPlan.GLU == null ? UM.getString(R.string.none) : resultBean.detectionPlan.GLU);
 
         if (resultBean.sportRecommend != null) {
             mLayoutSport.setVisibility(View.VISIBLE);
-            sportContent1.setText("每周" + resultBean.sportRecommend.weekCount + "次");
+            sportContent1.setText(UM.getString(R.string.peer_weak_times,resultBean.sportRecommend.weekCount));
             sportContent2.setText(resultBean.sportRecommend.timeCost + "min");
-            sportContent3.setText( String .format("%.2f", resultBean.sportRecommend.weightTarget) + "kg");
+            sportContent3.setText(String.format("%.2f", resultBean.sportRecommend.weightTarget) + "kg");
         } else {
             mLayoutSport.setVisibility(View.GONE);
         }
 
-        dineContent1.setText(resultBean.intake.naSalt == null ? "暂无": "<" + resultBean.intake.naSalt);
-        dineContent2.setText(resultBean.intake.grease == null ? "暂无": "<" + resultBean.intake.grease);
-        dineContent3.setText(resultBean.intake.drink == null ? "暂无": "<" + resultBean.intake.drink);
-        dineContent4.setText(resultBean.intake.smoke == null ? "暂无": resultBean.intake.smoke);
+        dineContent1.setText(resultBean.intake.naSalt == null ? UM.getString(R.string.none) : "<" + resultBean.intake.naSalt);
+        dineContent2.setText(resultBean.intake.grease == null ? UM.getString(R.string.none) : "<" + resultBean.intake.grease);
+        dineContent3.setText(resultBean.intake.drink == null ? UM.getString(R.string.none) : "<" + resultBean.intake.drink);
+        dineContent4.setText(resultBean.intake.smoke == null ? UM.getString(R.string.none) : resultBean.intake.smoke);
 
         resultAgain.setOnClickListener(this);
         resultAffirm.setOnClickListener(this);
@@ -141,8 +142,8 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         if (v.getId() == R.id.tv_task_result_again) {
             new AlertDialog(TaskComplyResultActivity.this).builder()
-                    .setMsg("重新答题会把原结果清空，是否继续？")
-                    .setPositiveButton("继续", new View.OnClickListener() {
+                    .setMsg(UM.getString(R.string.will_it_continue))
+                    .setPositiveButton(UM.getString(R.string.Continue), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             mTaskRepository.taskHealthDeleteForApi(UserSpHelper.getUserId())
@@ -165,7 +166,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
                                     });
                         }
                     })
-                    .setNegativeButton("返回", new View.OnClickListener() {
+                    .setNegativeButton(UM.getString(R.string.toolbar_back), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 

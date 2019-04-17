@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.billy.cc.core.component.CC;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -61,7 +62,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
     }
 
     private void bindData() {
-        mToolBar.setData("摄 盐 控 制", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData(UM.getString(R.string.title_salt_control), R.drawable.common_btn_back, UM.getString(R.string.toolbar_back), R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -74,74 +75,73 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
             }
         });
         if (what == 0) {
-            mToolBar.setTitle("摄 盐 控 制");
+            mToolBar.setTitle(UM.getString(R.string.title_salt_control));
         } else if (what == 1) {
-            mToolBar.setTitle("运 动 控 制");
+            mToolBar.setTitle(UM.getString(R.string.title_sport_control));
         } else {
-            mToolBar.setTitle("饮 酒 控 制");
+            mToolBar.setTitle(UM.getString(R.string.title_drinking_control));
         }
 
         saltDetails.setWhat(0);
-        saltDetails.setAction("完成");
-        saltDetails.setTitle("选择盐摄入量");
+        saltDetails.setAction(UM.getString(R.string.finished));
+        saltDetails.setTitle(UM.getString(R.string.choose_salt_intake));
         saltDetails.setUnitPosition(0);
-        saltDetails.setUnits(new String[]{"勺", "克"});
-        saltDetails.setUnitSum(new String[]{"勺(1勺约等于2克)", "克"});
+        saltDetails.setUnits(new String[]{UM.getString(R.string.spoon), UM.getString(R.string.gram)});
+        saltDetails.setUnitSum(new String[]{UM.getString(R.string.spoon_gram), UM.getString(R.string.gram)});
         saltDetails.setSelectedValues(new float[]{0f, 0f});
         saltDetails.setMinValues(new float[]{0f, 0f});
         saltDetails.setMaxValues(new float[]{99f, 199f});
         saltDetails.setPerValues(new float[]{1f, 1f});
 
         sportDetails.setWhat(1);
-        sportDetails.setAction("完成");
-        sportDetails.setTitle("选择运动时间");
+        sportDetails.setAction(UM.getString(R.string.finished));
+        sportDetails.setTitle(UM.getString(R.string.Choose_exercise_time));
         sportDetails.setUnitPosition(0);
-        sportDetails.setUnits(new String[]{"分钟", "小时"});
-        sportDetails.setUnitSum(new String[]{"分钟", "小时"});
+        sportDetails.setUnits(new String[]{UM.getString(R.string.minute), UM.getString(R.string.hour)});
+        sportDetails.setUnitSum(new String[]{UM.getString(R.string.minute), UM.getString(R.string.hour)});
         sportDetails.setSelectedValues(new float[]{0f, 0f});
         sportDetails.setMinValues(new float[]{0f, 0f});
         sportDetails.setMaxValues(new float[]{1440f, 24f});
         sportDetails.setPerValues(new float[]{1f, 1f});
 
         wineDetails.setWhat(2);
-        wineDetails.setAction("完成");
-        wineDetails.setTitle("选择饮酒量");
+        wineDetails.setAction(UM.getString(R.string.finished));
+        wineDetails.setTitle(UM.getString(R.string.choose_drinking_amount));
         wineDetails.setUnitPosition(0);
-        wineDetails.setUnits(new String[]{"杯", "瓶", "毫升"});
-        wineDetails.setUnitSum(new String[]{"杯(一杯约等于100毫升)", "瓶(一瓶约等于500毫升)", "毫升"});
+        wineDetails.setUnits(new String[]{UM.getString(R.string.glass), UM.getString(R.string.bottle), UM.getString(R.string.minute)});
+        wineDetails.setUnitSum(new String[]{UM.getString(R.string.glass_milliliter), UM.getString(R.string.bottle_milliliter), UM.getString(R.string.minute)});
         wineDetails.setSelectedValues(new float[]{0f, 0f, 0f});
         wineDetails.setMinValues(new float[]{0f, 0f, 0f});
         wineDetails.setMaxValues(new float[]{99f, 499f, 9999f});
         wineDetails.setPerValues(new float[]{1f, 1f, 100f});
 
         ItemsModel sportItems = new ItemsModel();
-        sportItems.setTitle("选择运动项目");
+        sportItems.setTitle(UM.getString(R.string.Select_sports));
         ArrayList<String> sportList = new ArrayList<>();
-        sportList.add("足球");
-        sportList.add("羽毛球");
-        sportList.add("网球");
-        sportList.add("打篮球");
-        sportList.add("乒乓球");
-        sportList.add("桌球");
-        sportList.add("高尔夫球");
-        sportList.add("仰卧起坐");
-        sportList.add("俯卧撑");
-        sportList.add("太极");
-        sportList.add("跑步");
-        sportList.add("游泳");
-        sportList.add("瑜伽");
-        sportList.add("跳舞");
-        sportList.add("体操");
+        sportList.add(UM.getString(R.string.football));
+        sportList.add(UM.getString(R.string.badminton));
+        sportList.add(UM.getString(R.string.tennis));
+        sportList.add(UM.getString(R.string.play_basketball));
+        sportList.add(UM.getString(R.string.pingpong));
+        sportList.add(UM.getString(R.string.golf));
+        sportList.add(UM.getString(R.string.Sit_ups));
+        sportList.add(UM.getString(R.string.push_ups));
+        sportList.add(UM.getString(R.string.Tai_Chi));
+        sportList.add(UM.getString(R.string.Run));
+        sportList.add(UM.getString(R.string.Swim));
+        sportList.add(UM.getString(R.string.Yoga));
+        sportList.add(UM.getString(R.string.dancing));
+        sportList.add(UM.getString(R.string.gymnastics));
         sportItems.setItems(sportList);
 
         ItemsModel wineItems = new ItemsModel();
-        wineItems.setTitle("选择饮酒类型");
+        wineItems.setTitle(UM.getString(R.string.Choose_type_of_drinking));
         ArrayList<String> wineList = new ArrayList<>();
-        wineList.add("白酒");
-        wineList.add("啤酒");
-        wineList.add("红酒");
-        wineList.add("黄酒");
-        wineList.add("威士忌");
+        wineList.add(UM.getString(R.string.Liquor));
+        wineList.add(UM.getString(R.string.beer));
+        wineList.add(UM.getString(R.string.Red_wine));
+        wineList.add(UM.getString(R.string.Yellow_wine));
+        wineList.add(UM.getString(R.string.Whisky));
         wineItems.setItems(wineList);
 
         mFragments = new Fragment[]{
@@ -184,7 +184,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
             wheel.wineType = item;
             wheel.drink = (int) (selectedValue * sportMulriple);
         }
-        wheel.userid = Integer.parseInt((String) SPUtil.get("user_id",""));
+        wheel.userid = Integer.parseInt((String) SPUtil.get("user_id", ""));
         postWheelData(wheel);
     }
 
@@ -192,9 +192,9 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
     private void postWheelData(TaskWheelBean wheel) {
         LoadingDialog upDialog = new LoadingDialog.Builder(TaskDialyActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在上传")
+                .setTipWord(UM.getString(R.string.uploading))
                 .create();
-        mTaskRepository.taskWheelListForApi(wheel, (String) SPUtil.get("user_id",""))
+        mTaskRepository.taskWheelListForApi(wheel, (String) SPUtil.get("user_id", ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -216,7 +216,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
                         super.onNext(body);
                         LoadingDialog successDialog = new LoadingDialog.Builder(TaskDialyActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_SUCCESS)
-                                .setTipWord("上传成功")
+                                .setTipWord(UM.getString(R.string.upload_success))
                                 .create();
                         successDialog.show();
                         mHandler.postDelayed(new Runnable() {

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.gcml.common.base.BaseActivity;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 
@@ -33,8 +34,8 @@ public class HealthManageTipActivity extends BaseActivity {
     }
 
     private void initView() {
-        tbHealthTip.setData("健 康 管 理",
-                com.gcml.module_auth_hospital.R.drawable.common_btn_back, "返回",
+        tbHealthTip.setData(UM.getString(R.string.health_management_title),
+                com.gcml.module_auth_hospital.R.drawable.common_btn_back, UM.getString(R.string.toolbar_back),
                 com.gcml.module_auth_hospital.R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {

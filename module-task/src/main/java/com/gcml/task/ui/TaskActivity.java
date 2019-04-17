@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -56,8 +57,8 @@ public class TaskActivity extends FragmentActivity {
     }
 
     private void bindData() {
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到每日任务。", false);
-        mToolBar.setData("每 日 任 务", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.voice_welcome_day_task), false);
+        mToolBar.setData(UM.getString(R.string.title_daily_task), R.drawable.common_btn_back, UM.getString(R.string.toolbar_back), R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 if (startType.equals("MLMain")) {
@@ -80,7 +81,7 @@ public class TaskActivity extends FragmentActivity {
     private void getTaskData() {
         LoadingDialog tipDialog = new LoadingDialog.Builder(TaskActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
+                .setTipWord(UM.getString(R.string.loading))
                 .create();
         mTaskRepository.taskListFromApi(UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
