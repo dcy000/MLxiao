@@ -187,7 +187,7 @@ public class QRCodeAliPayActivity extends BaseActivity implements View.OnClickLi
         //支付宝使用ALI_OFFLINE_QRCODE
 
         channelType = BCReqParams.BCChannelTypes.valueOf(type);
-        billTitle = "杭州国辰迈联机器人科技有限公司";
+        billTitle = "山东合贵网络科技有限公司";
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage("处理中，请稍候...");
@@ -291,7 +291,7 @@ public class QRCodeAliPayActivity extends BaseActivity implements View.OnClickLi
         loadingDialog.show();
         Map<String, String> optional = new HashMap<String, String>();
         optional.put("用途", "用户充值");
-        optional.put("testEN", "迈联智慧");
+        optional.put("testEN", "合贵");
 
         BCPay.PayParams payParams = new BCPay.PayParams();
         payParams.channelType = BCReqParams.BCChannelTypes.ALI_QRCODE;

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
-        android:text="欢迎来到迈联商城"
+        android:text="欢迎来到合贵商城"
         android:textSize="36sp"
         android:textColor="@color/config_color_black"/>
 

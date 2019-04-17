@@ -146,7 +146,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
         if (false) {
-            jump2NormalVideoPlayActivity(VEDIO_URL, "迈联智慧");
+            jump2NormalVideoPlayActivity(VEDIO_URL, "合贵");
         } else {
             checkVersion();
         }
