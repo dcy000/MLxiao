@@ -48,7 +48,7 @@ public class VideoListActivity extends BaseActivity {
         setContentView(R.layout.activity_video_list);
         mToolbar.setVisibility(View.VISIBLE);
 //        mTitleText.setText(R.string.title_health_class);
-        mTitleText.setText("健 康 宣 教");
+        mTitleText.setText(R.string.app_title_health_videos);
 //        mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
         position = getIntent().getIntExtra("position", 0);

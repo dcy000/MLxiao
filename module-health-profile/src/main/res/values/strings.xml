@@ -1,7 +1,43 @@
 <resources>
-    <string name="app_name">module-health-profile</string>
     <string name="web_path">http://47.96.98.60:8630/#/</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_family_doctor_service">家 庭 医 生 服 务</string>
+    <string name="welcome_family_doctor_service">主人，欢迎来到家庭医生服务</string>
+    <string name="tcm_constitution_identification">中医体质辨识</string>
+    <string name="latest_filing_time">最新建档时间:</string>
+    <string name="unknown">未知</string>
+    <string name="no_data">暂无</string>
+    <string name="awaiting_audit">待审核</string>
+    <string name="not_signed">未签约</string>
+    <string name="title_add_health_file">添 加 健 康 档 案</string>
+    <string name="no_hypertension_follow_up">您还未进行过高血压随访</string>
+    <string name="last_visit_has_passed">距离上次随访已过去</string>
+    <string name="unit_days">天</string>
+    <string name="resident_health_file">请先在居民健康档案中进行建档</string>
+    <string name="title_High_blood_pressure">高 血 压 随 访</string>
+    <string name="had_diabetes_follow_up">您还未进行过糖尿病随访</string>
+    <string name="title_diabetes_follow_up">糖 尿 病 随 访</string>
+    <string name="medical_examination_yet">您还未进行过体检</string>
+    <string name="physical_examination_has_passed">距离上次体检已过去</string>
+    <string name="title_physical_examination">健 康 体 检</string>
+    <string name="High_blood_pressure">高血压随访</string>
+    <string name="diabetes_follow_up">糖尿病随访</string>
+    <string name="start_now">立即开始</string>
+    <string name="record_High_blood_pressure">高血压随访记录</string>
+    <string name="record_diabetes_follow_up">糖尿病随访记录</string>
+    <string name="physical_examination">体检</string>
+    <string name="record_physical_examination">体检记录</string>
+    <string name="xml_name">姓名：</string>
+    <string name="xml_gender">性别：</string>
+    <string name="xml_id_card">身份证：</string>
+    <string name="xml_medical_history">疾病史：</string>
+    <string name="xml_sign_doctor">签约医生：</string>
+    <string name="xml_edit">编辑</string>
+    <string name="xml_phone_number">手机号：</string>
+    <string name="xml_blood_group">血型：</string>
+    <string name="woo_no_data">啊哦！你还没有测量数据</string>
+    <string name="record_zhongyi">中医体质辨识记录</string>
+    <string name="zhongyitizhi">中医体质辨识</string>
 </resources>

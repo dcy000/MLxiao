@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_family_doctor_service">Family Doctor Service</string>
+    <string name="welcome_family_doctor_service">Master, welcome to family doctor service</string>
+    <string name="tcm_constitution_identification">TCM constitution</string>
+    <string name="latest_filing_time">Latest filing time:</string>
+    <string name="unknown">Unknown</string>
+    <string name="no_data">No Data</string>
+    <string name="awaiting_audit">Awaiting audit</string>
+    <string name="not_signed">Not signed</string>
+    <string name="title_add_health_file">Add Health Archives</string>
+    <string name="no_hypertension_follow_up">You have not had high blood pressure follow-up</string>
+    <string name="last_visit_has_passed">The last follow-up has passed</string>
+    <string name="unit_days">days</string>
+    <string name="resident_health_file">Please first file in the resident health archives</string>
+    <string name="title_High_blood_pressure">Hypertension Follow-up</string>
+    <string name="had_diabetes_follow_up">You have not had diabetes follow-up</string>
+    <string name="title_diabetes_follow_up">Diabetes Follow-up</string>
+    <string name="medical_examination_yet">You have not had a medical examination yet</string>
+    <string name="physical_examination_has_passed">The last physical examination has passed </string>
+    <string name="title_physical_examination">Physical Examination</string>
+    <string name="High_blood_pressure">Hypertension Follow-up</string>
+    <string name="diabetes_follow_up">Diabetes Follow-up</string>
+    <string name="start_now">Start Now</string>
+    <string name="record_High_blood_pressure">Hypertension Follow-up Record</string>
+    <string name="record_diabetes_follow_up">Diabetes Follow-up Record</string>
+    <string name="physical_examination">Physical Examination</string>
+    <string name="record_physical_examination">Physical Examination Record</string>
+
+    <string name="xml_name">Name：</string>
+    <string name="xml_gender">Gender：</string>
+    <string name="xml_id_card">ID card：</string>
+    <string name="xml_medical_history">Medical history：</string>
+    <string name="xml_sign_doctor">Sign doctor：</string>
+    <string name="xml_edit">Edit</string>
+    <string name="xml_phone_number">Phone number：</string>
+    <string name="xml_blood_group">Blood group：</string>
+    <string name="woo_no_data">Hey! You have not measured the data yet</string>
+    <string name="record_zhongyi">TCM Constitution Identification Record</string>
+    <string name="zhongyitizhi">TCM Constitution Identification</string>
+</resources>

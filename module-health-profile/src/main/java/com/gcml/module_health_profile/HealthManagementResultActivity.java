@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.base.BaseActivity;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_health_profile.bean.DataBean;
@@ -55,8 +56,8 @@ public class HealthManagementResultActivity extends BaseActivity {
 
     private void initTitle() {
         tb = findViewById(R.id.tb_tizhi);
-        tb.setData("中 医 体 质 辨 识",
-                R.drawable.common_btn_back, "返回",
+        tb.setData(UM.getString(R.string.tcm_constitution_identification),
+                R.drawable.common_btn_back, UM.getString(R.string.toolbar_back),
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {

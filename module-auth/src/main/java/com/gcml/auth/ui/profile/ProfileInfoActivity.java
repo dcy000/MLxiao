@@ -30,6 +30,7 @@ import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -67,7 +68,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        binding.tbProfileInfo.setData("个 人 信 息", R.drawable.common_icon_back, "返回",
+        binding.tbProfileInfo.setData(UM.getString(R.string.title_personal_detail), R.drawable.common_icon_back, UM.getString(R.string.toolbar_back),
                 R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {

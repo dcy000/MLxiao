@@ -14,6 +14,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.HealthProfileActivity;
@@ -172,12 +173,12 @@ public class UerInfoListFragment extends RecycleBaseFragment implements View.OnC
                             if (!TextUtils.isEmpty(modifiedTime)) {
                                 String[] s = modifiedTime.split("\\s+");
                                 if (s.length == 2) {
-                                    mTvLastBuildTime.setText("最新建档时间:" + s[0]);
+                                    mTvLastBuildTime.setText(UM.getString(R.string.latest_filing_time) + s[0]);
                                 } else {
-                                    mTvLastBuildTime.setText("最新建档时间:未知");
+                                    mTvLastBuildTime.setText(UM.getString(R.string.latest_filing_time) + UM.getString(R.string.unknown));
                                 }
                             } else {
-                                mTvLastBuildTime.setText("最新建档时间:未知");
+                                mTvLastBuildTime.setText(UM.getString(R.string.latest_filing_time) + UM.getString(R.string.unknown));
                             }
 
                         }
@@ -216,8 +217,8 @@ public class UerInfoListFragment extends RecycleBaseFragment implements View.OnC
                         mTvName.setText(user.name);
                         mTvSex.setText(user.sex);
                         mTvIdcard.setText(user.idCard);
-                        mTvDisease.setText(TextUtils.isEmpty(user.phone) ? "暂无" : user.phone);
-                        mTvDoctor.setText(TextUtils.isEmpty(user.bloodType) ? "暂无" : user.bloodType);
+                        mTvDisease.setText(TextUtils.isEmpty(user.phone) ? UM.getString(R.string.no_data) : user.phone);
+                        mTvDoctor.setText(TextUtils.isEmpty(user.bloodType) ? UM.getString(R.string.no_data) : user.bloodType);
                     }
                 });
 
@@ -237,7 +238,7 @@ public class UerInfoListFragment extends RecycleBaseFragment implements View.OnC
                 getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
                         .putExtra("isUserInfoList", true)
                         .putExtra("RdCordId", selfRecordId)
-                        .putExtra("title", "添 加 健 康 档 案"));
+                        .putExtra("title", UM.getString(R.string.title_add_health_file)));
             } else {
                 CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
             }

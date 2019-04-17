@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -46,7 +47,7 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
     }
 
     public void refreshErrorData(String message) {
-        ToastUtils.showShort(message);
+        ToastUtils.showShort(UM.getString(R.string.noData));
         mTvEmptyDataTips.setText(R.string.woo_no_data);
         view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
     }

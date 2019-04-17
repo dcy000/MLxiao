@@ -41,7 +41,7 @@
             android:background="@drawable/common_tab_bg"
             android:button="@null"
             android:gravity="center"
-            android:text="健康宣教"
+            android:text="@string/xml_app_radio_button_video"
             android:textColor="@color/common_tab_txt_color"
             android:textSize="28sp"/>
         <View

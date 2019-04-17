@@ -186,10 +186,8 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                     @Override
                     public void onNext(UserEntity userEntity) {
                         if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
-                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                            MLVoiceSynthetize.startSynthesize(
-                                    getActivity().getApplicationContext(),
-                                    "请先去个人中心完善性别和年龄信息");
+                            ToastUtils.showShort(R.string.improve_gender_and_age);
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.improve_gender_and_age));
                         } else {
                             CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
                         }
@@ -200,14 +198,14 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
     private void quitApp() {
         new AlertDialog(getActivity())
                 .builder()
-                .setMsg("确定退出当前账号吗？")
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setMsg(UM.getString(R.string.dialog_quit_account))
+                .setNegativeButton(UM.getString(R.string.dialog_button_no), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     }
                 })
                 .setNegativeButtonColor(R.color.toolbar_bg)
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setPositiveButton(UM.getString(R.string.dialog_button_yes), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         MobclickAgent.onProfileSignOff();

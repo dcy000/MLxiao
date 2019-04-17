@@ -119,11 +119,11 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
                     if (split.length == 2) {
                         helper.setText(R.id.tv_time, split[0]);
                     } else {
-                        helper.setText(R.id.tv_time, "未知");
+                        helper.setText(R.id.tv_time, R.string.unknown);
                     }
 
                 } else {
-                    helper.setText(R.id.tv_time, "未知");
+                    helper.setText(R.id.tv_time, R.string.unknown);
                 }
             }
         });
@@ -148,13 +148,13 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
                         if (healthRecordBeans == null || healthRecordBeans.size() == 0) {
                             view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
                             mRv.setVisibility(View.GONE);
-                            mTvCContent.setText("您还未进行过高血压随访");
+                            mTvCContent.setText(R.string.no_hypertension_follow_up);
                         } else {
                             view.findViewById(R.id.empty_view).setVisibility(View.GONE);
                             mRv.setVisibility(View.VISIBLE);
                             long time = System.currentTimeMillis() - healthRecordBeans.get(0).getCreatedOn();
                             int days = (int) (time / (24 * 3600 * 1000));
-                            mTvCContent.setText("距离上次随访已过去" + days + "天");
+                            mTvCContent.setText(UM.getString(R.string.last_visit_has_passed) + days + UM.getString(R.string.unit_days));
                             mData.clear();
                             mData.addAll(healthRecordBeans);
                             adapter.notifyDataSetChanged();
@@ -168,7 +168,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
                             if (exception.code() == 9002) {
                                 view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
                                 mRv.setVisibility(View.GONE);
-                                mTvCContent.setText("您还未进行过高血压随访");
+                                mTvCContent.setText(R.string.no_hypertension_follow_up);
                             }
                         }
                     }
@@ -206,14 +206,14 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
 //                            return;
 //                        }
                         if (!isBuildHealthRecord) {
-                            ToastUtils.showShort("请先在居民健康档案中进行建档");
-                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
+                            ToastUtils.showShort(R.string.resident_health_file);
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.resident_health_file));
                             return;
                         }
                         getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
                                 .putExtra("RdCordId", recordId)
                                 .putExtra("type", "高血压")
-                                .putExtra("title", "高 血 压 随 访"));
+                                .putExtra("title", UM.getString(R.string.title_High_blood_pressure)));
                     }
                 });
     }

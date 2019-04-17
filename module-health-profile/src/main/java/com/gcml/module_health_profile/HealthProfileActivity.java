@@ -58,8 +58,8 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
 
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("家 庭 医 生 服 务");
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，欢迎来到家庭医生服务");
+        mTitleText.setText(R.string.title_family_doctor_service);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.welcome_family_doctor_service));
         mRgMenu = (RadioGroup) findViewById(R.id.rg_menu);
         mVpGoods = (ViewPager) findViewById(R.id.vp_goods);
         mRgMenu.setOnCheckedChangeListener(this);
@@ -85,7 +85,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
     private void initData() {
         dialog = new LoadingDialog.Builder(this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
+                .setTipWord(UM.getString(R.string.loading))
                 .create();
 
         HealthProfileRepository repository = new HealthProfileRepository();
@@ -102,7 +102,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
 
     private void initFragments(List<HealthProfileMenuBean> data) {
         HealthProfileMenuBean tizhi = new HealthProfileMenuBean();
-        tizhi.setRecordName("中医体质辨识");
+        tizhi.setRecordName(UM.getString(R.string.tcm_constitution_identification));
         tizhi.setRdRecordId("123456");
         data.add(tizhi);
         initRadioGroup(data);

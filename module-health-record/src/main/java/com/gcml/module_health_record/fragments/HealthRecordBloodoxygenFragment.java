@@ -229,7 +229,7 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
     }
 
     public void refreshErrorData(String message) {
-        ToastUtils.showShort(message);
+        ToastUtils.showShort(UM.getString(R.string.noData));
         if (mChart != null && isAdded()) {
             mChart.setNoDataText(UM.getString(R.string.noData));
             mChart.setData(null);

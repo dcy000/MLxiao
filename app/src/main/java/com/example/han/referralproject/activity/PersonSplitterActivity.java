@@ -21,7 +21,7 @@ public class PersonSplitterActivity extends ToolbarBaseActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_splitter);
         initView();
-        mTitleText.setText("个 人 中 心");
+        mTitleText.setText(R.string.person_information);
 
     }
 
