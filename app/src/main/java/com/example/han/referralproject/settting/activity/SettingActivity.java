@@ -168,7 +168,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 //设置聊天模式
                 showTalkTypeDialog();
             case R.id.tv_exit:
-                exitDoctorAccount(getString(R.id.set_exit_doctor_account_tips));
+                exitDoctorAccount(getString(R.string.set_exit_doctor_account_tips));
                 break;
         }
     }
