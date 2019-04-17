@@ -38,4 +38,24 @@
     <string name="woo_no_data">Hey! You have not measured the data yet</string>
     <string name="record_zhongyi">TCM Constitution Identification Record</string>
     <string name="zhongyitizhi">TCM Constitution Identification</string>
+
+    <!--手环设备-->
+    <string name="wristband_back_tips">Back</string>
+
+    <string name="wristband_title">Wristband</string>
+    <string name="wristband_service_person">Service staff</string>
+    <string name="wristband_warning_method">Warning way</string>
+    <string name="wristband_alert_time">Alarm time</string>
+    <string name="wristband_device_info">Device info</string>
+    <string name="wristband_phone_time">Associated number</string>
+    <string name="wristband_service_history_time">Service history</string>
+    <string name="wristband_imei_number">IMEL code:</string>
+    <string name="wristband_onwer">Bracelet user:</string>
+    <string name="wristband_bind_number">Binding number:</string>
+
+    <string-array name="wristband_tab_list">
+        <item>Device info</item>
+        <item>Associated number</item>
+        <item>Service history</item>
+    </string-array>
 </resources>

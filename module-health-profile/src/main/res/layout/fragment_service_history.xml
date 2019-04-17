@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="服务人员"
+            android:text="@string/wristband_device_info"
             android:textColor="#ff333333"
             android:textSize="64pt" />
 
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="预警方式"
+            android:text="@string/wristband_device_info"
             android:textColor="#ff333333"
             android:textSize="64pt" />
 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="报警确认时间"
+            android:text="@string/wristband_warning_method"
             android:textColor="#ff333333"
             android:textSize="64pt" />
 

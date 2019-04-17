@@ -49,8 +49,8 @@ public class BraceletActivtity extends AppCompatActivity implements RadioGroup.O
 
     private void initView() {
         TranslucentToolBar title = findViewById(R.id.tb_bracelet);
-        title.setData("手 环 设 备",
-                R.drawable.common_btn_back, "返回",
+        title.setData(getString(R.string.wristband_title),
+                R.drawable.common_btn_back, getString(R.string.wristband_back_tips),
                 0, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -106,27 +106,27 @@ public class BraceletActivtity extends AppCompatActivity implements RadioGroup.O
         for (int i = 0; i < data.size(); i++) {
             RadioButton button = new RadioButton(this);
             button.setSingleLine(true);
-        button.setEllipsize(TextUtils.TruncateAt.END);
-        button.setTextSize(28);
-        button.setText(data.get(i));
-        button.setButtonDrawable(android.R.color.transparent);
-        ViewCompat.setBackground(button, ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rb_health_profile_menu, getTheme()));
-        button.setTextColor(getResources().getColorStateList(R.color.health_profile_gray));
+            button.setEllipsize(TextUtils.TruncateAt.END);
+            button.setTextSize(28);
+            button.setText(data.get(i));
+            button.setButtonDrawable(android.R.color.transparent);
+            ViewCompat.setBackground(button, ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rb_health_profile_menu, getTheme()));
+            button.setTextColor(getResources().getColorStateList(R.color.health_profile_gray));
 
-        Drawable drawableLeft = getResources().getDrawable(
-                R.drawable.bg_rb_history_profile_shape);
-        button.setCompoundDrawablesWithIntrinsicBounds(drawableLeft,
-                null, null, null);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UiUtils.pt(160f));
-        button.setGravity(Gravity.CENTER);
-        radioGroup.addView(button, lp);
-    }
+            Drawable drawableLeft = getResources().getDrawable(
+                    R.drawable.bg_rb_history_profile_shape);
+            button.setCompoundDrawablesWithIntrinsicBounds(drawableLeft,
+                    null, null, null);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UiUtils.pt(160f));
+            button.setGravity(Gravity.CENTER);
+            radioGroup.addView(button, lp);
+        }
         radioGroup.check(radioGroup.getChildAt(0).getId());
     }
 
 
     private List<String> falseData() {
-        return Arrays.asList("设备信息", "关联号码", "服务历史");
+        return Arrays.asList(getResources().getStringArray(R.array.wristband_tab_list));
     }
 
     @Override
