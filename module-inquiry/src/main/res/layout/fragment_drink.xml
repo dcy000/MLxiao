@@ -1,157 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60pt"
-        android:layout_marginTop="90pt"
-        android:text="@string/prediagnosis_drink_or_not_tips"
-        android:textColor="#FF333333"
-        android:textSize="72pt" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/ll_drink_yes_not"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="66pt"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_drink_yes"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60pt"
-            android:clickable="true"
-            android:drawableLeft="@drawable/icon_huaiyun_not"
-            android:drawablePadding="24pt"
-            android:gravity="center"
-            android:text="@string/prediagnosis_yes_tips"
-            android:textColor="#666"
+            android:layout_marginTop="90pt"
+            android:text="@string/prediagnosis_drink_or_not_tips"
+            android:textColor="#FF333333"
             android:textSize="72pt" />
 
-        <TextView
-            android:id="@+id/tv_drink_not"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_drink_yes_not"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="280pt"
-            android:clickable="true"
-            android:drawableLeft="@drawable/icon_huaiyun_not"
-            android:drawablePadding="24pt"
-            android:gravity="center"
-            android:text="@string/prediagnosis_not_tips"
-            android:textColor="#666"
-            android:textSize="72pt" />
+            android:layout_marginTop="66pt"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_drink_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/icon_huaiyun_not"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:text="@string/prediagnosis_yes_tips"
+                android:textColor="#666"
+                android:textSize="72pt" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60pt"
-        android:layout_marginTop="186pt"
-        android:text="@string/prediagnosis_drink_what_tips"
-        android:textColor="#FF333333"
-        android:textSize="72pt" />
+            <TextView
+                android:id="@+id/tv_drink_not"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="280pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/icon_huaiyun_not"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:text="@string/prediagnosis_not_tips"
+                android:textColor="#666"
+                android:textSize="72pt" />
 
-
-    <LinearLayout
-        android:id="@+id/ll_drink_what"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="66pt"
-        android:orientation="horizontal">
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_baijiu"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60pt"
-            android:clickable="true"
-            android:drawableLeft="@drawable/icon_huaiyun_not"
-            android:drawablePadding="24pt"
-            android:gravity="center"
-            android:text="@string/prediagnosis_drink_baijiu_tips"
-            android:textColor="#666"
+            android:layout_marginTop="186pt"
+            android:text="@string/prediagnosis_drink_what_tips"
+            android:textColor="#FF333333"
             android:textSize="72pt" />
 
-        <TextView
-            android:id="@+id/tv_liaojiu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="280pt"
-            android:clickable="true"
-            android:drawableLeft="@drawable/icon_huaiyun_not"
-            android:drawablePadding="24pt"
-            android:gravity="center"
-            android:text="@string/prediagnosis_drink_liaojiu_tips"
-            android:textColor="#666"
-            android:textSize="72pt" />
 
-        <TextView
-            android:id="@+id/tv_pijiu"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_drink_what"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="280pt"
-            android:clickable="true"
-            android:drawableLeft="@drawable/icon_huaiyun_not"
-            android:drawablePadding="24pt"
-            android:gravity="center"
-            android:text="@string/prediagnosis_drink_pijiu_tips"
-            android:textColor="#666"
-            android:textSize="72pt" />
+            android:layout_marginTop="66pt"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_mijiu"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_baijiu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/icon_huaiyun_not"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:text="@string/prediagnosis_drink_baijiu_tips"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/tv_liaojiu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="280pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/icon_huaiyun_not"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:text="@string/prediagnosis_drink_liaojiu_tips"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/tv_pijiu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="280pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/icon_huaiyun_not"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:text="@string/prediagnosis_drink_pijiu_tips"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+            <TextView
+                android:id="@+id/tv_mijiu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="280pt"
+                android:clickable="true"
+                android:drawableLeft="@drawable/icon_huaiyun_not"
+                android:drawablePadding="24pt"
+                android:gravity="center"
+                android:text="@string/prediagnosis_drink_mijiu_tips"
+                android:textColor="#666"
+                android:textSize="72pt" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="280pt"
-            android:clickable="true"
-            android:drawableLeft="@drawable/icon_huaiyun_not"
-            android:drawablePadding="24pt"
-            android:gravity="center"
-            android:text="@string/prediagnosis_drink_mijiu_tips"
-            android:textColor="#666"
-            android:textSize="72pt" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="100pt">
+
+            <TextView
+                android:id="@+id/tv_sign_up_go_back"
+                android:layout_width="180dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="35dp"
+                android:background="@drawable/bg_selector_btn_go_back"
+                android:gravity="center"
+                android:text="@string/prediagnosis_next_tips"
+                android:textColor="#3F85FC"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/tv_sign_up_go_forward"
+                android:layout_width="180dp"
+                android:layout_height="70dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/bg_selector_btn_go_forward"
+                android:gravity="center"
+                android:text="@string/prediagnosis_pre_tips"
+                android:textColor="@android:color/white"
+                android:textSize="35sp" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="100pt">
-
-        <TextView
-            android:id="@+id/tv_sign_up_go_back"
-            android:layout_width="180dp"
-            android:layout_height="70dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="35dp"
-            android:background="@drawable/bg_selector_btn_go_back"
-            android:gravity="center"
-            android:text="@string/prediagnosis_next_tips"
-            android:textColor="#3F85FC"
-            android:textSize="35sp" />
-
-        <TextView
-            android:id="@+id/tv_sign_up_go_forward"
-            android:layout_width="180dp"
-            android:layout_height="70dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="35dp"
-            android:background="@drawable/bg_selector_btn_go_forward"
-            android:gravity="center"
-            android:text="@string/prediagnosis_pre_tips"
-            android:textColor="@android:color/white"
-            android:textSize="35sp" />
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</ScrollView>
