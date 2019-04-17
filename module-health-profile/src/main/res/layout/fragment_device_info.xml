@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24pt"
-                android:text="设备信息"
+                android:text="@string/wristband_device_info"
                 android:textColor="#ff3f88fc"
                 android:textSize="64pt" />
 
@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="手环IMEI码:"
+                android:text="@string/wristband_imei_number"
                 android:textColor="#ff666666"
                 android:textSize="56pt" />
 
@@ -118,7 +118,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="手环使用人:"
+                android:text="@string/wristband_onwer"
                 android:textColor="#ff666666"
                 android:textSize="56pt" />
 
@@ -143,7 +143,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="绑定号码:"
+                android:text="@string/wristband_bind_number"
                 android:textColor="#ff666666"
                 android:textSize="56pt" />
 

@@ -40,4 +40,24 @@
     <string name="woo_no_data">啊哦！你还没有测量数据</string>
     <string name="record_zhongyi">中医体质辨识记录</string>
     <string name="zhongyitizhi">中医体质辨识</string>
+
+    <!--手环设备-->
+    <string name="wristband_back_tips">返回</string>
+
+    <string name="wristband_title">手环设备</string>
+    <string name="wristband_service_person">服务人员</string>
+    <string name="wristband_warning_method">预警方式</string>
+    <string name="wristband_alert_time">报警时间</string>
+    <string name="wristband_device_info">设备信息</string>
+    <string name="wristband_phone_time">关联号码</string>
+    <string name="wristband_service_history_time">服务历史</string>
+    <string name="wristband_imei_number">手环IMEL码:</string>
+    <string name="wristband_onwer">手环使用人:</string>
+    <string name="wristband_bind_number">绑定号码:</string>
+
+    <string-array name="wristband_tab_list">
+        <item>设备信息</item>
+        <item>关联号码</item>
+        <item>服务历史</item>
+    </string-array>
 </resources>

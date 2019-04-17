@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.homepage.HospitalMainActivity;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
@@ -29,7 +27,6 @@ import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
-import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
@@ -101,8 +98,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void bindData() {
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到设置页面。", false);
-        mToolBar.setData("设 置", R.drawable.common_icon_back, "返回", 0, null, new ToolBarClickListener() {
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), getString(R.string.set_voice_tips), false);
+        mToolBar.setData(getString(R.string.set_title), R.drawable.common_icon_back, getString(R.string.set_back), 0, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -145,7 +142,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.tv_setting_clearcache:
                 //清理缓存
-                showClearCacheDialog("确认清除本地缓存吗？");
+                showClearCacheDialog(getString(R.string.set_dialog_clear_tips));
                 break;
             case R.id.tv_setting_update:
                 //检测更新
@@ -157,7 +154,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.tv_setting_reset:
                 //恢复出厂设置
-                showResetDialog("确认恢复出厂设置吗？");
+                showResetDialog(getString(R.string.set_dialog_reset_tips));
                 break;
             case R.id.tv_setting_keyword:
                 //设置关键词
@@ -171,7 +168,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 //设置聊天模式
                 showTalkTypeDialog();
             case R.id.tv_exit:
-                exitDoctorAccount("退出当前医生账号");
+                exitDoctorAccount(getString(R.string.set_exit_doctor_account_tips));
                 break;
         }
     }
@@ -267,14 +264,14 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
 //                    checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
                 } else {
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), getString(R.string.set_dialog_version_tips), false);
                 }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 tipDialog.dismiss();
-                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), getString(R.string.set_dialog_version_tips), false);
             }
         });
 
@@ -309,7 +306,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private void exitDoctorAccount(String msg) {
         new AlertDialog(SettingActivity.this).builder()
                 .setMsg(msg)
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setPositiveButton(getString(R.string.dialog_button_yes), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         UserSpHelper.setDoctorId("");
@@ -317,7 +314,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         finish();
                     }
                 })
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setNegativeButton(getString(R.string.dialog_button_no), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -332,7 +329,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private void showResetDialog(String msg) {
         new AlertDialog(SettingActivity.this).builder()
                 .setMsg(msg)
-                .setPositiveButton("确认", new View.OnClickListener() {
+                .setPositiveButton(getString(R.string.dialog_button_yes), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //恢复出厂设置
@@ -348,7 +345,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         startActivity(intent);
                     }
                 })
-                .setNegativeButton("取消", new View.OnClickListener() {
+                .setNegativeButton(getString(R.string.dialog_button_no), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

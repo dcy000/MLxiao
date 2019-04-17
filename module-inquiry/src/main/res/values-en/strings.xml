@@ -52,4 +52,21 @@
     <string name="prediagnosis_height_pressure_tips">high pressure</string>
     <string name="prediagnosis_height_low_tips">Low pressure</string>
     <string name="prediagnosis_pulse_tips">pulse</string>
+
+
+    <!--手环设备-->
+    <string name="wristband_back_tips">Back</string>
+
+    <string name="wristband_title">Wristband</string>
+    <string name="wristband_service_person">Service personnel</string>
+    <string name="wristband_warning_method">Warning method</string>
+    <string name="wristband_alert_time">Alert time</string>
+    <string name="wristband_device_info">Device info</string>
+    <string name="wristband_phone_time">Associated number</string>
+    <string name="wristband_service_history_time">Service history</string>
+    <string-array name="wristband_tab_list">
+        <item>Device info</item>
+        <item>Associated number</item>
+        <item>Service history</item>
+    </string-array>
 </resources>
