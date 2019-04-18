@@ -856,7 +856,7 @@ public class NimCallActivity extends AppCompatActivity {
             return;
         }
         isClosed = true;
-        Toast.makeText(NimCallActivity.this, "正在停止通话", Toast.LENGTH_SHORT).show();
+        Toast.makeText(NimCallActivity.this, "{{", Toast.LENGTH_SHORT).show();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {

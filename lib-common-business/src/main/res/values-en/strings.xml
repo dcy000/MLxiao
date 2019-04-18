@@ -6,5 +6,7 @@
     <!--管理员 权限dialog-->
     <string name="business_perimission_dialog_title">Administrator password</string>
     <string name="business_common_complete">Complete</string>
+    <string name="business_perimission_password_error">Incorrect password</string>
+
     <string name="on_loading_page">Loading Page</string>
 </resources>

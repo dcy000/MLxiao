@@ -32,6 +32,7 @@ import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
@@ -150,6 +151,8 @@ public class MyApplication extends Application {
         // 应用用户选择语言
         config.locale = Locale.ENGLISH;
         resources.updateConfiguration(config, dm);
+
+        MLVoiceSynthetize.setLanguage(false);
     }
 
     private void syncWeatherAndTime() {

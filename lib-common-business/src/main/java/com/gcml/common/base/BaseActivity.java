@@ -36,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 dialog.dismiss();
             } else {
-                ToastUtils.showShort("密码错误");
+                ToastUtils.showShort(getString(R.string.business_perimission_password_error));
             }
 //            validata(passWord, action);
         });

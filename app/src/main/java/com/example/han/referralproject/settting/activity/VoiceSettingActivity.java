@@ -36,7 +36,7 @@ public class VoiceSettingActivity extends BaseActivity implements SeekBar.OnSeek
 
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("音量设置");
+        mTitleText.setText(getString(R.string.volume_title));
         mRightView.setVisibility(View.GONE);
         mRightText.setVisibility(View.GONE);
 
