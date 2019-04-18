@@ -23,6 +23,7 @@ import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.PreviewHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.dialog.IconDialog;
@@ -147,7 +148,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         binding.ivAnimation.startAnimation(mAnimation);
-                        binding.ivTips.setText("人脸识别中");
+                        binding.ivTips.setText(R.string.face_recognising);
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -211,8 +212,8 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
                 iconDialog.dismiss();
                 iconDialog = null;
             }
-            binding.ivTips.setText("打开相机失败");
-            ToastUtils.showShort("打开相机失败");
+            binding.ivTips.setText(R.string.open_camera_fail);
+            ToastUtils.showShort(R.string.open_camera_fail);
         } else if (status.code == PreviewHelper.Status.EVENT_CAMERA_OPENED) {
             if (iconDialog != null) {
                 iconDialog.dismiss();
@@ -227,12 +228,12 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
         binding.previewMask.setEnabled(false);
         if (!NetUitls.isConnected()) {
             binding.previewMask.setEnabled(true);
-            binding.ivTips.setText("请连接Wifi!");
-            ToastUtils.showShort("请连接Wifi!");
+            binding.ivTips.setText(R.string.connect_wifi);
+            ToastUtils.showShort(R.string.connect_wifi);
             return;
         }
         if (TextUtils.isEmpty(msg)) {
-            msg = "请把脸对准框内";
+            msg = UM.getString(R.string.face_in_border);
         }
         binding.ivTips.setText(msg);
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), msg);
@@ -330,7 +331,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
                 if (hasSkip) {
                     result = CCResult.error("skip");
                 } else {
-                    result = CCResult.error("人脸验证未通过");
+                    result = CCResult.error(UM.getString(R.string.face_verification_failed));
                 }
             } else {
                 result = CCResult.success();

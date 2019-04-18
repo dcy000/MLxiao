@@ -183,6 +183,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         holder.getView(R.id.language_simplified_chinese).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                MLVoiceSynthetize.setLanguage(true);
                                 Resources resources = SettingActivity.this.getResources();
                                 DisplayMetrics dm = resources.getDisplayMetrics();
                                 Configuration config = resources.getConfiguration();
@@ -198,6 +199,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         holder.getView(R.id.language_english).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                MLVoiceSynthetize.setLanguage(false);
                                 Resources resources = SettingActivity.this.getResources();
                                 DisplayMetrics dm = resources.getDisplayMetrics();
                                 Configuration config = resources.getConfiguration();

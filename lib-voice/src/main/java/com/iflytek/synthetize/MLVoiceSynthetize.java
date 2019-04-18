@@ -296,4 +296,15 @@ public class MLVoiceSynthetize {
             setRate(synthesizer, "16000");
         }
     }
+
+    public static void setLanguage(boolean defualt) {
+        SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
+        if (synthesizer != null) {
+            if (defualt)
+                synthesizer.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            else
+                synthesizer.setParameter(SpeechConstant.LANGUAGE, "en_us");
+        }
+
+    }
 }

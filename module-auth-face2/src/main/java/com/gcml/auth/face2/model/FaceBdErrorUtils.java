@@ -3,12 +3,14 @@ package com.gcml.auth.face2.model;
 import android.text.TextUtils;
 
 
+import com.gcml.auth.face2.R;
 import com.gcml.auth.face2.model.entity.FaceBdAngle;
 import com.gcml.auth.face2.model.entity.FaceBdFaceInfo;
 import com.gcml.auth.face2.model.entity.FaceBdSearch;
 import com.gcml.auth.face2.model.entity.FaceBdUser;
 import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.exception.FaceBdError;
+import com.gcml.common.utils.UM;
 
 import java.util.List;
 import java.util.Locale;
@@ -43,22 +45,22 @@ public class FaceBdErrorUtils {
     public static final int ERROR_USER_NOT_FOUND = 222207;
 
     public static String getMsg(int code) {
-        String msg = "把人脸放在框内";
+        String msg = UM.getString(R.string.face_in_border);
         switch (code) {
             case ERROR_UNKNOWN:
-                msg = "把人脸放在框内";
+                msg = UM.getString(R.string.face_in_border);
                 break;
             case ERROR_NO_FACE:
-                msg = "把人脸放在框内";
+                msg = UM.getString(R.string.face_in_border);
                 break;
             case ERROR_FACE_LIVELESS:
-                msg = "调整一下姿势";
+                msg = UM.getString(R.string.adjust_the_posture);
                 break;
             case ERROR_USER_SCORE_LOW:
-                msg = "把人脸放在框内";
+                msg = UM.getString(R.string.face_in_border);
                 break;
             case ERROR_USER_NOT_FOUND:
-                msg = "把人脸放在框内";
+                msg = UM.getString(R.string.face_in_border);
                 break;
             default:
                 break;

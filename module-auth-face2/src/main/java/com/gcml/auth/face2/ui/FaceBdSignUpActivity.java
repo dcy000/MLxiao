@@ -21,6 +21,7 @@ import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.PreviewHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.dialog.IconDialog;
@@ -174,7 +175,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                 iconDialog = new IconDialog(FaceBdSignUpActivity.this).builder()
                         .setCancelable(false)
                         .setIcon(maps.get(0))
-                        .setNegativeButton("重拍", new View.OnClickListener() {
+                        .setNegativeButton(UM.getString(R.string.retake), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (!emitter.isDisposed()) {
@@ -182,7 +183,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                                 }
                             }
                         })
-                        .setPositiveButton("确认头像", new View.OnClickListener() {
+                        .setPositiveButton(UM.getString(R.string.confirm_avatar), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (!emitter.isDisposed()) {
@@ -236,7 +237,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         binding.ivAnimation.startAnimation(mAnimation);
-                        binding.ivTips.setText("人脸识别中");
+                        binding.ivTips.setText(R.string.face_recognising);
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -306,8 +307,8 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                 iconDialog.dismiss();
                 iconDialog = null;
             }
-            binding.ivTips.setText("打开相机失败");
-            ToastUtils.showShort("打开相机失败");
+            binding.ivTips.setText(R.string.open_camera_fail);
+            ToastUtils.showShort(R.string.open_camera_fail);
         } else if (status.code == PreviewHelper.Status.EVENT_CAMERA_OPENED) {
             if (iconDialog != null) {
                 iconDialog.dismiss();
@@ -322,12 +323,12 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
         binding.previewMask.setEnabled(false);
         if (!NetUitls.isConnected()) {
             binding.previewMask.setEnabled(true);
-            binding.ivTips.setText("请连接Wifi!");
-            ToastUtils.showShort("请连接Wifi!");
+            binding.ivTips.setText(R.string.connect_wifi);
+            ToastUtils.showShort(R.string.connect_wifi);
             return;
         }
         if (TextUtils.isEmpty(msg)) {
-            msg = "请把脸对准框内";
+            msg = UM.getString(R.string.face_in_border);
         }
         binding.ivTips.setText(msg);
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), msg);
@@ -415,7 +416,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
         if (!TextUtils.isEmpty(callId)) {
             CCResult result;
             if (error) {
-                result = CCResult.error("人脸录入失败");
+                result = CCResult.error(UM.getString(R.string.face_entry_failed));
             } else {
                 result = CCResult.success("faceId", userId);
             }

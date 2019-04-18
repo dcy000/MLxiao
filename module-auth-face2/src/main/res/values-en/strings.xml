@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="face_in_border">put face into border</string>
+    <string name="face_recognising">face verifying</string>
+    <string name="open_camera_fail">open camera failed</string>
+    <string name="connect_wifi">please connect wifi!</string>
+    <string name="face_verification_failed">face verification failed</string>
+    <string name="retake">Retake</string>
+    <string name="confirm_avatar">Ok</string>
+    <string name="face_entry_failed">face entry failed</string>
+    <string name="adjust_the_posture">adjust the posture</string>
+    <string name="skip">Skip</string>
+</resources>

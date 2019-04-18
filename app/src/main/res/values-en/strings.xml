@@ -583,24 +583,25 @@
     <string name="dialog_button_cancel">No</string>
     <string name="dialog_button_determine">Yes</string>
     <string name="dialog_quit_account">Are you sure you want to quit your current account?</string>
-    <!--设置界面-->
-    <string name="set_voice_tips">主人，欢迎来到设置页面。</string>
-    <string name="set_dialog_clear_tips">确认清除本地缓存吗?</string>
-    <string name="set_dialog_reset_tips">确认恢复出厂设置吗?</string>
-    <string name="set_dialog_exit_tips">退出当前医生账号</string>
-    <string name="set_dialog_version_tips">当前已经是最新版本了</string>
 
-    <string name="set_title">设 置</string>
-    <string name="set_back">返回</string>
-    <string name="set_language_tips">语言设置</string>
-    <string name="set_wifi_tips">WIFI 设置</string>
-    <string name="set_volume_tips">音量</string>
-    <string name="set_debug_tips">打开调试工具</string>
-    <string name="set_clear_cache_tips">清除缓存</string>
-    <string name="set_check_update_tips">检查更新</string>
-    <string name="set_about_tips">关于</string>
-    <string name="set_reset_tips">恢复出厂设置</string>
-    <string name="set_exit_doctor_account_tips">退出当前医生账号</string>
+    <!--设置界面-->
+    <string name="set_voice_tips">Master, welcome to the settings page</string>
+    <string name="set_dialog_clear_tips">Confirm clear local cache?</string>
+    <string name="set_dialog_reset_tips">Confirm the factory reset?</string>
+    <string name="set_dialog_exit_tips">Exit current doctor account</string>
+    <string name="set_dialog_version_tips">It is already the latest version</string>
+
+    <string name="set_title">Settings</string>
+    <string name="set_back">Back</string>
+    <string name="set_language_tips">Language</string>
+    <string name="set_wifi_tips">Wifi</string>
+    <string name="set_volume_tips">Volume</string>
+    <string name="set_debug_tips">Debugging tool</string>
+    <string name="set_clear_cache_tips">Clear cache</string>
+    <string name="set_check_update_tips">Check for updates</string>
+    <string name="set_about_tips">About</string>
+    <string name="set_reset_tips">Reset</string>
+    <string name="set_exit_doctor_account_tips">Exit doctor account</string>
 
     <string name="title_health_manager">Health Management</string>
     <string name="improve_weight_and_height_information">Please go to the personal center to improve your weight and height</string>
@@ -652,4 +653,18 @@
     <string name="s_year">.</string>
     <string name="s_month">.</string>
     <string name="s_day">.</string>
+
+    <!--关于-->
+    <string name="about_title">About</string>
+    <string name="about_smart_bulter_tips">Smart butler Health</string>
+    <string name="about_version">Version</string>
+
+    <!--音量-->
+    <string name="volume_title">Volume</string>
+
+    <!--wifi连接-->
+    <string name="wifi_title">Wifi</string>
+    <string name="wifi_voice_tip01">Wifi is connected, if you need to replace, please click the corresponding wifi name</string>
+    <string name="wifi_voice_tip02">Please connect to wifi, if not found, please click the refresh button in the upper right corner</string>
+
 </resources>

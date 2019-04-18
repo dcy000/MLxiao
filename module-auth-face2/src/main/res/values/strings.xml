@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">face app</string>
+    <string name="face_in_border">请把人脸放在框内</string>
+    <string name="face_recognising">人脸识别中</string>
+    <string name="open_camera_fail">打开相机失败</string>
+    <string name="connect_wifi">请连接Wifi!</string>
+    <string name="face_verification_failed">人脸验证未通过</string>
+    <string name="retake">重拍</string>
+    <string name="confirm_avatar">确认头像</string>
+    <string name="face_entry_failed">人脸录入失败</string>
+    <string name="adjust_the_posture">调整一下姿势</string>
+    <string name="skip">跳过</string>
 </resources>

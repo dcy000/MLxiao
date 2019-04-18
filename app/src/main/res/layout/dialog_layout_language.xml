@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="20dp"
-        android:text="英文"
+        android:text="English"
         android:textColor="@color/mp_black"
         android:textSize="30sp"
         android:gravity="center"/>

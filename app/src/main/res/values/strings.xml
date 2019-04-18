@@ -652,4 +652,18 @@
     <string name="s_year">年</string>
     <string name="s_month">月</string>
     <string name="s_day">日</string>
+
+    <!--关于-->
+    <string name="about_title">关于</string>
+    <string name="about_smart_bulter_tips">智能健康管家</string>
+    <string name="about_version">版本:</string>
+
+    <!--音量-->
+    <string name="volume_title">音量设置</string>
+
+    <!--wifi连接-->
+    <string name="wifi_title">Wifi连接</string>
+    <string name="wifi_voice_tip01">主人,您的wifi已连接,如果需要更换,请点击对应wifi名称</string>
+    <string name="wifi_voice_tip02">主人,请连接wifi,如果未找到,请点击右上角的刷新按钮</string>
+
 </resources>

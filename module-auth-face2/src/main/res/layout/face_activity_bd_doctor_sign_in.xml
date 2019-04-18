@@ -62,7 +62,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/iv_animation"
             app:layout_constraintRight_toRightOf="@+id/iv_animation"
             app:layout_constraintTop_toTopOf="@+id/iv_animation"
-            tools:text="请把人脸放在框内" />
+            tools:text="@string/face_in_border" />
 
         <ImageView
             android:id="@+id/iv_back"
@@ -100,7 +100,7 @@
             android:background="@drawable/common_bg_btn_transparent"
             android:gravity="center"
             android:onClick="@{()->presenter.skip()}"
-            android:text="跳过"
+            android:text="@string/skip"
             android:textColor="@color/config_color_base_3"
             android:textSize="50pt"
             app:layout_constraintRight_toRightOf="parent" />
