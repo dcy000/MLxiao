@@ -37,6 +37,33 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
         setContentView(R.layout.activity_service_package);
         initView();
         isSkip = getIntent().getBooleanExtra("isSkip", false);
+    }
+
+    private void initView() {
+        mTitleText.setText("健 康 检 测");
+        mRightText.setVisibility(View.VISIBLE);
+        mRightText.setText("查看详情");
+        mRightText.setOnClickListener(this);
+        mRightView.setVisibility(View.GONE);
+        mCl1 = (ConstraintLayout) findViewById(R.id.cl1);
+        mCl1.setOnClickListener(this);
+        mCl2 = (ConstraintLayout) findViewById(R.id.cl2);
+        mCl2.setOnClickListener(this);
+        mCl3 = (ConstraintLayout) findViewById(R.id.cl3);
+        mCl3.setOnClickListener(this);
+        mTvService1 = findClickView(R.id.tv_service_1);
+        mTvService2 = findClickView(R.id.tv_service_2);
+        mTvService3 = findClickView(R.id.tv_service_3);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isClickDetail = false;
+        getPackageDetail();
+    }
+
+    private void getPackageDetail() {
         AppRepository.queryServicePackage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,29 +90,6 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
 
                     }
                 });
-    }
-
-    private void initView() {
-        mTitleText.setText("健 康 检 测");
-        mRightText.setVisibility(View.VISIBLE);
-        mRightText.setText("查看详情");
-        mRightText.setOnClickListener(this);
-        mRightView.setVisibility(View.GONE);
-        mCl1 = (ConstraintLayout) findViewById(R.id.cl1);
-        mCl1.setOnClickListener(this);
-        mCl2 = (ConstraintLayout) findViewById(R.id.cl2);
-        mCl2.setOnClickListener(this);
-        mCl3 = (ConstraintLayout) findViewById(R.id.cl3);
-        mCl3.setOnClickListener(this);
-        mTvService1 = findClickView(R.id.tv_service_1);
-        mTvService2 = findClickView(R.id.tv_service_2);
-        mTvService3 = findClickView(R.id.tv_service_3);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isClickDetail = false;
     }
 
     @Override
