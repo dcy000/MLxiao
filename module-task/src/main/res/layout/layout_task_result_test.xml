@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="检测计划"
+            android:text="@string/Inspection_plan"
             android:textSize="32sp"
             android:textColor="@color/task_color_base"/>
 
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="血压"
+            android:text="@string/blood_pressure"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="体重"
+            android:text="@string/weight"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 
@@ -122,7 +122,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="血糖"
+            android:text="@string/blood_sugar"
             android:layout_gravity="center_horizontal"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>

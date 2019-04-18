@@ -187,7 +187,7 @@ public class TaskWeekReportFragment extends Fragment {
                         setWeekReport(null);
                         LoadingDialog errorDialog = new LoadingDialog.Builder(getContext())
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_FAIL)
-                                .setTipWord("请求失败")
+                                .setTipWord(UM.getString(R.string.request_fail))
                                 .create();
                         errorDialog.show();
                         mHandler.postDelayed(new Runnable() {

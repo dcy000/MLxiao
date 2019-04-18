@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.utils.UM;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -170,7 +171,7 @@ public class StatusBarFragment extends Fragment implements
         date.setTime(time);
         if (dateFormat == null) {
             //上午 12:32 1月26日 周五
-            dateFormat = new SimpleDateFormat("a hh:mm yyyy年MM月dd日 E", Locale.CHINA);
+            dateFormat = new SimpleDateFormat("a hh:mm yyyy" + UM.getString(R.string.s_year) + "MM" + UM.getString(R.string.s_month) + "dd" + UM.getString(R.string.s_day) + " E", getResources().getConfiguration().locale);
             dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         }
         return dateFormat.format(date);

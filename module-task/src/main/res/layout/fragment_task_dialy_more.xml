@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="64pt"
-        android:text="当前可选项目"
+        android:text="@string/Current_optional_item"
         android:textColor="#333333"
         android:textSize="72pt"/>
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="44pt"
-        android:text="更多项目"
+        android:text="@string/More_items"
         android:textColor="#333333"
         android:textSize="72pt"/>
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_shadow">
@@ -15,9 +14,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/img_task_result_left"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/tv_dine_tag"/>
+            android:layout_toLeftOf="@+id/tv_dine_tag"
+            android:src="@drawable/img_task_result_left" />
 
         <TextView
             android:id="@+id/tv_dine_tag"
@@ -26,16 +25,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="膳食计划"
-            android:textSize="32sp"
-            android:textColor="@color/task_color_base"/>
+            android:text="@string/Meal_plan"
+            android:textColor="@color/task_color_base"
+            android:textSize="32sp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/img_task_result_right"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/tv_dine_tag"/>
+            android:layout_toRightOf="@+id/tv_dine_tag"
+            android:src="@drawable/img_task_result_right" />
 
     </RelativeLayout>
 
@@ -43,9 +42,9 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_task_result_line"
+        android:layout_below="@+id/rl_dine_top"
         android:layout_centerVertical="true"
-        android:layout_below="@+id/rl_dine_top"/>
+        android:src="@drawable/img_task_result_line" />
 
     <LinearLayout
         android:id="@+id/ll_dine_content1"
@@ -59,17 +58,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="每日食盐摄入"
-            android:textSize="28sp"
-            android:textColor="@color/config_color_base_9"/>
+            android:text="@string/Daily_salt_intake"
+            android:textColor="@color/config_color_base_9"
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/tv_dine_content1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="36sp"
-            android:textColor="@color/config_color_base_3"/>
+            android:textColor="@color/config_color_base_3"
+            android:textSize="36sp" />
 
     </LinearLayout>
 
@@ -86,17 +85,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="每日饮酒"
-            android:textSize="28sp"
-            android:textColor="@color/config_color_base_9"/>
+            android:text="@string/Daily_drinking"
+            android:textColor="@color/config_color_base_9"
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/tv_dine_content3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="36sp"
-            android:textColor="@color/config_color_base_3"/>
+            android:textColor="@color/config_color_base_3"
+            android:textSize="36sp" />
 
     </LinearLayout>
 
@@ -104,18 +103,18 @@
         android:id="@+id/ll_dine_content2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/line"
-        android:layout_marginRight="130dp"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="32dp"
+        android:layout_marginRight="130dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="每日油脂摄入"
-            android:textSize="28sp"
-            android:textColor="@color/config_color_base_9"/>
+            android:text="@string/Daily_fat_intake"
+            android:textColor="@color/config_color_base_9"
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/tv_dine_content2"
@@ -123,8 +122,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text=""
-            android:textSize="36sp"
-            android:textColor="@color/config_color_base_3"/>
+            android:textColor="@color/config_color_base_3"
+            android:textSize="36sp" />
 
     </LinearLayout>
 
@@ -133,17 +132,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_dine_content2"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="130dp"
         android:layout_marginTop="22dp"
+        android:layout_marginRight="130dp"
         android:layout_marginBottom="32dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="每日吸烟        "
-            android:textSize="28sp"
-            android:textColor="@color/config_color_base_9"/>
+            android:text="@string/Daily_smoking"
+            android:textColor="@color/config_color_base_9"
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/tv_dine_content4"
@@ -151,8 +150,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text=""
-            android:textSize="36sp"
-            android:textColor="@color/config_color_base_3"/>
+            android:textColor="@color/config_color_base_3"
+            android:textSize="36sp" />
 
     </LinearLayout>
 

@@ -1,4 +1,5 @@
 package com.gcml.task.ui;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -66,7 +67,7 @@ public class TaskNormalFragment extends Fragment {
     }
 
     private void bindData(TaskBean data) {
-        progressMsg.setText("完成进度");
+        progressMsg.setText(R.string.finished_progress);
         int done = 0;
         for (int i = 0; i < data.taskList.size(); i++) {
             TaskBean.TaskListBean taskListBean = data.taskList.get(i);

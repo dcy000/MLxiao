@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.gcml.common.bus.RxBus;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.task.R;
@@ -69,7 +70,7 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelLi
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.rv_task_dialy_more);
         mToolBar = view.findViewById(R.id.tb_task_dialy_more);
-        mToolBar.setData("每 日 任 务", R.drawable.common_icon_back, "返回", 0, "完成", new ToolBarClickListener() {
+        mToolBar.setData(UM.getString(R.string.title_daily_task), R.drawable.common_icon_back, UM.getString(R.string.toolbar_back), 0, UM.getString(R.string.finished), new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 dismiss();
@@ -102,7 +103,7 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelLi
     private void processLogic() {
         ChannelModel channel = new ChannelModel();
         channel.setItemtype(ChannelModel.TYPE_MY);
-        channel.setChannelName("可选项目");
+        channel.setChannelName(UM.getString(R.string.optional_item));
         mDatas.add(channel);
 
         Bundle bundle = getArguments();
@@ -116,7 +117,7 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelLi
 
         ChannelModel morechannel = new ChannelModel();
         morechannel.setItemtype(ChannelModel.TYPE_OTHER);
-        morechannel.setChannelName("更多项目");
+        morechannel.setChannelName(UM.getString(R.string.More_items));
         mDatas.add(morechannel);
 
         mDatas.addAll(mUnSelectedDatas);

@@ -169,7 +169,7 @@ public class ChannelDialogAdapter extends BaseMultiItemQuickAdapter<ChannelModel
                 break;
             case ChannelModel.TYPE_OTHER:
                 baseViewHolder.setText(R.id.tvTitle, channel.getChannelName())
-                        .setText(R.id.tv_sort, "点击添加项目");
+                        .setText(R.id.tv_sort, R.string.Click_to_add_item);
                 baseViewHolder.getView(R.id.tv_sort).setTag(false);
                 break;
             case ChannelModel.TYPE_OTHER_CHANNEL:
@@ -371,9 +371,9 @@ public class ChannelDialogAdapter extends BaseMultiItemQuickAdapter<ChannelModel
             if (tvSort != null) {
                 if (!(Boolean) tvSort.getTag()) return;
                 if (isEdit) {
-                    tvSort.setText("拖动可以排序");
+                    tvSort.setText(R.string.Drag_to_sort);
                 } else {
-                    tvSort.setText("长按编辑项目");
+                    tvSort.setText(R.string.Long_press_edit_item);
                 }
             }
         }

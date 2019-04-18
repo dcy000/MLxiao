@@ -11,7 +11,7 @@
         android:layout_height="72dp"
         android:layout_margin="16dp"
         android:background="@drawable/shape_dialy_more_content"
-        android:text="推荐"
+        android:text="@string/recommend"
         android:textColor="@color/text_task_diary_more"
         android:textSize="32sp"
         android:layout_centerInParent="true"

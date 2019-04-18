@@ -7,6 +7,7 @@ import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.utils.TimeHelper;
+import com.gcml.common.utils.UM;
 import com.gcml.task.R;
 import com.gcml.task.bean.get.TaskBean;
 
@@ -22,12 +23,12 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
     protected void convert(BaseViewHolder helper, TaskBean.TaskListBean item) {
         helper.setText(R.id.tv_task_name, item.name);
         helper.setText(R.id.tv_task_name_other, item.name);
-        helper.setText(R.id.tv_task_time, "(测试时间：" + TimeHelper.formatDateTimeHour(item.remindStart) + "-" +  TimeHelper.formatDateTimeHour(item.remindEnd) + ")");
+        helper.setText(R.id.tv_task_time, "(" + UM.getString(R.string.measure_time) + TimeHelper.formatDateTimeHour(item.remindStart) + "-" + TimeHelper.formatDateTimeHour(item.remindEnd) + ")");
         if (item.mustStatus.equals("1")) {
             helper.setVisible(R.id.tv_task_tag, true);
             helper.setVisible(R.id.ll_task_name, true);
             helper.setVisible(R.id.tv_task_name_other, false);
-            helper.setText(R.id.tv_task_tag, "必做");
+            helper.setText(R.id.tv_task_tag, R.string.must_do);
         } else {
             helper.setVisible(R.id.tv_task_tag, false);
             helper.setVisible(R.id.ll_task_name, false);
@@ -37,7 +38,7 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
             if (TimeHelper.getSecondsFromDate(TimeHelper.getCUSeconds()) > item.remindStart && TimeHelper.getSecondsFromDate(TimeHelper.getCUSeconds()) < item.remindEnd) {
                 helper.setVisible(R.id.tv_task_action, true);
                 helper.setVisible(R.id.iv_task_action, false);
-                helper.setText(R.id.tv_task_action, "去完成");
+                helper.setText(R.id.tv_task_action, R.string.go_measure);
                 helper.setTextColor(R.id.tv_task_action, mContext.getResources().getColor(R.color.config_color_white));
                 helper.setBackgroundRes(R.id.tv_task_action, R.drawable.btn_task_action1);
                 helper.setOnClickListener(R.id.tv_task_action, new View.OnClickListener() {
@@ -45,9 +46,9 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
                     public void onClick(View v) {
                         if (item.taskType.equals("32")) {
                             CC.obtainBuilder("app.component.task.diary").addParam("what", 0).build().callAsync();
-                        } else if (item.taskType.equals("33")){
+                        } else if (item.taskType.equals("33")) {
                             CC.obtainBuilder("app.component.task.diary").addParam("what", 1).build().callAsync();
-                        } else if (item.taskType.equals("34")){
+                        } else if (item.taskType.equals("34")) {
                             CC.obtainBuilder("app.component.task.diary").addParam("what", 2).build().callAsync();
                         } else if (item.taskType.equals("31")) {
                             CC.obtainBuilder("health_measure").setActionName("ToAllMeasureActivity").addParam("measure_type", 25).addParam("is_measure_task", true).build().callAsync();
@@ -59,13 +60,13 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
             } else if (TimeHelper.getSecondsFromDate(TimeHelper.getCUSeconds()) < item.remindStart) {
                 helper.setVisible(R.id.tv_task_action, true);
                 helper.setVisible(R.id.iv_task_action, false);
-                helper.setText(R.id.tv_task_action, "未开启");
+                helper.setText(R.id.tv_task_action, R.string.unopened);
                 helper.setTextColor(R.id.tv_task_action, mContext.getResources().getColor(R.color.task_color_base));
                 helper.setBackgroundRes(R.id.tv_task_action, R.drawable.btn_task_action2);
             } else if (TimeHelper.getSecondsFromDate(TimeHelper.getCUSeconds()) > item.remindEnd) {
                 helper.setVisible(R.id.tv_task_action, true);
                 helper.setVisible(R.id.iv_task_action, false);
-                helper.setText(R.id.tv_task_action, "已过期");
+                helper.setText(R.id.tv_task_action, R.string.expired);
                 helper.setTextColor(R.id.tv_task_action, mContext.getResources().getColor(R.color.config_color_quarantine));
                 helper.setBackgroundRes(R.id.tv_task_action, R.drawable.btn_task_action3);
             }

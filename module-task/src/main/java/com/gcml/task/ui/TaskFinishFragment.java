@@ -84,7 +84,7 @@ public class TaskFinishFragment extends Fragment {
             imagePeople3.setVisibility(View.GONE);
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress <=60) {
+        } else if (progress <= 60) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.VISIBLE);
@@ -103,10 +103,10 @@ public class TaskFinishFragment extends Fragment {
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.VISIBLE);
         }
-        progressTitle.setText("今日任务已完成");
+        progressTitle.setText(R.string.today_mission_has_been_completed);
         progressNumber.setText(progress + "%");
-        progressMessage.setText("的人被您超越");
-        progressTag.setText("您还可以:");
+        progressMessage.setText(R.string.people_are_overtaken_by_you);
+        progressTag.setText(R.string.you_can_also);
         List<TaskBean.TaskListBean> list = new ArrayList<>();
         for (int i = 0; i < data.taskList.size(); i++) {
             if (!data.taskList.get(i).mustStatus.equals("1")) {

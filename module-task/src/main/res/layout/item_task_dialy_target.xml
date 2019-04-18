@@ -18,7 +18,7 @@
         android:textSize="48pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="本周盐摄入量"/>
+        tools:text="@string/Salt_intake_this_week"/>
 
     <TextView
         android:id="@+id/health_diary_tv_target"

@@ -649,5 +649,7 @@
     <string name="xml_detect">Detect</string>
     <string name="xml_next_time">Next Time</string>
     <string name="go_mall">Go Mall</string>
-
+    <string name="s_year">.</string>
+    <string name="s_month">.</string>
+    <string name="s_day">.</string>
 </resources>

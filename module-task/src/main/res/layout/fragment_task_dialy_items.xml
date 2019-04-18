@@ -13,7 +13,7 @@
         android:layout_marginTop="56pt"
         android:textColor="#333333"
         android:textSize="56pt"
-        android:text="选择运动项目"
+        android:text="@string/Select_sports"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="44pt"
         android:layout_marginBottom="44pt"
-        android:text="更多项目"
+        android:text="@string/More_items"
         android:textColor="@color/text_task_channel"
         android:textSize="48pt"
         app:layout_constraintBottom_toBottomOf="parent"

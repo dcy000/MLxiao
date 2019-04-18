@@ -89,7 +89,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
                 if (mViewPager.getCurrentItem() >= 0) {
                     MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                            "主人" + mList.get(mViewPager.getCurrentItem()).questionName,
+                            UM.getString(R.string.master) + mList.get(mViewPager.getCurrentItem()).questionName,
                             false);
                 }
             }
@@ -171,14 +171,14 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
 
                         mViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), fragments));
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                                "主人" + mList.get(0).questionName,
+                                UM.getString(R.string.master)+ mList.get(0).questionName,
                                 false);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        Toast.makeText(TaskComplyChoiceActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TaskComplyChoiceActivity.this, R.string.request_fail, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -201,7 +201,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
             return;
         } else {
             MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                    "主人" + mList.get(mViewPager.getCurrentItem() + 1).questionName,
+                    UM.getString(R.string.master)+ mList.get(mViewPager.getCurrentItem() + 1).questionName,
                     false);
         }
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
@@ -284,7 +284,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                         super.onError(throwable);
                         LoadingDialog errorDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_FAIL)
-                                .setTipWord("上传失败")
+                                .setTipWord(UM.getString(R.string.upload_fail))
                                 .create();
                         mViewPager.postDelayed(new Runnable() {
                             @Override

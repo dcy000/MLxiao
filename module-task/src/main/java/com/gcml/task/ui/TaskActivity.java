@@ -117,7 +117,7 @@ public class TaskActivity extends FragmentActivity {
                         super.onError(throwable);
                         LoadingDialog errorDialog = new LoadingDialog.Builder(TaskActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_FAIL)
-                                .setTipWord("请求失败")
+                                .setTipWord(UM.getString(R.string.request_fail))
                                 .create();
                         errorDialog.show();
                         mHandler.postDelayed(new Runnable() {

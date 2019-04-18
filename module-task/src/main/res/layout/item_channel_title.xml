@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="可选项目"
+        android:text="@string/optional_item"
         android:textSize="38sp" />
 
     <TextView
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="长按编辑项目"
+        android:text="@string/Long_press_edit_item"
         android:textSize="34sp"
         android:textColor="@android:color/darker_gray"
         android:visibility="visible" />

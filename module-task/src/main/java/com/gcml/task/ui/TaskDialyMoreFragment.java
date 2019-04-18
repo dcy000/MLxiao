@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.task.R;
@@ -87,7 +88,7 @@ public class TaskDialyMoreFragment extends Fragment {
     }
 
     private void bindData() {
-        mToolBar.setData("每 日 任 务", R.drawable.common_icon_back, "返回", 0, "完成", new ToolBarClickListener() {
+        mToolBar.setData(UM.getString(R.string.title_daily_task), R.drawable.common_icon_back, UM.getString(R.string.toolbar_back), 0, UM.getString(R.string.finished), new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 removeSelf();

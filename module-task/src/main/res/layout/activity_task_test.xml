@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
-        android:text="欢迎来到每日任务"
+        android:text="@string/Welcome_to_the_daily_task"
         android:textSize="36sp"
         android:textColor="@color/task_color_base"/>
 
@@ -27,7 +27,7 @@
         android:paddingBottom="8dp"
         android:background="@drawable/common_bg_btn_next"
         android:textSize="28sp"
-        android:text="进入"
+        android:text="@string/enter"
         android:textColor="@color/config_color_white"/>
 
 </RelativeLayout>

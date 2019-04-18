@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="总体分析"
+            android:text="@string/Overall_analysis"
             android:textSize="32sp"
             android:textColor="@color/task_color_base"/>
 
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="主观意识："
+            android:text="@string/Subjective_consciousness"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 
@@ -85,7 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="行为态度："
+            android:text="@string/Behavioral_attitude"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 
@@ -112,7 +112,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="依从行为："
+            android:text="@string/Compliance_behavior"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 
@@ -139,7 +139,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="知觉行为："
+            android:text="@string/Perceptual_behavior"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 

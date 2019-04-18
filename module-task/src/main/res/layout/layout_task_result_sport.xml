@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="运动计划"
+            android:text="@string/Exercise_plan"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="运动时长"
+            android:text="@string/Length_of_exercise"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>
 
@@ -122,7 +122,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="体重目标"
+            android:text="@string/Weight_target"
             android:layout_gravity="center_horizontal"
             android:textSize="28sp"
             android:textColor="@color/config_color_base_9"/>

@@ -233,7 +233,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
                         super.onError(throwable);
                         LoadingDialog errorDialog = new LoadingDialog.Builder(TaskDialyActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_FAIL)
-                                .setTipWord("上传失败")
+                                .setTipWord(UM.getString(R.string.upload_fail))
                                 .create();
                         errorDialog.show();
                         mHandler.postDelayed(new Runnable() {
