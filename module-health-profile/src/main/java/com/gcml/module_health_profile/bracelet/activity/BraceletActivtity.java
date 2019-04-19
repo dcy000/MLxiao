@@ -49,7 +49,7 @@ public class BraceletActivtity extends AppCompatActivity implements RadioGroup.O
 
     private void initView() {
         TranslucentToolBar title = findViewById(R.id.tb_bracelet);
-        title.setData("手 环 设 备",
+        title.setData("我 的 设 备",
                 R.drawable.common_btn_back, "返回",
                 0, null, new ToolBarClickListener() {
                     @Override

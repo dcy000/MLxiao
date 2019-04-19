@@ -25,7 +25,6 @@
         app:layout_constraintTop_toBottomOf="@+id/auth_idcard_numer_tb" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +32,7 @@
         android:text="(身份证号将与您的居民健康档案绑定，请确认是否填写正确)"
         android:textColor="#ff999999"
         android:textSize="48pt"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -58,6 +58,30 @@
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
+
+    <EditText
+        android:id="@+id/et_psw"
+        android:layout_width="880pt"
+        android:layout_height="132pt"
+        android:layout_marginTop="60pt"
+        android:background="@null"
+        android:hint="请输入你的密码"
+        android:inputType="textPassword"
+        android:paddingLeft="10pt"
+        android:textColor="#fff"
+        android:textSize="64pt"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
+
+    <View
+        android:layout_width="880pt"
+        android:layout_height="1pt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="192pt"
+        android:background="#ff333333"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
+
 
     <ImageView
         android:id="@+id/imageView2"

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -37,6 +38,7 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
 
     private CanClearEditText ccetPhone;
     private TextView tvNext;
+    private EditText etPsw;
     private UserRepository userRepository = new UserRepository();
     private TranslucentToolBar translucentToolBar;
 
@@ -52,6 +54,7 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
         translucentToolBar = findViewById(R.id.auth_idcard_numer_tb);
         ccetPhone = (CanClearEditText) findViewById(R.id.ccet_phone);
         tvNext = (TextView) findViewById(R.id.tv_next);
+        etPsw =findViewById(R.id.et_psw);
         tvNext.setOnClickListener(this);
         ccetPhone.setListener(this);
 
@@ -97,6 +100,12 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
             speak("请输入正确的身份证号码");
             return;
         }
+
+        if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
+            speak("请输入密码");
+            return;
+        }
+
         checkIdCardIsRegisterOrNot(idCardNumber);
     }
 

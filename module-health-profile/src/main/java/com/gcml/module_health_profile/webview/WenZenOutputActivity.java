@@ -71,11 +71,17 @@ public class WenZenOutputActivity extends ToolbarBaseActivity implements View.On
     private String userName;
     private String userSex;
     private String userAge;
+    private String high;
+    private String low;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wenzen_output_result);
+        if (getIntent() != null) {
+            high = getIntent().getStringExtra("highPrssure");
+            low = getIntent().getStringExtra("lowPressure");
+        }
         initView();
         initWebView();
     }
@@ -309,7 +315,7 @@ public class WenZenOutputActivity extends ToolbarBaseActivity implements View.On
                         "性别：" + userSex + "\n" +
                         "打印时间：" + sDate1 + "\n" +
                         String.format("%-8s", "检测项目") + String.format("%-8s", "检测结果") + String.format("%-8s", "检测单位") + String.format("%-8s", "参考标准") + "\n" +
-                        String.format("%1$-" + 13 + "s", "血压") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(highPressure) ? "-/-" : lowPressure + "/" + highPressure)) + String.format("%1$-" + 10 + "s", "mmHg") + String.format("%1$-" + 6 + "s", "90~140") + "\n" +
+                        String.format("%1$-" + 13 + "s", "血压") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(high) ? "-/-" : low + "/" + high)) + String.format("%1$-" + 10 + "s", "mmHg") + String.format("%1$-" + 6 + "s", "90~140") + "\n" +
                         String.format("%1$-" + 13 + "s", "血氧") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(bloodoxygen) ? "--" : bloodoxygen)) + String.format("%1$-" + 10 + "s", "%") + String.format("%1$-" + 6 + "s", ">94%") + "\n" +
                         String.format("%1$-" + 13 + "s", "体温") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(temperature) ? "--" : temperature)) + String.format("%1$-" + 10 + "s", "℃") + String.format("%1$-" + 6 + "s", "36.1~37.1") + "\n" +
                         String.format("%1$-" + 13 + "s", "血糖") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(bloodsugar) ? "--" : bloodsugar)) + String.format("%1$-" + 10 + "s", "mmol/L") + String.format("%1$-" + 6 + "s", "3.61~7.0") + "\n" +

@@ -4,12 +4,12 @@
         android:drawable="@drawable/common_ic_wifi_state_disconnected"
         android:maxLevel="0"/>
     <item
-        android:drawable="@drawable/common_ic_wifi_state_1"
+        android:drawable="@drawable/white_wifi_1"
         android:maxLevel="1"/>
     <item
-        android:drawable="@drawable/common_ic_wifi_state_2"
+        android:drawable="@drawable/white_wifi_2"
         android:maxLevel="2"/>
     <item
-        android:drawable="@drawable/common_ic_wifi_state_3"
+        android:drawable="@drawable/white_wifi_3"
         android:maxLevel="3"/>
 </level-list>
