@@ -3,10 +3,12 @@ include ':app', ':module-factory-test',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc', ':lib-common-xien'
+        ':component-cc',
+        ':lib-common-xien'
 
 // 支持模块
-include ':lib-auth-face',
+include ':module-auth-face2',
+//        ':lib-auth-face',
         ':lib-baidu-unit',
         ':lib-mlvoice',
         ':lib-call',

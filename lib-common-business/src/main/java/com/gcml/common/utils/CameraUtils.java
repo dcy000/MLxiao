@@ -1,4 +1,4 @@
-package com.gcml.auth.face.utils;
+package com.gcml.common.utils;
 
 import android.app.Activity;
 import android.content.Context;

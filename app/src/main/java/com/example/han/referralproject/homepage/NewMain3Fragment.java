@@ -41,7 +41,7 @@ public class NewMain3Fragment extends RecycleBaseFragment implements View.OnClic
     @Override
     public void onClick(View v) {
         if (UserSpHelper.isNoNetwork()) {
-            ToastUtils.showShort("请使用有网模式登陆");
+            ToastUtils.showShort("请使用有网模式登录");
             return;
         }
         switch (v.getId()) {

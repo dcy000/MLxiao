@@ -212,7 +212,7 @@ public class UserRepository {
                             return Observable.just(entity);
                         }
                     }
-                    return Observable.error(new ApiException("Local User " + userId + "not exist", 404));
+                    return Observable.error(new ApiException("Local User " + userId + " not exist", 404));
                 }
             });
         }

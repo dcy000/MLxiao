@@ -3,7 +3,6 @@ package com.gcml.module_blutooth_devices.ecg_devices;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
-import android.arch.lifecycle.LifecycleOwner;
 import android.bluetooth.BluetoothGatt;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -27,7 +26,6 @@ import com.borsam.borsamnetwork.bean.UploadFileResult;
 import com.borsam.borsamnetwork.http.BorsamHttpUtil;
 import com.borsam.borsamnetwork.http.Converter;
 import com.borsam.borsamnetwork.http.HttpCallback;
-import com.borsam.borsamnetwork.http.Request;
 import com.borsam.borsamnetwork.util.PatientApi;
 import com.clj.fastble.BleManager;
 import com.clj.fastble.callback.BleGattCallback;
@@ -38,8 +36,6 @@ import com.clj.fastble.exception.BleException;
 import com.clj.fastble.scan.BleScanRuleConfig;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.data.StreamUtils;
@@ -59,8 +55,6 @@ import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -176,6 +170,9 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             name = userEntity.name;
                             sex = userEntity.sex;
 
+                            if (UserSpHelper.isNoNetwork()) {
+                                return;
+                            }
                             if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(name) || TextUtils.isEmpty(sex)) {
                                 ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
                                 return;

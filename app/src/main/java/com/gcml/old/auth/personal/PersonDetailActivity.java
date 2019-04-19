@@ -82,7 +82,7 @@ public class PersonDetailActivity extends AppCompatActivity {
                     @Override
                     public void onRightClick() {
                         if (UserSpHelper.isNoNetwork()) {
-                            ToastUtils.showShort("请使用有网模式登陆");
+                            ToastUtils.showShort("请使用有网模式登录");
                             return;
                         }
                         CC.obtainBuilder("com.gcml.old.wifi")

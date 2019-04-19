@@ -231,7 +231,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                 case 1:
                     //饭后一小时
                     if (response.get(i).sugar_time == 1) {
-                        times.add(response.get(i).time);
+//                        times.add(response.get(i).time);
                         value.add(new Entry(i, response.get(i).blood_sugar));
                         if (response.get(i).blood_sugar > 11.1 || response.get(i).blood_sugar < 3.61) {
                             colors.add(Color.RED);
@@ -245,7 +245,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                 case 2:
                     //饭后两小时
                     if (response.get(i).sugar_time == 2) {
-                        times.add(response.get(i).time);
+//                        times.add(response.get(i).time);
                         value.add(new Entry(i, response.get(i).blood_sugar));
                         if (response.get(i).blood_sugar > 7.8 || response.get(i).blood_sugar < 3.9) {
                             colors.add(Color.RED);
@@ -258,7 +258,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                     break;
                 case 3:
                     if (response.get(i).sugar_time == 3) {
-                        times.add(response.get(i).time);
+//                        times.add(response.get(i).time);
                         value.add(new Entry(i, response.get(i).blood_sugar));
                         if (response.get(i).blood_sugar > 11.1 || response.get(i).blood_sugar < 3.9) {
                             colors.add(Color.RED);

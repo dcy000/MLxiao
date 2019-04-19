@@ -1,4 +1,4 @@
-package com.gcml.common.repository.utils;
+package com.gcml.common.utils;
 
 import io.reactivex.observers.DisposableObserver;
 import timber.log.Timber;

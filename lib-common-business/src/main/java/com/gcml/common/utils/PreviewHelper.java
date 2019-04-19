@@ -1,4 +1,4 @@
-package com.gcml.auth.face.model;
+package com.gcml.common.utils;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
@@ -16,19 +16,16 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pools;
+import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.View;
 
-import com.gcml.auth.face.utils.CameraUtils;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
-
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -355,7 +352,7 @@ public class PreviewHelper
             Timber.i("Face RotateImage");
             int rotation = CameraUtils.calculateRotation(mActivity, mCameraId);
             if (rotation == 90 || rotation == 270) {
-                croppedBitmap = rotate(croppedBitmap, rotation);
+                croppedBitmap = rotate(croppedBitmap, rotation, mCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
             }
             rxStatus.onNext(Status.of(Status.EVENT_CROPPED, croppedBitmap));
         }
@@ -444,9 +441,10 @@ public class PreviewHelper
         return src;
     }
 
-    public static Bitmap rotate(Bitmap src, int angle) {
+    public static Bitmap rotate(Bitmap src, int angle, boolean front) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
+        matrix.postScale(1, front ? -1 : 1);
         Bitmap rotated = Bitmap.createBitmap(
                 src,
                 0,
@@ -460,6 +458,77 @@ public class PreviewHelper
             src.recycle();
         }
         return rotated;
+    }
+
+    public static byte[] bitmapToBytes(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    public static String bitmapToBase64(Bitmap bitmap, boolean recycle) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if (recycle && !bitmap.isRecycled()) {
+            bitmap.recycle();
+        }
+
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+    }
+
+    public void takeFrames(int count, int delayMillis, int interval) {
+        if (mCamera == null) {
+            return;
+        }
+        for (int i = 0; i < count; i++) {
+            if (i == 0) {
+                addBuffer(delayMillis);
+            } else {
+                addBuffer(interval * i + delayMillis);
+            }
+        }
+    }
+
+    public Observable<Object> rxCameraOpenError() {
+        return rxStatus.filter(new Predicate<Status>() {
+            @Override
+            public boolean test(Status status) throws Exception {
+                return status.code == Status.ERROR_ON_OPEN_CAMERA;
+            }
+        }).map(new Function<Status, Object>() {
+            @Override
+            public Object apply(Status status) throws Exception {
+                return status;
+            }
+        });
+    }
+
+    public Observable<Object> rxCameraOpened() {
+        return rxStatus.filter(new Predicate<Status>() {
+            @Override
+            public boolean test(Status status) throws Exception {
+                return status.code == Status.EVENT_CAMERA_OPENED;
+            }
+        }).map(new Function<Status, Object>() {
+            @Override
+            public Object apply(Status status) throws Exception {
+                return status;
+            }
+        });
+    }
+
+    public Observable<Bitmap> rxFrame() {
+        return rxStatus.filter(new Predicate<Status>() {
+            @Override
+            public boolean test(Status status) throws Exception {
+                return status.code == Status.EVENT_CROPPED;
+            }
+        }).map(new Function<Status, Bitmap>() {
+            @Override
+            public Bitmap apply(Status status) throws Exception {
+                return (Bitmap) status.payload;
+            }
+        });
     }
 
     public static class Status {

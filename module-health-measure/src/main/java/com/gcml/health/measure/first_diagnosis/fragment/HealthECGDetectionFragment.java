@@ -110,6 +110,9 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
 
     public void startDiscovery() {
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_CONNECTED || ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_DISCOVERING) {
+            return;
+        }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
                 .putExtra("device", 3));
     }

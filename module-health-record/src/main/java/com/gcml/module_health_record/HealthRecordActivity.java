@@ -442,7 +442,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> bloodoxygenFragment.refreshData(response, temp),
 //                message -> bloodoxygenFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getBloodOxygenHistory(start,end,temp)
+        HealthRecordRepository.getBloodOxygenHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -470,7 +470,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> bloodpressureFragment.refreshData(response, temp),
 //                message -> bloodpressureFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getBloodpressureHistory(start,end,temp)
+        HealthRecordRepository.getBloodpressureHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -499,7 +499,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                message -> bloodsugarFragment.refreshErrorData(message));
 //
 
-        HealthRecordRepository.getBloodSugarHistory(start,end,temp)
+        HealthRecordRepository.getBloodSugarHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -527,7 +527,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> buaFragment.refreshData(response, temp),
 //                message -> buaFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getBUAHistory(start,end,temp)
+        HealthRecordRepository.getBUAHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -556,7 +556,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> cholesterolFragment.refreshData(response, temp),
 //                message -> cholesterolFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getCholesterolHistory(start,end,temp)
+        HealthRecordRepository.getCholesterolHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -584,7 +584,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> heartrateFragment.refreshData(response, temp),
 //                message -> heartrateFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getHeartRateHistory(start,end,temp)
+        HealthRecordRepository.getHeartRateHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -612,7 +612,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> weightFragment.refreshData(response, temp),
 //                message -> weightFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getWeight(start,end,temp)
+        HealthRecordRepository.getWeight(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -640,7 +640,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 //                response -> ecgFragment.refreshData(response, temp),
 //                message -> ecgFragment.refreshErrorData(message));
 
-        HealthRecordRepository.getECGHistory(start,end,temp)
+        HealthRecordRepository.getECGHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -710,10 +710,12 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
             CCAppActions.jump2MainActivity();
         } else if (i == R.id.tv_record_qrcode) {
             if (UserSpHelper.isNoNetwork()) {
-                ToastUtils.showShort("请使用有网模式登陆");
+                ToastUtils.showShort("请使用有网模式登录");
                 return;
             }
-            String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + UserSpHelper.getUserId() + "&bname=" + UserSpHelper.getUserName();
+
+            String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId()
+                    + "&api_host=" + HealthRecordNetworkApi.BasicUrl;
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
             dialogImage.setDescription("扫一扫，下载详细报告");

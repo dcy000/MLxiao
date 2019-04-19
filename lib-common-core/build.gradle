@@ -42,6 +42,7 @@ android {
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
+            buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -52,6 +53,7 @@ android {
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
+            buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true

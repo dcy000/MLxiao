@@ -109,6 +109,9 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
 
     public void startDiscovery() {
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_CONNECTED || ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_DISCOVERING) {
+            return;
+        }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
                 .putExtra("device", 3));
     }
@@ -209,6 +212,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         }
         drawThread = null;
         if (serviceConnect != null && isServiceBind) {
+            isServiceBind = false;
             context.unbindService(serviceConnect);
         }
         if (isRegistReceiver) {

@@ -170,7 +170,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
 
             } else if (Integer.parseInt(doctor.getEvaluation()) > 90
-                    ) {
+            ) {
                 mStar1.setVisibility(View.VISIBLE);
                 mStar2.setVisibility(View.VISIBLE);
                 mStar3.setVisibility(View.VISIBLE);
@@ -308,22 +308,20 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
-//                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                        @Override
-//                        public void onSuccess(Object response) {
-//
-//                        }
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//
-//                        }
-//                    });
-                    //countdown();
-                    //mButton.setEnabled(false);
-                    //OnlineTime();
+                    NetworkApi.getDocterYunXinId(doctor.docterid, new NetworkManager.SuccessCallback<String>() {
+                        @Override
+                        public void onSuccess(String funXinAccount) {
+                            if (!isFinishing()) {
+                                NimCallActivity.launch(mContext, funXinAccount);
+                            }
 
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+                            ToastUtils.showShort("发起通话失败");
+                        }
+                    });
 
                 } else {
                     NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),

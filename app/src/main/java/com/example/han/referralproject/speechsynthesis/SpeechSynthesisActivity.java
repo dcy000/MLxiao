@@ -728,9 +728,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
-                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -752,9 +751,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(cexueya|liangxueya|xueyajiance).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
-                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -776,9 +774,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(cexueyang|liangxueyang).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
-                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -800,9 +797,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(cetiwen|liangtiwen|cewendu|liangwendu).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
-                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -823,7 +819,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(cexuetang|liangxuetang|xuetangyi).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -846,7 +842,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(celizhong|liangtizhong).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -869,7 +865,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(cexindian|liangxindian|xiandianceliang|xindianceshi|xindianjiance|xiandiantu).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1255,7 +1251,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("from", "Test");
 //                bundle.putString("fromType", "xueya");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1280,7 +1276,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1303,7 +1299,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
                     ) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1324,7 +1320,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         });
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1346,7 +1342,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1367,7 +1363,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         });
             } else if (inSpell.matches(".*(ce|liang).*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1389,7 +1385,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
                 mIatDialog.dismiss();
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1599,7 +1595,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1630,7 +1626,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1661,7 +1657,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1693,7 +1689,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1724,7 +1720,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1755,7 +1751,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1787,7 +1783,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()

@@ -29,9 +29,8 @@ import com.gcml.common.data.HealthInfo;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.dialog.SMSVerificationDialog;
@@ -566,7 +565,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     private void modifyHead() {
-        CC.obtainBuilder("com.gcml.auth.face.signup")
+        CC.obtainBuilder("com.gcml.auth.face2.signup")
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override

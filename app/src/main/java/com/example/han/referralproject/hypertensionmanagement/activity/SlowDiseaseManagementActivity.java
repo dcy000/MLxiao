@@ -438,7 +438,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     @Override
     public void onClickConfirm() {
         //-->人脸-->测量血压
-        CC.obtainBuilder("com.gcml.auth.face.signin")
+        CC.obtainBuilder("com.gcml.auth.face2.signin")
                 .addParam("skip", true)
                 .addParam("currentUser", false)
                 .build()

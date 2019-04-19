@@ -63,13 +63,13 @@ public class WelcomeActivity extends AppCompatActivity {
         if (!isWorked("com.example.han.referralproject.MusicService")) {
             startService(new Intent(this, MusicService.class));
         }
-        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
-            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
-            mIntent.putExtra("is_first_wifi", true);
-            startActivity(mIntent);
-            finish();
-            return;
-        }
+//        if (UserSpHelper.isNoNetwork() && !WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
+//            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
+//            mIntent.putExtra("is_first_wifi", true);
+//            startActivity(mIntent);
+//            finish();
+//            return;
+//        }
         playVideo();
     }
 
@@ -156,7 +156,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
         if (false) {
-            jump2NormalVideoPlayActivity(VEDIO_URL,"迈联智慧");
+            jump2NormalVideoPlayActivity(VEDIO_URL, "迈联智慧");
         } else {
             checkVersion();
         }

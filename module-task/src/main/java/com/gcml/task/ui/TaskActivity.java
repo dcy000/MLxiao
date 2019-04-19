@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;

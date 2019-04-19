@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 
@@ -38,7 +37,7 @@ import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
@@ -187,6 +186,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                                 .placeholder(R.drawable.avatar_placeholder)
                                 .error(R.drawable.avatar_placeholder)
                                 .into(headImg);
+                        if (UserSpHelper.isNoNetwork()) {
+                            isSignDoctor.setText("未签约");
+                            return;
+                        }
                         if ("1".equals(user.state)) {
                             isSignDoctor.setText("已签约");
                         } else if ("0".equals(user.state)
@@ -197,10 +200,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                         }
                     }
                 });
-
-        if (UserSpHelper.isNoNetwork()) {
-            return;
-        }
 
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
@@ -245,7 +244,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         if (v.getId() != R.id.iv_record
                 && v.getId() != R.id.iv_change_account
                 && UserSpHelper.isNoNetwork()) {
-            ToastUtils.showShort("请使用有网模式登陆");
+            ToastUtils.showShort("请使用有网模式登录");
             return;
         }
         switch (v.getId()) {

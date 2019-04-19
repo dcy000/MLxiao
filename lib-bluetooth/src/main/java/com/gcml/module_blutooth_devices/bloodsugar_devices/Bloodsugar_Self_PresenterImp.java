@@ -62,5 +62,12 @@ public class Bloodsugar_Self_PresenterImp extends BaseBluetoothPresenter {
 
                     }
                 });
+        BluetoothClientManager.getClient().write(address, UUID.fromString(targetServiceUUid),
+                UUID.fromString(targetWriteCharacteristicUUid), DATA_SUGAR_TO_WRITE, new BleWriteResponse() {
+                    @Override
+                    public void onResponse(int code) {
+
+                    }
+                });
     }
 }

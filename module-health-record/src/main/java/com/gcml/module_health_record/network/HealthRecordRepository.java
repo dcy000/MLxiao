@@ -155,6 +155,7 @@ public class HealthRecordRepository {
                                 data.getBloodSugar(),
                                 Long.valueOf(data.getTime())
                         );
+                        mapData.sugar_time = data.getSugarTime();
                         newData.add(mapData);
                     }
                 }

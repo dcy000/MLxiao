@@ -119,6 +119,7 @@ public class NetworkApi {
     public static final String GetInfo_URL = BasicUrl + "ZZB/br/selMoreUser";
     public static final String GetInfo_New_URL = BasicUrl + "ZZB/api/user/info/users/";
     public static final String PERSON_AMOUNT = BasicUrl + "ZZB/eq/eq_amount";
+    public static final String PERSON_getDocterYunXinId = BasicUrl + "ZZB/docter/getDocterYunXinId";
     public static final String YUYUE_URL = BasicUrl + "ZZB/bl/insertReserve";
     public static final String YUYUE_URL_INFO = BasicUrl + "ZZB/bl/selAllreserveByDoidAndUserid";
     public static final String YUYUE_URL_HISTORY = BasicUrl + "ZZB/bl/selReserveByDoidAndUseridAndState";
@@ -436,6 +437,12 @@ public class NetworkApi {
         paramsMap.put("eqid", eqid);
 
         NetworkManager.getInstance().postResultClass(PERSON_AMOUNT, paramsMap, RobotAmount.class, listener, failedCallback);
+    }
+
+    public static void getDocterYunXinId(String doctorId, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("doctorId", doctorId);
+        NetworkManager.getInstance().getResultString(PERSON_getDocterYunXinId, paramsMap, listener, failedCallback);
     }
 
     public static void YuYue(String start_time, String end_time, String userid, String docterid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
