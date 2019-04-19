@@ -181,7 +181,7 @@ public class WenZenOutputActivity extends ToolbarBaseActivity implements View.On
     @Override
     protected void onResume() {
         super.onResume();
-//        getData();
+        getData();
         initPrinter();
     }
 

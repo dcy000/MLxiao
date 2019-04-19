@@ -269,11 +269,11 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     public void onNext(ApiResult<Object> objectApiResult) {
                         super.onNext(objectApiResult);
                         ToastUtils.showShort("提交成功");
-//                        CC.obtainBuilder("health.profile.wenzen.output")
-//                                .addParam("highPrssure", bean.highPressure)
-//                                .addParam("lowPressure", bean.lowPressure)
-//                                .build()
-//                                .call();
+                        CC.obtainBuilder("health.profile.wenzen.output")
+                                .addParam("highPrssure", bean.highPressure)
+                                .addParam("lowPressure", bean.lowPressure)
+                                .build()
+                                .call();
                         finish();
                     }
 

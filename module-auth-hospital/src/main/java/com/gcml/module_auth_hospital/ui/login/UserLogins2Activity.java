@@ -73,8 +73,14 @@ public class UserLogins2Activity extends BaseActivity {
         });
 //        tb.layLeft.setOnClickListener(null);
         tb.layLeft.setClickable(false);
-        updatePage();
+//        updatePage();
         ActivityHelper.addActivity(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updatePage();
     }
 
     private void updatePage() {

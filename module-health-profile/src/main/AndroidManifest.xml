@@ -15,6 +15,9 @@
             android:name=".webview.EditHealthProfileActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".webview.WenZenOutputActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".webview.AddHealthProfileActivity"
             android:screenOrientation="landscape" />
         <activity
