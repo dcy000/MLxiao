@@ -68,7 +68,6 @@
         android:hint="请输入你的密码"
         android:inputType="textPassword"
         android:paddingLeft="10pt"
-        android:textColor="#fff"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
