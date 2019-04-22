@@ -21,6 +21,7 @@ import com.creative.ecg.StatusMsg;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.ecg.BackGround;
@@ -33,6 +34,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -101,6 +103,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
     @Override
     public void autoConnect() {
+        SPUtil.remove(BluetoothConstants.SP.SP_SAVE_ECG);
         startDiscovery();
     }
 
@@ -222,6 +225,8 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             context.unregisterReceiver(connectReceiver);
         }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
+        //初始化ECGBluetooth的状态
+        ECGBluetooth.bluStatus =ECGBluetooth.BLU_STATUS_NORMAL;
 
     }
 
