@@ -95,4 +95,9 @@
     <string name="business_common_complete">完成</string>
     <string name="on_loading_page">正在加载页面</string>
     <string name="business_perimission_password_error">密码错误</string>
+    <string name="following_products">小E给您推荐以下商品</string>
+    <string name="see_more">查看更多</string>
+    <string name="recommended_products">暂无推荐商品</string>
+    <string name="dialog_button_time_sure">确认</string>
+    <string name="dialog_button_time_cancel">取消</string>
 </resources>

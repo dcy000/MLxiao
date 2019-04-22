@@ -3,7 +3,7 @@
     <string name="health_measure_first_detect_tips_1">初次见面，我是小E！为了更好地了解您的身体，先来做一个全套体检吧!</string>
     <string name="health_measure_tips_left_1">为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color="#F56C6C">2–3次</font>测量。请先左手测量！</string>
     <string name="health_measure_tips_left_1_speak">为了保证测量数据准确性，请根据小易提示对左右手血压各进行2–3次测量。请先测量左手!</string>
-    <string name="complete_questionnaire_and_measure">恭喜您完成问卷，下面让我们进行身体指标检测吧</string>
+    <string name="complete_questionnaire_and_measure">恭喜您完成问卷，下面让我们进行身体指标检测吧!</string>
     <string name="health_measure_tips_left_2">请将臂带放气，\n再测一次左手血压！</string>
     <string name="health_measure_tips_left_3">您两次血压数值相差较大,\n请再测一次!</string>
     <string name="health_measure_tips_right_1">请测量右手血压!</string>

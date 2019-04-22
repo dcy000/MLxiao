@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="68pt"
         android:layout_marginTop="80pt"
-        android:text="小E给您推荐以下商品"
+        android:text="@string/following_products"
         android:textColor="#ff999999"
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="60pt"
         android:layout_marginTop="80pt"
-        android:text="查看更多"
+        android:text="@string/see_more"
         android:textColor="#ff3f86fc"
         android:textSize="56pt"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="724pt"
-            android:text="暂无推荐商品"
+            android:text="@string/recommended_products"
             android:textColor="#ff666666"
             android:textSize="44pt" />
 

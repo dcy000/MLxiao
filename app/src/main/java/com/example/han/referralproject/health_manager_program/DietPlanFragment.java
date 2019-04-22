@@ -244,12 +244,12 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
                     for (int i = 0; i < 5; i++) {
                         mData.add(cacheDatas.get(i));
                     }
-                    tvMore.setText("更多");
+                    tvMore.setText(R.string.more);
                 } else {
                     isMore = true;
                     if (cacheDatas!=null){
                         mData.addAll(cacheDatas);
-                        tvMore.setText("收起");
+                        tvMore.setText(R.string.Collapse);
                     }
                 }
                 adapter.notifyDataSetChanged();

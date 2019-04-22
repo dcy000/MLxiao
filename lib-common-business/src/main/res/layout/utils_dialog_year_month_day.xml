@@ -51,7 +51,7 @@
                 android:layout_height="135pt"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="确认"
+                android:text="@string/dialog_button_time_sure"
                 android:textColor="#3F86FC"
                 android:textSize="56pt"
                 android:background="?android:attr/selectableItemBackground"/>
@@ -68,7 +68,7 @@
                 android:layout_height="135pt"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="取消"
+                android:text="@string/dialog_button_time_cancel"
                 android:textColor="#bbbbbb"
                 android:textSize="56pt"
                 android:background="?android:attr/selectableItemBackground"/>

@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40pt"
                 android:layout_marginTop="48pt"
-                android:text="运动强度"
+                android:text="@string/Exercise_intensity"
                 android:textColor="#999"
                 android:textSize="56pt"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -35,7 +35,7 @@
                 android:id="@+id/intake_oil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="最大心率"
+                android:text="@string/Maximum_heart_rate"
                 android:textColor="#999"
                 android:textSize="56pt"
                 app:layout_constraintLeft_toRightOf="@id/intake_salt"
@@ -46,7 +46,7 @@
                 android:id="@+id/intake_drink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="运动频率"
+                android:text="@string/Motion_frequency"
                 android:textColor="#999"
                 android:textSize="56pt"
                 app:layout_constraintLeft_toRightOf="@id/intake_oil"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="95pt"
-                android:text="每次运动时间"
+                android:text="@string/Every_time_exercise"
                 android:textColor="#999"
                 android:textSize="56pt"
                 app:layout_constraintLeft_toRightOf="@id/intake_drink"
@@ -78,7 +78,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="较"
+                    android:text="@string/jiao"
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -134,7 +134,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="一周"
+                    android:text="@string/one_week"
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -151,7 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="次"
+                    android:text="@string/times"
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -170,7 +170,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="大于"
+                    android:text="@string/more_than"
                     android:textColor="#333"
                     android:textSize="56pt"
                     android:textStyle="bold" />
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40pt"
                 android:layout_marginTop="73pt"
-                android:text="推荐运动项目"
+                android:text="@string/Recommended_sports"
                 android:textColor="#333"
                 android:textSize="56pt"
                 android:textStyle="bold"
@@ -220,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="40pt"
                 android:paddingTop="73pt"
-                android:text="更多"
+                android:text="@string/more"
                 android:textColor="#666"
                 android:textSize="56pt"
                 app:layout_constraintBottom_toBottomOf="@id/tv_tuijian"

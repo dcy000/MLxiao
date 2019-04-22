@@ -216,19 +216,19 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.more_exercise:
                 mData.clear();
-                if (isMore && cacheDatas!=null&&cacheDatas.size() > 5) {
+                if (isMore && cacheDatas != null && cacheDatas.size() > 5) {
                     isMore = false;
                     for (int i = 0; i < 5; i++) {
                         mData.add(cacheDatas.get(i));
                     }
-                    moreExercise.setText("更多");
+                    moreExercise.setText(R.string.more);
                 } else {
                     isMore = true;
-                    if (cacheDatas!=null){
+                    if (cacheDatas != null) {
                         mData.addAll(cacheDatas);
-                        moreExercise.setText("收起");
-                    }else{
-                        ToastUtils.showShort("暂无推荐项目");
+                        moreExercise.setText(R.string.Collapse);
+                    } else {
+                        ToastUtils.showShort(R.string.No_recommended_items);
                     }
                 }
                 adapter.notifyDataSetChanged();

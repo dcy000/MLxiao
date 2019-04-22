@@ -17,6 +17,7 @@ import com.example.han.referralproject.intelligent_diagnosis.ThisWeekHealthPlan;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.IChangToolbar;
+import com.gcml.common.utils.UM;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -95,11 +96,11 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
         this.data = data;
         String hypertensionFrequency = data.getHypertensionFrequency();
         if (!TextUtils.isEmpty(hypertensionFrequency)) {
-            mTvXueyaDetectionFrequency.setText("血压：" + hypertensionFrequency);
+            mTvXueyaDetectionFrequency.setText(UM.getString(R.string.blood_press) + hypertensionFrequency);
         }
         String diabetesFrequency = data.getDiabetesFrequency();
         if (!TextUtils.isEmpty(diabetesFrequency)) {
-            mTvXuetangDetectionFrequency.setText("血糖：" + diabetesFrequency);
+            mTvXuetangDetectionFrequency.setText(UM.getString(R.string.Blood_sugar) + diabetesFrequency);
         }
         double weightTarget = data.getWeightTarget();
         mWeight.setText(String.format("%.2f", weightTarget));

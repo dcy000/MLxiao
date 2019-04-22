@@ -9,4 +9,10 @@
     <string name="business_perimission_password_error">Incorrect password</string>
 
     <string name="on_loading_page">Loading Page</string>
+
+    <string name="following_products">E recommends the following products</string>
+    <string name="see_more">See More</string>
+    <string name="recommended_products">No recommended products</string>
+    <string name="dialog_button_time_sure">Confirm</string>
+    <string name="dialog_button_time_cancel">Cancel</string>
 </resources>

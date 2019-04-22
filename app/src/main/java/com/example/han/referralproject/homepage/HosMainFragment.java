@@ -163,7 +163,8 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 }
                 break;
             case R.id.ei_doctor_service:
-                CC.obtainBuilder("health.profile").build().call();
+//                CC.obtainBuilder("health.profile").build().call();
+                ToastUtils.showShort(R.string.developing);
                 break;
             case R.id.ei_quit:
                 quitApp();

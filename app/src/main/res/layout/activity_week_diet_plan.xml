@@ -29,7 +29,7 @@
             android:drawableBottom="@drawable/radiobutton_bottom_blue_line"
             android:drawablePadding="16pt"
             android:gravity="center"
-            android:text="周一"
+            android:text="@string/zhouyi"
             android:textColor="@drawable/radiobutton_bottom_blue_line"
             android:textSize="64pt" />
 
@@ -43,7 +43,7 @@
             android:drawableBottom="@drawable/radiobutton_bottom_blue_line"
             android:drawablePadding="16pt"
             android:gravity="center"
-            android:text="周二"
+            android:text="@string/zhouer"
             android:textColor="@drawable/radiobutton_bottom_blue_line"
             android:textSize="64pt" />
 
@@ -57,7 +57,7 @@
             android:drawableBottom="@drawable/radiobutton_bottom_blue_line"
             android:drawablePadding="16pt"
             android:gravity="center"
-            android:text="周三"
+            android:text="@string/zhousan"
             android:textColor="@drawable/radiobutton_bottom_blue_line"
             android:textSize="64pt" />
 
@@ -71,7 +71,7 @@
             android:drawableBottom="@drawable/radiobutton_bottom_blue_line"
             android:drawablePadding="16pt"
             android:gravity="center"
-            android:text="周四"
+            android:text="@string/zhousi"
             android:textColor="@drawable/radiobutton_bottom_blue_line"
             android:textSize="64pt" />
 
@@ -85,7 +85,7 @@
             android:drawableBottom="@drawable/radiobutton_bottom_blue_line"
             android:drawablePadding="16pt"
             android:gravity="center"
-            android:text="周五"
+            android:text="@string/zhouwu"
             android:textColor="@drawable/radiobutton_bottom_blue_line"
             android:textSize="64pt" />
 
@@ -99,7 +99,7 @@
             android:drawableBottom="@drawable/radiobutton_bottom_blue_line"
             android:drawablePadding="16pt"
             android:gravity="center"
-            android:text="周六"
+            android:text="@string/zhouliu"
             android:textColor="@drawable/radiobutton_bottom_blue_line"
             android:textSize="64pt" />
 
@@ -113,7 +113,7 @@
             android:drawableBottom="@drawable/radiobutton_bottom_blue_line"
             android:drawablePadding="16pt"
             android:gravity="center"
-            android:text="周日"
+            android:text="@string/zhouri"
             android:textColor="@drawable/radiobutton_bottom_blue_line"
             android:textSize="64pt" />
     </RadioGroup>
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40pt"
                 android:layout_marginTop="40pt"
-                android:text="早餐"
+                android:text="@string/zaocan"
                 android:textColor="#333"
                 android:textSize="80pt"
                 android:textStyle="bold"
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40pt"
                 android:layout_marginTop="40pt"
-                android:text="午餐"
+                android:text="@string/wucan"
                 android:textColor="#333"
                 android:textSize="80pt"
                 android:textStyle="bold"
@@ -274,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40pt"
                 android:layout_marginTop="40pt"
-                android:text="晚餐"
+                android:text="@string/wancan"
                 android:textColor="#333"
                 android:textSize="80pt"
                 android:textStyle="bold"

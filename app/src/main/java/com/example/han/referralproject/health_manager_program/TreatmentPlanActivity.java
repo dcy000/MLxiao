@@ -39,7 +39,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatment_plan);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("一周血压趋势表");
+        mTitleText.setText(R.string.week_blood_pressure_trend_table);
         initView();
         initFragments();
         viewpage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -93,25 +93,25 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     @Override
     protected void onResume() {
         super.onResume();
-        speak("主人，小E已为你生成具体计划方案，滑动屏幕可进行查看。");
+        speak(R.string.Swipe_the_screen_to_view);
     }
 
     @Override
     public void onChange(Fragment fragment) {
         if (fragment instanceof LastWeekTrendFragment) {
-            mTitleText.setText("一 周 血 压 趋 势 表");
+            mTitleText.setText(R.string.week_blood_pressure_trend_table);
         } else if (fragment instanceof ThisWeekHealthPlanFragment) {
-            mTitleText.setText("检 测 方 案");
+            mTitleText.setText(R.string.Inspection_plan);
         } else if (fragment instanceof DietPlanFragment) {
-            mTitleText.setText("膳 食 方 案");
+            mTitleText.setText(R.string.Dietary_plan);
         } else if (fragment instanceof WeekDietPlanFragment) {
-            mTitleText.setText("推 荐 食 谱");
+            mTitleText.setText(R.string.Recommended_food_spectrum);
         } else if (fragment instanceof SportPlanFragment) {
-            mTitleText.setText("运 动 方 案");
+            mTitleText.setText(R.string.Sports_plan);
         } else if (fragment instanceof MedicinePlanFragment) {
-            mTitleText.setText("药 物 方 案");
+            mTitleText.setText(R.string.Drug_plan);
         } else if (fragment instanceof RencommendForUserFragment) {
-            mTitleText.setText("智 能 推 荐");
+            mTitleText.setText(R.string.Intelligent_Recommendation);
         }
     }
 

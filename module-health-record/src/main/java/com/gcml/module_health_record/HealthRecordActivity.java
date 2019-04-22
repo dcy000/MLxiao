@@ -146,7 +146,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请查看您的健康数据", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), UM.getString(R.string.voice_see_your_health_data), false);
 
         initView();
         initDialog();
@@ -709,7 +709,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         } else if (i == R.id.iv_top_right) {
             CCAppActions.jump2MainActivity();
         } else if (i == R.id.tv_record_qrcode) {
-            String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + UserSpHelper.getUserId() + "&bname=" + UserSpHelper.getUserName();
+            String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + HealthRecordNetworkApi.BasicUrl;
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
             dialogImage.setDescription(UM.getString(R.string.scan_qr_download_file));

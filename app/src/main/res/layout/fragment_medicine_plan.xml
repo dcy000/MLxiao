@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textSize="56pt"
         android:textColor="#666"
-        android:text="根据您的情况，可以选择一种药物治疗2-4周，如血压未明显降低可换 另外降压药。具体用药请咨询医生为准。"
+        android:text="@string/your_doctor_for_specific_medication"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
             android:id="@+id/tv_headline_influencing_factors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="常用药物"
+            android:text="@string/Commonly_used_drugs"
             android:textColor="#3F86FC"
             android:textSize="64pt"
             android:textStyle="bold"
@@ -91,7 +91,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="56pt"
-            android:text="建议您健康饮食，合理运动，根据康复疗程进行生活干预。"/>
+            android:text="@string/rehabilitation_procedures"/>
         <include layout="@layout/layout_empty_data" android:id="@+id/layout_empty_data"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
