@@ -712,7 +712,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                     .build()
                     .callAsync();
         } else if (i == R.id.tv_record_qrcode) {
-            String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + UserSpHelper.getUserId() + "&bname=" + UserSpHelper.getUserName();
+            String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + HealthRecordNetworkApi.BasicUrl;
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
             dialogImage.setDescription("扫一扫，下载详细报告");

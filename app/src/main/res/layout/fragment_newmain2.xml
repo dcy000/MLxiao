@@ -7,7 +7,7 @@
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_person_center"
         android:layout_width="594pt"
-        android:layout_height="504pt"
+        android:layout_height="328pt"
         android:layout_marginLeft="45pt"
         android:layout_marginTop="20pt"
         android:background="@drawable/newmain_person_center"
@@ -30,14 +30,22 @@
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/entertainment_center"
         android:layout_width="594pt"
-        android:layout_height="504pt"
+        android:layout_height="328pt"
         android:layout_marginLeft="45pt"
         android:layout_marginTop="24pt"
-        android:background="@drawable/newmain_health_course"
+        android:background="@drawable/newmain_health_medical_tips"
         android:clickable="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_health_course" />
-
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/iv_medical_tip"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
+        android:background="@drawable/newmain_health_course"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@id/entertainment_center"
+        app:layout_constraintLeft_toLeftOf="@id/entertainment_center"
+        android:layout_marginTop="24pt"/>
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_communicate"
         android:layout_width="594pt"

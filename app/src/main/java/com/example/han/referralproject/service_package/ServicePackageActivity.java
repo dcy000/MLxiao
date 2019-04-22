@@ -42,7 +42,7 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
     private void initView() {
         mTitleText.setText("健 康 检 测");
         mRightText.setVisibility(View.VISIBLE);
-        mRightText.setText("查看详情");
+        mRightText.setText("跳过");
         mRightText.setOnClickListener(this);
         mRightView.setVisibility(View.GONE);
         mCl1 = (ConstraintLayout) findViewById(R.id.cl1);
@@ -132,7 +132,8 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                 break;
             case R.id.tv_top_right:
                 isClickDetail = true;
-                startActivity(new Intent(this, ServicePackageDetailActivity.class));
+//                startActivity(new Intent(this, ServicePackageDetailActivity.class));
+                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
                 break;
         }
 

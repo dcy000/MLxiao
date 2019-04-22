@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.gcml.common.utils.UtilsManager;
@@ -47,7 +48,7 @@ public class VideoListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
-        mToolbar.setVisibility(View.VISIBLE);
+        mToolbar.setVisibility(View.GONE);
 //        mTitleText.setText(R.string.title_health_class);
         mTitleText.setText(R.string.title_health_class);
 //        mRightView.setImageResource(R.drawable.icon_wifi);
@@ -107,7 +108,21 @@ public class VideoListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"欢迎观看健康课堂");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "欢迎观看健康课堂");
+        findViewById(R.id.view_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        findViewById(R.id.view_wifi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CC.obtainBuilder("com.gcml.old.wifi")
+                        .build()
+                        .callAsync();
+            }
+        });
     }
 
     private List<VideoListFragment> mFragments;

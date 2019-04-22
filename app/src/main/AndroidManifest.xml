@@ -720,6 +720,9 @@
             android:screenOrientation="landscape">
 
         </activity>
+        <activity
+            android:name=".video.DemoVideoListActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
