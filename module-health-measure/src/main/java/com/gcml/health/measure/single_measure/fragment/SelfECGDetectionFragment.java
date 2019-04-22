@@ -439,5 +439,4 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             mHandler.removeMessages(BATTERY_ZERO);
         }
     }
-
 }

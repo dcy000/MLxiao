@@ -390,6 +390,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //只清理可瑞康心电缓存SP
+                        SPUtil.remove(BluetoothConstants.SP.SP_SAVE_ECG);
                         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                         baseFragment.autoConnect();
                     }
