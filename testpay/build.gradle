@@ -1,0 +1,46 @@
+ext.mainApp = true
+//ext.alwaysLib=true
+apply from: rootProject.file("build-base.gradle")
+
+android {
+    defaultConfig {
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.testpay"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
+        }
+
+
+        packagingOptions {
+            pickFirst 'lib/armeabi-v7a/libserial_port.so'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs += ['libs']
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.zzhoujay.richtext:richtext:3.0.7'
+//    implementation 'com.zzhoujay:html:3.0.8'
+}
