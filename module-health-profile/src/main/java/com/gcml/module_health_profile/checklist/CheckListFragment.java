@@ -14,7 +14,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
-import com.gcml.module_health_profile.checklist.config.EntryBoxConfig;
+import com.gcml.module_health_profile.checklist.config.EntryBoxHelper;
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
 
@@ -23,7 +23,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class CheckListFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -98,7 +97,6 @@ public class CheckListFragment extends Fragment {
                         simulation();
                     }
 
-                    @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         dialog.dismiss();
@@ -115,7 +113,7 @@ public class CheckListFragment extends Fragment {
 
     private void simulation() {
         EntryBoxLinearLayout entryBoxLinearLayout = new EntryBoxLinearLayout(getContext());
-        entryBoxLinearLayout.setBoxConfig(new EntryBoxConfig.Builder().name("体重").unit("kg").build());
+        new EntryBoxHelper.Builder(entryBoxLinearLayout).name("体重").unit("kg").build();
         llContainer.addView(entryBoxLinearLayout);
     }
 }

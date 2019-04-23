@@ -9,25 +9,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
-import com.gcml.module_health_profile.checklist.config.EntryBoxConfig;
+import com.gcml.module_health_profile.checklist.config.EntryBoxHelper;
 
 /**
  * Created by lenovo on 2019/4/23.
  */
 
 public class EntryBoxLinearLayout extends LinearLayout {
-    private EntryBoxConfig boxConfig;
+    private EntryBoxHelper boxConfig;
     private TextView name;
     private TextView unit;
     private EditText value;
 
-    public void setBoxConfig(EntryBoxConfig boxConfig) {
+ /*   public void setBoxConfig(EntryBoxHelper boxConfig) {
         this.boxConfig = boxConfig;
         if (boxConfig != null) {
             name.setText(boxConfig.name());
             unit.setText(boxConfig.unit());
         }
-    }
+    }*/
 
 
     public EntryBoxLinearLayout(Context context) {
@@ -50,11 +50,19 @@ public class EntryBoxLinearLayout extends LinearLayout {
         name = view.findViewById(R.id.tv_question_name);
         unit = view.findViewById(R.id.tv_question_unit);
         value = view.findViewById(R.id.et_value);
-
-        if (boxConfig != null) {
-            name.setText(boxConfig.name());
-            unit.setText(boxConfig.unit());
-        }
         addView(view);
     }
+
+    public void name(String name) {
+        this.name.setText(name);
+    }
+
+    public void unit(String unit) {
+        this.unit.setText(unit);
+    }
+
+    public String value() {
+        return value.getText().toString().trim();
+    }
+
 }
