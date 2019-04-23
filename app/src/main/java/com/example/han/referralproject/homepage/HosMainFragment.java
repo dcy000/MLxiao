@@ -165,6 +165,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 break;
             case R.id.ei_doctor_service:
                 CC.obtainBuilder("health.profile").build().call();
+                CC.obtainBuilder("com.gcml.health.check.list").build().call();
                 break;
             case R.id.ei_quit:
                 quitApp();

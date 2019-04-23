@@ -32,5 +32,9 @@
         <activity
             android:name=".bracelet.activity.BraceletActivtity"
             android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".checklist.HealthCheckListActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

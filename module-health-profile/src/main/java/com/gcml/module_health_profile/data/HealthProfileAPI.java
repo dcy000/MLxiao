@@ -8,6 +8,7 @@ import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
 import com.gcml.module_health_profile.bean.TiZhiBean;
 import com.gcml.module_health_profile.bean.WarnBean;
+import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 
 import java.util.List;
 
@@ -62,5 +63,12 @@ public interface HealthProfileAPI {
     // 体质检测 记录
     @GET("ZZB/api/health/inquiry/constitution/history/")
     Observable<ApiResult<List<TiZhiBean>>> getConstitution(@Query("userId") String userId);
+
+    /**
+     * 健康体检表
+     */
+    // 体质检测 记录
+    @GET("ZZB//api/health/record/{rdRecordId}/")
+    Observable<ApiResult<CheckListInfoBean>> getHealthCheckList(@Path("rdRecordId") String rdRecordId);
 
 }

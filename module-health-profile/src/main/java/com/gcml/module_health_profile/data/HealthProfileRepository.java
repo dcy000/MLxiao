@@ -9,6 +9,7 @@ import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
 import com.gcml.module_health_profile.bean.TiZhiBean;
 import com.gcml.module_health_profile.bean.WarnBean;
+import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 
 import java.util.List;
 
@@ -68,6 +69,10 @@ public class HealthProfileRepository {
 
     public Observable<List<TiZhiBean>> getConstitution(String userId) {
         return healthProfile.getConstitution(userId).compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<CheckListInfoBean> getHealthCheckList(String recordIdPath) {
+        return healthProfile.getHealthCheckList(recordIdPath).compose(RxUtils.apiResultTransformer());
     }
 
 }
