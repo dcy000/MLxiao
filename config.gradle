@@ -16,7 +16,8 @@ ext {
 
             localtest     : "\"http://192.168.191.1:8080/\"",//成都演示本地服务器
             heguiTest     : "\"http://47.96.98.60:8030/\"",//合规版
-            heguiProduce  : "\"http://47.110.60.249:8090/\""//合规版正式服务器
+            heguiProduce  : "\"http://47.110.60.249:8090/\"",//合规版正式服务器
+            xienProd      : "\"http://47.99.160.53:8090/\""//西恩新版正式服务器
     ]
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
@@ -24,7 +25,7 @@ ext {
     developUrl = api.heguiTest
 
     //线上正式运行的IP地址
-    produceUrl = api.heguiTest
+    produceUrl = api.xienProd
 
 
     android = [
@@ -33,7 +34,7 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 27,
-            versionName      : "Robot.xien.2.1.0.11.beta"
+            versionName      : "Robot.xien.2.1.0"
     ]
 
     version = [
