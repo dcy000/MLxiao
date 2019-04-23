@@ -873,7 +873,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 OldRouter.routeToOldMusicActivity(this);
                 return;
             }
-            if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
+            if (inSpell.matches(".*(jiankangguanli).*")) {
+                startActivity(SymptomCheckActivity.class);
+                return;
+            }
+            if (inSpell.matches(".*(gaoxueyaguanli|gaoxueyafangan|" +
                     "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
                 startActivity(SlowDiseaseManagementActivity.class);
                 return;

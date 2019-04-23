@@ -318,8 +318,11 @@ public class DataDealHelper {
             CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
             return;
         }
-
-        if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
+        if (inSpell.matches(".*(jiankangguanli).*")){
+            startActivity(SymptomCheckActivity.class);
+            return;
+        }
+        if (inSpell.matches(".*(gaoxueyaguanli|gaoxueyafangan|" +
                 "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
             startActivity(SlowDiseaseManagementActivity.class);
             return;

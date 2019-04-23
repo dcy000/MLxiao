@@ -123,7 +123,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
 
         } else {
-            mTitleText.setText(getString(R.string.doctor_qianyue));
+            mTitleText.setText("健 康 顾 问 绑 定");
 
         }
 
