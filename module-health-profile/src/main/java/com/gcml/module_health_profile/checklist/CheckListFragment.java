@@ -7,12 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
+import com.gcml.module_health_profile.checklist.config.EntryBoxConfig;
+import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -28,6 +31,7 @@ public class CheckListFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private LinearLayout llContainer;
 
 
     public static CheckListFragment newInstance(String param1, String param2) {
@@ -52,6 +56,7 @@ public class CheckListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check_list, container, false);
+        llContainer = view.findViewById(R.id.ll_container);
         return view;
     }
 
@@ -90,18 +95,27 @@ public class CheckListFragment extends Fragment {
                     @Override
                     public void onNext(CheckListInfoBean checkListInfoBean) {
                         super.onNext(checkListInfoBean);
+                        simulation();
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        dialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         super.onComplete();
+                        dialog.dismiss();
                     }
                 });
 
+    }
+
+    private void simulation() {
+        EntryBoxLinearLayout entryBoxLinearLayout = new EntryBoxLinearLayout(getContext());
+        entryBoxLinearLayout.setBoxConfig(new EntryBoxConfig.Builder().name("体重").unit("kg").build());
+        llContainer.addView(entryBoxLinearLayout);
     }
 }

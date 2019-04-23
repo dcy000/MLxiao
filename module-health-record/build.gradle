@@ -1,4 +1,4 @@
-ext.alwaysLib=true
+ext.alwaysLib = true
 apply from: rootProject.file("build-base.gradle")
 
 android {
@@ -22,4 +22,5 @@ android {
 
 dependencies {
     implementation project(':lib-voice')
+    implementation 'com.android.support:support-v4:27.1.1'
 }
