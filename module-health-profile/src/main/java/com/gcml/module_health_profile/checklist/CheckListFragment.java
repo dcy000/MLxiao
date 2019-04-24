@@ -102,7 +102,7 @@ public class CheckListFragment extends Fragment {
                     @Override
                     public void onNext(CheckListInfoBean checkListInfoBean) {
                         super.onNext(checkListInfoBean);
-                        simulation(checkListInfoBean);
+                        simulation(checkListInfoBean.questionList);
                     }
 
                     public void onError(Throwable throwable) {
@@ -123,8 +123,10 @@ public class CheckListFragment extends Fragment {
      * 问题类型 01标题 11填空 21单选 22多选 90其他 ,
      * 数据类型 1文字 2时间 3数字 4地址
      */
-    private void simulation(CheckListInfoBean checkListInfoBean) {
-        List<CheckListInfoBean.TRdQuestion> questionList = checkListInfoBean.questionList;
+    private void simulation(List<CheckListInfoBean.TRdQuestion> questionList) {
+        if (questionList == null || questionList.size() == 0) {
+            return;
+        }
         int size = questionList.size();
         for (int i = 0; i < size; i++) {
             //最外层
@@ -151,8 +153,8 @@ public class CheckListFragment extends Fragment {
 
                 case "22":
                     List<CheckListInfoBean.TRdQuestion.TRdOption> optionList = tRdQuestion.optionList;
-                        if (optionList == null) {
-                            return;
+                    if (optionList == null) {
+                        return;
                     }
 
                     SingleChoiceLayout choices = new SingleChoiceLayout(getContext());
@@ -166,6 +168,7 @@ public class CheckListFragment extends Fragment {
                     break;
                 default:
             }
+            simulation(tRdQuestion.questionList);
         }
     }
 }
