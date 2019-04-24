@@ -18,8 +18,8 @@ public class CheckListInfoBean implements Serializable {
     public String recordName;
     public String rdRecordId;
     public Object answerObj;
-    List<TRdUserAnswer> answerList;
-    List<TRdQuestion> questionList;
+    public List<TRdUserAnswer> answerList;
+    public List<TRdQuestion> questionList;
 
     public static class TRdUserAnswer implements Serializable {
 //        createdOn (string, optional): 创建时间 ,

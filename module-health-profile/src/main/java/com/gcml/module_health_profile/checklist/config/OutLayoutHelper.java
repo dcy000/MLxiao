@@ -44,13 +44,8 @@ public class OutLayoutHelper {
             return this;
         }
 
-        public Builder name(View view) {
-            this.rightChildView = view;
-            return this;
-        }
-
-        public Builder layout(OutLayout layout) {
-            this.layout = layout;
+        public Builder rightView(View rightChildView) {
+            this.rightChildView = rightChildView;
             return this;
         }
 

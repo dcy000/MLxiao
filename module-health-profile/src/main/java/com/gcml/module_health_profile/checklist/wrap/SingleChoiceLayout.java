@@ -7,9 +7,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
-import com.gcml.module_health_profile.checklist.bean.ItemBean;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by lenovo on 2019/4/24.
  */
 
-public class SingleChoiceLayout extends LinearLayout {
+public class SingleChoiceLayout<T> extends LinearLayout {
 
     private LinearLayout linearLayout;
     private EqualFlowLayout equalFlowLayout;
@@ -48,11 +48,14 @@ public class SingleChoiceLayout extends LinearLayout {
         linearLayout.addView(layout);
     }
 
-    public void setData(List<ItemBean> data) {
-        equalFlowLayout.setAdapte(new FlowAdapte<ItemBean>(data) {
+    public void setData(List<T> data) {
+        equalFlowLayout.setAdapte(new FlowAdapte<T>(data) {
             @Override
-            public View onBindViewHolder(ItemBean item, int position) {
-                return LayoutInflater.from(getContext()).inflate(R.layout.single_choice_item, null);
+            public View onBindViewHolder(T item, int position) {
+                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.single_choice_item, null);
+                TextView name = inflate.findViewById(R.id.tv_single_item_name);
+                name.setText(position + "条目条目");
+                return inflate;
             }
         });
     }

@@ -1,11 +1,6 @@
 package com.gcml.module_health_profile.checklist.config;
 
-import android.view.View;
-
-import com.gcml.module_health_profile.checklist.bean.ItemBean;
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
-import com.gcml.module_health_profile.checklist.wrap.SingleChoiceLayout;
-import com.gcml.module_health_profile.checklist.wrap.OutLayout;
 import com.gcml.module_health_profile.checklist.wrap.SingleChoiceLayout;
 
 import java.util.List;
@@ -14,21 +9,21 @@ import java.util.List;
  * Created by lenovo on 2019/4/23.
  */
 
-public class ChoiceInputLayoutHelper {
+public class ChoiceInputLayoutHelper<T> {
     private SingleChoiceLayout layout;
-    private List<ItemBean> choices;
+    private List<T> choices;
 
     public ChoiceInputLayoutHelper(Builder builder) {
         this.choices = builder.choices;
         this.layout = builder.layout;
 
-        EntryBoxHelper helper=new EntryBoxHelper.Builder(new EntryBoxLinearLayout(layout.getContext())).name("").unit("").build();
+        EntryBoxHelper helper = new EntryBoxHelper.Builder(new EntryBoxLinearLayout(layout.getContext())).name("").unit("").build();
         layout.addInput(helper.layout());
 
         layout.setData(choices);
     }
 
-    public List<ItemBean> choices() {
+    public List<T> choices() {
         return choices;
     }
 
@@ -36,15 +31,15 @@ public class ChoiceInputLayoutHelper {
         return layout;
     }
 
-    public static class Builder {
+    public static class Builder<T> {
         private SingleChoiceLayout layout;
-        private List<ItemBean> choices;
+        private List<T> choices;
 
         public Builder(SingleChoiceLayout layout) {
             this.layout = layout;
         }
 
-        public Builder choices(List<ItemBean> choices) {
+        public Builder choices(List<T> choices) {
             this.choices = choices;
             return this;
         }

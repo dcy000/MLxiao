@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <EqualFlowLayout
+    <com.gcml.module_health_profile.checklist.wrap.EqualFlowLayout
         android:id="@+id/efl_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
