@@ -41,6 +41,7 @@ import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
@@ -51,7 +52,6 @@ import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import io.reactivex.Observable;
@@ -310,7 +310,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.iv_change_account:
                 MobclickAgent.onProfileSignOff();
-                NimAccountHelper.getInstance().logout();//退出网易IM
+                CallAuthHelper.getInstance().logout();
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
                 UserSpHelper.setUserId("");

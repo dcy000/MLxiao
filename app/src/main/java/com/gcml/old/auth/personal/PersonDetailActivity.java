@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -47,6 +48,8 @@ public class PersonDetailActivity extends AppCompatActivity {
                 mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_2);
             } else if (level < -70) {
                 mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_1);
+            } else {
+                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_error);
             }
         }
     };
@@ -91,6 +94,14 @@ public class PersonDetailActivity extends AppCompatActivity {
         fragments.add(detail);
 //        fragments.add(detail2);
         vpContent.setAdapter(new PersonDetailFragmentPagerAdapter(getSupportFragmentManager(), fragments));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!NetUitls.isWifiConnected()) {
+            mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_error);
+        }
     }
 
     @Override

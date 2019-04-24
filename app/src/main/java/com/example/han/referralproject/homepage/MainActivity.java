@@ -1,6 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.billy.cc.core.component.CC;
@@ -19,12 +19,12 @@ import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
-import com.medlink.danbogh.call2.NimAccountHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,17 +43,18 @@ import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
  * created by:gzq
  * description:新的主界面
  */
-public class MainActivity extends BaseActivity implements HttpListener<AccessToken> {
+public class MainActivity extends BaseActivity implements HttpListener<AccessToken>, View.OnClickListener {
 
     private ViewPager mViewpage;
     private LinearLayout mNewmainBottomIndicator;
     private View mIndicatorLeft;
-//    private View mIndicatorRight;
+    //    private View mIndicatorRight;
     private View mIndicatorMiddle;
     private List<Fragment> fragments;
     private NewMain1Fragment newMain1Fragment;
     private NewMain2Fragment newMain2Fragment;
     private NewMain3Fragment newMain3Fragment;
+    private ImageView gotoNext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +104,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                     if (showStateBar != null) {
                         showStateBar.showStateBar(false);
                     }
+                    gotoNext.setVisibility(View.VISIBLE);
                 } else if (position == 1) {
                     mIndicatorLeft.setVisibility(View.INVISIBLE);
                     mIndicatorMiddle.setVisibility(View.VISIBLE);
@@ -110,6 +112,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                     if (showStateBar != null) {
                         showStateBar.showStateBar(true);
                     }
+                    gotoNext.setVisibility(View.GONE);
                 } else if (position == 2) {
                     mIndicatorLeft.setVisibility(View.INVISIBLE);
                     mIndicatorMiddle.setVisibility(View.INVISIBLE);
@@ -117,6 +120,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                     if (showStateBar != null) {
                         showStateBar.showStateBar(true);
                     }
+                    gotoNext.setVisibility(View.GONE);
                 }
             }
 
@@ -146,6 +150,9 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         mIndicatorLeft = findViewById(R.id.indicator_left);
 //        mIndicatorRight = findViewById(R.id.indicator_right);
         mIndicatorMiddle = findViewById(R.id.indicator_middle);
+        gotoNext = findViewById(R.id.iv_goto_next_page);
+        gotoNext.setOnClickListener(this);
+
     }
 
 
@@ -186,7 +193,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             Timber.e("获取网易账号信息出错");
                             return;
                         }
-                        NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
+                        CallAuthHelper.getInstance().login(wyyxId, wyyxPwd, null);
                         CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                                 .addParam("userId", user.id)
                                 .build()
@@ -204,6 +211,11 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
      */
     public void setShowStateBarListener(ShowStateBar showStateBar) {
         this.showStateBar = showStateBar;
+    }
+
+    @Override
+    public void onClick(View v) {
+        mViewpage.setCurrentItem(1, true);
     }
 
     public interface ShowStateBar {

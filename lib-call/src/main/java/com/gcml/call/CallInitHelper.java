@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.gcml.call.utils.T;
+import com.gcml.common.utils.display.ToastUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
@@ -63,8 +63,9 @@ public class CallInitHelper {
 //            br_12345678913
 //            br_12345678914
 //            NimCallActivity.launch(this, "br_12345678912");
-            String nimUserId = "";
-            CallAuthHelper.getInstance().login(nimUserId, "123456", null);
+//            String nimUserId = "";
+//            CallAuthHelper.getInstance().login(nimUserId, "123456", null);
+
         }
     }
 
@@ -113,7 +114,7 @@ public class CallInitHelper {
         NIMClient.getService(MsgServiceObserve.class).observeBroadcastMessage(new Observer<BroadcastMessage>() {
             @Override
             public void onEvent(BroadcastMessage broadcastMessage) {
-                T.show(broadcastMessage.getContent());
+                ToastUtils.showShort(broadcastMessage.getContent());
             }
         }, register);
     }

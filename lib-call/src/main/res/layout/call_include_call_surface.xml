@@ -16,8 +16,8 @@
 
     <FrameLayout
         android:id="@+id/call_fl_call_small_container"
-        android:layout_width="384dp"
-        android:layout_height="213dp"
+        android:layout_width="224pt"
+        android:layout_height="320pt"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="parent"

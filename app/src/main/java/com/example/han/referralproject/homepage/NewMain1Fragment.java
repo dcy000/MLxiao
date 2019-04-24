@@ -17,10 +17,12 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
@@ -34,13 +36,12 @@ import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.call2.NimCallActivity;
-
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import tech.linjiang.pandora.Pandora;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -265,6 +266,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.clock:
                 break;
             case R.id.image_weather:
+                if (BuildConfig.DEBUG) {
+                    Pandora.get().open();
+//                    startActivity(new Intent(getContext(), TreatmentPlanActivity.class));
+                }
                 break;
             case R.id.temperature:
                 break;
@@ -291,6 +296,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
                                     startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip", false));
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
 //                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
 //                                            .addParam("skip", true)
 //                                            .addParam("currentUser", false)
@@ -349,26 +355,5 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
                 break;
         }
-    }
-
-    public void getDoctorInfo() {
-        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
-            @Override
-            public void onSuccess(Doctor response) {
-                String doctorId = response.docterid + "";
-
-                if (TextUtils.isEmpty(doctorId)) {
-                    ToastUtils.showShort("呼叫健康顾问失败");
-                    return;
-                }
-                NimCallActivity.launchNoCheck(getActivity(), "docter_" + doctorId);
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort("“尚未绑定任何顾问，请前往个人中心绑定");
-            }
-        });
     }
 }

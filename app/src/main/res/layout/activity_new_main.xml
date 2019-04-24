@@ -54,4 +54,14 @@
             <!--android:background="@drawable/shape_newmain_gradient"-->
             <!--android:visibility="invisible" />-->
     </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_goto_next_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/indicator_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="60pt"
+        android:padding="40pt"/>
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.gcml.common.AppDelegate;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -146,7 +147,7 @@ public class CallAuthHelper {
         if (!TextUtils.isEmpty(mAccount)) {
             return mAccount;
         }
-        Application app = CallApp.INSTANCE.getApp();
+        Application app = AppDelegate.INSTANCE.app();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         return preferences.getString("account", "");
     }
@@ -155,21 +156,21 @@ public class CallAuthHelper {
         if (!TextUtils.isEmpty(mToken)) {
             return mToken;
         }
-        Application app = CallApp.INSTANCE.getApp();
+        Application app = AppDelegate.INSTANCE.app();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         return preferences.getString("token", "");
     }
 
     public void setAccount(String account) {
         mAccount = account;
-        Application app = CallApp.INSTANCE.getApp();
+        Application app =AppDelegate.INSTANCE.app();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         preferences.edit().putString("account", account).apply();
     }
 
     public void setToken(String token) {
         mToken = token;
-        Application app = CallApp.INSTANCE.getApp();
+        Application app =AppDelegate.INSTANCE.app();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         preferences.edit().putString("account", token).apply();
     }
@@ -177,7 +178,7 @@ public class CallAuthHelper {
     public void removeUserInfo() {
         mAccount = "";
         mToken = "";
-        Application app = CallApp.INSTANCE.getApp();
+        Application app =AppDelegate.INSTANCE.app();
         SharedPreferences preferences = app.getSharedPreferences("config-call", Context.MODE_PRIVATE);
         preferences.edit()
                 .putString("account", "")

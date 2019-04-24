@@ -59,7 +59,12 @@ import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
+import com.gcml.call.CallAuthHelper;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
@@ -70,8 +75,6 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.call2.NimCallActivity;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -87,6 +90,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static android.content.Context.AUDIO_SERVICE;
@@ -295,7 +300,7 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(jiankangjiance|jian|zuogejiancha|jianchashenti|zuotijian).*")) {
+        if (inSpell.matches(".*(jiankangjiance|zuogejiancha|jianchashenti|zuotijian).*")) {
             jiance();
             if (listener != null) {
                 listener.onEnd();
@@ -321,7 +326,11 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
-            startActivity(HealthRecordActivity.class);
+//            startActivity(HealthRecordActivity.class);
+            if (listener != null) {
+                listener.onEnd();
+            }
+            vertifyFaceThenHealthRecordActivity();
             return;
         }
 
@@ -741,10 +750,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*maibaojianpin")
                 || inSpell.matches(".*xiaoyituijian")
                 || inSpell.matches(".*tuijian(shangpin|shanpin)")
-                )
-
-
-        {
+                ) {
             startActivity(MarketActivity.class);
 
 
@@ -1441,11 +1447,47 @@ public class DataDealHelper {
 
     private void exit() {
         MobclickAgent.onProfileSignOff();
-        NimAccountHelper.getInstance().logout();//退出网易IM
+        CallAuthHelper.getInstance().logout();
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
         UserSpHelper.setUserId("");
         CC.obtainBuilder("com.gcml.auth").build().callAsync();
     }
 
+    private void vertifyFaceThenHealthRecordActivity() {
+        CCResult result;
+        Observable<UserEntity> rxUser;
+        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = result.getDataItem("data");
+        rxUser.subscribeOn(Schedulers.io())
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                                    "请先去个人中心完善性别和年龄信息");
+                        } else {
+                            CC.obtainBuilder("com.gcml.auth.face2.signin")
+                                    .addParam("skip", true)
+                                    .addParam("verify", true)
+                                    .addParam("currentUser", false)
+                                    .addParam("hidden", true)
+                                    .build()
+                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                        @Override
+                                        public void onResult(CC cc, CCResult result) {
+                                            boolean skip = "skip".equals(result.getErrorMessage());
+                                            if (result.isSuccess() || skip) {
+//                                                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+                                                startActivity(HealthRecordActivity.class);
+                                            } else {
+                                                ToastUtils.showShort(result.getErrorMessage());
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+    }
 }

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -27,14 +28,18 @@ import com.gcml.auth.ui.profile.update.AlertMHActivity;
 import com.gcml.auth.ui.profile.update.AlertNameActivity;
 import com.gcml.common.data.HealthInfo;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.dialog.SMSVerificationDialog;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -84,26 +89,28 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 });
         mSexes = Arrays.asList(getResources().getStringArray(R.array.common_sexes));
 
-        binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserEntity user = mUser;
-                if (user == null
-                        || TextUtils.isEmpty(user.phone)
-                        || !TextUtils.isDigitsOnly(user.phone)
-                        || user.phone.length() != 11) {
-                    ToastUtils.showShort("请重新登陆");
+        binding.ivAvatar.setOnClickListener(v -> {
+            UserEntity user = mUser;
+            if (user == null
+                    || TextUtils.isEmpty(user.phone)
+                    || !TextUtils.isDigitsOnly(user.phone)
+                    || user.phone.length() != 11) {
+                //身份证注册的，是没有手机号码的，所以只能验证身份证号码
+                if (!TextUtils.isEmpty(user.idCard)) {
+                    showVertifyIdCardDialog(user);
                     return;
                 }
-                SMSVerificationDialog dialog = new SMSVerificationDialog();
-                Bundle bundle = new Bundle();
-                bundle.putString("phone", user.phone);
-                dialog.setArguments(bundle);
-                dialog.setListener(() -> {
-                    modifyHead();
-                });
-                dialog.show(getFragmentManager(), "phoneCode");
+                ToastUtils.showShort("请重新登陆");
+                return;
             }
+            SMSVerificationDialog dialog = new SMSVerificationDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString("phone", user.phone);
+            dialog.setArguments(bundle);
+            dialog.setListener(() -> {
+                modifyHead();
+            });
+            dialog.show(getFragmentManager(), "phoneCode");
         });
         binding.clItemName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +218,32 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         binding.tvItemContentDeviceId.setText(Utils.getDeviceId(getContentResolver()));
     }
 
+    private void showVertifyIdCardDialog(UserEntity user) {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_vertify_idcard)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder viewHolder, BaseNiceDialog baseNiceDialog) {
+                        //取消按钮
+                        viewHolder.getView(R.id.iv_close).setOnClickListener(v1 ->
+                                baseNiceDialog.dismiss());
+
+                        //下一步
+                        viewHolder.getView(R.id.tv_next).setOnClickListener(v12 -> {
+                            EditText idCard = (EditText) viewHolder.getView(R.id.et_code);
+                            String idCardString = idCard.getText().toString().trim();
+                            if (TextUtils.isEmpty(idCardString) || !user.idCard.equals(idCardString)) {
+                                ToastUtils.showShort("身份证号码不正确");
+                                return;
+                            }
+                            baseNiceDialog.dismiss();
+                            modifyHead();
+                        });
+
+                    }
+                })
+                .show(getSupportFragmentManager());
+    }
 
     private void selectBirthday() {
         Calendar selectedDate = Calendar.getInstance();

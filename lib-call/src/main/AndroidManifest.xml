@@ -43,6 +43,7 @@
     <uses-permission android:name="${applicationId}.permission.RECEIVE_MSG"/>
 
     <application>
+
         <activity android:name="com.gcml.call.NimCallActivity"/>
 
         <activity
@@ -91,9 +92,6 @@
             </intent-filter>
         </receiver>
 
-        <meta-data
-            android:name="com.gcml.call.CallAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
     </application>
 
 </manifest>

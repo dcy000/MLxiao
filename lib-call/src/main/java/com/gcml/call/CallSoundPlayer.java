@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
+import com.gcml.common.AppDelegate;
+
 import timber.log.Timber;
 
 /**
@@ -52,7 +54,7 @@ public class CallSoundPlayer {
     }
 
     public CallSoundPlayer() {
-        this.context = CallApp.INSTANCE.getApp();
+        this.context = AppDelegate.INSTANCE.app();
     }
 
     public synchronized void play(RingerType type) {

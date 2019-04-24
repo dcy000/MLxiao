@@ -23,6 +23,7 @@ import com.example.han.referralproject.homepage.MainActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by afirez on 18-1-26.
@@ -159,6 +160,7 @@ public class StatusBarFragment extends Fragment implements
         if (dateFormat == null) {
             //上午 12:32 1月26日 周五
             dateFormat = new SimpleDateFormat("a hh:mm yyyy年MM月dd日 E", Locale.CHINA);
+            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         }
         return dateFormat.format(date);
     }
@@ -252,9 +254,9 @@ public class StatusBarFragment extends Fragment implements
 
     @Override
     public void showStateBar(boolean show) {
-        if (show){
+        if (show) {
             tvTime.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tvTime.setVisibility(View.INVISIBLE);
         }
     }

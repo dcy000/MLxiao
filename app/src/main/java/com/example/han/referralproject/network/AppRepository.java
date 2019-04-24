@@ -6,6 +6,7 @@ import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 
 import io.reactivex.Observable;
@@ -67,4 +68,9 @@ public class AppRepository {
     public static Observable<Object> getOrderStarte(String orderId){
         return healthMeasureServer.getOrderStarte(orderId).compose(RxUtils.apiResultTransformer());
     }
+
+    public static Observable<String> getCallId(String doctorId){
+        return healthMeasureServer.getCallId(doctorId).compose(RxUtils.apiResultTransformer());
+    }
+
 }
