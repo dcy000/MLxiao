@@ -54,7 +54,12 @@ public class SingleChoiceLayout<T> extends LinearLayout {
             public View onBindViewHolder(T item, int position) {
                 View inflate = LayoutInflater.from(getContext()).inflate(R.layout.single_choice_item, null);
                 TextView name = inflate.findViewById(R.id.tv_single_item_name);
-                name.setText(position + "条目条目");
+                if (position == 1) {
+                    name.setText(position + "条目条目条目条目条目条目条目条目条目条目条目条目条目条目");
+                } else if (position == 7) {
+                    name.setText(position + "条目条目条目条目条目条目条目");
+                } else
+                    name.setText(position + "条目");
                 return inflate;
             }
         });

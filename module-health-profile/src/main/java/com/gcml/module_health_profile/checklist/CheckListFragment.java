@@ -131,15 +131,21 @@ public class CheckListFragment extends Fragment {
             CheckListInfoBean.TRdQuestion tRdQuestion = questionList.get(i);
             switch (tRdQuestion.questionType) {
                 case "01":
+                    EntryBoxLinearLayout input01 = new EntryBoxLinearLayout(getContext());
+                    new EntryBoxHelper.Builder(input01).unit(tRdQuestion.dataUnit).build();
+
+                    OutLayout layout = new OutLayout(getContext());
+                    new OutLayoutHelper.Builder(layout).name(tRdQuestion.questionName).rightView(input01).build();
+                    llContainer.addView(layout);
                     break;
                 case "11":
 
-                    EntryBoxLinearLayout input = new EntryBoxLinearLayout(getContext());
-                    new EntryBoxHelper.Builder(input).unit(tRdQuestion.dataUnit).build();
+                    EntryBoxLinearLayout input11 = new EntryBoxLinearLayout(getContext());
+                    new EntryBoxHelper.Builder(input11).unit(tRdQuestion.dataUnit).build();
 
-                    OutLayout layout = new OutLayout(getContext());
-                    new OutLayoutHelper.Builder(layout).name(tRdQuestion.questionName).rightView(input).build();
-                    llContainer.addView(layout);
+                    OutLayout layout11 = new OutLayout(getContext());
+                    new OutLayoutHelper.Builder(layout11).name(tRdQuestion.questionName).rightView(input11).build();
+                    llContainer.addView(layout11);
                     break;
                 case "21":
 
@@ -160,7 +166,6 @@ public class CheckListFragment extends Fragment {
                     break;
                 default:
             }
-            String questionType = tRdQuestion.questionType;
         }
     }
 }
