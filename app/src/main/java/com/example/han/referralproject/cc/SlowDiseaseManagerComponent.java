@@ -7,18 +7,18 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
-import com.example.han.referralproject.tcm.SymptomCheckActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 
-public class SymptomCheckComponent implements IComponent {
+public class SlowDiseaseManagerComponent implements IComponent {
     @Override
     public String getName() {
-        return "com.app.symptom.check";
+        return "app.hypertension.manager.slow.disease";
     }
 
     @Override
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
-        Intent intent = new Intent(context, SymptomCheckActivity.class);
+        Intent intent = new Intent(context, SlowDiseaseManagementActivity.class);
         if (context instanceof Application) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

@@ -5,16 +5,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.CustomDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
+
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -24,6 +38,11 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
  * description:提供给高血压管理入口进入的血糖测量界面
  */
 public class BloodsugarManagerActivity extends BaseManagementActivity {
+
+
+    private String fromActivity;
+    private String toActivity;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, BloodsugarManagerActivity.class);
         if (context instanceof Application) {
@@ -34,6 +53,8 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
 
     @Override
     protected void dealLogic() {
+        fromActivity = getIntent().getStringExtra("fromActivity");
+        toActivity = getIntent().getStringExtra("toActivity");
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
         jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
         super.dealLogic();
@@ -62,6 +83,14 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
     public void jump2HealthHistory(int measureType) {
         //点击了下一步
         CCResultActions.onCCResultAction(ResultAction.MEASURE_SUCCESS);
+
+        if (TextUtils.isEmpty(fromActivity)) return;
+        if (fromActivity.equals("DetecteTipActivity")){
+            if (TextUtils.isEmpty(toActivity)) return;
+            if (toActivity.equals("WeightManagerActivity")){
+                Routerfit.register(AppRouter.class).skipWeightManagerActivity("BloodsugarManagerActivity","TreatmentPlanActivity");
+            }
+        }
     }
 
     /**
@@ -92,4 +121,5 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
             }
         });
     }
+
 }

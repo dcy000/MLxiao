@@ -17,12 +17,15 @@ import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDi
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -456,9 +459,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     public void onResult(CC cc, CCResult result) {
                         boolean skip = "skip".equals(result.getErrorMessage());
                         if (result.isSuccess() || skip) {
-                            if (skip) {
-                                toBloodPressure();
-                            }
+                            toBloodPressure();
                         } else {
                             ToastUtils.showShort(result.getErrorMessage());
                         }
@@ -467,15 +468,26 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     }
 
     private void toBloodPressure() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_BloodpressureManagerActivity")
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-
-                    }
-                });
+        Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity("SlowDiseaseManagementActivity");
+//        Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity(new ActivityCallback() {
+//            @Override
+//            public void onActivityResult(int result, Object data) {
+//                ToastUtils.showShort("测试成功"+result+"---"+data);
+//            }
+//        });
+//        TODO:还需调试2019/04/24
+//        CC.obtainBuilder("health_measure")
+//                .setActionName("To_BloodpressureManagerActivity")
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        String callback = result.getDataItem("key_cc_callback", "");
+//                        if (!TextUtils.isEmpty(callback) && callback.equals("measure_success")) {
+//                            showEndDialog();
+//                        }
+//                    }
+//                });
     }
 
     @Override
@@ -483,11 +495,4 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         super.onStop();
         finish();
     }
-
-    //
-//    @Override
-//    public void onClickCancel() {
-//
-//    }
-
 }

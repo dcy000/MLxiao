@@ -1,6 +1,7 @@
 package com.gcml.health.measure.cc;
 
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -51,7 +52,9 @@ public class CCResultActions {
      * @param action
      */
     public static void onCCResultAction(String action) {
-        CC.sendCCResult(ccId, CCResult.success(ResultKeys.KEY_EXTRA_CC_CALLBACK, action));
+        if (!TextUtils.isEmpty(ccId)){
+            CC.sendCCResult(ccId, CCResult.success(ResultKeys.KEY_EXTRA_CC_CALLBACK, action));
+        }
     }
 
     /**

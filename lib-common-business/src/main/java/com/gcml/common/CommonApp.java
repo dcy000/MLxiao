@@ -10,6 +10,7 @@ import com.gcml.common.utils.ui.UiUtils;
 import com.google.auto.service.AutoService;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.sjtu.yifei.route.Routerfit;
 
 @AutoService(AppLifecycleCallbacks.class)
 public class CommonApp implements AppLifecycleCallbacks {
@@ -33,6 +34,7 @@ public class CommonApp implements AppLifecycleCallbacks {
         SpeechUtility.createUtility(app, builder.toString());
 
         JPushMessageHelper.init();
+        Routerfit.init(app);
     }
 
     @Override

@@ -8,10 +8,12 @@ import android.util.Log;
 
 import com.gcml.common.R;
 import com.gcml.common.api.AppLifecycleCallbacks;
+import com.gcml.common.utils.AppUtils;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.github.moduth.blockcanary.internal.BlockInfo;
 import com.google.auto.service.AutoService;
+import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
@@ -34,6 +36,16 @@ public class QualityAppLifecycleCallbacks implements AppLifecycleCallbacks {
     @Override
     public void onCreate(Application application) {
         CrashReport.initCrashReport(application, application.getString(R.string.app_id_bugly), isDebug());
+        CrashReport.UserStrategy userStrategy = new CrashReport.UserStrategy(application);
+        userStrategy.setAppVersion(AppUtils.getAppInfo().getVersionName());
+        String[] splits = AppUtils.getAppInfo().getVersionName().split("\\.");
+        if (splits != null && splits.length >=1) {
+            Timber.i("初始化渠道名："+splits[0]);
+            userStrategy.setAppChannel(splits[0]);
+        }else{
+            Timber.i("初始化渠道名：失败");
+        }
+        Bugly.init(application, application.getString(R.string.app_id_bugly), isDebug(), userStrategy);
         LeakCanaryHelper.INSTANCE.install(application);
         BlockCanary.install(application, new AppBlockCanaryContext()).start();
     }

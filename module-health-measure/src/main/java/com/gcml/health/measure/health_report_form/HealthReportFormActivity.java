@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -54,6 +55,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     public static final String KEY_TYPE = "key_type";
     private String userId;
     private int checkViewpageState = 5;
+    private ImageView nextIndicator;
 
     public static void startActivity(Context context) {
         context.startActivity(new Intent(context, HealthReportFormActivity.class));
@@ -182,22 +184,27 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                 switch (position) {
                     case 0:
                         mTitleText.setText("健 康 报 告");
+                        nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     case 1:
                         mTitleText.setText("高 血 压 评 估 报 告");
-
+                        nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     case 2:
                         mTitleText.setText("糖 尿 病 评 估 报 告");
+                        nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     case 3:
                         mTitleText.setText("肥 胖 症 评 估 报 告");
+                        nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     case 4:
                         mTitleText.setText("缺 血 性 心 血 管 病 评 估 报 告");
+                        nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     case 5:
                         mTitleText.setText("智 能 推 荐");
+                        nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     default:
                         break;
@@ -217,12 +224,16 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         checkViewpageState = fragments.size() - 1;
         new CustomDialog(this).builder()
                 .setImg(0)
-                .setMsg("您已完成风险评估，为了更好的体验，您可以通过每日任务引导开启健康之旅。")
-                .setPositiveButton("开始体验", new View.OnClickListener() {
+                .setMsg("您已完成风险评估，为了更好的了解您的情况，建议您开启健康方案")
+                .setPositiveButton("健康方案", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        CCAppActions.jump2MainActivity();
-                        CC.obtainBuilder("com.app.symptom.check")
+//                        CC.obtainBuilder("com.app.symptom.check")
+//                                .build()
+//                                .call();
+
+                        CC.obtainBuilder("app.hypertension.manager.slow.disease")
                                 .build()
                                 .call();
                     }
@@ -232,6 +243,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     private void initView() {
         mViewpage = (ViewPager) findViewById(R.id.viewpage);
         mTitleText.setText("健 康 报 告");
+        nextIndicator = findViewById(R.id.iv_ani);
     }
 
     @Override
