@@ -1,9 +1,6 @@
 package com.gcml.module_health_profile.checklist.wrap;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -15,9 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by lenovo on 2019/4/23.

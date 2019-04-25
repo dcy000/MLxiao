@@ -55,33 +55,48 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
             @Override
             public View onBindViewHolder(T item, int position) {
                 CheckListInfoBean.TRdQuestion.TRdOption itemData = (CheckListInfoBean.TRdQuestion.TRdOption) item;
+
                 View inflate = LayoutInflater.from(getContext()).inflate(R.layout.multy_choice_item, null);
                 TextView name = inflate.findViewById(R.id.tv_multy_item_name);
                 name.setText(itemData.optionName);
                 ImageView icon = inflate.findViewById(R.id.iv_multy_item_icon);
 
                 inflate.setOnClickListener(v -> {
-                    if (name.isSelected()) {
-                        name.setSelected(false);
-                        name.setTextColor(Color.parseColor("#ff333333"));
-                        icon.setBackgroundColor(Color.parseColor("#ffff00ff"));
+                    if (v.isSelected()) {
+                        v.setSelected(false);
+                        name.setTextColor(Color.parseColor("#ff3t33333"));
                     } else {
-                        name.setSelected(true);
+                        v.setSelected(true);
                         name.setTextColor(Color.parseColor("#ff3f88fc"));
-                        icon.setBackgroundColor(Color.parseColor("#ff0000ff"));
                     }
-
-
+                    int childCount = equalFlowLayout.getChildCount();
+                    List<CheckListInfoBean.TRdQuestion.TRdOption> data = (List<CheckListInfoBean.TRdQuestion.TRdOption>) this.data;
                     if (TextUtils.equals("1", itemData.exclusiveStatus)) {
                         //排斥其他
-                        int childCount = equalFlowLayout.getChildCount();
                         for (int i = 0; i < childCount; i++) {
+                            if (i == position) {
+                                continue;
+                            }
+                            v.setSelected(false);
                             TextView name01 = equalFlowLayout.getChildAt(i).findViewById(R.id.tv_multy_item_name);
-                            ImageView icon01 = inflate.findViewById(R.id.iv_multy_item_icon);
+                            ImageView icon01 = equalFlowLayout.getChildAt(i).findViewById(R.id.iv_multy_item_icon);
                             name01.setTextColor(Color.parseColor("#ff333333"));
-                            icon01.setBackgroundColor(Color.parseColor("#ffff00ff"));
+                        }
+                    } else {
+                        for (int i = 0; i < childCount; i++) {
+                            for (int i1 = 0; i1 < data.size(); i1++) {
+                                if (TextUtils.equals("1", data.get(i1).exclusiveStatus)) {
+                                    v.setSelected(false);
+                                    TextView name01 = equalFlowLayout.getChildAt(i1).findViewById(R.id.tv_multy_item_name);
+                                    ImageView icon01 = equalFlowLayout.getChildAt(i1).findViewById(R.id.iv_multy_item_icon);
+                                    name01.setTextColor(Color.parseColor("#ff333333"));
+                                }
+                            }
+
                         }
                     }
+
+
                 });
                 return inflate;
             }

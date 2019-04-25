@@ -78,16 +78,20 @@ public class SingleChoiceLayout<T> extends LinearLayout {
                         icon.setBackgroundColor(Color.parseColor("#ff000000"));
                     }*/
 
-                    if (!name.isSelected()) {
-                        name.setSelected(true);
+                    if (!v.isSelected()) {
+                        v.setSelected(true);
                         name.setTextColor(Color.parseColor("#ff3f88fc"));
                         icon.setBackgroundColor(Color.parseColor("#ff000000"));
 
                         //排斥其他
                         int childCount = equalFlowLayout.getChildCount();
                         for (int i = 0; i < childCount; i++) {
+                            if (position == i) {
+                                continue;
+                            }
+                            v.setSelected(false);
                             TextView name01 = equalFlowLayout.getChildAt(i).findViewById(R.id.tv_single_item_name);
-                            ImageView icon01 = inflate.findViewById(R.id.iv_single_item_icon);
+                            ImageView icon01 = equalFlowLayout.getChildAt(i).findViewById(R.id.iv_single_item_icon);
                             name01.setTextColor(Color.parseColor("#ff333333"));
                             icon01.setBackgroundColor(Color.parseColor("#ff999999"));
                         }
@@ -97,6 +101,5 @@ public class SingleChoiceLayout<T> extends LinearLayout {
             }
         });
     }
-
 
 }

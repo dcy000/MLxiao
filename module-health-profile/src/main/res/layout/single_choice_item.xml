@@ -11,6 +11,7 @@
         android:background="#999" />
 
     <TextView
+        android:textColor="#ff333333"
         android:id="@+id/tv_single_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
