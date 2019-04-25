@@ -1,6 +1,8 @@
 package com.gcml.module_health_profile.checklist.wrap;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.text.InputType;
@@ -9,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
@@ -24,6 +27,7 @@ public class EntryBoxLinearLayout extends LinearLayout {
     private TextView name;
     private TextView unit;
     private EditText value;
+    private RelativeLayout rlContainer;
 
     /*1文字 2时间 3数字 4地址 ,*/
 
@@ -47,6 +51,7 @@ public class EntryBoxLinearLayout extends LinearLayout {
         name = view.findViewById(R.id.tv_question_name);
         unit = view.findViewById(R.id.tv_question_unit);
         value = view.findViewById(R.id.et_value);
+        rlContainer = view.findViewById(R.id.rl_entry_box);
         addView(view);
     }
 
@@ -77,9 +82,13 @@ public class EntryBoxLinearLayout extends LinearLayout {
 
     public void requestionType(Boolean title) {
         if (title) {
-            value.setVisibility(GONE);
+            rlContainer.setVisibility(GONE);
+            rlContainer.setBackgroundResource(0);
         } else {
-            value.setVisibility(VISIBLE);
+            rlContainer.setVisibility(VISIBLE);
+
+            //控制背景 边框
+            rlContainer.setBackgroundResource(R.drawable.common_bg_input_gray);
         }
     }
 
