@@ -1,21 +1,26 @@
 package com.gcml.module_health_profile.checklist.wrap;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
  * Created by lenovo on 2019/4/24.
+ * 单选多选
  */
 
 public class SingleChoiceLayout<T> extends LinearLayout {
@@ -54,9 +59,40 @@ public class SingleChoiceLayout<T> extends LinearLayout {
             @Override
             public View onBindViewHolder(T item, int position) {
                 CheckListInfoBean.TRdQuestion.TRdOption itemData = (CheckListInfoBean.TRdQuestion.TRdOption) item;
+
                 View inflate = LayoutInflater.from(getContext()).inflate(R.layout.single_choice_item, null);
                 TextView name = inflate.findViewById(R.id.tv_single_item_name);
                 name.setText(itemData.optionName);
+                ImageView icon = inflate.findViewById(R.id.iv_single_item_icon);
+
+                inflate.setOnClickListener(v -> {
+                    /*if (name.isSelected()) {
+                        name.setSelected(false);
+                        name.setTextColor(Color.parseColor("#ff333333"));
+                        icon.setBackgroundColor(Color.parseColor("#ff999999"));
+                    }
+
+                    else {
+                        name.setSelected(true);
+                        name.setTextColor(Color.parseColor("#ff3f88fc"));
+                        icon.setBackgroundColor(Color.parseColor("#ff000000"));
+                    }*/
+
+                    if (!name.isSelected()) {
+                        name.setSelected(true);
+                        name.setTextColor(Color.parseColor("#ff3f88fc"));
+                        icon.setBackgroundColor(Color.parseColor("#ff000000"));
+
+                        //排斥其他
+                        int childCount = equalFlowLayout.getChildCount();
+                        for (int i = 0; i < childCount; i++) {
+                            TextView name01 = equalFlowLayout.getChildAt(i).findViewById(R.id.tv_single_item_name);
+                            ImageView icon01 = inflate.findViewById(R.id.iv_single_item_icon);
+                            name01.setTextColor(Color.parseColor("#ff333333"));
+                            icon01.setBackgroundColor(Color.parseColor("#ff999999"));
+                        }
+                    }
+                });
                 return inflate;
             }
         });

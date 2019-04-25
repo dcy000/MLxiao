@@ -1,7 +1,7 @@
 package com.gcml.module_health_profile.checklist.layoutHelper;
 
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
-import com.gcml.module_health_profile.checklist.wrap.SingleChoiceLayout;
+import com.gcml.module_health_profile.checklist.wrap.MultipleChoiceLayout;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  * Created by lenovo on 2019/4/23.
  */
 
-public class ChoiceInputLayoutHelper<T> {
-    private SingleChoiceLayout layout;
+public class MultyChoiceInputLayoutHelper<T> {
+    private MultipleChoiceLayout layout;
     private List<T> choices;
 
-    private ChoiceInputLayoutHelper(Builder builder) {
+    private MultyChoiceInputLayoutHelper(Builder builder) {
         this.choices = builder.choices;
         this.layout = builder.layout;
 
@@ -31,15 +31,15 @@ public class ChoiceInputLayoutHelper<T> {
         return choices;
     }
 
-    public SingleChoiceLayout layout() {
+    public MultipleChoiceLayout layout() {
         return layout;
     }
 
     public static class Builder<T> {
-        private SingleChoiceLayout layout;
+        private MultipleChoiceLayout layout;
         private List<T> choices;
 
-        public Builder(SingleChoiceLayout layout) {
+        public Builder(MultipleChoiceLayout layout) {
             this.layout = layout;
         }
 
@@ -48,13 +48,13 @@ public class ChoiceInputLayoutHelper<T> {
             return this;
         }
 
-        public Builder layout(SingleChoiceLayout layout) {
+        public Builder layout(MultipleChoiceLayout layout) {
             this.layout = layout;
             return this;
         }
 
-        public ChoiceInputLayoutHelper build() {
-            return new ChoiceInputLayoutHelper(this);
+        public MultyChoiceInputLayoutHelper build() {
+            return new MultyChoiceInputLayoutHelper(this);
         }
 
     }

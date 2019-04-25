@@ -14,10 +14,12 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
-import com.gcml.module_health_profile.checklist.layoutHelper.ChoiceInputLayoutHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.MultyChoiceInputLayoutHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.SingleChoiceInputLayoutHelper;
 import com.gcml.module_health_profile.checklist.layoutHelper.EntryBoxHelper;
 import com.gcml.module_health_profile.checklist.layoutHelper.OutLayoutHelper;
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
+import com.gcml.module_health_profile.checklist.wrap.MultipleChoiceLayout;
 import com.gcml.module_health_profile.checklist.wrap.OutLayout;
 import com.gcml.module_health_profile.checklist.wrap.SingleChoiceLayout;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
@@ -169,16 +171,36 @@ public class CheckListFragment extends Fragment {
                             .build();
                     llContainer.addView(choiceOut);
                     break;
-                case "21":
-
                 case "22":
+                    List<CheckListInfoBean.TRdQuestion.TRdOption> optionListMulty = tRdQuestion.optionList;
+                    if (optionListMulty == null) {
+                        return;
+                    }
+
+                    MultipleChoiceLayout choicesMulty = new MultipleChoiceLayout(getContext());
+                    new MultyChoiceInputLayoutHelper
+                            .Builder(choicesMulty)
+                            .choices(optionListMulty)
+                            .build();
+
+                    choiceOut = new OutLayout(getContext());
+                    new OutLayoutHelper
+                            .Builder(choiceOut)
+                            .name(tRdQuestion.questionName)
+                            .rightView(choicesMulty)
+                            .marginLeft(childView)
+                            .build();
+                    llContainer.addView(choiceOut);
+                    break;
+
+                case "21":
                     List<CheckListInfoBean.TRdQuestion.TRdOption> optionList = tRdQuestion.optionList;
                     if (optionList == null) {
                         return;
                     }
 
                     SingleChoiceLayout choices = new SingleChoiceLayout(getContext());
-                    new ChoiceInputLayoutHelper
+                    new SingleChoiceInputLayoutHelper
                             .Builder(choices)
                             .choices(optionList)
                             .build();
