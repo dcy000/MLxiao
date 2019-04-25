@@ -365,8 +365,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 .subscribe(new DefaultObserver<DetectTimesBean>() {
                     @Override
                     public void onNext(DetectTimesBean data) {
-                        if (data != null)
+                        if (data != null) {
                             todayDetecTimes = data.times;
+                            UserSpHelper.setTodayDetectTimes(data.times);
+                        }
                     }
 
                     @Override

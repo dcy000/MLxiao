@@ -16,6 +16,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
     protected TextView mBtnVideoDemo;
     private TextView mTvTizhong;
     protected TextView mTvTizhi;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_weight;
