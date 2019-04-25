@@ -60,7 +60,7 @@ public class OutLayout extends LinearLayout {
     public OutLayout textViewMarginLeft(boolean margin) {
         int marginLeft;
         if (margin) {
-            marginLeft = 150;
+            marginLeft = 100;
             name.setTextColor(Color.parseColor("#999999"));
         } else {
             marginLeft = 0;

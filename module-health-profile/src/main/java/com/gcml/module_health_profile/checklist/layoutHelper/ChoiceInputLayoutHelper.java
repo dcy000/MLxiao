@@ -17,7 +17,12 @@ public class ChoiceInputLayoutHelper<T> {
         this.choices = builder.choices;
         this.layout = builder.layout;
 
-        EntryBoxHelper helper = new EntryBoxHelper.Builder(new EntryBoxLinearLayout(layout.getContext())).name("").unit("").build();
+        EntryBoxHelper helper = new EntryBoxHelper
+                .Builder(new EntryBoxLinearLayout(layout.getContext()))
+                .title(false)
+                .name("")
+                .unit("")
+                .build();
         layout.addInput(helper.layout());
 
         layout.setData(choices);

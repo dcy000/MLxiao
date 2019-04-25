@@ -130,22 +130,43 @@ public class CheckListFragment extends Fragment {
             //最外层
             CheckListInfoBean.TRdQuestion tRdQuestion = questionList.get(i);
             OutLayout choiceOut;
+            Boolean title;
             switch (tRdQuestion.questionType) {
                 case "01":
+                    title = true;
                     EntryBoxLinearLayout input01 = new EntryBoxLinearLayout(getContext());
-                    new EntryBoxHelper.Builder(input01).unit(tRdQuestion.dataUnit).build();
+                    new EntryBoxHelper
+                            .Builder(input01)
+                            .dateType(tRdQuestion.dataType)
+                            .title(title)
+                            .build();
 
                     choiceOut = new OutLayout(getContext());
-                    new OutLayoutHelper.Builder(choiceOut).name(tRdQuestion.questionName).rightView(input01).marginLeft(childView).build();
+                    new OutLayoutHelper
+                            .Builder(choiceOut)
+                            .name(tRdQuestion.questionName)
+                            .rightView(input01)
+                            .marginLeft(childView)
+                            .build();
                     llContainer.addView(choiceOut);
                     break;
                 case "11":
-
+                    title = false;
                     EntryBoxLinearLayout input11 = new EntryBoxLinearLayout(getContext());
-                    new EntryBoxHelper.Builder(input11).unit(tRdQuestion.dataUnit).build();
+                    new EntryBoxHelper
+                            .Builder(input11)
+                            .title(title)
+                            .dateType(tRdQuestion.dataType)
+                            .unit(tRdQuestion.dataUnit)
+                            .build();
 
                     choiceOut = new OutLayout(getContext());
-                    new OutLayoutHelper.Builder(choiceOut).name(tRdQuestion.questionName).rightView(input11).marginLeft(childView).build();
+                    new OutLayoutHelper
+                            .Builder(choiceOut)
+                            .name(tRdQuestion.questionName)
+                            .rightView(input11)
+                            .marginLeft(childView)
+                            .build();
                     llContainer.addView(choiceOut);
                     break;
                 case "21":
@@ -157,10 +178,18 @@ public class CheckListFragment extends Fragment {
                     }
 
                     SingleChoiceLayout choices = new SingleChoiceLayout(getContext());
-                    new ChoiceInputLayoutHelper.Builder(choices).choices(optionList).build();
+                    new ChoiceInputLayoutHelper
+                            .Builder(choices)
+                            .choices(optionList)
+                            .build();
 
                     choiceOut = new OutLayout(getContext());
-                    new OutLayoutHelper.Builder(choiceOut).name(tRdQuestion.questionName).rightView(choices).marginLeft(childView).build();
+                    new OutLayoutHelper
+                            .Builder(choiceOut)
+                            .name(tRdQuestion.questionName)
+                            .rightView(choices)
+                            .marginLeft(childView)
+                            .build();
                     llContainer.addView(choiceOut);
                     break;
                 case "90":

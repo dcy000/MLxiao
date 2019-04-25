@@ -1,7 +1,10 @@
 package com.gcml.module_health_profile.checklist.wrap;
 
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -9,26 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
-import com.gcml.module_health_profile.checklist.layoutHelper.EntryBoxHelper;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by lenovo on 2019/4/23.
  */
 
 public class EntryBoxLinearLayout extends LinearLayout {
-    private EntryBoxHelper boxConfig;
     private TextView name;
     private TextView unit;
     private EditText value;
 
- /*   public void setBoxConfig(EntryBoxHelper boxConfig) {
-        this.boxConfig = boxConfig;
-        if (boxConfig != null) {
-            name.setText(boxConfig.name());
-            unit.setText(boxConfig.unit());
-        }
-    }*/
-
+    /*1文字 2时间 3数字 4地址 ,*/
 
     public EntryBoxLinearLayout(Context context) {
         super(context);
@@ -64,5 +61,27 @@ public class EntryBoxLinearLayout extends LinearLayout {
     public String value() {
         return value.getText().toString().trim();
     }
+
+    /*1文字 2时间 3数字 4地址 ,*/
+    public void dataype(String type) {
+        if (TextUtils.equals("1", type)) {
+            value.setInputType(InputType.TYPE_CLASS_TEXT);
+        } else if (TextUtils.equals("2", type)) {
+            value.setInputType(InputType.TYPE_CLASS_TEXT);
+        } else if (TextUtils.equals("3", type)) {
+            value.setInputType(InputType.TYPE_CLASS_DATETIME);
+        } else if (TextUtils.equals("4", type)) {
+            value.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
+    }
+
+    public void requestionType(Boolean title) {
+        if (title) {
+            value.setVisibility(GONE);
+        } else {
+            value.setVisibility(VISIBLE);
+        }
+    }
+
 
 }
