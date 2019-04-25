@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
-import com.gcml.module_health_profile.checklist.config.EntryBoxHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.EntryBoxHelper;
 
 /**
  * Created by lenovo on 2019/4/23.

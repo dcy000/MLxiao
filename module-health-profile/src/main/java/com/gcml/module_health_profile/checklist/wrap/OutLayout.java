@@ -2,6 +2,7 @@ package com.gcml.module_health_profile.checklist.wrap;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -55,4 +56,20 @@ public class OutLayout extends LinearLayout {
         }
         return this;
     }
+
+    public OutLayout textViewMarginLeft(boolean margin) {
+        int marginLeft;
+        if (margin) {
+            marginLeft = 150;
+            name.setTextColor(Color.parseColor("#999999"));
+        } else {
+            marginLeft = 0;
+            name.setTextColor(Color.parseColor("#333333"));
+        }
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) name.getLayoutParams();
+        lp.setMargins(marginLeft, 0, 0, 0);
+
+        return this;
+    }
+
 }

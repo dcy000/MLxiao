@@ -1,4 +1,4 @@
-package com.gcml.module_health_profile.checklist.config;
+package com.gcml.module_health_profile.checklist.layoutHelper;
 
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 import com.gcml.module_health_profile.checklist.wrap.SingleChoiceLayout;
@@ -13,7 +13,7 @@ public class ChoiceInputLayoutHelper<T> {
     private SingleChoiceLayout layout;
     private List<T> choices;
 
-    public ChoiceInputLayoutHelper(Builder builder) {
+    private ChoiceInputLayoutHelper(Builder builder) {
         this.choices = builder.choices;
         this.layout = builder.layout;
 

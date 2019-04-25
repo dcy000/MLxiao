@@ -5,6 +5,7 @@
     tools:context="com.gcml.module_health_profile.checklist.CheckListFragment">
 
     <LinearLayout
+        android:padding="60pt"
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

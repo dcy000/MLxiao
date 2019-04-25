@@ -14,16 +14,14 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
-import com.gcml.module_health_profile.checklist.config.ChoiceInputLayoutHelper;
-import com.gcml.module_health_profile.checklist.config.EntryBoxHelper;
-import com.gcml.module_health_profile.checklist.config.OutLayoutHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.ChoiceInputLayoutHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.EntryBoxHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.OutLayoutHelper;
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 import com.gcml.module_health_profile.checklist.wrap.OutLayout;
 import com.gcml.module_health_profile.checklist.wrap.SingleChoiceLayout;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -102,7 +100,7 @@ public class CheckListFragment extends Fragment {
                     @Override
                     public void onNext(CheckListInfoBean checkListInfoBean) {
                         super.onNext(checkListInfoBean);
-                        simulation(checkListInfoBean.questionList);
+                        simulation(checkListInfoBean.questionList, false);
                     }
 
                     public void onError(Throwable throwable) {
@@ -123,7 +121,7 @@ public class CheckListFragment extends Fragment {
      * 问题类型 01标题 11填空 21单选 22多选 90其他 ,
      * 数据类型 1文字 2时间 3数字 4地址
      */
-    private void simulation(List<CheckListInfoBean.TRdQuestion> questionList) {
+    private void simulation(List<CheckListInfoBean.TRdQuestion> questionList, boolean childView) {
         if (questionList == null || questionList.size() == 0) {
             return;
         }
@@ -131,23 +129,24 @@ public class CheckListFragment extends Fragment {
         for (int i = 0; i < size; i++) {
             //最外层
             CheckListInfoBean.TRdQuestion tRdQuestion = questionList.get(i);
+            OutLayout choiceOut;
             switch (tRdQuestion.questionType) {
                 case "01":
                     EntryBoxLinearLayout input01 = new EntryBoxLinearLayout(getContext());
                     new EntryBoxHelper.Builder(input01).unit(tRdQuestion.dataUnit).build();
 
-                    OutLayout layout = new OutLayout(getContext());
-                    new OutLayoutHelper.Builder(layout).name(tRdQuestion.questionName).rightView(input01).build();
-                    llContainer.addView(layout);
+                    choiceOut = new OutLayout(getContext());
+                    new OutLayoutHelper.Builder(choiceOut).name(tRdQuestion.questionName).rightView(input01).marginLeft(childView).build();
+                    llContainer.addView(choiceOut);
                     break;
                 case "11":
 
                     EntryBoxLinearLayout input11 = new EntryBoxLinearLayout(getContext());
                     new EntryBoxHelper.Builder(input11).unit(tRdQuestion.dataUnit).build();
 
-                    OutLayout layout11 = new OutLayout(getContext());
-                    new OutLayoutHelper.Builder(layout11).name(tRdQuestion.questionName).rightView(input11).build();
-                    llContainer.addView(layout11);
+                    choiceOut = new OutLayout(getContext());
+                    new OutLayoutHelper.Builder(choiceOut).name(tRdQuestion.questionName).rightView(input11).marginLeft(childView).build();
+                    llContainer.addView(choiceOut);
                     break;
                 case "21":
 
@@ -160,15 +159,15 @@ public class CheckListFragment extends Fragment {
                     SingleChoiceLayout choices = new SingleChoiceLayout(getContext());
                     new ChoiceInputLayoutHelper.Builder(choices).choices(optionList).build();
 
-                    OutLayout choiceOut = new OutLayout(getContext());
-                    new OutLayoutHelper.Builder(choiceOut).name(tRdQuestion.questionName).rightView(choices).build();
+                    choiceOut = new OutLayout(getContext());
+                    new OutLayoutHelper.Builder(choiceOut).name(tRdQuestion.questionName).rightView(choices).marginLeft(childView).build();
                     llContainer.addView(choiceOut);
                     break;
                 case "90":
                     break;
                 default:
             }
-            simulation(tRdQuestion.questionList);
+            simulation(tRdQuestion.questionList, true);
         }
     }
 }

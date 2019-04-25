@@ -1,4 +1,4 @@
-package com.gcml.module_health_profile.checklist.config;
+package com.gcml.module_health_profile.checklist.layoutHelper;
 
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 
@@ -12,7 +12,7 @@ public class EntryBoxHelper {
     private String value;
     private String unit;
 
-    public EntryBoxHelper(Builder builder) {
+    private EntryBoxHelper(Builder builder) {
         this.name = builder.name;
         this.value = builder.value;
         this.unit = builder.unit;

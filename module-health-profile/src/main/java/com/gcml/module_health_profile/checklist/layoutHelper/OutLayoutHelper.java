@@ -1,4 +1,4 @@
-package com.gcml.module_health_profile.checklist.config;
+package com.gcml.module_health_profile.checklist.layoutHelper;
 
 import android.view.View;
 
@@ -13,11 +13,15 @@ public class OutLayoutHelper {
     private String name;
     private View rightChildView;
 
-    public OutLayoutHelper(Builder builder) {
+    private boolean marginLeft;
+
+    private OutLayoutHelper(Builder builder) {
         this.name = builder.name;
         this.layout = builder.layout;
         this.rightChildView = builder.rightChildView;
+        this.marginLeft = builder.marginLeft;
 
+        layout.textViewMarginLeft(builder.marginLeft);
         layout.name(builder.name);
         layout.addLayout(builder.rightChildView);
     }
@@ -35,6 +39,8 @@ public class OutLayoutHelper {
         private String name;
         private View rightChildView;
 
+        private boolean marginLeft;
+
         public Builder(OutLayout layout) {
             this.layout = layout;
         }
@@ -46,6 +52,11 @@ public class OutLayoutHelper {
 
         public Builder rightView(View rightChildView) {
             this.rightChildView = rightChildView;
+            return this;
+        }
+
+        public Builder marginLeft(boolean marginLeft) {
+            this.marginLeft = marginLeft;
             return this;
         }
 
