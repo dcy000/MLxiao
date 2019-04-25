@@ -21,8 +21,7 @@ public class ChoiceInputLayoutHelper<T> {
                 .Builder(new EntryBoxLinearLayout(layout.getContext()))
                 .title(false)
                 .name("")
-                .unit("")
-                .build();
+                .unit("").build();
         layout.addInput(helper.layout());
 
         layout.setData(choices);

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.module_health_profile.R;
+import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 
 import java.util.List;
 
@@ -52,14 +53,10 @@ public class SingleChoiceLayout<T> extends LinearLayout {
         equalFlowLayout.setAdapte(new FlowAdapte<T>(data) {
             @Override
             public View onBindViewHolder(T item, int position) {
+                CheckListInfoBean.TRdQuestion.TRdOption itemData = (CheckListInfoBean.TRdQuestion.TRdOption) item;
                 View inflate = LayoutInflater.from(getContext()).inflate(R.layout.single_choice_item, null);
                 TextView name = inflate.findViewById(R.id.tv_single_item_name);
-                if (position == 1) {
-                    name.setText(position + "条目条目条目条目条目条目条目条目条目条目条目条目条目条目");
-                } else if (position == 7) {
-                    name.setText(position + "条目条目条目条目条目条目条目");
-                } else
-                    name.setText(position + "条目");
+                name.setText(itemData.optionName);
                 return inflate;
             }
         });
