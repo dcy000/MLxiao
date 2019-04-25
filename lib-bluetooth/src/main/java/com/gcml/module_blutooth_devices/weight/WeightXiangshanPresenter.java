@@ -98,7 +98,9 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
-        bleCloudProtocolUtils.Disconnect();
+        if (bleCloudProtocolUtils.isConnect() != 0) {
+            bleCloudProtocolUtils.Disconnect();
+        }
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }

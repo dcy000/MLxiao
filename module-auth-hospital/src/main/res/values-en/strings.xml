@@ -79,4 +79,7 @@
     <!--注册成功-->
     <string name="loign_register_successs_jumps_tips">Page automatically jumps after 3 seconds</string>
 
+    <string name="dialog_unbind_device_and_reconnet">Are you sure to unbind the device and reconnecting it?</string>
+    <string name="dialog_button_confirm">Confirm</string>
+    <string name="dialog_button_cancel">Cancel</string>
 </resources>

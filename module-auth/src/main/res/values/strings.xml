@@ -20,4 +20,18 @@
     <string name="xml_personal_drinking_situation">饮酒情况</string>
     <string name="xml_personal_medical_history">病史</string>
     <string name="title_personal_detail">个 人 信 息</string>
+    <string name="please_login_again">请重新登录</string>
+    <string name="auth_year">年</string>
+    <string name="auth_month">月</string>
+    <string name="auth_day">日</string>
+    <string name="auth_hour">时</string>
+    <string name="auth_miniute">分</string>
+    <string name="auth_second">秒</string>
+    <string name="none_data">暂未填写</string>
+    <string name="auth_male">男</string>
+    <string name="auth_female">男</string>
+    <string name="Modifieing">修改中...</string>
+    <string name="Modified_success">修改成功</string>
+    <string name="Modification_failed">修改失败</string>
+    <string name="Successful_face_replacement">更换人脸成功</string>
 </resources>

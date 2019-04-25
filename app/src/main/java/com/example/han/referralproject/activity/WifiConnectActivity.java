@@ -31,6 +31,8 @@ import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.IConstant;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.wifi.WifiUtils;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
@@ -224,12 +226,15 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
                         if (isFirstWifi) {
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                CC.obtainBuilder("com.gcml.auth")
-                                        .build()
-                                        .callAsync();
+                            if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
+                                CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
                             } else {
-                                startActivity(new Intent(mContext, HospitalMainActivity.class));
+//                                        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+                                CC.obtainBuilder(IConstant.KEY_HOSPITAL_USER_SIGN).build().callAsync();
+//                                        } else {
+//                                            Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
+//                                            startActivity(intent);
+//                                        }
                             }
                             finish();
                         }

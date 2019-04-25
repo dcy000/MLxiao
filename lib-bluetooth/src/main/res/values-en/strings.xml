@@ -23,7 +23,8 @@
     <string name="xml_bosheng">Medical Equipment:Borsam</string>
     <string name="xml_device_change">Switch</string>
     <string name="next_step">Next Step</string>
-    <string name="distance_ends">Distance measurement ends：</string>
+    <string name="distance_ends">Measurement ends:</string>
+    <string name="xml_distance_ends">Measurement ends:**s</string>
     <string name="xml_tiwen">Temperature</string>
     <string name="xml_normal_temperature">Normal temperature</string>
     <string name="xml_niaosuan">Uric Acid</string>

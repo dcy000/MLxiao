@@ -178,4 +178,14 @@
     <string name="xml_risk_assessment">风险评估</string>
     <string name="xml_guideline">参考标准</string>
     <string name="xml_confirmed_diagnosis">已确诊</string>
+
+    <string name="device_xueya">血压仪</string>
+    <string name="device_xuetang">血糖仪</string>
+    <string name="device_tiwen">体温计</string>
+    <string name="device_xueyang">血氧仪</string>
+    <string name="device_xindian">心电仪</string>
+    <string name="device_sanheyi">三合一</string>
+    <string name="device_tizhong">体重秤</string>
+    <string name="other_reasons">其他原因</string>
+    <string name="Normal_measure">测量正常</string>
 </resources>

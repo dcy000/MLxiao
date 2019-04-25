@@ -192,7 +192,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     public void onClick(View v) {
                     }
                 })
-                .setPositiveButton(getString(R.string.prediagnosis_cancel_tips), new View.OnClickListener() {
+                .setPositiveButton(getString(R.string.prediagnosis_confirm_tips), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (presenter != null) {

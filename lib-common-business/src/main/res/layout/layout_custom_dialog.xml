@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/btn_pos"
-            android:layout_width="160dp"
+            android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/common_bg_next_btn"
@@ -50,7 +50,9 @@
             android:gravity="center"
             android:text="开始体验"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="28sp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"/>
 
     </LinearLayout>
 

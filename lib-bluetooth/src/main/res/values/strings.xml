@@ -22,6 +22,7 @@
     <string name="xml_device_change">切换</string>
     <string name="next_step">下一步</string>
     <string name="distance_ends">距离测量结束还有：</string>
+    <string name="xml_distance_ends">距离测量结束还有：**s</string>
     <string name="xml_tiwen">体温</string>
     <string name="xml_normal_temperature">正常温度</string>
     <string name="xml_niaosuan">尿酸</string>

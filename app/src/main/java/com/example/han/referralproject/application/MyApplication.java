@@ -132,8 +132,7 @@ public class MyApplication extends Application {
         LitePal.initialize(this);
         mInstance = this;
         WakeupHelper.init(this);
-
-        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
+        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");//自己
 
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);

@@ -83,5 +83,7 @@
     <string name="loign_register_successs_jumps_tips">3秒后自动跳转到预诊建档界面</string>
 
 
-
+    <string name="dialog_unbind_device_and_reconnet">您确定解绑之前的设备，重新连接新设备吗？</string>
+    <string name="dialog_button_ok">确定</string>
+    <string name="dialog_button_cancel">取消</string>
 </resources>

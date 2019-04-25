@@ -1,16 +1,13 @@
-ext.mainApp = true
-//ext.alwaysLib=true
-apply from: rootProject.file("build-base.gradle")
+apply plugin: 'com.android.application'
 
 android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     defaultConfig {
-        if (project.ext.runAsApp) {
-            applicationId "com.gcml.testpay"
-            versionCode = rootProject.ext.android["versionCode"]
-            versionName rootProject.ext.android["versionName"]
-        }
-
-
+        applicationId "com.gcml.testpay"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode  rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
         packagingOptions {
             pickFirst 'lib/armeabi-v7a/libserial_port.so'
         }
@@ -41,6 +38,11 @@ android {
 }
 
 dependencies {
-    implementation 'com.zzhoujay.richtext:richtext:3.0.7'
 //    implementation 'com.zzhoujay:html:3.0.8'
+    compile 'com.lzy.net:okgo:3.0.4'
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    implementation 'com.google.zxing:core:3.3.0'
 }

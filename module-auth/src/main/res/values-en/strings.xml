@@ -12,7 +12,7 @@
     <string name="xml_personal_name_telephone_number">Tel-number</string>
     <string name="xml_personal_identity_number">ID number</string>
     <string name="xml_personal_device_number">Equipment number</string>
-    <string name="xml_personal_address">Detailed address</string>
+    <string name="xml_personal_address">Address</string>
     <string name="xml_personal_health_status">Health Status</string>
     <string name="xml_personal_exercise_situation">Exercise situation</string>
     <string name="xml_personal_smoking_situation">Smoking situation</string>
@@ -20,4 +20,18 @@
     <string name="xml_personal_drinking_situation">Drinking situation</string>
     <string name="xml_personal_medical_history">Medical history</string>
     <string name="title_personal_detail">Personal Details</string>
+    <string name="please_login_again">Please login again</string>
+    <string name="auth_year">Y</string>
+    <string name="auth_month">M</string>
+    <string name="auth_day">D</string>
+    <string name="auth_hour">H</string>
+    <string name="auth_miniute">m</string>
+    <string name="auth_second">s</string>
+    <string name="none_data">No Data</string>
+    <string name="auth_male">Male</string>
+    <string name="auth_female">Female</string>
+    <string name="Modifieing">Modifying...</string>
+    <string name="Modified_success">Modified success</string>
+    <string name="Modification_failed">Modified failure</string>
+    <string name="Successful_face_replacement">Successful face replacement</string>
 </resources>

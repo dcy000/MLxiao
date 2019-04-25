@@ -120,7 +120,7 @@
         android:layout_height="100pt"
         android:layout_marginTop="56pt"
         android:gravity="center"
-        android:text=" @杭州国辰迈联机器人科技有限公司 "
+        android:text="@string/company_name"
         android:textColor="#FFBBBBBB"
         android:textSize="36pt" />
 

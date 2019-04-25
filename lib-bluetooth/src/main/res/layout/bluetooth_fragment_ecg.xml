@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="60pt"
         android:layout_marginTop="60pt"
-        android:text="距离测量结束还有**s"
+        android:text="@string/xml_distance_ends"
         android:textColor="@color/bluetooth_white"
         android:textSize="56pt"
         app:layout_constraintRight_toRightOf="parent"

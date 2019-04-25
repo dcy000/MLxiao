@@ -26,7 +26,7 @@
         <LinearLayout
             android:id="@+id/ll_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120pt"
             android:layout_marginTop="60pt"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/title1"
@@ -131,7 +131,7 @@
         <LinearLayout
             android:id="@+id/ll_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120pt"
             android:layout_marginTop="60pt"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/title2">

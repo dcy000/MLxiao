@@ -165,8 +165,8 @@
     <string name="xml_low">Low</string>
     <string name="xml_average_blood_pressure_this_week">Average this week</string>
 
-    <string name="xml_high_pressure">Systolic pressure</string>
-    <string name="xml_low_pressure">Diastolic pressure</string>
+    <string name="xml_high_pressure">Systolic</string>
+    <string name="xml_low_pressure">Diastolic</string>
     <string name="xml_health_score">Health Score</string>
     <string name="xml_health_suggest">Health Advice</string>
     <string name="xml_this_time_measure_result">This measurement result</string>
@@ -184,4 +184,15 @@
     <string name="xml_risk_assessment">Risk Assessment</string>
     <string name="xml_guideline">Reference Standards</string>
     <string name="xml_confirmed_diagnosis">Confirmed Diagnosis</string>
+
+    <string name="device_xueya">B-Pressure</string>
+    <string name="device_xuetang">B-Glucose</string>
+    <string name="device_tiwen">Thermometer</string>
+    <string name="device_xueyang">Oximeter</string>
+    <string name="device_xindian">EKG</string>
+    <string name="device_sanheyi">M-Monitoring</string>
+    <string name="device_tizhong">Weight Scale</string>
+
+    <string name="other_reasons">Other Reasons</string>
+    <string name="Normal_measure">Normal Data</string>
 </resources>

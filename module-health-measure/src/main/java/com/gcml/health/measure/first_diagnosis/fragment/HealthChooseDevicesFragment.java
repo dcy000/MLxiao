@@ -1,9 +1,12 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.ArraySet;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -146,47 +150,45 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
 
     private void iniDevices(List<DeviceBean> deviceBeans) {
         //血压计
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_bloodpressure, false, "血压仪", 1));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_bloodpressure, false, UM.getString(R.string.device_xueya), 1));
         //血糖仪
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_bloodsugar, false, "血糖仪", 5));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_bloodsugar, false, UM.getString(R.string.device_xuetang), 5));
         //体温计
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_temperature, false, "体温计", 3));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_temperature, false, UM.getString(R.string.device_tiwen), 3));
         //血氧仪
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_bloodoxygen, false, "血氧仪", 2));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_bloodoxygen, false, UM.getString(R.string.device_xueyang), 2));
         //心电仪
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_ecg, false, "心电仪", 4));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_ecg, false, UM.getString(R.string.device_xindian), 4));
         //三合一
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_threeinone, false, "三合一", 6));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_threeinone, false, UM.getString(R.string.device_sanheyi), 6));
         //体重秤
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_weight, true, "体重秤", 7));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_weight, true, UM.getString(R.string.device_tizhong), 7));
         //更多
 //        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_more, false, "敬请期待", 0));
         if (deviceBeans != null) {
             for (DeviceBean deviceBean : deviceBeans) {
-                switch (deviceBean.getName()) {
-                    case "血压仪":
-                        this.deviceBeans.get(0).setChoosed(true);
-                        break;
-                    case "血糖仪":
-                        this.deviceBeans.get(1).setChoosed(true);
-                        break;
-                    case "体温计":
-                        this.deviceBeans.get(2).setChoosed(true);
-                        break;
-                    case "血氧仪":
-                        this.deviceBeans.get(3).setChoosed(true);
-                        break;
-                    case "心电仪":
-                        this.deviceBeans.get(4).setChoosed(true);
-                        break;
-                    case "三合一":
-                        this.deviceBeans.get(5).setChoosed(true);
-                        break;
-                    case "体重秤":
-                        this.deviceBeans.get(6).setChoosed(true);
-                        break;
-                    default:
-                        break;
+                if (UM.getString(R.string.device_xueya).equals(deviceBean.getName())) {
+                    this.deviceBeans.get(0).setChoosed(true);
+
+                } else if (UM.getString(R.string.device_xuetang).equals(deviceBean.getName())) {
+                    this.deviceBeans.get(1).setChoosed(true);
+
+                } else if (UM.getString(R.string.device_tiwen).equals(deviceBean.getName())) {
+                    this.deviceBeans.get(2).setChoosed(true);
+
+                } else if (UM.getString(R.string.device_xueyang).equals(deviceBean.getName())) {
+                    this.deviceBeans.get(3).setChoosed(true);
+
+                } else if (UM.getString(R.string.device_xindian).equals(deviceBean.getName())) {
+                    this.deviceBeans.get(4).setChoosed(true);
+
+                } else if (UM.getString(R.string.device_sanheyi).equals(deviceBean.getName())) {
+                    this.deviceBeans.get(5).setChoosed(true);
+
+                } else if (UM.getString(R.string.device_tizhong).equals(deviceBean.getName())) {
+                    this.deviceBeans.get(6).setChoosed(true);
+
+                } else {
                 }
             }
         } else {
@@ -257,7 +259,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     private ArrayList<Integer> selectedDevices() {
         ArrayList<Integer> deviceNum = new ArrayList<>();
         for (ChooseDeviceBean bean : deviceBeans) {
-            if (bean.getChoosed()) {
+            if (bean.getChoosed() && (!deviceNum.contains(bean))) {
                 deviceNum.add(bean.getDeviceLevel());
             }
         }

@@ -1,27 +1,123 @@
 package com.gcml.testpay;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
-import android.widget.TextClock;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.zzhoujay.richtext.RichText;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
-public class MainActivity extends AppCompatActivity {
-    private final String htmltext = "<form name=\"punchout_form\" method=\"post\" action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=dJKcb2u9ABooIsiDZ0z7yZ0cDrAoKZGcpaJq%2BFW5sdHeZrAeovpNQzSze%2FcuGfLmuVBq7eAegNrJ%2F5dRJ2qayh53rCTbGIeBwUD62HPMDl7XgzWXi37ilgGj8vcGQsZyEsIiYZfwTMXTssO8m%2FF%2FaGwW6JAJsiE54IMQyhulqxxyCpFstSSu%2BgxvTSVXoSs4tQp6H84izwbK7RA0m1tyaKIGYtqDIbtB89UfvnQJMMS4X3Ll8fX9DiKnl9uYyeCPiMbWFQfKkGS5tWqc6EWFOWUP9skXQCRkzPh5ihlUDtwTP5g9q7QwvRK4nrS7gczFfev27ryObf2%2FuulWPKq%2BFw%3D%3D&return_url=http%3A%2F%2Fw5a3dz.natappfree.cc%2Fsuccess.html&notify_url=http%3A%2F%2Fw5a3dz.natappfree.cc%2Forder%2Fsuccess&version=1.0&app_id=2016092700607153&sign_type=RSA2&timestamp=2019-04-22+14%3A34%3A29&alipay_sdk=alipay-sdk-java-3.1.0&format=json\">\n" +
-            "<input type=\"hidden\" name=\"biz_content\" value=\"{&quot;body&quot;:&quot;努比亚出品游戏手机&quot;,&quot;out_trade_no&quot;:&quot;dzcp5646165&quot;,&quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;,&quot;subject&quot;:&quot;红魔手机&quot;,&quot;timeout_express&quot;:&quot;10m&quot;,&quot;total_amount&quot;:&quot;10000&quot;}\">\n" +
-            "<input type=\"submit\" value=\"立即支付\" style=\"display:none\" >\n" +
-            "</form>\n" +
-            "<script>document.forms[0].submit();</script>";
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private EditText mEtUserId;
+    private EditText mEtAmount;
+    private EditText mEtDesc;
+    private EditText mEtStoreId;
+    private Button mBtnPay;
+    private Button mBtnPayBack;
+    private TextView mTvCallback;
+    private ImageView mIvQrCode;
+    private boolean isPaySuccess = false;
+    private PayCallBackBean payCallBackBean;
+    private static final String KEY_OUT_TRADE_NO = "key_out_trade_no";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView viewById = (TextView) findViewById(R.id.tv_text);
-        RichText.from(htmltext).into(viewById);
-
+        initView();
+        OkGo.getInstance().init(getApplication());
+        SPUtil.init(getApplication());
     }
+
+    private void initView() {
+        mEtUserId = (EditText) findViewById(R.id.et_userId);
+        mEtAmount = (EditText) findViewById(R.id.et_amount);
+        mEtDesc = (EditText) findViewById(R.id.et_desc);
+        mEtStoreId = (EditText) findViewById(R.id.et_storeId);
+        mBtnPay = (Button) findViewById(R.id.btn_pay);
+        mBtnPay.setOnClickListener(this);
+        mBtnPayBack = (Button) findViewById(R.id.btn_pay_back);
+        mBtnPayBack.setOnClickListener(this);
+        mTvCallback = (TextView) findViewById(R.id.tv_callback);
+        mIvQrCode = (ImageView) findViewById(R.id.iv_qr_code);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.btn_pay:
+                pay();
+                break;
+            case R.id.btn_pay_back:
+                paycallback();
+                break;
+        }
+    }
+
+    private void paycallback() {
+        final String out_trade_no = (String) SPUtil.get(KEY_OUT_TRADE_NO, "");
+        if (TextUtils.isEmpty(out_trade_no)) {
+            Toast.makeText(this, "订单号异常", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        OkGo.<String>get("http://192.168.200.235:8080/mybatisPlus/Alipay/get")
+                .params("no", out_trade_no)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        GoodsBean goodsBean = new Gson().fromJson(body, GoodsBean.class);
+                        OkGo.<String>post("http://192.168.200.235:8080/mybatisPlus/Alipay/aliPayRefund")
+                                .params("out_trade_no", out_trade_no)
+                                .params("trade_no", goodsBean.getTrade_no())
+                                .params("refund_amount", goodsBean.getBuyer_pay_amount())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        Toast.makeText(MainActivity.this, response.body(), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onError(Response<String> response) {
+                                        super.onError(response);
+                                        Toast.makeText(MainActivity.this, "退款失败：" + response.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void pay() {
+        OkGo.<String>get("http://192.168.200.235:8080/mybatisPlus/Alipay/pay2")
+                .params("userid", mEtUserId.getText().toString().trim())
+                .params("totalAmount", mEtAmount.getText().toString().trim())
+                .params("subject", mEtDesc.getText().toString().trim())
+                .params(" storeId", mEtStoreId.getText().toString().trim())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        mTvCallback.append(response.body());
+                        payCallBackBean = new Gson().fromJson(response.body(), PayCallBackBean.class);
+                        SPUtil.put(KEY_OUT_TRADE_NO, payCallBackBean.getDate().getAlipay_trade_precreate_response().getOut_trade_no());
+                        String qr_code = payCallBackBean.getDate().getAlipay_trade_precreate_response().getQr_code();
+                        QRCodeUtils.createQRCode(qr_code, 600, 600, mIvQrCode);
+                    }
+                });
+    }
+
 }

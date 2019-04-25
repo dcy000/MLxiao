@@ -92,7 +92,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                         || TextUtils.isEmpty(user.phone)
                         || !TextUtils.isDigitsOnly(user.phone)
                         || user.phone.length() != 11) {
-                    ToastUtils.showShort("请重新登录");
+                    ToastUtils.showShort(R.string.please_login_again);
                     return;
                 }
                 SMSVerificationDialog dialog = new SMSVerificationDialog();
@@ -230,14 +230,14 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         };
         TimePickerView pvTime = new TimePickerBuilder(this, listener)
                 .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(UM.getString(R.string.dialog_button_time_cancel))
+                .setSubmitText(UM.getString(R.string.dialog_button_time_sure))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
                 .setTextColorOut(Color.parseColor("#FF999999"))
                 .setTextColorCenter(Color.parseColor("#FF333333"))
-                .setSubmitText("确认")
+                .setSubmitText(UM.getString(R.string.dialog_button_time_sure))
                 .setOutSideCancelable(false)
                 .setDividerColor(Color.WHITE)
                 .isCyclic(true)
@@ -247,7 +247,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .setBgColor(Color.WHITE)
                 .setDate(selectedDate)
                 .setRangDate(startDate, endDate)
-                .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                .setLabel(UM.getString(R.string.auth_year), UM.getString(R.string.auth_month), UM.getString(R.string.auth_day), UM.getString(R.string.auth_hour), UM.getString(R.string.auth_miniute), UM.getString(R.string.auth_second))//默认设置为年月日时分秒
                 .isCenterLabel(false)
                 .build();
         pvTime.show();
@@ -256,7 +256,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     private void selectHeight() {
         String height = binding.tvHeight.getText().toString();
         int index = 0;
-        if (!"暂未填写".equals(height)) {
+        if (!UM.getString(R.string.none_data).equals(height)) {
             index = getIndex(height, getHeights());
         }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
@@ -275,7 +275,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 
     private int getIndex(String item, List<String> items) {
         int index = 0;
-        if (!item.equals("暂未填写")) {
+        if (!item.equals(UM.getString(R.string.none_data))) {
             for (int i = 0; i < items.size(); i++) {
                 if (item.equals(items.get(i))) {
                     index = i;
@@ -288,7 +288,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     private void selectWeight() {
         String weight = binding.tvWeight.getText().toString();
         int index = 0;
-        if (!"暂未填写".equals(weight)) {
+        if (!UM.getString(R.string.none_data).equals(weight)) {
             index = getIndex(weight, getWeights());
         }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
@@ -308,7 +308,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     private void selectBloodType() {
         String blood = binding.tvBlood.getText().toString();
         int index = 0;
-        if (!"暂未填写".equals(blood)) {
+        if (!UM.getString(R.string.none_data).equals(blood)) {
             blood = blood.replace("型", "");
             index = getIndex(blood, getBloodTypes());
         }
@@ -329,7 +329,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 
     private void selectWaist() {
         String selected = binding.tvWc.getText().toString();
-        if ("暂未填写".equals(selected)) {
+        if (UM.getString(R.string.none_data).equals(selected)) {
             selected = "0.1尺";
         }
         try {
@@ -380,8 +380,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 
         mWaistPickerView = new OptionsPickerBuilder(this, listener)
                 .setOptionsSelectChangeListener(onSelectChangelistener)
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(UM.getString(R.string.dialog_button_time_cancel))
+                .setSubmitText(UM.getString(R.string.dialog_button_time_sure))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
@@ -406,7 +406,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     private void selectSport() {
         String sport = binding.tvSports.getText().toString();
         int index = 0;
-        if (!"暂未填写".equals(sport)) {
+        if (!UM.getString(R.string.none_data).equals(sport)) {
             index = getIndex(sport, getSports());
         }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
@@ -424,7 +424,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     private void selectSmoke() {
         String smoke = binding.tvSmoke.getText().toString();
         int index = 0;
-        if (!"暂未填写".equals(smoke)) {
+        if (!UM.getString(R.string.none_data).equals(smoke)) {
             index = getIndex(smoke, getSmokes());
         }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
@@ -437,14 +437,14 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getSmokes(),index,  listener);
+        selectItems(getSmokes(), index, listener);
     }
 
 
     private void selectEat() {
         String eat = binding.tvEat.getText().toString();
         int index = 0;
-        if (!"暂未填写".equals(eat)) {
+        if (!UM.getString(R.string.none_data).equals(eat)) {
             index = getIndex(eat, getEats());
         }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
@@ -457,13 +457,13 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getEats(),index, listener);
+        selectItems(getEats(), index, listener);
     }
 
     private void selectDrink() {
         String drink = binding.tvDrink.getText().toString();
         int index = 0;
-        if (!"暂未填写".equals(drink)) {
+        if (!UM.getString(R.string.none_data).equals(drink)) {
             index = getIndex(drink, getDrinks());
         }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
@@ -569,7 +569,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 
     private void selectSex() {
         String sex = binding.tvSex.getText().toString();
-        int index = "暂未填写".equals(sex) || "男".equals(sex) ? 0 : 1;
+        int index = UM.getString(R.string.none_data).equals(sex) || UM.getString(R.string.auth_male).equals(sex) ? 0 : 1;
 
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
@@ -590,7 +590,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("修改中...");
+                        showLoading(UM.getString(R.string.Modifieing));
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -604,23 +604,23 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                     @Override
                     public void onNext(UserEntity o) {
                         showUser(o);
-                        speak("修改成功");
-                        ToastUtils.showShort("修改成功");
+                        speak(UM.getString(R.string.Modified_success));
+                        ToastUtils.showShort(UM.getString(R.string.Modified_success));
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("修改失败");
-                        speak("修改失败");
+                        ToastUtils.showShort(R.string.Modification_failed);
+                        speak(UM.getString(R.string.Modification_failed));
                     }
                 });
     }
 
     private void selectItems(List<String> items, int index, OnOptionsSelectListener listener) {
         OptionsPickerView<String> pickerView = new OptionsPickerBuilder(this, listener)
-                .setCancelText("取消")
-                .setSubmitText("确认")
+                .setCancelText(UM.getString(R.string.dialog_button_time_cancel))
+                .setSubmitText(UM.getString(R.string.dialog_button_time_sure))
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
@@ -646,7 +646,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                     @Override
                     public void onResult(CC cc, CCResult result) {
                         if (result.isSuccess()) {
-                            ToastUtils.showShort("更换人脸成功");
+                            ToastUtils.showShort(R.string.Successful_face_replacement);
                         }
                     }
                 });
@@ -689,7 +689,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .placeholder(R.drawable.common_ic_avatar_placeholder)
                 .error(R.drawable.common_ic_avatar_placeholder)
                 .into(binding.ivAvatar);
-        binding.tvName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
+        binding.tvName.setText(TextUtils.isEmpty(user.name) ? UM.getString(R.string.none_data) : user.name);
 //        if (!TextUtils.isEmpty(user.birthday)) {
 //            binding.tvAge.setText(String.format(Locale.getDefault(), "%d岁", Utils.ageByBirthday(user.birthday)));
 //        } else if (!TextUtils.isEmpty(user.idCard)
@@ -698,33 +698,33 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 //        } else {
 //            binding.tvAge.setText(TextUtils.isEmpty(user.age) ? "暂未填写" : user.age + "岁");
 //        }
-        binding.tvAge.setText(TextUtils.isEmpty(user.age) ? "暂未填写" : user.age + "岁");
-        binding.tvSex.setText(TextUtils.isEmpty(user.sex) ? "暂未填写" : user.sex);
-        binding.tvHeight.setText(TextUtils.isEmpty(user.height) ? "暂未填写" : user.height + "cm");
-        binding.tvWeight.setText(TextUtils.isEmpty(user.weight) ? "暂未填写" : user.weight + "kg");
-        binding.tvBlood.setText(TextUtils.isEmpty(user.bloodType) ? "暂未填写" : user.bloodType + "型");
-        binding.tvWc.setText(TextUtils.isEmpty(user.waist) ? "暂未填写" : user.waist + "cm");
+        binding.tvAge.setText(TextUtils.isEmpty(user.age) ? UM.getString(R.string.none_data) : user.age + "岁");
+        binding.tvSex.setText(TextUtils.isEmpty(user.sex) ? UM.getString(R.string.none_data) : user.sex);
+        binding.tvHeight.setText(TextUtils.isEmpty(user.height) ? UM.getString(R.string.none_data) : user.height + "cm");
+        binding.tvWeight.setText(TextUtils.isEmpty(user.weight) ? UM.getString(R.string.none_data) : user.weight + "kg");
+        binding.tvBlood.setText(TextUtils.isEmpty(user.bloodType) ? UM.getString(R.string.none_data) : user.bloodType + "型");
+        binding.tvWc.setText(TextUtils.isEmpty(user.waist) ? UM.getString(R.string.none_data) : user.waist + "cm");
 
-        binding.tvPhone.setText(TextUtils.isEmpty(user.phone) ? "暂未填写" : user.phone);
+        binding.tvPhone.setText(TextUtils.isEmpty(user.phone) ? UM.getString(R.string.none_data) : user.phone);
         binding.tvDeviceId.setText(user.deviceId);
-        binding.tvAddress.setText(TextUtils.isEmpty(user.address) ? "暂未填写" : user.address);
+        binding.tvAddress.setText(TextUtils.isEmpty(user.address) ? UM.getString(R.string.none_data) : user.address);
         if (!TextUtils.isEmpty(user.idCard) && user.idCard.length() == 18) {
             String shenfen = user.idCard.substring(0, 6)
                     + "********"
                     + user.idCard.substring(user.idCard.length() - 4, user.idCard.length());
             binding.tvIdCard.setText(shenfen);
         } else {
-            binding.tvIdCard.setText("暂未填写");
+            binding.tvIdCard.setText(UM.getString(R.string.none_data));
         }
 
         String sports = HealthInfo.SPORTS_MAP.get(user.sportsHabits);
-        binding.tvSports.setText(TextUtils.isEmpty(sports) ? "暂未填写" : sports);
+        binding.tvSports.setText(TextUtils.isEmpty(sports) ? UM.getString(R.string.none_data) : sports);
         String smoke = HealthInfo.SMOKE_MAP.get(user.smokeHabits);
-        binding.tvSmoke.setText(TextUtils.isEmpty(smoke) ? "暂未填写" : smoke);
+        binding.tvSmoke.setText(TextUtils.isEmpty(smoke) ? UM.getString(R.string.none_data) : smoke);
         String eat = HealthInfo.EAT_MAP.get(user.eatingHabits);
-        binding.tvEat.setText(TextUtils.isEmpty(eat) ? "暂未填写" : eat);
+        binding.tvEat.setText(TextUtils.isEmpty(eat) ? UM.getString(R.string.none_data) : eat);
         String drink = HealthInfo.DRINK_MAP.get(user.drinkHabits);
-        binding.tvDrink.setText(TextUtils.isEmpty(drink) ? "暂未填写" : drink);
+        binding.tvDrink.setText(TextUtils.isEmpty(drink) ? UM.getString(R.string.none_data) : drink);
         String deseaseHistory = HealthInfo.getDeseaseHistory(user.deseaseHistory);
         binding.tvDesease.setText(TextUtils.isEmpty(deseaseHistory)
                 ? "无" : deseaseHistory.replaceAll(",", "/"));

@@ -32,7 +32,8 @@
         android:textColor="#ff3f86fc"
         android:textSize="56pt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_recommend_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_recommend_title"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_commend_goods"
