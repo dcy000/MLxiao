@@ -64,7 +64,7 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
                 inflate.setOnClickListener(v -> {
                     if (v.isSelected()) {
                         v.setSelected(false);
-                        name.setTextColor(Color.parseColor("#ff3t33333"));
+                        name.setTextColor(Color.parseColor("#ff333333"));
                     } else {
                         v.setSelected(true);
                         name.setTextColor(Color.parseColor("#ff3f88fc"));

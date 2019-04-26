@@ -99,7 +99,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected LoadingDialog mLoadingDialog;
 
-    protected void showLoading(String tips) {
+    public void showLoading(String tips) {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;
@@ -112,7 +112,7 @@ public class BaseActivity extends AppCompatActivity {
         mLoadingDialog.show();
     }
 
-    protected void dismissLoading() {
+    public void dismissLoading() {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;

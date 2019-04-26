@@ -67,10 +67,20 @@ public class EntryBoxLinearLayout extends LinearLayout {
             value.setInputType(InputType.TYPE_CLASS_TEXT);
         } else if (TextUtils.equals("2", type)) {
             value.setInputType(InputType.TYPE_CLASS_TEXT);
+            if (onInputClickListener != null) {
+                value.setOnClickListener(v -> {
+                    onInputClickListener.onDateClick(value);
+                });
+            }
         } else if (TextUtils.equals("3", type)) {
             value.setInputType(InputType.TYPE_CLASS_DATETIME);
         } else if (TextUtils.equals("4", type)) {
             value.setInputType(InputType.TYPE_CLASS_TEXT);
+            if (onInputClickListener != null) {
+                value.setOnClickListener(v -> {
+                    onInputClickListener.onAddressClick(value);
+                });
+            }
         }
     }
 
@@ -84,6 +94,18 @@ public class EntryBoxLinearLayout extends LinearLayout {
             //控制背景 边框
             rlContainer.setBackgroundResource(R.drawable.common_bg_input_gray);
         }
+    }
+
+    private OnInputClickListener onInputClickListener;
+
+    public void setOnInputClickListener(OnInputClickListener onInputClickListener) {
+        this.onInputClickListener = onInputClickListener;
+    }
+
+    public interface OnInputClickListener {
+        void onDateClick(EditText value);
+
+        void onAddressClick(EditText value);
     }
 
 

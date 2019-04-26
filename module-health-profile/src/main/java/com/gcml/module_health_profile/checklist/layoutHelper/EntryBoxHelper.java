@@ -20,6 +20,8 @@ public class EntryBoxHelper {
      */
     private Boolean title;
 
+    private EntryBoxLinearLayout.OnInputClickListener onInputClickListener;
+
 
     private EntryBoxHelper(Builder builder) {
         this.name = builder.name;
@@ -28,10 +30,12 @@ public class EntryBoxHelper {
         this.layout = builder.layout;
         this.dateType = builder.dateType;
         this.title = builder.title;
+        this.onInputClickListener = builder.onInputClickListener;
 
         layout.name(builder.name);
         layout.unit(builder.unit);
-        layout.dataype(builder.dateType);
+        layout.setOnInputClickListener(builder.onInputClickListener);
+        layout.dataype(builder.dateType);//在 setOnInputClickListener 后
         layout.requestionType(builder.title);
     }
 
@@ -59,6 +63,8 @@ public class EntryBoxHelper {
         private String unit;
         private String dateType;
         private Boolean title;
+        private EntryBoxLinearLayout.OnInputClickListener onInputClickListener;
+
 
         public Builder(EntryBoxLinearLayout layout) {
             this.layout = layout;
@@ -76,6 +82,11 @@ public class EntryBoxHelper {
 
         public Builder dateType(String dateType) {
             this.dateType = dateType;
+            return this;
+        }
+
+        public Builder inputListener(EntryBoxLinearLayout.OnInputClickListener onInputClickListener) {
+            this.onInputClickListener = onInputClickListener;
             return this;
         }
 
