@@ -90,9 +90,10 @@ public class SingleChoiceLayout<T> extends LinearLayout {
                             if (position == i) {
                                 continue;
                             }
-                            v.setSelected(false);
+
                             TextView name01 = equalFlowLayout.getChildAt(i).findViewById(R.id.tv_single_item_name);
                             ImageView icon01 = equalFlowLayout.getChildAt(i).findViewById(R.id.iv_single_item_icon);
+                            equalFlowLayout.getChildAt(i).setSelected(false);
                             name01.setTextColor(Color.parseColor("#ff333333"));
                             icon01.setBackgroundResource(R.drawable.item_single_choice_gray);
                         }

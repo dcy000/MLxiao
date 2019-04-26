@@ -79,9 +79,10 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
                             if (i == position) {
                                 continue;
                             }
-                            v.setSelected(false);
+                            equalFlowLayout.getChildAt(i).setSelected(false);
                             TextView name01 = equalFlowLayout.getChildAt(i).findViewById(R.id.tv_multy_item_name);
                             ImageView icon01 = equalFlowLayout.getChildAt(i).findViewById(R.id.iv_multy_item_icon);
+                            equalFlowLayout.getChildAt(i).setSelected(false);
                             name01.setTextColor(Color.parseColor("#ff333333"));
                             icon01.setBackgroundResource(R.drawable.item_multy_choice_gray);
                         }
@@ -89,9 +90,9 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
                         for (int i = 0; i < childCount; i++) {
                             for (int i1 = 0; i1 < data.size(); i1++) {
                                 if (TextUtils.equals("1", data.get(i1).exclusiveStatus)) {
-                                    v.setSelected(false);
                                     TextView name01 = equalFlowLayout.getChildAt(i1).findViewById(R.id.tv_multy_item_name);
                                     ImageView icon01 = equalFlowLayout.getChildAt(i1).findViewById(R.id.iv_multy_item_icon);
+                                    equalFlowLayout.getChildAt(i1).setSelected(false);
                                     name01.setTextColor(Color.parseColor("#ff333333"));
                                     icon01.setBackgroundResource(R.drawable.item_multy_choice_gray);
                                 }
