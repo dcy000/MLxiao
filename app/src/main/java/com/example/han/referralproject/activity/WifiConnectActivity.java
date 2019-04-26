@@ -229,12 +229,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                             if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
                                 CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
                             } else {
-//                                        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                 CC.obtainBuilder(IConstant.KEY_HOSPITAL_USER_SIGN).build().callAsync();
-//                                        } else {
-//                                            Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
-//                                            startActivity(intent);
-//                                        }
                             }
                             finish();
                         }
