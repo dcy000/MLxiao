@@ -1,6 +1,5 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -120,7 +119,6 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
                     ToastUtils.showShort("呼叫医生失败");
                     return;
                 }
-
                 AppRepository.getCallId(doctorId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -141,7 +139,6 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
 
                             }
                         });
-
                 break;
         }
     }
