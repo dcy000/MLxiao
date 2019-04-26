@@ -1,6 +1,7 @@
 ext.mainApp = true
 //ext.alwaysLib=true
 apply from: rootProject.file("build-base.gradle")
+apply plugin: 'com.dd.comgradle'
 
 android {
     defaultConfig {
@@ -42,6 +43,12 @@ android {
     }
 }
 
+combuild {
+    applicationName = 'com.example.han.referralproject.application.MyApplication'
+    isRegisterCompoAuto = true
+}
+
+
 dependencies {
     //component
     addComponent 'module-recreation'
@@ -65,7 +72,15 @@ dependencies {
     implementation project(':lib-music-player')
     implementation project(':lib-video')
     //aar
-    implementation name: 'mlrobot-release', ext: 'aar'
+//    implementation name: 'mlrobot-release', ext: 'aar'
+    api 'com.luojilab.ddcomponent:componentlib:1.0.0'
+    annotationProcessor 'com.luojilab.ddcomponent:router-anno-compiler:1.0.0'
+    api name: 'libbase-release', ext: 'aar'
+    api name: 'unitbody-release', ext: 'aar'
+    api name: 'unitdisease-release', ext: 'aar'
+    implementation 'com.zhy:okhttputils:2.6.2'
+    api 'com.zhy:base-rvadapter:3.0.3'
+
     implementation name: 'FaceppIDCardUI', ext: 'aar'
     implementation name: 'lib-crash', ext: 'aar'
     implementation name: 'lib-wheelrecyclerview', ext: 'aar'
@@ -74,7 +89,6 @@ dependencies {
     implementation name: 'voicelibrary', ext: 'aar'
     //Other
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-    implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'jp.wasabeef:glide-transformations:3.1.1'
     implementation 'me.wcy:lrcview:1.4.2'
     implementation 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
