@@ -455,9 +455,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     public void onResult(CC cc, CCResult result) {
                         boolean skip = "skip".equals(result.getErrorMessage());
                         if (result.isSuccess() || skip) {
-                            if (skip) {
-                                toBloodPressure();
-                            }
+                            toBloodPressure();
                         } else {
                             ToastUtils.showShort(result.getErrorMessage());
                         }
