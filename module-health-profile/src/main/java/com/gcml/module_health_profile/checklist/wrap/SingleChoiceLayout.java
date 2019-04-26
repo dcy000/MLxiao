@@ -81,7 +81,8 @@ public class SingleChoiceLayout<T> extends LinearLayout {
                     if (!v.isSelected()) {
                         v.setSelected(true);
                         name.setTextColor(Color.parseColor("#ff3f88fc"));
-                        icon.setBackgroundColor(Color.parseColor("#ff000000"));
+                        icon.setBackgroundResource(R.drawable.item_single_choice_blue);
+
 
                         //排斥其他
                         int childCount = equalFlowLayout.getChildCount();
@@ -93,7 +94,7 @@ public class SingleChoiceLayout<T> extends LinearLayout {
                             TextView name01 = equalFlowLayout.getChildAt(i).findViewById(R.id.tv_single_item_name);
                             ImageView icon01 = equalFlowLayout.getChildAt(i).findViewById(R.id.iv_single_item_icon);
                             name01.setTextColor(Color.parseColor("#ff333333"));
-                            icon01.setBackgroundColor(Color.parseColor("#ff999999"));
+                            icon01.setBackgroundResource(R.drawable.item_single_choice_gray);
                         }
                     }
                 });

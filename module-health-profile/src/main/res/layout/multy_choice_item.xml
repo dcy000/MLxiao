@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/iv_multy_item_icon"
-        android:layout_width="50pt"
-        android:layout_height="50pt"
-        android:background="#ffff00ff" />
+        android:layout_width="56pt"
+        android:layout_height="56pt"
+        android:background="@drawable/item_multy_choice_gray" />
 
     <TextView
         android:id="@+id/tv_multy_item_name"

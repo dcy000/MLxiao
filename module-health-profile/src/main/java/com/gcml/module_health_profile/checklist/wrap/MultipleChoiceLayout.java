@@ -65,9 +65,11 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
                     if (v.isSelected()) {
                         v.setSelected(false);
                         name.setTextColor(Color.parseColor("#ff333333"));
+                        icon.setBackgroundResource(R.drawable.item_multy_choice_gray);
                     } else {
                         v.setSelected(true);
                         name.setTextColor(Color.parseColor("#ff3f88fc"));
+                        icon.setBackgroundResource(R.drawable.item_multy_choice_blue);
                     }
                     int childCount = equalFlowLayout.getChildCount();
                     List<CheckListInfoBean.TRdQuestion.TRdOption> data = (List<CheckListInfoBean.TRdQuestion.TRdOption>) this.data;
@@ -81,6 +83,7 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
                             TextView name01 = equalFlowLayout.getChildAt(i).findViewById(R.id.tv_multy_item_name);
                             ImageView icon01 = equalFlowLayout.getChildAt(i).findViewById(R.id.iv_multy_item_icon);
                             name01.setTextColor(Color.parseColor("#ff333333"));
+                            icon01.setBackgroundResource(R.drawable.item_multy_choice_gray);
                         }
                     } else {
                         for (int i = 0; i < childCount; i++) {
@@ -90,6 +93,7 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
                                     TextView name01 = equalFlowLayout.getChildAt(i1).findViewById(R.id.tv_multy_item_name);
                                     ImageView icon01 = equalFlowLayout.getChildAt(i1).findViewById(R.id.iv_multy_item_icon);
                                     name01.setTextColor(Color.parseColor("#ff333333"));
+                                    icon01.setBackgroundResource(R.drawable.item_multy_choice_gray);
                                 }
                             }
 
