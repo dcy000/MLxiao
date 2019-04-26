@@ -23,4 +23,7 @@ public interface AppRouter {
 
     @Go("/health/measure/bloodsugar/manager")
     boolean skipBloodsugarManagerActivity(@Extra("fromActivity") String fromActivity, @Extra("toActivity") String toActivity);
+
+    @Go("/app/activity/wifi/connect")
+    boolean skipWifiConnectActivity(@Extra("is_first_wifi") boolean isFirstWifi);
 }

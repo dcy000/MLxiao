@@ -16,6 +16,8 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.cc.CCVideoActions;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.utils.permission.PermissionsManager;
 import com.gcml.common.utils.permission.PermissionsResultAction;
@@ -28,6 +30,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 
@@ -52,13 +55,18 @@ public class WelcomeActivity extends AppCompatActivity {
         if (!isWorked("com.example.han.referralproject.MusicService")) {
             startService(new Intent(this, MusicService.class));
         }
-        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
-            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
-            mIntent.putExtra("is_first_wifi", true);
-            startActivity(mIntent);
+        if (!NetUitls.isWifiConnected()) {
+            Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
             finish();
             return;
         }
+//        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
+//            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
+//            mIntent.putExtra("is_first_wifi", true);
+//            startActivity(mIntent);
+//            finish();
+//            return;
+//        }
         playVideo();
     }
 
