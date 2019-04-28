@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ import java.util.List;
 public class MultipleChoiceLayout<T> extends LinearLayout {
     private LinearLayout linearLayout;
     private EqualFlowLayout equalFlowLayout;
+    private List<CheckListInfoBean.TRdQuestion.TRdOption> data;
 
     public MultipleChoiceLayout(Context context) {
         super(context);
@@ -51,6 +53,7 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
     }
 
     public void setData(List<T> data) {
+        this.data = (List<CheckListInfoBean.TRdQuestion.TRdOption>) data;
         equalFlowLayout.setAdapte(new FlowAdapte<T>(data) {
             @Override
             public View onBindViewHolder(T item, int position) {
@@ -108,4 +111,23 @@ public class MultipleChoiceLayout<T> extends LinearLayout {
         });
     }
 
+    public String optionId() {
+        return null;
+    }
+
+    public List<CheckListInfoBean.TRdUserAnswer> options() {
+        ArrayList<CheckListInfoBean.TRdUserAnswer> tRdUserAnswers = new ArrayList<>();
+        int childCount = equalFlowLayout.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            boolean selected = equalFlowLayout.getChildAt(i).isSelected();
+            if (selected) {
+                CheckListInfoBean.TRdUserAnswer answer = new CheckListInfoBean.TRdUserAnswer();
+                answer.questionId = data.get(i).questionId;
+                answer.optionId = data.get(i).optionId;
+                tRdUserAnswers.add(answer);
+                continue;
+            }
+        }
+        return tRdUserAnswers;
+    }
 }

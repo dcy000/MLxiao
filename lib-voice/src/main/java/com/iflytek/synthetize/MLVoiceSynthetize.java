@@ -232,6 +232,7 @@ public class MLVoiceSynthetize {
             synthesizer.setParameter(SpeechConstant.SPEED, sharedPreferences.getString("speed_preference", "50"));
 //            设置合成音调
             synthesizer.setParameter(SpeechConstant.PITCH, sharedPreferences.getString("pitch_preference", "50"));
+//            synthesizer.setParameter("rdn", "2");
 //            设置合成音量
             synthesizer.setParameter(SpeechConstant.VOLUME, sharedPreferences.getString("volume_preference", "50"));
 //采样率

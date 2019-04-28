@@ -27,6 +27,7 @@ public class SingleChoiceLayout<T> extends LinearLayout {
 
     private LinearLayout linearLayout;
     private EqualFlowLayout equalFlowLayout;
+    private List<CheckListInfoBean.TRdQuestion.TRdOption> data;
 
     public SingleChoiceLayout(Context context) {
         super(context);
@@ -55,6 +56,7 @@ public class SingleChoiceLayout<T> extends LinearLayout {
     }
 
     public void setData(List<T> data) {
+        this.data = (List<CheckListInfoBean.TRdQuestion.TRdOption>) data;
         equalFlowLayout.setAdapte(new FlowAdapte<T>(data) {
             @Override
             public View onBindViewHolder(T item, int position) {
@@ -104,4 +106,16 @@ public class SingleChoiceLayout<T> extends LinearLayout {
         });
     }
 
+    public String optionId() {
+        int childCount = equalFlowLayout.getChildCount();
+        String optionId = "";
+        for (int i = 0; i < childCount; i++) {
+            boolean selected = equalFlowLayout.getChildAt(i).isSelected();
+            if (selected) {
+                optionId = data.get(i).optionId;
+                break;
+            }
+        }
+        return optionId;
+    }
 }

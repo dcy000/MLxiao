@@ -6,11 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -55,7 +57,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class CheckListFragment extends Fragment {
+public class CheckListFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -87,6 +89,8 @@ public class CheckListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check_list, container, false);
         llContainer = view.findViewById(R.id.ll_container);
+        TextView submit = view.findViewById(R.id.submit);
+        submit.setOnClickListener(this);
         return view;
     }
 
@@ -128,6 +132,9 @@ public class CheckListFragment extends Fragment {
                     public void onNext(CheckListInfoBean checkListInfoBean) {
                         super.onNext(checkListInfoBean);
                         simulation(checkListInfoBean.questionList, false);
+                   /*     TextView button = new TextView(getContext());
+                        button.setOnClickListener(CheckListFragment.this);
+                        llContainer.addView(button, llContainer.getChildCount() + 1);*/
                     }
 
                     public void onError(Throwable throwable) {
@@ -180,7 +187,7 @@ public class CheckListFragment extends Fragment {
                 case "11":
                     title = false;
                     EntryBoxLinearLayout input11 = new EntryBoxLinearLayout(getContext());
-                    new EntryBoxHelper
+                    EntryBoxHelper EntryBoxHelper11 = new EntryBoxHelper
                             .Builder(input11)
                             .title(title)
                             .unit(tRdQuestion.dataUnit)
@@ -198,7 +205,10 @@ public class CheckListFragment extends Fragment {
                                 }
                             })
                             .dateType(tRdQuestion.dataType)//此行写在inputListener后面(先赋值 后在dateTypezhong使用)
+                            .questionId(tRdQuestion.questionId)
                             .build();
+
+                    entryBoxHelpers.add(EntryBoxHelper11);
 
                     choiceOut = new OutLayout(getContext());
                     new OutLayoutHelper
@@ -216,10 +226,12 @@ public class CheckListFragment extends Fragment {
                     }
 
                     MultipleChoiceLayout choicesMulty = new MultipleChoiceLayout(getContext());
-                    new MultyChoiceInputLayoutHelper
-                            .Builder(choicesMulty)
-                            .choices(optionListMulty)
-                            .build();
+                    multyChoiceInputLayoutHelpers
+                            .add(new MultyChoiceInputLayoutHelper
+                                    .Builder(choicesMulty)
+                                    .choices(optionListMulty)
+                                    .questionId(tRdQuestion.questionId)
+                                    .build());
 
                     choiceOut = new OutLayout(getContext());
                     new OutLayoutHelper
@@ -238,10 +250,11 @@ public class CheckListFragment extends Fragment {
                     }
 
                     SingleChoiceLayout choices = new SingleChoiceLayout(getContext());
-                    new SingleChoiceInputLayoutHelper
+                    singleChoiceInputLayoutHelpers.add(new SingleChoiceInputLayoutHelper
                             .Builder(choices)
                             .choices(optionList)
-                            .build();
+                            .questionId(tRdQuestion.questionId)
+                            .build());
 
                     choiceOut = new OutLayout(getContext());
                     new OutLayoutHelper
@@ -428,5 +441,81 @@ public class CheckListFragment extends Fragment {
     private void dismissLoading() {
         HealthCheckListActivity activity = (HealthCheckListActivity) getActivity();
         activity.dismissLoading();
+    }
+
+    List<CheckListInfoBean.TRdUserAnswer> tRdUserAnswers = new ArrayList<>();
+    List<EntryBoxHelper> entryBoxHelpers = new ArrayList<>();
+    List<MultyChoiceInputLayoutHelper> multyChoiceInputLayoutHelpers = new ArrayList<>();
+    List<SingleChoiceInputLayoutHelper> singleChoiceInputLayoutHelpers = new ArrayList<>();
+
+    private void postCheckList() {
+        tRdUserAnswers.clear();
+        int size = entryBoxHelpers.size();
+        for (int i = 0; i < size; i++) {
+            CheckListInfoBean.TRdUserAnswer answer = new CheckListInfoBean.TRdUserAnswer();
+            EntryBoxHelper entryBoxHelper = entryBoxHelpers.get(i);
+            answer.questionId = entryBoxHelper.questionId();
+            answer.questionContent = entryBoxHelper.value();
+            if (!TextUtils.isEmpty(entryBoxHelper.value())) {
+                tRdUserAnswers.add(answer);
+            }
+        }
+
+        int singletySize = singleChoiceInputLayoutHelpers.size();
+        for (int i = 0; i < singletySize; i++) {
+            CheckListInfoBean.TRdUserAnswer answer = new CheckListInfoBean.TRdUserAnswer();
+            SingleChoiceInputLayoutHelper singleChoiceInputLayoutHelper = singleChoiceInputLayoutHelpers.get(i);
+            answer.questionId = singleChoiceInputLayoutHelper.questionId();
+            answer.optionId = singleChoiceInputLayoutHelper.optionId();
+            if (!TextUtils.isEmpty(answer.optionId)) {
+                tRdUserAnswers.add(answer);
+            }
+        }
+
+        int multySize = multyChoiceInputLayoutHelpers.size();
+        for (int i = 0; i < multySize; i++) {
+            MultyChoiceInputLayoutHelper multyChoiceInputLayoutHelper = multyChoiceInputLayoutHelpers.get(i);
+            if (multyChoiceInputLayoutHelper.options() != null && multyChoiceInputLayoutHelper.options().size() != 0) {
+                tRdUserAnswers.addAll(multyChoiceInputLayoutHelper.options());
+            }
+        }
+        repository
+                .postHealthCheckList("bff445ce1280473391df8eee45d0999b", tRdUserAnswers)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                })
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        super.onNext(o);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                    }
+                });
+    }
+
+    @Override
+    public void onClick(View v) {
+        postCheckList();
     }
 }

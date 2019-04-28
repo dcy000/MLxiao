@@ -11,14 +11,10 @@ public class EntryBoxHelper {
     private String name;
     private String value;
     private String unit;
-    /**
-     * 数据类型
-     */
     private String dateType;
-    /**
-     * 题
-     */
     private Boolean title;
+    private String questionId;//用于取答案 数据提交
+
 
     private EntryBoxLinearLayout.OnInputClickListener onInputClickListener;
 
@@ -30,6 +26,8 @@ public class EntryBoxHelper {
         this.layout = builder.layout;
         this.dateType = builder.dateType;
         this.title = builder.title;
+        this.title = builder.title;
+        this.questionId = builder.questionId;
         this.onInputClickListener = builder.onInputClickListener;
 
         layout.name(builder.name);
@@ -37,9 +35,10 @@ public class EntryBoxHelper {
         layout.setOnInputClickListener(builder.onInputClickListener);
         layout.dataype(builder.dateType);//在 setOnInputClickListener 后
         layout.requestionType(builder.title);
+//        layout.setTag(builder.questionId);
     }
 
-    public String name() {
+    private String name() {
         return name;
     }
 
@@ -47,7 +46,11 @@ public class EntryBoxHelper {
         return layout.value();
     }
 
-    public String unit() {
+    public String questionId() {
+        return questionId;
+    }
+
+    private String unit() {
         return unit;
     }
 
@@ -63,6 +66,7 @@ public class EntryBoxHelper {
         private String unit;
         private String dateType;
         private Boolean title;
+        private String questionId;
         private EntryBoxLinearLayout.OnInputClickListener onInputClickListener;
 
 
@@ -72,6 +76,11 @@ public class EntryBoxHelper {
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder questionId(String questionId) {
+            this.questionId = questionId;
             return this;
         }
 

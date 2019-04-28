@@ -13,7 +13,9 @@ import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -68,7 +70,19 @@ public interface HealthProfileAPI {
      * 健康体检表
      */
     // 体质检测 记录
-    @GET("ZZB//api/health/record/{rdRecordId}/")
+    @GET("ZZB/api/health/record/{rdRecordId}/")
     Observable<ApiResult<CheckListInfoBean>> getHealthCheckList(@Path("rdRecordId") String rdRecordId);
 
+    ///api/health/record/{rdRecordId}/user/{userId}/
+
+    /**
+     * 提交健康检测表
+     * @param rdRecordId
+     * @param userId
+     * @param answerList
+     */
+    @POST("ZZB/api/health/record/{rdRecordId}/user/{userId}/")
+    Observable<ApiResult<CheckListInfoBean>> postHealthCheckList(@Path("rdRecordId") String rdRecordId,
+                                                                 @Path("userId") String userId,
+                                                                 @Body List<CheckListInfoBean.TRdUserAnswer> answerList);
 }

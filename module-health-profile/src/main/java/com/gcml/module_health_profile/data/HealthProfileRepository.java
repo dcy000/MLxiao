@@ -1,6 +1,7 @@
 package com.gcml.module_health_profile.data;
 
 import com.gcml.common.RetrofitHelper;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_health_profile.bean.GuardianInfo;
@@ -73,6 +74,13 @@ public class HealthProfileRepository {
 
     public Observable<CheckListInfoBean> getHealthCheckList(String recordIdPath) {
         return healthProfile.getHealthCheckList(recordIdPath).compose(RxUtils.apiResultTransformer());
+    }
+
+
+    public Observable<Object> postHealthCheckList(String recordIdPath, List<CheckListInfoBean.TRdUserAnswer> answerList) {
+        return healthProfile
+                .postHealthCheckList(recordIdPath, UserSpHelper.getUserId(), answerList)
+                .compose(RxUtils.apiResultTransformer());
     }
 
 }
