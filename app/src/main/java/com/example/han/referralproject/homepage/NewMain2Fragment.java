@@ -19,6 +19,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.DemoVideoListActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
@@ -29,6 +30,7 @@ import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.sjtu.yifei.route.Routerfit;
 import com.witspring.unitbody.ChooseMemberActivity;
 
 import io.reactivex.Observable;
@@ -81,10 +83,6 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        CCResult result;
-        Observable<UserEntity> rxUser;
-        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        rxUser = result.getDataItem("data");
         switch (v.getId()) {
             default:
                 break;
@@ -93,7 +91,10 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_health_course:
                 //健康管理
-                rxUser.subscribeOn(Schedulers.io())
+                Routerfit.register(AppRouter.class)
+                        .getUserProvider()
+                        .getUserEntity()
+                        .subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
@@ -152,7 +153,10 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getActivity(), DemoVideoListActivity.class));
                 break;
             case R.id.iv_medical_tip:
-                rxUser.subscribeOn(Schedulers.io())
+                Routerfit.register(AppRouter.class)
+                        .getUserProvider()
+                        .getUserEntity()
+                        .subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override

@@ -18,12 +18,14 @@ import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.SMSVerificationDialog;
 import com.gcml.common.data.HealthInfo;
 import com.medlink.danbogh.utils.Utils;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
 
@@ -121,11 +123,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     }
 
     private void getData() {
-        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.getUser")
-                .build()
-                .call()
-                .getDataItem("data");
-        data.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
@@ -155,7 +156,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 || user.idCard.length() != 18) {
             mAge.setText(TextUtils.isEmpty(user.age) ? "暂未填写" : user.age + "岁");
         } else {
-            mAge.setText(String.format(Locale.getDefault(),"%d岁", Utils.age(user.idCard)));
+            mAge.setText(String.format(Locale.getDefault(), "%d岁", Utils.age(user.idCard)));
         }
         mSex.setText(TextUtils.isEmpty(user.sex) ? "暂未填写" : user.sex);
         mHeight.setText(TextUtils.isEmpty(user.height) ? "暂未填写" : user.height + "cm");

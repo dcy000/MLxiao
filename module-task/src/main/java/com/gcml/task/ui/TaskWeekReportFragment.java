@@ -24,6 +24,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -33,6 +34,7 @@ import com.gcml.task.R;
 import com.gcml.task.bean.TargetModel;
 import com.gcml.task.bean.get.TaskReportBean;
 import com.gcml.task.network.TaskRepository;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 
@@ -70,9 +72,10 @@ public class TaskWeekReportFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        Observable<UserEntity> rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override

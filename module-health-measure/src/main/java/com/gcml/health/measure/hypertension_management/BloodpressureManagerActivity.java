@@ -142,9 +142,9 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
     }
 
     private void toTask() {
-        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        Observable<UserEntity> rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity().subscribeOn(Schedulers.io())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override

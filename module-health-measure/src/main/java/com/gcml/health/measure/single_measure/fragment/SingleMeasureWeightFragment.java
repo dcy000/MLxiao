@@ -9,6 +9,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
@@ -18,6 +19,7 @@ import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +56,10 @@ public class SingleMeasureWeightFragment extends WeightFragment {
         if (results.length == 1) {
             //得到身高和体重，再计算一下体质
             if (mTvTizhi != null) {
-                CCResult call = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                Observable<UserEntity> user = call.getDataItem("data");
-                user.subscribeOn(Schedulers.io())
+                Routerfit.register(AppRouter.class)
+                        .getUserProvider()
+                        .getUserEntity()
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                         .subscribe(new Consumer<UserEntity>() {

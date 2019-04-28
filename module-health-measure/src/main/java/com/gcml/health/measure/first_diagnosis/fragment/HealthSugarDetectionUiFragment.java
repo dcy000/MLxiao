@@ -75,12 +75,13 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
+                            ToastUtils.showLong("上传数据成功");
                             setBtnClickableState(true);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            showUploadDataFailedDialog(results);
                         }
 
                         @Override

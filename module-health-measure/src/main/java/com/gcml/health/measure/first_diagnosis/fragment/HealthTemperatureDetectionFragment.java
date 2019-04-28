@@ -71,13 +71,13 @@ public class HealthTemperatureDetectionFragment extends TemperatureFragment {
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
+                            ToastUtils.showLong("上传数据成功");
                             setBtnClickableState(true);
-//                            ((FirstDiagnosisActivity) mActivity).putCacheData(data);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            showUploadDataFailedDialog(results);
                         }
 
                         @Override

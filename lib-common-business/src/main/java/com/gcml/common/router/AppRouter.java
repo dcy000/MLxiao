@@ -1,11 +1,19 @@
 package com.gcml.common.router;
 
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.service.IUserEntityProvider;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.annotation.RequestCode;
 import com.sjtu.yifei.route.ActivityCallback;
 
+import io.reactivex.Observable;
+
 public interface AppRouter {
+
+    @Go("/common/business/user/provider")
+    IUserEntityProvider getUserProvider();
+
     @Go("/health/measure/bloodpressure/manager")
     boolean skipBloodpressureManagerActivity(@Extra("fromActivity") String fromActivity);
 

@@ -62,6 +62,7 @@ import com.example.lenovo.rto.unit.UnitModel;
 import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
@@ -78,6 +79,7 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
+import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
@@ -1455,11 +1457,10 @@ public class DataDealHelper {
     }
 
     private void vertifyFaceThenHealthRecordActivity() {
-        CCResult result;
-        Observable<UserEntity> rxUser;
-        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {

@@ -30,6 +30,7 @@ import com.gcml.common.data.HealthInfo;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.mvvm.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -42,6 +43,7 @@ import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -621,10 +623,9 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     private UserEntity mUser;
 
     private void getData() {
-        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.getUser")
-                .build()
-                .call()
-                .getDataItem("data");
+        Observable<UserEntity> data =  Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity();
         if (data == null) {
             Intent intent = new Intent(this, AuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

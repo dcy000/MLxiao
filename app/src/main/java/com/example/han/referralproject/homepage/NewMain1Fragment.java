@@ -30,12 +30,14 @@ import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.List;
 
@@ -256,10 +258,6 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        CCResult result;
-        Observable<UserEntity> rxUser;
-        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        rxUser = result.getDataItem("data");
         switch (v.getId()) {
             default:
                 break;
@@ -268,7 +266,6 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.image_weather:
                 if (BuildConfig.DEBUG) {
                     Pandora.get().open();
-//                    startActivity(new Intent(getContext(), TreatmentPlanActivity.class));
                 }
                 break;
             case R.id.temperature:
@@ -284,7 +281,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
-                rxUser.subscribeOn(Schedulers.io())
+                Routerfit.register(AppRouter.class)
+                        .getUserProvider()
+                        .getUserEntity()
+                        .subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override

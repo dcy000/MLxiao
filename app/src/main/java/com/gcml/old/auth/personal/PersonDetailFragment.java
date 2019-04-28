@@ -45,6 +45,7 @@ import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
@@ -52,6 +53,7 @@ import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
 import io.reactivex.Observable;
@@ -214,11 +216,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             return;
         }
 
-        Observable<UserEntity> rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
-                .build()
-                .call()
-                .getDataItem("data");
-        rxUsers.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {

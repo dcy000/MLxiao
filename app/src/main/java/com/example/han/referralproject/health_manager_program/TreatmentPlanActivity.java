@@ -24,6 +24,7 @@ import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -32,6 +33,7 @@ import com.gcml.common.widget.dialog.CustomDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -85,7 +87,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 
             @Override
             public void onPageSelected(int position) {
-                pageSelected=position;
+                pageSelected = position;
             }
 
             @Override
@@ -180,7 +182,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 
     @Override
     public void onClick(View v) {
-        switch (pageSelected){
+        switch (pageSelected) {
             case 0:
                 viewpage.setCurrentItem(1);
                 break;
@@ -219,9 +221,10 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     }
 
     private void toTask() {
-        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        Observable<UserEntity> rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override

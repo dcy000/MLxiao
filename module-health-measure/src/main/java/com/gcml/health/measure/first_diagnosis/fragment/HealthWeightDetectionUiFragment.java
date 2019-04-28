@@ -11,6 +11,10 @@ import android.view.View;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -92,16 +96,12 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
                 .subscribeWith(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        if (fragmentChanged != null && !isJump2Next) {
-                            isJump2Next = true;
-                            fragmentChanged.onFragmentChanged(
-                                    HealthWeightDetectionUiFragment.this, null);
-                        }
+                        move2Next();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        showUploadDataFailedDialog(weight);
                     }
 
                     @Override
@@ -118,4 +118,38 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
         }
     }
 
+    private void move2Next() {
+        if (fragmentChanged != null && !isJump2Next) {
+            isJump2Next = true;
+            fragmentChanged.onFragmentChanged(
+                    HealthWeightDetectionUiFragment.this, null);
+        }
+    }
+
+    private void showUploadDataFailedDialog(float weight) {
+        NiceDialog.init()
+                .setLayoutId(com.gcml.module_blutooth_devices.R.layout.dialog_first_diagnosis_upload_failed)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.getView(com.gcml.module_blutooth_devices.R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                move2Next();
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.getView(com.gcml.module_blutooth_devices.R.id.btn_pos).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                uploadData(weight);
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(350)
+                .show(getFragmentManager());
+    }
 }

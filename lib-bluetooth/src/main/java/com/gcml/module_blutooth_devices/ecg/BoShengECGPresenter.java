@@ -34,6 +34,7 @@ import com.clj.fastble.callback.BleNotifyCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
@@ -48,6 +49,7 @@ import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.ByteUtils;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -235,9 +237,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
     private void getUser() {
 
-        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        Observable<UserEntity> rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserEntity>() {
                     @Override
