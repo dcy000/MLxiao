@@ -26,6 +26,8 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.HealthProfileActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
+import com.gcml.module_health_profile.checklist.CheckListFragment;
+import com.gcml.module_health_profile.checklist.HealthCheckListActivity;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
 import com.gcml.module_health_profile.webview.AddHealthProfileActivity;
 import com.gcml.module_health_profile.webview.SeeHealthCheckupWebActivity;
@@ -212,10 +214,17 @@ public class HealthCheckupFragment extends RecycleBaseFragment implements View.O
                             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先建立个人档案");
                             return;
                         }
-                        getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
+                       /*
+                       h5页面
+                       getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
                                 .putExtra("RdCordId", recordId)
                                 .putExtra("type", "健康体检")
-                                .putExtra("title", "健 康 体 检 "));
+                                .putExtra("title", "健 康 体 检 "));*/
+
+                        /**
+                         * 原生页面
+                         */
+                        startActivity(new Intent(getContext(), HealthCheckListActivity.class));
                     }
                 });
     }
