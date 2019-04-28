@@ -17,5 +17,13 @@
         android:layout_marginBottom="20pt"
         app:ci_drawable="@drawable/indicator_sel"
         app:ci_drawable_unselected="@drawable/indicator_unsel" />
-
+    <ImageView
+        android:id="@+id/iv_ani"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/indicator_right"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="60pt"
+        />
 </RelativeLayout>

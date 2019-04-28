@@ -22,6 +22,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
@@ -267,6 +268,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.image_weather:
                 if (BuildConfig.DEBUG) {
                     Pandora.get().open();
+//                    startActivity(new Intent(getContext(), TreatmentPlanActivity.class));
                 }
                 break;
             case R.id.temperature:
@@ -294,6 +296,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
                                     startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip", false));
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
 //                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
 //                                            .addParam("skip", true)
 //                                            .addParam("currentUser", false)

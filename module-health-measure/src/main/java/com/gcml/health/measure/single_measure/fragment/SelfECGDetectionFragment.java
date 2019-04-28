@@ -225,6 +225,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             context.unregisterReceiver(connectReceiver);
         }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
+        //初始化ECGBluetooth的状态
         ECGBluetooth.bluStatus =ECGBluetooth.BLU_STATUS_NORMAL;
     }
 

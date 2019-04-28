@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -15,13 +18,14 @@ import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.CircleIndicator;
 
 /**
  * Created by Administrator on 2018/5/15.
  */
 
-public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar {
+public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar, View.OnClickListener {
     private List<Fragment> fragments;
     private LastWeekTrendFragment treatmentProgramFragment1;
     private ThisWeekHealthPlanFragment treatmentProgramFragment2;
@@ -33,6 +37,9 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     public static boolean isSpeaked = false;
     private ViewPager viewpage;
     private CircleIndicator circleIndicator;
+    private ImageView ivAni;
+    private int pageSelected;
+//    private Animation animation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +61,23 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
             }
         });
         circleIndicator.setViewPager(viewpage);
+
+        viewpage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                pageSelected=position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initFragments() {
@@ -94,29 +118,72 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     protected void onResume() {
         super.onResume();
         speak("小E已为你生成具体计划方案，滑动屏幕可进行查看。");
+
+//        animation = AnimationUtils.loadAnimation(this, R.anim.indicator_right_index);
+//        ivAni.startAnimation(animation);
     }
 
     @Override
     public void onChange(Fragment fragment) {
         if (fragment instanceof LastWeekTrendFragment) {
             mTitleText.setText("一 周 血 压 趋 势 表");
+            ivAni.setVisibility(View.VISIBLE);
+//            ivAni.startAnimation(animation);
         } else if (fragment instanceof ThisWeekHealthPlanFragment) {
             mTitleText.setText("检 测 方 案");
+            ivAni.setVisibility(View.VISIBLE);
+//            ivAni.startAnimation(animation);
         } else if (fragment instanceof DietPlanFragment) {
             mTitleText.setText("膳 食 方 案");
+            ivAni.setVisibility(View.VISIBLE);
+//            ivAni.startAnimation(animation);
         } else if (fragment instanceof WeekDietPlanFragment) {
             mTitleText.setText("推 荐 食 谱");
+            ivAni.setVisibility(View.VISIBLE);
+//            ivAni.startAnimation(animation);
         } else if (fragment instanceof SportPlanFragment) {
             mTitleText.setText("运 动 方 案");
+            ivAni.setVisibility(View.VISIBLE);
+//            ivAni.startAnimation(animation);
         } else if (fragment instanceof MedicinePlanFragment) {
             mTitleText.setText("药 物 方 案");
+            ivAni.setVisibility(View.VISIBLE);
+//            ivAni.startAnimation(animation);
         } else if (fragment instanceof RencommendForUserFragment) {
             mTitleText.setText("智 能 推 荐");
+            ivAni.setVisibility(View.GONE);
         }
     }
 
     private void initView() {
         viewpage = findViewById(R.id.viewpage);
         circleIndicator = findViewById(R.id.circleIndicator);
+        ivAni = findViewById(R.id.iv_ani);
+        ivAni.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (pageSelected){
+            case 0:
+                viewpage.setCurrentItem(1);
+                break;
+            case 1:
+                viewpage.setCurrentItem(2);
+                break;
+            case 2:
+                viewpage.setCurrentItem(3);
+                break;
+            case 3:
+                viewpage.setCurrentItem(4);
+                break;
+            case 4:
+                viewpage.setCurrentItem(5);
+                break;
+            case 5:
+                viewpage.setCurrentItem(6);
+                break;
+        }
     }
 }

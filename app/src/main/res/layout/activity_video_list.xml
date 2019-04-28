@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.video.VideoListActivity">
+    tools:context="com.example.han.referralproject.video.VideoListActivity"
+    >
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_video"
@@ -105,4 +106,21 @@
             android:textSize="28sp"
             android:visibility="gone"/>
     </RadioGroup>
+    <View
+        android:id="@+id/view_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/video_demo_bg"
+        android:visibility="gone"/>
+    <View
+        android:id="@+id/view_back"
+        android:layout_width="250pt"
+        android:layout_height="128pt"
+        android:visibility="gone"/>
+    <View
+        android:id="@+id/view_wifi"
+        android:layout_width="250pt"
+        android:layout_height="128pt"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"/>
 </android.support.constraint.ConstraintLayout>
