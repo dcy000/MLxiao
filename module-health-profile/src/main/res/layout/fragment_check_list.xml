@@ -9,18 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="60pt">
-
-        <TextView
-            android:id="@+id/submit"
-            android:layout_width="match_parent"
-            android:layout_height="200pt"
-            android:background="#f0f"
-            android:gravity="center"
-            android:text="提交" />
-
-
-    </LinearLayout>
+        android:padding="60pt"></LinearLayout>
 
 
 </ScrollView>

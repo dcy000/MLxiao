@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -21,17 +19,16 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.gcml.common.data.Province;
-import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
-import com.gcml.module_health_profile.checklist.layoutHelper.MultyChoiceInputLayoutHelper;
-import com.gcml.module_health_profile.checklist.layoutHelper.SingleChoiceInputLayoutHelper;
 import com.gcml.module_health_profile.checklist.layoutHelper.EntryBoxHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.MultyChoiceInputLayoutHelper;
 import com.gcml.module_health_profile.checklist.layoutHelper.OutLayoutHelper;
+import com.gcml.module_health_profile.checklist.layoutHelper.SingleChoiceInputLayoutHelper;
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 import com.gcml.module_health_profile.checklist.wrap.MultipleChoiceLayout;
 import com.gcml.module_health_profile.checklist.wrap.OutLayout;
@@ -57,7 +54,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class CheckListFragment extends Fragment implements View.OnClickListener {
+public class CheckListFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -89,8 +86,6 @@ public class CheckListFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check_list, container, false);
         llContainer = view.findViewById(R.id.ll_container);
-        TextView submit = view.findViewById(R.id.submit);
-        submit.setOnClickListener(this);
         return view;
     }
 
@@ -448,7 +443,7 @@ public class CheckListFragment extends Fragment implements View.OnClickListener 
     List<MultyChoiceInputLayoutHelper> multyChoiceInputLayoutHelpers = new ArrayList<>();
     List<SingleChoiceInputLayoutHelper> singleChoiceInputLayoutHelpers = new ArrayList<>();
 
-    private void postCheckList() {
+    public void postCheckList() {
         tRdUserAnswers.clear();
         int size = entryBoxHelpers.size();
         for (int i = 0; i < size; i++) {
@@ -514,8 +509,4 @@ public class CheckListFragment extends Fragment implements View.OnClickListener 
                 });
     }
 
-    @Override
-    public void onClick(View v) {
-        postCheckList();
-    }
 }

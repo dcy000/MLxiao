@@ -14,6 +14,9 @@ import com.gcml.module_health_profile.R;
  */
 
 public class HealthCheckListActivity extends BaseActivity {
+
+    private CheckListFragment fragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +25,7 @@ public class HealthCheckListActivity extends BaseActivity {
         TranslucentToolBar tb = findViewById(R.id.tb_check_list);
         tb.setData("健 康 体 检 表",
                 R.drawable.common_btn_back, "返回",
-                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
+                0, "提交", new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
@@ -30,20 +33,16 @@ public class HealthCheckListActivity extends BaseActivity {
 
                     @Override
                     public void onRightClick() {
-                        onRightClickWithPermission(new IAction() {
-                            @Override
-                            public void action() {
-                                CC.obtainBuilder("com.gcml.old.setting").build().call();
-                            }
-                        });
+                        fragment.postCheckList();
                     }
                 });
         setWifiLevel(tb);
 
+        fragment = CheckListFragment.newInstance(null, null);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fl_contaniner_check_list,
-                        CheckListFragment.newInstance(null, null))
+                        fragment)
                 .commitAllowingStateLoss();
     }
 }
