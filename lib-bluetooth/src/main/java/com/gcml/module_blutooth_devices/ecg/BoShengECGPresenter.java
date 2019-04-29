@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -60,7 +59,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -80,7 +78,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String phone;
     private String birth;
     private String sex;
+    private String userName;
     private static final String TAG = "BoShengECGPresenter";
+    private int lgoinTimes;
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -94,7 +94,6 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             int length_byte = 0;
                             for (int i = 0; i < bytesResult.size(); i++) {
                                 length_byte += bytesResult.get(i).length;
-
                             }
                             byte[] all_byte = new byte[length_byte];
                             int countLength = 0;
@@ -166,14 +165,14 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
                         @Override
                         public void onNotifySuccess() {
-                            if (timeCount!=null){
+                            if (timeCount != null) {
                                 timeCount.start();
                             }
                         }
 
                         @Override
                         public void onNotifyFailure(BleException exception) {
-                            Timber.e("数据传输出现异常");
+                            ToastUtils.showLong("检测不到您的心跳。请按如下操作：1.清洁仪器；2.按照仪器上的指示图操作；3.手指用力贴紧仪器");
                             if (timeCount != null) {
                                 timeCount.cancel();
                             }
@@ -199,7 +198,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 }
             }
             isMeasureEnd = true;
-            if (timeCount!=null){
+            if (timeCount != null) {
                 timeCount.cancel();
             }
             new WeakHandler().postDelayed(new Runnable() {
@@ -251,6 +250,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             phone = userEntity.phone;
                             birth = userEntity.birthday;
                             sex = userEntity.sex;
+                            userName = userEntity.name;
 
                             if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(userEntity.name) || TextUtils.isEmpty(sex)) {
                                 ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
@@ -280,8 +280,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             //这里必须设置
                             PatientApi.config = configBorsamResponse.getEntity();
                             //注册
-                            registAccount(DataUtils.hideMobilePhone4(phone),
-                                    BluetoothConstants.BoSheng.BoSheng_USER_PASSWORD, birth, name, sex);
+                            registAccount(DataUtils.hideMobilePhone4(phone), BluetoothConstants.BoSheng.BoSheng_USER_PASSWORD);
                         } else {
                             ToastUtils.showShort("get config error");
                         }
@@ -298,33 +297,28 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 });
     }
 
-    private void registAccount(final String username, final String password, final String birth, final String name, final String sex) {
-        if (DataUtils.isNullString(username) || DataUtils.isNullString(password)) {
+    private void registAccount(final String phone, final String password) {
+        if (DataUtils.isNullString(phone) || DataUtils.isNullString(password)) {
             return;
         }
 
-        BorsamHttpUtil.getInstance().add("BoShengECGPresenter", PatientApi.register(username, password))
+        BorsamHttpUtil.getInstance().add("BoShengECGPresenter", PatientApi.register(phone, password))
                 .enqueue(new HttpCallback<BorsamResponse<RegisterResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<RegisterResult> registerResultBorsamResponse) {
                         if (registerResultBorsamResponse == null) {
                         } else {
-                            RegisterResult entity = registerResultBorsamResponse.getEntity();
-                            if (entity == null) {
-                                //该账号已经注册过
-                                login(username, password);
-                            } else {
-                                //注册成功后进行两个操作：1.登录；2：修改个人信息
-                                login(username, password);
-                                int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
-                                int sexInt = 0;
-                                if (sex.equals("男")) {
-                                    sexInt = 2;
-                                } else if (sex.equals("女")) {
-                                    sexInt = 1;
-                                }
-                                alertPersonInfo(name, "", sexInt, birthday);
-                            }
+//                            RegisterResult entity = registerResultBorsamResponse.getEntity();
+//                            if (entity == null) {
+//                                //该账号已经注册过
+//                                login(username, password);
+//                            } else {
+//
+//                            }
+                            //每次登陆后都调用修改个人基本信息的接口
+                            //注册成功后进行两个操作：1.登录；2：修改个人信息
+                            login(phone, password);
+
                         }
 
                     }
@@ -340,12 +334,12 @@ public class BoShengECGPresenter implements LifecycleObserver {
     }
 
     //博声登录
-    private void login(String username, String password) {
-        if (DataUtils.isNullString(username) || DataUtils.isNullString(password)) {
+    private void login(String phone, String password) {
+        if (DataUtils.isNullString(phone) || DataUtils.isNullString(password)) {
             return;
         }
         BorsamHttpUtil.getInstance()
-                .add("BoShengECGPresenter", PatientApi.login(username, password)).enqueue(
+                .add("BoShengECGPresenter", PatientApi.login(phone, password)).enqueue(
                 new HttpCallback<BorsamResponse<LoginResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<LoginResult> loginResultBorsamResponse) {
@@ -355,23 +349,48 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             PatientApi.userId = loginResultBorsamResponse.getEntity().getUser().getId();
                             PatientApi.token = loginResultBorsamResponse.getEntity().getToken();
                             isLoginBoShengSuccess = true;
+
+                            alterPersonInfo();
                         }
                     }
 
                     @Override
                     public void onError(Exception e) {
+                        //尝试调用3次登录接口，如果还是不能登录则打印错误信息
+                        if (lgoinTimes < 3) {
+                            lgoinTimes++;
+                            login(phone, password);
+                        } else {
+                            ToastUtils.showShort(e.getMessage());
+                        }
                     }
 
                     @Override
                     public void onFailure(int responseCode, String responseMessage) {
+                        //尝试调用3次登录接口，如果还是不能登录则打印错误信息
+                        if (lgoinTimes < 3) {
+                            lgoinTimes++;
+                            login(phone, password);
+                        } else {
+                            ToastUtils.showShort(responseMessage);
+                        }
                     }
                 });
     }
 
     //修改个人信息 （性别 0:未设置 1:女 2:男 3:其他）
-    private void alertPersonInfo(String firstName, String sencondName, int sex, int birthday) {
+    private void alterPersonInfo() {
+        //我们系统中的年龄大于真实年龄1岁，所以应该减去1
+
+        int birthday = (int) (TimeUtils.string2Milliseconds(String.valueOf(Integer.parseInt(birth) + 10000), new SimpleDateFormat("yyyyMMdd")) / 1000);
+        int sexInt = 0;
+        if (sex.equals("男")) {
+            sexInt = 2;
+        } else if (sex.equals("女")) {
+            sexInt = 1;
+        }
         BorsamHttpUtil.getInstance()
-                .add("BoShengECGPresenter", PatientApi.modifyPatient(firstName, sencondName, sex, birthday))
+                .add("BoShengECGPresenter", PatientApi.modifyPatient(userName, "", sexInt, birthday))
                 .enqueue(new HttpCallback<BorsamResponse>() {
                     @Override
                     public void onSuccess(BorsamResponse borsamResponse) {
@@ -430,10 +449,26 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        if (entity!=null) {
-                            BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
-                            baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                        if (entity == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
                         }
+                        BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
+                        if (boShengResultBean == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        List<BoShengResultBean.AvgbeatsBean> avgbeats = boShengResultBean.getAvgbeats();
+                        if (avgbeats == null || avgbeats.size() == 0) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        BoShengResultBean.AvgbeatsBean avgbeatsBean = avgbeats.get(0);
+                        if (avgbeatsBean == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), avgbeatsBean.getHR() + "");
                     }
 
                     @Override
