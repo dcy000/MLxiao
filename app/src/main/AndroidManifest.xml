@@ -146,9 +146,6 @@
         <!-- android:name="com.gcml.auth.ui.signup.UserProtocolActivity" -->
         <!-- android:screenOrientation="landscape" /> -->
         <activity
-            android:name=".activity.PreviousHistoryActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -239,9 +236,6 @@
             android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.AddAppoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.signin.ChooseLoginTypeActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.old.auth.signin.SignInActivity"
@@ -674,9 +668,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".hypertensionmanagement.activity.WeightMeasureActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.FactoryTestActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.ScreenPointActivity"

@@ -12,7 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.FileUtils;
 
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class AppUtils {
     private static Context getApplication() {
-        return UtilsManager.getApplication();
+        return UM.getApp();
     }
 
     /**

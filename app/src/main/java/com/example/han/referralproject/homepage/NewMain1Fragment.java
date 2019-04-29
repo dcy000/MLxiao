@@ -1,8 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -14,22 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
+import com.example.lenovo.rto.APP;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -41,7 +30,6 @@ import com.sjtu.yifei.route.Routerfit;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import tech.linjiang.pandora.Pandora;
 
@@ -345,9 +333,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 //                                }
 //                            }
 //                        });
-                Intent intent = new Intent(getActivity(), SymptomCheckActivity.class);
-                startActivity(intent);
-
+                Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
                 break;
             case R.id.iv_health_call_family:
 //                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());

@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.qrcode.QRCodeUtils;
@@ -37,7 +37,6 @@ import com.gcml.module_health_record.bean.ECGHistory;
 import com.gcml.module_health_record.bean.HeartRateHistory;
 import com.gcml.module_health_record.bean.TemperatureHistory;
 import com.gcml.module_health_record.bean.WeightHistory;
-import com.gcml.module_health_record.cc.CCAppActions;
 import com.gcml.module_health_record.fragments.HealthRecordBUAFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodoxygenFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
@@ -147,7 +146,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请查看您的健康数据", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请查看您的健康数据", false);
 
         initView();
         initDialog();

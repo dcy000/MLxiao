@@ -15,7 +15,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.CustomDialog;
 import com.gcml.health.measure.R;
@@ -26,7 +26,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -151,7 +150,7 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
                     public void onNext(UserEntity user) {
                         if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
                             ToastUtils.showShort("请先去个人中心完善体重和身高信息");
-                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(),
                                     "请先去个人中心完善体重和身高信息");
                         } else {
                             CC.obtainBuilder("com.gcml.task.isTask")

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
@@ -203,7 +203,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
         if (i == R.id.btnNext) {
             if (!checkSelectOne()){
                 ToastUtils.showShort("请至少选择一项");
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"请至少选择一项",false);
+                MLVoiceSynthetize.startSynthesize(UM.getApp(),"请至少选择一项",false);
                 return;
             }
             dealClick();

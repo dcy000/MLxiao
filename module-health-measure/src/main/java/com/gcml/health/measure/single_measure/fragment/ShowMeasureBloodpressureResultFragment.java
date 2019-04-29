@@ -14,7 +14,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
@@ -183,7 +183,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         mCurrentDiya.setText(String.valueOf(currentLowBloodpressure));
         mTvSuggest.setText(currentSuggest);
 
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),
                 "您本次测量高压" + currentHighBloodpressure + ",低压"
                         + currentLowBloodpressure + ",健康分数" + healthScore + "分。" + currentSuggest);
         initViewColor();
@@ -632,7 +632,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         });
 
         dialog.show(getFragmentManager(), "less3");
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您尚未满足3天测量标准，请在健康监测中测量三日", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您尚未满足3天测量标准，请在健康监测中测量三日", false);
     }
 
     /**

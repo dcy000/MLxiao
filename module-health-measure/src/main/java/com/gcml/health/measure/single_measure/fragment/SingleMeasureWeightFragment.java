@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -24,7 +22,6 @@ import com.sjtu.yifei.route.Routerfit;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
@@ -86,7 +83,7 @@ public class SingleMeasureWeightFragment extends WeightFragment {
                         });
 
             }
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量体重" + results[0] + "公斤", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量体重" + results[0] + "公斤", false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,

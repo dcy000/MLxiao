@@ -150,7 +150,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.iv_ask_doctor:
 //                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
                 //健康课堂
-                startActivity(new Intent(getActivity(), DemoVideoListActivity.class));
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
             case R.id.iv_medical_tip:
                 Routerfit.register(AppRouter.class)

@@ -10,10 +10,11 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.ServicePackageBean;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.network.AppRepository;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -114,14 +115,7 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                 break;
             case R.id.cl3:
                 if (isServicePackageEffective) {
-                    //有套餐生效，跳转到测试界面
-                    if (isSkip) {
-                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true,
-                                servicePackage.getType(), servicePackage.orderid + "");
-                        return;
-                    }
-                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false,
-                            servicePackage.getType(), servicePackage.orderid + "");
+                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(isSkip, servicePackage.getType(), servicePackage.orderid + "");
                 } else {
                     startActivity(new Intent(this, QRCodeWXPayActivity.class)
                             .putExtra("isSkip", isSkip)
@@ -133,7 +127,7 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
             case R.id.tv_top_right:
                 isClickDetail = true;
 //                startActivity(new Intent(this, ServicePackageDetailActivity.class));
-                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
+                Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false);
                 break;
         }
 

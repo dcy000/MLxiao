@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.iflytek.cloud.SpeechError;
@@ -47,10 +47,10 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
         if (bundle != null) {
             String title = bundle.getString("title");
             ((TextView) view.findViewById(R.id.tv_tips)).setText(title);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),
                     "初次见面，我是小易！为了更好地了解您的身体，先来做一个全套体检吧", onSynthesizerListener, false);
         } else {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),
                     "恭喜您完成问卷，下面让我们进行身体指标检测吧", onSynthesizerListener, false);
         }
         ivGrayBack = view.findViewById(R.id.ivGrayBack);

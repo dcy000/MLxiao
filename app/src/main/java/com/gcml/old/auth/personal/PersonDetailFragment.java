@@ -1,6 +1,5 @@
 package com.gcml.old.auth.personal;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,14 +20,11 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
@@ -36,7 +32,6 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
@@ -48,7 +43,7 @@ import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -56,7 +51,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -151,7 +145,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                             String type = servicePackageBean.getType();
                             if (type.equals("3")) {
                                 //有套餐生效，跳转到测试界面
-                                tvUserName.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(UtilsManager.getApplication(), R.drawable.ic_vip), null, null, null);
+                                tvUserName.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(UM.getApp(), R.drawable.ic_vip), null, null, null);
                                 return;
                             }
                         }

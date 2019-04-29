@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -155,7 +154,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(mContext, OfflineActivity.class));
                 break;
             case R.id.tv_sign_up_go_back:
-                CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
+//                CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
                 finish();
                 break;
         }

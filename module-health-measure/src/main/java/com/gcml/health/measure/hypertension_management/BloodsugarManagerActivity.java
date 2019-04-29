@@ -6,29 +6,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.AppManager;
-import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
-import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.CustomDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
-
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司

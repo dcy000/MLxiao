@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,28 +9,20 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Chronometer;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
-import com.example.han.referralproject.cc.CCVideoActions;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.network.NetUitls;
-import com.gcml.common.utils.network.WiFiUtil;
-import com.gcml.common.utils.permission.PermissionsManager;
-import com.gcml.common.utils.permission.PermissionsResultAction;
-import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -155,40 +148,26 @@ public class WelcomeActivity extends AppCompatActivity {
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
         if (false) {
-            jump2NormalVideoPlayActivity(VEDIO_URL,"迈联智慧");
+            Routerfit.register(AppRouter.class).skipNormalVideoPlayActivity(
+                    null, VEDIO_URL, "迈联智慧",
+                    new ActivityCallback() {
+                        @Override
+                        public void onActivityResult(int result, Object data) {
+                            if (result == Activity.RESULT_OK) {
+                                if (data == null) return;
+                                if (data.toString().equals("pressed_button_skip")) {
+                                    onVideoPlayedComplete();
+                                } else if (data.toString().equals("video_play_end")) {
+                                    onVideoPlayedComplete();
+                                }
+                            } else if (result == Activity.RESULT_CANCELED) {
+                            }
+                        }
+                    });
         } else {
             checkVersion();
         }
     }
-
-    public void jump2NormalVideoPlayActivity(String url, String title) {
-        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
-                .setActionName(CCVideoActions.SendActionNames.TO_NORMALVIDEOPLAYACTIVITY)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, null)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, url)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
-                switch (resultAction) {
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
-                        //点击了返回按钮
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
-                        //点击了跳过按钮
-                        onVideoPlayedComplete();
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
-                        //视屏播放结束
-                        onVideoPlayedComplete();
-                        break;
-                    default:
-                }
-            }
-        });
-    }
-
     private void onVideoPlayedComplete() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         LocalShared.getInstance(this).setIsFirstIn(false);

@@ -23,11 +23,10 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
@@ -250,7 +249,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                             if (!getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false)) {
                                 uploadEcg(mEcg, mHeartRate);
                             }
-                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您的心率为" + mHeartRate + "," + measureResult[mEcg]);
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您的心率为" + mHeartRate + "," + measureResult[mEcg]);
 
                         }
                         break;

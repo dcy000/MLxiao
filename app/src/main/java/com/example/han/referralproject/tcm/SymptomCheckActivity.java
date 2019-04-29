@@ -26,11 +26,13 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.common.utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Go;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/app/tcm/symptom/check")
 public class SymptomCheckActivity extends AppCompatActivity implements View.OnClickListener {
 
 

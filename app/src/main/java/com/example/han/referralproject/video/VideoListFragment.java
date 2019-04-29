@@ -1,6 +1,7 @@
 package com.example.han.referralproject.video;
 
 
+import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,12 +19,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.data.DataUtils;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -361,7 +364,20 @@ public class VideoListFragment extends Fragment {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
                     String replaceSpace = DataUtils.replaceSpace(entity.getVideourl());
-                    CCVideoActions.jump2NormalVideoPlayActivity(replaceSpace, entity.getTitle());
+                    Routerfit.register(AppRouter.class).skipNormalVideoPlayActivity(
+                            null, replaceSpace, entity.getTitle(),
+                            new ActivityCallback() {
+                                @Override
+                                public void onActivityResult(int result, Object data) {
+                                    if (result == Activity.RESULT_OK) {
+                                        if (data == null) return;
+                                        if (data.toString().equals("pressed_button_skip")) {
+                                        } else if (data.toString().equals("video_play_end")) {
+                                        }
+                                    } else if (result == Activity.RESULT_CANCELED) {
+                                    }
+                                }
+                            });
                 }
             });
         }

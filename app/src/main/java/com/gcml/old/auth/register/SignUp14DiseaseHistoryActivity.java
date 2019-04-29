@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.DiseaseHistoryAdapter;
@@ -126,7 +125,7 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     }
 
     private void navToNext() {
-        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
+//        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
     }
 
     private String getMh() {

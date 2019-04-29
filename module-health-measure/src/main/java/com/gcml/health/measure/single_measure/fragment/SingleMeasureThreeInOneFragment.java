@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -82,7 +82,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
                 sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量血糖" + sugarData.getBloodSugar());
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + sugarData.getBloodSugar());
                 uploadData(datas);
 
                 if (measureItemChanged != null) {
@@ -94,7 +94,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
                 datas.add(cholesterolData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量胆固醇" + cholesterolData.getCholesterol());
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量胆固醇" + cholesterolData.getCholesterol());
                 uploadData(datas);
                 if (measureItemChanged != null) {
                     measureItemChanged.onChanged(5);
@@ -107,7 +107,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
 
                 datas.add(lithicAcidData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量尿酸" + lithicAcidData.getUricAcid());
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
                 if (measureItemChanged != null) {
                     measureItemChanged.onChanged(6);

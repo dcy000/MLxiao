@@ -3,18 +3,15 @@ package com.gcml.health.measure.single_measure.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
-import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -84,7 +81,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
 //    }
 //
 //    private void showHypertensionHandDialog(String hand) {
-//        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请使用" + hand + "测量");
+//        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请使用" + hand + "测量");
 //        new AlertDialog(mContext).builder()
 //                .setMsg("请使用" + hand + "测量")
 //                .setPositiveButton("确定", new View.OnClickListener() {
@@ -99,7 +96,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3 && !isOnPause) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
             datas = new ArrayList<>();
             DetectionData pressureData = new DetectionData();
@@ -220,7 +217,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
                     boolean booleanExtra = data.getBooleanExtra(HealthMeasureAbnormalActivity.KEY_HAS_ABNIRMAL_REASULT, false);
                     if (booleanExtra) {
                         //数据异常
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "因为你测量出现偏差，此次测量将不会作为历史数据");
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), "因为你测量出现偏差，此次测量将不会作为历史数据");
                     } else {
                         uploadData();
                     }

@@ -19,7 +19,6 @@ import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.children.entertainment.ChildEduJokesActivity;
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
@@ -49,7 +48,6 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
@@ -64,8 +62,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
@@ -92,7 +89,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -451,7 +447,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(zhengzhuangzicha).*")) {
-            startActivity(SymptomCheckActivity.class);
+            Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
             return;
         }
 
@@ -646,7 +642,7 @@ public class DataDealHelper {
         } else if (result.matches(".*测.*血糖.*")
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
-                ) {
+        ) {
             jiance();
             if (listener != null) {
                 listener.onEnd();
@@ -705,7 +701,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*shengyin.*xiangyidian.*")
                 || inSpell.matches(".*shengyin.*zhongyidian.*")
 
-                ) {
+        ) {
             addVoice();
         } else if (inSpell.matches(".*xiaoshengyin.*")
                 || inSpell.matches(".*xiaoyinliang.*")
@@ -719,7 +715,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*shengyin.*jiangdi.*")
                 || inSpell.matches(".*shengyin.*qingyidian.*")
 
-                ) {
+        ) {
 
             deleteVoice();
 
@@ -752,7 +748,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*maibaojianpin")
                 || inSpell.matches(".*xiaoyituijian")
                 || inSpell.matches(".*tuijian(shangpin|shanpin)")
-                ) {
+        ) {
             startActivity(MarketActivity.class);
 
 
@@ -1295,7 +1291,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivityWithOutCallback(SymptomCheckActivity.class);
+                Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
                 return true;
             }
         }
@@ -1466,7 +1462,7 @@ public class DataDealHelper {
                     public void onNext(UserEntity userEntity) {
                         if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
                             ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(),
                                     "请先去个人中心完善性别和年龄信息");
                         } else {
                             CC.obtainBuilder("com.gcml.auth.face2.signin")

@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
@@ -27,7 +26,9 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.BillUtils;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -38,9 +39,7 @@ import cn.beecloud.async.BCCallback;
 import cn.beecloud.async.BCResult;
 import cn.beecloud.entity.BCPayResult;
 import cn.beecloud.entity.BCReqParams;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -102,11 +101,7 @@ public class QRCodeAliPayActivity extends BaseActivity implements View.OnClickLi
                             .subscribe(new DefaultObserver<String>() {
                                 @Override
                                 public void onNext(String data) {
-                                    if (isSkip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true, servicePackageType, data);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false, servicePackageType, data);
+                                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(isSkip,servicePackageType,data);
                                 }
 
                                 @Override

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
@@ -105,7 +104,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
     }
 
     private void navToNext() {
-        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
+//        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
     }
 
     private void signUp(String password) {

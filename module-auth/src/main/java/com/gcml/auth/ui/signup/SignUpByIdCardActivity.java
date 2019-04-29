@@ -12,6 +12,7 @@ import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpByIdCardBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -19,6 +20,7 @@ import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
 
@@ -317,16 +319,7 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                                                                             public void onResult(CC cc, CCResult result) {
                                                                                 if (result.isSuccess()) {
                                                                                     ToastUtils.showShort(result.getErrorMessage());
-//                                                                                    CC.obtainBuilder("health_measure")
-//                                                                                            .build()
-//                                                                                            .callAsync();
-//                                                                                    CC.obtainBuilder("health_measure")
-//                                                                                            .setActionName("To_HealthInquiryActivity")
-//                                                                                            .build()
-//                                                                                            .call();
-                                                                                    CC.obtainBuilder("com.online.doctor.list")
-                                                                                            .build()
-                                                                                            .call();
+                                                                                    Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
                                                                                 }
                                                                             }
                                                                         });

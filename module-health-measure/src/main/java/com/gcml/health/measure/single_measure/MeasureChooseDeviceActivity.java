@@ -10,24 +10,23 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@Route(path = "/health/measure/choose/device")
 public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements View.OnClickListener {
     private boolean isTest;
     private int measureType;
@@ -80,7 +79,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-            if (servicePackage==null){
+            if (servicePackage == null) {
                 finish();
                 return;
             }
@@ -97,6 +96,10 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      */
     @Override
     protected void backMainActivity() {
+        if (servicePackage == null) {
+            super.backMainActivity();
+            return;
+        }
         if (servicePackage.equals("1") || servicePackage.equals("2")) {
             showQuitDialog(true);
         } else {
@@ -157,7 +160,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请选择你需要测量的项目", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请选择你需要测量的项目", false);
     }
 
     @Override
@@ -207,44 +210,28 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      * 跳转到MeasureVideoPlayActivity
      */
     private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
-        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
-                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
-                if (resultAction == null) {
-                    aferVideo();
-                }
-                switch (resultAction) {
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
-                        //点击了返回按钮
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
-                        //点击了跳过按钮
-                        aferVideo();
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
-                        //视屏播放结束
-                        aferVideo();
-                        break;
-                    default:
-                }
-            }
-        });
+        //暂时不需要演示视频
+        aferVideo();
+//        Routerfit.register(AppRouter.class).skipMeasureVideoPlayActivity(uri, null, title, new ActivityCallback() {
+//            @Override
+//            public void onActivityResult(int result, Object data) {
+//                if (result == Activity.RESULT_OK) {
+//                    if (data == null) return;
+//                    if (data.toString().equals("pressed_button_skip")) {
+//                        aferVideo();
+//                    } else if (data.toString().equals("video_play_end")) {
+//                        aferVideo();
+//                    }
+//                } else if (result == Activity.RESULT_CANCELED) {
+//                }
+//            }
+//        });
     }
 
     private void aferVideo() {
-        Intent intent = new Intent();
-        intent.setClass(this, AllMeasureActivity.class);
-        intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
-        intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
-        intent.putExtra("ServicePackage", servicePackage);
-        intent.putExtra("ServicePackageUUID", serviceUUID);
-        startActivity(intent);
+        Routerfit.register(AppRouter.class).skipAllMeasureActivity(
+                measureType, getIntent().getBooleanExtra(IS_FACE_SKIP, false),
+                servicePackage, serviceUUID);
     }
 
     private void initView() {

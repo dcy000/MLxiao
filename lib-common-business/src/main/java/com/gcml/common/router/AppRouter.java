@@ -1,13 +1,11 @@
 package com.gcml.common.router;
 
-import com.gcml.common.data.UserEntity;
+import android.net.Uri;
+
 import com.gcml.common.service.IUserEntityProvider;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Go;
-import com.sjtu.yifei.annotation.RequestCode;
 import com.sjtu.yifei.route.ActivityCallback;
-
-import io.reactivex.Observable;
 
 public interface AppRouter {
 
@@ -34,4 +32,50 @@ public interface AppRouter {
 
     @Go("/app/activity/wifi/connect")
     boolean skipWifiConnectActivity(@Extra("is_first_wifi") boolean isFirstWifi);
+
+    @Go("/health/measure/choose/device")
+    boolean skipMeasureChooseDeviceActivity(
+            @Extra("isFaceSkip") boolean isFaceSkip
+    );
+
+    @Go("/health/measure/choose/device")
+    boolean skipMeasureChooseDeviceActivity(
+            @Extra("isFaceSkip") boolean isFaceSkip,
+            @Extra("ServicePackage") String servicePackage,
+            @Extra("ServicePackageUUID") String servicePackageUUID
+    );
+
+    @Go("/health/measure/all/measure")
+    boolean skipAllMeasureActivity(@Extra("measure_type") int measureType);
+
+    @Go("/health/measure/all/measure")
+    boolean skipAllMeasureActivity(
+            @Extra("measure_type") int measureType,
+            @Extra("isFaceSkip") boolean isFaceSkip,
+            @Extra("ServicePackage") String servicePackage,
+            @Extra("ServicePackageUUID") String servicePackageUUID
+    );
+
+    @Go("/app/online/doctor/list")
+    boolean skipOnlineDoctorListActivity(@Extra("flag") String flag);
+
+    @Go("/app/hypertension/slow/disease/management")
+    boolean skipSlowDiseaseManagementActivity();
+
+    @Go("/app/tcm/symptom/check")
+    boolean skipSymptomCheckActivity();
+
+    @Go("/video/normal/video/play")
+    boolean skipNormalVideoPlayActivity(
+            @Extra("key_uri") Uri uri,
+            @Extra("key_url") String url,
+            @Extra("key_title") String title,
+            @Extra ActivityCallback callback);
+
+    @Go("/video/measure/video/play")
+    boolean skipMeasureVideoPlayActivity(
+            @Extra("key_uri") Uri uri,
+            @Extra("key_url") String url,
+            @Extra("key_title") String title,
+            @Extra ActivityCallback callback);
 }

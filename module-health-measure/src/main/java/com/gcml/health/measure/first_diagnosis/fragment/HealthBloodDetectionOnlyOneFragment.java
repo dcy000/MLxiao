@@ -5,13 +5,8 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.utils.ui.UiUtils;
-import com.gcml.common.widget.fdialog.BaseNiceDialog;
-import com.gcml.common.widget.fdialog.NiceDialog;
-import com.gcml.common.widget.fdialog.ViewConvertListener;
-import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -48,7 +43,7 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量高压"
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压"
                     + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
             ArrayList<DetectionData> datas = new ArrayList<>();

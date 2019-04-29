@@ -13,11 +13,12 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@Route(path = "/app/online/doctor/list")
 public class OnlineDoctorListActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;

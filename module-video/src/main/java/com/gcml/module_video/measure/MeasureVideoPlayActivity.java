@@ -9,7 +9,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +29,13 @@ import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
 import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_ERROR_COVER;
 
+@Route(path = "/video/measure/video/play")
 public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump2NextListener {
     private BaseVideoView mVideoView;
     private ReceiverGroup mReceiverGroup;
@@ -42,31 +44,13 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
     private boolean userPause;
     private PlayerEventListener playerEventListener;
 
-    //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
-    public static void startActivity(Context context, Uri uri, String url, String title) {
-        Intent intent = new Intent(context, MeasureVideoPlayActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        intent.putExtra("uri", uri);
-        intent.putExtra("url", url);
-        intent.putExtra("title", title);
-        context.startActivity(intent);
-    }
-    public interface SendResultActionNames{
-        /**
-         * 点击了返回按钮
-         */
-        String PRESSED_BUTTON_BACK="pressed_button_back";
+    public interface SendResultActionNames {
         /**
          * 点击了跳过按钮
          */
-        String PRESSED_BUTTON_SKIP="pressed_button_skip";
-        /**
-         * 视频播放结束
-         */
-        String VIDEO_PLAY_END="video_play_end";
+        String PRESSED_BUTTON_SKIP = "pressed_button_skip";
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +61,9 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
                 , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mVideoView = findViewById(R.id.videoView);
         Intent intent = getIntent();
-        Uri uri = intent.getParcelableExtra("uri");
-        String url = intent.getStringExtra("url");
-        String title = intent.getStringExtra("title");
+        Uri uri = intent.getParcelableExtra("key_uri");
+        String url = intent.getStringExtra("key_url");
+        String title = intent.getStringExtra("key_title");
         DataSource dataSource = new DataSource();
         dataSource.setUri(uri);
         dataSource.setData(url);
@@ -115,7 +99,8 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
                 case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
                     break;
                 case OnPlayerEventListener.PLAYER_EVENT_ON_PLAY_COMPLETE:
-                    CCResultActions.onCCResultAction(SendResultActionNames.VIDEO_PLAY_END);
+//                    CCResultActions.onCCResultAction(SendResultActionNames.VIDEO_PLAY_END);
+                    Routerfit.setResult(Activity.RESULT_OK,"video_play_end");
                     finish();
                     break;
                 case OnPlayerEventListener.PLAYER_EVENT_ON_RESUME:
@@ -208,7 +193,8 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
                     userPause = true;
                     break;
                 case DataInter.Event.EVENT_CODE_REQUEST_BACK:
-                    CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BUTTON_BACK);
+//                    CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BUTTON_BACK);
+                    Routerfit.setResult(Activity.RESULT_CANCELED,"pressed_button_back");
                     finish();
 //                    //如果是横屏就先恢复成竖屏，如果已经是竖屏了，则直接关闭当前页面
 //                    if (isLandscape) {
@@ -240,7 +226,8 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
 
     @Override
     public void clickJump2Next(View view) {
-        CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BUTTON_SKIP);
+//        CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BUTTON_SKIP);
+        Routerfit.setResult(Activity.RESULT_OK,"pressed_button_skip");
         finish();
     }
 }

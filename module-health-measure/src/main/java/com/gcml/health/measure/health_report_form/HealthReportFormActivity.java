@@ -8,27 +8,23 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.RencommendForUserFragment;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.CustomDialog;
-import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +34,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -66,7 +61,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_report_form);
         initView();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请查看您的疾病风险评估报告，向左滑动查看详情");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请查看您的疾病风险评估报告，向左滑动查看详情");
         getData();
 
     }
@@ -228,14 +223,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                 .setPositiveButton("健康方案", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        CCAppActions.jump2MainActivity();
-//                        CC.obtainBuilder("com.app.symptom.check")
-//                                .build()
-//                                .call();
-
-                        CC.obtainBuilder("app.hypertension.manager.slow.disease")
-                                .build()
-                                .call();
+                        Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
                     }
                 }).show();
     }

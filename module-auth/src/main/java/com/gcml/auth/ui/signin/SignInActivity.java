@@ -123,9 +123,11 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     public void signIn() {
         if ("123456".equals(binding.etPhone.getText().toString())
                 && "654321".equals(binding.etPassword.getText().toString())) {
-            CC.obtainBuilder("com.gcml.old.system.factoryTest")
-                    .build()
-                    .callAsync();
+//            CC.obtainBuilder("com.gcml.old.system.factoryTest")
+//                    .build()
+//                    .callAsync();
+            //TODO:集成工厂测试
+            ToastUtils.showShort("暂未集成测试功能");
             return;
         }
 

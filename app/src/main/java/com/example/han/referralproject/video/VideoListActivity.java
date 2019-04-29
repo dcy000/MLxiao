@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
@@ -48,7 +48,7 @@ public class VideoListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
-        mToolbar.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.VISIBLE);
 //        mTitleText.setText(R.string.title_health_class);
         mTitleText.setText(R.string.title_health_class);
 //        mRightView.setImageResource(R.drawable.icon_wifi);
@@ -108,7 +108,7 @@ public class VideoListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "欢迎观看健康课堂");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "欢迎观看健康课堂");
         findViewById(R.id.view_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

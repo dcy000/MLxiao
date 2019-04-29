@@ -1,6 +1,7 @@
 package com.gcml.health.measure.single_measure;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +14,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
@@ -29,9 +28,7 @@ import com.gcml.common.widget.base.dialog.DialogImage;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -59,6 +56,9 @@ import com.gcml.module_blutooth_devices.ecg.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +67,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@Route(path = "/health/measure/all/measure")
 public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged, ThreeInOneFragment.MeasureItemChanged {
     private BluetoothBaseFragment baseFragment;
     private int measure_type;
@@ -242,7 +243,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
             }
 
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
         }
 
         @Override
@@ -332,26 +333,15 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
      * 跳转到MeasureVideoPlayActivity
      */
     private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
-        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
-                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+        Routerfit.register(AppRouter.class).skipMeasureVideoPlayActivity(uri, null, title, new ActivityCallback() {
             @Override
-            public void onResult(CC cc, CCResult result) {
-                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
-                switch (resultAction) {
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
-                        //点击了返回按钮
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
-                        //点击了跳过按钮
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
-                        //视屏播放结束
-                        break;
-                    default:
+            public void onActivityResult(int result, Object data) {
+                if (result == Activity.RESULT_OK) {
+                    if (data == null) return;
+                    if (data.toString().equals("pressed_button_skip")) {
+                    } else if (data.toString().equals("video_play_end")) {
+                    }
+                } else if (result == Activity.RESULT_CANCELED) {
                 }
             }
         });

@@ -5,10 +5,10 @@ import android.app.Application;
 import java.lang.reflect.InvocationTargetException;
 
 
-public class UtilsManager {
+public final class UM {
     private static Application mApplication;
 
-    private UtilsManager() {
+    private UM() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -23,14 +23,14 @@ public class UtilsManager {
      *
      * @return the context of Application object
      */
-    public static Application getApplication() {
+    public static Application getApp() {
         if (mApplication != null) {
             return mApplication;
         }
         try {
             Class<?> activityThread = Class.forName("android.app.ActivityThread");
             Object at = activityThread.getMethod("currentActivityThread").invoke(null);
-            Object app = activityThread.getMethod("getApplication").invoke(at);
+            Object app = activityThread.getMethod("getApp").invoke(at);
             if (app == null) {
                 throw new NullPointerException("u should init first");
             }
