@@ -98,22 +98,10 @@ public class WelcomeActivity extends AppCompatActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                   /* if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
-                                    } else {
-                                        Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
-                                        startActivity(intent);
-                                    }*/
-
                                     if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
                                         CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
                                     } else {
-//                                        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                            CC.obtainBuilder(IConstant.KEY_HOSPITAL_USER_SIGN).build().callAsync();
-//                                        } else {
-//                                            Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
-//                                            startActivity(intent);
-//                                        }
+                                        CC.obtainBuilder(IConstant.KEY_HOSPITAL_USER_SIGN).build().callAsync();
                                     }
                                     finish();
                                 }
@@ -139,11 +127,10 @@ public class WelcomeActivity extends AppCompatActivity {
                         // 如果从开始计时到现在超过了60s
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
-                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                            if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
+                                CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
                             } else {
-                                Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
-                                startActivity(intent);
+                                CC.obtainBuilder(IConstant.KEY_HOSPITAL_USER_SIGN).build().callAsync();
                             }
                             finish();
                         }

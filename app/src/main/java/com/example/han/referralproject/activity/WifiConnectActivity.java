@@ -31,6 +31,8 @@ import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.IConstant;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.wifi.WifiUtils;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
@@ -79,10 +81,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mRightView.setImageResource(R.drawable.icon_refresh);
         mRightView.setOnClickListener(this);
         mTitleText.setText("WiFi连接");
-        mRefreshAnim =  AnimationUtils.loadAnimation(this, R.anim.common_wifi_refresh);
+        mRefreshAnim = AnimationUtils.loadAnimation(this, R.anim.common_wifi_refresh);
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        boolean iswifiConnected=cm != null
+        boolean iswifiConnected = cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
         if (iswifiConnected) {
@@ -90,7 +92,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         } else {
             speak("主人,请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
-        isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
+        isFirstWifi = getIntent().getBooleanExtra("is_first_wifi", false);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         mSwitch.setChecked(mWifiManager.isWifiEnabled());
         mSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
@@ -167,7 +169,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_top_right:
                 getWifiData(mWifiManager.isWifiEnabled());
                 break;
@@ -178,9 +180,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mNetworkReceiver);
-        if(mediaPlayer!=null){
+        if (mediaPlayer != null) {
             mediaPlayer.release();
-            mediaPlayer=null;
+            mediaPlayer = null;
         }
     }
 
@@ -222,14 +224,12 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                 case ConnectivityManager.CONNECTIVITY_ACTION:
                     ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
-                    if (networkInfo != null && networkInfo.isConnected()){
-                        if (isFirstWifi){
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                CC.obtainBuilder("com.gcml.auth")
-                                        .build()
-                                        .callAsync();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        if (isFirstWifi) {
+                            if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
+                                CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
                             } else {
-                                startActivity(new Intent(mContext, HospitalMainActivity.class));
+                                CC.obtainBuilder(IConstant.KEY_HOSPITAL_USER_SIGN).build().callAsync();
                             }
                             finish();
                         }
