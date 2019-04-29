@@ -5,6 +5,7 @@
     android:padding="3pt">
 
     <ImageView
+        android:layout_centerVertical="true"
         android:id="@+id/iv_single_item_icon"
         android:layout_width="56pt"
         android:layout_height="56pt"

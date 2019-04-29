@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="20pt"
+    android:layout_marginTop="20pt"
     android:orientation="horizontal">
 
     <TextView
@@ -14,8 +16,6 @@
         android:textSize="56pt" />
 
     <FrameLayout
-        android:layout_marginTop="20pt"
-        android:layout_marginBottom="20pt"
         android:id="@+id/fl_out_container"
         android:layout_width="1300pt"
         android:layout_height="wrap_content"></FrameLayout>
