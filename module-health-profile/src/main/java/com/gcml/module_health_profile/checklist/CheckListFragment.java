@@ -101,7 +101,7 @@ public class CheckListFragment extends Fragment {
 
     HealthProfileRepository repository = new HealthProfileRepository();
     int index = 0;
-    boolean all = false;
+    boolean all = true;
 
     private void initData() {
         dialog = new LoadingDialog.Builder(getContext())
