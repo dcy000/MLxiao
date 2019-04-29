@@ -55,12 +55,12 @@ public class EqualFlowLayout extends ViewGroup {
                 childWidth = quiteWidthSize(childWidth, equalWidthSize);
             }
 
-            if (lineX + childWidth> lineWight) {
+            if (lineX + childWidth > lineWight) {
                 lineX = paddingLeft;
                 lineY += childHeight;
             }
 
-            childAt.layout(lineX, lineY, lineX+ childWidth, lineY + childHeight );
+            childAt.layout(lineX, lineY, lineX + childWidth, lineY + childHeight);
             lineX += childWidth;
         }
     }
@@ -113,7 +113,8 @@ public class EqualFlowLayout extends ViewGroup {
             if (lineWidth + spaceWidth > widthSize) {
                 lineY += lineHeight;
                 lineWidth = this.paddingLeft + this.paddingRight;
-                lineHeight = 0;
+                lineHeight = spaceHeight;
+//                lineHeight = 0;
             }
 
             lineWidth += spaceWidth;

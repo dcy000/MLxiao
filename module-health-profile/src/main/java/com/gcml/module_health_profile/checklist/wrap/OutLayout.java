@@ -66,8 +66,10 @@ public class OutLayout extends LinearLayout {
             marginLeft = 0;
             name.setTextColor(Color.parseColor("#333333"));
         }
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) name.getLayoutParams();
-        lp.setMargins(marginLeft, 0, 0, 0);
+//        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) name.getLayoutParams();
+//        lp.setMargins(marginLeft, 0, 0, 0);
+
+        name.setPadding(marginLeft, 0, 0, 0);
 
         return this;
     }
