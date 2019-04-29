@@ -27,7 +27,6 @@ public class EntryBoxHelper {
         this.layout = builder.layout;
         this.dateType = builder.dateType;
         this.title = builder.title;
-        this.title = builder.title;
         this.questionId = builder.questionId;
         this.onInputClickListener = builder.onInputClickListener;
         this.titleLevel = builder.titleLevel;

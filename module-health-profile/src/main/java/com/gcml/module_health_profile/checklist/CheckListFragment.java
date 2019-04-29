@@ -100,6 +100,8 @@ public class CheckListFragment extends Fragment {
     private LoadingDialog dialog;
 
     HealthProfileRepository repository = new HealthProfileRepository();
+    int index = 0;
+    boolean all = false;
 
     private void initData() {
         dialog = new LoadingDialog.Builder(getContext())
@@ -126,7 +128,11 @@ public class CheckListFragment extends Fragment {
                     @Override
                     public void onNext(CheckListInfoBean checkListInfoBean) {
                         super.onNext(checkListInfoBean);
-                        simulation(checkListInfoBean.questionList, false);
+                        if (all) {
+                            simulation(checkListInfoBean.questionList, false);
+                        } else {
+                            simulation(checkListInfoBean.questionList.get(index).questionList, false);
+                        }
                    /*     TextView button = new TextView(getContext());
                         button.setOnClickListener(CheckListFragment.this);
                         llContainer.addView(button, llContainer.getChildCount() + 1);*/

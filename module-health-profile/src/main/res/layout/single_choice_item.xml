@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="56pt"
+    android:layout_height="wrap_content"
     android:padding="3pt">
 
     <ImageView
@@ -11,11 +11,12 @@
         android:background="@drawable/item_single_choice_gray" />
 
     <TextView
+        android:gravity="center"
         android:id="@+id/tv_single_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10pt"
+        android:layout_marginLeft="20pt"
         android:layout_toRightOf="@+id/iv_single_item_icon"
         android:textColor="#ff333333"
         android:textSize="56pt" />

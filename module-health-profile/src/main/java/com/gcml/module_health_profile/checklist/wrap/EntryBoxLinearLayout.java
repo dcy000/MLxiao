@@ -72,8 +72,10 @@ public class EntryBoxLinearLayout extends LinearLayout {
         } else if (TextUtils.equals("2", type)) {
             value.setInputType(InputType.TYPE_CLASS_TEXT);
             if (onInputClickListener != null) {
+                value.setFocusable(false);
                 value.setOnClickListener(v -> {
                     onInputClickListener.onDateClick(value);
+                    value.setFocusable(true);
                 });
             }
         } else if (TextUtils.equals("3", type)) {
@@ -81,8 +83,10 @@ public class EntryBoxLinearLayout extends LinearLayout {
         } else if (TextUtils.equals("4", type)) {
             value.setInputType(InputType.TYPE_CLASS_TEXT);
             if (onInputClickListener != null) {
+                value.setFocusable(false);
                 value.setOnClickListener(v -> {
                     onInputClickListener.onAddressClick(value);
+                    value.setFocusable(true);
                 });
             }
         }
@@ -91,10 +95,10 @@ public class EntryBoxLinearLayout extends LinearLayout {
     public void requestionType(Boolean title) {
         if (title) {
             rlContainer.setVisibility(GONE);
-            detect.setVisibility(View.GONE);
+//            detect.setVisibility(View.GONE);
         } else {
             rlContainer.setVisibility(VISIBLE);
-            detect.setVisibility(View.VISIBLE);
+//            detect.setVisibility(View.VISIBLE);
         }
     }
 

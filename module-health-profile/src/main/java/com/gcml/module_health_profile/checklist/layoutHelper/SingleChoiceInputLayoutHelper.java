@@ -1,5 +1,6 @@
 package com.gcml.module_health_profile.checklist.layoutHelper;
 
+import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 import com.gcml.module_health_profile.checklist.wrap.SingleChoiceLayout;
 
@@ -9,9 +10,9 @@ import java.util.List;
  * Created by lenovo on 2019/4/23.
  */
 
-public class SingleChoiceInputLayoutHelper<T> {
+public class SingleChoiceInputLayoutHelper {
     private SingleChoiceLayout layout;
-    private List<T> choices;
+    private List< CheckListInfoBean.TRdQuestion.TRdOption> choices;
     private String questionId;
 
     private SingleChoiceInputLayoutHelper(Builder builder) {
@@ -19,6 +20,7 @@ public class SingleChoiceInputLayoutHelper<T> {
         this.layout = builder.layout;
         this.questionId = builder.questionId;
 
+//        CheckListInfoBean.TRdQuestion.TRdOption tRdOption = choices.get(choices.size());
         EntryBoxHelper helper = new EntryBoxHelper
                 .Builder(new EntryBoxLinearLayout(layout.getContext()))
                 .title(false)
@@ -29,7 +31,7 @@ public class SingleChoiceInputLayoutHelper<T> {
         layout.setData(choices);
     }
 
-    private List<T> choices() {
+    private List< CheckListInfoBean.TRdQuestion.TRdOption> choices() {
         return choices;
     }
 
@@ -45,16 +47,16 @@ public class SingleChoiceInputLayoutHelper<T> {
         return layout.optionId();
     }
 
-    public static class Builder<T> {
+    public static class Builder {
         private SingleChoiceLayout layout;
-        private List<T> choices;
+        private List< CheckListInfoBean.TRdQuestion.TRdOption> choices;
         private String questionId;
 
         public Builder(SingleChoiceLayout layout) {
             this.layout = layout;
         }
 
-        public Builder choices(List<T> choices) {
+        public Builder choices(List< CheckListInfoBean.TRdQuestion.TRdOption> choices) {
             this.choices = choices;
             return this;
         }

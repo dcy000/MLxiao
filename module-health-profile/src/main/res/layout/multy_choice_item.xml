@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="56pt"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
     android:padding="3pt">
 
     <ImageView
         android:id="@+id/iv_multy_item_icon"
         android:layout_width="56pt"
         android:layout_height="56pt"
+        android:layout_centerVertical="true"
         android:background="@drawable/item_multy_choice_gray" />
 
     <TextView
-        android:textSize="56pt"
+        android:layout_marginLeft="20pt"
         android:id="@+id/tv_multy_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/iv_multy_item_icon"
-        android:textColor="@color/color_item_text_set" />
+        android:gravity="center"
+        android:text="说了看到就烦路上看到就烦镂空设计的"
+        android:textColor="@color/color_item_text_set"
+        android:textSize="56pt" />
 
 
 </RelativeLayout>
