@@ -1,6 +1,7 @@
 package com.gcml.module_health_profile.checklist.wrap;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -111,6 +112,11 @@ public class EntryBoxLinearLayout extends LinearLayout {
     public void setTitleLevel(int titleLevel) {
 
 
+    }
+
+    public void hint(String hint) {
+        this.value.setHintTextColor(Color.parseColor("#ffbbbbbb"));
+        this.value.setHint(hint);
     }
 
     public interface OnInputClickListener {

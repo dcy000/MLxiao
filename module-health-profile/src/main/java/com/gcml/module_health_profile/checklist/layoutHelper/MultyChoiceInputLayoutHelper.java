@@ -17,8 +17,8 @@ import java.util.List;
 
 public class MultyChoiceInputLayoutHelper {
     private MultipleChoiceLayout layout;
-    //    private List<T> choices;
-    List<CheckListInfoBean.TRdQuestion.TRdOption> choices;
+    private List<CheckListInfoBean.TRdQuestion.TRdOption> choices;
+    private List<EntryBoxHelper> entryBoxHelpers = new ArrayList<>();
     private String questionId;
 
     private MultyChoiceInputLayoutHelper(Builder builder) {
@@ -26,33 +26,23 @@ public class MultyChoiceInputLayoutHelper {
         this.layout = builder.layout;
         this.questionId = builder.questionId;
 
-        EntryBoxHelper helper = new EntryBoxHelper
-                .Builder(new EntryBoxLinearLayout(layout.getContext()))
-                .title(false)
-                .name("")
-                .unit("").build();
+        CheckListInfoBean.TRdQuestion.TRdOption tRdOption = choices.get(choices.size() - 1);
+        List<CheckListInfoBean.TRdQuestion> questionList = tRdOption.questionList;
+        if (questionList != null && questionList.size() != 0) {
+            int size = questionList.size();
+            for (int i = 0; i < size; i++) {
+                EntryBoxHelper helper = new EntryBoxHelper
+                        .Builder(new EntryBoxLinearLayout(layout.getContext()))
+                        .title(false)
+                        .name("")
+                        .hint(tRdOption.optionName)
+                        .questionId(questionList.get(i).questionId)
+                        .build();
+                entryBoxHelpers.add(helper);
+                layout.addInput(helper.layout());
+            }
+        }
 
-
-        /* .Builder(input11)
-                .title(title)
-                .unit(tRdQuestion.dataUnit)
-                .inputListener(new EntryBoxLinearLayout.OnInputClickListener() {
-                    @Override
-                    public void onDateClick(EditText date) {
-                        CheckListFragment.this.date = date;
-                        selectBirthday();
-                    }
-
-                    @Override
-                    public void onAddressClick(EditText address) {
-                        CheckListFragment.this.address = address;
-                        showAddressPicker();
-                    }
-                })
-                .dateType(tRdQuestion.dataType)//此行写在inputListener后面(先赋值 后在dateTypezhong使用)
-                .questionId(tRdQuestion.questionId)*/
-
-        layout.addInput(helper.layout());
         layout.setData(choices);
 //        layout.setTag(questionId);
     }
@@ -75,6 +65,10 @@ public class MultyChoiceInputLayoutHelper {
 
     public List<CheckListInfoBean.TRdUserAnswer> options() {
         return layout.options();
+    }
+
+    public List<EntryBoxHelper> inputBox() {
+        return entryBoxHelpers;
     }
 
     public static class Builder {

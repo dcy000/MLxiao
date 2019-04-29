@@ -464,12 +464,25 @@ public class CheckListFragment extends Fragment {
 
         int singletySize = singleChoiceInputLayoutHelpers.size();
         for (int i = 0; i < singletySize; i++) {
+            //选项处理
             CheckListInfoBean.TRdUserAnswer answer = new CheckListInfoBean.TRdUserAnswer();
             SingleChoiceInputLayoutHelper singleChoiceInputLayoutHelper = singleChoiceInputLayoutHelpers.get(i);
             answer.questionId = singleChoiceInputLayoutHelper.questionId();
             answer.optionId = singleChoiceInputLayoutHelper.optionId();
             if (!TextUtils.isEmpty(answer.optionId)) {
                 tRdUserAnswers.add(answer);
+            }
+
+            //填空题
+            List<EntryBoxHelper> inputBoxs = singleChoiceInputLayoutHelpers.get(i).inputBox();
+            for (int j = 0; j < inputBoxs.size(); j++) {
+                CheckListInfoBean.TRdUserAnswer input = new CheckListInfoBean.TRdUserAnswer();
+                EntryBoxHelper entryBoxHelper = inputBoxs.get(j);
+                input.questionId = entryBoxHelper.questionId();
+                input.questionContent = entryBoxHelper.value();
+                if (!TextUtils.isEmpty(entryBoxHelper.value())) {
+                    tRdUserAnswers.add(input);
+                }
             }
         }
 
@@ -478,6 +491,18 @@ public class CheckListFragment extends Fragment {
             MultyChoiceInputLayoutHelper multyChoiceInputLayoutHelper = multyChoiceInputLayoutHelpers.get(i);
             if (multyChoiceInputLayoutHelper.options() != null && multyChoiceInputLayoutHelper.options().size() != 0) {
                 tRdUserAnswers.addAll(multyChoiceInputLayoutHelper.options());
+            }
+
+            //填空题
+            List<EntryBoxHelper> inputBoxs = multyChoiceInputLayoutHelpers.get(i).inputBox();
+            for (int j = 0; j < inputBoxs.size(); j++) {
+                CheckListInfoBean.TRdUserAnswer input = new CheckListInfoBean.TRdUserAnswer();
+                EntryBoxHelper entryBoxHelper = inputBoxs.get(j);
+                input.questionId = entryBoxHelper.questionId();
+                input.questionContent = entryBoxHelper.value();
+                if (!TextUtils.isEmpty(entryBoxHelper.value())) {
+                    tRdUserAnswers.add(input);
+                }
             }
         }
         repository

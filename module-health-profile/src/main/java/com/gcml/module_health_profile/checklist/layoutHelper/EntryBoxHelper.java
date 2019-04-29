@@ -9,6 +9,7 @@ import com.gcml.module_health_profile.checklist.wrap.EntryBoxLinearLayout;
 public class EntryBoxHelper {
     private EntryBoxLinearLayout layout;
     private String name;
+    private String hint;
     private String value;
     private String unit;
     private String dateType;
@@ -22,6 +23,7 @@ public class EntryBoxHelper {
 
     private EntryBoxHelper(Builder builder) {
         this.name = builder.name;
+        this.hint = builder.hint;
         this.value = builder.value;
         this.unit = builder.unit;
         this.layout = builder.layout;
@@ -33,6 +35,7 @@ public class EntryBoxHelper {
 
 
         layout.name(builder.name);
+        layout.hint(builder.hint);
         layout.unit(builder.unit);
         layout.setOnInputClickListener(builder.onInputClickListener);
         layout.dataype(builder.dateType);//在 setOnInputClickListener 后
@@ -65,6 +68,7 @@ public class EntryBoxHelper {
     public static class Builder {
         private EntryBoxLinearLayout layout;
         private String name;
+        private String hint;
         private String value;
         private String unit;
         private String dateType;
@@ -128,5 +132,9 @@ public class EntryBoxHelper {
             return new EntryBoxHelper(this);
         }
 
+        public Builder hint(String hint) {
+            this.hint = hint;
+            return this;
+        }
     }
 }

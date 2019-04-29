@@ -114,7 +114,6 @@ public class EqualFlowLayout extends ViewGroup {
                 lineY += lineHeight;
                 lineWidth = this.paddingLeft + this.paddingRight;
                 lineHeight = spaceHeight;
-//                lineHeight = 0;
             }
 
             lineWidth += spaceWidth;
