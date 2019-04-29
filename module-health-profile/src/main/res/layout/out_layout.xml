@@ -21,7 +21,6 @@
             android:textSize="56pt" />
 
         <FrameLayout
-            android:layout_marginTop="20pt"
             android:id="@+id/fl_out_container"
             android:layout_width="1300pt"
             android:layout_height="wrap_content"></FrameLayout>
