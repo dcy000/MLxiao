@@ -16,6 +16,8 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.router.AppRouter;
+import com.sjtu.yifei.route.Routerfit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,19 +70,12 @@ public class PressureFlatTipActivity extends BaseActivity implements WarmNoticeF
 //        });
 
         startActivity(new Intent(PressureFlatTipActivity.this, DetecteTipActivity.class)
-                .putExtra("fromWhere","3"));
+                .putExtra("fromWhere", "3"));
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_WeightManagerActivity")
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                AppManager.getAppManager().finishAllActivity();
-                startActivity(new Intent(PressureFlatTipActivity.this, TreatmentPlanActivity.class));
-            }
-        });
+        Routerfit.register(AppRouter.class).skipWeightManagerActivity("PressureFlatTipActivity", "TreatmentPlanActivity");
+        AppManager.getAppManager().finishAllActivity();
     }
 }

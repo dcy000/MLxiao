@@ -18,14 +18,6 @@
             android:label="单侧选择测量仪器界面"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.health.measure.ecg.XinDianDetectActivity"
-            android:label="心电测量"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity"
-            android:label="智能诊断"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".ecg.ECGConnectActivity"
             android:label="新店蓝牙连接动画界面"
             android:screenOrientation="landscape" />

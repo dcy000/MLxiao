@@ -1,5 +1,6 @@
 package com.gcml.health.measure.hypertension_management;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -19,11 +20,11 @@ import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.CustomDialog;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.schedulers.Schedulers;
@@ -39,14 +40,6 @@ import io.reactivex.schedulers.Schedulers;
 public class BloodpressureManagerActivity extends BaseManagementActivity {
     private String fromActivity;
     private String toActivity;
-
-    public static void startActivity(Context context) {
-        Intent intent = new Intent(context, BloodpressureManagerActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        context.startActivity(intent);
-    }
 
     @Override
     protected void dealLogic() {
@@ -76,8 +69,6 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
     @Override
     public void jump2HealthHistory(int measureType) {
         //点击了下一步
-//        CCResultActions.onCCResultAction(ResultAction.MEASURE_SUCCESS);
-//        Routerfit.setResult(Routerfit.RESULT_OK,"success");
         if (TextUtils.isEmpty(fromActivity)) return;
         if (fromActivity.equals("SlowDiseaseManagementActivity")) {
             showEndDialog();
@@ -88,6 +79,11 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
             } else if (toActivity.equals("TreatmentPlanActivity")) {
                 Routerfit.register(AppRouter.class).skipTreatmentPlanActivity();
             }
+        } else if (fromActivity.equals("ShowMeasureBloodpressureResultFragment")) {
+            if (TextUtils.isEmpty(toActivity)) return;
+            if (toActivity.equals("TreatmentPlanActivity")) {
+                Routerfit.register(AppRouter.class).skipTreatmentPlanActivity();
+            }
         }
     }
 
@@ -95,26 +91,17 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
      * 跳转到MeasureVideoPlayActivity
      */
     private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
-        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
-                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+        Routerfit.register(AppRouter.class).skipMeasureVideoPlayActivity(uri, null, title, new ActivityCallback() {
             @Override
-            public void onResult(CC cc, CCResult result) {
-                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
-                switch (resultAction) {
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
-                        //点击了返回按钮
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
-                        //点击了跳过按钮
-                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
-                        //视屏播放结束
+            public void onActivityResult(int result, Object data) {
+                if (result == Activity.RESULT_OK) {
+                    if (data == null) return;
+                    if (data.toString().equals("pressed_button_skip")) {
                         initFragment();
-                        break;
-                    default:
+                    } else if (data.toString().equals("video_play_end")) {
+                        initFragment();
+                    }
+                } else if (result == Activity.RESULT_CANCELED) {
                 }
             }
         });

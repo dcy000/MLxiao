@@ -17,9 +17,11 @@ import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UploadHelper;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -208,17 +210,15 @@ public class FaceBdRepository {
                     public ObservableSource<Object> apply(String r) throws Exception {
                         UserEntity user = new UserEntity();
                         user.avatar = r;
-                        Observable<UserEntity> rxUpdateUser = CC.obtainBuilder("com.gcml.auth.putUser")
-                                .addParam("user", user)
-                                .build()
-                                .call()
-                                .getDataItem("data");
-                        return rxUpdateUser.map(new Function<UserEntity, Object>() {
-                            @Override
-                            public Object apply(UserEntity userEntity) throws Exception {
-                                return new Object();
-                            }
-                        }).subscribeOn(Schedulers.io());
+                        return Routerfit.register(AppRouter.class)
+                                .getUserProvider()
+                                .updateUserEntity(user)
+                                .map(new Function<UserEntity, Object>() {
+                                    @Override
+                                    public Object apply(UserEntity userEntity) throws Exception {
+                                        return new Object();
+                                    }
+                                }).subscribeOn(Schedulers.io());
                     }
                 })
                 .map(new Function<Object, String>() {

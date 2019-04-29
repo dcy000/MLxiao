@@ -13,4 +13,9 @@ public class UserEntityProviderImp implements IUserEntityProvider {
     public Observable<UserEntity> getUserEntity() {
         return new UserRepository().getUserSignIn();
     }
+
+    @Override
+    public Observable<UserEntity> updateUserEntity(UserEntity user) {
+        return new UserRepository().putProfile(user);
+    }
 }

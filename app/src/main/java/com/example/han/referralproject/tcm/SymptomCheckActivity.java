@@ -107,10 +107,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void toRisk() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_HealthInquiryActivity")
-                .build()
-                .call();
+        Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
     }
 
     private void toChineseConsititution() {

@@ -334,11 +334,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(fengxian|fengxianpinggu|fengxianpanduan" +
                 "|huanbingfenxiang|debingfengxian|jiankangyuce|jiankangyuche|pinggu).*")) {
-            CC.obtainBuilder("health_measure")
-                    .setActionName("To_HealthInquiryActivity")
-                    .build()
-                    .call();
-
+            Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
             if (listener != null) {
                 listener.onEnd();
             }

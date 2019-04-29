@@ -32,10 +32,6 @@ public class AppCC implements IComponent {
      */
     interface ReceiveActionNames {
         /**
-         * 跳转到NormalHightActivity页面
-         */
-        String TO_NORMALHIGHTACTIVITY = "ToNormalHightActivity";
-        /**
          * 跳转到TreatmentPlanActivity页面
          */
         String TO_TREATMENTPLANACTIVITY = "ToTreatmentPlanActivity";
@@ -49,31 +45,12 @@ public class AppCC implements IComponent {
         String TO_ISEMPTYSTOMACHORNOTACTIVITY="To_IsEmptyStomachOrNotActivity";
     }
 
-    /**
-     * 接收数据的key
-     */
-    interface ReceiveKeys {
-        /**
-         * 表示从哪里来
-         */
-        String KEY_EXTRA_FROM_WHERE = "fromWhere";
-    }
-
     @Override
     public boolean onCall(CC cc) {
         CCResultActions.setCcId(cc.getCallId());
         Context context = cc.getContext();
         String actionName = cc.getActionName();
         switch (actionName) {
-            case ReceiveActionNames.TO_NORMALHIGHTACTIVITY:
-                String param = cc.getParamItem(ReceiveKeys.KEY_EXTRA_FROM_WHERE);
-                Intent intent = new Intent(context, NormalHightActivity.class);
-                if (context instanceof Application) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                }
-                intent.putExtra("fromWhere", param);
-                context.startActivity(intent);
-                break;
             case ReceiveActionNames.TO_TREATMENTPLANACTIVITY:
                 Intent intent1 = new Intent(context, TreatmentPlanActivity.class);
                 if (context instanceof Application) {

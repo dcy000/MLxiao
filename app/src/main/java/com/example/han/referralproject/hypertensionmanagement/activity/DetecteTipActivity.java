@@ -1,20 +1,13 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.concurrent.TimeUnit;

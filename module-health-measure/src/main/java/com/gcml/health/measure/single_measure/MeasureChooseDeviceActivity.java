@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -195,8 +197,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         } else if (i == R.id.ll_tizhong) {
             //体重
             measureType = IPresenter.MEASURE_WEIGHT;
-            AllMeasureActivity.startActivity(this, measureType);
-
+            Routerfit.register(AppRouter.class).skipAllMeasureActivity(measureType);
         } else if (i == R.id.ll_more) {
 //            measureType=IPresenter.MEASURE_HAND_RING;
 //            AllMeasureActivity.startActivity(this,measureType);
@@ -210,22 +211,20 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      * 跳转到MeasureVideoPlayActivity
      */
     private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
-        //暂时不需要演示视频
-        aferVideo();
-//        Routerfit.register(AppRouter.class).skipMeasureVideoPlayActivity(uri, null, title, new ActivityCallback() {
-//            @Override
-//            public void onActivityResult(int result, Object data) {
-//                if (result == Activity.RESULT_OK) {
-//                    if (data == null) return;
-//                    if (data.toString().equals("pressed_button_skip")) {
-//                        aferVideo();
-//                    } else if (data.toString().equals("video_play_end")) {
-//                        aferVideo();
-//                    }
-//                } else if (result == Activity.RESULT_CANCELED) {
-//                }
-//            }
-//        });
+        Routerfit.register(AppRouter.class).skipMeasureVideoPlayActivity(uri, null, title, new ActivityCallback() {
+            @Override
+            public void onActivityResult(int result, Object data) {
+                if (result == Activity.RESULT_OK) {
+                    if (data == null) return;
+                    if (data.toString().equals("pressed_button_skip")) {
+                        aferVideo();
+                    } else if (data.toString().equals("video_play_end")) {
+                        aferVideo();
+                    }
+                } else if (result == Activity.RESULT_CANCELED) {
+                }
+            }
+        });
     }
 
     private void aferVideo() {

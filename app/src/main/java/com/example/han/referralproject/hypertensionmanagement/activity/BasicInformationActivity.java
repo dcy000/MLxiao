@@ -18,10 +18,13 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/app/hypertension/basic/information")
 public class BasicInformationActivity extends BaseActivity {
 
     @BindView(R.id.tv_next_step)
@@ -62,12 +65,6 @@ public class BasicInformationActivity extends BaseActivity {
         initView();
         mlSpeak("请确认您的基本信息");
         AppManager.getAppManager().addActivity(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     private void initView() {
@@ -211,12 +208,11 @@ public class BasicInformationActivity extends BaseActivity {
 
 
     private void updateUserInfo(UserEntity user) {
-        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
-                .addParam("user", user)
-                .build()
-                .call()
-                .getDataItem("data");
-        data.subscribeOn(Schedulers.io())
+
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .updateUserEntity(user)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {

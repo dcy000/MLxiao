@@ -49,6 +49,7 @@ import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.gcml.module_health_record.network.HealthRecordRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -59,7 +60,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-
+@Route(path = "/health/record/health/record/activity")
 public class HealthRecordActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, HealthRecordBloodsugarFragment.BloodsugarSelectTime {
     private TextView mTvRecordQrcode;
     private RadioGroup mRgHealthRecord;
@@ -101,15 +102,6 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     private LinearLayout mLlBack;
     private TextView mTvTopTitle;
     private ImageView mIvTopRight;
-
-    public static void startActivity(Context context, int position) {
-        Intent intent = new Intent(context, HealthRecordActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        intent.putExtra("position", position);
-        context.startActivity(intent);
-    }
 
     public interface MeasureType {
         /**

@@ -28,7 +28,6 @@ import com.gcml.common.widget.base.dialog.DialogImage;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -80,25 +79,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
     private String servicePackageUUID;
     private String servicePackage;
-
-    public static void startActivity(Context context, int measure_type) {
-        Intent intent = new Intent(context, AllMeasureActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        intent.putExtra(IPresenter.MEASURE_TYPE, measure_type);
-        context.startActivity(intent);
-    }
-
-    public static void startActivity(Context context, int measure_type, boolean is_measure_task) {
-        Intent intent = new Intent(context, AllMeasureActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        intent.putExtra(IPresenter.MEASURE_TYPE, measure_type);
-        intent.putExtra(IPresenter.IS_MEASURE_TASK, is_measure_task);
-        context.startActivity(intent);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -251,33 +231,41 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             switch (measureType) {
                 case IPresenter.MEASURE_TEMPERATURE:
                     //体温测量
-                    CCHealthRecordActions.jump2HealthRecordActivity(0);
+//                    CCHealthRecordActions.jump2HealthRecordActivity(0);
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
                     break;
                 case IPresenter.MEASURE_BLOOD_PRESSURE:
                     //血压
-                    CCHealthRecordActions.jump2HealthRecordActivity(1);
+//                    CCHealthRecordActions.jump2HealthRecordActivity(1);
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(1);
                     break;
                 case IPresenter.MEASURE_BLOOD_SUGAR:
                     //血糖
-                    CCHealthRecordActions.jump2HealthRecordActivity(2);
+//                    CCHealthRecordActions.jump2HealthRecordActivity(2);
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(2);
                     break;
                 case IPresenter.MEASURE_BLOOD_OXYGEN:
                     //血氧
-                    CCHealthRecordActions.jump2HealthRecordActivity(3);
+//                    CCHealthRecordActions.jump2HealthRecordActivity(3);
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(3);
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     //体重
-                    CCHealthRecordActions.jump2HealthRecordActivity(8);
+//                    CCHealthRecordActions.jump2HealthRecordActivity(8);
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(8);
                     break;
                 case IPresenter.MEASURE_ECG:
-                    CCHealthRecordActions.jump2HealthRecordActivity(7);
+//                    CCHealthRecordActions.jump2HealthRecordActivity(7);
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(7);
                     break;
                 case IPresenter.MEASURE_THREE:
                     //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
                     if (threeInOnePosition.size() == 0) {
-                        CCHealthRecordActions.jump2HealthRecordActivity(6);
+//                        CCHealthRecordActions.jump2HealthRecordActivity(6);
+                        Routerfit.register(AppRouter.class).skipHealthRecordActivity(6);
                     } else {
-                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size() - 1));
+//                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size() - 1));
+                        Routerfit.register(AppRouter.class).skipHealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size() - 1));
                     }
                     break;
                 default:

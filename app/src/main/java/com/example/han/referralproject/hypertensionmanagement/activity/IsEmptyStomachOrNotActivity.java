@@ -17,12 +17,13 @@ import com.example.han.referralproject.health_manager_program.TreatmentPlanActiv
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.gcml.common.data.AppManager;
 import com.medlink.danbogh.alarm.AlarmDetail2Activity;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+@Route(path = "/app/hypertension/is/empty/stomach/or/not")
 public class IsEmptyStomachOrNotActivity extends BaseActivity implements MultipleChoiceStringFragment.OnButtonClickListener {
 
     @BindView(R.id.fl_container)

@@ -297,11 +297,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.iv_laoren_yule:
-                CC.obtainBuilder("health_measure")
-                        .setActionName("To_HealthInquiryActivity")
-                        .build()
-                        .call();
-//                OldRouter.routeToOldHomeActivity(getActivity());
+                Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
                 break;
             case R.id.iv_change_account:
                 MobclickAgent.onProfileSignOff();

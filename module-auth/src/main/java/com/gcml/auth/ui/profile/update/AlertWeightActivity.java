@@ -3,11 +3,13 @@ package com.gcml.auth.ui.profile.update;
 import com.billy.cc.core.component.CC;
 import com.gcml.auth.R;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,12 +59,10 @@ public class AlertWeightActivity extends AlertHeightActivity {
 
         UserEntity user = new UserEntity();
         user.weight = weight;
-        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
-                .addParam("user", user)
-                .build()
-                .call()
-                .getDataItem("data");
-        data.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .updateUserEntity(user)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {

@@ -26,6 +26,7 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
  * created by:gzq
  * description:新的主界面
  */
+@Route(path = "/app/homepage/main/activity")
 public class MainActivity extends BaseActivity implements HttpListener<AccessToken>, View.OnClickListener {
 
     private ViewPager mViewpage;

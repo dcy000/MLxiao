@@ -148,9 +148,6 @@
         <activity
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape" />
 
         <service
             android:name=".bluetooth.BluetoothLeService"
@@ -380,9 +377,6 @@
             android:name=".activity.SymptomsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.BodychartActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".shopping.OrderListActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -414,9 +408,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.SelectXuetangTimeActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".recyclerview.CheckContractActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -424,18 +415,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".new_music.MusicPlayActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.InstructionsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.OnMeasureActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.MeasureXueyaResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.MeasureXuetangResultActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".radio.RadioActivity"
@@ -579,9 +558,6 @@
             android:name=".blood_pressure_risk_assessment.SecondaryBloodPressureRiskResultsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".measure.New_MeasureXuetangResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -659,15 +635,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".hypertensionmanagement.activity.NormalHightActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".hypertensionmanagement.activity.WeightMeasureActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.ScreenPointActivity"

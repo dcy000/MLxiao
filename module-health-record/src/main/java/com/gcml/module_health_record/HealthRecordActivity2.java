@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.qrcode.QRCodeUtils;
@@ -31,7 +32,6 @@ import com.gcml.module_health_record.bean.ECGHistory;
 import com.gcml.module_health_record.bean.HeartRateHistory;
 import com.gcml.module_health_record.bean.TemperatureHistory;
 import com.gcml.module_health_record.bean.WeightHistory;
-import com.gcml.module_health_record.cc.CCAppActions;
 import com.gcml.module_health_record.fragments.HealthRecordBUAFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodoxygenFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
@@ -43,6 +43,7 @@ import com.gcml.module_health_record.fragments.HealthRecordTemperatureFragment;
 import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.gcml.module_health_record.network.HealthRecordRepository;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -191,7 +192,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
                 //心跳
                 temp = "3";
                 fragmentTransaction.replace(R.id.health_record_fl, heartrateFragment).commit();
-                getHeartRateData(endMillisecond,startMillisecond);
+                getHeartRateData(endMillisecond, startMillisecond);
                 break;
             case 5:
                 //胆固醇
@@ -234,6 +235,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
         ecgFragment = new HealthRecordECGFragment();
         weightFragment = new HealthRecordWeightFragment();
     }
+
     private void initMenu() {
         List<MenuBean> menuBeans = new ArrayList<>();
         menuBeans.add(new MenuBean(0, "档案下载", false));
@@ -268,7 +270,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
 
     private void dealClickItem(int id) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        switch (id){
+        switch (id) {
             case 0:
                 showQRDialog();
                 break;
@@ -296,8 +298,8 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
                 break;
             case 10:
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
 
@@ -338,7 +340,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
         } else if (i == R.id.ll_back) {
             finish();
         } else if (i == R.id.iv_top_right) {
-            CCAppActions.jump2MainActivity();
+            Routerfit.register(AppRouter.class).skipMainActivity();
         } else {
         }
     }
@@ -376,7 +378,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getBloodoxygenData(String start, String end) {
 
-        HealthRecordRepository.getBloodOxygenHistory(start,end,temp)
+        HealthRecordRepository.getBloodOxygenHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -401,7 +403,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getBloodpressureData(String start, String end) {
 
-        HealthRecordRepository.getBloodpressureHistory(start,end,temp)
+        HealthRecordRepository.getBloodpressureHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -426,7 +428,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getBloodsugarData(String start, String end) {
 
-        HealthRecordRepository.getBloodSugarHistory(start,end,temp)
+        HealthRecordRepository.getBloodSugarHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -451,7 +453,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getBUAData(String start, String end) {
 
-        HealthRecordRepository.getBUAHistory(start,end,temp)
+        HealthRecordRepository.getBUAHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -477,7 +479,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getCholesterolData(String start, String end) {
 
-        HealthRecordRepository.getCholesterolHistory(start,end,temp)
+        HealthRecordRepository.getCholesterolHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -502,7 +504,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getHeartRateData(String start, String end) {
 
-        HealthRecordRepository.getHeartRateHistory(start,end,temp)
+        HealthRecordRepository.getHeartRateHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -527,7 +529,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getWeightData(String start, String end) {
 
-        HealthRecordRepository.getWeight(start,end,temp)
+        HealthRecordRepository.getWeight(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -552,7 +554,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     @SuppressLint("CheckResult")
     private void getEcgData(String start, String end) {
 
-        HealthRecordRepository.getECGHistory(start,end,temp)
+        HealthRecordRepository.getECGHistory(start, end, temp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

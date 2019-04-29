@@ -23,6 +23,7 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.sjtu.yifei.annotation.Route;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ import butterknife.ButterKnife;
 /**
  * 正常高值--->高血压评估
  */
+@Route(path = "/app/hypertension/management/normal/hight")
 public class NormalHightActivity extends BaseActivity implements MultipleChoiceFragment.OnButtonClickListener {
 
     @BindView(R.id.vp)

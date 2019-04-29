@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
-import com.gcml.common.App;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.sjtu.yifei.annotation.Route;
@@ -59,13 +56,13 @@ public class WeightManagerActivity extends BaseManagementActivity {
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
-        //点击了下一步
-        CCResultActions.onCCResultAction(ResultAction.MEASURE_SUCCESS);
 //        CC.obtainBuilder("com.gcml.old.finishAll").build().callAsync();
         if (TextUtils.isEmpty(fromActivity)) return;
         if (fromActivity.equals("BloodpressureManagerActivity") ||
                 fromActivity.equals("DetecteTipActivity") ||
-                fromActivity.equals("BloodsugarManagerActivity")) {
+                fromActivity.equals("BloodsugarManagerActivity") ||
+                fromActivity.equals("PressureFlatTipActivity") ||
+                fromActivity.equals("ShowMeasureBloodpressureResultFragment")) {
             if (TextUtils.isEmpty(toActivity)) return;
             if (toActivity.equals("TreatmentPlanActivity")) {
                 Routerfit.register(AppRouter.class).skipTreatmentPlanActivity();

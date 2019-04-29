@@ -13,7 +13,6 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.recommend.fragment.RencommendForSingleDetecteFragment;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.single_measure.fragment.ShowMeasureBloodpressureResultFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

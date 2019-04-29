@@ -11,13 +11,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BloodSugarHistory;
-import com.gcml.module_health_record.cc.CCHealthMeasureActions;
 import com.gcml.module_health_record.others.MyFloatNumFormatter;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -381,7 +382,8 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
             }
 
         } else if (i == R.id.btn_go) {
-            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
+//            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
+            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
         }
     }
 

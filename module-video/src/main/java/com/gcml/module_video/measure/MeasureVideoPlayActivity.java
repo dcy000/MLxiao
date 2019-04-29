@@ -1,8 +1,6 @@
 package com.gcml.module_video.measure;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -23,7 +21,6 @@ import com.gcml.lib_video_ksyplayer.default_cover.IJump2NextListener;
 import com.gcml.lib_video_ksyplayer.util.PUtil;
 import com.gcml.module_video.R;
 import com.gcml.module_video.ReceiverGroupManager;
-import com.gcml.module_video.cc.CCResultActions;
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
 import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;
@@ -44,16 +41,15 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
     private boolean userPause;
     private PlayerEventListener playerEventListener;
 
-    public interface SendResultActionNames {
-        /**
-         * 点击了跳过按钮
-         */
-        String PRESSED_BUTTON_SKIP = "pressed_button_skip";
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TODO:暂时不播放视频
+        {
+            Routerfit.setResult(Activity.RESULT_OK, "pressed_button_skip");
+            finish();
+        }
+
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.video_activity_general_video_view);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

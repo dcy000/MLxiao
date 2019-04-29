@@ -19,8 +19,6 @@ import com.gcml.lib_video_ksyplayer.DataInter;
 import com.gcml.lib_video_ksyplayer.util.PUtil;
 import com.gcml.module_video.R;
 import com.gcml.module_video.ReceiverGroupManager;
-import com.gcml.module_video.cc.CCResultActions;
-import com.gcml.module_video.measure.MeasureVideoPlayActivity;
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
 import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;
@@ -44,29 +42,6 @@ public class NormalVideoPlayActivity extends AppCompatActivity {
     private long mDataSourceId;
     private boolean userPause;
     private PlayerEventListener playerEventListener;
-
-    //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
-    public static void startActivity(Context context, Uri uri, String url, String title) {
-        Intent intent = new Intent(context, NormalVideoPlayActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        intent.putExtra("uri", uri);
-        intent.putExtra("url", url);
-        intent.putExtra("title", title);
-        context.startActivity(intent);
-    }
-
-    interface SendResultActionNames {
-        /**
-         * 点击了返回按钮
-         */
-        String PRESSED_BUTTON_BACK = "pressed_button_back";
-        /**
-         * 视频播放结束
-         */
-        String VIDEO_PLAY_END = "video_play_end";
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -12,6 +12,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by lenovo on 2017/9/19.
@@ -91,7 +92,7 @@ public class AlarmHelper {
                 continue;
             }
 
-            Calendar nextCalendar = Calendar.getInstance();
+            Calendar nextCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
             PendingIntent pi = newPendingIntent(context, model);
             //一次性闹钟
             if (model.getInterval() == AlarmModel.INTERVAL_NONE) {
@@ -106,9 +107,9 @@ public class AlarmHelper {
             nextCalendar.set(Calendar.HOUR_OF_DAY, model.getHourOfDay());
             nextCalendar.set(Calendar.MINUTE, model.getMinute());
             nextCalendar.set(Calendar.SECOND, 0);
-            final int nowDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-            final int nowHourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-            final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
+            final int nowDayOfWeek = Calendar.getInstance(TimeZone.getTimeZone("GMT+8")).get(Calendar.DAY_OF_WEEK);
+            final int nowHourOfDay = Calendar.getInstance(TimeZone.getTimeZone("GMT+8")).get(Calendar.HOUR_OF_DAY);
+            final int nowMinute = Calendar.getInstance(TimeZone.getTimeZone("GMT+8")).get(Calendar.MINUTE);
 
             //每天
             if (model.getInterval() == AlarmModel.INTERVAL_DAY) {

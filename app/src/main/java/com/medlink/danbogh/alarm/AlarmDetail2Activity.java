@@ -20,6 +20,7 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -159,7 +160,7 @@ public class AlarmDetail2Activity extends BaseActivity {
         mModel.setContent(content);
         int interval = spRepeat.getSelectedItemPosition();
         if (interval == AlarmModel.INTERVAL_NONE) {
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             calendar.set(Calendar.MINUTE, minute);
             calendar.set(Calendar.SECOND, 0);
