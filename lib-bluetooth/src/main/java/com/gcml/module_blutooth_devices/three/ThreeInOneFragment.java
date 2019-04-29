@@ -11,42 +11,19 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 public class ThreeInOneFragment extends BluetoothBaseFragment implements View.OnClickListener {
-    /**
-     * 历史记录
-     */
     protected TextView mBtnHealthHistory;
-    /**
-     * 使用演示
-     */
     protected TextView mBtnVideoDemo;
-    /**
-     * 0
-     */
     private TextView mTvGaoya;
-    /**
-     * 0
-     */
     private TextView mTvDiya;
-    /**
-     * 0
-     */
     private TextView mTvMaibo;
     private boolean isMeasureBloodsugarFinished;
     private boolean isMeasureBUAFinished;
     private boolean isMeasureCholesterolFinished;
-    /**
-     * &lt;3.9
-     */
     protected TextView mTitle11;
-    /**
-     * 3.9~6.1
-     */
     protected TextView mTitle12;
-    /**
-     * &gt;6.1
-     */
     protected TextView mTitle13;
     protected TextView mTitle1;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_three_in_one;
@@ -75,9 +52,6 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
     @Override
     public void updateData(String... datas) {
         if (datas.length == 1) {
-//            mTvGaoya.setText("0.00");
-//            mTvDiya.setText("0.00");
-//            mTvMaibo.setText("0.00");
             isMeasureBloodsugarFinished = false;
             isMeasureBUAFinished = false;
             isMeasureCholesterolFinished = false;
@@ -97,7 +71,8 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
                 mTvMaibo.setText(datas[1]);
                 onMeasureFinished(datas[0], datas[1]);
             }
-
+        }else{
+            ToastUtils.showShort("测量数据有误，请重新测量");
         }
     }
 

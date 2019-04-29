@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -48,25 +49,36 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
             case R.id.doctor_yuyue:
                 if (FastClickUtil.isFastClick()) {
                     NetworkApi.PersonInfo(UserSpHelper.getUserId(),
-                            userInfo -> {
-                                if (userInfo == null) {
-                                    return;
-                                }
-                                String state = userInfo.getState();
-                                if ("0".equals(state)) {
-                                    if (TextUtils.isEmpty(userInfo.getDoctername())) {
-                                        Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
-                                        intent.putExtra("flag", "contract");
-                                        startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
-                                        startActivity(intent);
+                            new NetworkManager.SuccessCallback<UserInfo>() {
+                                @Override
+                                public void onSuccess(UserInfo userInfo) {
+                                    if (userInfo == null) {
+                                        return;
                                     }
+                                    String state = userInfo.getState();
+                                    if ("0".equals(state)) {
+                                        if (TextUtils.isEmpty(userInfo.getDoctername())) {
+                                            Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
+                                            intent.putExtra("flag", "contract");
+                                            DoctorAskGuideActivity.this.startActivity(intent);
+                                        } else {
+                                            Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
+                                            DoctorAskGuideActivity.this.startActivity(intent);
+                                        }
 
-                                } else if ("1".equals(state)) {
-                                    startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity2.class));
+                                    } else if ("1".equals(state)) {
+                                        DoctorAskGuideActivity.this.startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity2.class));
+                                    }
                                 }
-                            }, message -> ToastUtils.showShort(message));
+                            }, new NetworkManager.FailedCallback() {
+                                @Override
+                                public void onFailed(String message) {
+                                    ToastUtils.showShort("账号已失效，请重新登录");
+                                    CC.obtainBuilder("com.gcml.auth")
+                                            .build()
+                                            .call();
+                                }
+                            });
                 }
                 break;
             case R.id.doctor_zaixian:

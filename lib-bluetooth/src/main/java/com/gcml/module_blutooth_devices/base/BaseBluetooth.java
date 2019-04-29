@@ -217,6 +217,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             connectListener = new MyConnectListener();
         }
         if (!isOnDestroy && connectHelper != null) {
+            Timber.i("connecting device:MacAddress is" + mac);
             connectHelper.connect(mac, connectListener);
         }
     }
@@ -291,17 +292,24 @@ public abstract class BaseBluetooth implements LifecycleObserver {
 
         @Override
         public void disConnect(String address) {
-            isConnected = false;
-            if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+            if (baseView instanceof Fragment && ((Fragment) baseView).isAdded() && isConnected) {
                 baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
             }
+            isConnected = false;
             disConnected(address);
             //3秒之后尝试重连
             new WeakHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (!isOnDestroy && targetAddress != null) {
-                        connect(targetAddress);
+                    Timber.i("retry to connect the same device");
+                    if (!isOnDestroy) {
+                        if (targetAddress != null) {
+                            connect(targetAddress);
+                        } else {
+                            startDiscovery(null);
+                        }
+                    } else {
+                        Timber.tag(TAG).e("Destroy but want to connect");
                     }
                 }
             }, 3000);

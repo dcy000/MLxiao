@@ -1,6 +1,7 @@
 
 package com.gcml.module_health_record.others;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Custom implementation of the MarkerView.
@@ -129,7 +131,10 @@ public class MyMarkerView extends MarkerView {
                     text_1.setText(e.getY() + "");
                     break;
             }
-            time.setText(TimeUtils.milliseconds2String(times.get((int) e.getX()), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+            time.setText(TimeUtils.milliseconds2String(times.get((int) e.getX()), format));
 
         }
 

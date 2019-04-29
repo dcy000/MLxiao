@@ -80,7 +80,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-            if (servicePackage==null){
+            if (servicePackage == null) {
                 finish();
                 return;
             }
@@ -97,6 +97,10 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      */
     @Override
     protected void backMainActivity() {
+        if (servicePackage == null) {
+            super.backMainActivity();
+            return;
+        }
         if (servicePackage.equals("1") || servicePackage.equals("2")) {
             showQuitDialog(true);
         } else {
