@@ -14,6 +14,7 @@ public class EntryBoxHelper {
     private String dateType;
     private Boolean title;
     private String questionId;//用于取答案 数据提交
+    private int titleLevel;//对应ui上输入框 层级
 
 
     private EntryBoxLinearLayout.OnInputClickListener onInputClickListener;
@@ -29,6 +30,8 @@ public class EntryBoxHelper {
         this.title = builder.title;
         this.questionId = builder.questionId;
         this.onInputClickListener = builder.onInputClickListener;
+        this.titleLevel = builder.titleLevel;
+
 
         layout.name(builder.name);
         layout.unit(builder.unit);
@@ -36,6 +39,7 @@ public class EntryBoxHelper {
         layout.dataype(builder.dateType);//在 setOnInputClickListener 后
         layout.requestionType(builder.title);
 //        layout.setTag(builder.questionId);
+        layout.setTitleLevel(builder.titleLevel);
     }
 
     private String name() {
@@ -68,6 +72,7 @@ public class EntryBoxHelper {
         private Boolean title;
         private String questionId;
         private EntryBoxLinearLayout.OnInputClickListener onInputClickListener;
+        private int titleLevel;
 
 
         public Builder(EntryBoxLinearLayout layout) {
@@ -76,6 +81,11 @@ public class EntryBoxHelper {
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder titleLevel(int titleLevel) {
+            this.titleLevel = titleLevel;
             return this;
         }
 

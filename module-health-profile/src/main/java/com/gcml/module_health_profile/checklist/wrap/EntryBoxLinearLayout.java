@@ -21,7 +21,9 @@ public class EntryBoxLinearLayout extends LinearLayout {
     private TextView name;
     private TextView unit;
     private EditText value;
-    private RelativeLayout rlContainer;
+    private LinearLayout rlContainer;
+    private TextView level2Name;
+    private TextView detect;
 
     /*1文字 2时间 3数字 4地址 ,*/
 
@@ -45,6 +47,8 @@ public class EntryBoxLinearLayout extends LinearLayout {
         name = view.findViewById(R.id.tv_question_name);
         unit = view.findViewById(R.id.tv_question_unit);
         value = view.findViewById(R.id.et_value);
+        level2Name = view.findViewById(R.id.tv_question_level2_name);
+        detect = view.findViewById(R.id.tv_input_box_detect);
         rlContainer = view.findViewById(R.id.rl_entry_box);
         addView(view);
     }
@@ -87,12 +91,10 @@ public class EntryBoxLinearLayout extends LinearLayout {
     public void requestionType(Boolean title) {
         if (title) {
             rlContainer.setVisibility(GONE);
-            rlContainer.setBackgroundResource(0);
+            detect.setVisibility(View.GONE);
         } else {
             rlContainer.setVisibility(VISIBLE);
-
-            //控制背景 边框
-            rlContainer.setBackgroundResource(R.drawable.common_bg_input_gray);
+            detect.setVisibility(View.VISIBLE);
         }
     }
 
@@ -100,6 +102,11 @@ public class EntryBoxLinearLayout extends LinearLayout {
 
     public void setOnInputClickListener(OnInputClickListener onInputClickListener) {
         this.onInputClickListener = onInputClickListener;
+    }
+
+    public void setTitleLevel(int titleLevel) {
+
+
     }
 
     public interface OnInputClickListener {
