@@ -1,3 +1,4 @@
+//apply from: rootProject.file('auto-dependences.gradle')
 project.apply plugin: 'cc-register'
 project.apply plugin: 'com.sjtu.yifei.autoinject'
 def dependencyMode = (project.gradle.gradleVersion as float) >= 4.1F ? 'api' : 'compile'

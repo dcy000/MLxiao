@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySetPasswordBinding;
@@ -15,12 +14,13 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/auth/set/password/activity")
 public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBinding, SetPasswordViewModel> {
 
     private String mPhone;
@@ -80,9 +80,7 @@ public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBin
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        CC.obtainBuilder("com.gcml.auth.signin")
-                                .build()
-                                .callAsync();
+                        Routerfit.register(AppRouter.class).skipSignInActivity();
                     }
 
                     @Override

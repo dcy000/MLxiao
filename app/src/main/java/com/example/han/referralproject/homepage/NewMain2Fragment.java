@@ -1,5 +1,6 @@
 package com.example.han.referralproject.homepage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,10 +31,12 @@ import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.witspring.unitbody.ChooseMemberActivity;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -169,22 +172,58 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
-                                            .addParam("skip", true)
-                                            .addParam("currentUser", false)
-                                            .addParam("hidden", true)
-                                            .build()
-                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                    Routerfit.register(AppRouter.class)
+                                            .getFaceProvider()
+                                            .getFaceId(userEntity.id)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                                                 @Override
-                                                public void onResult(CC cc, CCResult result) {
-                                                    boolean skip = "skip".equals(result.getErrorMessage());
-                                                    if (result.isSuccess() || skip) {
-                                                        startActivity(new Intent(getActivity(), HealthRecordActivity.class));
-                                                    } else {
-                                                        ToastUtils.showShort(result.getErrorMessage());
-                                                    }
+                                                public void onNext(String faceId) {
+                                                    Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
+                                                        @Override
+                                                        public void onActivityResult(int result, Object data) {
+                                                            if (result == Activity.RESULT_OK) {
+                                                                String sResult = data.toString();
+                                                                if (TextUtils.isEmpty(sResult))
+                                                                    return;
+                                                                if (sResult.equals("success") || sResult.equals("skip")) {
+                                                                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+                                                                } else if (sResult.equals("failed")) {
+                                                                    ToastUtils.showShort("人脸验证失败");
+                                                                }
+
+                                                            }
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                    ToastUtils.showShort("请先注册人脸！");
+                                                }
+
+                                                @Override
+                                                public void onComplete() {
+
                                                 }
                                             });
+//                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                                            .addParam("skip", true)
+//                                            .addParam("currentUser", false)
+//                                            .addParam("hidden", true)
+//                                            .build()
+//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    boolean skip = "skip".equals(result.getErrorMessage());
+//                                                    if (result.isSuccess() || skip) {
+//                                                        startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+//                                                    } else {
+//                                                        ToastUtils.showShort(result.getErrorMessage());
+//                                                    }
+//                                                }
+//                                            });
                                 }
                             }
                         });

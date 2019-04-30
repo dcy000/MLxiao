@@ -1,5 +1,6 @@
 package com.gcml.auth.ui.profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.gcml.auth.ui.profile.update.AlertMHActivity;
 import com.gcml.auth.ui.profile.update.AlertNameActivity;
 import com.gcml.common.data.HealthInfo;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
@@ -43,6 +45,8 @@ import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.text.SimpleDateFormat;
@@ -61,6 +65,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+@Route(path = "/auth/profile/info/activity")
 public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBinding, ProfileInfoViewModel> {
 
     @Override
@@ -601,13 +606,28 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     private void modifyHead() {
-        CC.obtainBuilder("com.gcml.auth.face2.signup")
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//        CC.obtainBuilder("com.gcml.auth.face2.signup")
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        if (result.isSuccess()) {
+//                            ToastUtils.showShort("更换人脸成功");
+//                        }
+//                    }
+//                });
+        Routerfit.register(AppRouter.class)
+                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
                     @Override
-                    public void onResult(CC cc, CCResult result) {
-                        if (result.isSuccess()) {
-                            ToastUtils.showShort("更换人脸成功");
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            String sResult = data.toString();
+                            if (TextUtils.isEmpty(sResult)) return;
+                            if (sResult.equals("success")) {
+                                ToastUtils.showShort("更换人脸成功");
+                            } else if (sResult.equals("failed")) {
+                                ToastUtils.showShort("更换人脸失败");
+                            }
                         }
                     }
                 });
@@ -622,7 +642,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     private UserEntity mUser;
 
     private void getData() {
-        Observable<UserEntity> data =  Routerfit.register(AppRouter.class)
+        Observable<UserEntity> data = Routerfit.register(AppRouter.class)
                 .getUserProvider()
                 .getUserEntity();
         if (data == null) {

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.click.ClickEventListener;

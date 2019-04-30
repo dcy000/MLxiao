@@ -223,12 +223,10 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
     }
 
     private void checkIdCard(final UserEntity user) {
-        Observable<Object> data = CC.obtainBuilder("com.gcml.auth.isIdCardNotExit")
-                .addParam("idCard", user.idCard)
-                .build()
-                .call()
-                .getDataItem("data");
-        data.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getBusinessControllerProvider()
+                .isIdCardNotExit(user.idCard)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {

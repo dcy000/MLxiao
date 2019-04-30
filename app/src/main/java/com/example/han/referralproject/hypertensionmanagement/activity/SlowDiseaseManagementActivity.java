@@ -1,6 +1,8 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,6 +17,7 @@ import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDi
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -23,6 +26,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import org.json.JSONException;
@@ -31,6 +35,8 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/app/hypertension/slow/disease/management")
 public class SlowDiseaseManagementActivity extends BaseActivity implements TwoChoiceDialog.OnDialogClickListener, FllowUpTimesDialog.OnDialogClickListener {
@@ -434,18 +440,54 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     @Override
     public void onClickConfirm() {
         //-->人脸-->测量血压
-        CC.obtainBuilder("com.gcml.auth.face2.signin")
-                .addParam("skip", true)
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//        CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                .addParam("skip", true)
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        boolean skip = "skip".equals(result.getErrorMessage());
+//                        if (result.isSuccess() || skip) {
+//                            toBloodPressure();
+//                        } else {
+//                            ToastUtils.showShort(result.getErrorMessage());
+//                        }
+//                    }
+//                });
+        Routerfit.register(AppRouter.class)
+                .getFaceProvider()
+                .getFaceId(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                     @Override
-                    public void onResult(CC cc, CCResult result) {
-                        boolean skip = "skip".equals(result.getErrorMessage());
-                        if (result.isSuccess() || skip) {
-                            toBloodPressure();
-                        } else {
-                            ToastUtils.showShort(result.getErrorMessage());
-                        }
+                    public void onNext(String faceId) {
+                        Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
+                            @Override
+                            public void onActivityResult(int result, Object data) {
+                                if (result == Activity.RESULT_OK) {
+                                    String sResult = data.toString();
+                                    if (TextUtils.isEmpty(sResult))
+                                        return;
+                                    if (sResult.equals("success") || sResult.equals("skip")) {
+                                        toBloodPressure();
+                                    } else if (sResult.equals("failed")) {
+                                        ToastUtils.showShort("人脸验证失败");
+                                    }
+
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("请先注册人脸！");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

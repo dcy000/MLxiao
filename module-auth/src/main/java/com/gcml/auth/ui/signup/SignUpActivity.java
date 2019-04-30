@@ -1,5 +1,6 @@
 package com.gcml.auth.ui.signup;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpBinding;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -21,6 +23,8 @@ import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
@@ -32,6 +36,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+@Route(path = "/auth/signup/activity")
 public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, SignUpViewModel> {
 
     @Override
@@ -270,36 +275,51 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        CC.obtainBuilder("com.gcml.auth.face2.signup")
-                                .build()
-                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        Routerfit.register(AppRouter.class)
+                                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
                                     @Override
-                                    public void onResult(CC cc, CCResult result) {
-                                        if (result.isSuccess()) {
-                                            CC.obtainBuilder("com.gcml.auth.updateProfile1")
-                                                    .build()
-                                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                        @Override
-                                                        public void onResult(CC cc, CCResult result) {
-                                                            if (result.isSuccess()) {
-                                                                CC.obtainBuilder("com.gcml.auth.updateProfile2")
-                                                                        .build()
-                                                                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                                            @Override
-                                                                            public void onResult(CC cc, CCResult result) {
-                                                                                if (result.isSuccess()) {
-                                                                                    ToastUtils.showShort(result.getErrorMessage());
-                                                                                    Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                                    public void onActivityResult(int result, Object data) {
+                                        if (result == Activity.RESULT_OK) {
+                                            String sResult = data.toString();
+                                            if (TextUtils.isEmpty(sResult)) return;
+                                            if (sResult.equals("success")) {
+                                                CC.obtainBuilder("com.gcml.auth.updateProfile1")
+                                                        .build()
+                                                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                            @Override
+                                                            public void onResult(CC cc, CCResult result) {
+                                                                if (result.isSuccess()) {
+                                                                    CC.obtainBuilder("com.gcml.auth.updateProfile2")
+                                                                            .build()
+                                                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                                                @Override
+                                                                                public void onResult(CC cc, CCResult result) {
+                                                                                    if (result.isSuccess()) {
+                                                                                        ToastUtils.showShort(result.getErrorMessage());
+                                                                                        Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                                                                                    }
                                                                                 }
-                                                                            }
-                                                                        });
+                                                                            });
+                                                                }
                                                             }
-                                                        }
-                                                    });
-
+                                                        });
+                                            } else if (sResult.equals("failed")) {
+                                                ToastUtils.showShort("录入人脸失败");
+                                            }
                                         }
                                     }
                                 });
+//                        CC.obtainBuilder("com.gcml.auth.face2.signup")
+//                                .build()
+//                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                    @Override
+//                                    public void onResult(CC cc, CCResult result) {
+//                                        if (result.isSuccess()) {
+//
+//
+//                                        }
+//                                    }
+//                                });
                         finish();
                     }
 
@@ -314,9 +334,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     public void goUserProtocol() {
-        CC.obtainBuilder("com.gcml.auth.user.protocol")
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipUserProtocolActivity();
     }
 
     public void goIdCardRegister() {

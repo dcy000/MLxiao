@@ -290,7 +290,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 //                mChangeAccountDialog.show();
                 break;
             case R.id.per_image:
-                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
+                Routerfit.register(AppRouter.class).skipProfileInfoActivity();
                 break;
             case R.id.iv_record:
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));

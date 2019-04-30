@@ -39,6 +39,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import retrofit2.Retrofit;
 
 public class FaceBdRepository {
 
@@ -286,12 +287,7 @@ public class FaceBdRepository {
                         .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
                             @Override
                             public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
-                                Observable<UserEntity> rxUser =
-                                        CC.obtainBuilder("com.gcml.auth.fetchUser")
-                                                .build()
-                                                .call()
-                                                .getDataItem("data");
-                                return rxUser;
+                                return Routerfit.register(AppRouter.class).getUserProvider().fetchUser();
                             }
                         })
                         .doOnNext(new Consumer<UserEntity>() {

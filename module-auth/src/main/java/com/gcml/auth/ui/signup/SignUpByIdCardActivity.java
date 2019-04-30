@@ -1,5 +1,6 @@
 package com.gcml.auth.ui.signup;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpByIdCardBinding;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -20,11 +22,11 @@ import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
@@ -251,12 +253,10 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
     }
 
     private void checkIdCard(String phone, String password, String name) {
-        Observable<Object> data = CC.obtainBuilder("com.gcml.auth.isIdCardNotExit")
-                .addParam("idCard", phone)
-                .build()
-                .call()
-                .getDataItem("data");
-        data.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getBusinessControllerProvider()
+                .isIdCardNotExit(phone)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
@@ -297,39 +297,54 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        CC.obtainBuilder("com.gcml.auth.face2.signup")
-                                .build()
-                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        Routerfit.register(AppRouter.class)
+                                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
                                     @Override
-                                    public void onResult(CC cc, CCResult result) {
-                                        if (result.isSuccess()) {
-                                            CC.obtainBuilder("com.gcml.auth.updateProfile1")
-                                                    .addParam("signUpType", IDCARD)
-                                                    .addParam("signUpIdCard", binding.etPhone.getText().toString().trim())
-                                                    .build()
-                                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                        @Override
-                                                        public void onResult(CC cc, CCResult result) {
-                                                            if (result.isSuccess()) {
+                                    public void onActivityResult(int result, Object data) {
+                                        if (result == Activity.RESULT_OK) {
+                                            String sResult = data.toString();
+                                            if (TextUtils.isEmpty(sResult)) return;
+                                            if (sResult.equals("success")) {
+                                                CC.obtainBuilder("com.gcml.auth.updateProfile1")
+                                                        .addParam("signUpType", IDCARD)
+                                                        .addParam("signUpIdCard", binding.etPhone.getText().toString().trim())
+                                                        .build()
+                                                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                            @Override
+                                                            public void onResult(CC cc, CCResult result) {
+                                                                if (result.isSuccess()) {
 
-                                                                CC.obtainBuilder("com.gcml.auth.updateProfile2")
-                                                                        .build()
-                                                                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                                            @Override
-                                                                            public void onResult(CC cc, CCResult result) {
-                                                                                if (result.isSuccess()) {
-                                                                                    ToastUtils.showShort(result.getErrorMessage());
-                                                                                    Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                                                                    CC.obtainBuilder("com.gcml.auth.updateProfile2")
+                                                                            .build()
+                                                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                                                @Override
+                                                                                public void onResult(CC cc, CCResult result) {
+                                                                                    if (result.isSuccess()) {
+                                                                                        ToastUtils.showShort(result.getErrorMessage());
+                                                                                        Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                                                                                    }
                                                                                 }
-                                                                            }
-                                                                        });
+                                                                            });
+                                                                }
                                                             }
-                                                        }
-                                                    });
-
+                                                        });
+                                            } else if (sResult.equals("failed")) {
+                                                ToastUtils.showShort("录入人脸失败");
+                                            }
                                         }
                                     }
                                 });
+//                        CC.obtainBuilder("com.gcml.auth.face2.signup")
+//                                .build()
+//                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                    @Override
+//                                    public void onResult(CC cc, CCResult result) {
+//                                        if (result.isSuccess()) {
+//
+//
+//                                        }
+//                                    }
+//                                });
                         finish();
                     }
 
@@ -344,9 +359,7 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
     }
 
     public void goUserProtocol() {
-        CC.obtainBuilder("com.gcml.auth.user.protocol")
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipUserProtocolActivity();
     }
 
     public void goIdCardRegister() {

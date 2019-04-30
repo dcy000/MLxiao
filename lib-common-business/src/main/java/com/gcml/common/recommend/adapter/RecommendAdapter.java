@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.billy.cc.core.component.CC;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -12,7 +11,6 @@ import com.gcml.common.business.R;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.router.AppRouter;
 import com.sjtu.yifei.route.Routerfit;
-
 
 import java.util.List;
 

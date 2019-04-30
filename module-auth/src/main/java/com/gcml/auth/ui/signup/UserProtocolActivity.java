@@ -10,7 +10,9 @@ import com.billy.cc.core.component.CC;
 import com.gcml.auth.R;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.sjtu.yifei.annotation.Route;
 
+@Route(path = "/auth/user/protocol/activity")
 public class UserProtocolActivity extends AppCompatActivity {
 
     @Override

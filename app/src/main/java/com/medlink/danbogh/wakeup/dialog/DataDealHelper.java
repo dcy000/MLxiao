@@ -75,6 +75,7 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
@@ -88,6 +89,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -312,7 +314,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(geren|xiugai)xinxi.*")
                 || inSpell.matches(".*huantouxiang.*")) {
-            CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
+            Routerfit.register(AppRouter.class).skipProfileInfoActivity();
             return;
         }
 
@@ -766,7 +768,7 @@ public class DataDealHelper {
             String currentUser = new Gson().toJson(diseaseUser);
             startActivity(com.witspring.unitbody.ChooseMemberActivity.class, "currentUser", currentUser);
         } else if (inSpell.matches(".*(dangan).*")) {
-            CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
+            Routerfit.register(AppRouter.class).skipProfileInfoActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -1467,22 +1469,40 @@ public class DataDealHelper {
                             MLVoiceSynthetize.startSynthesize(UM.getApp(),
                                     "请先去个人中心完善性别和年龄信息");
                         } else {
-                            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                                    .addParam("skip", true)
-                                    .addParam("verify", true)
-                                    .addParam("currentUser", false)
-                                    .addParam("hidden", true)
-                                    .build()
-                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            Routerfit.register(AppRouter.class)
+                                    .getFaceProvider()
+                                    .getFaceId(userEntity.id)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                                         @Override
-                                        public void onResult(CC cc, CCResult result) {
-                                            boolean skip = "skip".equals(result.getErrorMessage());
-                                            if (result.isSuccess() || skip) {
-//                                                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
-                                                startActivity(HealthRecordActivity.class);
-                                            } else {
-                                                ToastUtils.showShort(result.getErrorMessage());
-                                            }
+                                        public void onNext(String faceId) {
+                                            Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
+                                                @Override
+                                                public void onActivityResult(int result, Object data) {
+                                                    if (result == Activity.RESULT_OK) {
+                                                        String sResult = data.toString();
+                                                        if (TextUtils.isEmpty(sResult))
+                                                            return;
+                                                        if (sResult.equals("success") || sResult.equals("skip")) {
+                                                            Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+                                                        } else if (sResult.equals("failed")) {
+                                                            ToastUtils.showShort("人脸验证失败");
+                                                        }
+
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            ToastUtils.showShort("请先注册人脸！");
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
                                         }
                                     });
                         }

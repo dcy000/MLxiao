@@ -1,6 +1,8 @@
 package com.gcml.auth.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -8,12 +10,14 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.app.AppUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,27 +54,40 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignUp() {
-        CC.obtainBuilder("com.gcml.auth.signup")
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipSignUpActivity();
     }
 
     public void goSignInByPhone() {
-        CC.obtainBuilder("com.gcml.auth.signin")
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipSignInActivity();
     }
 
     public void goSignInByFace() {
-        CC.obtainBuilder("com.gcml.auth.face2.signin")
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//        CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        if (result.isSuccess()) {
+//                            Routerfit.register(AppRouter.class).skipMainActivity();
+//                        } else {
+//                            ToastUtils.showShort(result.getErrorMessage());
+//                        }
+//                    }
+//                });
+        Routerfit.register(AppRouter.class)
+                .skipFaceBdSignInActivity(false, false, null, true, new ActivityCallback() {
                     @Override
-                    public void onResult(CC cc, CCResult result) {
-                        if (result.isSuccess()) {
-                            Routerfit.register(AppRouter.class).skipMainActivity();
-                        } else {
-                            ToastUtils.showShort(result.getErrorMessage());
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            String sResult = data.toString();
+                            if (TextUtils.isEmpty(sResult))
+                                return;
+                            if (sResult.equals("success")) {
+                                Routerfit.register(AppRouter.class).skipMainActivity();
+                            } else if (sResult.equals("failed")) {
+                                ToastUtils.showShort("人脸登录失败");
+                            }
+
                         }
                     }
                 });
@@ -81,9 +98,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goUserProtocol() {
-        CC.obtainBuilder("com.gcml.auth.user.protocol")
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipUserProtocolActivity();
     }
 
     @Override

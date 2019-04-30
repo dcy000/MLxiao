@@ -1,5 +1,6 @@
 package com.gcml.auth.face2.ui;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -30,6 +31,8 @@ import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.dialog.IconDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+@Route(path = "/auth/face/bd/signin/activity")
 public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBinding, FaceBdSignInViewModel> {
 
 
@@ -331,52 +335,62 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
 
     @Override
     public void finish() {
-        if (!TextUtils.isEmpty(callId)) {
-            CCResult result;
-            if (error) {
-                if (hasSkip) {
-                    result = CCResult.error("skip");
-                } else {
-                    result = CCResult.error("人脸验证未通过");
-                }
-            } else {
-                result = CCResult.success();
-                // Token 1.0
-                JpushAliasUtils.setAlias( UserSpHelper.getUserId());
-
-                //Token 2.0
-//                    Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
-//                            .addParam("userId", theUserId)
-//                            .build()
-//                            .call()
-//                            .getDataItem("data");
-//                    rxUser.subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .as(RxUtils.autoDisposeConverter(this))
-//                            .subscribe(new DefaultObserver<UserEntity>() {
-//                                @Override
-//                                public void onNext(UserEntity user) {
-//                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-//                                            .addParam("userId", user.id)
-//                                            .build()
-//                                            .callAsync();
-//                                    CC.sendCCResult(callId, result);
-//                                    FaceSignInActivity.super.finish();
-//                                }
-//
-//                                @Override
-//                                public void onError(Throwable throwable) {
-//                                    super.onError(throwable);
-//                                    ToastUtils.showShort(throwable.getMessage());
-//                                    CC.sendCCResult(callId, CCResult.error(throwable.getMessage()));
-//                                    FaceSignInActivity.super.finish();
-//                                }
-//                            });
-//                    return;
+        if (error) {
+            if (hasSkip){
+                Routerfit.setResult(Activity.RESULT_OK,"skip");
+            }else{
+                Routerfit.setResult(Activity.RESULT_OK,"failed");
             }
-            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
-            CC.sendCCResult(callId, result);
+        } else {
+            Routerfit.setResult(Activity.RESULT_OK, "success");
+            JpushAliasUtils.setAlias(UserSpHelper.getUserId());
         }
+//        if (!TextUtils.isEmpty(callId)) {
+//            CCResult result;
+//            if (error) {
+//                if (hasSkip) {
+//                    result = CCResult.error("skip");
+//                } else {
+//                    result = CCResult.error("人脸验证未通过");
+//                }
+//            } else {
+//                result = CCResult.success();
+//                // Token 1.0
+//                JpushAliasUtils.setAlias(UserSpHelper.getUserId());
+//
+//                //Token 2.0
+////                    Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
+////                            .addParam("userId", theUserId)
+////                            .build()
+////                            .call()
+////                            .getDataItem("data");
+////                    rxUser.subscribeOn(Schedulers.io())
+////                            .observeOn(AndroidSchedulers.mainThread())
+////                            .as(RxUtils.autoDisposeConverter(this))
+////                            .subscribe(new DefaultObserver<UserEntity>() {
+////                                @Override
+////                                public void onNext(UserEntity user) {
+////                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+////                                            .addParam("userId", user.id)
+////                                            .build()
+////                                            .callAsync();
+////                                    CC.sendCCResult(callId, result);
+////                                    FaceSignInActivity.super.finish();
+////                                }
+////
+////                                @Override
+////                                public void onError(Throwable throwable) {
+////                                    super.onError(throwable);
+////                                    ToastUtils.showShort(throwable.getMessage());
+////                                    CC.sendCCResult(callId, CCResult.error(throwable.getMessage()));
+////                                    FaceSignInActivity.super.finish();
+////                                }
+////                            });
+////                    return;
+//            }
+//            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
+//            CC.sendCCResult(callId, result);
+//        }
         super.finish();
     }
 

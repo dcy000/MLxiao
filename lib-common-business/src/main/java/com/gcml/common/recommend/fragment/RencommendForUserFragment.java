@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.adapter.RecommendAdapter;

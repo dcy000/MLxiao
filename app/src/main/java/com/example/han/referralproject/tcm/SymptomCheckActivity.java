@@ -32,6 +32,7 @@ import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/app/tcm/symptom/check")
 public class SymptomCheckActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -112,10 +113,10 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
 
     private void toChineseConsititution() {
 //        startActivity(new Intent(this, OlderHealthManagementSerciveActivity.class));
-
-        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        Observable<UserEntity> rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override

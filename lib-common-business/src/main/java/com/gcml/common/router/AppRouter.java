@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.gcml.common.recommend.bean.get.GoodBean;
+import com.gcml.common.service.IBusinessControllerProvider;
+import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IFragmentProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.sjtu.yifei.annotation.Extra;
@@ -178,7 +180,53 @@ public interface AppRouter {
     @Go("/app/speech/synthesis/activity")
     boolean skipSpeechSynthesisActivity();
 
-    @Flags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    @Flags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)
     @Go("/app/welcome/activity")
     boolean skipWelcomeActivity();
+
+    @Go("/common/business/fetch/code")
+    IBusinessControllerProvider getBusinessControllerProvider();
+
+    @Go("/auth/find/password/activity")
+    boolean skipFindPasswordActivity(@Extra("phone") String phone);
+
+    @Go("/auth/user/protocol/activity")
+    boolean skipUserProtocolActivity();
+
+    @Go("/auth/signup/activity")
+    boolean skipSignUpActivity();
+
+    @Go("/auth/signin/activity")
+    boolean skipSignInActivity();
+
+    @Go("/auth/profile/info/activity")
+    boolean skipProfileInfoActivity();
+
+    @Go("/auth/set/password/activity")
+    boolean skipSetPasswordActivity(@Extra("phone") String phone);
+
+    /**
+     * 1. 人脸识别登录 （verify = false）
+     * 2. 人脸认证登录 （verify = true）
+     */
+    @Go("/auth/face/bd/signin/activity")
+    boolean skipFaceBdSignInActivity(
+            @Extra("skip") boolean isShowSkipButton,
+            @Extra("verify") boolean verify,
+            @Extra("faceId") String faceId,
+            @Extra("hidden") boolean hidden,
+            @Extra ActivityCallback callback);
+
+    @Go("/auth/face2/face/provider")
+    IFaceProvider getFaceProvider();
+
+    /**
+     * 1. 注册人脸
+     * 2. 更新人脸
+     */
+    @Go("/auth/face2/face/bd/signup/activity")
+    boolean skipFaceBdSignUpActivity(
+            @Extra("userId") String userId,
+            @Extra ActivityCallback callback
+    );
 }
