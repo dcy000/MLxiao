@@ -16,6 +16,8 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.router.AppRouter;
+import com.sjtu.yifei.route.Routerfit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,8 +69,7 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
 //            }
 //        });
 
-        startActivity(new Intent(this, DetecteTipActivity.class)
-                .putExtra("fromWhere", "3"));
+        Routerfit.register(AppRouter.class).skipDetecteTipActivity("3");
 
 
     }
@@ -84,8 +85,6 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
 //                finish();
 //            }
 //        });
-        startActivity(new Intent(PressureNornalTipActivity.this, DetecteTipActivity.class)
-                .putExtra("fromWhere","3"));
-
+        Routerfit.register(AppRouter.class).skipDetecteTipActivity("3");
     }
 }

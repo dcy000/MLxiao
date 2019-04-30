@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gcml.common.utils.Utils;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.adapter.HistoryTodayRVAdapter;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
@@ -20,7 +21,7 @@ import com.zhang.hui.lib_recreation.tool.xfparsebean.HistoryTodayBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+@Route(path = "/recreation/history/today/activity")
 public class HistoryTodayActivity extends AppCompatActivity {
 
     /**

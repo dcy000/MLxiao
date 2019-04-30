@@ -23,12 +23,14 @@ import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -95,7 +97,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.tv_setting_wifi:
                 //设置页面
-                startActivity(new Intent(this, WifiConnectActivity.class));
+                Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
                 break;
             case R.id.tv_setting_clearcache:
                 //清理缓存

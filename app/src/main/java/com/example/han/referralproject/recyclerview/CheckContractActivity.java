@@ -18,9 +18,11 @@ import com.example.han.referralproject.qianyue.QianYueRepository;
 import com.example.han.referralproject.qianyue.bean.DoctorInfoBean;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.sjtu.yifei.route.Routerfit;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -113,11 +115,10 @@ public class CheckContractActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        Observable<UserEntity> rxUser
-                = CC.obtainBuilder("com.gcml.auth.getUser")
-                .build().call().getDataItem("data");
-
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .flatMap(new Function<UserEntity, ObservableSource<DoctorInfoBean>>() {
                     @Override
                     public ObservableSource<DoctorInfoBean> apply(UserEntity userEntity) throws Exception {

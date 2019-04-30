@@ -6,6 +6,10 @@ import android.view.View;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -71,13 +75,13 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
-//                            ((FirstDiagnosisActivity) mActivity).putCacheData(data);
+                            ToastUtils.showLong("上传数据成功");
                             setBtnClickableState(true);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            showUploadDataFailedDialog(results);
                         }
 
                         @Override

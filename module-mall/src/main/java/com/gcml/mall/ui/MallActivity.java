@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -28,6 +29,8 @@ import com.gcml.mall.bean.GoodsBean;
 import com.gcml.mall.network.MallRepository;
 import com.gcml.mall.widget.GridDividerItemDecoration;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path ="/mall/mall/activity")
 public class MallActivity extends AppCompatActivity implements MallMenuAdapter.OnMenuClickListener {
 
     Context mContext;
@@ -79,7 +82,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

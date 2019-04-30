@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -26,6 +28,8 @@ import com.gcml.mall.bean.GoodsBean;
 import com.gcml.mall.bean.PayingOrderBean;
 import com.gcml.mall.network.MallRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -77,7 +81,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });
@@ -182,10 +186,10 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
-                            bundle.putString("orderid", orderid);
-                            bundle.putString("from", "Pay");
-                            bundle.putInt("requestCode", 1);
-                            checkUser(orderid);
+                        bundle.putString("orderid", orderid);
+                        bundle.putString("from", "Pay");
+                        bundle.putInt("requestCode", 1);
+                        checkUser(orderid);
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -250,19 +254,80 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void checkUser(String orderid) {
-        CC.obtainBuilder("com.gcml.auth.face2.signin")
-                .addParam("verify", true)
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+        Routerfit.register(AppRouter.class)
+                .getFaceProvider()
+                .getFaceId(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                     @Override
-                    public void onResult(CC cc, CCResult result) {
-                        if (result.isSuccess()) {
-                            showPaySuccessDialog(GoodsDetailActivity.this);
-                            confirmOrder(orderid);
-                        } else {
-                            ToastUtils.showShort(result.getErrorMessage());
-                            cancelOrder(orderid);
-                        }
+                    public void onNext(String faceId) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+//        CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                .addParam("verify", true)
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        if (result.isSuccess()) {
+//                            showPaySuccessDialog(GoodsDetailActivity.this);
+//                            confirmOrder(orderid);
+//                        } else {
+//                            ToastUtils.showShort(result.getErrorMessage());
+//                            cancelOrder(orderid);
+//                        }
+//                    }
+//                });
+
+        Routerfit.register(AppRouter.class)
+                .getFaceProvider()
+                .getFaceId(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String faceId) {
+                        Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(false, true, faceId, true, new ActivityCallback() {
+                            @Override
+                            public void onActivityResult(int result, Object data) {
+                                if (result == Activity.RESULT_OK) {
+                                    String sResult = data.toString();
+                                    if (TextUtils.isEmpty(sResult))
+                                        return;
+                                    if (sResult.equals("success")) {
+                                        showPaySuccessDialog(GoodsDetailActivity.this);
+                                        confirmOrder(orderid);
+                                    } else if (sResult.equals("failed")) {
+                                        ToastUtils.showShort("支付失败");
+                                        cancelOrder(orderid);
+                                    }
+
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("请先注册人脸！");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

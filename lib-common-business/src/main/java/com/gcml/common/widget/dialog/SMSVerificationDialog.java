@@ -12,14 +12,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
-
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
 
@@ -144,11 +144,7 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
 
     private void sendCode() {
         tvSendCode.setEnabled(false);
-        Observable<String> rxPhone = CC.obtainBuilder("com.gcml.auth.fetchCode")
-                .addParam("phone", phoneNumber)
-                .build()
-                .call()
-                .getDataItem("data");
+        Observable<String> rxPhone = Routerfit.register(AppRouter.class).getBusinessControllerProvider().fetchCode(phoneNumber);
         fetchCodeInternal(rxPhone, phoneNumber);
     }
 

@@ -1,9 +1,11 @@
-include ':app', ':module-factory-test',
+include ':app',
         ':app-component',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc', ':lib-common-core', ':module-auth-face2', ':lib-bluetooth'
+        ':component-cc',
+        ':lib-common-core',
+        ':lib-bluetooth'
 
 // 支持模块
 include ':lib-baidu-unit',
@@ -31,5 +33,7 @@ include ':module-video',
         ':module-health-record',
         ':module-edu',
         ':module-recreation',
-        ':module-family'
+        ':module-family' ,
+        ':module-auth-face2',
+        ':module-factory-test'
 

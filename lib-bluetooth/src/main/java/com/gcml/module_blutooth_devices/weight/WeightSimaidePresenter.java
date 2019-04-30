@@ -8,7 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
@@ -81,7 +81,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
 
         @Override
         public void onDeviceConnected(VTDevice vtDevice) {
-            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+            baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             baseView.updateData("initialization", "0.00");
             BluetoothDevice btDevice = vtDevice.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
@@ -107,7 +107,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
 
         @Override
         public void onDeviceAdvDiscovered(VTDevice device) {
-            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+            baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             baseView.updateData("initialization", "0.00");
             BluetoothDevice btDevice = device.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
@@ -119,7 +119,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
         @Override
         public void onDeviceAdvDisappeared(VTDevice device) {
             //广播称断开链接
-            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
+            baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
         }
     };
 

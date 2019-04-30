@@ -1,13 +1,11 @@
 package com.example.han.referralproject.network;
 
 import com.example.han.referralproject.bean.ServicePackageBean;
-import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
+import com.example.han.referralproject.tcm.bean.OlderHealthManagementBean;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
 
 import io.reactivex.Observable;
 import timber.log.Timber;
@@ -71,6 +69,10 @@ public class AppRepository {
 
     public static Observable<String> getCallId(String doctorId){
         return healthMeasureServer.getCallId(doctorId).compose(RxUtils.apiResultTransformer());
+    }
+
+    public static Observable<OlderHealthManagementBean.DataBean> getHealthManagementForOlder(){
+        return healthMeasureServer.getHealthManagementForOlder().compose(RxUtils.apiResultTransformer());
     }
 
 }

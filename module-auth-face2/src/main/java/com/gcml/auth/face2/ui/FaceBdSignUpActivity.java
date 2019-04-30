@@ -1,5 +1,6 @@
 package com.gcml.auth.face2.ui;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -10,8 +11,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.face2.BR;
 import com.gcml.auth.face2.R;
 import com.gcml.auth.face2.databinding.FaceActivityBdSignUpBinding;
@@ -27,6 +26,8 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.IconDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
+@Route(path = "/auth/face2/face/bd/signup/activity")
 public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBinding, FaceBdSignUpViewModel> {
 
     private String userId;
@@ -450,16 +451,21 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
 
     @Override
     public void finish() {
-        if (!TextUtils.isEmpty(callId)) {
-            CCResult result;
-            if (error) {
-                result = CCResult.error("人脸录入失败");
-            } else {
-                result = CCResult.success("faceId", userId);
-            }
-            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
-            CC.sendCCResult(callId, result);
+        if (error){
+            Routerfit.setResult(Activity.RESULT_OK,"failed");
+        }else{
+            Routerfit.setResult(Activity.RESULT_OK,"success");
         }
+//        if (!TextUtils.isEmpty(callId)) {
+//            CCResult result;
+//            if (error) {
+//                result = CCResult.error("人脸录入失败");
+//            } else {
+//                result = CCResult.success("faceId", userId);
+//            }
+//            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
+//            CC.sendCCResult(callId, result);
+//        }
         super.finish();
     }
 

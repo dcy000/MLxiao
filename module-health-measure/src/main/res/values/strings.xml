@@ -28,4 +28,5 @@
     <string name="connect_success">与设备成功连接</string>
     <string name="connect_fail">与设备连接失败 点击重新开始连接</string>
     <string name="connect_close">检测到蓝牙被关闭 操作失败</string>
+    <string name="xml_dialog_upload_failed">数据上传失败！是否重试？\n点击“否”将直接进行下一个步骤，但分析报告中的结论将失去准确性。</string>
 </resources>

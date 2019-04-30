@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 
 import com.gcml.common.utils.click.ClickEventListener;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.dialog.BluetoothDialog;
@@ -25,6 +30,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     protected Activity mActivity;
     protected BaseBluetooth basePresenter;
     protected BluetoothDialog bluetoothDialog;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     public void onAttach(Activity activity) {
@@ -167,5 +173,53 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     }
 
     protected void onMeasureFinished(String... results) {
+    }
+
+    protected void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(getContext())
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    protected void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+    }
+
+    protected void showUploadDataFailedDialog(String[] mResults) {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_first_diagnosis_upload_failed)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.getView(R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                clickHealthHistory(null);
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.getView(R.id.btn_pos).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                onMeasureFinished(mResults);
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(350)
+                .show(getFragmentManager());
     }
 }

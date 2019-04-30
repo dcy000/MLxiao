@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-
 import com.gcml.auth.R;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -19,8 +18,8 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -73,8 +72,7 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.home")
-                                .build().callAsync();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
                         finish();
                     }
                 });
@@ -105,12 +103,10 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void checkIdCard(final String idCard) {
-        Observable<Object> data = CC.obtainBuilder("com.gcml.auth.isIdCardNotExit")
-                .addParam("idCard", idCard)
-                .build()
-                .call()
-                .getDataItem("data");
-        data.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getBusinessControllerProvider()
+                .isIdCardNotExit(idCard)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
@@ -130,12 +126,10 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
     private void putUserInfo(String idCard) {
         UserEntity user = new UserEntity();
         user.idCard = idCard;
-        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
-                .addParam("user", user)
-                .build()
-                .call()
-                .getDataItem("data");
-        data.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .updateUserEntity(user)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {

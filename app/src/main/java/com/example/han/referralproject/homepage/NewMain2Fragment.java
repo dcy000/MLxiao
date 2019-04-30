@@ -1,5 +1,6 @@
 package com.example.han.referralproject.homepage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,13 +11,16 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
+import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.DemoVideoListActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
@@ -24,10 +28,15 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
+import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
+import com.witspring.unitbody.ChooseMemberActivity;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -46,6 +55,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
     private EclipseImageView mIvShoppingMall;
     private EclipseImageView mIvAskDoctor;
     private EclipseImageView mIvMedicalTip;
+    private EclipseImageView mIvCheckHealth;
 
     @Override
     protected int initLayout() {
@@ -70,14 +80,12 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
         mIvAskDoctor.setOnClickListener(this);
         mIvMedicalTip = view.findViewById(R.id.iv_medical_tip);
         mIvMedicalTip.setOnClickListener(this);
+        mIvCheckHealth = view.findViewById(R.id.iv_check_health);
+        mIvCheckHealth.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        CCResult result;
-        Observable<UserEntity> rxUser;
-        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        rxUser = result.getDataItem("data");
         switch (v.getId()) {
             default:
                 break;
@@ -86,7 +94,10 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_health_course:
                 //健康管理
-                rxUser.subscribeOn(Schedulers.io())
+                Routerfit.register(AppRouter.class)
+                        .getUserProvider()
+                        .getUserEntity()
+                        .subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
@@ -133,19 +144,24 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
 //                            }
 //                        });
 
-                CC.obtainBuilder("app.component.recreation").build().callAsync();
+//                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 break;
             case R.id.iv_shopping_mall:
-                startActivity(new Intent(getContext(), MarketActivity.class));
+//                startActivity(new Intent(getContext(), MarketActivity.class));
+                Routerfit.register(AppRouter.class).skipMarketActivity();
 //                CC.obtainBuilder("com.gcml.mall.mall").build().callAsync();
                 break;
             case R.id.iv_ask_doctor:
 //                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
                 //健康课堂
-                startActivity(new Intent(getActivity(), DemoVideoListActivity.class));
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
             case R.id.iv_medical_tip:
-                rxUser.subscribeOn(Schedulers.io())
+                Routerfit.register(AppRouter.class)
+                        .getUserProvider()
+                        .getUserEntity()
+                        .subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
@@ -156,25 +172,73 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
-                                            .addParam("skip", true)
-                                            .addParam("currentUser", false)
-                                            .addParam("hidden", true)
-                                            .build()
-                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                    Routerfit.register(AppRouter.class)
+                                            .getFaceProvider()
+                                            .getFaceId(userEntity.id)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                                                 @Override
-                                                public void onResult(CC cc, CCResult result) {
-                                                    boolean skip = "skip".equals(result.getErrorMessage());
-                                                    if (result.isSuccess() || skip) {
-                                                        startActivity(new Intent(getActivity(), HealthRecordActivity.class));
-                                                    } else {
-                                                        ToastUtils.showShort(result.getErrorMessage());
-                                                    }
+                                                public void onNext(String faceId) {
+                                                    Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
+                                                        @Override
+                                                        public void onActivityResult(int result, Object data) {
+                                                            if (result == Activity.RESULT_OK) {
+                                                                String sResult = data.toString();
+                                                                if (TextUtils.isEmpty(sResult))
+                                                                    return;
+                                                                if (sResult.equals("success") || sResult.equals("skip")) {
+                                                                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+                                                                } else if (sResult.equals("failed")) {
+                                                                    ToastUtils.showShort("人脸验证失败");
+                                                                }
+
+                                                            }
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                    ToastUtils.showShort("请先注册人脸！");
+                                                }
+
+                                                @Override
+                                                public void onComplete() {
+
                                                 }
                                             });
+//                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                                            .addParam("skip", true)
+//                                            .addParam("currentUser", false)
+//                                            .addParam("hidden", true)
+//                                            .build()
+//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    boolean skip = "skip".equals(result.getErrorMessage());
+//                                                    if (result.isSuccess() || skip) {
+//                                                        startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+//                                                    } else {
+//                                                        ToastUtils.showShort(result.getErrorMessage());
+//                                                    }
+//                                                }
+//                                            });
                                 }
                             }
                         });
+                break;
+            case R.id.iv_check_health:
+                DiseaseUser diseaseUser = new DiseaseUser(
+                        LocalShared.getInstance(getContext()).getUserName(),
+                        LocalShared.getInstance(getContext()).getSex().equals("男") ? 1 : 2,
+                        Integer.parseInt(LocalShared.getInstance(getContext()).getUserAge()) * 12,
+                        LocalShared.getInstance(getContext()).getUserPhoto()
+                );
+                String currentUser = new Gson().toJson(diseaseUser);
+                Intent intentCheck = new Intent(getActivity(), com.witspring.unitbody.ChooseMemberActivity.class);
+                intentCheck.putExtra("currentUser", currentUser);
+                startActivity(intentCheck);
                 break;
         }
     }

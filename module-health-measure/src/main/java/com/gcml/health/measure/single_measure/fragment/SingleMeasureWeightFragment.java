@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -18,11 +17,11 @@ import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
@@ -54,9 +53,10 @@ public class SingleMeasureWeightFragment extends WeightFragment {
         if (results.length == 1) {
             //得到身高和体重，再计算一下体质
             if (mTvTizhi != null) {
-                CCResult call = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                Observable<UserEntity> user = call.getDataItem("data");
-                user.subscribeOn(Schedulers.io())
+                Routerfit.register(AppRouter.class)
+                        .getUserProvider()
+                        .getUserEntity()
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                         .subscribe(new Consumer<UserEntity>() {
@@ -83,7 +83,7 @@ public class SingleMeasureWeightFragment extends WeightFragment {
                         });
 
             }
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量体重" + results[0] + "公斤", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量体重" + results[0] + "公斤", false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,

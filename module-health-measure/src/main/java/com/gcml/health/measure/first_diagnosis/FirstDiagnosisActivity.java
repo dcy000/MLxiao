@@ -1,5 +1,6 @@
 package com.gcml.health.measure.first_diagnosis;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -11,16 +12,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
@@ -43,6 +40,9 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +55,7 @@ import java.util.List;
  * created by:gzq
  * description:风险评估各Fragment调度Activity
  */
+@Route(path = "/health/measure/first/diagnosis")
 public class FirstDiagnosisActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
     private List<FirstDiagnosisBean> firstDiagnosisBeans;
     private FrameLayout mFrame;
@@ -222,28 +223,17 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
      * 跳转到MeasureVideoPlayActivity
      */
     private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
-        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
-                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+        Routerfit.register(AppRouter.class).skipMeasureVideoPlayActivity(uri, null, title, new ActivityCallback() {
             @Override
-            public void onResult(CC cc, CCResult result) {
-                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
-                switch (resultAction) {
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
-                        //点击了返回按钮
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
-                        //点击了跳过按钮
+            public void onActivityResult(int result, Object data) {
+                if (result == Activity.RESULT_OK) {
+                    if (data == null) return;
+                    if (data.toString().equals("pressed_button_skip")) {
                         showFragment(showPosition);
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
-                        //视屏播放结束
+                    } else if (data.toString().equals("video_play_end")) {
                         showFragment(showPosition);
-                        break;
-                    default:
+                    }
+                } else if (result == Activity.RESULT_CANCELED) {
                 }
             }
         });
@@ -376,7 +366,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         } else if (disconnected.equals(voice)) {
             mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         }
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
     }
 
     @Override

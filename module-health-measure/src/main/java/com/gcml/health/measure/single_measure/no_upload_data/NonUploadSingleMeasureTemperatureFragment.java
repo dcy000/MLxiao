@@ -1,6 +1,6 @@
 package com.gcml.health.measure.single_measure.no_upload_data;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.temperature.TemperatureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -15,7 +15,7 @@ public class NonUploadSingleMeasureTemperatureFragment extends TemperatureFragme
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量耳温" + results[0] + "摄氏度", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量耳温" + results[0] + "摄氏度", false);
         }
     }
 }

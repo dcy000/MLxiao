@@ -13,9 +13,11 @@ import com.example.han.referralproject.adapter.MessageShowAdapter;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 
+@Route(path = "/app/activity/message/activity")
 public class MessageActivity extends BaseActivity implements View.OnClickListener {
     private ArrayList<YzInfoBean> mDataList = new ArrayList<>();
     private MessageShowAdapter messageShowAdapter;

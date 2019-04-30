@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -48,7 +48,7 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
         setContentView(R.layout.health_measure_activity_abnormal);
         measureType = getIntent().getIntExtra(KEY_MEASURE_TYPE, -1);
         mTitleText.setText("测 量 异 常");
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),firstTitle);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),firstTitle);
         initFragment();
     }
 

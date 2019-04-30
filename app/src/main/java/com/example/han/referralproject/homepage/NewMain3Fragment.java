@@ -6,9 +6,11 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.lib_widget.EclipseImageView;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.sjtu.yifei.route.Routerfit;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -43,7 +45,8 @@ public class NewMain3Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_entertainment_enter:
                 //娱乐中心
-                CC.obtainBuilder("app.component.recreation").build().callAsync();
+//                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 break;
             case R.id.iv_eat_medicine:
                 Intent intentAlarm = AlarmList2Activity.newLaunchIntent(getActivity());

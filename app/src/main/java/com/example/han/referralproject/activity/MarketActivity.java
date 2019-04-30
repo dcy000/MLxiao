@@ -23,6 +23,7 @@ import com.gcml.common.recommend.fragment.RencommendForMarketFragment;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
+@Route(path = "/app/activity/market/activity")
 public class MarketActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private List<Fragment> fragments;

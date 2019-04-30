@@ -1,20 +1,20 @@
 package com.gcml.health.measure.hypertension_management;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.router.AppRouter;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCResultActions;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -24,6 +24,11 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
  * description:提供给高血压管理入口进入的血糖测量界面
  */
 public class BloodsugarManagerActivity extends BaseManagementActivity {
+
+
+    private String fromActivity;
+    private String toActivity;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, BloodsugarManagerActivity.class);
         if (context instanceof Application) {
@@ -34,6 +39,8 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
 
     @Override
     protected void dealLogic() {
+        fromActivity = getIntent().getStringExtra("fromActivity");
+        toActivity = getIntent().getStringExtra("toActivity");
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
         jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
         super.dealLogic();
@@ -60,36 +67,33 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
 
     @Override
     public void jump2HealthHistory(int measureType) {
-        //点击了下一步
-        CCResultActions.onCCResultAction(ResultAction.MEASURE_SUCCESS);
+        if (TextUtils.isEmpty(fromActivity)) return;
+        if (fromActivity.equals("DetecteTipActivity")){
+            if (TextUtils.isEmpty(toActivity)) return;
+            if (toActivity.equals("WeightManagerActivity")){
+                Routerfit.register(AppRouter.class).skipWeightManagerActivity("BloodsugarManagerActivity","TreatmentPlanActivity");
+            }
+        }
     }
 
     /**
      * 跳转到MeasureVideoPlayActivity
      */
     private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
-        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
-                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
-                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+        Routerfit.register(AppRouter.class).skipMeasureVideoPlayActivity(uri, null, title, new ActivityCallback() {
             @Override
-            public void onResult(CC cc, CCResult result) {
-                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
-                switch (resultAction) {
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
-                        //点击了返回按钮
-                        break;
-                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
-                        //点击了跳过按钮
-                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
-                        //视屏播放结束
+            public void onActivityResult(int result, Object data) {
+                if (result == Activity.RESULT_OK) {
+                    if (data == null) return;
+                    if (data.toString().equals("pressed_button_skip")) {
                         initFragment();
-                        break;
-                    default:
+                    } else if (data.toString().equals("video_play_end")) {
+                        initFragment();
+                    }
+                } else if (result == Activity.RESULT_CANCELED) {
                 }
             }
         });
     }
+
 }

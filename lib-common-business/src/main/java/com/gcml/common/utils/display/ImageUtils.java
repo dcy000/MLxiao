@@ -32,7 +32,7 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Base64;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.StreamUtils;
 
@@ -54,7 +54,7 @@ import java.io.InputStream;
 
 public class ImageUtils {
     private static Application getApplication(){
-        return UtilsManager.getApplication();
+        return UM.getApp();
     }
 
     /**

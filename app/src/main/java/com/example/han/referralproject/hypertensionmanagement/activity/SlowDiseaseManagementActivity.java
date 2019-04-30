@@ -1,7 +1,8 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,19 +11,23 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +35,10 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
+@Route(path = "/app/hypertension/slow/disease/management")
 public class SlowDiseaseManagementActivity extends BaseActivity implements TwoChoiceDialog.OnDialogClickListener, FllowUpTimesDialog.OnDialogClickListener {
 
     @BindView(R.id.iv_Hypertension_manage)
@@ -160,16 +168,13 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                         .setNegativeButton("重新测量", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CC.obtainBuilder("health_measure")
-                                        .setActionName("ToAllMeasureActivity")
-                                        .addParam("measure_type", IPresenter.MEASURE_BLOOD_PRESSURE)
-                                        .build().call();
+                                Routerfit.register(AppRouter.class).skipAllMeasureActivity(IPresenter.MEASURE_BLOOD_PRESSURE);
                             }
                         })
                         .setPositiveButton("健康方案", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+                                Routerfit.register(AppRouter.class).skipTreatmentPlanActivity();
                             }
                         }).show();
             }
@@ -231,20 +236,16 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     }
 
     private void onLow() {
-        startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                .putExtra("fromWhere", "pressureFlat"));
+        Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureFlat");
     }
 
     private void onNormal() {
-        startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                .putExtra("fromWhere", "pressureNormal"));
-
+        Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormal");
     }
 
     private void onNormalHigh() {
         if (diagnoseInfo.risk == null) {
-            startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                    .putExtra("fromWhere", "pressureNormalHigh"));
+            Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormalHigh");
         } else {
 //            toDetete();
 //            startActivity(new Intent(this, WeightMeasureActivity.class));
@@ -257,24 +258,21 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 //                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
 //                }
 //            });
-
-            startActivity(new Intent(this, DetecteTipActivity.class)
-                    .putExtra("fromWhere", "3"));
+            Routerfit.register(AppRouter.class).skipDetecteTipActivity("3");
         }
 
     }
 
     private void onHigh() {
         if (diagnoseInfo.hypertensionTarget == null) {
-            startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                    .putExtra("fromWhere", "pressureHigh"));
+            Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureHigh");
         } else if ("1".equals(diagnoseInfo.hypertensionTarget)) {
-            startActivity(new Intent(this, TreatmentPlanActivity.class));
+            Routerfit.register(AppRouter.class).skipTreatmentPlanActivity();
         } else if ("0".equals(diagnoseInfo.hypertensionTarget)) {
             if (diagnoseInfo.heart == null) {
-                startActivity(new Intent(this, HypertensionTipActivity.class));
+                Routerfit.register(AppRouter.class).skipHypertensionTipActivity();
             } else {
-                startActivity(new Intent(this, IsEmptyStomachOrNotActivity.class));
+                Routerfit.register(AppRouter.class).skipIsEmptyStomachOrNotActivity();
             }
 
         }
@@ -285,7 +283,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onOriginClickYes() {
         if (diagnoseInfo.primary == null) {
-            startActivity(new Intent(SlowDiseaseManagementActivity.this, SlowDiseaseManagementTipActivity.class));
+            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
         } else {
             if (diagnoseInfo.lowPressure == null) {
 //                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
@@ -297,12 +295,10 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 //                        startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
 //                    }
 //                });
-
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, DetecteTipActivity.class)
-                        .putExtra("fromWhere", "0"));
+                Routerfit.register(AppRouter.class).skipDetecteTipActivity("0");
 
             } else {
-                startActivity(new Intent(this, TreatmentPlanActivity.class));
+                toSulotion();
             }
         }
     }
@@ -312,7 +308,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
 
     private void toSulotion() {
-        startActivity(new Intent(this, TreatmentPlanActivity.class));
+        Routerfit.register(AppRouter.class).skipTreatmentPlanActivity();
     }
 
     private void getDiagnoseInfoNew() {
@@ -417,18 +413,15 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
             case "00"://正常
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, PressureNornalTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureNormal"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormal");
                 break;
             case "01"://偏低
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, PressureTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureFlat"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureFlat");
                 break;
             case "02"://正常高值
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, NormalHighTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureNormalHigh"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormalHigh");
                 break;
             case "11:1"://高血压
             case "12:1":
@@ -438,8 +431,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             case "33:3":
             case "34:3":
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, HypertensionTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureHigh"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureHigh");
                 break;
         }
     }
@@ -448,34 +440,79 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     @Override
     public void onClickConfirm() {
         //-->人脸-->测量血压
-        CC.obtainBuilder("com.gcml.auth.face2.signin")
-                .addParam("skip", true)
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//        CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                .addParam("skip", true)
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        boolean skip = "skip".equals(result.getErrorMessage());
+//                        if (result.isSuccess() || skip) {
+//                            toBloodPressure();
+//                        } else {
+//                            ToastUtils.showShort(result.getErrorMessage());
+//                        }
+//                    }
+//                });
+        Routerfit.register(AppRouter.class)
+                .getFaceProvider()
+                .getFaceId(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                     @Override
-                    public void onResult(CC cc, CCResult result) {
-                        boolean skip = "skip".equals(result.getErrorMessage());
-                        if (result.isSuccess() || skip) {
-                            if (skip) {
-                                toBloodPressure();
+                    public void onNext(String faceId) {
+                        Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
+                            @Override
+                            public void onActivityResult(int result, Object data) {
+                                if (result == Activity.RESULT_OK) {
+                                    String sResult = data.toString();
+                                    if (TextUtils.isEmpty(sResult))
+                                        return;
+                                    if (sResult.equals("success") || sResult.equals("skip")) {
+                                        toBloodPressure();
+                                    } else if (sResult.equals("failed")) {
+                                        ToastUtils.showShort("人脸验证失败");
+                                    }
+
+                                }
                             }
-                        } else {
-                            ToastUtils.showShort(result.getErrorMessage());
-                        }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("请先注册人脸！");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }
 
     private void toBloodPressure() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_BloodpressureManagerActivity")
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-
-                    }
-                });
+        Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity("SlowDiseaseManagementActivity");
+//        Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity(new ActivityCallback() {
+//            @Override
+//            public void onActivityResult(int result, Object data) {
+//                ToastUtils.showShort("测试成功"+result+"---"+data);
+//            }
+//        });
+//        TODO:还需调试2019/04/24
+//        CC.obtainBuilder("health_measure")
+//                .setActionName("To_BloodpressureManagerActivity")
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        String callback = result.getDataItem("key_cc_callback", "");
+//                        if (!TextUtils.isEmpty(callback) && callback.equals("measure_success")) {
+//                            showEndDialog();
+//                        }
+//                    }
+//                });
     }
 
     @Override
@@ -483,11 +520,4 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         super.onStop();
         finish();
     }
-
-    //
-//    @Override
-//    public void onClickCancel() {
-//
-//    }
-
 }

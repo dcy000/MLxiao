@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.click.ClickEventListener;
+import com.gcml.common.widget.dialog.LoadingDialog;
+import com.sjtu.yifei.route.Routerfit;
 
 /**
  * Created by gzq on 2018/4/12.
@@ -30,6 +32,7 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
     protected TextView mLeftText;
     protected LinearLayout mllBack;
     private long lastclicktime = 0L;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,8 +93,27 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
     }
 
     protected void backMainActivity() {
-        CC.obtainBuilder("com.gcml.old.wifi")
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
+    }
+
+    protected void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    protected void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
     }
 }

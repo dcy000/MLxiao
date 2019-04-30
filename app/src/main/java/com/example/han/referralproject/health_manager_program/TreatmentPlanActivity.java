@@ -5,26 +5,43 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.fragment.IChangToolbar;
 import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.CircleIndicator;
+import com.gcml.common.widget.dialog.CustomDialog;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Go;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
+
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2018/5/15.
  */
-
+@Route(path = "/app/health/manager/treatment")
 public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar, View.OnClickListener {
     private List<Fragment> fragments;
     private LastWeekTrendFragment treatmentProgramFragment1;
@@ -70,7 +87,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 
             @Override
             public void onPageSelected(int position) {
-                pageSelected=position;
+                pageSelected = position;
             }
 
             @Override
@@ -151,7 +168,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 //            ivAni.startAnimation(animation);
         } else if (fragment instanceof RencommendForUserFragment) {
             mTitleText.setText("智 能 推 荐");
-            ivAni.setVisibility(View.GONE);
+            ivAni.setVisibility(View.VISIBLE);
         }
     }
 
@@ -165,7 +182,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 
     @Override
     public void onClick(View v) {
-        switch (pageSelected){
+        switch (pageSelected) {
             case 0:
                 viewpage.setCurrentItem(1);
                 break;
@@ -184,6 +201,53 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
             case 5:
                 viewpage.setCurrentItem(6);
                 break;
+            case 6:
+                showEndDialog();
+                break;
+
         }
+    }
+
+    private void showEndDialog() {
+        new CustomDialog(this).builder()
+                .setImg(0)
+                .setMsg("为了更好的了解您的情况，建议完成为您量身定制的每日任务")
+                .setPositiveButton("每日任务", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        toTask();
+                    }
+                }).show();
+    }
+
+    private void toTask() {
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
+                            ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+                            MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),
+                                    "请先去个人中心完善体重和身高信息");
+                        } else {
+                            CC.obtainBuilder("com.gcml.task.isTask")
+                                    .build()
+                                    .callAsync(new IComponentCallback() {
+                                        @Override
+                                        public void onResult(CC cc, CCResult result) {
+                                            if (result.isSuccess()) {
+                                                CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
+                                            } else {
+                                                CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 }

@@ -63,7 +63,6 @@ import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
@@ -79,8 +78,10 @@ import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.PinYinUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
@@ -101,6 +102,9 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
@@ -122,13 +126,14 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
 
+@Route(path = "/app/speech/synthesis/activity")
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
@@ -793,7 +798,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }*/
 
             if (inSpell.matches(".*(yulezhongxin).*")) {
-                CC.obtainBuilder("app.component.recreation").build().callAsync();
+//                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 return;
             }
 
@@ -825,41 +831,48 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(xiaogongju).*")) {
-                CC.obtainBuilder("app.component.recreation.tools").build().call();
+//                CC.obtainBuilder("app.component.recreation.tools").build().call();
+                Routerfit.register(AppRouter.class).skipToolsActivity();
                 return;
             }
 
             if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng|zuolemeng).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+                Routerfit.register(AppRouter.class).skipJieMengActivity();
                 return;
             }
 
             if (inSpell.matches(".*(lishijintian|lishishangdejintian|lishishangjintiandeshijian).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+                Routerfit.register(AppRouter.class).skipHistoryTodayActivity();
                 return;
             }
 
             if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizi).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+                Routerfit.register(AppRouter.class).skipDateInquireActivity();
                 return;
             }
             if (inSpell.matches(".*(caipu|shaocai|zuocai|chishenme|chishengme|tuijiancai).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+                Routerfit.register(AppRouter.class).skipCookBookActivity();
                 return;
             }
 
             if (inSpell.matches(".*(baike).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+                Routerfit.register(AppRouter.class).skipBaikeActivity();
                 return;
             }
 
 
             if (inSpell.matches(".*(jisuanqi|zuosuanshu).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+                Routerfit.register(AppRouter.class).skipCalculationActivity();
                 return;
             }
             if (inSpell.matches(".*(zhengzhuangzicha).*")) {
-                startActivity(SymptomCheckActivity.class);
+                Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
                 return;
             }
 
@@ -880,10 +893,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
             if (inSpell.matches(".*(fengxian|fengxianpinggu|fengxianpanduan" +
                     "|huanbingfenxiang|debingfengxian|jiankangyuce|jiankangyuche|pinggu).*")) {
-                CC.obtainBuilder("health_measure")
-                        .setActionName("To_HealthInquiryActivity")
-                        .build()
-                        .call();
+                Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
                 return;
             }
 
@@ -913,8 +923,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //            }
 
             if (inSpell.matches(".*xiaoxi.*")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipMessageActivity();
                 return;
             }
 
@@ -955,7 +964,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*(geren|xiugai)xinxi.*")
                     || inSpell.matches(".*huantouxiang.*")) {
-                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
+                Routerfit.register(AppRouter.class).skipProfileInfoActivity();
                 return;
             }
 
@@ -965,8 +974,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches("yishengjianyi|chakanxiaoxi")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipMessageActivity();
                 return;
             }
 
@@ -1252,7 +1260,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             } else if (inSpell.matches(".*(dangan).*")) {
-                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
+                Routerfit.register(AppRouter.class).skipProfileInfoActivity();
             } else {
                 new SpeechTask().execute();
             }
@@ -1554,7 +1562,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, MessageActivity.class));
+                Routerfit.register(AppRouter.class).skipMessageActivity();
                 return true;
             }
         }
@@ -2290,35 +2298,52 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void vertifyFaceThenHealthRecordActivity() {
-        CCResult result;
-        Observable<UserEntity> rxUser;
-        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
                         if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
                             ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(),
                                     "请先去个人中心完善性别和年龄信息");
                         } else {
-                            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                                    .addParam("skip", true)
-                                    .addParam("verify", true)
-                                    .addParam("currentUser", false)
-                                    .addParam("hidden", true)
-                                    .build()
-                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            Routerfit.register(AppRouter.class)
+                                    .getFaceProvider()
+                                    .getFaceId(userEntity.id)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                                         @Override
-                                        public void onResult(CC cc, CCResult result) {
-                                            boolean skip = "skip".equals(result.getErrorMessage());
-                                            if (result.isSuccess() || skip) {
-//                                                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
-                                                startActivity(HealthRecordActivity.class);
-                                            } else {
-                                                ToastUtils.showShort(result.getErrorMessage());
-                                            }
+                                        public void onNext(String faceId) {
+                                            Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
+                                                @Override
+                                                public void onActivityResult(int result, Object data) {
+                                                    if (result == Activity.RESULT_OK) {
+                                                        String sResult = data.toString();
+                                                        if (TextUtils.isEmpty(sResult))
+                                                            return;
+                                                        if (sResult.equals("success") || sResult.equals("skip")) {
+                                                            Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+                                                        } else if (sResult.equals("failed")) {
+                                                            ToastUtils.showShort("人脸验证失败");
+                                                        }
+
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            ToastUtils.showShort("请先注册人脸！");
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
                                         }
                                     });
                         }

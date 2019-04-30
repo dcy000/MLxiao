@@ -11,15 +11,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
@@ -27,6 +27,8 @@ import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ import timber.log.Timber;
  * created by:gzq
  * description:健康调查问卷
  */
+@Route(path = "/health/measure/health/inquiry")
 public class HealthInquiryActivity extends ToolbarBaseActivity implements FragmentChanged {
     private FrameLayout mFrame;
     public static final String KEY_BUNDLE = "key_bundle";
@@ -154,7 +157,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         //播报语音
         Timber.d(questionListBean.getQuestionName());
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "" + questionListBean.getQuestionName(), false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "" + questionListBean.getQuestionName(), false);
     }
 
     private void initView() {
@@ -249,7 +252,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                                 //问题回答结束就算是做过风险评估了 下次再进入就不需要引导页了 为了保证唯一性，需要和userId进行绑定
                                 UserSpHelper.setRiskAssessmentState(true);
                                 ToastUtils.showShort("上传数据成功");
-                                FirstDiagnosisActivity.startActivity(HealthInquiryActivity.this);
+                                Routerfit.register(AppRouter.class).skipFirstDiagnosisActivity();
                                 finish();
                             }
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
+import com.gcml.common.recommend.bean.get.GoodBean;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,10 +18,10 @@ import java.util.List;
 public class ShopAdapter extends RecyclerView.Adapter<ShopVH> {
 
 
-    List<Goods> mList;
+    List<GoodBean> mList;
     private Context context;
 
-    public ShopAdapter(List<Goods> mListGood, Context context) {
+    public ShopAdapter(List<GoodBean> mListGood, Context context) {
         this.mList = mListGood;
         this.context = context;
 
@@ -39,15 +40,15 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopVH> {
         holder.mContext = context;
         holder.mPosition = position;
         Picasso.with(context)
-                .load(mList.get(position).getGoodsimage())
+                .load(mList.get(position).goodsimage)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .tag(context)
                 .fit()
                 .into(holder.mImageView);
         //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
-        holder.mTextView.setText(mList.get(position).getGoodsname());
-        holder.mTextView1.setText("¥ " + mList.get(position).getGoodsprice());
+        holder.mTextView.setText(mList.get(position).goodsname);
+        holder.mTextView1.setText("¥ " + mList.get(position).goodsprice);
     }
 
     @Override

@@ -1,10 +1,7 @@
 package com.gcml.old.auth.personal;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,14 +18,10 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
-
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
@@ -36,7 +29,6 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
@@ -45,16 +37,17 @@ import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
-import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -79,9 +72,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public ImageView yuLe;
 
     public ImageView education;
-
-
-    private ChangeAccountDialog mChangeAccountDialog;
 
     SharedPreferences sharedPreferences1;
 
@@ -120,7 +110,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         sharedPreferences1 = getActivity().getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
         signDoctorName = view.findViewById(R.id.doctor_name);
         ((TextView) view.findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(getActivity()));
-        getActivity().registerReceiver(mReceiver, new IntentFilter("change_account"));
         return view;
     }
 
@@ -149,7 +138,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                             String type = servicePackageBean.getType();
                             if (type.equals("3")) {
                                 //有套餐生效，跳转到测试界面
-                                tvUserName.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(UtilsManager.getApplication(), R.drawable.ic_vip), null, null, null);
+                                tvUserName.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(UM.getApp(), R.drawable.ic_vip), null, null, null);
                                 return;
                             }
                         }
@@ -170,28 +159,11 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 });
     }
 
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case "change_account":
-                    if (mChangeAccountDialog != null) {
-                        mChangeAccountDialog.dismiss();
-                    }
-                    getData();
-                    break;
-            }
-        }
-    };
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         dismissLoading();
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            activity.unregisterReceiver(mReceiver);
-        }
     }
 
 
@@ -214,11 +186,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             return;
         }
 
-        Observable<UserEntity> rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
-                .build()
-                .call()
-                .getDataItem("data");
-        rxUsers.subscribeOn(Schedulers.io())
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
@@ -302,11 +273,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.iv_laoren_yule:
-                CC.obtainBuilder("health_measure")
-                        .setActionName("To_HealthInquiryActivity")
-                        .build()
-                        .call();
-//                OldRouter.routeToOldHomeActivity(getActivity());
+                Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
                 break;
             case R.id.iv_change_account:
                 MobclickAgent.onProfileSignOff();
@@ -323,7 +290,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 //                mChangeAccountDialog.show();
                 break;
             case R.id.per_image:
-                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
+                Routerfit.register(AppRouter.class).skipProfileInfoActivity();
                 break;
             case R.id.iv_record:
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));
@@ -380,14 +347,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             case R.id.iv_alarm:
                 startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mChangeAccountDialog != null) {
-            mChangeAccountDialog.cancel();
         }
     }
 

@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.qrcode.QRCodeUtils;
@@ -37,7 +38,6 @@ import com.gcml.module_health_record.bean.ECGHistory;
 import com.gcml.module_health_record.bean.HeartRateHistory;
 import com.gcml.module_health_record.bean.TemperatureHistory;
 import com.gcml.module_health_record.bean.WeightHistory;
-import com.gcml.module_health_record.cc.CCAppActions;
 import com.gcml.module_health_record.fragments.HealthRecordBUAFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodoxygenFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
@@ -50,6 +50,8 @@ import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.gcml.module_health_record.network.HealthRecordRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -60,7 +62,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-
+@Route(path = "/health/record/health/record/activity")
 public class HealthRecordActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, HealthRecordBloodsugarFragment.BloodsugarSelectTime {
     private TextView mTvRecordQrcode;
     private RadioGroup mRgHealthRecord;
@@ -103,15 +105,6 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     private TextView mTvTopTitle;
     private ImageView mIvTopRight;
 
-    public static void startActivity(Context context, int position) {
-        Intent intent = new Intent(context, HealthRecordActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        intent.putExtra("position", position);
-        context.startActivity(intent);
-    }
-
     public interface MeasureType {
         /**
          * 测量体温
@@ -147,7 +140,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请查看您的健康数据", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请查看您的健康数据", false);
 
         initView();
         initDialog();
@@ -708,9 +701,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         } else if (i == R.id.ll_back) {
             finish();
         } else if (i == R.id.iv_top_right) {
-            CC.obtainBuilder("com.gcml.old.wifi")
-                    .build()
-                    .callAsync();
+            Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
         } else if (i == R.id.tv_record_qrcode) {
             String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + HealthRecordNetworkApi.BasicUrl;
             DialogImage dialogImage = new DialogImage(this);

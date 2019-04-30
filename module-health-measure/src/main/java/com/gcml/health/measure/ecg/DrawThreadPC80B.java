@@ -67,12 +67,7 @@ public class DrawThreadPC80B extends BaseDraw {
 						} else {
 							Thread.sleep(10);
 						}
-					}else if (XinDianDetectActivity.mECGReplayBuffer!=null && XinDianDetectActivity.mECGReplayBuffer.size()>0) {
-						int y = XinDianDetectActivity.mECGReplayBuffer.remove(0);
-						Thread.sleep(7);//???ò??????,??????????????,limit the speed of replaying
-						addData(y);
-						
-					} else {
+					}else {
 						Thread.sleep(100);
 					}
 				} catch (Exception e1) {

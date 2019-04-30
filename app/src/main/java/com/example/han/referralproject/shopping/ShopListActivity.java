@@ -18,6 +18,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
+import com.gcml.common.recommend.bean.get.GoodBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,16 +108,16 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    private List<Goods> mlist = new ArrayList<Goods>();
+    private List<GoodBean> mlist = new ArrayList<GoodBean>();
     private ShopAdapter mShopAdapter;
 
     public void initData(int status) {
 
-        NetworkApi.goods_list(status, new NetworkManager.SuccessCallback<ArrayList<Goods>>() {
+        NetworkApi.goods_list(status, new NetworkManager.SuccessCallback<ArrayList<GoodBean>>() {
             @Override
-            public void onSuccess(ArrayList<Goods> response) {
+            public void onSuccess(ArrayList<GoodBean> response) {
 
-                List<Goods> list = new ArrayList<Goods>();
+                List<GoodBean> list = new ArrayList<GoodBean>();
                 mlist.clear();
                 list = response;
                 mlist.addAll(list);

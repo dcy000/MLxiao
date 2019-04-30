@@ -9,16 +9,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.bean.DiagnoseInfoBean;
@@ -31,6 +28,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.littlejie.circleprogress.WaveProgress;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.sjtu.yifei.route.Routerfit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -183,7 +181,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         mCurrentDiya.setText(String.valueOf(currentLowBloodpressure));
         mTvSuggest.setText(currentSuggest);
 
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),
                 "您本次测量高压" + currentHighBloodpressure + ",低压"
                         + currentLowBloodpressure + ",健康分数" + healthScore + "分。" + currentSuggest);
         initViewColor();
@@ -329,8 +327,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_something_advice) {
-            CCAppActions.jump2NormalHightActivity("NewMeasureBloodpressureResultActivity");
-
+            Routerfit.register(AppRouter.class).skipNormalHightActivity("NewMeasureBloodpressureResultActivity");
         } else if (i == R.id.health_knowledge) {
             if (isTask) {
                 mActivity.finish();
@@ -453,10 +450,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                     @Override
                     public void onClick(View v) {
                         postOriginPertensionState("1");
-                        CC.obtainBuilder("app")
-                                .setActionName("To_SlowDiseaseManagementTipActivity")
-                                .build()
-                                .call();
+                        Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
                     }
                 })
                 .setNegativeButton("否", new View.OnClickListener() {
@@ -544,65 +538,34 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
     }
 
     private void onLow() {
-        CC.obtainBuilder("app")
-                .setActionName("To_BasicInformationActivity")
-                .addParam("fromWhere", "pressureFlat")
-                .build()
-                .call();
+        Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureFlat");
     }
 
     private void onNormal() {
-        CC.obtainBuilder("app")
-                .setActionName("To_BasicInformationActivity")
-                .addParam("fromWhere", "pressureNormal")
-                .build()
-                .call();
-
+        Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormal");
     }
 
     private void onNormalHigh() {
         if (diagnoseInfo.risk == null) {
-            CC.obtainBuilder("app")
-                    .setActionName("To_BasicInformationActivity")
-                    .addParam("fromWhere", "pressureNormalHigh")
-                    .build()
-                    .call();
+            Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormalHigh");
         } else {
-//            toDetete();
-//            startActivity(new Intent(this, WeightMeasureActivity.class));
-
-            CC.obtainBuilder("health_measure")
-                    .setActionName("To_WeightManagerActivity")
-                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                @Override
-                public void onResult(CC cc, CCResult result) {
-                    toSulotion();
-                }
-            });
+            Routerfit.register(AppRouter.class).skipWeightManagerActivity(
+                    "ShowMeasureBloodpressureResultFragment",
+                    "TreatmentPlanActivity");
         }
 
     }
 
     private void onHigh() {
         if (diagnoseInfo.hypertensionTarget == null) {
-            CC.obtainBuilder("app")
-                    .setActionName("To_BasicInformationActivity")
-                    .addParam("fromWhere", "pressureHigh")
-                    .build()
-                    .call();
+            Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureHigh");
         } else if ("1".equals(diagnoseInfo.hypertensionTarget)) {
             toSulotion();
         } else if ("0".equals(diagnoseInfo.hypertensionTarget)) {
             if (diagnoseInfo.heart == null) {
-                CC.obtainBuilder("app")
-                        .setActionName("To_HypertensionTipActivity")
-                        .build()
-                        .call();
+                Routerfit.register(AppRouter.class).skipHypertensionTipActivity();
             } else {
-                CC.obtainBuilder("app")
-                        .setActionName("To_IsEmptyStomachOrNotActivity")
-                        .build()
-                        .call();
+                Routerfit.register(AppRouter.class).skipIsEmptyStomachOrNotActivity();
             }
 
         }
@@ -613,14 +576,11 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
      */
 
     private void toSulotion() {
-        CC.obtainBuilder("app")
-                .setActionName("ToTreatmentPlanActivity")
-                .build()
-                .call();
+        Routerfit.register(AppRouter.class).skipTreatmentPlanActivity();
     }
 
     private void showLessThan3Dialog(String notice) {
-        if (!isAdded()){
+        if (!isAdded()) {
             return;
         }
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
@@ -632,7 +592,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         });
 
         dialog.show(getFragmentManager(), "less3");
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您尚未满足3天测量标准，请在健康监测中测量三日", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您尚未满足3天测量标准，请在健康监测中测量三日", false);
     }
 
     /**
@@ -640,21 +600,12 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
      */
     private void onOriginClickYes() {
         if (diagnoseInfo.primary == null) {
-            CC.obtainBuilder("app")
-                    .setActionName("To_SlowDiseaseManagementTipActivity")
-                    .build()
-                    .call();
+            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
         } else {
             if (diagnoseInfo.lowPressure == null) {
-//                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
-                CC.obtainBuilder("health_measure")
-                        .setActionName("To_BloodpressureManagerActivity")
-                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-                        toSulotion();
-                    }
-                });
+                Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity(
+                        "ShowMeasureBloodpressureResultFragment",
+                        "TreatmentPlanActivity");
             } else {
                 toSulotion();
             }

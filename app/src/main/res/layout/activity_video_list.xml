@@ -110,14 +110,17 @@
         android:id="@+id/view_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/video_demo_bg"/>
+        android:background="@drawable/video_demo_bg"
+        android:visibility="gone"/>
     <View
         android:id="@+id/view_back"
         android:layout_width="250pt"
-        android:layout_height="128pt"/>
+        android:layout_height="128pt"
+        android:visibility="gone"/>
     <View
         android:id="@+id/view_wifi"
         android:layout_width="250pt"
         android:layout_height="128pt"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"/>
 </android.support.constraint.ConstraintLayout>

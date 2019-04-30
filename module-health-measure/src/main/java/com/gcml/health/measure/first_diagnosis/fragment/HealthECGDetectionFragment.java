@@ -8,30 +8,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCHealthRecordActions;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.BackGround;
 import com.gcml.health.measure.ecg.DrawThreadPC80B;
 import com.gcml.health.measure.ecg.ECGBluetooth;
-import com.gcml.health.measure.ecg.ECGConnectActivity;
 import com.gcml.health.measure.ecg.ReceiveService;
 import com.gcml.health.measure.ecg.StaticReceive;
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -164,7 +160,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
                     if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
                         String message = "连接失败，点击右上角按钮重连";
                         ToastUtils.showShort(message);
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), message);
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), message);
                     }
                 }
             } else if (action.equals(ReceiveService.ACTION_BLUETOOH_OFF)) {
@@ -397,7 +393,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        showUploadDataFailedDialog(ecg, heartRate);
                     }
 
                     @Override
@@ -405,6 +401,35 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
                     }
                 });
+    }
+
+    private void showUploadDataFailedDialog(int ecg, int heartRate) {
+        NiceDialog.init()
+                .setLayoutId(com.gcml.module_blutooth_devices.R.layout.dialog_first_diagnosis_upload_failed)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.getView(com.gcml.module_blutooth_devices.R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (dealVoiceAndJump != null) {
+                                    dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_ECG);
+                                }
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.getView(com.gcml.module_blutooth_devices.R.id.btn_pos).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                uploadEcg(ecg, heartRate);
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(350)
+                .show(getFragmentManager());
     }
 
     private void setMSG(String msg) {
@@ -422,6 +447,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             }
         }
     }
+
     private void setBattery(int battery) {
         if (battery == 0) {
             if (!mHandler.hasMessages(BATTERY_ZERO)) {

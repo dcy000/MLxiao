@@ -16,7 +16,7 @@ import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
@@ -84,7 +84,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         }
         if (isConnected) {
             if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             }
             return;
         }
@@ -274,7 +274,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             bindDeviceBean.setBluetoothBrand(obtainBrands().get(targetName));
             BluetoothStore.bindDevice.postValue(bindDeviceBean);
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             }
 
             connectSuccessed(targetName, targetAddress);
@@ -284,7 +284,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         public void failed() {
             isConnected = false;
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connect_fail));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connect_fail));
             }
             connectFailed();
         }
@@ -293,7 +293,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         public void disConnect(String address) {
             isConnected = false;
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
             }
             disConnected(address);
             //3秒之后尝试重连
@@ -394,7 +394,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     @CallSuper
     protected void noneFind() {
         if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-            baseView.updateState(UtilsManager.getApplication().getString(R.string.unfind_devices));
+            baseView.updateState(UM.getApp().getString(R.string.unfind_devices));
         }
     }
 

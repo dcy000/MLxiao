@@ -14,9 +14,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
+import com.sjtu.yifei.route.Routerfit;
 
 public class RechargeDefineActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,7 +51,7 @@ public class RechargeDefineActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

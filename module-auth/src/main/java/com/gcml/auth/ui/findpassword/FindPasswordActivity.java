@@ -5,17 +5,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityFindPasswordBinding;
 import com.gcml.common.mvvm.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
 
@@ -25,7 +27,7 @@ import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/auth/find/password/activity")
 public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordBinding, FindPasswordViewModel> {
 
     private String mPhone = "";
@@ -62,7 +64,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     }
 
     public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
     }
 
     private String code = "";
@@ -197,12 +199,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码错误", false);
             return;
         }
-
-        CC.obtainBuilder("com.gcml.auth.setpassword")
-                .addParam("phone", phone)
-                .setContext(FindPasswordActivity.this)
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipSetPasswordActivity(phone);
     }
 
     @Override

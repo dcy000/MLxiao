@@ -11,15 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.adapter.RecommendAdapter;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.network.RecommendRepository;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Arrays;
 import java.util.List;
@@ -87,7 +88,7 @@ public class RencommendForUserFragment extends Fragment {
         noDataView = view.findViewById(R.id.rl_error_zzh_2018);
         noDataView.setVisibility(View.GONE);
         tvLookMore.setOnClickListener(v -> {
-            CC.obtainBuilder("com.gcml.market").build().call();
+            Routerfit.register(AppRouter.class).skipMarketActivity();
         });
 
         GridLayoutManager layout = new GridLayoutManager(getActivity(), 3);

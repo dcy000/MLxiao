@@ -7,13 +7,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.ECGHistory;
-import com.gcml.module_health_record.cc.CCHealthMeasureActions;
 import com.gcml.module_health_record.others.XindianAdapter;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,8 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_ECG);
+//            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_ECG);
+            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_ECG);
         } else {
         }
     }

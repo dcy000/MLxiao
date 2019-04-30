@@ -22,9 +22,13 @@ import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,7 @@ import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
  * created by:gzq
  * description:新的主界面
  */
+@Route(path = "/app/homepage/main/activity")
 public class MainActivity extends BaseActivity implements HttpListener<AccessToken>, View.OnClickListener {
 
     private ViewPager mViewpage;
@@ -168,14 +173,12 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         if ("123456".equals(UserSpHelper.getUserId())) {
             return;
         }
-        Observable<UserEntity> rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
-                .build()
-                .call()
-                .getDataItem("data");
+        Observable<UserEntity> rxUsers = Routerfit.register(AppRouter.class).getUserProvider().getUserEntity();
         if (rxUsers == null) {
             CC.obtainBuilder("com.gcml.auth")
                     .build()
                     .call();
+            return;
         }
         rxUsers.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -194,10 +197,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             return;
                         }
                         CallAuthHelper.getInstance().login(wyyxId, wyyxPwd, null);
-                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
+                        JpushAliasUtils.setAlias(user.id);
                     }
                 });
     }

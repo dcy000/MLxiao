@@ -5,11 +5,9 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
-import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
-import com.umeng.analytics.MobclickAgent;
+import com.gcml.common.data.UserSpHelper;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -170,25 +168,6 @@ public class LocalShared {
         return mShared.getString(UserPhoneNum, "");
     }
 
-    public void setUserInfo(UserInfoBean infoBean) {
-        if (infoBean == null) {
-            return;
-        }
-        UserSpHelper.setUserId(infoBean.bid);
-//        MyApplication.getInstance().telphoneNum = infoBean.tel;
-        MyApplication.getInstance().userName = infoBean.bname;
-//        MyApplication.getInstance().eqid = infoBean.eqid;
-//        MyApplication.getInstance().xfid = infoBean.xfid;
-        MyApplication.getInstance().hypertensionHand = infoBean.hypertensionHand;
-        mShared.edit()
-                .putString(UserId, infoBean.bid)
-                .putString(EQID, infoBean.eqid)
-                .putString(UserPhoneNum, infoBean.tel)
-                .putString(USER_NAME, infoBean.bname)
-                .putString(XunfeiId, infoBean.xfid)
-                .commit();
-        MobclickAgent.onProfileSignIn(infoBean.bid);
-    }
 
     public String getUserName() {
         return mShared.getString(USER_NAME, "");

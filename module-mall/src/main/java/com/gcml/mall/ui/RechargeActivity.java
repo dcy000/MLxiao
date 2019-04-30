@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
+import com.sjtu.yifei.route.Routerfit;
 
 
 public class RechargeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -82,7 +84,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

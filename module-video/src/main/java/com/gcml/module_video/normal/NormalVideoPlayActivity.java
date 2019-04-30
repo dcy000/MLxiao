@@ -1,5 +1,6 @@
 package com.gcml.module_video.normal;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -13,17 +14,18 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+
 import com.gcml.lib_video_ksyplayer.DataInter;
 import com.gcml.lib_video_ksyplayer.util.PUtil;
 import com.gcml.module_video.R;
 import com.gcml.module_video.ReceiverGroupManager;
-import com.gcml.module_video.cc.CCResultActions;
-import com.gcml.module_video.measure.MeasureVideoPlayActivity;
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
 import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -32,7 +34,8 @@ import com.kk.taurus.playerbase.widget.BaseVideoView;
  * created by:gzq
  * description:TODO
  */
-public class NormalVideoPlayActivity extends AppCompatActivity{
+@Route(path = "/video/normal/video/play")
+public class NormalVideoPlayActivity extends AppCompatActivity {
     private BaseVideoView mVideoView;
     private ReceiverGroup mReceiverGroup;
     private boolean isLandscape;
@@ -40,27 +43,6 @@ public class NormalVideoPlayActivity extends AppCompatActivity{
     private boolean userPause;
     private PlayerEventListener playerEventListener;
 
-    //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
-    public static void startActivity(Context context, Uri uri, String url, String title) {
-        Intent intent = new Intent(context, NormalVideoPlayActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        intent.putExtra("uri", uri);
-        intent.putExtra("url", url);
-        intent.putExtra("title", title);
-        context.startActivity(intent);
-    }
-    interface SendResultActionNames{
-        /**
-         * 点击了返回按钮
-         */
-        String PRESSED_BUTTON_BACK="pressed_button_back";
-        /**
-         * 视频播放结束
-         */
-        String VIDEO_PLAY_END="video_play_end";
-    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +53,9 @@ public class NormalVideoPlayActivity extends AppCompatActivity{
                 , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mVideoView = findViewById(R.id.videoView);
         Intent intent = getIntent();
-        Uri uri = intent.getParcelableExtra("uri");
-        String url = intent.getStringExtra("url");
-        String title = intent.getStringExtra("title");
+        Uri uri = intent.getParcelableExtra("key_uri");
+        String url = intent.getStringExtra("key_url");
+        String title = intent.getStringExtra("key_title");
         DataSource dataSource = new DataSource();
         dataSource.setUri(uri);
         dataSource.setData(url);
@@ -105,7 +87,8 @@ public class NormalVideoPlayActivity extends AppCompatActivity{
                 case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
                     break;
                 case OnPlayerEventListener.PLAYER_EVENT_ON_PLAY_COMPLETE:
-                    CCResultActions.onCCResultAction(SendResultActionNames.VIDEO_PLAY_END);
+//                    CCResultActions.onCCResultAction(SendResultActionNames.VIDEO_PLAY_END);
+                    Routerfit.setResult(Activity.RESULT_OK, "video_play_end");
                     break;
                 case OnPlayerEventListener.PLAYER_EVENT_ON_RESUME:
                     userPause = false;
@@ -196,7 +179,8 @@ public class NormalVideoPlayActivity extends AppCompatActivity{
                     userPause = true;
                     break;
                 case DataInter.Event.EVENT_CODE_REQUEST_BACK:
-                    CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BUTTON_BACK);
+//                    CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BUTTON_BACK);
+                    Routerfit.setResult(Activity.RESULT_CANCELED, "pressed_button_back");
                     finish();
 //                    //如果是横屏就先恢复成竖屏，如果已经是竖屏了，则直接关闭当前页面
 //                    if (isLandscape) {

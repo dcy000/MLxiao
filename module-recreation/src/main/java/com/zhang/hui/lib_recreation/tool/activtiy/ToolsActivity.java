@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 import com.zhang.hui.lib_recreation.R;
-
+@Route(path = "/recreation/tools/activity")
 public class ToolsActivity extends AppCompatActivity implements View.OnClickListener {
     private TranslucentToolBar tlbTitle;
     private ImageView ivJiemeng;
@@ -54,7 +57,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("com.gcml.old.main").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
             }
         });
 

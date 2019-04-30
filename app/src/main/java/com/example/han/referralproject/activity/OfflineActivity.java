@@ -1,6 +1,5 @@
 package com.example.han.referralproject.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -8,10 +7,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.homepage.MainActivity;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-
-public class OfflineActivity extends BaseActivity{
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.PinYinUtils;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
+@Route(path = "/app/activity/offline/activity")
+public class OfflineActivity extends BaseActivity {
 
 
     @Override
@@ -25,8 +26,7 @@ public class OfflineActivity extends BaseActivity{
         mRightText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OfflineActivity.this, MainActivity.class);
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

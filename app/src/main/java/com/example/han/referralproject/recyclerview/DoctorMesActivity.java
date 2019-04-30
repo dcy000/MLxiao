@@ -16,21 +16,26 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.gcml.call.CallHelper;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.PinYinUtils;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.squareup.picasso.Picasso;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
@@ -170,7 +175,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
 
             } else if (Integer.parseInt(doctor.getEvaluation()) > 90
-                    ) {
+            ) {
                 mStar1.setVisibility(View.VISIBLE);
                 mStar2.setVisibility(View.VISIBLE);
                 mStar3.setVisibility(View.VISIBLE);
@@ -308,22 +313,27 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    CallHelper.launch(mContext, "docter_" + doctor.docterid);
-//                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                        @Override
-//                        public void onSuccess(Object response) {
-//
-//                        }
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//
-//                        }
-//                    });
-                    //countdown();
-                    //mButton.setEnabled(false);
-                    //OnlineTime();
+//                    CallHelper.launch(mContext, "docter_" + doctor.docterid);
+                    AppRepository.getCallId(doctor.docterid)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .as(RxUtils.autoDisposeConverter(this))
+                            .subscribe(new DefaultObserver<String>() {
+                                @Override
+                                public void onNext(String s) {
+                                    CallHelper.launch(DoctorMesActivity.this, s);
+                                }
 
+                                @Override
+                                public void onError(Throwable e) {
+                                    ToastUtils.showShort("呼叫失败");
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
 
                 } else {
                     NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),

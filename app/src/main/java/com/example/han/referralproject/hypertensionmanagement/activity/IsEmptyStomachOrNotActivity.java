@@ -16,13 +16,17 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.router.AppRouter;
 import com.medlink.danbogh.alarm.AlarmDetail2Activity;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@Route(path = "/app/hypertension/is/empty/stomach/or/not")
 public class IsEmptyStomachOrNotActivity extends BaseActivity implements MultipleChoiceStringFragment.OnButtonClickListener {
 
     @BindView(R.id.fl_container)
@@ -81,8 +85,7 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
 //                }
 //            });
 
-            startActivity(new Intent(this, DetecteTipActivity.class)
-                    .putExtra("fromWhere", "2"));
+            Routerfit.register(AppRouter.class).skipDetecteTipActivity("2");
 
         } else {
             AlarmDetail2Activity.newLaunchIntent(this, -1);

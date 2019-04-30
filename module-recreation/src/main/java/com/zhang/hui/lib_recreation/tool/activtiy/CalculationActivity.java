@@ -16,11 +16,12 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.dialog.CalculationDialog;
 import com.zhang.hui.lib_recreation.tool.other.StringUtil;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
-
+@Route(path = "/recreation/calculation/activity")
 public class CalculationActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**

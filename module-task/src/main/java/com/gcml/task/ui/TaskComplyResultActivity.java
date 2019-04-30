@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -20,6 +21,7 @@ import com.gcml.task.R;
 import com.gcml.task.bean.Post.TaskSchemaResultBean;
 import com.gcml.task.network.TaskRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -102,7 +104,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
                         .setPositiveButton("确认", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                                Routerfit.register(AppRouter.class).skipMainActivity();
                                 finish();
                             }
                         }).show();

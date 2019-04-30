@@ -1,5 +1,6 @@
 package com.example.han.referralproject.shopping;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,12 +26,20 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.GoodBean;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
+import com.sjtu.yifei.route.Routerfit;
 import com.squareup.picasso.Picasso;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+@Route(path = "/app/shopping/goods/detail")
 public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
 
     ImageView mImageView1;
@@ -45,11 +54,12 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     NDialog1 dialog1;
     NDialog2 dialog2;
 
-    Goods goods;
+    GoodBean goods;
 
     public static Activity mActivity;
 
 
+    @SuppressLint("StringFormatMatches")
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +81,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
 
         Intent intent = getIntent();
-        goods = (Goods) intent.getSerializableExtra("goods");
+        goods = (GoodBean) intent.getSerializableExtra("goods");
 
         mImageView1 = findViewById(R.id.goods_image);
         mImageView2 = findViewById(R.id.add_mount);
@@ -89,12 +99,12 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         mImageView3.setOnClickListener(this);
         mButton.setOnClickListener(this);
 
-        mTextView.setText(goods.getGoodsname());
-        mTextView1.setText(goods.getGoodsprice());
-        mTextView3.setText(String.format(getString(R.string.shop_sum_price), goods.getGoodsprice()));
+        mTextView.setText(goods.goodsname);
+        mTextView1.setText(goods.goodsprice.toString());
+        mTextView3.setText(String.format(getString(R.string.shop_sum_price), goods.goodsprice.floatValue()));
 
         Picasso.with(this)
-                .load(goods.getGoodsimage())
+                .load(goods.goodsimage)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .tag(this)
@@ -148,7 +158,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
             case R.id.shopping:
             /*    ToastUtils.showShort("该功能暂未开放");
                 speak("该功能暂未开放");*/
-                NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Float.parseFloat(mTextView2.getText().toString()) * Float.parseFloat(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
+                NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.goodsname, mTextView2.getText().toString(), (Float.parseFloat(mTextView2.getText().toString()) * goods.goodsprice.floatValue()) + "", goods.goodsimage, System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
 
                     @Override
                     public void onSuccess(String data) {
@@ -234,19 +244,58 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void checkUser(String orderid) {
-        CC.obtainBuilder("com.gcml.auth.face2.signin")
-                .addParam("verify", true)
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//        CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                .addParam("verify", true)
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        if (result.isSuccess()) {
+//                            showPaySuccessDialog(GoodDetailActivity.this);
+//                            syncOrder(orderid);
+//                        } else {
+//                            ToastUtils.showShort(result.getErrorMessage());
+//                            cancelOrder(orderid);
+//                        }
+//                    }
+//                });
+
+        Routerfit.register(AppRouter.class)
+                .getFaceProvider()
+                .getFaceId(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                     @Override
-                    public void onResult(CC cc, CCResult result) {
-                        if (result.isSuccess()) {
-                            showPaySuccessDialog(GoodDetailActivity.this);
-                            syncOrder(orderid);
-                        } else {
-                            ToastUtils.showShort(result.getErrorMessage());
-                            cancelOrder(orderid);
-                        }
+                    public void onNext(String faceId) {
+                        Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(false, true, faceId, true, new ActivityCallback() {
+                            @Override
+                            public void onActivityResult(int result, Object data) {
+                                if (result == Activity.RESULT_OK) {
+                                    String sResult = data.toString();
+                                    if (TextUtils.isEmpty(sResult))
+                                        return;
+                                    if (sResult.equals("success")) {
+                                        showPaySuccessDialog(GoodDetailActivity.this);
+                                        syncOrder(orderid);
+                                    } else if (sResult.equals("failed")) {
+                                        ToastUtils.showShort("支付失败");
+                                        cancelOrder(orderid);
+                                    }
+
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("请先注册人脸！");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

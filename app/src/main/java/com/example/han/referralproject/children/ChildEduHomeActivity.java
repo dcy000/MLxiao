@@ -17,10 +17,11 @@ import com.example.han.referralproject.children.entertainment.ChildEduEntertainm
 import com.example.han.referralproject.children.study.ChildEduStudyActivity;
 import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Route(path = "/edu/child/edu/home/activity")
 public class ChildEduHomeActivity extends BaseActivity {
 
     private RecyclerView rvItems;

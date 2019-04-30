@@ -1,10 +1,6 @@
-//注： 从CC 1.x升级到CC 2.x的用户，用此文件替换原来的cc-settings.gradle的同时，需要在根目录build.gradle中将插件地址按照如下方式更换一下：
-// classpath 'com.billy.android:autoregister:x.x.x' -> classpath 'com.billy.android:cc-register:x.x.x'
-//cc-register extension:
-// 功能介绍：
-//  完成组件、拦截器及跨进程json解释器等CC库自身需要的自动注册功能
-//  支持新增自定义的其它自动注册功能，参考AutoRegister，用法参考cc-settings-demo.gradle
+//apply from: rootProject.file('auto-dependences.gradle')
 project.apply plugin: 'cc-register'
+project.apply plugin: 'com.sjtu.yifei.autoinject'
 def dependencyMode = (project.gradle.gradleVersion as float) >= 4.1F ? 'api' : 'compile'
 //project.dependencies.add(dependencyMode, project(":cc"))
 project.dependencies.add(dependencyMode, "com.billy.android:cc:2.1.1")
@@ -197,5 +193,12 @@ dependencies {
     //网易视频通话
     implementation 'com.netease.nimlib:basesdk:4.3.0'
     implementation 'com.netease.nimlib:avchat:4.3.0'
+    //ARetrofit
+    implementation "com.sjtu.yifei:auto-api:1.7.0"
+    annotationProcessor "com.sjtu.yifei:auto-complier:1.5.0"
+
+    //极光推送
+    implementation 'cn.jiguang.sdk:jpush:3.1.1'
+    implementation 'cn.jiguang.sdk:jcore:1.1.9'
 }
 

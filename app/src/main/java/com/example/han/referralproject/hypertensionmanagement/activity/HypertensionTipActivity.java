@@ -12,6 +12,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.gcml.common.data.AppManager;
+import com.sjtu.yifei.annotation.Route;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 /**
  * 高血压  下一步 心血管风险 评估
  */
+@Route(path = "/app/hypertension/tip/activity")
 public class HypertensionTipActivity extends BaseActivity implements WarmNoticeFragment.OnButtonClickListener {
 
 

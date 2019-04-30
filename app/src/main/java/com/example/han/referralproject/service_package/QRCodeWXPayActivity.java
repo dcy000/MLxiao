@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
@@ -23,11 +21,10 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.BillUtils;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.utils.RxUtils;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
 import com.google.gson.internal.LinkedTreeMap;
-
-import org.w3c.dom.Text;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -38,15 +35,12 @@ import cn.beecloud.BCOfflinePay;
 import cn.beecloud.BCQuery;
 import cn.beecloud.async.BCCallback;
 import cn.beecloud.async.BCResult;
-import cn.beecloud.entity.BCBillStatus;
 import cn.beecloud.entity.BCQRCodeResult;
 import cn.beecloud.entity.BCQueryBillResult;
 import cn.beecloud.entity.BCReqParams;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickListener {
 
@@ -95,11 +89,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                     Toast.makeText(QRCodeWXPayActivity.this, errMsg, Toast.LENGTH_LONG).show();
                     break;
                 case 2:
-                    if (isSkip) {
-                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true, servicePackageType, orderId);
-                    } else {
-                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false, servicePackageType, orderId);
-                    }
+                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(isSkip, servicePackageType, orderId);
                     break;
 
                 case 0:
