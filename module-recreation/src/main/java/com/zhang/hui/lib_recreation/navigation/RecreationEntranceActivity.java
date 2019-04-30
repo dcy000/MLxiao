@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.activtiy.ToolsActivity;
-
+@Route(path = "/recreation/entrance/activity")
 public class RecreationEntranceActivity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -39,11 +42,11 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("com.gcml.old.main").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
             }
         });
 
-        MLVoiceSynthetize.startSynthesize(this,"欢迎来到娱乐中心");
+        MLVoiceSynthetize.startSynthesize(this, "欢迎来到娱乐中心");
     }
 
     private void initView() {
@@ -61,10 +64,10 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
         int i = v.getId();
         if (i == R.id.ll_yule) {
             //老人娱乐
-            CC.obtainBuilder("com.gcml.old.recreation").setActionName("lryl").build().callAsync();
+            Routerfit.register(AppRouter.class).skipTheOldHomeActivity();
         } else if (i == R.id.ll_youjiao) {
             //儿童幼教
-            CC.obtainBuilder("com.gcml.old.recreation").setActionName("etyj").build().callAsync();
+            Routerfit.register(AppRouter.class).skipChildEduHomeActivity();
         } else if (i == R.id.ll_tools) {
             startActivity(new Intent(this, ToolsActivity.class));
         }

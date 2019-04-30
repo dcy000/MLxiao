@@ -18,12 +18,14 @@ import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -279,8 +281,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
 //                                startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
 //                            }
 //                        });
-                        startActivity(new Intent(NormalHightActivity.this, DetecteTipActivity.class)
-                                .putExtra("fromWhere", "3"));
+                        Routerfit.register(AppRouter.class).skipDetecteTipActivity("3");
                     }
                 }).show();
     }

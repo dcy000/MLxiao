@@ -1,99 +1,27 @@
-apply from: "config.gradle"
-def canRunAlone = false
-
-if (canRunAlone) {
-    apply plugin: 'com.android.application'
-} else {
-    apply plugin: 'com.android.library'
-}
-
+ext.alwaysLib=true
+apply from: rootProject.file("build-base.gradle")
 
 android {
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        if (canRunAlone) {
-            applicationId "com.ml.edu"
-        }
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode versions["versionCode"]
-        versionName versions["versionName"]
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    sourceSets {
-        main {
-            if (canRunAlone.toBoolean()) {
-                manifest.srcFile androidManifests["canRunAlone"]
-            } else {
-                manifest.srcFile androidManifests["cannotRunAlone"]
-            }
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.health.measure"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
         }
     }
-
-//    signingConfigs {}
 
     buildTypes {
-        debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
-            minifyEnabled false
-        }
 
         release {
-            buildConfigField "boolean", "LOG_DEBUG", "false"
-            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-
-    lintOptions {
-        abortOnError false
-    }
-
 }
-
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation rootProject.ext.dependencies["constraint-layout"]
-    implementation rootProject.ext.dependencies["support-v4"]
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["recyclerview-v7"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-
-    //dagger2
-    implementation rootProject.ext.dependencies["dagger2"]
-    implementation rootProject.ext.dependencies["dagger2-android"]
-    implementation rootProject.ext.dependencies["dagger2-android-support"]
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-    annotationProcessor rootProject.ext.dependencies["dagger2-android-processor"]
-
-
-    implementation rootProject.ext.dependencies["glide"]
-    implementation rootProject.ext.dependencies["gson"]
-    implementation rootProject.ext.dependencies["picasso"]
-    implementation rootProject.ext.dependencies["rxjava2"]
-    implementation rootProject.ext.dependencies["rxandroid2"]
-    implementation rootProject.ext.dependencies["retrofit"]
-    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
-    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
-
     implementation project(':lib-music-player')
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'me.wcy:lrcview:1.4.2'
-
-    testImplementation rootProject.ext.dependencies["junit"]
-
 }

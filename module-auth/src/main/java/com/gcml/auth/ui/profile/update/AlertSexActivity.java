@@ -82,9 +82,7 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.home")
-                                .build()
-                                .callAsync();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
                         finish();
                     }
                 });

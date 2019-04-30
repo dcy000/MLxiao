@@ -17,11 +17,12 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.OfflineActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +152,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_sign_up_contract_offline:
-                startActivity(new Intent(mContext, OfflineActivity.class));
+                Routerfit.register(AppRouter.class).skipOfflineActivity();
                 break;
             case R.id.tv_sign_up_go_back:
 //                CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);

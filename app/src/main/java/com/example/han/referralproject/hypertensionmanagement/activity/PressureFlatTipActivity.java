@@ -69,8 +69,7 @@ public class PressureFlatTipActivity extends BaseActivity implements WarmNoticeF
 //            }
 //        });
 
-        startActivity(new Intent(PressureFlatTipActivity.this, DetecteTipActivity.class)
-                .putExtra("fromWhere", "3"));
+        Routerfit.register(AppRouter.class).skipDetecteTipActivity("3");
     }
 
     @Override

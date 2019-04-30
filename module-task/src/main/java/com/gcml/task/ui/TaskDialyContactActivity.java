@@ -11,6 +11,7 @@ import android.util.SparseIntArray;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -21,6 +22,7 @@ import com.gcml.task.bean.DetailsModel;
 import com.gcml.task.bean.ItemsModel;
 import com.gcml.task.bean.Post.TaskWheelBean;
 import com.gcml.task.network.TaskRepository;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 
@@ -62,7 +64,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

@@ -71,7 +71,7 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
     }
 
     public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
     }
 
     private String code = "";

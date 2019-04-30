@@ -15,7 +15,6 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
-import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -45,7 +44,6 @@ import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
@@ -62,6 +60,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -353,7 +352,8 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(yulezhongxin).*")) {
-            CC.obtainBuilder("app.component.recreation").build().callAsync();
+//            CC.obtainBuilder("app.component.recreation").build().callAsync();
+            Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -372,8 +372,8 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(xiaogongju).*")) {
-            CC.obtainBuilder("app.component.recreation.tools").build().call();
-
+//            CC.obtainBuilder("app.component.recreation.tools").build().call();
+            Routerfit.register(AppRouter.class).skipToolsActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -391,7 +391,8 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng|zuolemeng).*")) {
-            CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+//            CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+            Routerfit.register(AppRouter.class).skipJieMengActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -399,7 +400,8 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(lishijintian|lishishangdejintian|lishishangjintiandeshijian).*")) {
-            CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+//            CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+            Routerfit.register(AppRouter.class).skipHistoryTodayActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -407,14 +409,16 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizi).*")) {
-            CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+//            CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+            Routerfit.register(AppRouter.class).skipDateInquireActivity();
             if (listener != null) {
                 listener.onEnd();
             }
             return;
         }
         if (inSpell.matches(".*(caipu|shaocai|chishenme|chishengme|zuocai|tuijiancai).*")) {
-            CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+//            CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+            Routerfit.register(AppRouter.class).skipCookBookActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -422,7 +426,8 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(baike).*")) {
-            CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+//            CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+            Routerfit.register(AppRouter.class).skipBaikeActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -431,7 +436,8 @@ public class DataDealHelper {
 
 
         if (inSpell.matches(".*(jisuanqi|zuosuanshu).*")) {
-            CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+//            CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+            Routerfit.register(AppRouter.class).skipCalculationActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -484,7 +490,7 @@ public class DataDealHelper {
 //            }
 
         if (inSpell.matches(".*xiaoxi.*")) {
-            startActivity(MessageActivity.class);
+            Routerfit.register(AppRouter.class).skipMessageActivity();
             return;
         }
 
@@ -1313,7 +1319,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivityWithOutCallback(MessageActivity.class);
+                Routerfit.register(AppRouter.class).skipMessageActivity();
                 return true;
             }
         }

@@ -9,6 +9,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.business.R;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodBean;
+import com.gcml.common.router.AppRouter;
+import com.sjtu.yifei.route.Routerfit;
 
 
 import java.util.List;
@@ -38,9 +40,7 @@ public class RecommendRorMarketAdapter extends BaseQuickAdapter<GoodBean, BaseVi
                 if (listener != null) {
                     listener.onlick(bean, holder.getPosition());
                 }
-
-                CC.obtainBuilder("gcml.market.good.detail")
-                        .addParam("goods", bean).build().call();
+                Routerfit.register(AppRouter.class).skipGoodDetailActivity(bean);
             }
         });
 

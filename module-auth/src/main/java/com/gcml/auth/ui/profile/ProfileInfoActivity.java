@@ -84,8 +84,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.home")
-                                .build().callAsync();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
                         finish();
                     }
                 });

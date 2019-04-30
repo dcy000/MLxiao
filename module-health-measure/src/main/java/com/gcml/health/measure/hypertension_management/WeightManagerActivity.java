@@ -56,7 +56,6 @@ public class WeightManagerActivity extends BaseManagementActivity {
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
-//        CC.obtainBuilder("com.gcml.old.finishAll").build().callAsync();
         if (TextUtils.isEmpty(fromActivity)) return;
         if (fromActivity.equals("BloodpressureManagerActivity") ||
                 fromActivity.equals("DetecteTipActivity") ||

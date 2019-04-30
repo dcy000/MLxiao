@@ -15,7 +15,9 @@ import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.app.AppUtils;
@@ -23,6 +25,7 @@ import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -110,7 +113,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
     }
 
     public void rootOnClick() {
@@ -123,11 +126,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     public void signIn() {
         if ("123456".equals(binding.etPhone.getText().toString())
                 && "654321".equals(binding.etPassword.getText().toString())) {
-//            CC.obtainBuilder("com.gcml.old.system.factoryTest")
-//                    .build()
-//                    .callAsync();
-            //TODO:集成工厂测试
-            ToastUtils.showShort("暂未集成测试功能");
+            Routerfit.register(AppRouter.class).skipFactoryTestActivity();
             return;
         }
 
@@ -173,10 +172,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
-                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
+                        JpushAliasUtils.setAlias(user.id);
                         checkFace(user);
                     }
 
@@ -237,15 +233,11 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            CC.obtainBuilder("com.gcml.old.home")
-                                    .build()
-                                    .callAsync();
+                            Routerfit.register(AppRouter.class).skipMainActivity();
                         }
                     });
         } else {
-            CC.obtainBuilder("com.gcml.old.home")
-                    .build()
-                    .callAsync();
+            Routerfit.register(AppRouter.class).skipMainActivity();
         }
     }
 
@@ -256,9 +248,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                     @Override
                     public void onResult(CC cc, CCResult result) {
                         if (result.isSuccess()) {
-                            CC.obtainBuilder("com.gcml.old.home")
-                                    .build()
-                                    .callAsync();
+                            Routerfit.register(AppRouter.class).skipMainActivity();
                         } else {
                             ToastUtils.showShort(result.getErrorMessage());
                         }

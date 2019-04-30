@@ -9,12 +9,14 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityFindPasswordByIdCardBinding;
 import com.gcml.common.mvvm.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import org.w3c.dom.Text;
 
@@ -63,7 +65,7 @@ public class FindPasswordByIdCardActivity extends BaseActivity<AuthActivityFindP
     }
 
     public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
     }
 
     private String code = "";

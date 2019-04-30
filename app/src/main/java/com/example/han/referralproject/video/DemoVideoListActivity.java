@@ -7,6 +7,8 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.common.router.AppRouter;
+import com.sjtu.yifei.route.Routerfit;
 
 public class DemoVideoListActivity extends BaseActivity {
     @Override
@@ -20,8 +22,6 @@ public class DemoVideoListActivity extends BaseActivity {
 
     @Override
     protected void backMainActivity() {
-        CC.obtainBuilder("com.gcml.old.wifi")
-                .build()
-                .callAsync();
+        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
     }
 }

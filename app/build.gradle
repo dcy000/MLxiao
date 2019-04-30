@@ -60,6 +60,7 @@ dependencies {
     addComponent 'module-mall'
     addComponent 'module-video'
     addComponent 'lib-bluetooth'
+    addComponent 'module-factory-test'
     //lib
     implementation project(':lib-widget')
     implementation project(':module-edu')
@@ -101,9 +102,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.nex3z:flow-layout:1.1.0'
     implementation 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
-    //极光推送
-    implementation 'cn.jiguang.sdk:jpush:3.1.1'
-    implementation 'cn.jiguang.sdk:jcore:1.1.9'
+
     implementation 'me.songning.CircleView:library:1.0.0'
     api 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     api 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'

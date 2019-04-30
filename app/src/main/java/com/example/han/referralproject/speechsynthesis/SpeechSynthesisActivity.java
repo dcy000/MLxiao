@@ -80,6 +80,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -101,6 +102,7 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
@@ -128,7 +130,7 @@ import timber.log.Timber;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
-
+@Route(path = "/app/speech/synthesis/activity")
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
@@ -793,7 +795,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }*/
 
             if (inSpell.matches(".*(yulezhongxin).*")) {
-                CC.obtainBuilder("app.component.recreation").build().callAsync();
+//                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 return;
             }
 
@@ -825,37 +828,44 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(xiaogongju).*")) {
-                CC.obtainBuilder("app.component.recreation.tools").build().call();
+//                CC.obtainBuilder("app.component.recreation.tools").build().call();
+                Routerfit.register(AppRouter.class).skipToolsActivity();
                 return;
             }
 
             if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng|zuolemeng).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+                Routerfit.register(AppRouter.class).skipJieMengActivity();
                 return;
             }
 
             if (inSpell.matches(".*(lishijintian|lishishangdejintian|lishishangjintiandeshijian).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+                Routerfit.register(AppRouter.class).skipHistoryTodayActivity();
                 return;
             }
 
             if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizi).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+                Routerfit.register(AppRouter.class).skipDateInquireActivity();
                 return;
             }
             if (inSpell.matches(".*(caipu|shaocai|zuocai|chishenme|chishengme|tuijiancai).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+                Routerfit.register(AppRouter.class).skipCookBookActivity();
                 return;
             }
 
             if (inSpell.matches(".*(baike).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+                Routerfit.register(AppRouter.class).skipBaikeActivity();
                 return;
             }
 
 
             if (inSpell.matches(".*(jisuanqi|zuosuanshu).*")) {
-                CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+//                CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+                Routerfit.register(AppRouter.class).skipCalculationActivity();
                 return;
             }
             if (inSpell.matches(".*(zhengzhuangzicha).*")) {
@@ -910,8 +920,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //            }
 
             if (inSpell.matches(".*xiaoxi.*")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipMessageActivity();
                 return;
             }
 
@@ -962,8 +971,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches("yishengjianyi|chakanxiaoxi")) {
-                Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipMessageActivity();
                 return;
             }
 
@@ -1551,7 +1559,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, MessageActivity.class));
+                Routerfit.register(AppRouter.class).skipMessageActivity();
                 return true;
             }
         }

@@ -75,8 +75,7 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.home")
-                                .build().callAsync();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
                         finish();
                     }
                 });

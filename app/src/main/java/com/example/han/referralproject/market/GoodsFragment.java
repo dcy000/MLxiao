@@ -18,7 +18,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
-import com.example.han.referralproject.shopping.Goods;
+import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class GoodsFragment extends Fragment {
 
     private RecyclerView rvGoods;
-    private ArrayList<Goods> mData;
+    private ArrayList<GoodBean> mData;
     private Goods1Adapter mAdapter;
 
     private int mPosition = 1;
@@ -74,7 +74,7 @@ public class GoodsFragment extends Fragment {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Goods goods = mData.get(position);
+                GoodBean goods = mData.get(position);
                 FragmentActivity activity = getActivity();
                 if (activity == null) {
                     return;
@@ -94,9 +94,9 @@ public class GoodsFragment extends Fragment {
     }
 
     private void initData() {
-        NetworkApi.goods_list(mPosition, new NetworkManager.SuccessCallback<ArrayList<Goods>>() {
+        NetworkApi.goods_list(mPosition, new NetworkManager.SuccessCallback<ArrayList<GoodBean>>() {
             @Override
-            public void onSuccess(ArrayList<Goods> response) {
+            public void onSuccess(ArrayList<GoodBean> response) {
                 view.findViewById(R.id.no_data).setVisibility(View.GONE);
                 mData.addAll(response);
                 mAdapter.notifyDataSetChanged();

@@ -1,10 +1,13 @@
 package com.gcml.common.router;
 
+import android.content.Intent;
 import android.net.Uri;
 
+import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.service.IFragmentProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.sjtu.yifei.annotation.Extra;
+import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.route.ActivityCallback;
 
@@ -120,4 +123,62 @@ public interface AppRouter {
 
     @Go("/app/activity/market/activity")
     boolean skipMarketActivity();
+
+    @Go("/app/heypertension/detecte/tip")
+    boolean skipDetecteTipActivity(@Extra("fromWhere") String fromWhere);
+
+    @Go("/app/activity/message/activity")
+    boolean skipMessageActivity();
+
+    @Go("/app/activity/offline/activity")
+    boolean skipOfflineActivity();
+
+    @Go("/edu/the/old/home/activity")
+    boolean skipTheOldHomeActivity();
+
+    @Go("/edu/child/edu/home/activity")
+    boolean skipChildEduHomeActivity();
+
+    @Go("/app/shopping/goods/detail")
+    boolean skipGoodDetailActivity(@Extra("goods") GoodBean goodBean);
+
+    @Go("/mall/order/list/activity")
+    boolean skipOrderListActivity();
+
+    @Go("/mall/mall/activity")
+    boolean skipMallActivity();
+
+    @Go("/recreation/entrance/activity")
+    boolean skipRecreationEntranceActivity();
+
+    @Go("/recreation/tools/activity")
+    boolean skipToolsActivity();
+
+    @Go("/recreation/jiemeng/activity")
+    boolean skipJieMengActivity();
+
+    @Go("/recreation/history/today/activity")
+    boolean skipHistoryTodayActivity();
+
+    @Go("/recreation/date/inquire/activity")
+    boolean skipDateInquireActivity();
+
+    @Go("/recreation/cook/book/activity")
+    boolean skipCookBookActivity();
+
+    @Go("/recreation/baike/activity")
+    boolean skipBaikeActivity();
+
+    @Go("/recreation/calculation/activity")
+    boolean skipCalculationActivity();
+
+    @Go("/factory/test/activity")
+    boolean skipFactoryTestActivity();
+
+    @Go("/app/speech/synthesis/activity")
+    boolean skipSpeechSynthesisActivity();
+
+    @Flags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    @Go("/app/welcome/activity")
+    boolean skipWelcomeActivity();
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -24,6 +25,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
 import com.gcml.mall.network.MallRepository;
 import com.gcml.mall.utils.BillUtils;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -107,7 +109,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                         .setPositiveButton("确认", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                                Routerfit.register(AppRouter.class).skipMainActivity();
                                 finish();
                             }
                         }).show();

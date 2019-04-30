@@ -14,6 +14,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -26,6 +27,7 @@ import com.gcml.mall.bean.GoodsBean;
 import com.gcml.mall.bean.PayingOrderBean;
 import com.gcml.mall.network.MallRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -77,7 +79,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

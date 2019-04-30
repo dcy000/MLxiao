@@ -2,6 +2,7 @@ package com.example.han.referralproject.network;
 
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
+import com.example.han.referralproject.tcm.bean.OlderHealthManagementBean;
 import com.gcml.common.http.ApiResult;
 
 import io.reactivex.Observable;
@@ -86,4 +87,6 @@ public interface AppServer {
             @Query("doctorId") String doctorId
     );
 
+    @GET("ZZB/api/health/inquiry/constitution/questionnaire/")
+    Observable<ApiResult<OlderHealthManagementBean.DataBean>> getHealthManagementForOlder();
 }

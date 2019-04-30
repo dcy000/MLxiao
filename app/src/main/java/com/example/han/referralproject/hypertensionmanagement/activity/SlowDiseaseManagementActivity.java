@@ -1,6 +1,5 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,13 +9,11 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.common.AppDelegate;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
@@ -26,7 +23,6 @@ import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.sjtu.yifei.annotation.Route;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import org.json.JSONException;
@@ -256,9 +252,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 //                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
 //                }
 //            });
-
-            startActivity(new Intent(this, DetecteTipActivity.class)
-                    .putExtra("fromWhere", "3"));
+            Routerfit.register(AppRouter.class).skipDetecteTipActivity("3");
         }
 
     }
@@ -295,9 +289,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 //                        startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
 //                    }
 //                });
-
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, DetecteTipActivity.class)
-                        .putExtra("fromWhere", "0"));
+                Routerfit.register(AppRouter.class).skipDetecteTipActivity("0");
 
             } else {
                 toSulotion();
@@ -415,18 +407,15 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
             case "00"://正常
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, PressureNornalTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureNormal"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormal");
                 break;
             case "01"://偏低
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, PressureTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureFlat"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureFlat");
                 break;
             case "02"://正常高值
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, NormalHighTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureNormalHigh"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormalHigh");
                 break;
             case "11:1"://高血压
             case "12:1":
@@ -436,8 +425,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             case "33:3":
             case "34:3":
 //                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, HypertensionTipActivity.class));
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
-                        .putExtra("fromWhere", "pressureHigh"));
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureHigh");
                 break;
         }
     }

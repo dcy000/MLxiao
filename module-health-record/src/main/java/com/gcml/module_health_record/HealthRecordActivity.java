@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeUtils;
@@ -50,6 +51,7 @@ import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.gcml.module_health_record.network.HealthRecordRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -699,9 +701,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         } else if (i == R.id.ll_back) {
             finish();
         } else if (i == R.id.iv_top_right) {
-            CC.obtainBuilder("com.gcml.old.wifi")
-                    .build()
-                    .callAsync();
+            Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
         } else if (i == R.id.tv_record_qrcode) {
             String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + HealthRecordNetworkApi.BasicUrl;
             DialogImage dialogImage = new DialogImage(this);

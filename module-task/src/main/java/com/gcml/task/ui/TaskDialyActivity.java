@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.data.SPUtil;
@@ -21,6 +22,7 @@ import com.gcml.task.bean.DetailsModel;
 import com.gcml.task.bean.ItemsModel;
 import com.gcml.task.bean.Post.TaskWheelBean;
 import com.gcml.task.network.TaskRepository;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 
@@ -69,7 +71,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

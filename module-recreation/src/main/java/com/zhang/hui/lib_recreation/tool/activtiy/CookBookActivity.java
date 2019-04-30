@@ -13,13 +13,14 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.other.StringUtil;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
 import com.zhang.hui.lib_recreation.tool.xfparsebean.CookbookBean;
 
 import java.util.List;
-
+@Route(path = "/recreation/cook/book/activity")
 public class CookBookActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**

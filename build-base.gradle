@@ -195,5 +195,9 @@ dependencies {
     //ARetrofit
     implementation "com.sjtu.yifei:auto-api:1.7.0"
     annotationProcessor "com.sjtu.yifei:auto-complier:1.5.0"
+
+    //极光推送
+    implementation 'cn.jiguang.sdk:jpush:3.1.1'
+    implementation 'cn.jiguang.sdk:jcore:1.1.9'
 }
 

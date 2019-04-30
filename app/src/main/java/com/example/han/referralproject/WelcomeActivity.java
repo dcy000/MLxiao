@@ -22,11 +22,12 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
-
+@Route(path = "/app/welcome/activity")
 public class WelcomeActivity extends AppCompatActivity {
 
     private static final String TAG = "afirez";

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.physicalexamination.adapter.FragAdapter;
 import com.example.han.referralproject.tcm.bean.HealthManagementAnwserBean;
@@ -32,6 +33,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class OlderHealthManagementSerciveActivity extends BaseActivity {
 
@@ -60,6 +64,33 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
 
     private void initData() {
         showLoadingDialog("正在加载中...");
+//        AppRepository.getHealthManagementForOlder()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new DefaultObserver<OlderHealthManagementBean.DataBean>() {
+//                    @Override
+//                    public void onNext(OlderHealthManagementBean.DataBean dataBean) {
+//                        OlderHealthManagementSerciveActivity.this.hmQuestionnaireId = dataBean.hmQuestionnaireId;
+//                        if (dataBean != null) {
+//                            questionList = dataBean.questionList;
+//                            if (questionList != null && questionList.size() != 0) {
+//                                count = questionList.size();
+//                                llOperator.setVisibility(View.VISIBLE);
+//                                initView();
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        hideLoadingDialog();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        hideLoadingDialog();
+//                    }
+//                });
         NetworkApi.getHealthManagementForOlder(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

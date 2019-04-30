@@ -1,9 +1,7 @@
 package com.gcml.old.auth.personal;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +20,6 @@ import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
-
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
@@ -44,8 +41,8 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
-import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
@@ -75,9 +72,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public ImageView yuLe;
 
     public ImageView education;
-
-
-    private ChangeAccountDialog mChangeAccountDialog;
 
     SharedPreferences sharedPreferences1;
 
@@ -116,7 +110,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         sharedPreferences1 = getActivity().getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
         signDoctorName = view.findViewById(R.id.doctor_name);
         ((TextView) view.findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(getActivity()));
-        getActivity().registerReceiver(mReceiver, new IntentFilter("change_account"));
         return view;
     }
 
@@ -166,28 +159,11 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 });
     }
 
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case "change_account":
-                    if (mChangeAccountDialog != null) {
-                        mChangeAccountDialog.dismiss();
-                    }
-                    getData();
-                    break;
-            }
-        }
-    };
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         dismissLoading();
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            activity.unregisterReceiver(mReceiver);
-        }
     }
 
 
@@ -371,14 +347,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             case R.id.iv_alarm:
                 startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mChangeAccountDialog != null) {
-            mChangeAccountDialog.cancel();
         }
     }
 

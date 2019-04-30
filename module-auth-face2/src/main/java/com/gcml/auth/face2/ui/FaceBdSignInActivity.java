@@ -22,6 +22,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.PreviewHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -341,10 +342,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
             } else {
                 result = CCResult.success();
                 // Token 1.0
-                CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                        .addParam("userId", UserSpHelper.getUserId())
-                        .build()
-                        .callAsync();
+                JpushAliasUtils.setAlias( UserSpHelper.getUserId());
 
                 //Token 2.0
 //                    Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")

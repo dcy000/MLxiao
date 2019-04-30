@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 
@@ -16,6 +17,7 @@ import com.gcml.family.R;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.gcml.family.adapter.FamilyMenuAdapter;
 import com.gcml.family.bean.FamilyBean;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +58,7 @@ public class FamilyActivity extends AppCompatActivity {
             @Override
             public void onLeftClick() {
                 if (startType.equals("MLMain")) {
-                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                    Routerfit.register(AppRouter.class).skipMainActivity();
                     finish();
                 } else if (startType.equals("MLSpeech")) {
                     finish();
@@ -65,7 +67,7 @@ public class FamilyActivity extends AppCompatActivity {
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

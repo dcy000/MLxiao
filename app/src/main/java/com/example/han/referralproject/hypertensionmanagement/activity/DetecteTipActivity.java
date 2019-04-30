@@ -8,6 +8,7 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.concurrent.TimeUnit;
@@ -17,7 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-
+@Route(path = "/app/heypertension/detecte/tip")
 public class DetecteTipActivity extends AppCompatActivity {
 
     private String fromeWhere;

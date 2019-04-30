@@ -15,6 +15,7 @@ import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity2;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.lenovo.rto.APP;

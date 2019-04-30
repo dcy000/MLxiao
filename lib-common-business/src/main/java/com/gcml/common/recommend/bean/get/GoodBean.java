@@ -21,6 +21,6 @@ public class GoodBean implements Serializable {
     public String goodsimage;
     public String goodsname;
     public Double goodsprice;
-    public Integer goodstate;
+    public String goodstate;
     public String regional;
 }

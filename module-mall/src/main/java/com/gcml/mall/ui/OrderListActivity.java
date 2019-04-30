@@ -10,6 +10,7 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -20,6 +21,8 @@ import com.gcml.mall.adapter.OrderListAdapter;
 import com.gcml.mall.bean.OrderBean;
 import com.gcml.mall.network.MallRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/mall/order/list/activity")
 public class OrderListActivity extends AppCompatActivity {
 
     TranslucentToolBar mToolBar;
@@ -67,7 +70,7 @@ public class OrderListActivity extends AppCompatActivity {
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 finish();
             }
         });

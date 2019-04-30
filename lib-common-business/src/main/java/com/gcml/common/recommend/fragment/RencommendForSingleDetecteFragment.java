@@ -20,9 +20,11 @@ import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.recommend.network.RecommendRepository;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -89,7 +91,7 @@ public class RencommendForSingleDetecteFragment extends Fragment {
         noDataView = (RelativeLayout) view.findViewById(R.id.view_no_data_for_single);
         noDataView.setVisibility(View.GONE);
         tvLookMore.setOnClickListener(v -> {
-            CC.obtainBuilder("com.gcml.market").build().call();
+            Routerfit.register(AppRouter.class).skipMarketActivity();
         });
 
         GridLayoutManager layout = new GridLayoutManager(getActivity(), 3);

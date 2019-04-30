@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.example.han.referralproject.R;
@@ -18,6 +19,7 @@ import com.sjtu.yifei.annotation.Route;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 @Route(path = "/app/online/doctor/list")
 public class OnlineDoctorListActivity extends BaseActivity {
 
@@ -41,7 +43,11 @@ public class OnlineDoctorListActivity extends BaseActivity {
         if ("contract".equals(mFlag)) {
             mTitleText.setText("视  频  咨  询");
         } else {
-            mTitleText.setText("在线健康顾问");
+            String title = getIntent().getStringExtra("title");
+            if (TextUtils.isEmpty(title))
+                mTitleText.setText("在线健康顾问");
+            else
+                mTitleText.setText(title);
         }
         initView();
 

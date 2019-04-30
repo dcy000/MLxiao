@@ -14,10 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +85,7 @@ public class PersonDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.wifi")
-                                .build()
-                                .callAsync();
+                        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
                     }
                 });
         vpContent = findViewById(R.id.vp_content);

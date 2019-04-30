@@ -24,6 +24,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.sjtu.yifei.annotation.Route;
@@ -196,10 +197,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             return;
                         }
                         CallAuthHelper.getInstance().login(wyyxId, wyyxPwd, null);
-                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
+                        JpushAliasUtils.setAlias(user.id);
                     }
                 });
     }

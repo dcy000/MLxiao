@@ -18,9 +18,11 @@ import com.gcml.common.recommend.adapter.RecommendAdapter;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.network.RecommendRepository;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Arrays;
 import java.util.List;
@@ -85,7 +87,7 @@ public class GoodForNameFragment extends Fragment {
         rvCommendGoods = (RecyclerView) view.findViewById(R.id.rv_commend_goods);
 
         tvLookMore.setOnClickListener(v -> {
-            CC.obtainBuilder("com.gcml.market").build().call();
+            Routerfit.register(AppRouter.class).skipMarketActivity();
         });
 
         GridLayoutManager layout = new GridLayoutManager(getActivity(), 3);

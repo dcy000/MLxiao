@@ -14,9 +14,11 @@ import android.widget.RadioGroup;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,9 +120,7 @@ public class VideoListActivity extends BaseActivity {
         findViewById(R.id.view_wifi).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CC.obtainBuilder("com.gcml.old.wifi")
-                        .build()
-                        .callAsync();
+                Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
             }
         });
     }

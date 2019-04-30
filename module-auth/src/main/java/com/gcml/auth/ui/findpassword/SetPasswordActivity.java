@@ -9,11 +9,13 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySetPasswordBinding;
 import com.gcml.common.mvvm.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.KeyboardUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -61,7 +63,7 @@ public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBin
     }
 
     public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
     }
 
     public void goNext() {
@@ -75,7 +77,7 @@ public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBin
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>(){
+                .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
                         CC.obtainBuilder("com.gcml.auth.signin")

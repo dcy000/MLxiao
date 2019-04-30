@@ -18,10 +18,11 @@ import com.ml.edu.OldRouter;
 import com.ml.edu.R;
 import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Route(path = "/edu/the/old/home/activity")
 public class TheOldHomeActivity extends AppCompatActivity {
 
     public static Intent intent(Context context) {

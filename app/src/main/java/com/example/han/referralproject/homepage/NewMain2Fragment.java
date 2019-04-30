@@ -141,10 +141,12 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
 //                            }
 //                        });
 
-                CC.obtainBuilder("app.component.recreation").build().callAsync();
+//                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 break;
             case R.id.iv_shopping_mall:
-                startActivity(new Intent(getContext(), MarketActivity.class));
+//                startActivity(new Intent(getContext(), MarketActivity.class));
+                Routerfit.register(AppRouter.class).skipMarketActivity();
 //                CC.obtainBuilder("com.gcml.mall.mall").build().callAsync();
                 break;
             case R.id.iv_ask_doctor:

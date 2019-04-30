@@ -17,6 +17,7 @@ import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityProfile2Binding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -24,6 +25,7 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +120,7 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
                     .setPositiveButton("确认离开", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                            Routerfit.register(AppRouter.class).skipMainActivity();
                             finish();
                         }
                     }).show();

@@ -14,13 +14,14 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
 import com.zhang.hui.lib_recreation.tool.xfparsebean.DreamBean;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Route(path = "/recreation/jiemeng/activity")
 public class JieMengActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<DreamBean> data = new ArrayList<>();
