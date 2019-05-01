@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.widget.dialog.InputDialog;
@@ -20,8 +21,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.billy.cc.core.component.CC.getApplication;
 
 public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnectRecyclerAdapter.WifiHolder> {
     private LayoutInflater mInflater;
@@ -43,7 +42,7 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
     public void onBindViewHolder(WifiConnectRecyclerAdapter.WifiHolder holder, int position) {
         final ScanResult itemResult = mDataList.get(position);
         holder.mWifiName.setText(itemResult.SSID);
-        RxUtils.rxWifiLevels(getApplication(), 4, itemResult)
+        RxUtils.rxWifiLevels(MyApplication.getInstance(), 4, itemResult)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter((LifecycleOwner) holder.itemView.getContext()))

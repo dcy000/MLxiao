@@ -11,12 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;

@@ -1,11 +1,10 @@
 package com.gcml.auth.ui.profile;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySimpleProfileBinding;
@@ -21,18 +20,18 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/auth/simple/profile/activity")
 public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfileBinding, SimpleProfileViewModel> {
 
     private String signUpType;
@@ -282,16 +281,21 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
 
     @Override
     public void finish() {
-        if (!TextUtils.isEmpty(callId)) {
-            CCResult result;
-            if (error) {
-                result = CCResult.error("");
-            } else {
-                result = CCResult.success();
-            }
-            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
-            CC.sendCCResult(callId, result);
+        if (error){
+            Routerfit.setResult(Activity.RESULT_OK,"failed");
+        }else{
+            Routerfit.setResult(Activity.RESULT_OK,"success");
         }
+//        if (!TextUtils.isEmpty(callId)) {
+//            CCResult result;
+//            if (error) {
+//                result = CCResult.error("");
+//            } else {
+//                result = CCResult.success();
+//            }
+//            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
+//            CC.sendCCResult(callId, result);
+//        }
         super.finish();
     }
 

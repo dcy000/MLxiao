@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -18,9 +18,9 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.task.R;
-import com.gcml.task.bean.Post.TaskSchemaResultBean;
 import com.gcml.task.network.TaskRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
  * author: wecent .
  * date: 2018/8/20 .
  */
-
+@Route(path = "/task/task/comply/result/activity")
 public class TaskComplyResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
@@ -156,7 +156,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
                                         @Override
                                         public void onNext(Object body) {
                                             super.onNext(body);
-                                            CC.obtainBuilder("app.component.task.comply.choice").addParam("isFirst", true).setContext(TaskComplyResultActivity.this).build().callAsync();
+                                            Routerfit.register(AppRouter.class).skipTaskComplyChoiceActivity(true);
                                             finish();
                                         }
 
@@ -176,7 +176,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
                     }).show();
 
         } else if (v.getId() == R.id.tv_task_result_affirm) {
-            CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
+            Routerfit.register(AppRouter.class).skipTaskActivity("MLMain");
         }
     }
 

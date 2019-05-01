@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpByIdCardBinding;
@@ -305,29 +302,30 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                                             String sResult = data.toString();
                                             if (TextUtils.isEmpty(sResult)) return;
                                             if (sResult.equals("success")) {
-                                                CC.obtainBuilder("com.gcml.auth.updateProfile1")
-                                                        .addParam("signUpType", IDCARD)
-                                                        .addParam("signUpIdCard", binding.etPhone.getText().toString().trim())
-                                                        .build()
-                                                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                            @Override
-                                                            public void onResult(CC cc, CCResult result) {
-                                                                if (result.isSuccess()) {
-
-                                                                    CC.obtainBuilder("com.gcml.auth.updateProfile2")
-                                                                            .build()
-                                                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                                                @Override
-                                                                                public void onResult(CC cc, CCResult result) {
-                                                                                    if (result.isSuccess()) {
-                                                                                        ToastUtils.showShort(result.getErrorMessage());
-                                                                                        Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
-                                                                                    }
-                                                                                }
-                                                                            });
-                                                                }
-                                                            }
-                                                        });
+                                                Routerfit.register(AppRouter.class)
+                                                        .skipSimpleProfileActivity(IDCARD, binding.etPhone.getText().toString().trim(),
+                                                                new ActivityCallback() {
+                                                                    @Override
+                                                                    public void onActivityResult(int result, Object data) {
+                                                                        if (result == Activity.RESULT_OK) {
+                                                                            String sResult = data.toString();
+                                                                            if (TextUtils.equals("success", sResult)) {
+                                                                                Routerfit.register(AppRouter.class).skipProfile2Activity(
+                                                                                        new ActivityCallback() {
+                                                                                            @Override
+                                                                                            public void onActivityResult(int result, Object data) {
+                                                                                                if (result == Activity.RESULT_OK) {
+                                                                                                    if (TextUtils.equals(data.toString(), "success")) {
+                                                                                                        Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                );
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
                                             } else if (sResult.equals("failed")) {
                                                 ToastUtils.showShort("录入人脸失败");
                                             }

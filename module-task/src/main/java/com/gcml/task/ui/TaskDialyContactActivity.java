@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -22,6 +21,7 @@ import com.gcml.task.bean.DetailsModel;
 import com.gcml.task.bean.ItemsModel;
 import com.gcml.task.bean.Post.TaskWheelBean;
 import com.gcml.task.network.TaskRepository;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  * author: wecent .
  * date: 2018/8/20 .
  */
-
+@Route(path = "/task/task/dialy/contact/activity")
 public class TaskDialyContactActivity extends AppCompatActivity implements TaskDialyDetailsFragment.OnActionListener {
 
     private int what;

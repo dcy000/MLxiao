@@ -65,20 +65,16 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onNext(Object body) {
                         super.onNext(body);
-                        CC.obtainBuilder("app.component.task")
-                                .addParam("startType", "MLTest")
-                                .setContext(TaskTestActivity.this)
-                                .build()
-                                .callAsync();
+                        Routerfit.register(AppRouter.class).skipTaskActivity("MLTest");
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         if (throwable instanceof NullPointerException) {
-                            CC.obtainBuilder("app.component.task").addParam("startType", "MLTest").build().callAsync();
+                            Routerfit.register(AppRouter.class).skipTaskActivity("MLTest");
                         } else {
-                            CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                            Routerfit.register(AppRouter.class).skipTaskComplyActivity();
                         }
                     }
                 });

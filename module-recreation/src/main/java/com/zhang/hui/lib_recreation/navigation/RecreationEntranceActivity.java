@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;

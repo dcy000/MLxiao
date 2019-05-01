@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -175,9 +174,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         }
         Observable<UserEntity> rxUsers = Routerfit.register(AppRouter.class).getUserProvider().getUserEntity();
         if (rxUsers == null) {
-            CC.obtainBuilder("com.gcml.auth")
-                    .build()
-                    .call();
+            Routerfit.register(AppRouter.class).skipAuthActivity();
             return;
         }
         rxUsers.subscribeOn(Schedulers.io())

@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
@@ -29,7 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;

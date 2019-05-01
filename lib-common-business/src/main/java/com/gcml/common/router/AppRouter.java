@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.gcml.common.recommend.bean.get.GoodBean;
+import com.gcml.common.recommend.bean.get.GoodsBean;
+import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IFragmentProvider;
+import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
@@ -229,4 +232,46 @@ public interface AppRouter {
             @Extra("userId") String userId,
             @Extra ActivityCallback callback
     );
+
+    @Go("/auth/auth/activity")
+    boolean skipAuthActivity();
+
+    @Go("/auth/simple/profile/activity")
+    boolean skipSimpleProfileActivity(
+            @Extra("signUpType") String signUpType,
+            @Extra("signUpIdCard") String signUpIdCard,
+            @Extra ActivityCallback callback);
+
+    @Go("/auth/profile2/activity")
+    boolean skipProfile2Activity(@Extra ActivityCallback callback);
+
+    @Go("/task/task/provider")
+    ITaskProvider getTaskProvider();
+
+    @Go("/task/task/comply/choice/activity")
+    boolean skipTaskComplyChoiceActivity(@Extra("isFirst") boolean isFirst);
+
+    @Go("/task/task/comply/activity")
+    boolean skipTaskComplyActivity();
+
+    @Go("/task/task/comply/result/activity")
+    boolean skipTaskComplyResultActivity(@Extra("resultBean") TaskSchemaResultBean resultBean);
+
+    @Go("/task/task/activity")
+    boolean skipTaskActivity(@Extra("startType")String startType);
+
+    @Go("/task/task/dialy/activity")
+    boolean skipTaskDialyActivity(@Extra("what")int what);
+
+    @Go("/task/task/dialy/contact/activity")
+    boolean skipTaskDialyContactActivity();
+
+    @Go("/mall/goods/detail/activity")
+    boolean skipGoodsDetailActivity(@Extra("goods") GoodsBean goods);
+
+    @Go("/mall/recharge/activity")
+    boolean skipRechargeActivity();
+
+    @Go("/mall/recharge/define/activity")
+    boolean skipRechargeDefineActivity();
 }

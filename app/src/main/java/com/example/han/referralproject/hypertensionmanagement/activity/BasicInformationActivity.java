@@ -12,7 +12,6 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -35,7 +34,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 @Route(path = "/app/hypertension/basic/information")

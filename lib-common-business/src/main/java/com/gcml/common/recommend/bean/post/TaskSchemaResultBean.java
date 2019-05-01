@@ -1,4 +1,4 @@
-package com.gcml.task.bean.Post;
+package com.gcml.common.recommend.bean.post;
 
 import java.io.Serializable;
 import java.util.List;

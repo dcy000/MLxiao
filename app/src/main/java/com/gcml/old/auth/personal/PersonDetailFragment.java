@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
@@ -172,9 +171,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         if (empty) {
             String message = "请重新登录！";
             ToastUtils.showShort(message);
-            CC.obtainBuilder("com.gcml.auth")
-                    .build()
-                    .callAsync();
+            Routerfit.register(AppRouter.class).skipAuthActivity();
         } else {
             getApiData();
         }
@@ -281,7 +278,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
                 UserSpHelper.setUserId("");
-                CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                Routerfit.register(AppRouter.class).skipAuthActivity();
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
                     activity.finish();
@@ -296,7 +293,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));
                 break;
             case R.id.iv_jiankang_riji:
-                CC.obtainBuilder("app.component.task.diary.contact").build().callAsync();
+                Routerfit.register(AppRouter.class).skipTaskDialyContactActivity();
                 break;
             case R.id.tv_update:
                 showLoading("检查更新中");

@@ -7,23 +7,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.fragment.IChangToolbar;
 import com.gcml.common.recommend.fragment.RencommendForUserFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -31,11 +22,13 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.CircleIndicator;
 import com.gcml.common.widget.dialog.CustomDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.Observable;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -234,16 +227,29 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
                             MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),
                                     "请先去个人中心完善体重和身高信息");
                         } else {
-                            CC.obtainBuilder("com.gcml.task.isTask")
-                                    .build()
-                                    .callAsync(new IComponentCallback() {
+                            Routerfit.register(AppRouter.class).getTaskProvider()
+                                    .isTaskHealth()
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new io.reactivex.observers.DefaultObserver<Object>() {
                                         @Override
-                                        public void onResult(CC cc, CCResult result) {
-                                            if (result.isSuccess()) {
-                                                CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
+                                        public void onNext(Object o) {
+                                            Routerfit.register(AppRouter.class).skipTaskActivity("MLMain");
+
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable throwable) {
+                                            if (throwable instanceof NullPointerException) {
+                                                Routerfit.register(AppRouter.class).skipTaskActivity("MLMain");
                                             } else {
-                                                CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                                                Routerfit.register(AppRouter.class).skipTaskComplyActivity();
                                             }
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
                                         }
                                     });
                         }

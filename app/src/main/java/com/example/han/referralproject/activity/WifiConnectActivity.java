@@ -25,15 +25,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.wifi.WifiUtils;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 import com.suke.widget.SwitchButton;
 
 import java.util.ArrayList;
@@ -226,9 +227,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     if (networkInfo != null && networkInfo.isConnected()) {
                         if (isFirstWifi) {
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                CC.obtainBuilder("com.gcml.auth")
-                                        .build()
-                                        .callAsync();
+                                Routerfit.register(AppRouter.class).skipAuthActivity();
                             } else {
                                 startActivity(new Intent(mContext, MainActivity.class));
                             }

@@ -1,8 +1,8 @@
 package com.gcml.auth.ui.profile;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -10,8 +10,6 @@ import com.bigkoo.pickerview.listener.OnDismissListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityProfile2Binding;
@@ -25,6 +23,7 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -38,6 +37,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+@Route(path = "/auth/profile2/activity")
 public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, Profile2ViewModel> {
 
     @Override
@@ -368,16 +368,21 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
 
     @Override
     public void finish() {
-        if (!TextUtils.isEmpty(callId)) {
-            CCResult result;
-            if (error) {
-                result = CCResult.error("");
-            } else {
-                result = CCResult.success();
-            }
-            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
-            CC.sendCCResult(callId, result);
+        if (error) {
+            Routerfit.setResult(Activity.RESULT_OK, "failed");
+        } else {
+            Routerfit.setResult(Activity.RESULT_OK, "success");
         }
+//        if (!TextUtils.isEmpty(callId)) {
+//            CCResult result;
+//            if (error) {
+//                result = CCResult.error("");
+//            } else {
+//                result = CCResult.success();
+//            }
+//            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
+//            CC.sendCCResult(callId, result);
+//        }
         super.finish();
     }
 

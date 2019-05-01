@@ -1,6 +1,5 @@
 package com.gcml.auth.ui.profile.update;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.auth.R;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
@@ -14,7 +13,6 @@ import com.sjtu.yifei.route.Routerfit;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

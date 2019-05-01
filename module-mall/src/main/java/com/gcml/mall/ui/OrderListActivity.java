@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;

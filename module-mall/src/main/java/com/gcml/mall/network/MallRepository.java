@@ -1,18 +1,16 @@
 package com.gcml.mall.network;
 
 import com.gcml.common.RetrofitHelper;
-import com.gcml.common.recommend.bean.get.GoodBean;
 
 import com.gcml.common.utils.RxUtils;
 import com.gcml.mall.bean.CategoryBean;
-import com.gcml.mall.bean.GoodsBean;
+import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.mall.bean.OrderBean;
 import com.gcml.mall.bean.ResultBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.Query;
 
 public class MallRepository {
 

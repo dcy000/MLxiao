@@ -8,9 +8,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
@@ -199,9 +196,9 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                                 String sResult = data.toString();
                                 if (TextUtils.isEmpty(sResult)) return;
                                 if (sResult.equals("success")) {
-                                    CC.obtainBuilder("com.gcml.auth.face.joingroup")
-                                            .build()
-                                            .callAsync();
+//                                    CC.obtainBuilder("com.gcml.auth.face.joingroup")
+//                                            .build()
+//                                            .callAsync();
                                 } else if (sResult.equals("failed")) {
                                     ToastUtils.showShort("录入人脸失败");
                                 }
@@ -223,9 +220,9 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 //                        }
 //                    });
         } else {
-            CC.obtainBuilder("com.gcml.auth.face.joingroup")
-                    .build()
-                    .callAsync();
+//            CC.obtainBuilder("com.gcml.auth.face.joingroup")
+//                    .build()
+//                    .callAsync();
             checkProfile1(user);
         }
     }
@@ -234,12 +231,13 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
         if (TextUtils.isEmpty(user.idCard)
                 && TextUtils.isEmpty(user.name)
                 && TextUtils.isEmpty(user.sex)) {
-            CC.obtainBuilder("com.gcml.auth.updateProfile1")
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+            Routerfit.register(AppRouter.class)
+                    .skipSimpleProfileActivity(null, null, new ActivityCallback() {
                         @Override
-                        public void onResult(CC cc, CCResult result) {
-                            checkProfile2(user);
+                        public void onActivityResult(int result, Object data) {
+                            if (result == Activity.RESULT_OK) {
+                                checkProfile2(user);
+                            }
                         }
                     });
         } else {
@@ -251,12 +249,13 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
         if (TextUtils.isEmpty(user.height)
                 && TextUtils.isEmpty(user.waist)
                 && TextUtils.isEmpty(user.weight)) {
-            CC.obtainBuilder("com.gcml.auth.updateProfile2")
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+            Routerfit.register(AppRouter.class)
+                    .skipProfile2Activity(new ActivityCallback() {
                         @Override
-                        public void onResult(CC cc, CCResult result) {
-                            Routerfit.register(AppRouter.class).skipMainActivity();
+                        public void onActivityResult(int result, Object data) {
+                            if (result == Activity.RESULT_OK) {
+                                Routerfit.register(AppRouter.class).skipMainActivity();
+                            }
                         }
                     });
         } else {
@@ -265,18 +264,6 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void goSignInByFace() {
-//        CC.obtainBuilder("com.gcml.auth.face2.signin")
-//                .build()
-//                .callAsync(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        if (result.isSuccess()) {
-//                            Routerfit.register(AppRouter.class).skipMainActivity();
-//                        } else {
-//                            ToastUtils.showShort(result.getErrorMessage());
-//                        }
-//                    }
-//                });
         Routerfit.register(AppRouter.class)
                 .getFaceProvider()
                 .getFaceId(UserSpHelper.getUserId())

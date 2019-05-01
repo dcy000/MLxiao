@@ -7,30 +7,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
-import com.example.han.referralproject.physicalexamination.activity.ChineseMedicineMonitorActivity;
-import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
-import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
-import com.gcml.common.utils.display.ToastUtils;
-import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/app/tcm/symptom/check")
@@ -161,16 +152,29 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                             MLVoiceSynthetize.startSynthesize(SymptomCheckActivity.this.getApplicationContext(),
                                     "请先去个人中心完善体重和身高信息");
                         } else {
-                            CC.obtainBuilder("com.gcml.task.isTask")
-                                    .build()
-                                    .callAsync(new IComponentCallback() {
+                            Routerfit.register(AppRouter.class).getTaskProvider()
+                                    .isTaskHealth()
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new io.reactivex.observers.DefaultObserver<Object>() {
                                         @Override
-                                        public void onResult(CC cc, CCResult result) {
-                                            if (result.isSuccess()) {
-                                                CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
+                                        public void onNext(Object o) {
+                                            Routerfit.register(AppRouter.class).skipTaskActivity("MLMain");
+
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable throwable) {
+                                            if (throwable instanceof NullPointerException) {
+                                                Routerfit.register(AppRouter.class).skipTaskActivity("MLMain");
                                             } else {
-                                                CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                                                Routerfit.register(AppRouter.class).skipTaskComplyActivity();
                                             }
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
                                         }
                                     });
                         }

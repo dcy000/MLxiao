@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -18,6 +17,7 @@ import com.gcml.task.R;
 import com.gcml.task.bean.get.TaskBean;
 import com.gcml.task.network.TaskRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
  * author: wecent .
  * date: 2018/8/20 .
  */
-
+@Route(path = "/task/task/activity")
 public class TaskActivity extends FragmentActivity {
 
     TranslucentToolBar mToolBar;

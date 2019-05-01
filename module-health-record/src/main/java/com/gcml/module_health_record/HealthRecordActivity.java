@@ -1,9 +1,6 @@
 package com.gcml.module_health_record;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -17,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;

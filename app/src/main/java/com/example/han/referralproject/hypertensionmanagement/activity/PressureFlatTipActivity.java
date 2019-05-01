@@ -1,19 +1,13 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;

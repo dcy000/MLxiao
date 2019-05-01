@@ -22,14 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
-import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
@@ -726,7 +722,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*((jiankang|meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
-                CC.obtainBuilder("app.component.task").addParam("startType", "MLSpeech").build().callAsync();
+                Routerfit.register(AppRouter.class).skipTaskActivity("MLSpeech");
                 return;
             }
 
@@ -1273,7 +1269,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
         UserSpHelper.setUserId("");
-        CC.obtainBuilder("com.gcml.auth").build().callAsync();
+        Routerfit.register(AppRouter.class).skipAuthActivity();
         finish();
     }
 

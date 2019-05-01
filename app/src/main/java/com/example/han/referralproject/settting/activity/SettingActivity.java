@@ -3,28 +3,21 @@ package com.example.han.referralproject.settting.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -196,9 +189,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     public void onClick(View v) {
                         //恢复出厂设置
                         UserSpHelper.clear(getApplicationContext());
-                        CC.obtainBuilder("com.gcml.auth.face.deleteGroup")
-                                .build()
-                                .callAsync();
                         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

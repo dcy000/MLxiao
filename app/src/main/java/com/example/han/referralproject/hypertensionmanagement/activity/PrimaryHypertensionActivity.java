@@ -1,6 +1,5 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,20 +7,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
-import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;

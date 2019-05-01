@@ -1,13 +1,11 @@
 package com.gcml.module_factory_test.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.dialog.AlertDialog;

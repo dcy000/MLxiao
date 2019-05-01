@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.mall.R;
-import com.gcml.mall.bean.GoodsBean;
+import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

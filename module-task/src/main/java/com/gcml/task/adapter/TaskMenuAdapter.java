@@ -3,7 +3,6 @@ package com.gcml.task.adapter;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.router.AppRouter;
@@ -46,11 +45,11 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
                     @Override
                     public void onClick(View v) {
                         if (item.taskType.equals("32")) {
-                            CC.obtainBuilder("app.component.task.diary").addParam("what", 0).build().callAsync();
+                            Routerfit.register(AppRouter.class).skipTaskDialyActivity(0);
                         } else if (item.taskType.equals("33")) {
-                            CC.obtainBuilder("app.component.task.diary").addParam("what", 1).build().callAsync();
+                            Routerfit.register(AppRouter.class).skipTaskDialyActivity(1);
                         } else if (item.taskType.equals("34")) {
-                            CC.obtainBuilder("app.component.task.diary").addParam("what", 2).build().callAsync();
+                            Routerfit.register(AppRouter.class).skipTaskDialyActivity(2);
                         } else if (item.taskType.equals("31")) {
                             Routerfit.register(AppRouter.class).skipAllMeasureActivity(25, true);
                         } else if (item.taskType.equals("11")) {

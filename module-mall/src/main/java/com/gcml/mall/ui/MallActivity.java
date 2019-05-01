@@ -12,20 +12,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
-import com.gcml.mall.adapter.MallGoodsAdapter;
-import com.gcml.mall.bean.CategoryBean;
 import com.gcml.mall.R;
+import com.gcml.mall.adapter.MallGoodsAdapter;
 import com.gcml.mall.adapter.MallMenuAdapter;
-import com.gcml.mall.bean.GoodsBean;
+import com.gcml.mall.bean.CategoryBean;
 import com.gcml.mall.network.MallRepository;
 import com.gcml.mall.widget.GridDividerItemDecoration;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -95,7 +94,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 GoodsBean goods = goodsList.get(position);
-                CC.obtainBuilder("com.gcml.mall.mall.goods").addParam("goods", goods).build().callAsync();
+                Routerfit.register(AppRouter.class).skipGoodsDetailActivity(goods);
             }
         });
         goodsRecycler.setLayoutManager(new GridLayoutManager(mContext, 3));

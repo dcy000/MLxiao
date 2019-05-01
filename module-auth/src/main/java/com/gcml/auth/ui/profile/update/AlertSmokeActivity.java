@@ -8,8 +8,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.auth.R;
+import com.gcml.common.data.EatAdapter;
+import com.gcml.common.data.EatModel;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -17,15 +18,12 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
-import com.gcml.common.data.EatAdapter;
-import com.gcml.common.data.EatModel;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

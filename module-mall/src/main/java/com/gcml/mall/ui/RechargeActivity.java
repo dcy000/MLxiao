@@ -9,14 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-
+@Route(path = "/mall/recharge/activity")
 public class RechargeActivity extends AppCompatActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
@@ -119,7 +119,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         StateListDrawable selectorOther = getSelector(normalOther, pressOther);
         mButtonOther.setBackground(selectorOther);
     }
-    
+
     /**
      * 设置selecter
      *

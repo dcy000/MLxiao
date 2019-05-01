@@ -13,13 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
-
+@Route(path = "/mall/recharge/define/activity")
 public class RechargeDefineActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText mEditText;

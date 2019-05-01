@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
@@ -292,7 +289,7 @@ public class DataDealHelper {
         }
         /*******************************************************/
         if (inSpell.matches(".*((jiankang|meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
-            CC.obtainBuilder("app.component.task").addParam("startType", "MLSpeech").build().callAsync();
+            Routerfit.register(AppRouter.class).skipTaskActivity("MLSpeech");
             if (listener != null) {
                 listener.onEnd();
             }
@@ -1453,7 +1450,7 @@ public class DataDealHelper {
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
         UserSpHelper.setUserId("");
-        CC.obtainBuilder("com.gcml.auth").build().callAsync();
+        Routerfit.register(AppRouter.class).skipAuthActivity();
     }
 
     private void vertifyFaceThenHealthRecordActivity() {

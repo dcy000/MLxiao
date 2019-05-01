@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-
-
 import com.gcml.auth.R;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
@@ -22,7 +18,6 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

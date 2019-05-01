@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -22,11 +22,11 @@ import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.task.R;
-import com.gcml.task.bean.Post.TaskSchemaResultBean;
-import com.gcml.task.bean.get.TaskHealthBean;
 import com.gcml.task.bean.Post.TaskSchemaBean;
+import com.gcml.task.bean.get.TaskHealthBean;
 import com.gcml.task.network.TaskRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ import io.reactivex.schedulers.Schedulers;
  * author: wecent .
  * date: 2018/8/20 .
  */
-
+@Route(path = "/task/task/comply/choice/activity")
 public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskComplyChoiceFragment.OnNextStepClickListener {
 
     ViewPager mViewPager;
@@ -60,7 +60,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
         setIntent(intent);
         if (intent.getExtras().getBoolean("isFirst")) {
             finish();
-            CC.obtainBuilder("app.component.task.comply.choice").addParam("isFirst", false).setContext(TaskComplyChoiceActivity.this).build().callAsync();
+            Routerfit.register(AppRouter.class).skipTaskComplyChoiceActivity(false);
         }
     }
 
@@ -172,7 +172,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
 
                         mViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), fragments));
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                               "主人" + mList.get(0).questionName,
+                                "主人" + mList.get(0).questionName,
                                 false);
                     }
 
@@ -232,7 +232,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
         int score = 0;
         for (int i = 0; i < questionList.answerList.size(); i++) {
             if (questionList.answerList.get(i).isChoosed) {
-                score =  questionList.answerList.get(i).answerScore;
+                score = questionList.answerList.get(i).answerScore;
             }
         }
         return score;
@@ -274,10 +274,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                                 successDialog.dismiss();
                             }
                         }, 500);
-                        CC.obtainBuilder("app.component.task.comply.result")
-                                .addParam("resultBean", body)
-                                .build()
-                                .callAsync();
+                        Routerfit.register(AppRouter.class).skipTaskComplyResultActivity(body);
                     }
 
                     @Override

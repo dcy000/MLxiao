@@ -1,25 +1,26 @@
 package com.gcml.task.ui;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
+import com.gcml.common.router.AppRouter;
 import com.gcml.task.R;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 /**
  * desc: 依从性调查问卷入口 .
  * author: wecent .
  * date: 2018/8/20 .
  */
-
+@Route(path = "/task/task/comply/activity")
 public class TaskComplyActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView mTitle, mMessage;
@@ -61,7 +62,7 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onCompleted(SpeechError speechError) {
                         super.onCompleted(speechError);
-                        CC.obtainBuilder("app.component.task.comply.choice").addParam("isFirst", false).build().callAsync();
+                        Routerfit.register(AppRouter.class).skipTaskComplyChoiceActivity(false);
                     }
                 }, false);
     }

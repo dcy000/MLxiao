@@ -18,10 +18,11 @@ import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.gcml.common.data.UserSpHelper;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -100,7 +101,7 @@ public class UpdateAppManager {
                     @Override
                     public void run() {
                         if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                            CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                            Routerfit.register(AppRouter.class).skipAuthActivity();
                         } else {
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);

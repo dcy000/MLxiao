@@ -11,10 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -24,17 +22,17 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
-import com.gcml.mall.bean.GoodsBean;
 import com.gcml.mall.bean.PayingOrderBean;
 import com.gcml.mall.network.MallRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/mall/goods/detail/activity")
 public class GoodsDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     Context mContext;

@@ -1,7 +1,7 @@
 package com.gcml.task.network;
 
 import com.gcml.common.http.ApiResult;
-import com.gcml.task.bean.Post.TaskSchemaResultBean;
+import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.task.bean.Post.TaskWheelBean;
 import com.gcml.task.bean.get.TaskHealthBean;
 import com.gcml.task.bean.Post.TaskSchemaBean;

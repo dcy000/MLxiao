@@ -6,13 +6,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -90,7 +88,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                         .setPositiveButton("确认", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CC.obtainBuilder("com.gcml.mall.recharge").setContext(RechargeQrcodeActivity.this).build().callAsync();
+                                Routerfit.register(AppRouter.class).skipRechargeActivity();
                                 finish();
                             }
                         }).show();
@@ -142,7 +140,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                                 public void onNext(Object body) {
                                     super.onNext(body);
                                     Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
-                                    CC.obtainBuilder("com.gcml.mall.recharge").setContext(RechargeQrcodeActivity.this).build().callAsync();
+                                    Routerfit.register(AppRouter.class).skipRechargeActivity();
                                     finish();
                                 }
 
@@ -152,7 +150,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                                     isAlipaySign = false;
                                 }
                             });
-                break;
+                    break;
                 case 2:
                     // 微信扫码充值
 //                    Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
@@ -166,7 +164,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                                 public void onNext(Object body) {
                                     super.onNext(body);
                                     Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
-                                    CC.obtainBuilder("com.gcml.mall.recharge").setContext(RechargeQrcodeActivity.this).build().callAsync();
+                                    Routerfit.register(AppRouter.class).skipRechargeActivity();
                                     finish();
                                 }
 

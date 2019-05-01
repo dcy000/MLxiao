@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.gcml.common.router.AppRouter;

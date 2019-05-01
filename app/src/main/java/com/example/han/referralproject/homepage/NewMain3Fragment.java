@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.RecycleBaseFragment;

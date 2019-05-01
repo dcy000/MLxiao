@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.auth.R;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

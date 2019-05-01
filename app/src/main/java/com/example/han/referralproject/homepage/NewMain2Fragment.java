@@ -6,18 +6,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
-import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.video.DemoVideoListActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
@@ -26,16 +19,13 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
-import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
-import com.witspring.unitbody.ChooseMemberActivity;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

@@ -2,7 +2,6 @@ package com.gcml.auth.face2.model;
 
 import android.text.TextUtils;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.auth.face2.model.entity.FaceBdAccessToken;
 import com.gcml.auth.face2.model.entity.FaceBdAddFace;
 import com.gcml.auth.face2.model.entity.FaceBdAddFaceParam;
@@ -32,14 +31,9 @@ import java.util.Locale;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.PublishSubject;
-import retrofit2.Retrofit;
 
 public class FaceBdRepository {
 

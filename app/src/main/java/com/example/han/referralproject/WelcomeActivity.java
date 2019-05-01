@@ -8,13 +8,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.widget.Chronometer;
 
-import com.billy.cc.core.component.CC;
-import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.network.NetUitls;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
@@ -22,11 +17,14 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.network.NetUitls;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
+
 @Route(path = "/app/welcome/activity")
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -84,13 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
-                                    } else {
-//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                        startActivity(intent);
-                                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
-                                    }
+                                    Routerfit.register(AppRouter.class).skipAuthActivity();
                                     finish();
                                 }
                             }
@@ -115,13 +107,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         // 如果从开始计时到现在超过了60s
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
-                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                CC.obtainBuilder("com.gcml.auth").build().callAsync();
-                            } else {
-//                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                startActivity(intent);
-                                CC.obtainBuilder("com.gcml.auth").build().callAsync();
-                            }
+                            Routerfit.register(AppRouter.class).skipAuthActivity();
                             finish();
                         }
                     }
@@ -169,6 +155,7 @@ public class WelcomeActivity extends AppCompatActivity {
             checkVersion();
         }
     }
+
     private void onVideoPlayedComplete() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         LocalShared.getInstance(this).setIsFirstIn(false);

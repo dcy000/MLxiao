@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,8 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
@@ -38,7 +35,6 @@ import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
