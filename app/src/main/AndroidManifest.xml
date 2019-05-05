@@ -729,6 +729,7 @@
         <activity android:name=".inquiry.activity.InquiryHeightActivity" />
         <activity android:name=".healthmanage.HealthManageActivity" />
         <activity android:name=".healthmanage.HealthManageTipActivity" />
+        <activity android:name=".yizhinang.ZenDuanActivity" />
     </application>
 
 </manifest>

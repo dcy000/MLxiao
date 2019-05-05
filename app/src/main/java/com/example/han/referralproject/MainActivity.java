@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.health_class:
 //                intent = new Intent(this, HealthIntelligentDetectionActivity.class);
 //                startActivity(intent);
-//                intent.setClass(getApplicationContext(), MarketActivity.class);
+//                intent.setClass(getApplicationContext(), ZenDuanActivity.class);
 //                startActivityForResult(intent);
                 break;
             case R.id.call_family://紧急呼叫家人

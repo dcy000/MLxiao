@@ -53,4 +53,8 @@ public class AppRepository {
     }
 
 
+    public static Observable<Object> chat(String appId, String currentTime, String param, String token) {
+        return healthMeasureServer.chat(appId, currentTime, param, token).compose(RxUtils.apiResultTransformer());
+    }
+
 }

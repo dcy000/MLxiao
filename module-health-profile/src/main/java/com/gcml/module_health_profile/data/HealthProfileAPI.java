@@ -12,7 +12,10 @@ import com.gcml.module_health_profile.bean.WarnBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -63,4 +66,15 @@ public interface HealthProfileAPI {
     @GET("ZZB/api/health/inquiry/constitution/history/")
     Observable<ApiResult<List<TiZhiBean>>> getConstitution(@Query("userId") String userId);
 
+    /**
+     * 三方的诊断
+     */
+    @Headers({"Domain-Name:zenduan"})
+    @POST("api/chat")
+    Observable<ApiResult<Object>> chat(
+            @Field("AppId") String appId,
+            @Field("CurTime") String currentTime,
+            @Field("Param") String param,
+            @Field("Token") String token
+    );
 }

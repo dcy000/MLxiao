@@ -70,4 +70,7 @@ public class HealthProfileRepository {
         return healthProfile.getConstitution(userId).compose(RxUtils.apiResultTransformer());
     }
 
+    public Observable<Object> chat(String appId, String currentTime, String param, String token) {
+        return healthProfile.chat(appId, currentTime, param, token).compose(RxUtils.apiResultTransformer());
+    }
 }

@@ -49,6 +49,7 @@ android {
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
+            buildConfigField("String", "API_ZENDUAN", rootProject.ext.api.zenduan)
             minifyEnabled false
         }
 
@@ -57,6 +58,7 @@ android {
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
+            buildConfigField("String", "API_ZENDUAN", rootProject.ext.api.zenduan)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -107,8 +109,8 @@ dependencies {
             && "lib-voice" != project.name
             && "lib-widget" != project.name
             && "lib-idcard-reader" != project.name
-        ) {
-            implementation project(":lib-common-core")
+    ) {
+        implementation project(":lib-common-core")
     }
 
     if ("lib-common-business" != project.name
