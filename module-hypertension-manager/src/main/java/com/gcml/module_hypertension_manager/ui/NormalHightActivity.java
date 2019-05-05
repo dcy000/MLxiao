@@ -1,6 +1,5 @@
-package com.example.han.referralproject.hypertensionmanagement.activity;
+package com.gcml.module_hypertension_manager.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,40 +8,36 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
-import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
-import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
 import com.gcml.common.data.AppManager;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.Utils;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
-import com.google.gson.Gson;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
+import com.gcml.module_hypertension_manager.R;
+import com.gcml.module_hypertension_manager.bean.PrimaryHypertensionBean;
+import com.gcml.module_hypertension_manager.bean.PrimaryHypertensionQuestionnaireBean;
+import com.gcml.module_hypertension_manager.net.HyperRepository;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 正常高值--->高血压评估
  */
 @Route(path = "/app/hypertension/management/normal/hight")
-public class NormalHightActivity extends BaseActivity implements MultipleChoiceFragment.OnButtonClickListener {
+public class NormalHightActivity extends ToolbarBaseActivity implements MultipleChoiceFragment.OnButtonClickListener {
 
-    @BindView(R.id.vp)
     ViewPager vp;
     List<Fragment> fragments = new ArrayList<>();
     PrimaryHypertensionBean postBean = new PrimaryHypertensionBean();
@@ -52,71 +47,76 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_primary_hypertension);
-        ButterKnife.bind(this);
+        vp = findViewById(R.id.vp);
         initTitle();
         initVP();
         AppManager.getAppManager().addActivity(this);
     }
 
     private void initVP() {
-        showLoadingDialog("正在加载...");
-        NetworkApi.getNormalHightQuestion(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                PrimaryHypertensionQuestionnaireBean bean = new Gson().fromJson(body, PrimaryHypertensionQuestionnaireBean.class);
-                if (bean != null && bean.tag && bean.data != null) {
-                    questionList = bean.data.questionList;
-                    if (questionList != null && questionList.size() != 0) {
-                        mlSpeak(questionList.get(0).questionName);
-                        //给提交的数据赋值===开始
-                        postBean.equipmentId = Utils.getDeviceId();
-                        postBean.hmQuestionnaireId = bean.data.hmQuestionnaireId;
-                        postBean.hmQuestionnaireName = bean.data.questionnaireName;
-                        postBean.userId = LocalShared.getInstance(NormalHightActivity.this).getUserId();
-                        postBean.score = 0;
-                        postBean.answerList = new ArrayList<>();
-                        //给提交的数据赋值===结束
-                        for (int i = 0; i < questionList.size(); i++) {
-                            PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean = questionList.get(i);
-                            String questionType = questionBean.questionType;
-                            if ("0".equals(questionType)) {
-                                MultipleChoiceFragment instance = MultipleChoiceFragment.getInstance(
-                                        questionBean.questionName,
-                                        "请认证阅读",
-                                        questionBean,
-                                        false);
-                                instance.setListener(NormalHightActivity.this);
-                                fragments.add(instance);
-                            } else if ("1".equals(questionType)) {
-                                MultipleChoiceFragment instance = MultipleChoiceFragment.getInstance(
-                                        questionBean.questionName,
-                                        "请认证阅读",
-                                        questionBean,
-                                        true);
-                                instance.setListener(NormalHightActivity.this);
-                                fragments.add(instance);
+        showLoading("正在加载...");
+        new HyperRepository()
+                .getNormalHightQuestion()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<PrimaryHypertensionQuestionnaireBean.DataBean>() {
+                    @Override
+                    public void onNext(PrimaryHypertensionQuestionnaireBean.DataBean dataBean) {
+                        questionList = dataBean.questionList;
+                        if (questionList != null && questionList.size() != 0) {
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(), questionList.get(0).questionName);
+                            //给提交的数据赋值===开始
+                            postBean.equipmentId = DeviceUtils.getIMEI();
+                            postBean.hmQuestionnaireId = dataBean.hmQuestionnaireId;
+                            postBean.hmQuestionnaireName = dataBean.questionnaireName;
+                            postBean.userId = UserSpHelper.getUserId();
+                            postBean.score = 0;
+                            postBean.answerList = new ArrayList<>();
+                            //给提交的数据赋值===结束
+                            for (int i = 0; i < questionList.size(); i++) {
+                                PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean = questionList.get(i);
+                                String questionType = questionBean.questionType;
+                                if ("0".equals(questionType)) {
+                                    MultipleChoiceFragment instance = MultipleChoiceFragment.getInstance(
+                                            questionBean.questionName,
+                                            "请认证阅读",
+                                            questionBean,
+                                            false);
+                                    instance.setListener(NormalHightActivity.this);
+                                    fragments.add(instance);
+                                } else if ("1".equals(questionType)) {
+                                    MultipleChoiceFragment instance = MultipleChoiceFragment.getInstance(
+                                            questionBean.questionName,
+                                            "请认证阅读",
+                                            questionBean,
+                                            true);
+                                    instance.setListener(NormalHightActivity.this);
+                                    fragments.add(instance);
+                                }
+
+                                //给提交的数据赋值==答案集合=开始
+                                PrimaryHypertensionBean.AnswerListBean answerBean = new PrimaryHypertensionBean.AnswerListBean();
+                                answerBean.questionName = questionBean.questionName;
+                                answerBean.hmQuestionId = questionBean.hmQuestionId;
+                                postBean.answerList.add(answerBean);
+                                //给提交的数据赋值==答案集合=结束
                             }
 
-                            //给提交的数据赋值==答案集合=开始
-                            PrimaryHypertensionBean.AnswerListBean answerBean = new PrimaryHypertensionBean.AnswerListBean();
-                            answerBean.questionName = questionBean.questionName;
-                            answerBean.hmQuestionId = questionBean.hmQuestionId;
-                            postBean.answerList.add(answerBean);
-                            //给提交的数据赋值==答案集合=结束
+                            onDataPrepared();
                         }
-
-                        onDataPrepared();
                     }
-                }
-            }
 
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                hideLoadingDialog();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        dismissLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        dismissLoading();
+                    }
+                });
 
     }
 
@@ -167,27 +167,32 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
             return;
         }
         vp.setCurrentItem(vp.getCurrentItem() + 1);
-        mlSpeak(questionList.get(vp.getCurrentItem()).questionName);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), questionList.get(vp.getCurrentItem()).questionName);
     }
 
 
     private void postData() {
-        NetworkApi.postNormalHightQuestion(new Gson().toJson(postBean), LocalShared.getInstance(this).getUserId() + "", new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                try {
-                    JSONObject object = new JSONObject(body);
-                    if (object.getBoolean("tag")) {
-                        showResultDialog(object.getString("data"));
-                    } else {
-                        ToastUtils.showShort(object.getString("message"));
+        new HyperRepository()
+                .postNormalHightQuestion(UserSpHelper.getUserId(), postBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        showResultDialog(s);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private List<String> getAnswerNames(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean answerBean, int[] checked) {

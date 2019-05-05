@@ -19,26 +19,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.intelligent_diagnosis.SportPlan;
-import com.example.han.referralproject.intelligent_diagnosis.SportPlanDetailActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.recommend.fragment.IChangToolbar;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.module_hypertension_manager.R;
 import com.gcml.module_hypertension_manager.bean.SportPlan;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.gcml.module_hypertension_manager.net.HyperRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2018/5/16.
@@ -117,28 +113,30 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
     private void getData() {
         Log.e(TAG, "getDataCache: ");
         //TODO:运动习惯如果用户没有填写，该接口会报错 错误截图：https://gitee.com/guozhiqiang15/ML_BUG/blob/master/image/efb55cdc71deda309e1f57536e8f250.png
-        OkGo.<String>get(NetworkApi.SportHealthPlan)
-                .params("userId", UserSpHelper.getUserId())
-                .execute(new StringCallback() {
+
+        new HyperRepository()
+                .getSportHealthPlan(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<SportPlan>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        try {
-                            JSONObject object = new JSONObject(response.body());
-                            if (object.optInt("code") == 200) {
-                                moreExercise.setVisibility(View.VISIBLE);
-                                SportPlan data = new Gson().fromJson(object.optJSONObject("data").toString(), SportPlan.class);
-                                dealData(data);
-                            } else if (object.optInt("code") == 500) {
-//                                ToastUtils.showShort("暂无数据");
+                    public void onNext(SportPlan sportPlan) {
+                        moreExercise.setVisibility(View.VISIBLE);
+                        dealData(sportPlan);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof ApiException) {
+                            if (((ApiException) e).code() == 500) {
                                 moreExercise.setVisibility(View.GONE);
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
+                    public void onComplete() {
 
                     }
                 });
@@ -215,28 +213,27 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.more_exercise:
-                mData.clear();
-                if (isMore && cacheDatas!=null&&cacheDatas.size() > 5) {
-                    isMore = false;
-                    for (int i = 0; i < 5; i++) {
-                        mData.add(cacheDatas.get(i));
-                    }
-                    moreExercise.setText("更多");
-                } else {
-                    isMore = true;
-                    if (cacheDatas!=null){
-                        mData.addAll(cacheDatas);
-                        moreExercise.setText("收起");
-                    }else{
-                        ToastUtils.showShort("暂无推荐项目");
-                    }
+        int i1 = v.getId();
+        if (i1 == R.id.more_exercise) {
+            mData.clear();
+            if (isMore && cacheDatas != null && cacheDatas.size() > 5) {
+                isMore = false;
+                for (int i = 0; i < 5; i++) {
+                    mData.add(cacheDatas.get(i));
                 }
-                adapter.notifyDataSetChanged();
-                break;
-            default:
-                break;
+                moreExercise.setText("更多");
+            } else {
+                isMore = true;
+                if (cacheDatas != null) {
+                    mData.addAll(cacheDatas);
+                    moreExercise.setText("收起");
+                } else {
+                    ToastUtils.showShort("暂无推荐项目");
+                }
+            }
+            adapter.notifyDataSetChanged();
+
+        } else {
         }
     }
 

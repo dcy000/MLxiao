@@ -20,7 +20,6 @@ import com.example.han.referralproject.children.entertainment.ChildEduSheetDetai
 import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
-import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
@@ -315,7 +314,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
                 "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
-            startActivity(SlowDiseaseManagementActivity.class);
+            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
             return;
         }
 

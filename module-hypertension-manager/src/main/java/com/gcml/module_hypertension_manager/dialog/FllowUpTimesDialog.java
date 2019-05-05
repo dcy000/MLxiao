@@ -14,13 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
+import com.gcml.module_hypertension_manager.R;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 收费项目的dialog
@@ -28,14 +23,10 @@ import butterknife.Unbinder;
  */
 
 @SuppressLint("ValidFragment")
-public class FllowUpTimesDialog extends DialogFragment {
-    @BindView(R.id.tv_title)
+public class FllowUpTimesDialog extends DialogFragment implements View.OnClickListener {
     TextView tvTitle;
-    @BindView(R.id.confirm)
     TextView confirm;
-    @BindView(R.id.cancel)
     TextView cancel;
-    Unbinder unbinder;
     String notice;
 
     @SuppressLint("ValidFragment")
@@ -54,7 +45,11 @@ public class FllowUpTimesDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fllow_up_times_dialog, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        tvTitle= view.findViewById(R.id.tv_title);
+        confirm= view.findViewById(R.id.confirm);
+        confirm.setOnClickListener(this);
+        cancel= view.findViewById(R.id.cancel);
+        cancel.setOnClickListener(this);
         String source = "您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测" + notice + "日即可为您开启方案。";
         SpannableString colorText = new SpannableString(source);
         ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#F56C6C"));
@@ -71,24 +66,15 @@ public class FllowUpTimesDialog extends DialogFragment {
         MLVoiceSynthetize.startSynthesize(getActivity().getApplicationContext(), "您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测" + notice + "日即可为您开启方案。");
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
-    @OnClick({R.id.confirm, R.id.cancel})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.confirm:
-                clickConfirm();
-                break;
-            case R.id.cancel:
-                clickCancel();
-                break;
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.confirm) {
+            clickConfirm();
+        } else if (v.getId() == R.id.cancel) {
+            clickCancel();
         }
     }
-
     private void clickConfirm() {
         if (listener == null) {
             dismiss();
@@ -107,6 +93,8 @@ public class FllowUpTimesDialog extends DialogFragment {
         dismiss();
         getActivity().finish();
     }
+
+
 
     public interface OnDialogClickListener {
         void onClickConfirm();

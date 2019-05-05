@@ -287,4 +287,7 @@ public interface AppRouter {
 
     @Go("/health/record/blood/pressure/fragment/provider")
     IHealthRecordBloodpressureFragmentProvider getFragmentProvider();
+
+    @Go("/app/alarm/details2/activity")
+    boolean skipAlarmDetail2Activity(@Extra("id")long id);
 }

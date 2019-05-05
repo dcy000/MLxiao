@@ -1,4 +1,4 @@
-package com.example.han.referralproject.hypertensionmanagement.bean;
+package com.gcml.module_hypertension_manager.bean;
 
 import java.io.Serializable;
 import java.util.List;

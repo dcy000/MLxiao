@@ -12,21 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.intelligent_diagnosis.ThisWeekHealthPlan;
-import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.IChangToolbar;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.module_hypertension_manager.R;
 import com.gcml.module_hypertension_manager.bean.ThisWeekHealthPlan;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-import com.medlink.danbogh.alarm.AlarmDetail2Activity;
+import com.gcml.module_hypertension_manager.net.HyperRepository;
+import com.sjtu.yifei.route.Routerfit;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2018/5/15.
@@ -48,6 +45,7 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
     private IChangToolbar iChangToolbar;
     private String TAG = "ThisWeekHealthPlanFragment";
     private TextView mTvSetAlarm;
+
     public void setOnChangToolbar(IChangToolbar iChangToolbar) {
         this.iChangToolbar = iChangToolbar;
     }
@@ -67,24 +65,24 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
 
     private void getData() {
         Log.e(TAG, "getDataCache: ");
-        OkGo.<String>get(NetworkApi.ThisWeekPlan)
-                .params("userId", UserSpHelper.getUserId())
-                .execute(new StringCallback() {
+        new HyperRepository()
+                .getThisWeekPlan(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<ThisWeekHealthPlan>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        try {
-                            JSONObject object = new JSONObject(response.body());
-                            if (object.optInt("code") == 200) {
-                                ThisWeekHealthPlan data = new Gson().fromJson(object.optJSONObject("data").toString(), ThisWeekHealthPlan.class);
-                                detalData(data);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void onNext(ThisWeekHealthPlan thisWeekHealthPlan) {
+                        detalData(thisWeekHealthPlan);
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
                 });
@@ -144,7 +142,7 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
         mTvXuetangEmpty = view.findViewById(R.id.tv_xuetang_empty);
         mTvXuetangOne = view.findViewById(R.id.tv_xuetang_one);
         mTvXuetangTwo = view.findViewById(R.id.tv_xuetang_two);
-        mTvSetAlarm= view.findViewById(R.id.tv_set_alarm);
+        mTvSetAlarm = view.findViewById(R.id.tv_set_alarm);
         mTvSetAlarm.setOnClickListener(this);
 
         mWeight.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
@@ -166,8 +164,8 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id==R.id.tv_set_alarm){
-            startActivity(AlarmDetail2Activity.newLaunchIntent(getContext(),-1));
+        if (id == R.id.tv_set_alarm) {
+            Routerfit.register(AppRouter.class).skipAlarmDetail2Activity(-1L);
         }
     }
 }

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.homepage.MainActivity;
-import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -119,8 +118,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                                     SymptomCheckActivity.this.getApplicationContext(),
                                     "请先去个人中心完善体重,身高,性别,年龄信息");
                         } else {
-                            Intent intent = new Intent(SymptomCheckActivity.this, SlowDiseaseManagementActivity.class);
-                            startActivity(intent);
+                            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
                         }
                     }
                 });

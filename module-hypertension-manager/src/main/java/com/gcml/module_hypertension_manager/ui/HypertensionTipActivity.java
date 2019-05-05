@@ -1,40 +1,33 @@
-package com.example.han.referralproject.hypertensionmanagement.activity;
+package com.gcml.module_hypertension_manager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.module_hypertension_manager.R;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 高血压  下一步 心血管风险 评估
  */
 @Route(path = "/app/hypertension/tip/activity")
-public class HypertensionTipActivity extends BaseActivity implements WarmNoticeFragment.OnButtonClickListener {
+public class HypertensionTipActivity extends ToolbarBaseActivity implements WarmNoticeFragment.OnButtonClickListener {
 
 
-    @BindView(R.id.fl_container)
-    FrameLayout flContainer;
     public static final String CONTENT = "小E在您测量的日期中发现您在三天有血压异常偏高现象，可能患有高血压，为更好提供方案，以下问题需您认真作答";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hypertension_tip);
-        ButterKnife.bind(this);
         initTitle();
-        mlSpeak("您在三日测量有血压异常偏高现象，可能患有高血压，小E为您进一步判断且给您方案。");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),"您在三日测量有血压异常偏高现象，可能患有高血压，小E为您进一步判断且给您方案。");
         initView();
         AppManager.getAppManager().addActivity(this);
 

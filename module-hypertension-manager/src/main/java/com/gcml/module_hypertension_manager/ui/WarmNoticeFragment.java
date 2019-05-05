@@ -1,4 +1,4 @@
-package com.example.han.referralproject.hypertensionmanagement.fragment;
+package com.gcml.module_hypertension_manager.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,23 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
+import com.gcml.module_hypertension_manager.R;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by lenovo on 2018/7/23.
  */
 
 public class WarmNoticeFragment extends Fragment implements View.OnClickListener {
-    @BindView(R.id.tv_tip_content)
     TextView tvTipContent;
-    @BindView(R.id.tv_button)
     TextView tvButton;
-    Unbinder unbinder;
     public static final String TIP_CONTENT = "tipContent";
     public static final String BUTTON_TEXT = "buttonText";
     private int COUNT_DOWN_TIME = 5;
@@ -40,7 +33,9 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.warm_notice_dialog, null);
-        unbinder = ButterKnife.bind(this, view);
+        tvTipContent=view.findViewById(R.id.tv_tip_content);
+        tvButton=view.findViewById(R.id.tv_button);
+        tvButton.setOnClickListener(this);
         arguments = getArguments();
         tvTipContent.setText(arguments.getString(TIP_CONTENT));
         tvButton.setText(arguments.getString(BUTTON_TEXT) + "(关闭5S)");
@@ -83,7 +78,6 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
         if (tvButton != null) {
             tvButton.removeCallbacks(action);
         }
-        unbinder.unbind();
     }
 
     @Override

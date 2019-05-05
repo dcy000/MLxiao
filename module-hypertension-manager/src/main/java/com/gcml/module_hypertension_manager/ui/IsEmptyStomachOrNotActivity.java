@@ -1,40 +1,33 @@
-package com.example.han.referralproject.hypertensionmanagement.activity;
+package com.gcml.module_hypertension_manager.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
-import com.medlink.danbogh.alarm.AlarmDetail2Activity;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.module_hypertension_manager.R;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Arrays;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 @Route(path = "/app/hypertension/is/empty/stomach/or/not")
-public class IsEmptyStomachOrNotActivity extends BaseActivity implements MultipleChoiceStringFragment.OnButtonClickListener {
+public class IsEmptyStomachOrNotActivity extends ToolbarBaseActivity implements MultipleChoiceStringFragment.OnButtonClickListener {
 
-    @BindView(R.id.fl_container)
-    FrameLayout flContainer;
     public static final String CONTENT = "您当前是否空腹?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_is_empty_stomach_or_not);
-        ButterKnife.bind(this);
         initTitle();
         initView();
-        mlSpeak("您当前是否空腹");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),"您当前是否空腹");
         AppManager.getAppManager().addActivity(this);
     }
 
@@ -82,7 +75,7 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
             Routerfit.register(AppRouter.class).skipDetecteTipActivity("2");
 
         } else {
-            AlarmDetail2Activity.newLaunchIntent(this, -1);
+            Routerfit.register(AppRouter.class).skipAlarmDetail2Activity(-1);
             AppManager.getAppManager().finishAllActivity();
         }
 

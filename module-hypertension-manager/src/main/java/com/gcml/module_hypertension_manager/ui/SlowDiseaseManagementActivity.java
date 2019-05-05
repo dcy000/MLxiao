@@ -6,13 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
-import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
-import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
@@ -21,26 +14,16 @@ import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
-import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_hypertension_manager.R;
 import com.gcml.module_hypertension_manager.bean.DiagnoseInfoBean;
 import com.gcml.module_hypertension_manager.dialog.FllowUpTimesDialog;
 import com.gcml.module_hypertension_manager.dialog.TwoChoiceDialog;
 import com.gcml.module_hypertension_manager.net.HyperRepository;
-import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -170,7 +153,7 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
                         .setNegativeButton("重新测量", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Routerfit.register(AppRouter.class).skipAllMeasureActivity(IPresenter.MEASURE_BLOOD_PRESSURE);
+                                Routerfit.register(AppRouter.class).skipAllMeasureActivity(22);
                             }
                         })
                         .setPositiveButton("健康方案", new View.OnClickListener() {

@@ -1,4 +1,4 @@
-package com.example.han.referralproject.hypertensionmanagement.fragment;
+package com.gcml.module_hypertension_manager.ui;
 
 
 import android.os.Bundle;
@@ -13,24 +13,19 @@ import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
+import com.gcml.common.utils.UM;
+import com.gcml.module_hypertension_manager.R;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**
  * Created by lenovo on 2018/7/24.
  */
 
-public class MultipleChoiceFragment extends Fragment {
+public class MultipleChoiceStringFragment extends Fragment implements View.OnClickListener {
     /**
      * title
      */
@@ -45,18 +40,11 @@ public class MultipleChoiceFragment extends Fragment {
      */
     private static String CONTENT_STRINGS = "contentStrings";
     private static String IS_MULTIPLE_CHOOIC = "isMultipleChooic";
-    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_tip_content)
     TextView tvTipContent;
-    @BindView(R.id.tv_button)
     TextView tvButton;
-    @BindView(R.id.grid_view)
     GridView gridView;
-    Unbinder unbinder;
     public List<String> items;
-    private PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean;
-    private Bundle arguments;
 
 
     @Override
@@ -67,98 +55,60 @@ public class MultipleChoiceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.multiple_choice_fragment_2, null);
-        unbinder = ButterKnife.bind(this, view);
-        arguments = getArguments();
+        View view = View.inflate(getActivity(), R.layout.multiple_choice_fragment, null);
+        tvTitle=view.findViewById(R.id.tv_title);
+        tvTipContent=view.findViewById(R.id.tv_tip_content);
+        tvButton=view.findViewById(R.id.tv_button);
+        tvButton.setOnClickListener(this);
+        gridView=view.findViewById(R.id.grid_view);
+        Bundle arguments = getArguments();
         tvTitle.setText(arguments.getString(TIP_CONTENT));
-//        tvTipContent.setText(arguments.getString(WARM_TIP));
-        questionBean = (PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean) arguments.getSerializable(CONTENT_STRINGS);
-        items = getStrings(questionBean);
+        tvTipContent.setText(arguments.getString(WARM_TIP));
+        items = (List<String>) arguments.getSerializable(CONTENT_STRINGS);
         initGV(arguments);
         return view;
     }
 
     private void initGV(Bundle arguments) {
         gridView.setAdapter(new MyAdapter());
-        if (arguments.getBoolean(IS_MULTIPLE_CHOOIC)) {
-            //多选
+        if (arguments.getBoolean(IS_MULTIPLE_CHOOIC))
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
-            //显示下一步
-            tvButton.setVisibility(View.VISIBLE);
-            //设置3列
-            gridView.setNumColumns(3);
-            //辅助提示
-            tvTipContent.setVisibility(View.VISIBLE);
-        } else {
+        else
             gridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
-            tvButton.setVisibility(View.GONE);
-            gridView.setNumColumns(1);
-            tvTipContent.setVisibility(View.GONE);
-        }
+
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        MLVoiceSynthetize.startSynthesize(getContext(),"您"+getArguments().getString(TIP_CONTENT),false);
-    }
-
-    public static MultipleChoiceFragment getInstance(String tipContent, String warmTip, PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean, boolean isMultiple) {
-        MultipleChoiceFragment fragment = new MultipleChoiceFragment();
+    public static MultipleChoiceStringFragment getInstance(String tipContent, String warmTip, List<String> items, boolean isMultiple) {
+        MultipleChoiceStringFragment fragment = new MultipleChoiceStringFragment();
         Bundle bundle = new Bundle();
         bundle.putString(TIP_CONTENT, tipContent);
         bundle.putString(WARM_TIP, warmTip);
         bundle.putBoolean(IS_MULTIPLE_CHOOIC, isMultiple);
-        bundle.putSerializable(CONTENT_STRINGS, questionBean);
+        bundle.putSerializable(CONTENT_STRINGS, (Serializable) items);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    private static List<String> getStrings(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean) {
-        List<String> strings = new ArrayList<>();
-        for (int i = 0; i < questionBean.answerList.size(); i++) {
-            strings.add(questionBean.answerList.get(i).answerInfo);
-        }
-        return strings;
-    }
-
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        MLVoiceSynthetize.stop();
-    }
-
-    @OnClick(R.id.tv_button)
-    public void onViewClicked() {
-        toNextPage();
-    }
-
-    private void toNextPage() {
-        SparseBooleanArray checkedItemPositions = gridView.getCheckedItemPositions();
-        int count = gridView.getCheckedItemCount();
-        int[] checked = new int[count];
-        int j = 0;
-        for (int i = 0; i < items.size(); i++) {
-            if (checkedItemPositions.get(i)) {
-                checked[j] = i;
+    public void onClick(View v) {
+        if (v.getId()==R.id.tv_button){
+            SparseBooleanArray checkedItemPositions = gridView.getCheckedItemPositions();
+            int count = gridView.getCheckedItemCount();
+            int[] checked = new int[count];
+            int j = 0;
+            for (int i = 0; i < items.size(); i++) {
+                if (checkedItemPositions.get(i)) {
+                    checked[j] = i;
 //                checked[j] += 1;
-                j++;
+                    j++;
+                }
             }
-        }
-
-        if (listener != null) {
             if (checked.length == 0) {
-                MLVoiceSynthetize.startSynthesize(getActivity(), "请至少选择一个选项", false);
+                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您未选择任何选项", false);
                 return;
             }
-            listener.onNextStep(checked, questionBean);
+            listener.onNextStep(checked);
         }
     }
 
@@ -237,26 +187,18 @@ public class MultipleChoiceFragment extends Fragment {
                 gridView.setItemChecked(size - 1, false);
                 gridView.setItemChecked(position, vh.cbSymptom.isChecked());
             }
-
-            //单选 点击翻页
-            if (!arguments.getBoolean(IS_MULTIPLE_CHOOIC)) {
-                toNextPage();
-            }
-            //多选 点击无 翻页
-            if ("无".equals(items.get(position))) {
-                toNextPage();
-            }
         }
     };
 
     public interface OnButtonClickListener {
-        void onNextStep(int[] checked, PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean);
+        void onNextStep(int[] checked);
     }
 
-    public void setListener(MultipleChoiceFragment.OnButtonClickListener listener) {
+    public void setListener(MultipleChoiceStringFragment.OnButtonClickListener listener) {
         this.listener = listener;
     }
 
-    private MultipleChoiceFragment.OnButtonClickListener listener;
+    private MultipleChoiceStringFragment.OnButtonClickListener listener;
+
 
 }

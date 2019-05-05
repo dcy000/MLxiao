@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.crazypumpkin.versatilerecyclerview.library.WheelRecyclerView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.sjtu.yifei.annotation.Route;
 
 import org.litepal.crud.DataSupport;
 
@@ -26,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
+@Route(path = "/app/alarm/details2/activity")
 public class AlarmDetail2Activity extends BaseActivity {
 
     public static Intent newLaunchIntent(Context context, long id) {

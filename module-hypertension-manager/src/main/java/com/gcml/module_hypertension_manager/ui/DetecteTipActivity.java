@@ -1,12 +1,12 @@
-package com.example.han.referralproject.hypertensionmanagement.activity;
+package com.gcml.module_hypertension_manager.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.han.referralproject.R;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.module_hypertension_manager.R;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;

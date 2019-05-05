@@ -9,29 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import com.gcml.module_hypertension_manager.R;
 
 /**
  * Created by lenovo on 2018/3/9.
  */
 
 @SuppressLint("ValidFragment")
-public class TwoChoiceDialog extends DialogFragment {
+public class TwoChoiceDialog extends DialogFragment implements View.OnClickListener {
 
     private String rithtText;
     private String leftText;
-    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.confirm)
     TextView confirm;
-    @BindView(R.id.cancel)
     TextView cancel;
-    Unbinder unbinder;
     private OnDialogClickListener listener;
     String content;
 
@@ -64,7 +55,11 @@ public class TwoChoiceDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_two_choice, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        tvTitle = view.findViewById(R.id.tv_title);
+        confirm = view.findViewById(R.id.confirm);
+        confirm.setOnClickListener(this);
+        cancel = view.findViewById(R.id.cancel);
+        cancel.setOnClickListener(this);
         tvTitle.setText(this.content);
         confirm.setText(this.leftText);
         cancel.setText(this.rithtText);
@@ -72,23 +67,13 @@ public class TwoChoiceDialog extends DialogFragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @OnClick({R.id.confirm, R.id.cancel})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.confirm:
-                clickConfirm();
-                break;
-            case R.id.cancel:
-                clickCancel();
-                break;
+    public void onClick(View v) {
+        if (v.getId() == R.id.confirm) {
+            clickConfirm();
+        } else if (v.getId() == R.id.cancel) {
+            clickCancel();
         }
     }
-
 
     private void clickConfirm() {
         if (listener == null) {

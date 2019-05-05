@@ -1,4 +1,4 @@
-package com.example.han.referralproject.health_manager_program;
+package com.gcml.module_hypertension_manager.bean;
 
 import java.util.List;
 

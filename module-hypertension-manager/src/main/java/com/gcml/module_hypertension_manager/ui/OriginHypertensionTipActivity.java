@@ -1,37 +1,30 @@
-package com.example.han.referralproject.hypertensionmanagement.activity;
+package com.gcml.module_hypertension_manager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.gcml.common.data.AppManager;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.module_hypertension_manager.R;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
  * 原发性高血压
  */
-public class OriginHypertensionTipActivity extends BaseActivity implements WarmNoticeFragment.OnButtonClickListener {
+public class OriginHypertensionTipActivity extends ToolbarBaseActivity implements WarmNoticeFragment.OnButtonClickListener {
 
-    @BindView(R.id.fl_container)
-    FrameLayout flContainer;
     public static final String CONTENT = "为给您提供更好的方案,以下问题请认真回答。";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hypertension_tip);
-        ButterKnife.bind(this);
         initTitle();
-        mlSpeak("为给您提供更好的方案,以下问题请认真回答。");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "为给您提供更好的方案,以下问题请认真回答。");
         initView();
         AppManager.getAppManager().addActivity(this);
     }

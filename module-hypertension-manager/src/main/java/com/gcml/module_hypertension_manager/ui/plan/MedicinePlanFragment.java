@@ -13,21 +13,19 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.recommend.fragment.IChangToolbar;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.module_hypertension_manager.R;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.gcml.module_hypertension_manager.bean.MedicineBean;
+import com.gcml.module_hypertension_manager.net.HyperRepository;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class MedicinePlanFragment extends Fragment {
@@ -64,33 +62,34 @@ public class MedicinePlanFragment extends Fragment {
     }
 
     private void getData() {
-        OkGo.<String>get(NetworkApi.Medicine_Program + UserSpHelper.getUserId() + "/")
-                .execute(new StringCallback() {
+        new HyperRepository()
+                .getMedicineProgram(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<MedicineBean>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        try {
-                            JSONObject object = new JSONObject(response.body());
-                            if (object.optInt("code") == 200) {
-                                MedicineBean data = new Gson().fromJson(object.optJSONObject("data")
-                                        .toString(), MedicineBean.class);
-                                dealData(data);
-                            } else if (object.optInt("code") == 500) {
+                    public void onNext(MedicineBean medicineBean) {
+                        dealData(medicineBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof ApiException) {
+                            if (((ApiException) e).code() == 500) {
                                 mTvTitle.setText("您的各项指标均在正常范围内，暂无药物方案推荐。");
                                 view.findViewById(R.id.layout_empty_data).setVisibility(View.VISIBLE);
                                 view.findViewById(R.id.layout_empty_data)
                                         .findViewById(R.id.btn_go).setVisibility(View.GONE);
-
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        } else {
+                            Timber.e(e.getMessage());
                         }
-
-
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
-                        Timber.e(response.body());
+                    public void onComplete() {
+
                     }
                 });
     }

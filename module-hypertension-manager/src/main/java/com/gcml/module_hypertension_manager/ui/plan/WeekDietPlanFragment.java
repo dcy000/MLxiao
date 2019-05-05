@@ -14,20 +14,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.intelligent_diagnosis.WeekDietPlan;
-import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.IChangToolbar;
 import com.gcml.module_hypertension_manager.R;
 import com.gcml.module_hypertension_manager.bean.WeekDietPlan;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
+import com.gcml.module_hypertension_manager.net.HyperRepository;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2018/5/16.
@@ -74,25 +69,23 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
 
     private void getData() {
         Log.e(TAG, "getDataCache: ");
-        OkGo.<String>get(NetworkApi.WeekHealthDietPlan)
-                .params("userId", UserSpHelper.getUserId())
-                .execute(new StringCallback() {
+        new HyperRepository()
+                .getWeekDietPlan(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<WeekDietPlan>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        try {
-                            JSONObject object = new JSONObject(response.body());
-                            if (object.optInt("code") == 200) {
-                                WeekDietPlan data = new Gson().fromJson(object.optJSONObject("data")
-                                        .toString(), WeekDietPlan.class);
-                                dealData(data);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void onNext(WeekDietPlan weekDietPlan) {
+                        dealData(weekDietPlan);
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
                 });
@@ -119,17 +112,20 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
             }
         }
     }
-    private   String ToDBC(String input) {
+
+    private String ToDBC(String input) {
         char[] c = input.toCharArray();
-        for (int i = 0; i< c.length; i++) {
+        for (int i = 0; i < c.length; i++) {
             if (c[i] == 12288) {
                 c[i] = (char) 32;
                 continue;
-            }if (c[i]> 65280&& c[i]< 65375)
+            }
+            if (c[i] > 65280 && c[i] < 65375)
                 c[i] = (char) (c[i] - 65248);
         }
         return new String(c);
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {
@@ -178,63 +174,62 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
         if (cacheWeekDietPlan == null) {
             return;
         }
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.monday:
-                WeekDietPlan.MondayCookbookBean mondayCookbook = cacheWeekDietPlan.getMondayCookbook();
-                if (mondayCookbook != null) {
-                    String breakfast = mondayCookbook.getBreakfast();
-                    String lunch = mondayCookbook.getLunch();
-                    String dinner = mondayCookbook.getDinner();
-                    setContent(breakfast, lunch, dinner);
-                }
-                break;
-            case R.id.tuesday:
-                WeekDietPlan.TuesdayCookbookBean tuesdayCookbook = cacheWeekDietPlan.getTuesdayCookbook();
-                if (tuesdayCookbook != null) {
-                    String breakfast = tuesdayCookbook.getBreakfast();
-                    String lunch = tuesdayCookbook.getLunch();
-                    String dinner = tuesdayCookbook.getDinner();
-                    setContent(breakfast, lunch, dinner);
-                }
-                break;
-            case R.id.wednesday:
-                WeekDietPlan.WednesdayCookbookBean wednesdayCookbook = cacheWeekDietPlan.getWednesdayCookbook();
-                if (wednesdayCookbook != null) {
-                    String breakfast = wednesdayCookbook.getBreakfast();
-                    String lunch = wednesdayCookbook.getLunch();
-                    String dinner = wednesdayCookbook.getDinner();
-                    setContent(breakfast, lunch, dinner);
-                }
-                break;
-            case R.id.thursday:
-                WeekDietPlan.ThursdayCookbookBean thursdayCookbook = cacheWeekDietPlan.getThursdayCookbook();
-                if (thursdayCookbook != null) {
-                    String breakfast = thursdayCookbook.getBreakfast();
-                    String lunch = thursdayCookbook.getLunch();
-                    String dinner = thursdayCookbook.getDinner();
-                    setContent(breakfast, lunch, dinner);
-                }
-                break;
-            case R.id.friday:
-                WeekDietPlan.FridayCookbookBean fridayCookbook = cacheWeekDietPlan.getFridayCookbook();
-                if (fridayCookbook != null) {
-                    setContent(fridayCookbook.getBreakfast(), fridayCookbook.getLunch(), fridayCookbook.getDinner());
-                }
-                break;
-            case R.id.saturday:
-                WeekDietPlan.SaturdayCookbookBean saturdayCookbook = cacheWeekDietPlan.getSaturdayCookbook();
-                if (saturdayCookbook != null) {
-                    setContent(saturdayCookbook.getBreakfast(), saturdayCookbook.getLunch(), saturdayCookbook.getDinner());
-                }
-                break;
-            case R.id.sunday:
-                WeekDietPlan.SundayCookbookBean sundayCookbook = cacheWeekDietPlan.getSundayCookbook();
-                if (sundayCookbook != null) {
-                    setContent(sundayCookbook.getBreakfast(), sundayCookbook.getLunch(), sundayCookbook.getDinner());
-                }
-                break;
+        int i = v.getId();
+        if (i == R.id.monday) {
+            WeekDietPlan.MondayCookbookBean mondayCookbook = cacheWeekDietPlan.getMondayCookbook();
+            if (mondayCookbook != null) {
+                String breakfast = mondayCookbook.getBreakfast();
+                String lunch = mondayCookbook.getLunch();
+                String dinner = mondayCookbook.getDinner();
+                setContent(breakfast, lunch, dinner);
+            }
+
+        } else if (i == R.id.tuesday) {
+            WeekDietPlan.TuesdayCookbookBean tuesdayCookbook = cacheWeekDietPlan.getTuesdayCookbook();
+            if (tuesdayCookbook != null) {
+                String breakfast = tuesdayCookbook.getBreakfast();
+                String lunch = tuesdayCookbook.getLunch();
+                String dinner = tuesdayCookbook.getDinner();
+                setContent(breakfast, lunch, dinner);
+            }
+
+        } else if (i == R.id.wednesday) {
+            WeekDietPlan.WednesdayCookbookBean wednesdayCookbook = cacheWeekDietPlan.getWednesdayCookbook();
+            if (wednesdayCookbook != null) {
+                String breakfast = wednesdayCookbook.getBreakfast();
+                String lunch = wednesdayCookbook.getLunch();
+                String dinner = wednesdayCookbook.getDinner();
+                setContent(breakfast, lunch, dinner);
+            }
+
+        } else if (i == R.id.thursday) {
+            WeekDietPlan.ThursdayCookbookBean thursdayCookbook = cacheWeekDietPlan.getThursdayCookbook();
+            if (thursdayCookbook != null) {
+                String breakfast = thursdayCookbook.getBreakfast();
+                String lunch = thursdayCookbook.getLunch();
+                String dinner = thursdayCookbook.getDinner();
+                setContent(breakfast, lunch, dinner);
+            }
+
+        } else if (i == R.id.friday) {
+            WeekDietPlan.FridayCookbookBean fridayCookbook = cacheWeekDietPlan.getFridayCookbook();
+            if (fridayCookbook != null) {
+                setContent(fridayCookbook.getBreakfast(), fridayCookbook.getLunch(), fridayCookbook.getDinner());
+            }
+
+        } else if (i == R.id.saturday) {
+            WeekDietPlan.SaturdayCookbookBean saturdayCookbook = cacheWeekDietPlan.getSaturdayCookbook();
+            if (saturdayCookbook != null) {
+                setContent(saturdayCookbook.getBreakfast(), saturdayCookbook.getLunch(), saturdayCookbook.getDinner());
+            }
+
+        } else if (i == R.id.sunday) {
+            WeekDietPlan.SundayCookbookBean sundayCookbook = cacheWeekDietPlan.getSundayCookbook();
+            if (sundayCookbook != null) {
+                setContent(sundayCookbook.getBreakfast(), sundayCookbook.getLunch(), sundayCookbook.getDinner());
+            }
+
+        } else {
         }
     }
 

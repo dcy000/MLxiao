@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DiseaseUser;
-import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
@@ -99,8 +98,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善体重,身高,性别,年龄信息");
                                 } else {
-                                    Intent intent = new Intent(getActivity(), SlowDiseaseManagementActivity.class);
-                                    startActivity(intent);
+                                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
                                 }
                             }
                         });
