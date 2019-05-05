@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -40,7 +39,6 @@ import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
-import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
@@ -750,12 +748,10 @@ public class DataDealHelper {
                 || inSpell.matches(".*xiaoyituijian")
                 || inSpell.matches(".*tuijian(shangpin|shanpin)")
         ) {
-            startActivity(MarketActivity.class);
-
-
+            Routerfit.register(AppRouter.class).skipMarketActivity();
         } else if (inSpell.matches(".*dingdan|wodedingdan|chakandingdan|dingdanxiangqing|gouwuqingdan")) {
 
-            startActivity(OrderListActivity.class);
+            Routerfit.register(AppRouter.class).skipOldOrderListActivity();
         } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
             DiseaseUser diseaseUser = new DiseaseUser(LocalShared.getInstance(context).getUserName(),
                     LocalShared.getInstance(context).getSex().equals("男") ? 1 : 2,
@@ -1349,7 +1345,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> dingdan = getDefineData("wodedingdan");
         for (int i = 0; i < dingdan.size(); i++) {
             if (yuyin.contains(dingdan.get(i).pinyin)) {
-                startActivityWithOutCallback(OrderListActivity.class);
+                Routerfit.register(AppRouter.class).skipOldOrderListActivity();
                 return true;
             }
         }
@@ -1426,7 +1422,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> jiankang = getDefineData("jiankangshangcheng");
         for (int i = 0; i < jiankang.size(); i++) {
             if (yuyin.contains(jiankang.get(i).pinyin)) {
-                startActivityWithOutCallback(MarketActivity.class);
+                Routerfit.register(AppRouter.class).skipMarketActivity();
                 return true;
             }
         }

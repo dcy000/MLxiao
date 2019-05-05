@@ -14,6 +14,8 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.widget.SpaceItemDecoration;
+import com.gcml.common.widget.SpacesItemDecoration;
 import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;

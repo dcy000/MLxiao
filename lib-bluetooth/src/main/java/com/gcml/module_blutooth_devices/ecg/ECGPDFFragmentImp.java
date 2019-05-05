@@ -3,11 +3,11 @@ package com.gcml.module_blutooth_devices.ecg;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.gcml.common.service.IFragmentProvider;
+import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.sjtu.yifei.annotation.Route;
 
 @Route(path = "/bluetooth/ecg/pdf/fragment")
-public class ECGPDFFragmentImp implements IFragmentProvider {
+public class ECGPDFFragmentImp implements IECG_PDF_FragmentProvider {
     private String key_pdf_url;
 
     public ECGPDFFragmentImp(String key_pdf_url) {

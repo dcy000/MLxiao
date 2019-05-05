@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':module-hypertension-manager',
         ':app-component',
         ':lib-common-core',
         ':lib-common-business',

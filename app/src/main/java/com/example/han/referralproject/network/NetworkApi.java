@@ -21,7 +21,6 @@ import com.example.han.referralproject.physicalexamination.bean.QuestionnaireBea
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.OnlineTime;
-import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.gcml.common.data.UserSpHelper;
@@ -309,20 +308,6 @@ public class NetworkApi {
         paramsMap.put("display_state", display_state);
         paramsMap.put("orderid", orderid);
         NetworkManager.getInstance().postResultString(PAY_CANCEL, paramsMap, listener, failedCallback);
-    }
-
-
-    public static void order_list(String pay_state, String delivery_state, String display_state, String bname, String page, String limit, NetworkManager.SuccessCallback<ArrayList<Orders>> listener, NetworkManager.FailedCallback failedCallback) {
-        Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("pay_state", pay_state);
-        paramsMap.put("delivery_state", delivery_state);
-        paramsMap.put("display_state", display_state);
-        paramsMap.put("bname", bname);
-        paramsMap.put("page", page);
-        paramsMap.put("limit", limit);
-
-        NetworkManager.getInstance().postResultClass(ORDER_LIST, paramsMap, new TypeToken<ArrayList<Orders>>() {
-        }.getType(), listener, failedCallback);
     }
 
     public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {

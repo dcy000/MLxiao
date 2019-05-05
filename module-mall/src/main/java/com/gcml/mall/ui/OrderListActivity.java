@@ -54,7 +54,7 @@ public class OrderListActivity extends AppCompatActivity {
     }
 
     private void bindView() {
-        mToolBar = findViewById(R.id.tb_order_list);
+        mToolBar = findViewById(R.id.tb_order);
         mRecyclerView = findViewById(R.id.rv_order_list);
         mFrameLayout = findViewById(R.id.pt_order_list);
     }

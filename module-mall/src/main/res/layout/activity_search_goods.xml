@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.com.gcml.old.SearchGoodsActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="128pt"
+        android:background="#3F86FC"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="1668pt"
+            android:layout_height="90pt"
+            android:layout_marginStart="60pt"
+            android:background="@drawable/market_search_text_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_search_goods"
+                android:layout_width="55pt"
+                android:layout_height="55pt"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40pt"
+                android:background="@drawable/common_search_good"
+                android:scaleType="centerCrop" />
+
+            <EditText
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:id="@+id/et_good_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40pt"
+                android:background="@null"
+                android:hint="请输入商品名"
+                android:textColor="#fff"
+                android:textColorHint="#ffffffff"
+                android:textSize="48pt" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0pt"
+            android:layout_marginEnd="60pt"
+            android:layout_marginTop="0pt"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="#ffffffff"
+            android:textSize="48pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_goods"
+        android:layout_width="0pt"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60pt"
+        android:layout_marginStart="60pt"
+        android:layout_marginTop="60pt"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container"></android.support.v7.widget.RecyclerView>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -29,7 +29,6 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
-import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.call.CallAuthHelper;
@@ -253,7 +252,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         switch (v.getId()) {
             case R.id.iv_order:
                 //我的订单
-                startActivity(new Intent(getActivity(), OrderListActivity.class));
+                Routerfit.register(AppRouter.class).skipOldOrderListActivity();
                 break;
             case R.id.iv_pay:
                 //账户充值
@@ -264,7 +263,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.iv_message:
 //                startActivity(new Intent(getActivity(), MessageActivity.class));
-                startActivity(new Intent(getActivity(), OrderListActivity.class));
+                Routerfit.register(AppRouter.class).skipOldOrderListActivity();
                 break;
             case R.id.iv_shezhi:
                 startActivity(new Intent(getActivity(), SettingActivity.class));

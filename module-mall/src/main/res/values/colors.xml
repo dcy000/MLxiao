@@ -23,4 +23,5 @@
     <color name="color_press_btn1000">#FF6161</color>
     <color name="color_normal_btnother">#BBBBBB</color>
     <color name="color_press_btnother">#D4D4D4</color>
+    <color name="market_toolbar_bg">#3F86FC</color>
 </resources>

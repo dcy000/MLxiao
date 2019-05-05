@@ -8,7 +8,8 @@ import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.IFaceProvider;
-import com.gcml.common.service.IFragmentProvider;
+import com.gcml.common.service.IECG_PDF_FragmentProvider;
+import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.sjtu.yifei.annotation.Extra;
@@ -106,7 +107,7 @@ public interface AppRouter {
     boolean skipHealthInquiryActivity();
 
     @Go("/bluetooth/ecg/pdf/fragment")
-    IFragmentProvider getECG_PDF_Fragment(@Extra("key_pdf_url") String key_pdf_url);
+    IECG_PDF_FragmentProvider getECG_PDF_Fragment(@Extra("key_pdf_url") String key_pdf_url);
 
     @Go("/health/record/show/pdf")
     boolean skipShowPDFActivity(@Extra("url") String url);
@@ -258,10 +259,10 @@ public interface AppRouter {
     boolean skipTaskComplyResultActivity(@Extra("resultBean") TaskSchemaResultBean resultBean);
 
     @Go("/task/task/activity")
-    boolean skipTaskActivity(@Extra("startType")String startType);
+    boolean skipTaskActivity(@Extra("startType") String startType);
 
     @Go("/task/task/dialy/activity")
-    boolean skipTaskDialyActivity(@Extra("what")int what);
+    boolean skipTaskDialyActivity(@Extra("what") int what);
 
     @Go("/task/task/dialy/contact/activity")
     boolean skipTaskDialyContactActivity();
@@ -274,4 +275,16 @@ public interface AppRouter {
 
     @Go("/mall/recharge/define/activity")
     boolean skipRechargeDefineActivity();
+
+    @Go("/mall/search/goods/activity")
+    boolean skipSearchGoodsActivity();
+
+    @Go("/app/pay/money/activity")
+    boolean skipPayActivity();
+
+    @Go("/mall/old/order/list/activity")
+    boolean skipOldOrderListActivity();
+
+    @Go("/health/record/blood/pressure/fragment/provider")
+    IHealthRecordBloodpressureFragmentProvider getFragmentProvider();
 }

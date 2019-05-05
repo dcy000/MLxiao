@@ -25,7 +25,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
@@ -56,7 +55,6 @@ import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
-import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
@@ -1240,14 +1238,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*xiaoyituijian")
                     || inSpell.matches(".*tuijian(shangpin|shanpin)")
             ) {
-                Intent intent = new Intent(getApplicationContext(), MarketActivity.class);
-                startActivity(intent);
-
-
+                Routerfit.register(AppRouter.class).skipMarketActivity();
             } else if (inSpell.matches(".*dingdan|wodedingdan|chakandingdan|dingdanxiangqing|gouwuqingdan")) {
 
-                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipOldOrderListActivity();
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
                 DiseaseUser diseaseUser = new DiseaseUser(LocalShared.getInstance(this).getUserName(), LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2, Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12, LocalShared.getInstance(this).getUserPhoto()
                 );
@@ -1591,8 +1585,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         List<KeyWordDefinevBean> dingdan = getDefineData("wodedingdan");
         for (int i = 0; i < dingdan.size(); i++) {
             if (yuyin.contains(dingdan.get(i).pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipOldOrderListActivity();
                 return true;
             }
         }
@@ -1670,8 +1663,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         List<KeyWordDefinevBean> jiankang = getDefineData("jiankangshangcheng");
         for (int i = 0; i < jiankang.size(); i++) {
             if (yuyin.contains(jiankang.get(i).pinyin)) {
-                startActivity(new Intent(this, MarketActivity.class
-                ));
+                Routerfit.register(AppRouter.class).skipMarketActivity();
                 return true;
             }
         }

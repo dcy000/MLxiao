@@ -2,6 +2,8 @@ package com.gcml.common.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.text.Spanned;
 import android.view.Display;
 import android.view.Gravity;
@@ -77,7 +79,7 @@ public class AlertDialog {
             txt_msg.setGravity(Gravity.CENTER);
         } else {
             txt_msg.setText(msg);
-            if (msg.length() < 15 ) {
+            if (msg.length() < 15) {
                 txt_msg.setGravity(Gravity.CENTER);
             } else {
                 txt_msg.setGravity(Gravity.CENTER_VERTICAL);
@@ -86,11 +88,11 @@ public class AlertDialog {
         return this;
     }
 
-    public AlertDialog setMsg(Spanned spanned){
-        showMsg=true;
-        if (spanned==null){
+    public AlertDialog setMsg(Spanned spanned) {
+        showMsg = true;
+        if (spanned == null) {
             txt_msg.setText("内容");
-        }else{
+        } else {
             txt_msg.setText(spanned);
         }
         return this;
@@ -118,6 +120,24 @@ public class AlertDialog {
         return this;
     }
 
+    public AlertDialog setPositiveButton(String text, @ColorInt int textColor, final View.OnClickListener listener) {
+        showPosBtn = true;
+        if ("".equals(text)) {
+            btn_pos.setText("确定");
+        } else {
+            btn_pos.setText(text);
+        }
+        btn_pos.setTextColor(textColor);
+        btn_pos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(v);
+                dialog.dismiss();
+            }
+        });
+        return this;
+    }
+
     public AlertDialog setNegativeButton(String text,
                                          final View.OnClickListener listener) {
         showNegBtn = true;
@@ -126,6 +146,25 @@ public class AlertDialog {
         } else {
             btn_neg.setText(text);
         }
+        btn_neg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(v);
+                dialog.dismiss();
+            }
+        });
+        return this;
+    }
+
+    public AlertDialog setNegativeButton(String text, @ColorInt int textColor,
+                                         final View.OnClickListener listener) {
+        showNegBtn = true;
+        if ("".equals(text)) {
+            btn_neg.setText("取消");
+        } else {
+            btn_neg.setText(text);
+        }
+        btn_neg.setTextColor(textColor);
         btn_neg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

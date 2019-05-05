@@ -8,7 +8,9 @@ import android.widget.Button;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.sjtu.yifei.annotation.Route;
 
+@Route(path = "/app/pay/money/activity")
 public class PayActivity extends BaseActivity implements View.OnClickListener {
 
     public Button mButton1;

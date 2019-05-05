@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.common.widget.GridViewDividerItemDecoration;
 
 import java.util.List;
 

@@ -137,9 +137,6 @@
         <!-- android:value="00332d99822550c22e6b75297bfd4c2c" /> -->
 
         <activity
-            android:name=".temperature.TemperatureActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
         <!-- <activity -->
@@ -184,9 +181,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login.PerInfoActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape" />
 
@@ -210,27 +204,6 @@
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.signin.SignInActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.gcml.old.auth.signin.FindPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="com.gcml.old.auth.signin.SetPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="com.gcml.old.auth.register.SignUp8WeightActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.register.SignUp9BloodTypeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.register.simple.SignUp03PasswordActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recharge.PayActivity"
             android:screenOrientation="landscape" />
@@ -273,36 +246,14 @@
         <!-- 网易云通信进程间通信service -->
         <service android:name="com.netease.nimlib.service.ResponseService" />
 
-        <receiver android:name="com.medlink.danbogh.call2.InComingCallReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
-
-        <activity
-            android:name="com.medlink.danbogh.call2.NimCallActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".video.VideoListActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".shopping.ShopListActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".shopping.GoodDetailActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".shopping.OrderListActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.OnlineDoctorListActivity"
@@ -329,9 +280,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.CheckContractActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.MarketActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".new_music.MusicPlayActivity"
@@ -459,13 +407,13 @@
             android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".intelligent_diagnosis.FoodMaterialDetailActivity"
+            android:name="com.gcml.module_hypertension_manager.ui.plan.FoodMaterialDetailActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".intelligent_diagnosis.SportPlanDetailActivity"
+            android:name="com.gcml.module_hypertension_manager.ui.plan.SportPlanDetailActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".health_manager_program.TreatmentPlanActivity"
+            android:name="com.gcml.module_hypertension_manager.ui.plan.TreatmentPlanActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".physicalexamination.activity.ChineseMedicineMonitorActivity"
@@ -490,7 +438,7 @@
             android:name=".hypertensionmanagement.activity.PressureNornalTipActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".hypertensionmanagement.activity.SlowDiseaseManagementActivity"
+            android:name="com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".hypertensionmanagement.activity.SlowDiseaseManagementTipActivity"
@@ -514,10 +462,6 @@
             android:name=".homepage.MainActivity"
             android:label="20180730主页面"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.NewMeasureBloodpressureResultActivity"
-            android:label="单次血压测量结果展示页面"
             android:screenOrientation="landscape" />
         <activity
             android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity"
@@ -547,9 +491,6 @@
             android:name=".hypertensionmanagement.activity.DetecteTipActivity"
             android:screenOrientation="landscape" />
         <!-- <activity android:name=".recommend.RecommendActivity" /> -->
-        <activity
-            android:name=".searchmaket.activity.SearchGoodsActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.DoctorappoActivity2"
             android:screenOrientation="landscape" />

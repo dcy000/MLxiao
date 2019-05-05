@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.data.DataUtils;

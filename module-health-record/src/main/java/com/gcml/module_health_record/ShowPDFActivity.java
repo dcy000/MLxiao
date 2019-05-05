@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.service.IFragmentProvider;
+import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -17,7 +17,7 @@ public class ShowPDFActivity extends ToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_pdf);
         mTitleText.setText("心 电 报 告");
-        IFragmentProvider url = Routerfit.register(AppRouter.class).getECG_PDF_Fragment(getIntent().getStringExtra("url"));
+        IECG_PDF_FragmentProvider url = Routerfit.register(AppRouter.class).getECG_PDF_Fragment(getIntent().getStringExtra("url"));
         Fragment fragment = url.getECG_PDF_Fragment();
         if (fragment == null) {
             finish();

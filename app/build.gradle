@@ -61,6 +61,7 @@ dependencies {
     addComponent 'module-video'
     addComponent 'lib-bluetooth'
     addComponent 'module-factory-test'
+    addComponent 'module-hypertension-manager'
     //lib
     implementation project(':lib-widget')
     implementation project(':module-edu')
