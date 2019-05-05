@@ -85,7 +85,7 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
     private static final String APP_KEY = "05539d97326d4f68aef161fec74d3087";
 
     private void requestData(AppRepository repository) {
-        String param = Base64Util.encoder("{\"userId\":\"user00001\",\"input\": \"糖尿病\"}");
+        String param = Base64Util.htmlEncode("{\"userId\":\"user00001\",\"input\": \"糖尿病\"}");
         String currentTime = System.currentTimeMillis() + "";
         String tokenTemp = APP_KEY + currentTime + param;
         String token = MD5Util.md5Encrypt32Upper(tokenTemp);
