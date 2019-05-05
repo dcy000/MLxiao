@@ -17,6 +17,7 @@ import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.healthmanage.HealthManageActivity;
 import com.example.han.referralproject.healthmanage.HealthManageTipActivity;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.yizhinang.ZenDuanActivity;
 import com.gcml.common.FilterClickListener;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
@@ -75,7 +76,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
         view.findViewById(R.id.ei_health_edu).setOnClickListener(new FilterClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                startActivity(new Intent(getActivity(), ZenDuanActivity.class));
             }
         }));
         getPersonInfo();

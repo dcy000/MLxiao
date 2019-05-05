@@ -97,7 +97,20 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
                 .doOnTerminate(() -> dialog.dismiss())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>(){
+                    @Override
+                    public void onNext(Object o) {
+                        super.onNext(o);
+                    }
 
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                    }
                 });
     }
 
