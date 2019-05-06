@@ -730,6 +730,7 @@
         <activity android:name=".healthmanage.HealthManageActivity" />
         <activity android:name=".healthmanage.HealthManageTipActivity" />
         <activity android:name=".yizhinang.ZenDuanActivity" />
+        <activity android:name=".yizhinang.YiZhiTangDetailActivity" />
     </application>
 
 </manifest>

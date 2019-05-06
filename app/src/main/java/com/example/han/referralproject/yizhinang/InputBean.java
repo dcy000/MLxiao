@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 
 public class InputBean implements Serializable {
-    public String userId = "user00001";
+//    public String userId = "user00001";
+    public String userId = UserSpHelper.getUserId();
     public String input = "糖尿病";
 }

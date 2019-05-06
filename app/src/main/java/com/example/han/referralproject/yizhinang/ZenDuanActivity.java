@@ -3,6 +3,7 @@ package com.example.han.referralproject.yizhinang;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.res.ResourcesCompat;
@@ -13,20 +14,21 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
-import com.gcml.common.recommend.fragment.RencommendForMarketFragment;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.google.gson.Gson;
 
+import java.io.Console;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -83,9 +85,10 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
     private static final String APP_KEY = "05539d97326d4f68aef161fec74d3087";
 
     private void requestData(AppRepository repository) {
-        String inputJson = new Gson().toJson(new InputBean());
-//        String param = Base64Util.encode(inputJson).toUpperCase();
-        String param = "eyJ1c2VySWQiOiJ1c2VyMDAwMDEiLCJpbnB1dCI6ICLns5blsL/nl4UifQ==";
+        InputBean src = new InputBean();
+        String inputJson = new Gson().toJson(src);
+        String param = BASE64Encoder.encodeString(inputJson);
+//        String param = "eyJ1c2VySWQiOiJ1c2VyMDAwMDEiLCJpbnB1dCI6ICLns5blsL/nl4UifQ==";
 
         String currentTime = System.currentTimeMillis() / 1000 + "";
 
@@ -112,6 +115,7 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
                     }
 
                     @Override
@@ -196,7 +200,6 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
                 childAt.setTextSize(28);
             }
         }
-
-
     }
+
 }
