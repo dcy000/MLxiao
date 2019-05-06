@@ -26,8 +26,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
-import com.example.han.referralproject.bean.Receive1;
-import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
@@ -82,6 +80,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.recognition.JsonParser;
 import com.iflytek.settting.IatSettings;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.iflytek.utils.QaApi;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.sjtu.yifei.annotation.Route;
@@ -92,13 +91,7 @@ import com.umeng.analytics.MobclickAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -1797,42 +1790,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 //
 
-    }
-
-    private void dealToke(String str) throws IOException {
-        if (("我真的不知道了").equals(str1)) {
-            URL url = new URL("http://api.aicyber.com/passive_chat");
-            URLConnection conn = url.openConnection();
-            conn.setRequestProperty("accept", "*/*");
-            conn.setRequestProperty("connection", "Keep-Alive");
-
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-
-            PrintWriter pw = new PrintWriter(conn.getOutputStream());
-
-            Gson gson = new Gson();
-
-            RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
-
-            pw.print(gson.toJson(robot));
-
-            pw.flush();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String lineContent = null;
-            String content = null;
-
-            while ((lineContent = br.readLine()) != null) {
-                content = lineContent;
-            }
-
-
-            Receive1 string = gson.fromJson(content, Receive1.class);
-
-
-            str1 = string.getReceive().getOutput();
-
-        }
     }
 
     private void defaultToke() {
