@@ -32,7 +32,7 @@ public class YiZhiTangDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_yi_zhi_nang_activity);
 
         tb = findViewById(R.id.tb_yizhitang);
-        tb.setData("医智囊", 0, "  返回", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
+        tb.setData("医智囊", R.drawable.common_icon_back, "  返回", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();

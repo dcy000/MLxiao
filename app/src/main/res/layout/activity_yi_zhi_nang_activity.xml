@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
-        android:layout_width="match_parent"
         android:id="@+id/tb_yizhitang"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <WebView
@@ -14,4 +15,4 @@
         android:layout_height="match_parent"></WebView>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

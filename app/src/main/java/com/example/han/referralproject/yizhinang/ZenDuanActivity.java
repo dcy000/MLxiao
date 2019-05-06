@@ -1,25 +1,22 @@
 package com.example.han.referralproject.yizhinang;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.AppRepository;
-import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -27,7 +24,8 @@ import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.google.gson.Gson;
 
-import java.io.Console;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,7 @@ import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class ZenDuanActivity extends com.gcml.common.base.BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private List<Fragment> fragments;
     private RadioGroup mRgMenu;
@@ -45,35 +43,29 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_market);
+        setContentView(R.layout.activity_zenduan);
         ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("医智囊");
-        mRightView.setImageResource(R.drawable.common_search_good);
-        mRightView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ZenDuanActivity.this, SearchGoodsActivity.class));
+        TextView input = findViewById(R.id.et_item_name);
+        findViewById(R.id.rv_back).setOnClickListener(v -> finish());
+
+        findViewById(R.id.iv_search_items).setOnClickListener(v -> {
+            String inputText = input.getText().toString().trim().replaceAll(" ", "");
+            if (TextUtils.isEmpty(inputText)) {
+                inputText = "糖尿病";
             }
+            requestData(repository, inputText);
         });
+
         mRgMenu = (RadioGroup) findViewById(R.id.rg_menu);
         mVpGoods = (ViewPager) findViewById(R.id.vp_goods);
-        mRgMenu.setOnCheckedChangeListener(this);
-        mVpGoods.setOffscreenPageLimit(1);
-        setEnableListeningLoop(false);
-
-        dialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
-                .create();
-
-        AppRepository repository = new AppRepository();
-        requestData(repository);
+        requestData(repository, "高血压");
     }
+
+    AppRepository repository = new AppRepository();
    /* AppId	g5NwRNJknq
     CurTime	1556594397
     Param	eyJ1c2VySWQiOiJ1c2VyMDAwMDEiLCJpbnB1dCI6ICLns5blsL/nl4UifQ==
@@ -84,8 +76,18 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
     private static final String APP_ID = "g5NwRNJknq";
     private static final String APP_KEY = "05539d97326d4f68aef161fec74d3087";
 
-    private void requestData(AppRepository repository) {
+    private void requestData(AppRepository repository, String input) {
+        mRgMenu.setOnCheckedChangeListener(this);
+        mVpGoods.setOffscreenPageLimit(1);
+
+        dialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
+
+
         InputBean src = new InputBean();
+        src.input = input;
         String inputJson = new Gson().toJson(src);
         String param = BASE64Encoder.encodeString(inputJson);
 //        String param = "eyJ1c2VySWQiOiJ1c2VyMDAwMDEiLCJpbnB1dCI6ICLns5blsL/nl4UifQ==";
@@ -143,6 +145,7 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
                 return fragments.get(i);
             }
         });
+
     }
 
     /**
@@ -152,6 +155,7 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
      */
     private void initRadioGroup(List<OutBean.LinksBean> data) {
 //        initFirstRadioButton();
+        mRgMenu.removeAllViews();
         for (int i = 0; i < data.size(); i++) {
             RadioButton button = new RadioButton(this);
             button.setTextSize(28);
