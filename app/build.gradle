@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         release {
-//            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -33,14 +33,14 @@ android {
         }
     }
 
-//    signingConfigs {
-//        debug {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
-//    }
+    signingConfigs {
+        debug {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
 }
 
 combuild {
@@ -64,15 +64,17 @@ dependencies {
     addComponent 'module-hypertension-manager'
     addComponent 'module-edu-child'
     addComponent 'module-control'
+    addComponent 'module-edu'
+    addComponent 'module-health-record'
     //lib
     implementation project(':lib-widget')
-    implementation project(':module-edu')
+//    implementation project(':module-edu')
     implementation project(':lib-baidu-unit')
     //    implementation(project(':lib-bluetooth')) { exclude group: "com.android.support" }
     implementation project(':lib-pay-beecloud')
     implementation project(':lib-progress-orb')
 //    implementation project(':module-control')
-    implementation project(':module-health-record')
+//    implementation project(':module-health-record')
     implementation project(':lib-music-player')
     implementation project(':lib-video')
     //aar

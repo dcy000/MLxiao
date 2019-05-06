@@ -200,5 +200,7 @@ dependencies {
     //极光推送
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
+
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 }
 

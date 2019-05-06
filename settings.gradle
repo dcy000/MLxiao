@@ -1,9 +1,9 @@
-include ':app', ':module-hypertension-manager', ':module-edu-child',
-        ':app-component',
+include ':app',
+        ':module-hypertension-manager',
+        ':module-edu-child',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc',
         ':lib-common-core',
         ':lib-bluetooth'
 

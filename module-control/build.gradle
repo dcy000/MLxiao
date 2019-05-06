@@ -21,5 +21,4 @@ android {
 dependencies {
     //悬浮窗
     implementation 'com.github.yhaolpz:FloatWindow:1.0.9'
-    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 }
