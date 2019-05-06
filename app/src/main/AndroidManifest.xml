@@ -304,50 +304,7 @@
         <activity android:name=".children.study.ChildEduBrainTeaserActivity" />
         <activity android:name=".children.study.ChildEduWhyActivity" />
         <activity android:name=".children.study.ChildEduPoemDetailsActivity" />
-        <activity
-            android:name=".tool.JieMengActivity"
-            android:screenOrientation="landscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
-
-
-            <!-- <category android:name="android.intent.category.HOME"/> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity android:name=".children.study.ChildEduStories2Activity" />
-        <activity
-            android:name=".tool.DateInquireActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.CookBookActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.CookBookResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.JieMengRetultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.DateInquireResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.BaiKeActivtiy"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.BaikeResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.CalculationActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.RiddleActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.HistoryTodayActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.SettingActivity"
             android:screenOrientation="landscape" />
@@ -358,7 +315,7 @@
             android:name=".settting.activity.AboutActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".tool.ToolsActivity"
+            android:name="com.gcml.module_tools.ToolsActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".children.entertainment.ChildEduJokesActivity"
