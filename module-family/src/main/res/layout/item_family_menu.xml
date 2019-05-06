@@ -35,7 +35,6 @@
         android:textColor="@color/config_color_white"/>
 
     <ImageView
-        android:id="@+id/iv_family_phone"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:layout_margin="24dp"

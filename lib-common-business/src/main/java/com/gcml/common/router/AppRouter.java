@@ -5,17 +5,24 @@ import android.net.Uri;
 
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.get.GoodsBean;
+import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
+import com.gcml.common.service.IAppUpdateProvider;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
+import com.gcml.common.service.IMusicPlayProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
+import com.gcml.common.service.IVideoListFragmentProvider;
+import com.gcml.common.service.IVolumeControlProvider;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.route.ActivityCallback;
+
+import retrofit2.http.GET;
 
 public interface AppRouter {
 
@@ -289,5 +296,32 @@ public interface AppRouter {
     IHealthRecordBloodpressureFragmentProvider getFragmentProvider();
 
     @Go("/app/alarm/details2/activity")
-    boolean skipAlarmDetail2Activity(@Extra("id")long id);
+    boolean skipAlarmDetail2Activity(@Extra("id") long id);
+
+    @Go("/music/player/activity")
+    boolean skipMusicPlayActivity(@Extra("music") Music music);
+
+    @Go("/music/player/provider")
+    IMusicPlayProvider getMusicPlayProvider();
+
+    @Go("/app/video/list/fragment/provider")
+    IVideoListFragmentProvider getVideoListFragmentProvider();
+
+    @Go("/edu/child/poem/list/activity")
+    boolean skipChildEduPoemListActivity();
+
+    @Go("/edu/child/jokes/activity")
+    boolean skipChildEduJokesActivity();
+
+    @Go("/edu/child/sheet/details/activity")
+    boolean skipChildEduSheetDetailsActivity(@Extra("sheetCategory") String sheetCategory);
+
+    @Go("/module/control/setting/activity")
+    boolean skipSettingActivity();
+
+    @Go("/module/control/volume/control/provider")
+    IVolumeControlProvider getVolumeControlProvider();
+
+    @Go("/module/control/app/update/provider")
+    IAppUpdateProvider getAppUpdateProvider();
 }

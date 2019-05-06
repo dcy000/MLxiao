@@ -1,8 +1,9 @@
 package com.example.han.referralproject.new_music;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+
+import com.gcml.common.recommend.bean.get.Music;
 
 import java.io.File;
 

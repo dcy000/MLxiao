@@ -23,31 +23,7 @@
         <!--<item name="android:windowIsFloating">true</item>-->
     <!--</style>-->
 
-    <style name="VoiceDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowSoftInputMode">adjustPan</item>
-        <item name="android:windowIsFloating">true</item>
-        <!--是否模糊-->
-        <item name="android:backgroundDimEnabled">false</item>
-
-        <item name="android:windowAnimationStyle">@style/voiceDialogAction</item>
-    </style>
-
     <!-- voiceDialogAction进出动画 -->
-    <style name="voiceDialogAction" parent="@android:style/Animation.Dialog">
-        <item name="android:windowEnterAnimation">@anim/action_voice_dialog_in</item>
-        <item name="android:windowExitAnimation">@anim/action_voice_dialog_out</item>
-    </style>
-
-    <style name="XDialog_pup" parent="@android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowSoftInputMode">adjustPan</item>
-        <item name="android:windowIsFloating">true</item>
-    </style>
 
     <style name="jiaohu">
         <item name="android:textColor">#b6b2b2</item>
@@ -60,8 +36,4 @@
         <item name="android:layout_marginBottom">30dp</item>
     </style>
 
-    <declare-styleable name="SignView">
-        <attr name="lineColor" format="color" />
-        <attr name="lineWidth" format="dimension" />
-    </declare-styleable>
 </resources>

@@ -16,7 +16,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.Handlers;
+import com.gcml.common.utils.Handlers;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;

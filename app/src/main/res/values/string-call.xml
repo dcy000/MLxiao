@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="avchat_video_call_request">请求视频聊天…</string>
-    <string name="avchat_net_error_then_quit">网络异常，通话结束</string>
-    <string name="avchat_call_finish">通话结束</string>
-    <string name="avchat_peer_protocol_low_version">对方版本过低，请提示对方升级</string>
-    <string name="avchat_local_protocol_low_version">版本过低，请升级后使用</string>
-    <string name="avchat_invalid_channel_id">对方已挂断</string>
-    <string name="avchat_local_call_busy">本地通话中，无法使用易信进行通话。</string>
-    <string name="avchat_peer_busy">对方正在通话中，请稍后再拨。</string>
-    <string name="avchat_wait_recieve">等待对方接听…</string>
-    <string name="avchat_connecting">连接中…</string>
-    <string name="avchat_call_failed">发起通话失败</string>
-    <string name="avchat_no_permission">暂无权限，请开通音视频服务</string>
 
 </resources>

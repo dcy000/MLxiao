@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.gcml.common.recommend.bean.get.Music;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

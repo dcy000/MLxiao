@@ -1,0 +1,88 @@
+package com.gcml.module_edu_child.ui;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.module_edu_child.R;
+
+public class ChildEduStudyActivity extends ToolbarBaseActivity {
+
+    private ImageView ivBrainTeaser;
+    private ImageView ivPoems;
+    private ImageView ivStories;
+    private ImageView ivWhy;
+    private ImageView ivWords;
+    private ImageView ivBack;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.ce_activity_study);
+        mToolbar.setVisibility(View.GONE);
+        ivBack = findViewById(R.id.ce_common_iv_back);
+        ivBrainTeaser = findViewById(R.id.ce_study_iv_tab_brain_teaser);
+        ivPoems = findViewById(R.id.ce_study_iv_tab_poems);
+        ivStories = findViewById(R.id.ce_study_tv_tab_stories);
+        ivWhy = findViewById(R.id.ce_study_iv_tab_why);
+        ivWords = findViewById(R.id.ce_study_iv_tab_words);
+
+        ivWhy.setEnabled(false);
+        ivWords.setEnabled(false);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        ivPoems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduPoemListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivWords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduWordsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivBrainTeaser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduBrainTeaserActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivStories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduStories2Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivWhy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent = intent.setClass(ChildEduStudyActivity.this, ChildEduWhyActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+}

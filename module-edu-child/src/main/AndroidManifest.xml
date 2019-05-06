@@ -1,0 +1,48 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_edu_child">
+
+    <application>
+        <activity
+            android:name=".ui.ChildEduBrainTeaserActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduCartoonActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduEntertainmentActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduHomeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduJokesActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduPoemListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduPoemDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduSheetDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduSheetListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduStoriesActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduStories2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduStudyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduWhyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ChildEduWordsActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

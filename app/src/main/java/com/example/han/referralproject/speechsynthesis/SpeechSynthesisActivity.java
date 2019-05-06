@@ -29,18 +29,12 @@ import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.UserInfo;
-import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.children.ChildEduHomeActivity;
-import com.example.han.referralproject.children.entertainment.ChildEduJokesActivity;
-import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
-import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
-import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
@@ -51,31 +45,29 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
-import com.example.han.referralproject.settting.SharedPreferencesUtils;
-import com.example.han.referralproject.settting.activity.SettingActivity;
-import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
-import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
-import com.example.han.referralproject.tool.other.StringUtil;
-import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
-import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
+import com.gcml.common.recommend.bean.get.Music;
+import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.PinYinUtils;
+import com.gcml.common.utils.SharedPreferencesUtils;
 import com.gcml.common.utils.UM;
+import com.gcml.common.utils.data.StringUtil;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.lib_widget.VoiceLineView;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
@@ -89,6 +81,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.iflytek.settting.IatSettings;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -698,7 +691,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         hideLoadingDialog();
                         try {
                             if (response != null && response.vid > getPackageManager().getPackageInfo(SpeechSynthesisActivity.this.getPackageName(), 0).versionCode) {
-                                new UpdateAppManager(SpeechSynthesisActivity.this).showNoticeDialog(response.url);
+                                Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(SpeechSynthesisActivity.this,response.url);
                             } else {
                                 speak("当前已经是最新版本了");
                                 Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
@@ -802,23 +795,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
-                startActivity(ChildEduHomeActivity.class);
+                Routerfit.register(AppRouter.class).skipChildEduHomeActivity();
                 return;
             }
 
             if (inSpell.matches(".*(gushi|tangshisongci|songci|tangshi).*") || result.matches(".*古诗.*")) {
-                startActivity(ChildEduPoemListActivity.class);
+                Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
                 return;
             }
 
             if (inSpell.matches(".*(jianggexiaohua|xiaohua|youqudehua).*")) {
-                startActivity(ChildEduJokesActivity.class);
+                Routerfit.register(AppRouter.class).skipChildEduJokesActivity();
                 return;
             }
 
 
             if (result.matches(".*听故事|故事.*")) {
-                startActivity(ChildEduPoemListActivity.class);
+                Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
                 return;
             }
 
@@ -896,7 +889,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|tiaojieyinliang|diaojieyinliang|yiliangdaxiao).*")) {
-                startActivity(SettingActivity.class);
+                Routerfit.register(AppRouter.class).skipSettingActivity();
                 return;
             }
 
@@ -928,18 +921,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(erge|ertonggequ).*")) {
-                startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "儿童歌曲");
+                Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("儿童歌曲");
                 return;
             }
 
 
             if (inSpell.matches(".*(yaolanqu).*")) {
-                startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "摇篮曲");
+                Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("摇篮曲");
                 return;
             }
 
             if (inSpell.matches(".*(taijiaoyinyue|taijiao|taijiaoyinle).*")) {
-                startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "胎教音乐");
+                Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("胎教音乐");
                 return;
             }
 
@@ -1336,8 +1329,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             speak(getString(R.string.reduce_volume), isDefaultParam);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 2000);
-            VolumeControlFloatwindow.setVolumSB(volume);
-
+            Routerfit.register(AppRouter.class).getVolumeControlProvider().setVolume(volume);
         } else {
             speak(getString(R.string.min_volume), isDefaultParam);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
@@ -1352,7 +1344,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             speak(getString(R.string.add_volume), isDefaultParam);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 2000);
-            VolumeControlFloatwindow.setVolumSB(volume);
+            Routerfit.register(AppRouter.class).getVolumeControlProvider().setVolume(volume);
         } else {
             speak(getString(R.string.max_volume), isDefaultParam);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);

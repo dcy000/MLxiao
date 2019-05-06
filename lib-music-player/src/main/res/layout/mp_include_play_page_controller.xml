@@ -13,7 +13,6 @@
         android:paddingRight="64dp">
 
         <TextView
-            android:id="@+id/mp_tv_current_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mp_play_time_start"
@@ -22,7 +21,6 @@
             android:visibility="gone" />
 
         <SeekBar
-            android:id="@+id/mp_sb_progress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -33,7 +31,6 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/mp_tv_total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mp_play_time_start"

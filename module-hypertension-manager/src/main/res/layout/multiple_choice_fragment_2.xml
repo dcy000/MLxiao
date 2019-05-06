@@ -4,7 +4,6 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="841pt"
         android:layout_height="770pt"
         android:layout_alignParentBottom="true"

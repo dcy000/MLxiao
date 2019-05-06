@@ -30,7 +30,6 @@
         android:lineSpacingMultiplier="1.2"/>
 
     <ImageView
-        android:id="@+id/health_iv_robot"
         android:layout_width="766pt"
         android:layout_height="780pt"
         android:src="@drawable/health_measure_ic_robot"

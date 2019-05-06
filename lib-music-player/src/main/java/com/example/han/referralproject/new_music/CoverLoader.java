@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 
+import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.utils.ui.ScreenUtils;
 
 import java.io.FileNotFoundException;

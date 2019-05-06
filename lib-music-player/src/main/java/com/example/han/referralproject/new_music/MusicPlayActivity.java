@@ -9,6 +9,10 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.gcml.common.recommend.bean.get.Music;
+import com.sjtu.yifei.annotation.Route;
+
+@Route(path = "/music/player/activity")
 public class MusicPlayActivity extends AppCompatActivity {
     private Music music;
     private MusicService musicService;

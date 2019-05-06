@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.get.Music;
+
 import java.io.File;
 import java.util.ArrayList;
 

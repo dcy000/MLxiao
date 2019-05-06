@@ -288,89 +288,31 @@
             android:name=".radio.RadioActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".children.ChildEduHomeActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".children.cartoon.ChildEduCartoonActivity" />
-        <activity android:name=".children.entertainment.ChildEduEntertainmentActivity" />
-        <activity android:name=".children.study.ChildEduStudyActivity" />
-        <activity android:name=".children.entertainment.ChildEduSheetListActivity" />
-        <activity android:name=".children.entertainment.ChildEduSheetDetailsActivity" />
-        <activity android:name=".children.study.ChildEduPoemListActivity" />
-        <activity android:name=".children.study.ChildEduWordsActivity" />
-        <activity
-            android:name=".children.study.ChildEduStoriesActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustNothing|stateHidden" />
-        <activity android:name=".children.study.ChildEduBrainTeaserActivity" />
-        <activity android:name=".children.study.ChildEduWhyActivity" />
-        <activity android:name=".children.study.ChildEduPoemDetailsActivity" />
-        <activity android:name=".children.study.ChildEduStories2Activity" />
-        <activity
-            android:name=".settting.activity.SettingActivity"
+            android:name="com.example.module_control_volume.ui.SettingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".settting.activity.VoiceSettingActivity"
+            android:name="com.example.module_control_volume.ui.VoiceSettingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".settting.activity.AboutActivity"
+            android:name="com.example.module_control_volume.ui.AboutActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.module_tools.ToolsActivity"
+            android:name="com.example.module_control_volume.ui.SetKeyWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".children.entertainment.ChildEduJokesActivity"
+            android:name="com.example.module_control_volume.ui.VoicerSettingDemoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".settting.activity.SetKeyWordActivity"
+            android:name="com.example.module_control_volume.ui.CustomKeyWordsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".settting.activity.VoicerSettingDemoActivity"
+            android:name="com.example.module_control_volume.ui.KeyWordEditActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".settting.activity.CustomKeyWordsActivity"
+            android:name="com.example.module_control_volume.ui.SetKeyWord2Activity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".settting.activity.KeyWordEditActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.SetKeyWord2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.KeyWordEdit2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".blood_pressure_risk_assessment.HypertensionRiskActivity"
-            android:screenOrientation="landscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity
-            android:name=".blood_pressure_risk_assessment.PrimaryBloodPressureRiskResultsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".blood_pressure_risk_assessment.SecondaryBloodPressureRiskResultsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".blood_sugar_risk_assessment.BloodsugarRiskAssessmentResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.plan.FoodMaterialDetailActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.plan.SportPlanDetailActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.plan.TreatmentPlanActivity"
+            android:name="com.example.module_control_volume.ui.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".physicalexamination.activity.ChineseMedicineMonitorActivity"
@@ -383,54 +325,15 @@
             android:label="历史测量数据界面"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.module_hypertension_manager.ui.OriginHypertensionTipActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.NormalHighTipActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.PressureFlatTipActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.PressureNornalTipActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementTipActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.BasicInformationActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.PrimaryHypertensionActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.HypertensionTipActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.HypertensionActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.HasDiseaseOrNotActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".homepage.MainActivity"
             android:label="20180730主页面"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.module_hypertension_manager.ui.IsEmptyStomachOrNotActivity"
+            android:name="com.example.module_control_volume.ui.ScreenPointActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.module_hypertension_manager.ui.NormalHightActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.ScreenPointActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.ScreenTouchActivity"
+            android:name="com.example.module_control_volume.ui.ScreenTouchActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".tcm.activity.HealthManagementResultActivity"
@@ -442,12 +345,8 @@
             android:name=".tcm.SymptomCheckActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".settting.activity.CameraActivity"
+            android:name="com.example.module_control_volume.ui.CameraActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.ui.DetecteTipActivity"
-            android:screenOrientation="landscape" />
-        <!-- <activity android:name=".recommend.RecommendActivity" /> -->
         <activity
             android:name=".recyclerview.DoctorappoActivity2"
             android:screenOrientation="landscape" />

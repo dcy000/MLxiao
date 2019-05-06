@@ -97,11 +97,6 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.iv_home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-                break;
             case R.id.rb_reason:
                 mRbReason.setChecked(true);
                 if (mData != null)

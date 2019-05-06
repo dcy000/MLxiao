@@ -1,46 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
     <!-- Navigation Header -->
-    <style name="NavPage">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:gravity">center_horizontal</item>
-        <!-- <item name="android:background">@drawable/nav_page</item> -->
-        <item name="android:background">@color/color_white</item>
-    </style>
-
-    <style name="MMButton">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">16dp</item>
-        <item name="android:textColor">@color/color_white</item>
-        <item name="android:background">@null</item>
-        <item name="android:minHeight">40dp</item>
-        <item name="android:minWidth">40dp</item>
-    </style>
-
-    <style name="MMLineButton" parent="@style/MMButton">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/color_white</item>
-    </style>
-
-    <style name="MMLineActionButton" parent="@style/MMLineButton">
-        <item name="android:background">@drawable/btn_mall_base</item>
-        <item name="android:textColor">@color/color_white</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDy">1.2</item>
-        <item name="android:shadowDx">1.2</item>
-        <item name="android:shadowRadius">1</item>
-    </style>
 
 </resources>

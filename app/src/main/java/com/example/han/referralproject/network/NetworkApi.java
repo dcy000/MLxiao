@@ -13,10 +13,8 @@ import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.UserInfo;
-import com.example.han.referralproject.bean.VersionInfoBean;
+import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.example.han.referralproject.bean.YzInfoBean;
-import com.example.han.referralproject.children.model.SheetModel;
-import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.physicalexamination.bean.QuestionnaireBean;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
@@ -24,8 +22,6 @@ import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.old.auth.entity.UserInfoBean;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -38,24 +34,10 @@ import java.util.Map;
 
 public class NetworkApi {
     public static final String BasicUrl = BuildConfig.SERVER_ADDRESS;
-    //运动计划推荐
-    public static final String SportHealthPlan = BasicUrl + "ZZB/api/healthMonitor/lifeTherapy/sport/";
-    //一周健康计划推荐
-    public static final String WeekHealthDietPlan = BasicUrl + "ZZB/api/healthMonitor/lifeTherapy/food/cookbook/";
-    //每日食材推荐
-    public static final String Daily_Food_Recommendation = BasicUrl + "ZZB/api/healthMonitor/lifeTherapy/food/";
-    //每日建议摄入食盐、油等
-    public static final String Daily_Recommended_Intake = BasicUrl + "ZZB/api/healthMonitor/lifeTherapy/food/dailyIntake/";
-    //上周检测结果
-    public static final String LastWeekAllReport = BasicUrl + "ZZB/api/healthMonitor/lifeTherapy/weekReport/";
-    //本周计划
-    public static final String ThisWeekPlan = BasicUrl + "ZZB/api/healthMonitor/lifeTherapy/detectionReport/";
     //高血压风险评估
     public static final String Hypertension_Detection = BasicUrl + "ZZB/api/healthMonitor/hypertension/analysis/";
     //糖尿病风险评估
     public static final String Bloodsugar_Detection = BasicUrl + "ZZB/api/healthMonitor/diabetes/questionnaire/";
-    //健康方案中的药物方案
-    public static final String Medicine_Program = BasicUrl + "ZZB/api/healthMonitor/medicine/hypertension/";
 
     public static final String ClueUrl = BasicUrl + "ZZB/br/selOneUserClueAll";
     public static final String BindDocUrl = BasicUrl + "ZZB/br/qianyue";
@@ -92,7 +74,6 @@ public class NetworkApi {
 
     public static final String PAY_CANCEL = BasicUrl + "ZZB/order/delivery_del";
 
-    public static final String ORDER_LIST = BasicUrl + "ZZB/order/one_more_orders";
 
     //修改个人基本信息
     public static final String Get_jibing = BasicUrl + "ZZB/bl/selSugByBname";
@@ -103,50 +84,6 @@ public class NetworkApi {
 
     public static final String GET_FM = BasicUrl + "ZZB/rep/selSomeImitate";
 
-    public static final String GET_SHEET_LIST = BasicUrl + "ZZB/rep/sel_music_danforapp";
-
-    private static final String GET_SONG_LIST = BasicUrl + "ZZB/rep/selSomeImitate";
-
-    public static void getChildEduSheetList(
-            int page,
-            int limit,
-            NetworkManager.SuccessCallback<List<SheetModel>> successCallback,
-            NetworkManager.FailedCallback failedCallback) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("page", String.valueOf(page));
-        params.put("limit", String.valueOf(limit));
-        NetworkManager.getInstance().getResultClass(
-                GET_SHEET_LIST,
-                params,
-                new TypeToken<List<SheetModel>>() {
-                }.getType(),
-                successCallback,
-                failedCallback
-        );
-    }
-
-    public static void getChildEduSongListBySheetId(
-            int page,
-            int limit,
-            int sheetId,
-            int type,
-            String singer,
-            NetworkManager.SuccessCallback<List<SongModel>> successCallback,
-            NetworkManager.FailedCallback failedCallback) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("page", String.valueOf(page));
-        params.put("limit", String.valueOf(limit));
-        params.put("mid", String.valueOf(sheetId));
-        params.put("type", String.valueOf(type));
-        params.put("wr", singer);
-        NetworkManager.getInstance().getResultClass(
-                GET_SONG_LIST,
-                params,
-                new TypeToken<List<SongModel>>() {
-                }.getType(),
-                successCallback,
-                failedCallback);
-    }
 
 
     public static void getFM(
@@ -191,7 +128,6 @@ public class NetworkApi {
         params.put("bid", bid);
         NetworkManager.getInstance().postResultClass(CANCEL_CONTRACT, params, Object.class, successCallback, failedCallback);
     }
-    public static final String GOODS_LIST = BasicUrl + "/ZZB/order/OneType_state";
 
 
 
@@ -261,13 +197,6 @@ public class NetworkApi {
         }.getType(), listener, failedCallback);
     }
 
-    public static void goods_list(int state, NetworkManager.SuccessCallback<ArrayList<GoodBean>> listener, NetworkManager.FailedCallback failedCallback) {
-        Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("state", state + "");
-
-        NetworkManager.getInstance().postResultClass(GOODS_LIST, paramsMap, new TypeToken<ArrayList<GoodBean>>() {
-        }.getType(), listener, failedCallback);
-    }
 
 
     public static void onlinedoctor_zixun(String docterid, String userid, int state, NetworkManager.SuccessCallback<OnlineTime> listener, NetworkManager.FailedCallback failedCallback) {
@@ -280,35 +209,7 @@ public class NetworkApi {
         }.getType(), listener, failedCallback);
     }
 
-    public static void preparingPay(String userid, String eqid, String articles, String number, String price, String photo, String time, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("userid", userid);
-        paramsMap.put("eqid", eqid);
-        paramsMap.put("articles", articles);
-        paramsMap.put("number", number);
-        paramsMap.put("price", price);
-        paramsMap.put("photo", photo);
-        paramsMap.put("time", time);
 
-        NetworkManager.getInstance().postResultString(ORDER_INFO, paramsMap, listener, failedCallback);
-    }
-
-    public static void pay_status(String userid, String eqid, String orderid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("userid", userid);
-        paramsMap.put("eqid", eqid);
-        paramsMap.put("orderid", orderid);
-        NetworkManager.getInstance().postResultString(PAY_STATUS, paramsMap, listener, failedCallback);
-    }
-
-    public static void pay_cancel(String pay_state, String delivery_state, String display_state, String orderid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
-        Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("pay_state", pay_state);
-        paramsMap.put("delivery_state", delivery_state);
-        paramsMap.put("display_state", display_state);
-        paramsMap.put("orderid", orderid);
-        NetworkManager.getInstance().postResultString(PAY_CANCEL, paramsMap, listener, failedCallback);
-    }
 
     public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {
         if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
@@ -381,20 +282,6 @@ public class NetworkApi {
     }
 
     /**
-     * 获取个人的基本信息
-     *
-     * @param successCallback
-     * @param failedCallback
-     */
-    public static void getMyBaseData(
-            NetworkManager.SuccessCallback<UserInfoBean> successCallback, NetworkManager.FailedCallback failedCallback) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("bid", UserSpHelper.getUserId());
-        NetworkManager.getInstance().getResultClass(GET_MY_BASE_DATA, params, UserInfoBean.class, successCallback, failedCallback);
-    }
-
-
-    /**
      * 更具语音获取疾病结果
      *
      * @param bname
@@ -424,118 +311,6 @@ public class NetworkApi {
                 QuestionnaireBean.class,
                 successCallback,
                 failedCallback);
-    }
-
-    /**
-     * 获取原发性高血压问卷
-     */
-    public static final String PRIMARY_HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/primary/";
-
-    public static void getPrimaryHypertensionQuestion(StringCallback callback) {
-        OkGo.<String>get(PRIMARY_HYPERTENSION_URL).
-                execute(callback);
-    }
-
-    /**
-     * 提交原发性高血压问卷
-     */
-    public static final String POST_PRIMARY_HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/primary/";
-
-    public static void postPrimaryHypertensionQuestion(String postJson, String userId, StringCallback callback) {
-        OkGo.<String>post(POST_PRIMARY_HYPERTENSION_URL + userId + "/")
-                .params("userId", userId)
-                .upJson(postJson)
-                .execute(callback);
-    }
-
-
-    /**
-     * 高血压-->获取心血管问卷
-     */
-    public static final String HYPERTENSION_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/heart/";
-
-    public static void getHypertensionQuestion(StringCallback callback) {
-        OkGo.<String>get(HYPERTENSION_URL).
-                execute(callback);
-    }
-
-
-    /**
-     * 高血压-->提交心血管问卷
-     */
-    public static void postHypertensionQuestion(String postJson, String userId, StringCallback callback) {
-        OkGo.<String>post(HYPERTENSION_URL + userId + "/")
-                .params("userId", userId)
-                .upJson(postJson)
-                .execute(callback);
-    }
-
-
-    /**
-     * 正常高值-->高血压风险评估
-     */
-    public static final String NORMALHIGHT_URL = BasicUrl + "/ZZB/api/healthMonitor/questionnaire/hypertension/risk/";
-
-    public static void getNormalHightQuestion(StringCallback callback) {
-        OkGo.<String>get(NORMALHIGHT_URL).
-                execute(callback);
-    }
-
-
-    /**
-     * 正常高值-->高血压风险评估
-     */
-    public static void postNormalHightQuestion(String postJson, String userId, StringCallback callback) {
-        OkGo.<String>post(NORMALHIGHT_URL + userId + "/")
-                .params("userId", userId)
-                .upJson(postJson)
-                .execute(callback);
-    }
-
-
-    /**
-     * 原发性高血压 修改
-     */
-    public static final String POST_ORIGIN_HYPERTENTION = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/primary/";
-
-    public static void postOriginHypertension(String hypertensionPrimaryState, String userId, StringCallback callback) {
-        OkGo.<String>post(POST_ORIGIN_HYPERTENTION + userId + "/")
-                .params("userId", userId)
-                .params("hypertensionPrimaryState", hypertensionPrimaryState)
-                .execute(callback);
-    }
-
-    /**
-     * 靶器官判定
-     */
-    public static final String POST_TARGET_HYPERTENTION = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/target/";
-
-    public static void postTargetHypertension(String hypertensionTarget, String userId, StringCallback callback) {
-        OkGo.<String>post(POST_TARGET_HYPERTENTION + userId + "/")
-                .params("userId", userId)
-                .params("hypertensionTarget", hypertensionTarget)
-                .execute(callback);
-    }
-
-    /**
-     * 获取诊断信息
-     */
-    public static final String GET_DIAGNOSE_INFO = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/";
-
-    public static void getDiagnoseInfo(String userId, StringCallback callback) {
-        OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/")
-                .params("userId", userId)
-                .execute(callback);
-    }
-
-
-    /**
-     * 获取诊断信息-->重新生成方案
-     */
-    public static void getDiagnoseInfoNew(String userId, StringCallback callback) {
-        OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/new/")
-                .params("userId", userId)
-                .execute(callback);
     }
 
 

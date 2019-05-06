@@ -58,7 +58,7 @@
         android:textColor="#b6b2b2"
         android:textSize="25dp" />
 
-    <com.example.han.referralproject.tool.wrapview.VoiceLineView
+    <com.gcml.lib_widget.VoiceLineView
         android:id="@+id/vl_wave"
         android:layout_width="300dp"
         android:layout_height="27dp"

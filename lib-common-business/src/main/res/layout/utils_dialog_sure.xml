@@ -44,7 +44,6 @@
             android:textSize="52pt"/>
 
         <TextView
-            android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="1pt"
             android:layout_marginTop="20pt"

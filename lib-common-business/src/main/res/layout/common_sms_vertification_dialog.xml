@@ -32,7 +32,6 @@
                 android:textSize="64pt" />
 
             <RelativeLayout
-                android:id="@+id/rl_send_number"
                 android:layout_width="800pt"
                 android:layout_height="120pt"
                 android:layout_gravity="center_horizontal"

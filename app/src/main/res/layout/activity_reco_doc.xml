@@ -19,7 +19,6 @@
         android:paddingLeft="20dp">
 
         <Spinner
-            android:id="@+id/sp_province"
             android:layout_width="81dp"
             android:layout_height="40dp"
             android:background="@drawable/common_bg_input_gray"

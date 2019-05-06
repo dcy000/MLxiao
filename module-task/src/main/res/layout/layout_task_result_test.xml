@@ -48,7 +48,6 @@
         android:layout_below="@+id/rl_test_top"/>
 
     <LinearLayout
-        android:id="@+id/ll_test_content1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_test_line"
@@ -78,7 +77,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_test_content2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_test_line"
@@ -109,7 +107,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_test_content3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_test_line"

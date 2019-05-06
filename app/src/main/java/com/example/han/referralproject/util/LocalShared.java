@@ -6,8 +6,8 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.speech.setting.IatSettings;
 import com.gcml.common.data.UserSpHelper;
+import com.iflytek.settting.IatSettings;
 
 import java.util.ArrayList;
 import java.util.Random;

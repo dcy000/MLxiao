@@ -9,6 +9,7 @@ import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.List;

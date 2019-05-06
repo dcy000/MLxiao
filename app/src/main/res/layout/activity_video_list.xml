@@ -107,7 +107,6 @@
             android:visibility="gone"/>
     </RadioGroup>
     <View
-        android:id="@+id/view_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/video_demo_bg"

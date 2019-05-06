@@ -11,12 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.UpdateAppManager;
+import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.network.NetUitls;
 import com.sjtu.yifei.annotation.Route;
@@ -52,13 +51,6 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
             return;
         }
-//        if (!WiFiUtil.getInstance(getApplicationContext()).isNetworkEnabled(this)) {//网络没有连接，这跳转到WiFi页面
-//            Intent mIntent = new Intent(WelcomeActivity.this, WifiConnectActivity.class);
-//            mIntent.putExtra("is_first_wifi", true);
-//            startActivity(mIntent);
-//            finish();
-//            return;
-//        }
         playVideo();
     }
 
@@ -68,7 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onSuccess(VersionInfoBean response) {
                 try {
                     if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
-                        new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
+                        Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(WelcomeActivity.this, response.url);
                     } else {
                         ch = findViewById(R.id.chronometer);
                         //设置开始计时时间

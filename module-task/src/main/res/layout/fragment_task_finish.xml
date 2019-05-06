@@ -50,7 +50,6 @@
             android:textStyle="bold"/>
 
         <LinearLayout
-            android:id="@+id/ll_task_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -75,7 +74,6 @@
                     android:visibility="gone"/>
 
                 <ImageView
-                    android:id="@+id/iv_task_progress1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
@@ -100,7 +98,6 @@
                     android:visibility="gone"/>
 
                 <ImageView
-                    android:id="@+id/iv_task_progress2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
@@ -125,7 +122,6 @@
                     android:visibility="gone"/>
 
                 <ImageView
-                    android:id="@+id/iv_task_progress3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
@@ -150,7 +146,6 @@
                     android:visibility="gone"/>
 
                 <ImageView
-                    android:id="@+id/iv_task_progress4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
@@ -175,7 +170,6 @@
                     android:visibility="gone"/>
 
                 <ImageView
-                    android:id="@+id/iv_task_progress5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"

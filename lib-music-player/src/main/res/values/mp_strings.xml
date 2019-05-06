@@ -1,44 +1,13 @@
 <resources>
-    <string name="mp_app_name">lib-music-player</string>
 
-    <string name="mp_ok">确定</string>
-    <string name="mp_connect">连接</string>
     <string name="mp_cancel">取消</string>
-    <string name="mp_unknown">未知</string>
-    <string name="mp_delete_music">删除%s？</string>
-    <string name="mp_setting_ringtone_success">设置铃声成功</string>
-    <string name="mp_no_local_music">暂无本地音乐</string>
-    <string name="mp_song_list_item_title_1">1.%1$s - %2$s</string>
-    <string name="mp_song_list_item_title_2">2.%1$s - %2$s</string>
-    <string name="mp_song_list_item_title_3">3.%1$s - %2$s</string>
-    <string name="mp_mode_loop">列表循环</string>
-    <string name="mp_mode_shuffle">随机播放</string>
-    <string name="mp_mode_one">单曲循环</string>
     <string name="mp_play_time_start">00:00</string>
-    <string name="mp_now_play">正在播放：%s</string>
-    <string name="mp_now_download">正在下载：%s</string>
-    <string name="mp_download_success">%s下载完成</string>
-    <string name="mp_recent_update">最近更新：%s</string>
-    <string name="mp_unable_to_play">暂时无法播放</string>
-    <string name="mp_unable_to_download">暂时无法下载</string>
-    <string name="mp_search_empty">未找到相关结果</string>
-    <string name="mp_network">网络</string>
-    <string name="mp_mobile_network_play">使用移动网络播放</string>
-    <string name="mp_mobile_network_download">使用移动网络下载</string>
-    <string name="mp_play">播放</string>
-    <string name="mp_sound_effect">音效调节</string>
     <string name="mp_tips">温馨提示</string>
     <string name="mp_play_tips">当前处于移动网络，确定打开移动网络播放开关吗？</string>
     <string name="mp_play_tips_sure">立即打开</string>
-    <string name="mp_timer_set">设置成功，将于%s分钟后关闭</string>
-    <string name="mp_timer_cancel">定时停止播放已取消</string>
-    <string name="mp_no_permission">没有%1$s权限，无法%2$s！</string>
-    <string name="mp_user_help">认真阅读用户须知，帮助您完成绑定</string>
-    <string name="mp_hello">你好</string>
 
     <string name="mp_setting_key_mobile_network_play">mobile_network_play</string>
     <string name="mp_setting_key_mobile_network_download">mobile_network_download</string>
-    <string name="mp_setting_key_sound_effect">sound_effect</string>
     <string name="mp_setting_key_filter_size">filter_size</string>
     <string name="mp_setting_key_filter_time">filter_time</string>
 </resources>

@@ -1,215 +1,28 @@
 <resources>
     <string name="app_name">健康管家-健管演示</string>
 
-    <string name="user_name">使用手机号码登录</string>
-    <string name="user_pwd">请输入密码</string>
-    <string name="login">登 录</string>
-    <string name="fgkey">忘记密码？</string>
-    <string name="register">注   册</string>
-    <string name="input_name">请输入用户名</string>
-    <string name="input_pwd">请输入密码</string>
-    <string name="confirm">请再次输入密码</string>
-    <string name="input_mobile">请输入手机号码</string>
-    <string name="i_agree">我同意</string>
-
-    <string name="change_account">账号切换</string>
-    <string name="add_account">添加账号</string>
-    <string name="empty_account">输入账号不能为空</string>
-    <string name="empty_pwd">输入密码不能为空</string>
-    <string name="empty_name">输入姓名不能为空</string>
-    <string name="empty_address">输入地址不能为空</string>
-    <string name="empty_phone">请输入手机号码</string>
-    <string name="agree_sure">请同意用户协议</string>
-    <string name="sure">下一步</string>
-    <string name="do_register">正在注册...</string>
-    <string name="do_login">正在登录</string>
-    <string name="do_uploading">正在上传</string>
-    <string name="do_loading">正在加载</string>
-
-    <string name="register_info">注册信息</string>
-    <string name="name">姓名</string>
-    <string name="sex">性别</string>
-    <string name="address">地址</string>
-    <string name="birthday">出生年月</string>
-    <string name="year">年</string>
-    <string name="month">月</string>
-    <string name="telephone">手机号码</string>
-    <string name="pwd_set">设置密码</string>
-    <string name="next_step">下一步</string>
-    <string name="history_disease">既往病史</string>
-    <string name="health_record">健康档案</string>
-    <string name="sign_logo">\&#064;国辰迈联机器人--2017-2019</string>
-    <string name="sign_copy">\&#064;杭州国辰迈联机器人科技有限公司</string>
-    <string name="xueya">血压</string>
-    <string name="xuetang">血糖</string>
-    <string name="wendu">温度</string>
-    <string name="tizhong">体重</string>
-    <string name="xueyang">血氧</string>
-    <string name="logout">退出登录</string>
-    <string name="speak_no_result">我还没学习到</string>
-    <string name="offline_sign">线下绑定</string>
-    <string name="submit">提交</string>
-    <string name="connect_connect_off">与设备连接断开</string>
-    <string name="measure_ecg_file_ing">正在接收文件</string>
-    <string name="measure_ecg_file_end">接收完成</string>
-    <string name="measure_ecg_time_out">接收超时</string>
-    <string name="measure_ecg_time_err">接收文件出错</string>
-    <string name="measure_lead_off">导联脱落</string>
-    <string name="const_data_nodata">--</string>
-    <string name="connect_opening">正在打开蓝牙</string>
-    <string name="connect_openfail">蓝牙打开失败</string>
-    <string name="connect_startseach">正在搜索设备</string>
-    <string name="connect_startconnect">正在与设备建立连接</string>
-    <string name="connect_success">与设备成功连接</string>
-    <string name="connect_fail">与设备连接失败 点击重新开始连接</string>
-    <string name="connect_close">检测到蓝牙被关闭 操作失败</string>
     <string name="no_yz">目前还没有消息</string>
-    <string name="tips_wendu_one">请取出5号仪器，耳温枪</string>
-    <string name="tips_wendu_two">拆下防尘盖，按下电源按钮</string>
-    <string name="tips_wendu_three">把测温头伸入耳道，按下并松开测温按钮，显示测温</string>
-    <string name="tips_xueya_one">请取出一号仪器，血压计</string>
-    <string name="tips_xueya_two">将手穿过绷带孔，放置于肘关节上方2厘米处，与心脏位置齐平，
-        并扎紧绷带，按下开关键，进行测试，请耐心等待测量结果</string>
-    <string name="tips_xuetang_one">取出采血笔，将采血针装入采血笔，拧下保护套，旋转采血笔头，
-        旋转头部调整扎针深度，拉一下采血笔尾部开始扎针测量，快速拿出试纸，插入血糖仪</string>
-    <string name="tab_disease_one">疾病综述</string>
-    <string name="tab_disease_two">饮食建议</string>
-    <string name="tab_disease_three"></string>
 
     <string name="add_volume">调大声音</string>
     <string name="reduce_volume">调小声音</string>
     <string name="max_volume">当前已经是最大声音了</string>
     <string name="min_volume">当前已经是最小声音了</string>
 
-    <!-- version update -->
-    <string name="version_update_title">版本更新</string>
-    <string name="version_update_new_verion_message">检测到新版本，建议您更新！</string>
-    <string name="version_update_action_download_title">新版本下载...</string>
-    <string name="version_update_action_download">下载安装</string>
-    <string name="version_update_action_later">以后再说</string>
-    <string name="version_update_action_cancel">取消</string>
-    <string name="version_update_url_error_message">版本更新链接错误！</string>
-
 
     <string name="tips_splash">您好，我是您的健康机器人管家小易，接下来将由我为您开启健康之旅。</string>
-    <string name="tips_login">如果您有账号，请直接登入；首次使用请点击注册。</string>
-    <string name="tips_register">为了更好地为您服务，需要您填写您的个人信息，填写完毕后点击下一步</string>
-    <string name="tips_disease">为了全部掌握您的健康信息，如果您有病史请选择对应标签，然后点击下一步</string>
-    <string name="tips_face">让我给您拍个照，下次我就认识您啦</string>
     <string name="tips_doctor">请选择您最信任的健康顾问完成绑定，如果他没在里面可以点击右下角的线下绑定按钮。</string>
     <string name="tips_info">如果需要绑定就点击绑定按钮。</string>
     <string name="online_info">您可以点击咨询按钮与在线健康顾问进行视频通话。</string>
 
-    <string name="tips_test">请点击您需要测量的项目</string>
-    <string name="tips_open_device">您可以打开设备开始测量了</string>
-    <string name="tips_result_wendu" formatted="false">您的体温是%1$s度，%2$s</string>
-    <string name="tips_result_tizhong" formatted="false">您的体重是%s公斤</string>
-    <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
-    <string name="tips_result_xueya" formatted="false">您的高压是%1$d, 低压是%2$d, 脉搏是%3$d, %4$s</string>
-    <string name="tips_result_xuetang">您的血糖值为%1$s,%2$s</string>
-    <string name="tips_result_xueyang" formatted="false">您的血氧饱和度为%1$s，%2$s</string>
-    <string name="tips_result_niaosuan" formatted="false">您的尿酸为%1$s,%2$s</string>
-    <string name="tips_result_danguchun" formatted="false">您的胆固醇为%1$s,%2$s</string>
-    <string name="tips_result_xindian" formatted="false">您的心率为%1$d, %2$s</string>
-    <string name="tips_symptom">请选择对应症状并提交</string>
-    <string name="tips_symptom_result">你有可能是%s</string>
-    <string name="tips_error_temp">温度测量不正常，请重新测试</string>
-    <string name="tips_blue_connect">设备已连接</string>
-    <string name="tips_blue_unConnect">设备已断开</string>
-
-    <string name="unknown_device">Unknown device</string>
-    <string name="unknown_characteristic">Unknown characteristic</string>
-    <string name="unknown_service">Unknown service</string>
-
-
-    <string name="ble_not_supported">BLE is not supported</string>
-    <string name="label_data">Compatable:</string>
-    <string name="label_device_address">Device address:</string>
-    <string name="label_state">State:</string>
-    <string name="no_data">No data</string>
-    <string name="connected">Connected</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="title_devices">BLE Device Scan</string>
-    <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
 
     <string name="app_id">59196d96</string>
     <!--<string name="app_id">596ed677</string>-->
 
-    <string name="app_ids">59196d96</string>
-
     <!-- 听写 -->
-    <string name="text_begin">请开始说话…</string>
-    <string name="text_begin_recognizer">开始音频流识别</string>
-    <string name="text_upload_contacts">上传联系人</string>
-    <string name="text_upload_userwords">上传用户词表</string>
-    <string name="text_upload_success">上传成功</string>
-    <string name="text_userword_empty">词表下载失败或内容为空</string>
-    <string name="text_download_success">下载成功</string>
     <string name="pref_key_iat_show">iat_show</string>
     <string name="pref_title_iat_show">显示听写界面</string>
-    <string name="pref_title_iat_dwa">结果动态修正</string>
 
     <!-- 合成 -->
-    <string-array name="engine_entries">
-        <item>本地合成</item>
-        <item>在线合成</item>
-    </string-array>
-    <string-array name="engine_values">
-        <item>local</item>
-        <item>cloud</item>
-    </string-array>
-    <string-array name="voicer_cloud_entries">
-        <item>小燕—女青、中英、普通话</item>
-        <item>小宇—男青、中英、普通话</item>
-        <item>凯瑟琳—女青、英</item>
-        <item>亨利—男青、英</item>
-        <item>玛丽—女青、英</item>
-        <item>小研—女青、中英、普通话</item>
-        <item>小琪—女青、中英、普通话</item>
-        <item>小峰—男青、中英、普通话</item>
-        <item>小梅—女青、中英、粤语</item>
-        <item>小莉—女青、中英、台湾普通话</item>
-        <item>小蓉—女青、中、四川话</item>
-        <item>小芸—女青、中、东北话</item>
-        <item>小坤—男青、中、河南话</item>
-        <item>小强—男青、中、湖南话</item>
-        <item>小莹—女青、中、陕西话</item>
-        <item>小新—男童、中、普通话</item>
-        <item>楠楠—女童、中、普通话</item>
-        <item>老孙—男老、中、普通话</item>
-    </string-array>
-    <string-array name="voicer_cloud_values">
-        <item>xiaoyan</item>
-        <item>xiaoyu</item>
-        <item>catherine</item>
-        <item>henry</item>
-        <item>vimary</item>
-        <item>vixy</item>
-        <item>xiaoqi</item>
-        <item>vixf</item>
-        <item>xiaomei</item>
-        <item>xiaolin</item>
-        <item>xiaorong</item>
-        <item>xiaoqian</item>
-        <item>xiaokun</item>
-        <item>xiaoqiang</item>
-        <item>vixying</item>
-        <item>xiaoxin</item>
-        <item>nannan</item>
-        <item>vils</item>
-    </string-array>
-    <string-array name="emot_entries">
-        <item>正常</item>
-        <item>高兴</item>
-        <item>悲伤</item>
-        <item>生气</item>
-    </string-array>
-    <string-array name="emot_values">
-        <item>neutral</item>
-        <item>happy</item>
-        <item>sad</item>
-        <item>angry</item>
-    </string-array>
     <string-array name="stream_entries">
         <item>通话</item>
         <item>系统</item>
@@ -226,7 +39,6 @@
         <item>4</item>
         <item>5</item>
     </string-array>
-    <string name="tts_toast_format" formatted="false">缓冲进度为%d%%，播放进度为%d%%</string>
     <!-- 语言 -->
     <string-array name="language_entries">
         <item>普通话</item>
@@ -239,11 +51,6 @@
         <item>en_us</item>
     </string-array>
     <!-- 语音评测 -->
-    <string name="text_en_word">"[word]\napple\nbanana\norange"</string>
-    <string name="text_en_sentence">"The quick brown fox jumps over the lazy dog."</string>
-    <string name="text_cn_syllable">"知，痴，是"</string>
-    <string name="text_cn_word">"磁铁，率领，脆弱，动手，古筝"</string>
-    <string name="text_cn_sentence">"一座座雪峰插入云霄，峰顶银光闪闪，大大小小的湖泊，像颗颗宝石镶嵌在彩带般的沟谷中。"</string>
     <string-array name="ise_language_entries">
         <item>英语</item>
         <item>汉语</item>
@@ -275,114 +82,27 @@
         <item>1</item>
         <item>0</item>
     </string-array>
-    <string-array name="dwa_entries">
-        <item>开启</item>
-        <item>关闭</item>
-    </string-array>
 
     <string name="text">
         主任医师，1982年本科毕业开始从事医学临床、教学及科研工作。1995年毕业于北京医科大学（现北京大学医学部）获医学硕士学位。主攻高血压、冠心病的诊断及治疗，擅长疑难病及危重急症的诊治。并从事冠心病的介入诊断及治疗，每年独立完成冠状动脉造影、PTCA或支架植入术500例以上。至今已在国内外杂志发表论文数十篇，为国内外多家杂志的审稿人。主持浙江省科技攻关项目、浙江省教育厅等多项课题，参编《儿科学词典》等著作。研究方向：高血压、冠心病的诊断及治疗。
     </string>
 
 
-    <string name="out_hospital">出院注意事项</string>
-    <string name="in_educate">入 院 教 育</string>
-
-    <string name="list_load">下拉刷新/上拉加载</string>
-    <string name="header_hint_normal">下拉刷新</string>
-    <string name="header_hint_ready">松开刷新数据</string>
-    <string name="header_hint_loading">正在加载...</string>
-    <string name="header_last_time">上次更新时间：</string>
-    <string name="footer_hint_normal">查看更多</string>
-    <string name="footer_hint_ready">松开载入更多</string>
-
-    <string name="wifi_connect">WiFi连接</string>
     <string name="wlan">WLAN</string>
     <string name="wifi_choose">选取网络</string>
 
-    <string name="ok">确定</string>
-    <string name="connect">连接</string>
-    <string name="cancel">取消</string>
-    <string name="unknown">未知</string>
-    <string name="delete_music">删除%s？</string>
-    <string name="setting_ringtone_success">设置铃声成功</string>
-    <string name="no_local_music">暂无本地音乐</string>
-    <string name="song_list_item_title_1">1.%1$s - %2$s</string>
-    <string name="song_list_item_title_2">2.%1$s - %2$s</string>
-    <string name="song_list_item_title_3">3.%1$s - %2$s</string>
-    <string name="mode_loop">列表循环</string>
-    <string name="mode_shuffle">随机播放</string>
-    <string name="mode_one">单曲循环</string>
-    <string name="play_time_start">00:00</string>
-    <string name="now_play">正在播放：%s</string>
-    <string name="now_download">正在下载：%s</string>
-    <string name="download_success">%s下载完成</string>
-    <string name="recent_update">最近更新：%s</string>
     <string name="unable_to_play">暂时无法播放</string>
-    <string name="unable_to_download">暂时无法下载</string>
-    <string name="search_empty">未找到相关结果</string>
-    <string name="network">网络</string>
-    <string name="mobile_network_play">使用移动网络播放</string>
-    <string name="mobile_network_download">使用移动网络下载</string>
-    <string name="play">播放</string>
-    <string name="sound_effect">音效调节</string>
-    <string name="tips">温馨提示</string>
-    <string name="play_tips">当前处于移动网络，确定打开移动网络播放开关吗？</string>
-    <string name="play_tips_sure">立即打开</string>
-    <string name="timer_set">设置成功，将于%s分钟后关闭</string>
-    <string name="timer_cancel">定时停止播放已取消</string>
-    <string name="no_permission">没有%1$s权限，无法%2$s！</string>
     <string name="user_help">认真阅读用户须知，帮助您完成绑定</string>
-    <string name="hello">你好</string>
 
-    <string name="yuyue_time">9月23日</string>
-    <string name="add_ture">确&#160;&#160;&#160;认</string>
-
-    <string name="afternoon">下\n午</string>
-    <string name="morning">上\n午</string>
-
-    <string name="dialog" formatted="false">您确定要在%1$s年%2$s月%3$s日%4$s%5$s和%6$s健康顾问进行预约吗？</string>
-    <string name="sign_up1_name_tip">请输入您的姓名</string>
-    <string name="sign_up2_gender_tip">请选择您的性别</string>
-    <string name="sign_up_id_card_tip">请输入正确的身份证号码</string>
-    <string name="sign_up_phone_tip">请输入您的手机号码</string>
-    <string name="sign_up_code_tip">请输入验证码</string>
-    <string name="sign_up_fetch_code_tip">已发送验证码，收到后请及时输入验证码</string>
-    <string name="sign_up_password_tip">请输入您的6位数字密码</string>
-
-
-    <string name="sign_up_blood_type_tip">请输入您的血型</string>
-    <string name="sign_up_eat_tip">您偏向于哪种食物</string>
-    <string name="sign_up_smoke_tip">您吸烟吗</string>
-    <string name="sign_up_drink_tip">您喝酒吗</string>
-    <string name="sign_up_sports_tip">您运动吗</string>
-    <string name="sign_up_disease_history_tip">如果您有病史，请选择对应标签</string>
-
-    <string name="appraise">评&#160;&#160;&#160;&#160;&#160;价</string>
 
     <string name="pay">账&#160;&#160;户&#160;&#160;充&#160;&#160;值</string>
-
-    <string name="test_record">测&#160;&#160;量&#160;&#160;记&#160;&#160;录</string>
 
 
     <string name="pay_1">¥50</string>
     <string name="pay_2">充&#160;&#160;&#160;值</string>
     <string name="pay_3">¥100</string>
     <string name="pay_4">¥200</string>
-    <string name="pay_introduce">请用支付宝APP扫描完成支付</string>
-    <string name="pay_introduces">请用微信APP扫描完成支付</string>
 
-    <string name="head_icon">请确认您的头像，完成请点击下一步</string>
-    <string name="head_verify">请对准摄像头，让我帮您记录数据</string>
-
-    <string name="yuyue">请选择您要预约的时间</string>
-    <string name="yuyue_1">请点击预约按钮和绑定健康顾问进行预约</string>
-
-    <string name="healthy_class">健&#160;&#160;康&#160;&#160;讲&#160;&#160;坛</string>
-    <string name="doctor_yuyue">添&#160;&#160;加&#160;&#160;预&#160;&#160;约</string>
-    <string name="touxiang_true">头&#160;&#160;像&#160;&#160;确&#160;&#160;认</string>
-
-    <string name="doctor_pinjia">顾&#160;&#160;问&#160;&#160;评&#160;&#160;价</string>
     <string name="doctor_qianyue">视&#160;&#160;频&#160;&#160;咨&#160;&#160;询</string>
 
     <string name="online_qianyue">在&#160;&#160;线&#160;&#160;顾&#160;&#160;问</string>
@@ -391,34 +111,8 @@
     <string name="zixun">咨&#160;询</string>
 
 
-    <string name="person_information">个&#160;&#160;人&#160;&#160;中&#160;&#160;心</string>
-    <string name="healthy_shopping">健&#160;&#160;康&#160;&#160;商&#160;&#160;城</string>
-    <string name="zhengzhuang">症&#160;&#160;状&#160;&#160;自&#160;&#160;查</string>
-    <string name="health_message">健&#160;&#160;康&#160;&#160;消&#160;&#160;息</string>
     <string name="clerk_remind">吃&#160;&#160;药&#160;&#160;提&#160;&#160;醒</string>
-    <string name="high_pressure">高压</string>
-    <string name="high_pressure1">(mmHG)</string>
-    <string name="low_pressure">低压</string>
-    <string name="purse">脉搏</string>
-    <string name="purse1">(bpm)</string>
-    <string name="test_xueya">血&#160;&#160;压&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_temperature">体&#160;&#160;温&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_xuetang">血&#160;&#160;糖&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_tizhong">体&#160;&#160;重&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_sanheyi">三&#160;&#160;合&#160;&#160;一&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_xueyang">血&#160;&#160;氧&#160;&#160;检&#160;&#160;测</string>
-    <string name="test_xindian">心&#160;&#160;电&#160;&#160;检&#160;&#160;测</string>
-    <string name="healthy_test">健&#160;&#160;康&#160;&#160;检&#160;&#160;测</string>
-    <string name="healthy_report">健&#160;&#160;康&#160;&#160;报&#160;&#160;告</string>
 
-    <string name="temperature">体温</string>
-    <string name="temperature1">(℃)</string>
-    <string name="xue_tang">血糖</string>
-    <string name="xue_tang1">(mmol/L)</string>
-    <string name="xue_yang">血氧饱和度</string>
-    <string name="xue_yang1">(%)</string>
-    <string name="maibo">脉搏</string>
-    <string name="maibo1">(次/分)</string>
     <string name="speak_null">我真的不知道了</string>
 
     <string name="speak_1">我没听清，你能再说一遍吗</string>
@@ -433,57 +127,15 @@
     <string name="speak_10">虽然我不知道你在说什么，但是你还是会爱我的吧</string>
 
     <string name="qianyue">绑&#160;&#160;定</string>
-    <string name="tiao_zhuan">跳&#160;&#160;过</string>
     <string name="medication_reminder">吃&#160;&#160;药&#160;&#160;提&#160;&#160;醒</string>
 
     <string name="robot_amount" formatted="false">¥%1$s</string>
     <string name="pay_success">您已充值成功，请查询个人账户余额</string>
-    <string name="doctor_alarm">您和健康顾问视频预约的时间到了</string>
 
     <string name="doctor_remind">您的预约时间到了</string>
     <string name="doctor_reminds">请及时与健康顾问进行视频通话</string>
     <string name="phone_true">开始通话</string>
     <string name="phone_cancel">忽&#160;略</string>
-    <string name="jiankangdangan">基础信息</string>
-    <string name="healthy_equ">健康药品</string>
-    <string name="healthy_con">健康器材</string>
-    <string name="goods_name">快速心电监测仪PC-80b</string>
-    <string name="goods_amount">198</string>
-    <string name="goods_detail">商&#160;&#160;品&#160;&#160;详&#160;&#160;情</string>
-
-    <string name="orders_detail">订&#160;&#160;单&#160;&#160;详&#160;&#160;情</string>
-
-
-    <string name="yuyue_history">预&#160;&#160;约&#160;&#160;历&#160;&#160;史</string>
-
-
-    <string name="shop_sum_price" formatted="false">总价：%1$s</string>
-    <string name="an_hour_later">饭后\n一小时</string>
-    <string name="two_hour_later">饭后\n两小时</string>
-    <string name="kongfu">空腹</string>
-    <string name="three_hour_later">饭后\n三小时</string>
-    <string name="symptoms">您是否有以下症状</string>
-    <string name="bingfa">并发症状</string>
-    <string name="now_eating_state">请选择您当前的状态</string>
-    <string name="gaoxueya">您有可能是高血压，请及时到医院就诊</string>
-    <string name="tangniaobing">您有可能是糖尿病，请及时服药或到医院就诊</string>
-    <string name="dixuetang">您有可能是低血糖，请及时补充糖分或到医院就诊</string>
-
-    <string name="order_id" formatted="false">订单号：%1$s</string>
-    <string name="facc_register">三\n\n二\n\n依\n茄子</string>
-
-    <string name="shop_good">请选择您要购买的商品</string>
-    <string name="shop_mount">请选择购买数量</string>
-    <string name="shop_yanzheng">验证不通过，请重新验证</string>
-    <string name="shop_success">恭喜您支付成功</string>
-
-
-    <string name="bingzhengxiangqing">病症详情</string>
-    <string name="disease_reason"></string>
-    <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;顾&#160;&#160;问</string>
-    <string name="bodyguide">请选择病症对应部位</string>
-
-    <string name="title_activity_set_password">SetPasswordActivity</string>
 
 
     <string name="zhiji">职&#160;&#160;&#160;级：主任医师</string>
@@ -491,10 +143,6 @@
     <string name="shanchang">擅&#160;&#160;&#160;长：高血压、糖尿病</string>
 
     <string name="shoufei">收费标准：10元/分钟</string>
-
-    <string name="mornings">上\n午</string>
-
-    <string name="afternoons">下\n午</string>
 
     <string name="noData">暂无数据</string>
 
@@ -510,58 +158,16 @@
 
     <string name="chongzhi">请选择您要充值的金额</string>
 
-    <string name="zhanghu_chongzhi">请使用微信扫码完成充值</string>
-
     <string name="chongzhi_define">请输入充值金额</string>
 
-    <string name="order">请查看您的订单</string>
-
-    <string name="yuye_history">请查看你的预约历史</string>
-
-
-    <string name="doctor_choice">请点击选择绑定健康顾问或在线健康顾问</string>
 
     <string name="qianyue_doctor">请咨询健康顾问</string>
-
-    <string name="cancel_yuyue">您确定要取消预约吗？</string>
-
-    <string name="cancel_success">取消成功</string>
-
-    <string name="yuyue_limit">您预约已达到最大次数</string>
-
-    <string name="yuyue_times">请选择您要预约的时间</string>
-
-    <string name="doctor_appraise">顾&#160;&#160;问&#160;&#160;评&#160;&#160;价</string>
-
-    <string name="doctor_appraises">请对健康顾问做出评价</string>
-
-    <string name="true_appraise">主人您确定要进行评价吗？</string>
 
     <string name="yuyue_video">预&#160;&#160;约&#160;&#160;视&#160;&#160;频</string>
 
     <string name="yuyue_tim">主人您的预约时间到了，请及时和健康顾问进行视频通话</string>
-    <string name="body_guide">人&#160;&#160;体&#160;&#160;导&#160;&#160;图</string>
-    <string name="history_celiang">历&#160;&#160;史&#160;&#160;测&#160;&#160;量</string>
 
-    <string name="tiaoguo">跳&#160;&#160;过</string>
     <string name="offline_doctor">一、联系您所在社区的社区健康顾问或您信任的健康顾问，将“致健康顾问的一封信”交给健康顾问，健康顾问可根据内容提示完成注册。\n二、注册完成后您可以在健康顾问库中搜索健康顾问信息，即可完成绑定。\n三、如果您的社区还没有绑定健康顾问，你可以拨打我们的客服热线400-007-0079。</string>
-    <string name="space">&#12288;</string>
-
-    <string name="bluetooth_device_connected">设备已连接</string>
-    <string name="bluetooth_device_disconnected">设备已断开</string>
-
-    <string name="health_first_detect_tips">初次见面，我是小E！\n为了更好的了解您的身体，先来做一个全套体检吧!</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="health_tips_left_1">为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color="#F56C6C">2–3次</font>测量。请先左手测量！</string>
-    <string name="health_tips_left_2">请将臂带放气，\n再测一次左手血压！</string>
-    <string name="health_tips_left_3">您两次血压数值相差较大,\n请再测一次!</string>
-    <string name="health_tips_right_1">请测量右手血压!</string>
-    <string name="health_tips_right_2">请将臂带放气，\n再测一次右手血压!</string>
-    <string name="health_tips_right_3">您两次血压数值相差较大,\n请再测一次!</string>
-    <string name="health_detection_weight_title">选择您的体重，如果您有体重秤也可以连接蓝牙直接测量</string>
-    <string name="tips_detection_left">请测量左手血压</string>
-    <string name="tips_detection_left_again">请测量左手血压</string>
-    <string name="tips_detection_right">请测量右手血压</string>
-    <string name="tips_detection_right_again">请再测量右手血压</string>
 </resources>

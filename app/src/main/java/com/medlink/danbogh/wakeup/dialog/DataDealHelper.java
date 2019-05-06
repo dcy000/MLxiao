@@ -13,18 +13,12 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
-import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.children.ChildEduHomeActivity;
-import com.example.han.referralproject.children.entertainment.ChildEduJokesActivity;
-import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
-import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
-import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
@@ -35,14 +29,10 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
-import com.example.han.referralproject.settting.SharedPreferencesUtils;
-import com.example.han.referralproject.settting.activity.SettingActivity;
-import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.http.HttpListener;
@@ -52,9 +42,13 @@ import com.example.lenovo.rto.unit.UnitModel;
 import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
+import com.gcml.common.recommend.bean.get.Music;
+import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.PinYinUtils;
+import com.gcml.common.utils.SharedPreferencesUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -238,7 +232,7 @@ public class DataDealHelper {
                 public void onSuccess(VersionInfoBean response) {
                     try {
                         if (response != null && response.vid > context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode) {
-                            new UpdateAppManager(context).showNoticeDialog(response.url);
+                            Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(context, response.url);
                         } else {
                             speak("当前已经是最新版本了");
                             Toast.makeText(context, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
@@ -281,7 +275,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(erge|ertonggequ).*")) {
-            startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "儿童歌曲");
+            Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("儿童歌曲");
             return;
         }
         /*******************************************************/
@@ -343,7 +337,7 @@ public class DataDealHelper {
 
 
         if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|diaojieyinliang|tiaojieyinliang|yiliangdaxiao).*")) {
-            startActivity(SettingActivity.class);
+            Routerfit.register(AppRouter.class).skipSettingActivity();
             return;
         }
 
@@ -363,7 +357,7 @@ public class DataDealHelper {
 
 
         if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
-            startActivity(ChildEduHomeActivity.class);
+            Routerfit.register(AppRouter.class).skipChildEduHomeActivity();
             return;
         }
 
@@ -377,12 +371,12 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(yaolanqu).*")) {
-            startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "摇篮曲");
+            Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("摇篮曲");
             return;
         }
 
         if (inSpell.matches(".*(taijiaoyinyue|taijiaoyinle|taijiao|tingyinle).*")) {
-            startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "胎教音乐");
+            Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("胎教音乐");
             return;
         }
 
@@ -460,18 +454,18 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(gushi|tangshisongci|songci|tangshi).*") || result.matches(".*古诗.*")) {
-            startActivity(ChildEduPoemListActivity.class);
+            Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
             return;
         }
 
         if (inSpell.matches(".*(jianggexiaohua|xiaohua|youqudehua).*")) {
-            startActivity(ChildEduJokesActivity.class);
+            Routerfit.register(AppRouter.class).skipChildEduJokesActivity();
             return;
         }
 
 
         if (result.matches(".*听故事|故事.*")) {
-            startActivity(ChildEduPoemListActivity.class);
+            Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
             return;
         }
 

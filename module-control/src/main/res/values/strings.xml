@@ -1,0 +1,9 @@
+<resources>
+    <!-- version update -->
+    <string name="version_update_title">版本更新</string>
+    <string name="version_update_new_verion_message">检测到新版本，建议您更新！</string>
+    <string name="version_update_action_download_title">新版本下载...</string>
+    <string name="version_update_action_download">下载安装</string>
+    <string name="version_update_action_later">以后再说</string>
+    <string name="version_update_action_cancel">取消</string>
+</resources>

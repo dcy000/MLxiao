@@ -100,7 +100,7 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     if ("lib-common-core" != project.name
-            && "lib-voice" != project.name
+//            && "lib-voice" != project.name
             && "lib-widget" != project.name
     ) {
         implementation project(":lib-common-core")

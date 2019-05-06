@@ -11,6 +11,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.gcml.common.recommend.bean.get.Music;
+
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

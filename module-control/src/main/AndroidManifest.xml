@@ -1,0 +1,42 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_control_volume">
+
+    <application>
+        <activity
+            android:name=".ui.AboutActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.CameraActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.CustomKeyWordsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.KeyWordEditActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.KeyWordEdit2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ScreenPointActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ScreenTouchActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.SetKeyWordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.SetKeyWord2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.SettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.VoicerSettingDemoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.VoiceSettingActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

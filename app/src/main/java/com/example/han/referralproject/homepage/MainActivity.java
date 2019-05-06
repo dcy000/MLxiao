@@ -17,7 +17,6 @@ import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
@@ -71,7 +70,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         initViewpage();
         initAToken();
         //启动音量控制悬浮按钮
-        VolumeControlFloatwindow.init(this.getApplicationContext());
+        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
     }
 
     private void initAToken() {

@@ -48,7 +48,6 @@
         android:layout_below="@+id/rl_sport_top"/>
 
     <LinearLayout
-        android:id="@+id/ll_sport_content1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
@@ -78,7 +77,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_sport_content2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
@@ -109,7 +107,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_sport_content3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"

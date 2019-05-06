@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
 
     <color name="color_background">#F5F5F5</color>
     <color name="color_white">#FFFFFF</color>
-    <color name="color_black">#000000</color>
-    <color name="color_text_base">#333333</color>
     <color name="color_text_gray">#666666</color>
-    <color name="color_text_tint">#999999</color>
 
     <color name="color_normal_btn50">#5AC628</color>
     <color name="color_press_btn50">#75C750</color>

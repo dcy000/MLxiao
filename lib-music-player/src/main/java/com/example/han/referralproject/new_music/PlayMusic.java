@@ -1,11 +1,11 @@
 package com.example.han.referralproject.new_music;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
+import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.utils.network.NetUitls;
 
 

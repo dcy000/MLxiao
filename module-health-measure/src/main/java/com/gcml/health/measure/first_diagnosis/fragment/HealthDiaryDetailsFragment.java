@@ -18,7 +18,7 @@ import com.gcml.common.widget.picker.RulerView;
 import com.gcml.common.widget.picker.SelecterView;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
-import com.gcml.health.measure.widget.OverFlyingLayoutManager;
+import com.gcml.common.widget.OverFlyingLayoutManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Arrays;

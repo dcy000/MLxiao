@@ -6,7 +6,6 @@
     android:background="#ffffff">
 
     <TextView
-        android:id="@+id/tv_tips"
         android:layout_width="0pt"
         android:layout_height="wrap_content"
         android:layout_marginLeft="250pt"
@@ -23,7 +22,6 @@
 
 
     <ImageView
-        android:id="@+id/health_iv_robot"
         android:layout_width="766pt"
         android:layout_height="780pt"
         android:src="@drawable/health_measure_ic_robot"

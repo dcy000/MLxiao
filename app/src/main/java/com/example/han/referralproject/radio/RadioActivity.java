@@ -23,7 +23,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.gcml.common.utils.display.ToastUtils;
-import com.medlink.danbogh.utils.Handlers;
+import com.gcml.common.utils.Handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
