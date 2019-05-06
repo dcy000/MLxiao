@@ -1,4 +1,4 @@
-package com.example.han.referralproject.adapter;
+package com.example.module_control_volume.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
+import com.example.module_control_volume.R;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.widget.dialog.InputDialog;
 
@@ -42,7 +42,7 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
     public void onBindViewHolder(WifiConnectRecyclerAdapter.WifiHolder holder, int position) {
         final ScanResult itemResult = mDataList.get(position);
         holder.mWifiName.setText(itemResult.SSID);
-        RxUtils.rxWifiLevels(MyApplication.getInstance(), 4, itemResult)
+        RxUtils.rxWifiLevels(UM.getApp(), 4, itemResult)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter((LifecycleOwner) holder.itemView.getContext()))

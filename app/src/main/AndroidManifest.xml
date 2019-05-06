@@ -137,7 +137,7 @@
         <!-- android:value="00332d99822550c22e6b75297bfd4c2c" /> -->
 
         <activity
-            android:name=".activity.WifiConnectActivity"
+            android:name="com.example.module_control_volume.wifi.WifiConnectActivity"
             android:screenOrientation="landscape" />
         <!-- <activity -->
         <!-- android:name="com.gcml.auth.ui.signup.UserProtocolActivity" -->

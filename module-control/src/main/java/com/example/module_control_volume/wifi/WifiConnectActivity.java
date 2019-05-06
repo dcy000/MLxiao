@@ -1,4 +1,4 @@
-package com.example.han.referralproject.activity;
+package com.example.module_control_volume.wifi;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,14 +25,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.homepage.MainActivity;
+import com.example.module_control_volume.R;
+import com.example.module_control_volume.adapter.WifiConnectRecyclerAdapter;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.wifi.WifiUtils;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 import com.suke.widget.SwitchButton;
@@ -45,7 +47,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/app/activity/wifi/connect")
-public class WifiConnectActivity extends BaseActivity implements View.OnClickListener {
+public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
     private RecyclerView mRecycler;
     private List<ScanResult> mList = new ArrayList<>();
@@ -88,9 +90,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
         if (iswifiConnected) {
-            speak("您的wifi已连接,如果需要更换,请点击对应wifi名称");
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),"您的wifi已连接,如果需要更换,请点击对应wifi名称");
         } else {
-            speak("请连接wifi,如果未找到,请点击右上角的刷新按钮");
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),"请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
         isFirstWifi = getIntent().getBooleanExtra("is_first_wifi", false);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -108,8 +110,8 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
-        mRecycler.setLayoutManager(new LinearLayoutManager(mContext));
-        mAdapter = new WifiConnectRecyclerAdapter(mContext, mList);
+        mRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new WifiConnectRecyclerAdapter(this, mList);
         mRecycler.setAdapter(mAdapter);
         getWifiData(mWifiManager.isWifiEnabled());
 
@@ -169,10 +171,11 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_top_right:
-                getWifiData(mWifiManager.isWifiEnabled());
-                break;
+        super.onClick(v);
+        int i = v.getId();
+        if (i == R.id.iv_top_right) {
+            getWifiData(mWifiManager.isWifiEnabled());
+
         }
     }
 
@@ -222,14 +225,14 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     break;
                 // 监听网络连接，包括wifi和移动数据的打开和关闭,以及连接上可用的连接都会接到监听
                 case ConnectivityManager.CONNECTIVITY_ACTION:
-                    ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+                    ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
                         if (isFirstWifi) {
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                 Routerfit.register(AppRouter.class).skipAuthActivity();
                             } else {
-                                startActivity(new Intent(mContext, MainActivity.class));
+                                Routerfit.register(AppRouter.class).skipMainActivity();
                             }
                             finish();
                         }

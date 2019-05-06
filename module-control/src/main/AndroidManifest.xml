@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.module_control_volume">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application>
         <activity
             android:name=".ui.AboutActivity"
@@ -37,6 +40,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.VoiceSettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".wifi.WifiConnectActivity"
             android:screenOrientation="landscape" />
     </application>
 </manifest>
