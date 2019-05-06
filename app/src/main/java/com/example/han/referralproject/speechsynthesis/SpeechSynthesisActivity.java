@@ -45,7 +45,6 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
-import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
@@ -68,7 +67,6 @@ import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.StringUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.VoiceLineView;
-import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -81,13 +79,11 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.iflytek.recognition.JsonParser;
 import com.iflytek.settting.IatSettings;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.ml.edu.OldRouter;
-import com.ml.edu.old.TheOldHomeActivity;
-import com.ml.edu.old.music.TheOldMusicActivity;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
@@ -790,7 +786,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(laorenyule).*")) {
-                startActivity(TheOldHomeActivity.class);
+                Routerfit.register(AppRouter.class).skipTheOldHomeActivity();
                 return;
             }
 
@@ -869,7 +865,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(yinyue|yinle).*")) {
-                OldRouter.routeToOldMusicActivity(this);
+                Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
                 return;
             }
             if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
@@ -938,7 +934,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan|yinleguan|tingyinle).*")) {
-                startActivity(TheOldMusicActivity.class);
+                Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
                 return;
             }
 
@@ -1530,7 +1526,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
+                Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
                 return true;
             }
         }
@@ -1597,7 +1593,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyin.contains(yule.get(i).pinyin)) {
                 //老人娱乐
 //                OldRouter.routeToOldHomeActivity(this);
-                startActivity(TheOldHomeActivity.class);
+                Routerfit.register(AppRouter.class).skipTheOldHomeActivity();
                 return true;
             }
         }
@@ -1616,7 +1612,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         List<KeyWordDefinevBean> yinyue = getDefineData("yinyue");
         for (int i = 0; i < yinyue.size(); i++) {
             if (yuyin.contains(yinyue.get(i).pinyin)) {
-                startActivity(new Intent(getApplicationContext(), TheOldMusicActivity.class));
+                Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
                 return true;
             }
         }

@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.ml.edu.R;
+import com.sjtu.yifei.annotation.Route;
 
+@Route(path = "/edu/the/old/music/activity")
 public class TheOldMusicActivity extends AppCompatActivity {
 
     public static Intent intent(Context context) {

@@ -51,7 +51,6 @@ import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.SharedPreferencesUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -60,9 +59,6 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.ml.edu.OldRouter;
-import com.ml.edu.old.TheOldHomeActivity;
-import com.ml.edu.old.music.TheOldMusicActivity;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
@@ -262,8 +258,7 @@ public class DataDealHelper {
         }*/
 
         if (inSpell.matches(".*yinyue.*")) {
-            OldRouter.routeToOldMusicActivity(context);
-
+            Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -351,7 +346,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(laorenyule).*")) {
-            startActivity(TheOldHomeActivity.class);
+            Routerfit.register(AppRouter.class).skipTheOldHomeActivity();
             return;
         }
 
@@ -449,7 +444,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan|yinleguan).*")) {
-            startActivity(TheOldMusicActivity.class);
+            Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
             return;
         }
 
@@ -1294,7 +1289,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivityWithOutCallback(HealthRecordActivity.class);
+                Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
                 return true;
             }
         }
@@ -1358,7 +1353,7 @@ public class DataDealHelper {
         for (int i = 0; i < yule.size(); i++) {
             if (yuyin.contains(yule.get(i).pinyin)) {
                 //老人娱乐
-                startActivityWithOutCallback(TheOldHomeActivity.class);
+                Routerfit.register(AppRouter.class).skipTheOldHomeActivity();
                 return true;
             }
         }
@@ -1377,7 +1372,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> yinyue = getDefineData("yinyue");
         for (int i = 0; i < yinyue.size(); i++) {
             if (yuyin.contains(yinyue.get(i).pinyin)) {
-                startActivityWithOutCallback(TheOldMusicActivity.class);
+                Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
                 return true;
             }
         }

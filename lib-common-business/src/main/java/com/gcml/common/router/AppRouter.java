@@ -324,4 +324,7 @@ public interface AppRouter {
 
     @Go("/module/control/app/update/provider")
     IAppUpdateProvider getAppUpdateProvider();
+
+    @Go("/edu/the/old/music/activity")
+    boolean skipTheOldMusicActivity();
 }
