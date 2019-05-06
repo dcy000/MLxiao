@@ -85,7 +85,7 @@
         android:id="@+id/ei_health_edu"
         android:layout_width="636pt"
         android:layout_height="342pt"
-        android:background="@drawable/img_home_health_edu"
+        android:background="@drawable/img_yizhinang"
         android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/ei_quit"
         app:layout_constraintEnd_toEndOf="@+id/ei_infomation_collection"
