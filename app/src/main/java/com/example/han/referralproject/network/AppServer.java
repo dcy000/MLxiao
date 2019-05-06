@@ -4,6 +4,7 @@ import com.example.han.referralproject.bean.GuardianInfo;
 import com.example.han.referralproject.bean.HealthRecordBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.recyclerview.Docter;
+import com.example.han.referralproject.yizhinang.OutBean;
 import com.gcml.common.http.ApiResult;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public interface AppServer {
     @Headers({"Domain-Name:zenduan"})
     @FormUrlEncoded
     @POST("api/chat")
-    Observable<ApiResult<Object>> chat(
+    Observable<ApiResult<OutBean>> chat(
             @Field("AppId") String appId,
             @Field("CurTime") String currentTime,
             @Field("Param") String param,

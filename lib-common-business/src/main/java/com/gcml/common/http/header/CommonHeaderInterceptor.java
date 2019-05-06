@@ -16,7 +16,7 @@ public class CommonHeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request newRequest = chain.request().newBuilder()
                 .addHeader("version", "1.0")
-                .addHeader("Authorization", UserSpHelper.getToken())
+//                .addHeader("Authorization", UserSpHelper.getToken())
                 .addHeader("equipmentId", Utils.getDeviceId(UtilsManager.getApplication().getContentResolver()))
                 .addHeader("serverId", "1")
                 .addHeader("followUpDoctor", UserSpHelper.getDoctorId())

@@ -16,9 +16,6 @@ import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.market.GoodsFragment;
-import com.example.han.referralproject.market.network.GoodsRepository;
-import com.example.han.referralproject.market.network.bean.GoodsTypeBean;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
 import com.gcml.common.recommend.fragment.RencommendForMarketFragment;
@@ -26,14 +23,15 @@ import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -85,8 +83,12 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
     private static final String APP_KEY = "05539d97326d4f68aef161fec74d3087";
 
     private void requestData(AppRepository repository) {
-        String param = Base64Util.htmlEncode("{\"userId\":\"user00001\",\"input\": \"糖尿病\"}");
-        String currentTime = System.currentTimeMillis() + "";
+        String inputJson = new Gson().toJson(new InputBean());
+//        String param = Base64Util.encode(inputJson).toUpperCase();
+        String param = "eyJ1c2VySWQiOiJ1c2VyMDAwMDEiLCJpbnB1dCI6ICLns5blsL/nl4UifQ==";
+
+        String currentTime = System.currentTimeMillis() / 1000 + "";
+
         String tokenTemp = APP_KEY + currentTime + param;
         String token = MD5Util.md5Encrypt32Upper(tokenTemp);
 
@@ -96,10 +98,15 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
                 .doOnSubscribe(disposable -> dialog.show())
                 .doOnTerminate(() -> dialog.dismiss())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>(){
+                .subscribe(new DefaultObserver<OutBean>() {
                     @Override
-                    public void onNext(Object o) {
-                        super.onNext(o);
+                    public void onNext(OutBean data) {
+                        super.onNext(data);
+                        if (data != null) {
+                            List<OutBean.LinksBean> links = data.links;
+                            initFragments(links);
+                            initRadioGroup(links);
+                        }
                     }
 
                     @Override
@@ -114,12 +121,11 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
                 });
     }
 
-    private void initFragments(List<GoodsTypeBean> data) {
+    private void initFragments(List<OutBean.LinksBean> data) {
         fragments = new ArrayList<>();
-        fragments.add(new RencommendForMarketFragment());
         int size = data.size();
         for (int i = 0; i < size; i++) {
-            fragments.add(GoodsFragment.newInstance(data.get(i).mallProductTypeId));
+            fragments.add(ZenDuanItemsFragment.newInstance(data.get(i).data));
         }
 
         mVpGoods.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -140,8 +146,8 @@ public class ZenDuanActivity extends BaseActivity implements RadioGroup.OnChecke
      *
      * @param data
      */
-    private void initRadioGroup(List<GoodsTypeBean> data) {
-        initFirstRadioButton();
+    private void initRadioGroup(List<OutBean.LinksBean> data) {
+//        initFirstRadioButton();
         for (int i = 0; i < data.size(); i++) {
             RadioButton button = new RadioButton(this);
             button.setTextSize(28);

@@ -4,6 +4,7 @@ import com.example.han.referralproject.bean.GuardianInfo;
 import com.example.han.referralproject.bean.HealthRecordBean;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
+import com.example.han.referralproject.yizhinang.OutBean;
 import com.example.lenovo.rto.http.API;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.http.ApiResult;
@@ -53,7 +54,7 @@ public class AppRepository {
     }
 
 
-    public static Observable<Object> chat(String appId, String currentTime, String param, String token) {
+    public static Observable<OutBean> chat(String appId, String currentTime, String param, String token) {
         return healthMeasureServer.chat(appId, currentTime, param, token).compose(RxUtils.apiResultTransformer());
     }
 

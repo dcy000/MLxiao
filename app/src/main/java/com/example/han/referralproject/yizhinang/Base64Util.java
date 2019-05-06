@@ -1,13 +1,14 @@
 package com.example.han.referralproject.yizhinang;
 
 
-import android.os.Build;
-import android.text.Html;
-import android.util.Base64;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 /**
  * Created by lenovo on 2019/5/5.
@@ -15,202 +16,450 @@ import java.net.URLEncoder;
 
 public class Base64Util {
 
-    private Base64Util() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
+    private static final int BASELENGTH = 255;
 
-    /**
-     * Return the urlencoded string.
-     *
-     * @param input The input.
-     * @return the urlencoded string
-     */
+    private static final int LOOKUPLENGTH = 64;
 
-    public static String urlEncode(final String input) {
-        return urlEncode(input, "UTF-8");
-    }
+    private static final int TWENTYFOURBITGROUP = 24;
 
-    /**
-     * Return the urlencoded string.
-     *
-     * @param input       The input.
-     * @param charsetName The name of charset.
-     * @return the urlencoded string
-     */
-    public static String urlEncode(final String input, final String charsetName) {
-        if (input == null || input.length() == 0) return "";
-        try {
-            return URLEncoder.encode(input, charsetName);
-        } catch (UnsupportedEncodingException e) {
-            throw new AssertionError(e);
+    private static final int EIGHTBIT = 8;
+
+    private static final int SIXTEENBIT = 16;
+
+    // private static final int SIXBIT = 6;
+    private static final int FOURBYTE = 4;
+
+    // private static final int TWOBYTE = 2;
+    private static final int SIGN = -128;
+
+    private static final byte PAD = (byte) '=';
+
+    private static byte[] base64Alphabet = new byte[BASELENGTH];
+
+    private static byte[] lookUpBase64Alphabet = new byte[LOOKUPLENGTH];
+
+    static
+    {
+        for (int i = 0; i < BASELENGTH; i++)
+        {
+            base64Alphabet[i] = -1;
         }
-    }
-
-    /**
-     * Return the string of decode urlencoded string.
-     *
-     * @param input The input.
-     * @return the string of decode urlencoded string
-     */
-    public static String urlDecode(final String input) {
-        return urlDecode(input, "UTF-8");
-    }
-
-    /**
-     * Return the string of decode urlencoded string.
-     *
-     * @param input       The input.
-     * @param charsetName The name of charset.
-     * @return the string of decode urlencoded string
-     */
-    public static String urlDecode(final String input, final String charsetName) {
-        if (input == null || input.length() == 0) return "";
-        try {
-            return URLDecoder.decode(input, charsetName);
-        } catch (UnsupportedEncodingException e) {
-            throw new AssertionError(e);
+        for (int i = 'Z'; i >= 'A'; i--)
+        {
+            base64Alphabet[i] = (byte) (i - 'A');
         }
+        for (int i = 'z'; i >= 'a'; i--)
+        {
+            base64Alphabet[i] = (byte) (i - 'a' + 26);
+        }
+        for (int i = '9'; i >= '0'; i--)
+        {
+            base64Alphabet[i] = (byte) (i - '0' + 52);
+        }
+
+        base64Alphabet['+'] = 62;
+        base64Alphabet['/'] = 63;
+
+        for (int i = 0; i <= 25; i++)
+        {
+            lookUpBase64Alphabet[i] = (byte) ('A' + i);
+        }
+
+        for (int i = 26, j = 0; i <= 51; i++, j++)
+        {
+            lookUpBase64Alphabet[i] = (byte) ('a' + j);
+        }
+
+        for (int i = 52, j = 0; i <= 61; i++, j++)
+        {
+            lookUpBase64Alphabet[i] = (byte) ('0' + j);
+        }
+
+        lookUpBase64Alphabet[62] = (byte) '+';
+        lookUpBase64Alphabet[63] = (byte) '/';
     }
 
-    /**
-     * Return Base64-encode bytes.
-     *
-     * @param input The input.
-     * @return Base64-encode bytes
-     */
-    public static byte[] base64Encode(final String input) {
-        return base64Encode(input.getBytes());
+    public static boolean isBase64(String isValidString)
+    {
+        return isArrayByteBase64(isValidString.getBytes());
     }
 
-    /**
-     * Return Base64-encode bytes.
-     *
-     * @param input The input.
-     * @return Base64-encode bytes
-     */
-    public static byte[] base64Encode(final byte[] input) {
-        if (input == null || input.length == 0) return new byte[0];
-        return Base64.encode(input, Base64.NO_WRAP);
+    public static boolean isBase64(byte octect)
+    {
+        // shall we ignore white space? JEFF??
+        return (octect == PAD || base64Alphabet[octect] != -1);
     }
 
-    /**
-     * Return Base64-encode string.
-     *
-     * @param input The input.
-     * @return Base64-encode string
-     */
-    public static String base64Encode2String(final byte[] input) {
-        if (input == null || input.length == 0) return "";
-        return Base64.encodeToString(input, Base64.NO_WRAP);
-    }
-
-    /**
-     * Return the bytes of decode Base64-encode string.
-     *
-     * @param input The input.
-     * @return the string of decode Base64-encode string
-     */
-    public static byte[] base64Decode(final String input) {
-        if (input == null || input.length() == 0) return new byte[0];
-        return Base64.decode(input, Base64.NO_WRAP);
-    }
-
-    /**
-     * Return the bytes of decode Base64-encode bytes.
-     *
-     * @param input The input.
-     * @return the bytes of decode Base64-encode bytes
-     */
-    public static byte[] base64Decode(final byte[] input) {
-        if (input == null || input.length == 0) return new byte[0];
-        return Base64.decode(input, Base64.NO_WRAP);
-    }
-
-    /**
-     * Return html-encode string.
-     *
-     * @param input The input.
-     * @return html-encode string
-     */
-    public static String htmlEncode(final CharSequence input) {
-        if (input == null || input.length() == 0) return "";
-        StringBuilder sb = new StringBuilder();
-        char c;
-        for (int i = 0, len = input.length(); i < len; i++) {
-            c = input.charAt(i);
-            switch (c) {
-                case '<':
-                    sb.append("&lt;"); //$NON-NLS-1$
-                    break;
-                case '>':
-                    sb.append("&gt;"); //$NON-NLS-1$
-                    break;
-                case '&':
-                    sb.append("&amp;"); //$NON-NLS-1$
-                    break;
-                case '\'':
-                    //http://www.w3.org/TR/xhtml1
-                    // The named character reference &apos; (the apostrophe, U+0027) was
-                    // introduced in XML 1.0 but does not appear in HTML. Authors should
-                    // therefore use &#39; instead of &apos; to work as expected in HTML 4
-                    // user agents.
-                    sb.append("&#39;"); //$NON-NLS-1$
-                    break;
-                case '"':
-                    sb.append("&quot;"); //$NON-NLS-1$
-                    break;
-                default:
-                    sb.append(c);
+    public static boolean isArrayByteBase64(byte[] arrayOctect)
+    {
+        int length = arrayOctect.length;
+        if (length == 0)
+        {
+            // shouldn't a 0 length array be valid base64 data?
+            // return false;
+            return true;
+        }
+        for (int i = 0; i < length; i++)
+        {
+            if (!isBase64(arrayOctect[i]))
+            {
+                return false;
             }
         }
-        return sb.toString();
+        return true;
     }
 
     /**
-     * Return the string of decode html-encode string.
+     * Encode String object;
      *
-     * @param input The input.
-     * @return the string of decode html-encode string
+     * @param src String object to be encoded.
+     * @return encoded String;
      */
-    @SuppressWarnings("deprecation")
-    public static CharSequence htmlDecode(final String input) {
-        if (input == null || input.length() == 0) return "";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(input, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            return Html.fromHtml(input);
+    public static String encodeString(String src)
+    {
+        return encode(src);
+    }
+
+    public static String encodeBytes(byte[] src)
+    {
+        if (src == null || src.length == 0) {
+            return null;
         }
+        byte[] bytes = encode(src);
+        return new String(bytes);
     }
 
     /**
-     * Return the binary encoded string padded with one space
+     * Encode String object;
      *
-     * @param input
-     * @return binary string
+     * @param src String object to be encoded.
+     * @return encoded String;
      */
-    public static String binEncode(final String input) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (char i : input.toCharArray()) {
-            stringBuilder.append(Integer.toBinaryString(i));
-            stringBuilder.append(' ');
+    public static String encode(String src)
+    {
+        String target = null;
+        if (src != null)
+        {
+            byte[] bts1 = src.getBytes();
+            byte[] bts2 = encode(bts1);
+            if (bts2 != null)
+            {
+                target = new String(bts2);
+            }
         }
-        return stringBuilder.toString();
+        return target;
     }
 
     /**
-     * Return UTF-8 String from binary
+     * Encodes hex octects into Base64.
      *
-     * @param input binary string
-     * @return UTF-8 String
+     * @param binaryData Array containing binary data to encode.
+     * @return Base64-encoded data.
      */
-    public static String binDecode(final String input) {
-        String[] splitted = input.split(" ");
-        StringBuilder sb = new StringBuilder();
-        for (String i : splitted) {
-            sb.append(((char) Integer.parseInt(i.replace(" ", ""), 2)));
+    public static byte[] encode(byte[] binaryData)
+    {
+        int lengthDataBits = binaryData.length * EIGHTBIT;
+        int fewerThan24bits = lengthDataBits % TWENTYFOURBITGROUP;
+        int numberTriplets = lengthDataBits / TWENTYFOURBITGROUP;
+        byte encodedData[] = null;
+
+        if (fewerThan24bits != 0)
+        {
+            // data not divisible by 24 bit
+            encodedData = new byte[(numberTriplets + 1) * 4];
         }
-        return sb.toString();
+        else
+        {
+            // 16 or 8 bit
+            encodedData = new byte[numberTriplets * 4];
+        }
+
+        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
+
+        int encodedIndex = 0;
+        int dataIndex = 0;
+        int i = 0;
+        for (i = 0; i < numberTriplets; i++)
+        {
+            dataIndex = i * 3;
+            b1 = binaryData[dataIndex];
+            b2 = binaryData[dataIndex + 1];
+            b3 = binaryData[dataIndex + 2];
+
+            l = (byte) (b2 & 0x0f);
+            k = (byte) (b1 & 0x03);
+
+            encodedIndex = i * 4;
+            byte val1 = ((b1 & SIGN) == 0) ? (byte) (b1 >> 2) : (byte) ((b1) >> 2 ^ 0xc0);
+            byte val2 = ((b2 & SIGN) == 0) ? (byte) (b2 >> 4) : (byte) ((b2) >> 4 ^ 0xf0);
+            byte val3 = ((b3 & SIGN) == 0) ? (byte) (b3 >> 6) : (byte) ((b3) >> 6 ^ 0xfc);
+
+            encodedData[encodedIndex] = lookUpBase64Alphabet[val1];
+            encodedData[encodedIndex + 1] = lookUpBase64Alphabet[val2 | (k << 4)];
+            encodedData[encodedIndex + 2] = lookUpBase64Alphabet[(l << 2) | val3];
+            encodedData[encodedIndex + 3] = lookUpBase64Alphabet[b3 & 0x3f];
+        }
+
+        // form integral number of 6-bit groups
+        dataIndex = i * 3;
+        encodedIndex = i * 4;
+        if (fewerThan24bits == EIGHTBIT)
+        {
+            b1 = binaryData[dataIndex];
+            k = (byte) (b1 & 0x03);
+            byte val1 = ((b1 & SIGN) == 0) ? (byte) (b1 >> 2) : (byte) ((b1) >> 2 ^ 0xc0);
+            encodedData[encodedIndex] = lookUpBase64Alphabet[val1];
+            encodedData[encodedIndex + 1] = lookUpBase64Alphabet[k << 4];
+            encodedData[encodedIndex + 2] = PAD;
+            encodedData[encodedIndex + 3] = PAD;
+        }
+        else if (fewerThan24bits == SIXTEENBIT)
+        {
+
+            b1 = binaryData[dataIndex];
+            b2 = binaryData[dataIndex + 1];
+            l = (byte) (b2 & 0x0f);
+            k = (byte) (b1 & 0x03);
+
+            byte val1 = ((b1 & SIGN) == 0) ? (byte) (b1 >> 2) : (byte) ((b1) >> 2 ^ 0xc0);
+            byte val2 = ((b2 & SIGN) == 0) ? (byte) (b2 >> 4) : (byte) ((b2) >> 4 ^ 0xf0);
+
+            encodedData[encodedIndex] = lookUpBase64Alphabet[val1];
+            encodedData[encodedIndex + 1] = lookUpBase64Alphabet[val2 | (k << 4)];
+            encodedData[encodedIndex + 2] = lookUpBase64Alphabet[l << 2];
+            encodedData[encodedIndex + 3] = PAD;
+        }
+
+        return encodedData;
     }
+
+    public static String decode(String src)
+    {
+        String target = null;
+        if (src != null)
+        {
+            byte[] bts1 = src.getBytes();
+            byte[] bts2 = decode(bts1);
+            if (bts2 != null)
+            {
+                target = new String(bts2);
+            }
+        }
+        return target;
+    }
+
+    public static String decode(String src, String charSet) throws UnsupportedEncodingException
+    {
+        String target = null;
+        if (src != null)
+        {
+            byte[] bts1 = src.getBytes();
+            byte[] bts2 = decode(bts1);
+            if (bts2 != null)
+            {
+                target = new String(bts2, charSet);
+            }
+        }
+        return target;
+    }
+
+    /**
+     * Decodes Base64 data into octects
+     *
+     * @param base64Data Byte array containing Base64 data
+     * @return Array containing decoded data.
+     */
+    public static byte[] decode(byte[] base64Data)
+    {
+        // handle the edge case, so we don't have to worry about it later
+        if (base64Data.length == 0)
+        {
+            return null;
+        }
+
+        int numberQuadruple = base64Data.length / FOURBYTE;
+        byte decodedData[] = null;
+        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0, marker0 = 0, marker1 = 0;
+
+        // Throw away anything not in base64Data
+
+        int encodedIndex = 0;
+        int dataIndex = 0;
+        {
+            // this sizes the output array properly - rlw
+            int lastData = base64Data.length;
+            // ignore the '=' padding
+            while (base64Data[lastData - 1] == PAD)
+            {
+                if (--lastData == 0)
+                {
+                    return new byte[0];
+                }
+            }
+            decodedData = new byte[lastData - numberQuadruple];
+        }
+
+        for (int i = 0; i < numberQuadruple; i++)
+        {
+            dataIndex = i * 4;
+            marker0 = base64Data[dataIndex + 2];
+            marker1 = base64Data[dataIndex + 3];
+
+            b1 = base64Alphabet[base64Data[dataIndex]];
+            b2 = base64Alphabet[base64Data[dataIndex + 1]];
+
+            if (marker0 != PAD && marker1 != PAD)
+            {
+                // No PAD e.g 3cQl
+                b3 = base64Alphabet[marker0];
+                b4 = base64Alphabet[marker1];
+
+                decodedData[encodedIndex] = (byte) (b1 << 2 | b2 >> 4);
+                decodedData[encodedIndex + 1] = (byte) (((b2 & 0xf) << 4) | ((b3 >> 2) & 0xf));
+                decodedData[encodedIndex + 2] = (byte) (b3 << 6 | b4);
+            }
+            else if (marker0 == PAD)
+            {
+                // Two PAD e.g. 3c[Pad][Pad]
+                decodedData[encodedIndex] = (byte) (b1 << 2 | b2 >> 4);
+            }
+            else if (marker1 == PAD)
+            {
+                // One PAD e.g. 3cQ[Pad]
+                b3 = base64Alphabet[marker0];
+
+                decodedData[encodedIndex] = (byte) (b1 << 2 | b2 >> 4);
+                decodedData[encodedIndex + 1] = (byte) (((b2 & 0xf) << 4) | ((b3 >> 2) & 0xf));
+            }
+            encodedIndex += 3;
+        }
+        return decodedData;
+    }
+
+    /**
+     * 隐藏工具类的构造方法
+     */
+    protected Base64Util()
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * 文件读取缓冲区大小
+     */
+    private static final int CACHE_SIZE = 1024;
+
+    /** *//**
+     * <p>
+     * BASE64字符串解码为二进制数据
+     * </p>
+     *
+     * @param base64
+     * @return
+     * @throws Exception
+     */
+    public static byte[] decodeString(String base64) throws Exception {
+        return Base64Util.decode(base64.getBytes());
+    }
+
+    /** *//**
+     * <p>
+     * 二进制数据编码为BASE64字符串
+     * </p>
+     *
+     * @param bytes
+     * @return
+     * @throws Exception
+     */
+    public static String encodeByte(byte[] bytes) throws Exception {
+        return new String(Base64Util.encode(bytes));
+    }
+
+    /** *//**
+     * <p>
+     * 将文件编码为BASE64字符串
+     * </p>
+     * <p>
+     * 大文件慎用，可能会导致内存溢出
+     * </p>
+     *
+     * @param filePath 文件绝对路径
+     * @return
+     * @throws Exception
+     */
+    public static String encodeFile(String filePath) throws Exception {
+        byte[] bytes = fileToByte(filePath);
+        return encodeByte(bytes);
+    }
+
+    /** *//**
+     * <p>
+     * BASE64字符串转回文件
+     * </p>
+     *
+     * @param filePath 文件绝对路径
+     * @param base64 编码字符串
+     * @throws Exception
+     */
+    public static void decodeToFile(String filePath, String base64) throws Exception {
+        byte[] bytes = decodeString(base64);
+        byteArrayToFile(bytes, filePath);
+    }
+
+    /** *//**
+     * <p>
+     * 文件转换为二进制数组
+     * </p>
+     *
+     * @param filePath 文件路径
+     * @return
+     * @throws Exception
+     */
+    public static byte[] fileToByte(String filePath) throws Exception {
+        byte[] data = new byte[0];
+        File file = new File(filePath);
+        if (file.exists()) {
+            FileInputStream in = new FileInputStream(file);
+            ByteArrayOutputStream out = new ByteArrayOutputStream(2048);
+            byte[] cache = new byte[CACHE_SIZE];
+            int nRead = 0;
+            while ((nRead = in.read(cache)) != -1) {
+                out.write(cache, 0, nRead);
+                out.flush();
+            }
+            out.close();
+            in.close();
+            data = out.toByteArray();
+        }
+        return data;
+    }
+
+    /** *//**
+     * <p>
+     * 二进制数据写文件
+     * </p>
+     *
+     * @param bytes 二进制数据
+     * @param filePath 文件生成目录
+     */
+    public static void byteArrayToFile(byte[] bytes, String filePath) throws Exception {
+        InputStream in = new ByteArrayInputStream(bytes);
+        File destFile = new File(filePath);
+        if (!destFile.getParentFile().exists()) {
+            destFile.getParentFile().mkdirs();
+        }
+        destFile.createNewFile();
+        OutputStream out = new FileOutputStream(destFile);
+        byte[] cache = new byte[CACHE_SIZE];
+        int nRead = 0;
+        while ((nRead = in.read(cache)) != -1) {
+            out.write(cache, 0, nRead);
+            out.flush();
+        }
+        out.close();
+        in.close();
+    }
+
 }
 
 
