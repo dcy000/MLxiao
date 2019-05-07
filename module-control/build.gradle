@@ -21,4 +21,9 @@ android {
 dependencies {
     //悬浮窗
     implementation 'com.github.yhaolpz:FloatWindow:1.0.9'
+    implementation('com.airbnb.android:lottie:2.2.5', {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    })
+    implementation project(':lib-baidu-unit')
+    implementation project(':lib-music-player')
 }

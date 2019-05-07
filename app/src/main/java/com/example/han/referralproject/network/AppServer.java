@@ -1,14 +1,12 @@
 package com.example.han.referralproject.network;
 
-import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
-import com.example.han.referralproject.tcm.bean.OlderHealthManagementBean;
 import com.gcml.common.http.ApiResult;
+import com.gcml.common.recommend.bean.get.ServicePackageBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -37,56 +35,4 @@ public interface AppServer {
     Observable<ApiResult<ServicePackageBean>> queryServicePackage(
             @Query("userid") String userId
     );
-
-    /**
-     * 套餐生效
-     *
-     * @param type
-     * @param orderid
-     * @param userId
-     * @return
-     */
-    @GET("ZZB/order/pay_set_meal")
-    Observable<ApiResult<String>> servicePackageEffective(
-            @Query("type") String type,
-            @Query("orderid") String orderid,
-            @Query("userid") String userId
-    );
-
-    /**
-     * 购买套餐预支付
-     *
-     * @param userId
-     * @param price
-     * @param description
-     * @return
-     */
-    @GET("ZZB/order/set_meal_buy")
-    Observable<ApiResult<Object>> bugServicePackage(
-            @Query("userid") String userId,
-            @Query("price") String price,
-            @Query("articles") String description
-    );
-
-    /**
-     * 获取指定订单号的订单状态
-     */
-    @GET("ZZB/order/selSetmealByOrderid")
-    Observable<ApiResult<Object>> getOrderStarte(
-            @Query("orderid") String userId
-    );
-
-    /**
-     * 获取拨打医生的号码
-     *
-     * @param doctorId
-     * @return
-     */
-    @GET("ZZB/docter/getDocterYunXinId")
-    Observable<ApiResult<String>> getCallId(
-            @Query("doctorId") String doctorId
-    );
-
-    @GET("ZZB/api/health/inquiry/constitution/questionnaire/")
-    Observable<ApiResult<OlderHealthManagementBean.DataBean>> getHealthManagementForOlder();
 }

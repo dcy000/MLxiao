@@ -1,4 +1,5 @@
-include ':app',
+include ':app', ':module-doctor-advisory',
+        ':module-body-test',
         ':module-hypertension-manager',
         ':module-edu-child',
         ':lib-common-core',

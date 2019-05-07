@@ -10,9 +10,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.DiseaseDetailsActivity;
-import com.example.han.referralproject.bean.DiseaseUser;
-import com.example.han.referralproject.bean.UserInfo;
+import com.gcml.common.recommend.bean.get.DiseaseUser;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -22,23 +20,12 @@ import com.example.han.referralproject.new_music.HttpClient;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.han.referralproject.radio.RadioActivity;
-import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
-import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.han.referralproject.service_package.ServicePackageActivity;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.video.VideoListActivity;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
-import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
@@ -62,7 +49,6 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
-import com.witspring.unitbody.ChooseMemberActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -429,7 +415,7 @@ public class DataDealHelper {
             return;
         }
         if (inSpell.matches(".*(zaima|jiqirenduihua|liaotian|shuohua).*")) {
-            startActivity(SpeechSynthesisActivity.class);
+            Routerfit.register(AppRouter.class).skipSpeechSynthesisActivity();
             return;
         }
 
@@ -439,7 +425,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(zhongyitizhi).*")) {
-            startActivity(OlderHealthManagementSerciveActivity.class);
+            Routerfit.register(AppRouter.class).skipOlderHealthManagementSerciveActivity();
             return;
         }
 
@@ -480,7 +466,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(guangbo|diantai|shouyinji|zhisheng|diantai).*")) {
-            startActivity(RadioActivity.class);
+            Routerfit.register(AppRouter.class).skipRadioActivity();
             return;
         }
 
@@ -511,14 +497,14 @@ public class DataDealHelper {
                     LocalShared.getInstance(context).getUserPhoto()
             );
             String currentUser = new Gson().toJson(diseaseUser);
-            startActivity(ChooseMemberActivity.class, "currentUser", currentUser);
+            Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(context);
             return;
         }
 
         if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiangkangxuanchuan" +
                 "|tingke|xuexi|yiqishiyong|shebeishiyong|shiyongjiaocheng|shiyongfangfa" +
                 "|shebeijianjie|yiqijieshao|jiankangjiaoyu|jiankangxuanjiao).*")) {
-            startActivity(VideoListActivity.class, "position", 0);
+            Routerfit.register(AppRouter.class).skipVideoListActivity(0);
             return;
         }
         /*if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
@@ -526,7 +512,7 @@ public class DataDealHelper {
             return;
         }*/
         if (inSpell.matches(".*(shenghuozhushou).*")) {
-            startActivity(VideoListActivity.class, "position", 2);
+            Routerfit.register(AppRouter.class).skipVideoListActivity(2);
             return;
         }
        /* if (inSpell.matches(".*(donghuapian|dongman).*")) {
@@ -538,25 +524,25 @@ public class DataDealHelper {
             return;
         }
         if (inSpell.matches(".*(zaixiangu(wen|weng)).*")) {
-            startActivity(OnlineDoctorListActivity.class);
+            Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("");
             return;
         }
         if (inSpell.matches(".*(zi|zhi)xun.*")
                 || inSpell.matches(".*(gu(wen|weng)|shipin)((zi|zhi)xun).*")) {
-            startActivity(DoctorAskGuideActivity.class);
+            Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
             return;
         }
 
         if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "冠心病");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("冠心病");
             return;
         }
         if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "支气管哮喘");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("支气管哮喘");
             return;
         }
         if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "肝硬化");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肝硬化");
             return;
         }
 //        if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
@@ -564,43 +550,43 @@ public class DataDealHelper {
 //            return;
 //        }
         if (inSpell.matches(".*(tongfeng).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "痛风");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("痛风");
             return;
         }
         if (inSpell.matches(".*(changweiyan).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "肠胃炎");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肠胃炎");
             return;
         }
         if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "急性上呼吸道感染");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("急性上呼吸道感染");
             return;
         }
         if (inSpell.matches(".*(xinbaoyan).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "心包炎");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("心包炎");
             return;
         }
         if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "贫血");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("贫血");
             return;
         }
         if (inSpell.matches(".*(feiyan).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "肺炎");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肺炎");
             return;
         }
         if (inSpell.matches(".*(di(xie|xue)tang).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "低血糖");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("低血糖");
             return;
         }
         if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "脑出血");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("脑出血");
             return;
         }
         if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "肺栓塞");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肺栓塞");
             return;
         }
         if (inSpell.matches(".*(dianxian).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "癫痫");
+            Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("癫痫");
             return;
         }
         boolean dealKeyWord = keyWordDeal(inSpell);
@@ -663,15 +649,14 @@ public class DataDealHelper {
             }
 
         } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
-            startActivity(VideoListActivity.class);
-
+            Routerfit.register(AppRouter.class).skipVideoListActivity(0);
 
         } else if (inSpell.matches(".*guwen.*zixun.*") || inSpell.matches("wenguwen|guwenzixun|jiatingguwen|yuyue")) {
 
             if ("".equals(context.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE).getString("name", ""))) {
                 ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
             } else {
-                startActivity(DoctorappoActivity2.class);
+                Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
             }
 
 
@@ -711,16 +696,9 @@ public class DataDealHelper {
                 || result.contains("返回") || result.contains("再见")
                 || result.contains("闭嘴") || inSpell.matches(".*baibai.*")) {
         } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
-            DiseaseUser diseaseUser = new DiseaseUser(
-                    LocalShared.getInstance(context).getUserName(),
-                    LocalShared.getInstance(context).getSex().equals("男") ? 1 : 2,
-                    Integer.parseInt(LocalShared.getInstance(context).getUserAge()) * 12,
-                    LocalShared.getInstance(context).getUserPhoto()
-            );
-            String currentUser = new Gson().toJson(diseaseUser);
-            startActivity(com.witspring.unitbody.ChooseMemberActivity.class, "currentUser", currentUser);
+            Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(context);
         } else if (inSpell.matches(".*chongqian|qianbugou|meiqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
-            startActivity(PayActivity.class);
+            Routerfit.register(AppRouter.class).skipPayActivity();
         } else if (inSpell.matches(".*maidongxi")
                 || inSpell.matches(".*mai.*shizhi")
                 || inSpell.matches(".*mai.*xueyaji")
@@ -741,13 +719,7 @@ public class DataDealHelper {
 
             Routerfit.register(AppRouter.class).skipOldOrderListActivity();
         } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
-            DiseaseUser diseaseUser = new DiseaseUser(LocalShared.getInstance(context).getUserName(),
-                    LocalShared.getInstance(context).getSex().equals("男") ? 1 : 2,
-                    Integer.parseInt(LocalShared.getInstance(context).getUserAge()) * 12,
-                    LocalShared.getInstance(context).getUserPhoto()
-            );
-            String currentUser = new Gson().toJson(diseaseUser);
-            startActivity(com.witspring.unitbody.ChooseMemberActivity.class, "currentUser", currentUser);
+            Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(context);
         } else if (inSpell.matches(".*(dangan).*")) {
             Routerfit.register(AppRouter.class).skipProfileInfoActivity();
             if (listener != null) {
@@ -759,54 +731,35 @@ public class DataDealHelper {
     }
 
     private void jiance() {
-        startActivity(ServicePackageActivity.class);
-     /*   CC.obtainBuilder("com.gcml.auth.face2.signin")
-                .addParam("skip", true)
-                .addParam("currentUser", false)
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-                        boolean skip = "skip".equals(result.getErrorMessage());
-                        if (result.isSuccess() || skip) {
-                            if (skip) {
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                return;
-                            }
-                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                        } else {
-                            ToastUtils.showShort(result.getErrorMessage());
-                        }
-                    }
-                });*/
+        Routerfit.register(AppRouter.class).skipServicePackageActivity(false);
     }
 
 
     private void gotoQianyueYiSheng() {
-        NetworkApi.PersonInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
-            @Override
-            public void onSuccess(UserInfo response) {
-                if ("1".equals(response.getState())) {
-                    //已绑定
-                    startActivity(DoctorappoActivity2.class);
-                } else if ("0".equals(response.getState())
-                        && (TextUtils.isEmpty(response.getDoctername()))) {
-                    startActivity(OnlineDoctorListActivity.class, "flag", "contract");
-                } else {
-                    startActivity(CheckContractActivity.class);
-                }
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
-
-                if (listener != null) {
-                    listener.onEnd();
-                }
-            }
-        });
+//        NetworkApi.PersonInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
+//            @Override
+//            public void onSuccess(UserInfo response) {
+//                if ("1".equals(response.getState())) {
+//                    //已绑定
+//                    startActivity(DoctorappoActivity2.class);
+//                } else if ("0".equals(response.getState())
+//                        && (TextUtils.isEmpty(response.getDoctername()))) {
+//                    startActivity(OnlineDoctorListActivity.class, "flag", "contract");
+//                } else {
+//                    startActivity(CheckContractActivity.class);
+//                }
+//            }
+//
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//                ToastUtils.showShort(message);
+//
+//                if (listener != null) {
+//                    listener.onEnd();
+//                }
+//            }
+//        });
     }
 
     private void gotoHomePage() {
@@ -1324,7 +1277,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> zhanghuchongzhi = getDefineData("zhanghuchongzhi");
         for (int i = 0; i < zhanghuchongzhi.size(); i++) {
             if (yuyin.contains(zhanghuchongzhi.get(i).pinyin)) {
-                startActivityWithOutCallback(PayActivity.class);
+                Routerfit.register(AppRouter.class).skipPayActivity();
                 return true;
             }
         }
@@ -1342,7 +1295,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> jiankangketang = getDefineData("jiankangketang");
         for (int i = 0; i < jiankangketang.size(); i++) {
             if (yuyin.contains(jiankangketang.get(i).pinyin)) {
-                startActivityWithOutCallback(VideoListActivity.class);
+                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
                 return true;
             }
         }
@@ -1363,7 +1316,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> shouyinji = getDefineData("shouyinji");
         for (int i = 0; i < shouyinji.size(); i++) {
             if (yuyin.contains(shouyinji.get(i).pinyin)) {
-                startActivityWithOutCallback(RadioActivity.class);
+                Routerfit.register(AppRouter.class).skipRadioActivity();
                 return true;
             }
         }
@@ -1382,7 +1335,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> zixunyisheng = getDefineData("guwenzixun");
         for (int i = 0; i < zixunyisheng.size(); i++) {
             if (yuyin.contains(zixunyisheng.get(i).pinyin)) {
-                startActivityWithOutCallback(DoctorAskGuideActivity.class);
+                Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
                 return true;
             }
         }
@@ -1391,7 +1344,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianguwen");
         for (int i = 0; i < zaixianyisheng.size(); i++) {
             if (yuyin.contains(zaixianyisheng.get(i).pinyin)) {
-                startActivityWithOutCallback(OnlineDoctorListActivity.class);
+                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("");
                 return true;
             }
         }
@@ -1430,7 +1383,7 @@ public class DataDealHelper {
 
     private void exit() {
         MobclickAgent.onProfileSignOff();
-        CallAuthHelper.getInstance().logout();
+        Routerfit.register(AppRouter.class).getCallProvider().logout();
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
         UserSpHelper.setUserId("");

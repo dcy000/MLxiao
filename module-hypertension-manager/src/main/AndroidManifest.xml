@@ -53,6 +53,17 @@
         <activity
             android:name=".ui.SlowDiseaseManagementTipActivity"
             android:screenOrientation="landscape" />
-
+        <activity
+            android:name=".zhongyi.ChineseMedicineMonitorActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".zhongyi.MonitorResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".zhongyi.HealthManagementResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".zhongyi.OlderHealthManagementSerciveActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

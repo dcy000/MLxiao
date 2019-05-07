@@ -249,58 +249,9 @@ public class Utils {
                 (ss > 9 ? ":" + ss : ":0" + ss);
     }
 
-    public static String readText(InputStream in) {
-        if (in == null) {
-            return "";
-        }
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            StringBuilder builder = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                builder.append(line);
-            }
-            return builder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
 
-    public static String readTextFromAssetFile(Context context, String fileName) {
-        AssetManager manager = context.getAssets();
-        InputStream in = null;
-        try {
-            in = manager.open(fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return readText(in);
-    }
 
-    public static int age(String idCard) {
-        if (TextUtils.isEmpty(idCard)
-                || idCard.length() != 18) {
-            return 0;
-        }
-        try {
-            int birthYear = Integer.valueOf(idCard.substring(6, 10));
-            Calendar calendar = Calendar.getInstance();
-            int currentYear = calendar.get(Calendar.YEAR);
-            if (birthYear > currentYear) {
-                return 0;
-            }
-            return currentYear - birthYear;
-        } catch (Throwable e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
 
-    public static String getDateToString(long milSecond, String pattern) {
-        Date date = new Date(milSecond);
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        return format.format(date);
-    }
+
 }
 

@@ -108,19 +108,19 @@
             android:value="gcml_version_sdhg" />
 
         <activity
-            android:name=".activity.MessageActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.MessageActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".speechsynthesis.SpeechSynthesisActivity"
+            android:name="com.example.module_control_volume.robot.SpeechSynthesisActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.OfflineActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.OfflineActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recyclerview.RecoDocActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.RecoDocActivity"
             android:screenOrientation="landscape">
 
             <!-- <intent-filter> -->
@@ -146,7 +146,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".recyclerview.DoctorMesActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.DoctorMesActivity"
             android:screenOrientation="landscape" />
 
         <service
@@ -170,10 +170,10 @@
             android:name="com.medlink.danbogh.alarm.AlarmActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recharge.PayActivity"
+            android:name="com.gcml.pay.PayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recharge.PayInfoActivity"
+            android:name="com.gcml.pay.PayInfoActivity"
             android:screenOrientation="landscape" />
 
         <meta-data
@@ -215,20 +215,20 @@
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.DiseaseDetailsActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".video.VideoListActivity"
+            android:name="com.gcml.module_video.video.VideoListActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recyclerview.OnlineDoctorListActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.OnlineDoctorListActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".recyclerview.DoctorAskGuideActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.DoctorAskGuideActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recharge.DefineActivity"
+            android:name="com.gcml.pay.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize" />
@@ -237,20 +237,20 @@
             android:name=".recyclerview.DoctorAlarmActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.old.auth.register.ConfirmContractActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recyclerview.CheckContractActivity"
+            android:name="com.gcml.module_doctor_advisory.ui.CheckContractActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".new_music.MusicPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".radio.RadioActivity"
+            android:name="com.ml.edu.RadioActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.example.module_control_volume.ui.SettingActivity"
@@ -280,10 +280,10 @@
             android:name="com.example.module_control_volume.ui.KeyWordEdit2Activity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".physicalexamination.activity.ChineseMedicineMonitorActivity"
+            android:name="com.gcml.module_hypertension_manager.zhongyi.ChineseMedicineMonitorActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".physicalexamination.activity.MonitorResultActivity"
+            android:name="com.gcml.module_hypertension_manager.zhongyi.MonitorResultActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.module_health_record.HealthRecordActivity"
@@ -301,10 +301,10 @@
             android:name="com.example.module_control_volume.ui.ScreenTouchActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".tcm.activity.HealthManagementResultActivity"
+            android:name="com.gcml.module_hypertension_manager.zhongyi.HealthManagementResultActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".tcm.activity.OlderHealthManagementSerciveActivity"
+            android:name="com.gcml.module_hypertension_manager.zhongyi.OlderHealthManagementSerciveActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".tcm.SymptomCheckActivity"
@@ -313,27 +313,24 @@
             android:name="com.example.module_control_volume.ui.CameraActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recyclerview.DoctorappoActivity2"
+            android:name="com.gcml.module_doctor_advisory.ui.DoctorappoActivity2"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".service_package.ServicePackageActivity"
+            android:name="com.gcml.service_package.ServicePackageActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".service_package.QRCodeAliPayActivity"
+            android:name="com.gcml.pay.QRCodeAliPayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".service_package.ServicePackageDetailActivity"
+            android:name="com.gcml.service_package.ServicePackageDetailActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".service_package.QRCodeWXPayActivity"
+            android:name="com.gcml.pay.QRCodeWXPayActivity"
             android:screenOrientation="landscape">
 
         </activity>
         <activity
-            android:name=".video.DemoVideoListActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.DoctorAskGuideActivity2"
+            android:name="com.gcml.module_video.video.DemoVideoListActivity"
             android:screenOrientation="landscape" />
     </application>
 

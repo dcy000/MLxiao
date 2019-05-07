@@ -34,4 +34,12 @@ public interface MusicService {
             @Query("page") int page,
             @Query("limit") int limit
     );
+
+    @GET("ZZB/rep/selSomeImitate")
+    Observable<com.gcml.common.http.ApiResult<List<RadioEntity>>> getFM(
+            @Query("type")String type,
+            @Query("page")String page,
+            @Query("limit")String limit,
+            @Query("mid")String mid
+    );
 }

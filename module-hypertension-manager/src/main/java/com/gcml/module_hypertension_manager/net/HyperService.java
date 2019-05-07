@@ -10,8 +10,12 @@ import com.gcml.module_hypertension_manager.bean.PrimaryHypertensionQuestionnair
 import com.gcml.module_hypertension_manager.bean.SportPlan;
 import com.gcml.module_hypertension_manager.bean.ThisWeekHealthPlan;
 import com.gcml.module_hypertension_manager.bean.WeekDietPlan;
+import com.gcml.module_hypertension_manager.zhongyi.bean.HealthManagementAnwserBean;
+import com.gcml.module_hypertension_manager.zhongyi.bean.HealthManagementResultBean;
+import com.gcml.module_hypertension_manager.zhongyi.bean.OlderHealthManagementBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -67,5 +71,11 @@ public interface HyperService {
     Observable<ApiResult<PrimaryHypertensionQuestionnaireBean.DataBean>> getPrimaryHypertensionQuestion();
 
     @POST("ZZB/api/healthMonitor/questionnaire/hypertension/primary/{userId}/")
-    Observable<ApiResult<Object>> postPrimaryHypertensionQuestion(@Path("userId")String userId,@Body PrimaryHypertensionBean bean);
+    Observable<ApiResult<Object>> postPrimaryHypertensionQuestion(@Path("userId") String userId, @Body PrimaryHypertensionBean bean);
+
+    @GET("ZZB/api/health/inquiry/constitution/questionnaire/")
+    Observable<ApiResult<OlderHealthManagementBean.DataBean>> getHealthManagementForOlder();
+
+    @POST("ZZB/api/health/inquiry/constitution/questionnaire/")
+    Observable<ApiResult<List<HealthManagementResultBean.DataBean>>> postHealthManagementAnwser(@Body HealthManagementAnwserBean bean);
 }

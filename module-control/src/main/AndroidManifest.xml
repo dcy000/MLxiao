@@ -44,5 +44,8 @@
         <activity
             android:name=".wifi.WifiConnectActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".robot.SpeechSynthesisActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

@@ -7,10 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.DiseaseUser;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -19,7 +15,6 @@ import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.old.auth.personal.PersonDetailActivity;
-import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.sjtu.yifei.route.ActivityCallback;
@@ -110,7 +105,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
 //                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
             case R.id.iv_communicate:
-                startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
+                Routerfit.register(AppRouter.class).skipSpeechSynthesisActivity();
                 break;
             case R.id.iv_check_self:
 //                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
@@ -143,7 +138,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.iv_ask_doctor:
 //                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
                 //健康课堂
-                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
                 break;
             case R.id.iv_medical_tip:
                 Routerfit.register(AppRouter.class)
@@ -217,16 +212,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                         });
                 break;
             case R.id.iv_check_health:
-                DiseaseUser diseaseUser = new DiseaseUser(
-                        LocalShared.getInstance(getContext()).getUserName(),
-                        LocalShared.getInstance(getContext()).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(getContext()).getUserAge()) * 12,
-                        LocalShared.getInstance(getContext()).getUserPhoto()
-                );
-                String currentUser = new Gson().toJson(diseaseUser);
-                Intent intentCheck = new Intent(getActivity(), com.witspring.unitbody.ChooseMemberActivity.class);
-                intentCheck.putExtra("currentUser", currentUser);
-                startActivity(intentCheck);
+                Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(getActivity());
                 break;
         }
     }
