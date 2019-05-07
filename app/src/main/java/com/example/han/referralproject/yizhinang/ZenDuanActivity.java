@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yizhinang;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -55,14 +56,25 @@ public class ZenDuanActivity extends com.gcml.common.base.BaseActivity implement
         findViewById(R.id.iv_search_items).setOnClickListener(v -> {
             String inputText = input.getText().toString().trim().replaceAll(" ", "");
             if (TextUtils.isEmpty(inputText)) {
-                inputText = "糖尿病";
+                ToastUtils.showShort("请输入关键词");
+                return;
             }
-            requestData(repository, inputText);
+            startActivity(new Intent(this, ZenDuanActivity.class).putExtra("inputText", inputText));
+            finish();
         });
 
         mRgMenu = (RadioGroup) findViewById(R.id.rg_menu);
         mVpGoods = (ViewPager) findViewById(R.id.vp_goods);
-        requestData(repository, "高血压");
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String inputText = intent.getStringExtra("inputText");
+            if (TextUtils.isEmpty(inputText)) {
+                inputText = "糖尿病";
+            }
+            requestData(repository, inputText);
+        }
+
     }
 
     AppRepository repository = new AppRepository();

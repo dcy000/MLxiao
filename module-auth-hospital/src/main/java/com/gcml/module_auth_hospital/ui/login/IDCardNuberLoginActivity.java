@@ -101,10 +101,10 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
             return;
         }
 
-        if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
+      /*  if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
             speak("请输入密码");
             return;
-        }
+        }*/
 
         checkIdCardIsRegisterOrNot(idCardNumber);
     }

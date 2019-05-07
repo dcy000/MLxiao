@@ -13,6 +13,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -40,12 +41,12 @@ public class YiZhiTangDetailActivity extends BaseActivity {
 
             @Override
             public void onRightClick() {
-              /*  onRightClickWithPermission(new BaseActivity.IAction() {
+                onRightClickWithPermission(new BaseActivity.IAction() {
                     @Override
                     public void action() {
                         CC.obtainBuilder("com.gcml.old.setting").build().call();
                     }
-                });*/
+                });
             }
         });
         initView();
@@ -112,7 +113,9 @@ public class YiZhiTangDetailActivity extends BaseActivity {
 //                Log.d("WebViewClient", "onPageFinished rul>>>" + url);
 //                Log.d("WebViewClient", "onPageFinished time>>>" + System.currentTimeMillis());
 //                webView.loadUrl("javascript:receiveMsgFromParent()");
+
                 super.onPageFinished(view, url);
+                dismissLoading();
             }
 
             @Override
@@ -153,6 +156,12 @@ public class YiZhiTangDetailActivity extends BaseActivity {
             String itemUrl = intent.getStringExtra("itemUrl");
             webView.loadUrl(itemUrl);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showLoading("加载中");
     }
 
     @Override

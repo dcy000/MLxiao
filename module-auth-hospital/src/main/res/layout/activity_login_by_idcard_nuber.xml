@@ -60,6 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
 
     <EditText
+        android:visibility="gone"
         android:id="@+id/et_psw"
         android:layout_width="880pt"
         android:layout_height="132pt"
@@ -73,6 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
 
     <View
+        android:visibility="gone"
         android:layout_width="880pt"
         android:layout_height="1pt"
         android:layout_alignParentBottom="true"
