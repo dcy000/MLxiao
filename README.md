@@ -1,4 +1,4 @@
-# MLxiao项目开发原则
+# MLxiao项目开发规范
 
 ## 最小边界原则
 
@@ -17,3 +17,76 @@
 另外，虽然Aretrofit支持像Retrofit那样任意的接口表，但是还是建议统一写在AppRouter中，因为统一书写，不仅能减少工作量，而且不会因为不同的路径字符串命名而导致混乱或者出错；更为重要的原因是方便后期根据代码进行业务的追踪和维护。
 
 最后一个使用该路由的原因是，在进行Intent的传参的时候，不再跟踪发起跳转的具体代码，而只需跟踪路由注册表中的字段即可，不易出错，也更容易查看同伴书写的代码传递的具体参数是什么。
+
+
+
+
+
+# 模块说明
+
+## module-control
+
+1.机器人对话
+
+2.设置和产品简介等简单但是重要的页面
+
+3.app更新功能
+
+4.音量控制功能
+
+5.WiFi控制功能
+
+6.全局唤醒功能（该功能放在这里完全是因为使用到的很多资源文件都和机器人对话功能的一致）
+
+
+
+## module-hypertension-manager
+
+1.高血压管理
+
+2.中医体质
+
+
+
+## module-mall
+
+1.超哥做的新版商城
+
+2.old包下的老版商城
+
+3.支付（微信和支付宝）
+
+4.服务包（套餐）
+
+
+
+## 其他模块
+
+**其他模块功能比较专一，比较容易理解，请自行查看代码。**
+
+
+
+# 注意事项和建议
+
+1.使用的全局变量尽量用UserSpHelper或者用提供的全局方式动态获取：
+
+```java
+ Routerfit.register(AppRouter.class)
+          .getUserProvider()
+          .getUserEntity()
+          .subscribeOn(Schedulers.io())
+     	  .observeOn(AndroidSchedulers.mainThread())
+          .as(RxUtils.autoDisposeConverter(this))
+          .subscribe(new DefaultObserver<UserEntity>() {
+            	@Override
+                public void onNext(UserEntity userEntity) {
+                                
+                }
+           });
+```
+
+2.有两个和两个以上模块功能用的资源文件或者实体bean建议下沉到lib-common-business中去，减少代码冗余的情况。
+
+3.在壳模块中的引用统一使用addComponent，减少壳模块对业务模块资源引用导致的耦合
+
+4.模块单独开发和调试方式任然和CC框架1.x使用方式一致，具体参考CC文档

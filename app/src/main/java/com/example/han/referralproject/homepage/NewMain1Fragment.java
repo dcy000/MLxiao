@@ -26,6 +26,7 @@ import com.sjtu.yifei.route.Routerfit;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import tech.linjiang.pandora.Pandora;
 
@@ -269,6 +270,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                         .getUserProvider()
                         .getUserEntity()
                         .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
