@@ -31,7 +31,7 @@
                 android:id="@+id/tv_actionbar_left"
                 style="@style/text_white_32"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_toRightOf="@+id/iv_actionbar_left"
                 android:gravity="center_vertical"
                 android:singleLine="true"

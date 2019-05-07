@@ -17,7 +17,7 @@ public class ApiResult<T> {
     private T data;
 
     public boolean isSuccessful() {
-        return successful || code == 200 || code == 0;
+        return successful || code == 200;
     }
 
     public void setSuccessful(boolean successful) {

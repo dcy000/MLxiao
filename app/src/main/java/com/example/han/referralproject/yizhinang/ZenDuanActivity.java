@@ -10,7 +10,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,8 +23,6 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,22 +116,29 @@ public class ZenDuanActivity extends com.gcml.common.base.BaseActivity implement
                     @Override
                     public void onNext(OutBean data) {
                         super.onNext(data);
-                        if (data != null) {
-                            List<OutBean.LinksBean> links = data.links;
-                            initFragments(links);
-                            initRadioGroup(links);
+                        dialog.dismiss();
+                        try {
+                            if (data != null) {
+                                List<OutBean.LinksBean> links = data.links;
+                                initFragments(links);
+                                initRadioGroup(links);
+                            }
+                        } catch (Exception e) {
+                            ToastUtils.showShort("暂无相关内容");
                         }
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        dialog.dismiss();
                         ToastUtils.showShort(throwable.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
                         super.onComplete();
+                        dialog.dismiss();
                     }
                 });
     }
@@ -143,7 +147,16 @@ public class ZenDuanActivity extends com.gcml.common.base.BaseActivity implement
         fragments = new ArrayList<>();
         int size = data.size();
         for (int i = 0; i < size; i++) {
-            fragments.add(ZenDuanItemsFragment.newInstance(data.get(i).data));
+            List<OutBean.LinksBean.DataBean> items = data.get(i).data;
+            if (items == null) {
+                items = new ArrayList<>();
+                OutBean.LinksBean.DataBean bean = new OutBean.LinksBean.DataBean();
+                bean.link = data.get(i).link;
+                bean.title = data.get(i).name;
+                bean.type = data.get(i).type;
+                items.add(bean);
+            }
+            fragments.add(ZenDuanItemsFragment.newInstance(items));
         }
 
         mVpGoods.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
