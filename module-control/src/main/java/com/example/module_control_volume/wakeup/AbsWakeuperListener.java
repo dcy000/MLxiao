@@ -1,4 +1,4 @@
-package com.medlink.danbogh.wakeup;
+package com.example.module_control_volume.wakeup;
 
 import android.os.Bundle;
 

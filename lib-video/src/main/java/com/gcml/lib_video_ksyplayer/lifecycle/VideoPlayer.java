@@ -19,7 +19,7 @@ import com.kk.taurus.playerbase.entity.DecoderPlan;
  * description:初始化视频库
  */
 @AutoService(AppLifecycleCallbacks.class)
-public class VideoPlayerLifecycleCallbacks implements AppLifecycleCallbacks {
+public class VideoPlayer implements AppLifecycleCallbacks {
     /**
      * 内核金山云
      */

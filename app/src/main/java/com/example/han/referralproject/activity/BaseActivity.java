@@ -45,7 +45,6 @@ import com.iflytek.recognition.JsonParser;
 import com.iflytek.settting.IatSettings;
 import com.iflytek.settting.TtsSettings;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
@@ -365,7 +364,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setDisableGlobalListen(boolean disableGlobalListen) {
         this.disableGlobalListen = disableGlobalListen;
-        WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
+//        WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
     }
 
     private static class UpdateVolumeRunnable implements Runnable {

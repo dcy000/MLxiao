@@ -1,11 +1,9 @@
 package com.example.lenovo.rto.sharedpreference;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.lenovo.rto.APP;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 
 

@@ -17,7 +17,6 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.call.CallHelper;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 
@@ -75,7 +74,8 @@ public class DoctorAlarmActivity extends BaseActivity {
                 int rows = DataSupport.delete(AlarmModel.class, id);
 
                 if (rows >= 1) {
-                    CallHelper.launch(DoctorAlarmActivity.this, "doctor_18940866148");
+                    //TODO:这里还是写死的？
+//                    CallHelper.launch(DoctorAlarmActivity.this, "doctor_18940866148");
                     finish();
                 }
 

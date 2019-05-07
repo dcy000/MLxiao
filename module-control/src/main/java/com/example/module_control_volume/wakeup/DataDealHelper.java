@@ -1,4 +1,4 @@
-package com.medlink.danbogh.wakeup.dialog;
+package com.example.module_control_volume.wakeup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,25 +7,19 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.example.han.referralproject.R;
-import com.gcml.common.recommend.bean.get.DiseaseUser;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.homepage.MainActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
+import com.example.module_control_volume.R;
+import com.example.module_control_volume.net.ControlRepository;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
@@ -37,15 +31,12 @@ import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.SharedPreferencesUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.iflytek.utils.QaApi;
-import com.medlink.danbogh.alarm.AlarmHelper;
-import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
@@ -199,9 +190,9 @@ public class DataDealHelper {
             String am = matcherWhenAlarm.group(1);
             String hourOfDay = matcherWhenAlarm.group(2);
             String minute = matcherWhenAlarm.group(3);
-            AlarmHelper.setupAlarm(context,
-                    am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
-                    Integer.valueOf(minute));
+//            AlarmHelper.setupAlarm(context,
+//                    am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
+//                    Integer.valueOf(minute));
             String tip = String.format(Locale.CHINA,
                     "小易将在%s:%s提醒您吃药", hourOfDay, minute);
             speak(tip);
@@ -209,28 +200,35 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*gengxin.*")) {
-            NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
-                @Override
-                public void onSuccess(VersionInfoBean response) {
-                    try {
-                        if (response != null && response.vid > context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode) {
-                            Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(context, response.url);
-                        } else {
-                            speak("当前已经是最新版本了");
-                            Toast.makeText(context, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+            new ControlRepository()
+                    .getVersionInfo()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new io.reactivex.observers.DefaultObserver<VersionInfoBean>() {
+                        @Override
+                        public void onNext(VersionInfoBean versionInfoBean) {
+                            try {
+                                if (versionInfoBean != null && versionInfoBean.vid > context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode) {
+                                    Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(context, versionInfoBean.url);
+                                } else {
+                                    MLVoiceSynthetize.startSynthesize(UM.getApp(), "当前已经是最新版本了");
+                                    ToastUtils.showShort("当前已经是最新版本了");
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
-                }
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-                    speak("当前已经是最新版本了");
-                    Toast.makeText(context, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
-                }
-            });
+                        @Override
+                        public void onError(Throwable e) {
+                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "当前已经是最新版本了");
+                            ToastUtils.showShort("当前已经是最新版本了");
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
             return;
         }
 
@@ -312,7 +310,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|zhongxindenglu|tianjiazhanghao).*")) {
-            startActivity(PersonDetailActivity.class);
+            Routerfit.register(AppRouter.class).skipPersonDetailActivity();
             return;
         }
 
@@ -490,13 +488,6 @@ public class DataDealHelper {
             return;
         }*/
         if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-            DiseaseUser diseaseUser = new DiseaseUser(
-                    LocalShared.getInstance(context).getUserName(),
-                    LocalShared.getInstance(context).getSex().equals("男") ? 1 : 2,
-                    Integer.parseInt(LocalShared.getInstance(context).getUserAge()) * 12,
-                    LocalShared.getInstance(context).getUserPhoto()
-            );
-            String currentUser = new Gson().toJson(diseaseUser);
             Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(context);
             return;
         }
@@ -653,7 +644,7 @@ public class DataDealHelper {
 
         } else if (inSpell.matches(".*guwen.*zixun.*") || inSpell.matches("wenguwen|guwenzixun|jiatingguwen|yuyue")) {
 
-            if ("".equals(context.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE).getString("name", ""))) {
+            if ("".equals(context.getSharedPreferences("doctor_message", Context.MODE_PRIVATE).getString("name", ""))) {
                 ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
             } else {
                 Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
@@ -763,7 +754,7 @@ public class DataDealHelper {
     }
 
     private void gotoHomePage() {
-        startActivity(MainActivity.class);
+        Routerfit.register(AppRouter.class).skipMainActivity();
     }
 
     class SpeechTask extends AsyncTask<Void, Void, Void> {
@@ -1019,7 +1010,7 @@ public class DataDealHelper {
     }
 
     private void gotoPersonCenter() {
-        startActivity(PersonDetailActivity.class);
+        Routerfit.register(AppRouter.class).skipPersonDetailActivity();
     }
 
     private void addVoice() {
@@ -1203,7 +1194,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivityWithOutCallback(MainActivity.class);
+                Routerfit.register(AppRouter.class).skipMainActivity();
                 return true;
             }
         }
@@ -1216,7 +1207,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivityWithOutCallback(PersonDetailActivity.class);
+                Routerfit.register(AppRouter.class).skipPersonDetailActivity();
                 return true;
             }
         }
@@ -1268,7 +1259,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(chiyaoTixing.get(i).pinyin)) {
-                startActivityWithOutCallback(AlarmList2Activity.class);
+                Routerfit.register(AppRouter.class).skipAlarmList2Activity();
                 return true;
             }
         }

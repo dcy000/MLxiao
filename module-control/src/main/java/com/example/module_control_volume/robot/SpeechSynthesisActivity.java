@@ -163,6 +163,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_synthesis);
+        mToolbar.setVisibility(View.GONE);
         rand = new Random();
         sharedPreferences = getSharedPreferences("doctor_message", Context.MODE_PRIVATE);
         mImageView = findViewById(R.id.iat_recognizes);
@@ -625,6 +626,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 String am = matcherWhenAlarm.group(1);
                 String hourOfDay = matcherWhenAlarm.group(2);
                 String minute = matcherWhenAlarm.group(3);
+                //TODO:重写
 //                AlarmHelper.setupAlarm(SpeechSynthesisActivity.this.getApplicationContext(),
 //                        am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
 //                        Integer.valueOf(minute));

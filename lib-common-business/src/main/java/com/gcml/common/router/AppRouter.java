@@ -8,10 +8,11 @@ import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.common.service.IAppUpdateProvider;
+import com.gcml.common.service.IBaiduAKProvider;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.ICallProvider;
-import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IECG_PDF_FragmentProvider;
+import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IMusicPlayProvider;
@@ -23,8 +24,6 @@ import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.route.ActivityCallback;
-
-import retrofit2.http.GET;
 
 public interface AppRouter {
 
@@ -365,4 +364,7 @@ public interface AppRouter {
 
     @Go("/app/alarm/list/activity")
     boolean skipAlarmList2Activity();
+
+    @Go("/baidu/unit/ak/provider")
+    IBaiduAKProvider getBaiduAKProvider();
 }

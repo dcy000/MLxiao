@@ -37,6 +37,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/module/edu/radio/activity")
 public class RadioActivity extends ToolbarBaseActivity implements
         IMediaPlayer.OnPreparedListener,
@@ -90,9 +91,8 @@ public class RadioActivity extends ToolbarBaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
-
+        mToolbar.setVisibility(View.GONE);
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
         ivPauseOrPlay = (ImageView) findViewById(R.id.old_iv_pause_or_play);
         ivPrev = (ImageView) findViewById(R.id.old_iv_prev);
         ivNext = (ImageView) findViewById(R.id.old_iv_next);

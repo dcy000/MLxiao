@@ -27,4 +27,7 @@
     <string name="reduce_volume">调小声音</string>
     <string name="max_volume">当前已经是最大声音了</string>
     <string name="min_volume">当前已经是最小声音了</string>
+
+
+    <string name="unable_to_play">暂时无法播放</string>
 </resources>

@@ -17,23 +17,11 @@ import com.baidu.location.BDLocation;
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.network.AppRepository;
-import com.example.han.referralproject.new_music.LibMusicPlayer;
-import com.example.han.referralproject.new_music.Preferences;
-import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.AppDelegate;
-import com.gcml.common.OkHttpClientHelper;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.location.BdLocationHelper;
-import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.ui.UiUtils;
-import com.gcml.lib_video_ksyplayer.KSYPlayer;
-import com.kk.taurus.playerbase.config.PlayerConfig;
-import com.kk.taurus.playerbase.config.PlayerLibrary;
-import com.kk.taurus.playerbase.entity.DecoderPlan;
-import com.lzy.okgo.OkGo;
-import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
@@ -43,7 +31,6 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -54,33 +41,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MyApplication extends Application {
     private static MyApplication mInstance;
 
-    /**
-     * @see UserSpHelper#getUserId()
-     */
-    @Deprecated
-    public String userId;
-
-    /**
-     * @see UserSpHelper#getFaceId()
-     */
-    @Deprecated
-    public String xfid;
-    @Deprecated
-    public String telphoneNum;
-    @Deprecated
-    public String userName;
-    @Deprecated
-    public String hypertensionHand;
     private String city;
-
-    @Deprecated
-    public String nimUserId() {
-        return "user_" + UserSpHelper.getUserId();
-    }
-
-    @Deprecated
-    public String eqid;
-    public static final int PLAN_ID_KSY = 1;
     public MutableLiveData<String[]> timeData = new MutableLiveData<>();
     public MutableLiveData<HomepageWeatherBean> weatherData = new MutableLiveData<>();
     public BdLocationHelper bdLocation = new BdLocationHelper();
@@ -102,17 +63,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AppDelegate.INSTANCE.onCreate(this);
-//        String curProcessName = ProcessUtils.getCurProcessName(this);
-        UM.init(this);
-        UiUtils.init(this, 1920, 1200);
+//        UM.init(this);
+//        UiUtils.init(this, 1920, 1200);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-        EHSharedPreferences.initUNITContext(this);
-//        LeakCanary.install(this);
-        LibMusicPlayer.init(this);
-        Preferences.init(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,
@@ -122,19 +78,14 @@ public class MyApplication extends Application {
         MobclickAgent.startWithConfigure(umConfig);
         //友盟崩溃信息收集开关
         MobclickAgent.setCatchUncaughtExceptions(false);
+
         LitePal.initialize(this);
         mInstance = this;
-        WakeupHelper.init(this);
-
-        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");//自己
-//        BeeCloud.setAppIdAndSecret("91ee2a0a-661d-4d81-8979-547124be340d", "b8b53d06-5571-404a-bda2-a1d0b8bca0e8");
 
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
-//        NimInitHelper.getInstance().init(this, true);
-        initVideoPlay();
-        initOkGo();
+
         syncWeatherAndTime();
     }
 
@@ -230,18 +181,6 @@ public class MyApplication extends Application {
 
                     }
                 });
-    }
-
-    private void initOkGo() {
-        OkGo.getInstance().init(this)
-                .setOkHttpClient(OkHttpClientHelper.get());
-    }
-
-    private void initVideoPlay() {
-        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_KSY, KSYPlayer.class.getName(), "Ksyplayer"));
-        PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);
-        PlayerConfig.setUseDefaultNetworkEventProducer(true);
-        PlayerLibrary.init(this);
     }
 
 

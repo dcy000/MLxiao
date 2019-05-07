@@ -13,10 +13,6 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.lenovo.rto.accesstoken.AccessToken;
-import com.example.lenovo.rto.accesstoken.AccessTokenModel;
-import com.example.lenovo.rto.http.HttpListener;
-import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
@@ -36,8 +32,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
-
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5
@@ -46,7 +40,7 @@ import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
  * description:新的主界面
  */
 @Route(path = "/app/homepage/main/activity")
-public class MainActivity extends BaseActivity implements HttpListener<AccessToken>, View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ViewPager mViewpage;
     private LinearLayout mNewmainBottomIndicator;
@@ -68,16 +62,10 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         initView();
         initFragments();
         initViewpage();
-        initAToken();
+        Routerfit.register(AppRouter.class).getBaiduAKProvider().initAK();
         //启动音量控制悬浮按钮
         Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
     }
-
-    private void initAToken() {
-        AccessTokenModel tokenModel = new AccessTokenModel();
-        tokenModel.getAccessToken(this);
-    }
-
 
     private void initViewpage() {
         mViewpage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -192,7 +180,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             Timber.e("获取网易账号信息出错");
                             return;
                         }
-                        Routerfit.register(AppRouter.class).getCallProvider().login(wyyxId,wyyxPwd);
+                        Routerfit.register(AppRouter.class).getCallProvider().login(wyyxId, wyyxPwd);
                         JpushAliasUtils.setAlias(user.id);
                     }
                 });
@@ -213,23 +201,5 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
     public void onClick(View v) {
         mViewpage.setCurrentItem(1, true);
     }
-
-
-
-    @Override
-    public void onSuccess(AccessToken data) {
-        EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
-    }
-
-    @Override
-    public void onError() {
-        ToastUtils.showShort("初始化AK失败");
-    }
-
-    @Override
-    public void onComplete() {
-
-    }
-
 
 }

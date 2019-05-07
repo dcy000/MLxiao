@@ -8,7 +8,6 @@ import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.bean.UserInfo;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.RobotAmount;
@@ -47,13 +46,6 @@ public class NetworkApi {
         paramsMap.put("bid", bid);
 
         NetworkManager.getInstance().postResultClass(DOCTOR_URL, paramsMap, Doctor.class, listener, failedCallback);
-    }
-
-    public static void PersonInfo(String bid, NetworkManager.SuccessCallback<UserInfo> listener, NetworkManager.FailedCallback failedCallback) {
-        Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("bid", bid);
-
-        NetworkManager.getInstance().postResultClass(PERSON_URL, paramsMap, UserInfo.class, listener, failedCallback);
     }
 
     public static void Person_Amount(String eqid, NetworkManager.SuccessCallback<RobotAmount> listener, NetworkManager.FailedCallback failedCallback) {

@@ -1,4 +1,4 @@
-package com.medlink.danbogh.wakeup;
+package com.example.module_control_volume.wakeup;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,8 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.example.han.referralproject.R;
-import com.gcml.call.NimCallActivity;
+import com.example.module_control_volume.R;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
@@ -18,7 +17,6 @@ import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
-import com.medlink.danbogh.wakeup.dialog.VoiceDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -155,8 +153,8 @@ public class WakeupHelper {
                             if (AppDelegate.INSTANCE.activity() != null) {
                                 if (AppDelegate.INSTANCE.activity().getClass().getName().contains("TaskComplyActivity")
                                         || AppDelegate.INSTANCE.activity().getClass().getName().contains("TaskComplyChoiceActivity")
-                                        || AppDelegate.INSTANCE.activity() instanceof NimCallActivity
-                                        )
+                                        || AppDelegate.INSTANCE.activity().getClass().getName().contains("NimCallActivity")
+                                )
 
                                     return;
                             }
