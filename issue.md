@@ -1,5 +1,10 @@
 # Issue
 
+> - [产品规划](https://pan.wps.cn/l/sKdWB3JUE?f=101
+            [文件] HM.pof)
+> - [Android 端](https://pan.wps.cn/l/sgdLP6cCL?f=101
+                [文件] HM-Android.pof)
+
 ## User 
 
 - [ ] 立即注册、快速注册，录入人脸提示save to our sever fail，然后一直保存头像中
