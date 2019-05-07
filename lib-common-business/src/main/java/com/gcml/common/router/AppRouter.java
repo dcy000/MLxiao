@@ -9,9 +9,11 @@ import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.common.service.IAppUpdateProvider;
 import com.gcml.common.service.IBusinessControllerProvider;
+import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
+import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IMusicPlayProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
@@ -327,4 +329,40 @@ public interface AppRouter {
 
     @Go("/edu/the/old/music/activity")
     boolean skipTheOldMusicActivity();
+
+    @Go("/video/list/activity")
+    boolean skipVideoListActivity(@Extra("position") int position);
+
+    @Go("/call/call/provider")
+    ICallProvider getCallProvider();
+
+    @Go("/doctor/advisory/doctor/appo/activity2")
+    boolean skipDoctorappoActivity2();
+
+    @Go("/doctor/advisory/doctor/ask/guide/activity")
+    boolean skipDoctorAskGuideActivity();
+
+    @Go("/doctor/advisory/disease/details/activity")
+    boolean skipDiseaseDetailsActivity(@Extra("type") String type);
+
+    @Go("/doctor/advisory/check/contract/activity")
+    boolean skipCheckContractActivity();
+
+    @Go("/app/person/detail/activity")
+    boolean skipPersonDetailActivity();
+
+    @Go("/module/mall/service/package/activity")
+    boolean skipServicePackageActivity(@Extra("isSkip") boolean isKip);
+
+    @Go("hypertension/manager/older/health/management/sercive")
+    boolean skipOlderHealthManagementSerciveActivity();
+
+    @Go("/module/edu/radio/activity")
+    boolean skipRadioActivity();
+
+    @Go("/huiquan/body/test/provider")
+    IHuiQuanBodyTestProvider getBodyTestProvider();
+
+    @Go("/app/alarm/list/activity")
+    boolean skipAlarmList2Activity();
 }

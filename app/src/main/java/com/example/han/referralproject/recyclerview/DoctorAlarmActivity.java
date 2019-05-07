@@ -1,5 +1,6 @@
 package com.example.han.referralproject.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -61,9 +62,9 @@ public class DoctorAlarmActivity extends BaseActivity {
         mButton1 = findViewById(R.id.video_true);
         mButton2 = findViewById(R.id.video_cancel);
 
-        mTitleText.setText(getString(R.string.yuyue_video));
+        mTitleText.setText("预 约 视 频");
 
-        speak(getString(R.string.yuyue_tim));
+        speak("主人您的预约时间到了，请及时和健康顾问进行视频通话");
 
 
         mButton1.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +181,7 @@ public class DoctorAlarmActivity extends BaseActivity {
     }
 
 
+    @SuppressLint("InvalidWakeLockTag")
     @Override
     protected void onResume() {
         super.onResume();

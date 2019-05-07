@@ -17,10 +17,10 @@ import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.ShowStateBar;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
@@ -192,7 +192,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             Timber.e("获取网易账号信息出错");
                             return;
                         }
-                        CallAuthHelper.getInstance().login(wyyxId, wyyxPwd, null);
+                        Routerfit.register(AppRouter.class).getCallProvider().login(wyyxId,wyyxPwd);
                         JpushAliasUtils.setAlias(user.id);
                     }
                 });
@@ -214,9 +214,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         mViewpage.setCurrentItem(1, true);
     }
 
-    public interface ShowStateBar {
-        void showStateBar(boolean isshow);
-    }
+
 
     @Override
     public void onSuccess(AccessToken data) {

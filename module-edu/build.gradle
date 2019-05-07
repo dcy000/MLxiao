@@ -20,8 +20,9 @@ android {
     }
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':lib-music-player')
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'me.wcy:lrcview:1.4.2'
+    implementation project(':lib-video')
 }

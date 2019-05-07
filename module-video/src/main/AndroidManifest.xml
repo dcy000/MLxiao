@@ -9,6 +9,12 @@
         <activity
             android:name=".normal.NormalVideoPlayActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".video.DemoVideoListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".video.VideoListActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

@@ -9,4 +9,22 @@
 
     <string name="wlan">WLAN</string>
     <string name="wifi_choose">选取网络</string>
+
+    <string name="speak_1">我没听清，你能再说一遍吗</string>
+    <string name="speak_2">这个我得回去问问老师再回答你</string>
+    <string name="speak_3">你说的好复杂啊，都把我绕晕了</string>
+    <string name="speak_4">这个问题好难啊，等我升级了再来回答你</string>
+    <string name="speak_5">虽然我是机器人，但是也还有好多知识要学习呢</string>
+    <string name="speak_6">让我回去学习一下，下次再回答你</string>
+    <string name="speak_7">我的小脑袋都想的要短路了</string>
+    <string name="speak_8">这个问题太难了，我们还是聊点别的吧</string>
+    <string name="speak_9">我觉得我可能还是更擅长卖萌</string>
+    <string name="speak_10">虽然我不知道你在说什么，但是你还是会爱我的吧</string>
+
+    <string name="speak_null">我真的不知道了</string>
+
+    <string name="add_volume">调大声音</string>
+    <string name="reduce_volume">调小声音</string>
+    <string name="max_volume">当前已经是最大声音了</string>
+    <string name="min_volume">当前已经是最小声音了</string>
 </resources>

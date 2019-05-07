@@ -4,10 +4,9 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.util.Utils;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.OkHttpClientHelper;
+import com.gcml.common.utils.device.DeviceUtils;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -133,7 +132,7 @@ public class NetworkManager {
 //        if (!TextUtils.isEmpty(CustomApplication.getInstance().userToken)){
 //            builder.addHeader("token", CustomApplication.getInstance().userToken);
 //        }
-        Request request = builder.addHeader("equipmentId", Utils.getDeviceId()).build();
+        Request request = builder.addHeader("equipmentId",  DeviceUtils.getIMEI()).build();
         if (request != null) {
             client.newCall(request).enqueue(responseCallback);
         }

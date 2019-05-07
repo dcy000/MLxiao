@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.service.ShowStateBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class StatusBarFragment extends Fragment implements
         BatteryHelper.OnBatteryChangeListener,
         BatteryHelper.OnPowerConnectionChangeListener,
         ValueAnimator.AnimatorUpdateListener,
-        Runnable, MainActivity.ShowStateBar {
+        Runnable, ShowStateBar {
 
     private static final String TAG = "StatusBarFragment";
 

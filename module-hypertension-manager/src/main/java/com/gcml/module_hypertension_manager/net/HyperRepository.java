@@ -11,8 +11,12 @@ import com.gcml.module_hypertension_manager.bean.PrimaryHypertensionQuestionnair
 import com.gcml.module_hypertension_manager.bean.SportPlan;
 import com.gcml.module_hypertension_manager.bean.ThisWeekHealthPlan;
 import com.gcml.module_hypertension_manager.bean.WeekDietPlan;
+import com.gcml.module_hypertension_manager.zhongyi.bean.HealthManagementAnwserBean;
+import com.gcml.module_hypertension_manager.zhongyi.bean.HealthManagementResultBean;
+import com.gcml.module_hypertension_manager.zhongyi.bean.OlderHealthManagementBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -78,7 +82,16 @@ public class HyperRepository {
     public Observable<PrimaryHypertensionQuestionnaireBean.DataBean> getPrimaryHypertensionQuestion() {
         return hyperServer.getPrimaryHypertensionQuestion().compose(RxUtils.apiResultTransformer());
     }
-    public Observable<Object> postPrimaryHypertensionQuestion(String userId,PrimaryHypertensionBean bean){
-        return hyperServer.postPrimaryHypertensionQuestion(userId,bean).compose(RxUtils.apiResultTransformer());
+
+    public Observable<Object> postPrimaryHypertensionQuestion(String userId, PrimaryHypertensionBean bean) {
+        return hyperServer.postPrimaryHypertensionQuestion(userId, bean).compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<OlderHealthManagementBean.DataBean> getHealthManagementForOlder() {
+        return hyperServer.getHealthManagementForOlder().compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<List<HealthManagementResultBean.DataBean>> postHealthManagementAnwser(HealthManagementAnwserBean bean) {
+        return hyperServer.postHealthManagementAnwser(bean).compose(RxUtils.apiResultTransformer());
     }
 }

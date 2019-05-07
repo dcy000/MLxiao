@@ -1,10 +1,9 @@
 package com.example.han.referralproject.network;
 
-import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
-import com.example.han.referralproject.tcm.bean.OlderHealthManagementBean;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.ServicePackageBean;
 import com.gcml.common.utils.RxUtils;
 
 import io.reactivex.Observable;
@@ -41,38 +40,6 @@ public class AppRepository {
      */
     public static Observable<ServicePackageBean> queryServicePackage() {
         return healthMeasureServer.queryServicePackage(UserSpHelper.getUserId()).compose(RxUtils.apiResultTransformer());
-    }
-
-    /**
-     * 使购买的套餐生效
-     * @param type
-     * @param orderId
-     * @return
-     */
-    public static Observable<String> servicePackageEffective(String type, String orderId) {
-        return healthMeasureServer.servicePackageEffective(type, orderId, UserSpHelper.getUserId()).compose(RxUtils.apiResultTransformer());
-    }
-
-    /**
-     * 购买套餐预支付
-     * @param price
-     * @param des
-     * @return
-     */
-    public static Observable<Object> bugServicePackage(String price, String des){
-        return healthMeasureServer.bugServicePackage(UserSpHelper.getUserId(),price,des).compose(RxUtils.apiResultTransformer());
-    }
-
-    public static Observable<Object> getOrderStarte(String orderId){
-        return healthMeasureServer.getOrderStarte(orderId).compose(RxUtils.apiResultTransformer());
-    }
-
-    public static Observable<String> getCallId(String doctorId){
-        return healthMeasureServer.getCallId(doctorId).compose(RxUtils.apiResultTransformer());
-    }
-
-    public static Observable<OlderHealthManagementBean.DataBean> getHealthManagementForOlder(){
-        return healthMeasureServer.getHealthManagementForOlder().compose(RxUtils.apiResultTransformer());
     }
 
 }
