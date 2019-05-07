@@ -32,7 +32,7 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 28,
-            versionName      : "Robot-YLYS.1.0.0.16.beta"
+            versionName      : "Robot-YZN.1.0.0"
     ]
 
     version = [
