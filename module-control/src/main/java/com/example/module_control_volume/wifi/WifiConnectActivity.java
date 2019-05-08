@@ -71,6 +71,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
     private BaseQuickAdapter<ScanResult, BaseViewHolder> adapter;
     private ScanResult currentWifi;
     private String currentPassword;
+    private boolean currentConnected;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -153,7 +154,12 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                     checkWifiCache();
                 } else {
                     currentPassword = "";
-                    WifiUtils.withContext(WifiConnectActivity.this).connectWith(itemResult.SSID, "").onConnectionResult(WifiConnectActivity.this).start();
+                    showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
+                    WifiUtils.withContext(WifiConnectActivity.this)
+                            .connectWith(itemResult.SSID, "")
+                            .setTimeout(1000)
+                            .onConnectionResult(WifiConnectActivity.this)
+                            .start();
                 }
             }
         });
@@ -173,7 +179,12 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                         }
                     });
                 } else {
-                    WifiUtils.withContext(WifiConnectActivity.this).connectWith(result.SSID, result.password).onConnectionResult(WifiConnectActivity.this).start();
+                    showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
+                    WifiUtils.withContext(WifiConnectActivity.this)
+                            .connectWith(result.SSID, result.password)
+                            .setTimeout(1000)
+                            .onConnectionResult(WifiConnectActivity.this)
+                            .start();
                 }
             }
         });
@@ -188,7 +199,12 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                     @Override
                     public void onInput(String s) {
                         currentPassword = s;
-                        WifiUtils.withContext(WifiConnectActivity.this).connectWith(wifiName, s).onConnectionResult(WifiConnectActivity.this).start();
+                        showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
+                        WifiUtils.withContext(WifiConnectActivity.this)
+                                .connectWith(wifiName, s)
+                                .setTimeout(1000)
+                                .onConnectionResult(WifiConnectActivity.this)
+                                .start();
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -204,6 +220,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
         if (isEbable) {
             WifiInfo mInfo = mWifiManager.getConnectionInfo();
             if (mInfo != null) {
+                currentConnected = true;
                 mConnectedWifiName.setText(mInfo.getSSID());
                 RxUtils.rxWifiLevel(getApplication(), 4)
                         .subscribeOn(Schedulers.io())
@@ -241,6 +258,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                         }
                     }).start();
         } else {
+            currentConnected = false;
             mList.clear();
             adapter.notifyDataSetChanged();
             mRightView.clearAnimation();
@@ -260,6 +278,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
     @Override
     public void isSuccessful(boolean isSuccess) {
         if (isSuccess) {
+            currentConnected = true;
             //存数据库
             if (currentWifi != null) {
                 Handlers.bg().post(new Runnable() {

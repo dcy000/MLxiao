@@ -68,15 +68,6 @@ dependencies {
     addComponent 'module-doctor-advisory'
     addComponent 'module-body-test'
     addComponent 'lib-call'
-    //lib
-//    implementation project(':lib-widget')
-//    implementation project(':lib-baidu-unit')
-//    implementation project(':lib-pay-beecloud')
-//    implementation project(':lib-progress-orb')
-//    implementation project(':lib-music-player')
-//    implementation project(':lib-video')
-//    implementation name: 'lib-wheelrecyclerview', ext: 'aar'
-//    implementation name: 'voicelibrary', ext: 'aar'
     //黄油刀
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
