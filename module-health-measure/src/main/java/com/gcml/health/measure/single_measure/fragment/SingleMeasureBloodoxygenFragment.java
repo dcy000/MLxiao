@@ -56,7 +56,7 @@ public class SingleMeasureBloodoxygenFragment extends BloodOxygenFragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            showUploadDataFailedDialog(results);
                         }
 
                         @Override

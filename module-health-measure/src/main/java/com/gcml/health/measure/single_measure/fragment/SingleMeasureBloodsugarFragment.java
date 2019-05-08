@@ -40,6 +40,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
     private Bundle bundle;
     private ArrayList<DetectionData> datas;
     private static final int CODE_REQUEST_ABNORMAL = 10002;
+    private String[] results;
 
     @Override
     protected void initView(View view, Bundle bundle) {
@@ -57,6 +58,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
+            this.results = results;
             String roundUp = DataUtils.getRoundUp(results[0], 1);
             MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + roundUp, false);
 
@@ -117,7 +119,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("数据上传失败:" + e.getMessage());
+                        showUploadDataFailedDialog(results);
                     }
 
                     @Override

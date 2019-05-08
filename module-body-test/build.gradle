@@ -35,4 +35,5 @@ dependencies {
     api 'com.zhy:base-rvadapter:3.0.3'
     api 'com.nex3z:flow-layout:1.2.4'
     api 'com.facebook.fresco:fresco:1.7.1'
+    api 'com.afollestad.material-dialogs:core:0.9.5.0'
 }

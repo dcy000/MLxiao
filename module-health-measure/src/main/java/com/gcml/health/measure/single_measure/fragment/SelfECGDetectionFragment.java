@@ -23,6 +23,10 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.ecg.BackGround;
 import com.gcml.health.measure.ecg.DrawThreadPC80B;
@@ -226,7 +230,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
         //初始化ECGBluetooth的状态
-        ECGBluetooth.bluStatus =ECGBluetooth.BLU_STATUS_NORMAL;
+        ECGBluetooth.bluStatus = ECGBluetooth.BLU_STATUS_NORMAL;
 
     }
 
@@ -409,7 +413,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        showUploadDataFailedDialog(ecg, heartRate);
                     }
 
                     @Override
@@ -417,6 +421,35 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
                     }
                 });
+    }
+
+    private void showUploadDataFailedDialog(int ecg, int heartRate) {
+        NiceDialog.init()
+                .setLayoutId(com.gcml.module_blutooth_devices.R.layout.dialog_first_diagnosis_upload_failed)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.getView(com.gcml.module_blutooth_devices.R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (dealVoiceAndJump != null) {
+                                    dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_ECG);
+                                }
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.getView(com.gcml.module_blutooth_devices.R.id.btn_pos).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                uploadEcg(ecg, heartRate);
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(350)
+                .show(getFragmentManager());
     }
 
     private void setMSG(String msg) {
