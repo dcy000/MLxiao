@@ -96,7 +96,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             showClearCacheDialog();
 
         } else if (i == R.id.tv_setting_update) {//检测更新
-            checkAppInfo();
+            Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(this,true);
 
         } else if (i == R.id.tv_setting_about) {//关于
             startActivity(new Intent(this, AboutActivity.class));
@@ -125,44 +125,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         VoicerSetDialog dialog = new VoicerSetDialog();
         dialog.show(getFragmentManager(), "voicedialog");
     }
-
-    private void checkAppInfo() {
-        LoadingDialog tipDialog = new LoadingDialog.Builder(SettingActivity.this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("检查更新中")
-                .create();
-        tipDialog.show();
-        new ControlRepository()
-                .getVersionInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<VersionInfoBean>() {
-                    @Override
-                    public void onNext(VersionInfoBean versionInfoBean) {
-                        try {
-                            if (versionInfoBean != null && versionInfoBean.vid > getPackageManager().getPackageInfo(SettingActivity.this.getPackageName(), 0).versionCode) {
-                                new UpdateAppManager(SettingActivity.this).showNoticeDialog(versionInfoBean.url);
-                            } else {
-                                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        tipDialog.dismiss();
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        tipDialog.dismiss();
-                    }
-                });
-    }
-
 
     private void showClearCacheDialog() {
         new AlertDialog(SettingActivity.this).builder()

@@ -70,7 +70,7 @@ public class MainActivity extends ToolbarBaseActivity implements View.OnClickLis
         //启动音量控制悬浮按钮
         Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
         //检查版本更新
-        Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(this);
+        Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(this, false);
     }
 
     private void initViewpage() {

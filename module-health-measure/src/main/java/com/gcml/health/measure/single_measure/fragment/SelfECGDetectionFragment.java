@@ -115,7 +115,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
     public void startDiscovery() {
         Timber.i("可瑞康心电开始搜索");
-        Log.e(TAG, "可瑞康心电开始搜索 ");
         if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
             ToastUtils.showShort("正在搜索设备...");
             context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)

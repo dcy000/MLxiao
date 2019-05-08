@@ -367,4 +367,5 @@ public interface AppRouter {
 
     @Go("/baidu/unit/ak/provider")
     IBaiduAKProvider getBaiduAKProvider();
+
 }
