@@ -699,6 +699,10 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         } else if (i == R.id.iv_top_right) {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
         } else if (i == R.id.tv_record_qrcode) {
+            if (UserSpHelper.isNoNetwork()) {
+                ToastUtils.showShort("请使用有网模式登录");
+                return;
+            }
             String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + HealthRecordNetworkApi.BasicUrl;
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));

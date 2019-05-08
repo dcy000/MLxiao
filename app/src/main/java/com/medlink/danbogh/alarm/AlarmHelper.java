@@ -8,11 +8,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import org.litepal.crud.DataSupport;
+import com.gcml.common.utils.DefaultObserver;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2017/9/19.
@@ -27,6 +34,8 @@ public class AlarmHelper {
     public static final String TONE = "tone";
     public static final String TAG = "tag";
     public static final String TIMESTAMP = "timestamp";
+
+    private static AlarmRepository alarmRepository = new AlarmRepository();
 
     public static void setupAlarm(Context context, long timestamp, String content, String tag) {
         AlarmModel model = new AlarmModel();
@@ -74,19 +83,66 @@ public class AlarmHelper {
     }
 
     public static void setupAlarm(Context context, AlarmModel model) {
-        AlarmHelper.cancelAlarms(context);
-        if (model.getId() < 0) {
-            model.save();
-        } else {
-            model.update(model.getId());
-        }
-        AlarmHelper.setupAlarms(context);
+        Observable.just("updateAlarms")
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        AlarmHelper.cancelAlarms(context);
+                        return s;
+                    }
+                })
+                .flatMap(new Function<String, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<Object> apply(String s) throws Exception {
+                        if (model.getId() < 0) {
+                            return alarmRepository.add(model).subscribeOn(Schedulers.io());
+                        } else {
+                            return alarmRepository.update(model).subscribeOn(Schedulers.io());
+                        }
+                    }
+                })
+                .map(new Function<Object, Object>() {
+                    @Override
+                    public Object apply(Object o) throws Exception {
+                        AlarmHelper.setupAlarms(context);
+                        return o;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+                });
     }
 
     public static void setupAlarms(Context context) {
-        cancelAlarms(context);
+        Observable.just("setupAlarms")
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        cancelAlarms(context);
+                        return s;
+                    }
+                })
+                .flatMap(new Function<String, ObservableSource<List<AlarmModel>>>() {
+                    @Override
+                    public ObservableSource<List<AlarmModel>> apply(String o) throws Exception {
+                        return alarmRepository.findAll();
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .subscribe(new DefaultObserver<List<AlarmModel>>() {
+                    @Override
+                    public void onNext(List<AlarmModel> models) {
+                        setAlarms(context, models);
+                    }
+                });
+    }
 
-        List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
+    private static void setAlarms(Context context, List<AlarmModel> models) {
         for (AlarmModel model : models) {
             if (!model.isEnabled()) {
                 continue;
@@ -99,7 +155,7 @@ public class AlarmHelper {
                 long timestamp = model.getTimestamp();
                 if (timestamp != -1
                         && timestamp > nextCalendar.getTimeInMillis()) {
-                        setupAlarm(context, timestamp, pi);
+                    setupAlarm(context, timestamp, pi);
                 }
                 continue;
             }
@@ -172,27 +228,50 @@ public class AlarmHelper {
     }
 
     public static void cancelAlarm(Context context, AlarmModel model) {
-        int delete = model.delete();
-        AlarmManager manager =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (model.isEnabled()) {
-            PendingIntent pi = newPendingIntent(context, model);
-            manager.cancel(pi);
-        }
+        alarmRepository.delete(model.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        AlarmManager manager =
+                                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                        if (model.isEnabled()) {
+                            PendingIntent pi = newPendingIntent(context, model);
+                            manager.cancel(pi);
+                        }
+                    }
+                })
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+                });
     }
 
     public static void cancelAlarms(Context context) {
-        List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-        if (models != null) {
-            AlarmManager manager =
-                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            for (AlarmModel alarm : models) {
-                if (alarm.isEnabled()) {
-                    PendingIntent pi = newPendingIntent(context, alarm);
-                    manager.cancel(pi);
-                }
-            }
-        }
+        Observable.just("cancelAlarms")
+                .flatMap(new Function<String, ObservableSource<List<AlarmModel>>>() {
+                    @Override
+                    public ObservableSource<List<AlarmModel>> apply(String o) throws Exception {
+                        return alarmRepository.findAll();
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .subscribe(new DefaultObserver<List<AlarmModel>>() {
+                    @Override
+                    public void onNext(List<AlarmModel> models) {
+                        AlarmManager manager =
+                                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                        for (AlarmModel alarm : models) {
+                            if (alarm.isEnabled()) {
+                                PendingIntent pi = newPendingIntent(context, alarm);
+                                manager.cancel(pi);
+                            }
+                        }
+                    }
+                });
     }
 
     private static PendingIntent newPendingIntent(Context context, AlarmModel model) {

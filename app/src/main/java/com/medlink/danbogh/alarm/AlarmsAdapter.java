@@ -21,13 +21,15 @@ public class AlarmsAdapter extends RecyclerView.Adapter<AlarmHolder> {
 
     private List<AlarmModel> mAlarmModels = new ArrayList<>();
 
+    AlarmRepository alarmRepository;
+
     @Override
     public AlarmHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) {
             mInflater = LayoutInflater.from(parent.getContext());
         }
         View view = mInflater.inflate(R.layout.item_alarm2, parent, false);
-        return new AlarmHolder(view);
+        return new AlarmHolder(view, alarmRepository);
     }
 
     @Override

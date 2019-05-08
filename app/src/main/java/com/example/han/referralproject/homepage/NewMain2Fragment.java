@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -70,6 +71,12 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        if (v.getId() != R.id.iv_person_center
+                && v.getId() != R.id.iv_medical_tip
+                && UserSpHelper.isNoNetwork()) {
+            ToastUtils.showShort("请使用有网模式登录");
+            return;
+        }
         switch (v.getId()) {
             default:
                 break;
@@ -141,6 +148,11 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 Routerfit.register(AppRouter.class).skipVideoListActivity(0);
                 break;
             case R.id.iv_medical_tip:
+                if (UserSpHelper.isNoNetwork()) {
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+                    return;
+                }
+
                 Routerfit.register(AppRouter.class)
                         .getUserProvider()
                         .getUserEntity()

@@ -12,14 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,27 +25,26 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2017/9/26.
  */
 @Route(path = "/app/alarm/list/activity")
-public class AlarmList2Activity extends BaseActivity {
+public class AlarmList2Activity extends ToolbarBaseActivity {
 
-    @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.icon_home)
     ImageView icon_home;
-    @BindView(R.id.alarm_list_rv_alarms)
     RecyclerView rvAlarms;
-    @BindView(R.id.alarm_list_tv_add_alarm)
     TextView tvAddAlarm;
     private AlarmsAdapter mAdapter;
-    public Unbinder mUnbinder;
+
+    private AlarmRepository alarmRepository = new AlarmRepository();
 
     public static Intent newLaunchIntent(Context context) {
         Intent intent = new Intent(context, AlarmList2Activity.class);
@@ -61,72 +58,104 @@ public class AlarmList2Activity extends BaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_list2);
+        mToolbar.setVisibility(View.GONE);
+        ivBack = findViewById(R.id.iv_back);
+        icon_home = findViewById(R.id.icon_home);
+        rvAlarms = findViewById(R.id.alarm_list_rv_alarms);
+        tvAddAlarm = findViewById(R.id.alarm_list_tv_add_alarm);
+        tvAddAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvAddAlarmClicked();
+            }
+        });
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText(R.string.medication_reminder);
-        mUnbinder = ButterKnife.bind(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.setReverseLayout(false);
         rvAlarms.setLayoutManager(layoutManager);
         mAdapter = new AlarmsAdapter();
+        mAdapter.alarmRepository = alarmRepository;
         rvAlarms.setAdapter(mAdapter);
         refresh();
-        NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
-            @Override
-            public void onSuccess(ArrayList<ClueInfoBean> response) {
-                if (response == null || response.size() == 0) {
-                    return;
-                }
-                StringBuilder mBuilder = new StringBuilder();
 
-                for (ClueInfoBean itemBean : response) {
-                    mBuilder.append(response.get(0).doctername).append("提醒您").append(itemBean.cluetime).append("吃").append(itemBean.medicine);
-                }
-                speak(mBuilder.toString());
-            }
-        });
+        alarmRepository.getClue()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<List<ClueInfoBean>>() {
+                    @Override
+                    public void onNext(List<ClueInfoBean> clueInfoBeans) {
+                        StringBuilder mBuilder = new StringBuilder();
+                        for (ClueInfoBean itemBean : clueInfoBeans) {
+                            mBuilder.append(clueInfoBeans.get(0).doctername)
+                                    .append("提醒您")
+                                    .append(itemBean.cluetime)
+                                    .append("吃")
+                                    .append(itemBean.medicine);
+                        }
+                        String tips = mBuilder.toString();
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), tips);
+                    }
+                });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        speak("请设置吃药提醒");
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请设置吃药提醒");
     }
 
     private void refresh() {
-        List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-        if (models != null) {
-            Iterator<AlarmModel> iterator = models.iterator();
-            while (iterator.hasNext()) {
-                AlarmModel model = iterator.next();
-                String tag = model.getTag();
-                if (tag != null && !tag.isEmpty()) {
-                    iterator.remove();
-                }
-            }
-
-            Collections.sort(models, new Comparator<AlarmModel>() {
-                @Override
-                public int compare(AlarmModel model1, AlarmModel model2) {
-                    if (model1.getHourOfDay() > model2.getHourOfDay()
-                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
-                            model1.getMinute() > model2.getMinute())) {
-                        return 1;
+        alarmRepository.findAll()
+                .map(new Function<List<AlarmModel>, List<AlarmModel>>() {
+                    @Override
+                    public List<AlarmModel> apply(List<AlarmModel> models) throws Exception {
+                        return sort(models);
                     }
-                    if (model1.getHourOfDay() < model2.getHourOfDay()
-                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
-                            model1.getMinute() < model2.getMinute())) {
-                        return -1;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<List<AlarmModel>>() {
+                    @Override
+                    public void onNext(List<AlarmModel> models) {
+                        mAdapter.replaceAll(models);
                     }
-                    return 0;
-                }
-            });
-
-            mAdapter.replaceAll(models);
-        }
+                });
     }
 
-    @OnClick(R.id.alarm_list_tv_add_alarm)
+    private List<AlarmModel> sort(List<AlarmModel> models) {
+        Iterator<AlarmModel> iterator = models.iterator();
+        ArrayList<AlarmModel> list = new ArrayList<>();
+        while (iterator.hasNext()) {
+            AlarmModel model = iterator.next();
+            String tag = model.getTag();
+            if (tag != null && !tag.isEmpty()) {
+                iterator.remove();
+            }
+        }
+
+        Collections.sort(models, new Comparator<AlarmModel>() {
+            @Override
+            public int compare(AlarmModel model1, AlarmModel model2) {
+                if (model1.getHourOfDay() > model2.getHourOfDay()
+                        || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                        model1.getMinute() > model2.getMinute())) {
+                    return 1;
+                }
+                if (model1.getHourOfDay() < model2.getHourOfDay()
+                        || (model1.getHourOfDay() == model2.getHourOfDay() &&
+                        model1.getMinute() < model2.getMinute())) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+        return models;
+    }
+
     public void onTvAddAlarmClicked() {
         openAlarmDetailActivity(-1);
     }
@@ -140,36 +169,7 @@ public class AlarmList2Activity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-            if (models != null) {
-                Iterator<AlarmModel> iterator = models.iterator();
-                while (iterator.hasNext()) {
-                    AlarmModel model = iterator.next();
-                    String tag = model.getTag();
-                    if (tag != null && !tag.isEmpty()) {
-                        iterator.remove();
-                    }
-                }
-
-                Collections.sort(models, new Comparator<AlarmModel>() {
-                    @Override
-                    public int compare(AlarmModel model1, AlarmModel model2) {
-                        if (model1.getHourOfDay() > model2.getHourOfDay()
-                                || (model1.getHourOfDay() == model2.getHourOfDay() &&
-                                model1.getMinute() > model2.getMinute())) {
-                            return 1;
-                        }
-                        if (model1.getHourOfDay() < model2.getHourOfDay()
-                                || (model1.getHourOfDay() == model2.getHourOfDay() &&
-                                model1.getMinute() < model2.getMinute())) {
-                            return -1;
-                        }
-                        return 0;
-                    }
-                });
-
-                mAdapter.replaceAll(models);
-            }
+            refresh();
         }
     }
 
@@ -193,55 +193,65 @@ public class AlarmList2Activity extends BaseActivity {
     }
 
     public void cancelAlarm(long alarmId) {
-        AlarmHelper.cancelAlarms(this);
-        DataSupport.delete(AlarmModel.class, alarmId);
-        List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-        if (models != null) {
-            Iterator<AlarmModel> iterator = models.iterator();
-            while (iterator.hasNext()) {
-                AlarmModel model = iterator.next();
-                String tag = model.getTag();
-                if (tag != null && !tag.isEmpty()) {
-                    iterator.remove();
-                }
-            }
-
-            Collections.sort(models, new Comparator<AlarmModel>() {
-                @Override
-                public int compare(AlarmModel model1, AlarmModel model2) {
-                    if (model1.getHourOfDay() > model2.getHourOfDay()
-                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
-                            model1.getMinute() > model2.getMinute())) {
-                        return 1;
+        Observable.just("cancelAlarm")
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        AlarmHelper.cancelAlarms(AlarmList2Activity.this);
+                        return s;
                     }
-                    if (model1.getHourOfDay() < model2.getHourOfDay()
-                            || (model1.getHourOfDay() == model2.getHourOfDay() &&
-                            model1.getMinute() < model2.getMinute())) {
-                        return -1;
+                })
+                .flatMap(new Function<String, ObservableSource<String>>() {
+                    @Override
+                    public ObservableSource<String> apply(String s) throws Exception {
+                        return alarmRepository.delete(alarmId)
+                                .map(new Function<Object, String>() {
+                                    @Override
+                                    public String apply(Object o) throws Exception {
+                                        return s;
+                                    }
+                                })
+                                .subscribeOn(Schedulers.io());
                     }
-                    return 0;
-                }
-            });
+                })
+                .flatMap(new Function<String, ObservableSource<List<AlarmModel>>>() {
+                    @Override
+                    public ObservableSource<List<AlarmModel>> apply(String s) throws Exception {
+                        return alarmRepository.findAll()
+                                .map(new Function<List<AlarmModel>, List<AlarmModel>>() {
+                                    @Override
+                                    public List<AlarmModel> apply(List<AlarmModel> models) throws Exception {
+                                        return sort(models);
+                                    }
+                                })
+                                .subscribeOn(Schedulers.io());
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Consumer<List<AlarmModel>>() {
+                    @Override
+                    public void accept(List<AlarmModel> models) throws Exception {
+                        mAdapter.replaceAll(models);
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<List<AlarmModel>>() {
+                    @Override
+                    public void onNext(List<AlarmModel> models) {
+                        AlarmHelper.setupAlarms(AlarmList2Activity.this);
+                    }
+                });
 
-            mAdapter.replaceAll(models);
-        }
-        AlarmHelper.setupAlarms(this);
     }
 
     public void setAlarmEnabled(long id, boolean enabled) {
 //        AlarmHelper.cancelAlarms(this);
 
-        AlarmModel temp = new AlarmModel();
-        temp.setEnabled(enabled);
-        temp.update(id);
-        AlarmHelper.setupAlarms(this);
+//        AlarmModel temp = new AlarmModel();
+//        temp.setEnabled(enabled);
+//        temp.update(id);
+//        AlarmHelper.setupAlarms(this);
     }
 
-    @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-        super.onDestroy();
-    }
 }

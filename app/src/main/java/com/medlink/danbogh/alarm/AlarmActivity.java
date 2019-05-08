@@ -5,34 +5,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.support.constraint.ConstraintLayout;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
-public class AlarmActivity extends BaseActivity {
+public class AlarmActivity extends ToolbarBaseActivity {
     private static final String TAG = "AlarmActivity";
 
-    @BindView(R.id.cl_alarm_wake)
     ConstraintLayout clAlarmWake;
-    @BindView(R.id.alarm_tv_title)
     TextView tvTitle;
-    @BindView(R.id.alarm_tv_time)
     TextView tvTime;
-    @BindView(R.id.alarm_tv_content)
     TextView tvContent;
-    @BindView(R.id.alarm_btn_dismiss)
     Button btnDismiss;
-    public Unbinder mUnbinder;
 
     public String mContent;
 
@@ -50,7 +41,7 @@ public class AlarmActivity extends BaseActivity {
             mHandler.removeCallbacks(this);
             mAlarmCount++;
             if (mAlarmCount <= 5) {
-                speak(mContent);
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), mContent);
                 mHandler.postDelayed(this, 3000);
             } else {
                 mAlarmCount = 0;
@@ -62,7 +53,24 @@ public class AlarmActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-        mUnbinder = ButterKnife.bind(this);
+        mToolbar.setVisibility(View.GONE);
+        clAlarmWake = findViewById(R.id.cl_alarm_wake);
+        clAlarmWake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClAlarmWakeClicked();
+            }
+        });
+        tvTitle = findViewById(R.id.alarm_tv_title);
+        tvTime = findViewById(R.id.alarm_tv_time);
+        tvContent = findViewById(R.id.alarm_tv_content);
+        btnDismiss= findViewById(R.id.alarm_btn_dismiss);
+        btnDismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnDismissClicked();
+            }
+        });
         mContent = getIntent().getStringExtra(AlarmHelper.CONTENT);
         int hourOfDay = getIntent().getIntExtra(AlarmHelper.HOUR_OF_DAY, 0);
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);
@@ -89,7 +97,6 @@ public class AlarmActivity extends BaseActivity {
         getWindow().getDecorView().postDelayed(releaseWakelock, WAKELOCK_TIMEOUT);
     }
 
-    @OnClick(R.id.alarm_btn_dismiss)
     public void onBtnDismissClicked() {
         finish();
     }
@@ -114,7 +121,6 @@ public class AlarmActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.cl_alarm_wake)
     public void onClAlarmWakeClicked() {
         finish();
     }
@@ -131,7 +137,6 @@ public class AlarmActivity extends BaseActivity {
     protected void onDestroy() {
         mAlarmCount = 0;
         mHandler.removeCallbacks(mAlarm);
-        mUnbinder.unbind();
         super.onDestroy();
     }
 }

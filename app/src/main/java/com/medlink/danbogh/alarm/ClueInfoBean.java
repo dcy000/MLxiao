@@ -1,4 +1,4 @@
-package com.example.han.referralproject.bean;
+package com.medlink.danbogh.alarm;
 
 public class ClueInfoBean {
     public String doctername;

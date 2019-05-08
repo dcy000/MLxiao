@@ -30,6 +30,7 @@ public class UserSpHelper {
      * 用户id的key
      */
     private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_NO_NETWORK = "no_network";
     private static final String KEY_EQ_ID = "eq_id";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_REFRESH_TOKEN = "refreshToken";
@@ -72,6 +73,21 @@ public class UserSpHelper {
         return (String) SPUtil.get(KEY_USER_ID, "");
     }
 
+    public static void setUserId(String userId) {
+        if (TextUtils.isEmpty(userId)) {
+            userId = "";
+        }
+        SPUtil.put(KEY_USER_ID, userId);
+    }
+
+    public static boolean isNoNetwork() {
+        return (Boolean) SPUtil.get(KEY_NO_NETWORK, false);
+    }
+
+    public static void setNoNetwork(boolean noNetwork) {
+        SPUtil.put(KEY_NO_NETWORK, noNetwork);
+    }
+
     public static void setEqId(String eqId) {
         if (TextUtils.isEmpty(eqId)) {
             eqId = "";
@@ -81,13 +97,6 @@ public class UserSpHelper {
 
     public static String getEqId() {
         return (String) SPUtil.get(KEY_EQ_ID, "");
-    }
-
-    public static void setUserId(String userId) {
-        if (TextUtils.isEmpty(userId)) {
-            userId = "";
-        }
-        SPUtil.put(KEY_USER_ID, userId);
     }
 
     public static String getToken() {

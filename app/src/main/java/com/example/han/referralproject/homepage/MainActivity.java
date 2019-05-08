@@ -8,11 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
@@ -22,9 +20,7 @@ import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 

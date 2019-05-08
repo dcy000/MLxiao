@@ -60,7 +60,7 @@ public class RxCacheHelper {
 
     private final File cacheDir = FileHelper.getCacheDirectory(AppDelegate.INSTANCE.app(), "");
 
-    private final File rxCacheDir = new File(cacheDir, "RxCache");
+    private final File rxCacheDir = FileHelper.makeDirs(new File(cacheDir, "RxCache"));
 
     private RxCache instance() {
         if (instance == null) {

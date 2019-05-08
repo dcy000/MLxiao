@@ -24,8 +24,6 @@ import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.umeng.analytics.MobclickAgent;
 
-import org.litepal.LitePal;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -65,26 +63,25 @@ public class MyApplication extends Application {
         AppDelegate.INSTANCE.onCreate(this);
 //        UM.init(this);
 //        UiUtils.init(this, 1920, 1200);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-        }
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
-                this,
-                "5a604f5d8f4a9d02230001b1",
-                "GCML"
-        );
-        MobclickAgent.startWithConfigure(umConfig);
-        //友盟崩溃信息收集开关
-        MobclickAgent.setCatchUncaughtExceptions(false);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+//            StrictMode.setVmPolicy(builder.build());
+//        }
+//        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+//        MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
+//                this,
+//                "5a604f5d8f4a9d02230001b1",
+//                "GCML"
+//        );
+//        MobclickAgent.startWithConfigure(umConfig);
+//        //友盟崩溃信息收集开关
+//        MobclickAgent.setCatchUncaughtExceptions(false);
 
-        LitePal.initialize(this);
         mInstance = this;
 
         //初始化极光
-        JPushInterface.setDebugMode(BuildConfig.DEBUG);
-        JPushInterface.init(this);
+//        JPushInterface.setDebugMode(BuildConfig.DEBUG);
+//        JPushInterface.init(this);
 
         syncWeatherAndTime();
     }
@@ -187,7 +184,7 @@ public class MyApplication extends Application {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        UiUtils.compatWithOrientation(newConfig);
+//        UiUtils.compatWithOrientation(newConfig);
     }
 
 
@@ -196,17 +193,17 @@ public class MyApplication extends Application {
     }
 
 
-    @Deprecated
-    private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);
+//    @Deprecated
+//    private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);
 
-    {
-        mBgThread.start();
-    }
+//    {
+//        mBgThread.start();
+//    }
 
-    private Handler mBgHandler;
+//    private Handler mBgHandler;
 
-    public Handler getBgHandler() {
-        return mBgHandler == null ? new Handler(mBgThread.getLooper()) : mBgHandler;
-    }
+//    public Handler getBgHandler() {
+//        return mBgHandler == null ? new Handler(mBgThread.getLooper()) : mBgHandler;
+//    }
 
 }

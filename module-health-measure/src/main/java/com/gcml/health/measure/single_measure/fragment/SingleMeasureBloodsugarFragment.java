@@ -74,6 +74,11 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
             data.setBloodSugar(Float.parseFloat(roundUp));
             datas.add(data);
 
+            if (UserSpHelper.isNoNetwork()) {
+                uploadData();
+                return;
+            }
+
             HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -86,6 +91,9 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
 
                         @Override
                         public void onError(Throwable e) {
+                            if (UserSpHelper.isNoNetwork()) {
+                                return;
+                            }
                             HealthMeasureAbnormalActivity.startActivity(
                                     SingleMeasureBloodsugarFragment.this,
                                     IPresenter.MEASURE_BLOOD_SUGAR, CODE_REQUEST_ABNORMAL);

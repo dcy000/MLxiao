@@ -30,6 +30,7 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.common.utils.ui.ScreenUtils;
 import com.iflytek.cloud.ErrorCode;
@@ -589,7 +590,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    Handler handler = MyApplication.getInstance().getBgHandler();
+    Handler handler = Handlers.bg();
     public Runnable mListening = new Runnable() {
         @Override
         public void run() {

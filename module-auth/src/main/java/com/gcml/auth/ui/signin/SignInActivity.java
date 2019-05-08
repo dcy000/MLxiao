@@ -49,6 +49,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        UserSpHelper.setNoNetwork(false);
         binding.setPresenter(this);
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())

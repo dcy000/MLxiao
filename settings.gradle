@@ -1,4 +1,4 @@
-include ':app', ':module-doctor-advisory',
+include ':app', ':module-doctor-advisory', ':module_alarm',
         ':module-body-test',
         ':module-hypertension-manager',
         ':module-edu-child',

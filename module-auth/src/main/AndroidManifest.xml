@@ -5,6 +5,7 @@
     <application>
         <activity android:name=".ui.AuthActivity" />
         <activity android:name=".ui.signin.SignInActivity" />
+        <activity android:name=".ui.signin.nonetwork.SignInNoNetworkActivity" />
         <activity android:name=".ui.signup.SignUpActivity" />
         <activity android:name=".ui.signup.SignUpByIdCardActivity" />
         <activity android:name=".ui.signup.UserProtocolActivity" />
