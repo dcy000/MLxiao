@@ -125,7 +125,7 @@ public class SignDoctorFragment extends Fragment implements View.OnClickListener
 
     private void getData() {
         OkGo.<String>get(NetworkApi.DOCTER_LIST)
-                .params("start", 0)
+                .params("start", 1)
                 .params("limit", mCurrPage)
                 .execute(new StringCallback() {
                     @Override
