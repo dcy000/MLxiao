@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.example.han.referralproject.recyclerview.DoctorAlarmActivity;
 import com.gcml.common.utils.DefaultObserver;
 
 import io.reactivex.Observable;

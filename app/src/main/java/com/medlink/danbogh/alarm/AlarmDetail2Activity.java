@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.crazypumpkin.versatilerecyclerview.library.WheelRecyclerView;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/app/alarm/details2/activity")
-public class AlarmDetail2Activity extends BaseActivity {
+public class AlarmDetail2Activity extends ToolbarBaseActivity {
 
     public static Intent newLaunchIntent(Context context, long id) {
         Intent intent = new Intent(context, AlarmDetail2Activity.class);

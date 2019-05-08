@@ -1,9 +1,14 @@
 package com.medlink.danbogh.alarm;
 
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.RxCacheHelper;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
+import com.gcml.common.recommend.bean.get.Doctor;
+import com.gcml.common.utils.RxUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +20,41 @@ import io.rx_cache2.EvictProvider;
 public class AlarmRepository {
 
     private AlarmProvider alarmProvider = RxCacheHelper.provider(AlarmProvider.class);
+
+    private AlarmApiService alarmApiService = RetrofitHelper.service(AlarmApiService.class);
+
+
+    public Observable<List<ClueInfoBean>> getClue() {
+        return alarmApiService.getClue(UserSpHelper.getUserId())
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<List<AlreadyYuyue>> contractAlready(String doctorId) {
+        return alarmApiService.contractAlready(doctorId)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<String> updateStatus(
+            String rid,
+            String state) {
+        return alarmApiService.updateStatus(rid, state)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+
+    public Observable<Object> addEatMedicalRecord(
+            String userName,
+            String content,
+           String state) {
+        String time = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        return  alarmApiService.addEatMedicalRecord(userName, content, time, state)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<Doctor> doctor(){
+        return alarmApiService.doctor(UserSpHelper.getUserId())
+                .compose(RxUtils.apiResultTransformer());
+    }
 
     public Observable<List<AlarmModel>> addAll(Observable<List<AlarmModel>> rxModels) {
         return alarmProvider.alarmsLocal(

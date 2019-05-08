@@ -11,11 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Locale;
 
-public class AlarmActivity extends BaseActivity {
+public class AlarmActivity extends ToolbarBaseActivity {
     private static final String TAG = "AlarmActivity";
 
     ConstraintLayout clAlarmWake;
@@ -40,7 +41,7 @@ public class AlarmActivity extends BaseActivity {
             mHandler.removeCallbacks(this);
             mAlarmCount++;
             if (mAlarmCount <= 5) {
-                speak(mContent);
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), mContent);
                 mHandler.postDelayed(this, 3000);
             } else {
                 mAlarmCount = 0;
@@ -52,6 +53,7 @@ public class AlarmActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
+        mToolbar.setVisibility(View.GONE);
         clAlarmWake = findViewById(R.id.cl_alarm_wake);
         clAlarmWake.setOnClickListener(new View.OnClickListener() {
             @Override

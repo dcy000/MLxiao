@@ -75,8 +75,8 @@ dependencies {
 //    implementation project(':lib-progress-orb')
 //    implementation project(':lib-music-player')
 //    implementation project(':lib-video')
-    implementation name: 'lib-wheelrecyclerview', ext: 'aar'
-    implementation name: 'voicelibrary', ext: 'aar'
+//    implementation name: 'lib-wheelrecyclerview', ext: 'aar'
+//    implementation name: 'voicelibrary', ext: 'aar'
     //黄油刀
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]

@@ -147,7 +147,7 @@
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".recyclerview.DoctorAlarmActivity"
+            android:name="com.medlink.danbogh.alarm.DoctorAlarmActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"

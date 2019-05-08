@@ -202,5 +202,8 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
 
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+
+    api name: 'lib-wheelrecyclerview', ext: 'aar'
+    api name: 'voicelibrary', ext: 'aar'
 }
 

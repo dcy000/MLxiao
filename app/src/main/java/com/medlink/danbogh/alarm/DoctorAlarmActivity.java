@@ -1,4 +1,4 @@
-package com.example.han.referralproject.recyclerview;
+package com.medlink.danbogh.alarm;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,25 +10,22 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.AlreadyYuyue;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.medlink.danbogh.alarm.AlarmHelper;
-import com.medlink.danbogh.alarm.AlarmModel;
-import com.medlink.danbogh.alarm.AlarmRepository;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class DoctorAlarmActivity extends BaseActivity {
+public class DoctorAlarmActivity extends ToolbarBaseActivity {
 
     private PowerManager.WakeLock mWakeLock;
     private static final int WAKELOCK_TIMEOUT = 30 * 1000;
@@ -53,7 +50,7 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         mToolbar.setVisibility(View.VISIBLE);
 
-        sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+        sharedPreferences1 = getSharedPreferences("doctor_message", Context.MODE_PRIVATE);
 
 
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
@@ -76,8 +73,8 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         mTitleText.setText("预 约 视 频");
 
-        speak("主人您的预约时间到了，请及时和健康顾问进行视频通话");
-
+        String tips = "主人您的预约时间到了，请及时和健康顾问进行视频通话";
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), tips);
 
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,43 +92,36 @@ public class DoctorAlarmActivity extends BaseActivity {
 
 
         if (model != null && model.getTimestamp() != 0) {
-
-
-            NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
-                @Override
-                public void onSuccess(ArrayList<AlreadyYuyue> response) {
-
-                    for (int i = 0; i < response.size(); i++) {
-
-                        if (startTime.equals(response.get(i).getStart_time())) {
-
-                            NetworkApi.update_status(response.get(i).getRid(), "5", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                }
-                            });
-
-
+            alarmRepository.doctor()
+                    .flatMap(new Function<Doctor, ObservableSource<List<AlreadyYuyue>>>() {
+                        @Override
+                        public ObservableSource<List<AlreadyYuyue>> apply(Doctor doctor) throws Exception {
+                            return alarmRepository.contractAlready(String.valueOf(doctor.docterid));
                         }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new DefaultObserver<List<AlreadyYuyue>>() {
+                        @Override
+                        public void onNext(List<AlreadyYuyue> alreadyYuyues) {
+                            for (int i = 0; i < alreadyYuyues.size(); i++) {
+                                if (startTime.equals(alreadyYuyues.get(i).getStart_time())) {
+                                    alarmRepository.updateStatus(alreadyYuyues.get(i).getRid(), "5")
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .as(RxUtils.autoDisposeConverter(DoctorAlarmActivity.this))
+                                            .subscribe(new DefaultObserver<String>() {
+                                                @Override
+                                                public void onNext(String s) {
 
-                    }
+                                                }
+                                            });
+                                }
 
-                }
-
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-
-                }
-            });
-
+                            }
+                        }
+                    });
 
         }
 
@@ -219,11 +209,5 @@ public class DoctorAlarmActivity extends BaseActivity {
             mWakeLock.release();
         }
         super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
     }
 }

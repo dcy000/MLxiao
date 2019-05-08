@@ -10,15 +10,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.Handlers;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
-public class ReminderActivity extends BaseActivity {
+public class ReminderActivity extends ToolbarBaseActivity {
 
     private static final String TAG = "ReminderActivity";
 
@@ -29,10 +37,13 @@ public class ReminderActivity extends BaseActivity {
 
     private String mContent;
 
+    private AlarmRepository alarmRepository = new AlarmRepository();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+        mToolbar.setVisibility(View.GONE);
         tvContent = findViewById(R.id.tv_alarm_reminder_content);
         ivMedical = findViewById(R.id.iv_alarm_medical);
         tvIgnore = findViewById(R.id.tv_btn_ignore);
@@ -90,16 +101,50 @@ public class ReminderActivity extends BaseActivity {
         public void run() {
             if (mAlarmCount < 5) {
                 mAlarmCount++;
-                speak(mContent);
+                speak();
             } else {
                 mAlarmCount = 0;
             }
         }
     };
 
-    @Override
-    protected void onActivitySpeakFinish() {
-        Handlers.runOnUiThread(mAlarm);
+    private void speak() {
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), mContent, new SynthesizerListener() {
+            @Override
+            public void onSpeakBegin() {
+
+            }
+
+            @Override
+            public void onBufferProgress(int i, int i1, int i2, String s) {
+
+            }
+
+            @Override
+            public void onSpeakPaused() {
+
+            }
+
+            @Override
+            public void onSpeakResumed() {
+
+            }
+
+            @Override
+            public void onSpeakProgress(int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onCompleted(SpeechError speechError) {
+                Handlers.runOnUiThread(mAlarm);
+            }
+
+            @Override
+            public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+            }
+        }, false);
     }
 
     private static final int WAKELOCK_TIMEOUT = 30 * 1000;
@@ -107,38 +152,31 @@ public class ReminderActivity extends BaseActivity {
     private PowerManager.WakeLock mWakeLock;
 
     public void onTvBtnIgnoreClicked() {
-        String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(
-                UserSpHelper.getUserName()
-                , content,
-                "0",
-                new NetworkManager.SuccessCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        finish();
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        finish();
-                    }
-                });
+        addEatMedicalRecord("0");
     }
 
     public void onTvBtnConfirmClicked() {
+        addEatMedicalRecord("1");
+    }
+
+    private void addEatMedicalRecord(String state) {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(
+        alarmRepository.addEatMedicalRecord(
                 UserSpHelper.getUserName(),
-                content, "1",
-                new NetworkManager.SuccessCallback<Object>() {
+                content,
+                state
+        ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
                     @Override
-                    public void onSuccess(Object response) {
+                    public void onNext(Object alarmModel) {
                         finish();
                     }
-                }, new NetworkManager.FailedCallback() {
+
                     @Override
-                    public void onFailed(String message) {
-//                        ToastUtils.showShort(message);
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
                         finish();
                     }
                 });
