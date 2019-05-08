@@ -54,7 +54,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
         mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
-            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+            NetworkApi.doctor_list(1, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override
                 public void onSuccess(ArrayList<Docter> response) {
                     mlist.clear();
@@ -152,16 +152,9 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-            boolean isSlidingUp;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                // 表示在向上滑动
-                if (dy > 0) {
-                    isSlidingUp = true;
-                } else {
-                    isSlidingUp = false;
-                }
             }
 
             @Override
@@ -181,10 +174,10 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     // 获取数组中的最大值，即已显示的最大索引
                     int maxPosition = lastVisiblePosition[lastVisiblePosition.length - 1];
 
-                    if ((countItem - 1) == maxPosition && isSlidingUp) {
+                    if ((countItem - 1) == maxPosition) {
                         if ("contract".equals(mFlag)) {
                             limit += 9;
-                            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+                            NetworkApi.doctor_list(1, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                                 @Override
                                 public void onSuccess(ArrayList<Docter> response) {
                                     mlist.clear();

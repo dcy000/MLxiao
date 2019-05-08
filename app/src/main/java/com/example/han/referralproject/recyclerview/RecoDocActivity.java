@@ -132,7 +132,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getData() {
-        NetworkApi.doctor_list(0, mCurrPage, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
+        NetworkApi.doctor_list(1, mCurrPage, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
             @Override
             public void onSuccess(ArrayList<Docter> response) {
                 mlist.clear();
