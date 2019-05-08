@@ -198,6 +198,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                                 .placeholder(R.drawable.avatar_placeholder)
                                 .error(R.drawable.avatar_placeholder)
                                 .into(headImg);
+                        if (UserSpHelper.isNoNetwork()) {
+                            isSignDoctor.setText("未签约");
+                            return;
+                        }
                         if ("1".equals(user.state)) {
                             isSignDoctor.setText("已绑定");
                         } else if ("0".equals(user.state)
@@ -249,6 +253,12 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        if (v.getId() != R.id.iv_record
+                && v.getId() != R.id.iv_change_account
+                && UserSpHelper.isNoNetwork()) {
+            ToastUtils.showShort("请使用有网模式登录");
+            return;
+        }
         switch (v.getId()) {
             case R.id.iv_order:
                 //我的订单

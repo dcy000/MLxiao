@@ -16,9 +16,15 @@ import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.functions.Function;
+import io.rx_cache2.DynamicKey;
+import io.rx_cache2.EvictDynamicKey;
 import timber.log.Timber;
 
 /**
@@ -93,11 +99,57 @@ public class HealthMeasureRepository {
 
     /**
      * 新的上传数据的接口
+     * 1：温度；2：血压；3：心率；4：血糖，5：血氧，6：脉搏,7:胆固醇，8：血尿酸，9：心电, 10：体重
      */
     public static Observable<List<DetectionResult>> postMeasureData(ArrayList<DetectionData> datas) {
         String userId = UserSpHelper.getUserId();
-        Timber.i("上传测量数据：userID="+userId);
-        return healthMeasureServer.postMeasureData(userId, datas).compose(RxUtils.apiResultTransformer());
+        boolean noNetwork = UserSpHelper.isNoNetwork();
+
+        Timber.i("上传测量数据： userID=" + userId + " noNetwork = " + noNetwork);
+
+        if (!noNetwork) {
+            //hasNetwork
+            return healthMeasureServer.postMeasureData(userId, datas).compose(RxUtils.apiResultTransformer());
+        }
+
+        // noNetwork
+        Observable<List<DetectionData>> rxDetectionDataLocal =
+                detectionDataProvider.detectionDataLocal(
+                        Observable.empty(),
+                        new DynamicKey(userId),
+                        new EvictDynamicKey(false))
+                        .toObservable()
+                        .onErrorResumeNext(Observable.just(Collections.emptyList()));
+        return rxDetectionDataLocal.map(new Function<List<DetectionData>, List<DetectionData>>() {
+            @Override
+            public List<DetectionData> apply(List<DetectionData> oldData) throws Exception {
+                ArrayList<DetectionData> newData = new ArrayList<>();
+                for (DetectionData old : oldData) {
+                    if (old != null) {
+                        newData.add(old);
+                    }
+                }
+                for (DetectionData added : datas) {
+                    if (added != null) {
+                        newData.add(added);
+                    }
+                }
+                return newData;
+            }
+        }).compose(new ObservableTransformer<List<DetectionData>, List<DetectionResult>>() {
+            @Override
+            public ObservableSource<List<DetectionResult>> apply(Observable<List<DetectionData>> upstream) {
+                return detectionDataProvider.detectionDataLocal(upstream, new DynamicKey(userId), new EvictDynamicKey(true))
+                        .toObservable()
+                        .onErrorResumeNext(Observable.just(Collections.emptyList()))
+                        .map(new Function<List<DetectionData>, List<DetectionResult>>() {
+                            @Override
+                            public List<DetectionResult> apply(List<DetectionData> detectionData) throws Exception {
+                                return Collections.emptyList();
+                            }
+                        });
+            }
+        });
     }
 
     /**

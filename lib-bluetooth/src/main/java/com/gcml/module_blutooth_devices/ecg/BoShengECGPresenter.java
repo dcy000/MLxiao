@@ -32,6 +32,7 @@ import com.clj.fastble.callback.BleNotifyCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
@@ -115,7 +116,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
                                     }
                                     return;
                                 }
-                                uploadDatas(result);
+                                if (!UserSpHelper.isNoNetwork()) {
+                                    uploadDatas(result);
+                                }
                             }
                         }
                     });

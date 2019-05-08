@@ -13,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -84,6 +86,10 @@ public class PersonDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
+                        if (UserSpHelper.isNoNetwork()) {
+                            ToastUtils.showShort("请使用有网模式登录");
+                            return;
+                        }
                         Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
                     }
                 });

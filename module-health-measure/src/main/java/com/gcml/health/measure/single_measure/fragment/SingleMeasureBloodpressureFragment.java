@@ -112,6 +112,11 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
             datas.add(pressureData);
             datas.add(dataPulse);
 
+            if (UserSpHelper.isNoNetwork()) {
+                uploadData();
+                return;
+            }
+
             HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -167,7 +172,9 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
                 .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
                     public void onNext(List<DetectionResult> o) {
-
+                        if (UserSpHelper.isNoNetwork()) {
+                            return;
+                        }
                         Timber.e("单测返回来的数据：" + o);
                         ToastUtils.showLong("上传数据成功");
                         DetectionResult result = o.get(0);

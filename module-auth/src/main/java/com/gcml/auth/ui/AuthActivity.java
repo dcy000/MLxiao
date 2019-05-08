@@ -1,12 +1,14 @@
 package com.gcml.auth.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
+import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
@@ -88,6 +90,11 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
                         }
                     }
                 });
+    }
+
+    public void goNoNetwork() {
+        Intent intent = new Intent(this, SignInNoNetworkActivity.class);
+        startActivity(intent);
     }
 
     public void goWifi() {

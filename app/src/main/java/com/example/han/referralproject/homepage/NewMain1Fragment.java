@@ -20,6 +20,7 @@ import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.lenovo.rto.APP;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -270,6 +271,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
+                if (UserSpHelper.isNoNetwork()) {
+                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, null, "");
+                    return;
+                }
                 Routerfit.register(AppRouter.class)
                         .getUserProvider()
                         .getUserEntity()
@@ -308,6 +313,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
                 break;
             case R.id.iv_health_dialy_task:
+                if (UserSpHelper.isNoNetwork()) {
+                    ToastUtils.showShort("请使用有网模式登录");
+                    return;
+                }
 //                rxUser.subscribeOn(Schedulers.io())
 //                        .as(RxUtils.autoDisposeConverter(this))
 //                        .subscribe(new DefaultObserver<UserEntity>() {
@@ -337,6 +346,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
                 break;
             case R.id.iv_health_call_family:
+                if (UserSpHelper.isNoNetwork()) {
+                    ToastUtils.showShort("请使用有网模式登录");
+                    return;
+                }
 //                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
 //                getDoctorInfo();
                 startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
