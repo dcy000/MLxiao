@@ -1,5 +1,6 @@
 package com.example.module_control_volume.wifi;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,14 +26,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.module_control_volume.R;
 import com.example.module_control_volume.adapter.WifiConnectRecyclerAdapter;
+import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.network.WiFiUtil;
+import com.gcml.common.utils.thread.ThreadUtils;
+import com.gcml.common.widget.dialog.InputDialog;
 import com.gcml.common.wifi.WifiUtils;
+import com.gcml.common.wifi.wifiConnect.ConnectionSuccessListener;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
@@ -47,19 +56,21 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/app/activity/wifi/connect")
-public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnClickListener {
+public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnClickListener, ConnectionSuccessListener {
 
     private RecyclerView mRecycler;
     private List<ScanResult> mList = new ArrayList<>();
-    private WifiConnectRecyclerAdapter mAdapter;
+    //    private WifiConnectRecyclerAdapter mAdapter;
     private SwitchButton mSwitch;
     private View mConnectedLayout;
     private TextView mConnectedWifiName;
     private ImageView mConnectedWifiLevel;
     private WifiManager mWifiManager;
     private boolean isFirstWifi = false;
-    private MediaPlayer mediaPlayer;
     private Animation mRefreshAnim;
+    private BaseQuickAdapter<ScanResult, BaseViewHolder> adapter;
+    private ScanResult currentWifi;
+    private String currentPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +79,9 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
 
         bindView();
         bindData();
+        setAdapter();
     }
+
 
     private void bindView() {
         mConnectedLayout = findViewById(R.id.rl_connected);
@@ -76,26 +89,27 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
         mConnectedWifiLevel = findViewById(R.id.iv_connect_levle);
         mSwitch = findViewById(R.id.switch_wifi);
         mRecycler = findViewById(R.id.rv_wifi);
-    }
 
-    private void bindData() {
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.icon_refresh);
         mRightView.setOnClickListener(this);
         mTitleText.setText("WiFi连接");
         mRefreshAnim = AnimationUtils.loadAnimation(this, R.anim.common_wifi_refresh);
+    }
 
+    private void bindData() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         boolean iswifiConnected = cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
         if (iswifiConnected) {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(),"您的wifi已连接,如果需要更换,请点击对应wifi名称");
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您的wifi已连接,如果需要更换,请点击对应wifi名称");
         } else {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(),"请连接wifi,如果未找到,请点击右上角的刷新按钮");
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
         isFirstWifi = getIntent().getBooleanExtra("is_first_wifi", false);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
         mSwitch.setChecked(mWifiManager.isWifiEnabled());
         mSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
@@ -109,17 +123,80 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                 }
             }
         });
+    }
 
+    private void setAdapter() {
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new WifiConnectRecyclerAdapter(this, mList);
-        mRecycler.setAdapter(mAdapter);
+        mRecycler.setAdapter(adapter = new BaseQuickAdapter<ScanResult, BaseViewHolder>(R.layout.item_wifi_info_layout, mList) {
+            @Override
+            protected void convert(BaseViewHolder helper, ScanResult item) {
+                helper.setText(R.id.item_tv_wifi_name, item.SSID);
+                RxUtils.rxWifiLevels(UM.getApp(), 4, item)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .as(RxUtils.autoDisposeConverter(((LifecycleOwner) helper.itemView.getContext())))
+                        .subscribe(new Consumer<Integer>() {
+                            @Override
+                            public void accept(Integer level) throws Exception {
+                                ((ImageView) helper.getView(R.id.item_iv_wifi_level)).setImageLevel(level);
+                            }
+                        });
+            }
+        });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ScanResult itemResult = mList.get(position);
+                currentWifi = itemResult;
+                String capabilities = itemResult.capabilities;
+                if (capabilities.contains("WPA2") || capabilities.contains("WPA-PSK") || capabilities.contains("WPA") || capabilities.contains("WEP")) {
+                    checkWifiCache();
+                } else {
+                    currentPassword = "";
+                    WifiUtils.withContext(WifiConnectActivity.this).connectWith(itemResult.SSID, "").onConnectionResult(WifiConnectActivity.this).start();
+                }
+            }
+        });
         getWifiData(mWifiManager.isWifiEnabled());
+    }
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(mNetworkReceiver, filter);
+    private void checkWifiCache() {
+        Handlers.bg().post(new Runnable() {
+            @Override
+            public void run() {
+                WifiEntity result = RoomHelper.db(WifiDB.class, WifiDB.class.getName()).wifiDao().queryByKey(currentWifi.BSSID);
+                if (result == null) {
+                    Handlers.ui().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            showInputPasswordDialog(currentWifi.SSID);
+                        }
+                    });
+                } else {
+                    WifiUtils.withContext(WifiConnectActivity.this).connectWith(result.SSID, result.password).onConnectionResult(WifiConnectActivity.this).start();
+                }
+            }
+        });
+    }
+
+    private void showInputPasswordDialog(String wifiName) {
+        new InputDialog(this)
+                .builder()
+                .setMsg(wifiName)
+                .setMsgColor(R.color.config_color_appthema)
+                .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
+                    @Override
+                    public void onInput(String s) {
+                        currentPassword = s;
+                        WifiUtils.withContext(WifiConnectActivity.this).connectWith(wifiName, s).onConnectionResult(WifiConnectActivity.this).start();
+                    }
+                })
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).show();
     }
 
     private void getWifiData(boolean isEbable) {
@@ -144,29 +221,30 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                         @Override
                         public void onScanResults(@NonNull List<ScanResult> scanResults) {
                             mList.clear();
-                            mList.addAll(scanResults);
-                            for (int i = 0; i < mList.size(); i++) {
-                                if (mInfo.getBSSID() != null && mList.get(i).BSSID.equals(mInfo.getBSSID())) {
-                                    mList.remove(i);
+                            for (ScanResult result : scanResults) {
+                                if (TextUtils.isEmpty(result.SSID)) {
+                                    continue;
+                                }
+                                if (mInfo != null && TextUtils.equals(mInfo.getBSSID(), result.BSSID)) {
+                                    continue;
+                                }
+                                if (result.level < -60) {
+                                    continue;
+                                }
+                                if (!mList.contains(result)) {
+                                    mList.add(result);
                                 }
                             }
-                            mAdapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                             mRightView.clearAnimation();
                             Log.e("xxxxxxxxxx", scanResults.size() + scanResults.toArray().toString());
                         }
                     }).start();
         } else {
             mList.clear();
-            mAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             mRightView.clearAnimation();
         }
-    }
-
-    private void checkResult(boolean isSuccess) {
-        if (isSuccess)
-            Toast.makeText(WifiConnectActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(WifiConnectActivity.this, "FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -180,80 +258,35 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mNetworkReceiver);
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
-
-    private BroadcastReceiver mNetworkReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i("mylog", intent.getAction());
-            switch (intent.getAction()) {
-                case WifiManager.WIFI_STATE_CHANGED_ACTION:
-                    int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
-                    Log.e("TAG", "wifiState:" + wifiState);
-                    switch (wifiState) {
-                        case WifiManager.WIFI_STATE_DISABLED:
-                            break;
-                        case WifiManager.WIFI_STATE_DISABLING:
-                            break;
+    public void isSuccessful(boolean isSuccess) {
+        if (isSuccess) {
+            //存数据库
+            if (currentWifi != null) {
+                Handlers.bg().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        WifiEntity entity = new WifiEntity();
+                        entity.SSID = currentWifi.SSID;
+                        entity.BSSID = currentWifi.BSSID;
+                        entity.frequency = currentWifi.frequency;
+                        entity.password = currentPassword;
+                        RoomHelper.db(WifiDB.class, WifiDB.class.getName()).wifiDao().insertWifiCache(entity);
                     }
-                    break;
-                // 监听wifi的连接状态即是否连上了一个有效无线路由
-                case WifiManager.NETWORK_STATE_CHANGED_ACTION:
-                    Parcelable parcelableExtra = intent
-                            .getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-                    if (null != parcelableExtra) {
-                        // 获取联网状态的NetWorkInfo对象
-                        NetworkInfo networkInfo = (NetworkInfo) parcelableExtra;
-                        //获取的State对象则代表着连接成功与否等状态
-                        NetworkInfo.State state = networkInfo.getState();
-                        //判断网络是否已经连接
-                        boolean isConnected = state == NetworkInfo.State.CONNECTED;
-                        Log.e("TAG", "isConnected:" + isConnected);
-                        if (isConnected) {
-                            mConnectedLayout.setVisibility(View.VISIBLE);
-                        } else {
-                            mConnectedLayout.setVisibility(View.GONE);
-                        }
-                    }
-                    break;
-                // 监听网络连接，包括wifi和移动数据的打开和关闭,以及连接上可用的连接都会接到监听
-                case ConnectivityManager.CONNECTIVITY_ACTION:
-                    ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
-                    if (networkInfo != null && networkInfo.isConnected()) {
-                        if (isFirstWifi) {
-                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                Routerfit.register(AppRouter.class).skipAuthActivity();
-                            } else {
-                                Routerfit.register(AppRouter.class).skipMainActivity();
-                            }
-                            finish();
-                        }
-                    }
-                    getWifiData(mWifiManager.isWifiEnabled());
-
-//                    NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
-//                    if (info != null) {
-//                        //如果当前的网络连接成功并且网络连接可用
-//                        if (NetworkInfo.State.CONNECTED == info.getState() && info.isAvailable()) {
-//                            if (info.getType() == ConnectivityManager.TYPE_WIFI
-//                                    || info.getType() == ConnectivityManager.TYPE_MOBILE) {
-//                                //Logg.i("TAG", getConnectionType(info.getType()) + "连上");
-//                            }
-//                        } else {
-//                            //Logg.i("TAG", getConnectionType(info.getType()) + "断开");
-//                        }
-//                    }
-                    break;
+                });
 
             }
+            mConnectedLayout.setVisibility(View.VISIBLE);
+            if (isFirstWifi) {
+                if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+                    Routerfit.register(AppRouter.class).skipAuthActivity();
+                } else {
+                    Routerfit.register(AppRouter.class).skipMainActivity();
+                }
+                finish();
+            }
+        } else {
+            mConnectedLayout.setVisibility(View.GONE);
         }
-    };
+        getWifiData(mWifiManager.isWifiEnabled());
+    }
 }

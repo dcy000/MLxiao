@@ -1,13 +1,9 @@
 package com.example.module_control_volume.update;
 
-import android.app.Application;
 import android.content.Context;
-import android.os.SystemClock;
-import android.widget.Chronometer;
 
 import com.example.module_control_volume.net.ControlRepository;
 import com.gcml.common.recommend.bean.get.VersionInfoBean;
-import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.IAppUpdateProvider;
 import com.gcml.common.utils.AppUtils;
 import com.gcml.common.utils.UM;
@@ -15,11 +11,9 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
-import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
