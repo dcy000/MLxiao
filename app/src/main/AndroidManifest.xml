@@ -91,8 +91,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="icon,label">
-        <service android:name=".new_music.MusicService" />
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -105,32 +103,9 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_sdhg" />
+            android:value="gcml_version_henan" />
 
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.MessageActivity"
-            android:screenOrientation="landscape" />
 
-        <activity
-            android:name="com.example.module_control_volume.robot.SpeechSynthesisActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.OfflineActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.RecoDocActivity"
-            android:screenOrientation="landscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
-            <!-- <category android:name="android.intent.category.HOME"/> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-            <!-- </intent-filter> -->
-
-        </activity>
         <activity
             android:name=".WelcomeActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
@@ -145,9 +120,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.DoctorMesActivity"
-            android:screenOrientation="landscape" />
 
         <service
             android:name="com.medlink.danbogh.alarm.AlarmService"
@@ -169,125 +141,17 @@
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.pay.PayActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.pay.PayInfoActivity"
-            android:screenOrientation="landscape" />
 
-        <meta-data
-            android:name="com.netease.nim.appKey"
-            android:value="a114ad1e5d86c2d3fa83d2a15bbc29cc" />
-        <!-- 声明网易云通信后台服务，如需保持后台推送，使用独立进程效果会更好。 -->
-        <service
-            android:name="com.netease.nimlib.service.NimService"
-            android:process=":core" />
-        <!-- 运行后台辅助服务 -->
-        <service
-            android:name="com.netease.nimlib.service.NimService$Aux"
-            android:process=":core" />
-        <!-- 声明网易云通信后台辅助服务 -->
-        <service
-            android:name="com.netease.nimlib.job.NIMJobService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":core" />
-        <!--
-             网易云通信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
-            保持和 NimService 同一进程
-        -->
-        <receiver
-            android:name="com.netease.nimlib.service.NimReceiver"
-            android:exported="false"
-            android:process=":core">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-        <!-- 网易云通信进程间通信 Receiver -->
-        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
-        <!-- 网易云通信进程间通信service -->
-        <service android:name="com.netease.nimlib.service.ResponseService" />
 
         <activity
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.module_doctor_advisory.ui.DiseaseDetailsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_video.video.VideoListActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.OnlineDoctorListActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.DoctorAskGuideActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.pay.DefineActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
             android:name=".recyclerview.DoctorAlarmActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.CheckContractActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".new_music.MusicPlayActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.ml.edu.RadioActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.SettingActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.VoiceSettingActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.AboutActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.SetKeyWordActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.VoicerSettingDemoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.CustomKeyWordsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.KeyWordEditActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.SetKeyWord2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.KeyWordEdit2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.zhongyi.ChineseMedicineMonitorActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.zhongyi.MonitorResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_health_record.HealthRecordActivity"
-            android:label="历史测量数据界面"
             android:screenOrientation="landscape" />
         <activity
             android:name=".homepage.MainActivity"
@@ -295,43 +159,9 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.example.module_control_volume.ui.ScreenPointActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.ScreenTouchActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.zhongyi.HealthManagementResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_hypertension_manager.zhongyi.OlderHealthManagementSerciveActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".tcm.SymptomCheckActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.example.module_control_volume.ui.CameraActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.module_doctor_advisory.ui.DoctorappoActivity2"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.service_package.ServicePackageActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.pay.QRCodeAliPayActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.service_package.ServicePackageDetailActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.pay.QRCodeWXPayActivity"
-            android:screenOrientation="landscape">
 
-        </activity>
-        <activity
-            android:name="com.gcml.module_video.video.DemoVideoListActivity"
-            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

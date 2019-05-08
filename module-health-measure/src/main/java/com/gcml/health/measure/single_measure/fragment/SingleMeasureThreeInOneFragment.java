@@ -34,6 +34,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
     DetectionData cholesterolData;
     DetectionData lithicAcidData;
     private int selectMeasureSugarTime;
+    private String[] results;
 
     @Override
     protected void initView(View view, Bundle bundle) {
@@ -76,6 +77,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
+            this.results = results;
             if (results[0].equals("bloodsugar")) {
                 sugarData = new DetectionData();
                 sugarData.setDetectionType("1");
@@ -132,8 +134,8 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
                         datas.clear();
+                        showUploadDataFailedDialog(results);
                     }
 
                     @Override

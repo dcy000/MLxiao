@@ -106,7 +106,7 @@ public class SingleMeasureWeightFragment extends WeightFragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                            showUploadDataFailedDialog(results);
                         }
 
                         @Override

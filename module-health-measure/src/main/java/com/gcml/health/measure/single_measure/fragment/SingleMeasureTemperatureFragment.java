@@ -51,7 +51,7 @@ public class SingleMeasureTemperatureFragment extends TemperatureFragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                            showUploadDataFailedDialog(results);
                         }
 
                         @Override

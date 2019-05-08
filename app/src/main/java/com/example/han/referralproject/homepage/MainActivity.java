@@ -20,7 +20,11 @@ import com.gcml.common.service.ShowStateBar;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -40,12 +44,10 @@ import timber.log.Timber;
  * description:新的主界面
  */
 @Route(path = "/app/homepage/main/activity")
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
     private ViewPager mViewpage;
-    private LinearLayout mNewmainBottomIndicator;
     private View mIndicatorLeft;
-    //    private View mIndicatorRight;
     private View mIndicatorMiddle;
     private List<Fragment> fragments;
     private NewMain1Fragment newMain1Fragment;
@@ -57,14 +59,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_main);
+        mToolbar.setVisibility(View.GONE);
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
-        speak(R.string.tips_splash);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), getString(R.string.tips_splash));
         initView();
         initFragments();
         initViewpage();
+        //初始化百度语音
         Routerfit.register(AppRouter.class).getBaiduAKProvider().initAK();
         //启动音量控制悬浮按钮
         Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
+        //检查版本更新
+        Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(this, false);
     }
 
     private void initViewpage() {
@@ -137,7 +143,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
         mViewpage = findViewById(R.id.viewpage);
-        mNewmainBottomIndicator = findViewById(R.id.newmain_bottom_indicator);
         mIndicatorLeft = findViewById(R.id.indicator_left);
 //        mIndicatorRight = findViewById(R.id.indicator_right);
         mIndicatorMiddle = findViewById(R.id.indicator_middle);
@@ -146,11 +151,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-
     @Override
-    protected void onResume() {
-        setEnableListeningLoop(false);
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
+        Timber.i("MainActivity-->onStart");
         getPersonInfo();
     }
 
@@ -199,6 +203,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         mViewpage.setCurrentItem(1, true);
     }
 

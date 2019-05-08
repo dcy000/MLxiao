@@ -3,7 +3,6 @@ package com.gcml.health.measure.single_measure.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
@@ -50,7 +49,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     private boolean isMeasureTask = false;
     private boolean hasHypertensionHand = false;
     private boolean isOnPause = false;
-
+    private String[] results;
     public SingleMeasureBloodpressureFragment() {
     }
 
@@ -58,46 +57,15 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
-//        getHypertensionHand();
     }
 
-//    /**
-//     * 获取惯用手
-//     */
-//    private void getHypertensionHand() {
-//        String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
-//        Timber.i("SingleMeasureBloodpressureFragment惯用手：" + userHypertensionHand);
-//        if (TextUtils.isEmpty(userHypertensionHand)) {
-//            //还没有录入惯用手，则跳转到惯用手录入activity
-//            GetHypertensionHandActivity.startActivityForResult(this, CODE_REQUEST_GETHYPERTENSIONHAND);
-//        } else {
-//            hasHypertensionHand = true;
-//            if ("0".equals(userHypertensionHand)) {
-//                showHypertensionHandDialog("左手");
-//            } else if ("1".equals(userHypertensionHand)) {
-//                showHypertensionHandDialog("右手");
-//            }
-//        }
-//    }
-//
-//    private void showHypertensionHandDialog(String hand) {
-//        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请使用" + hand + "测量");
-//        new AlertDialog(mContext).builder()
-//                .setMsg("请使用" + hand + "测量")
-//                .setPositiveButton("确定", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    }
-//                }).show();
-//    }
 
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3 && !isOnPause) {
+            this.results=results;
             MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
-
             datas = new ArrayList<>();
             DetectionData pressureData = new DetectionData();
             DetectionData dataPulse = new DetectionData();
@@ -190,7 +158,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: " + e.getMessage());
+                        showUploadDataFailedDialog(results);
                     }
 
                     @Override

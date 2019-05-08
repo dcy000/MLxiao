@@ -105,8 +105,11 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
 
     public void startDiscovery() {
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
+        }
     }
 
     public void initOther() {
@@ -119,7 +122,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             isRegistReceiver = true;
             context.registerReceiver(connectReceiver, filter);
         }
-        context.startService(new Intent(context, ReceiveService.class));
+//        context.startService(new Intent(context, ReceiveService.class));
         context.bindService(new Intent(context, ReceiveService.class), serviceConnect, Service.BIND_AUTO_CREATE);
     }
 
@@ -207,6 +210,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         drawThread = null;
         context.stopService(new Intent(context, ReceiveService.class));
         if (serviceConnect != null && isServiceBind) {
+            isServiceBind=false;
             context.unbindService(serviceConnect);
         }
         if (isRegistReceiver) {
@@ -214,7 +218,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             context.unregisterReceiver(connectReceiver);
         }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
-
+        ECGBluetooth.bluStatus =ECGBluetooth.BLU_STATUS_NORMAL;
     }
 
     @Override

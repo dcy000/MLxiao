@@ -1,7 +1,6 @@
 package com.gcml.old.auth.personal;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,7 +20,6 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
@@ -152,14 +150,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 });
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        dismissLoading();
-    }
-
-
     private void getData() {
         boolean empty = TextUtils.isEmpty(UserSpHelper.getUserId());
         if (empty) {
@@ -278,7 +268,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.iv_change_account:
                 MobclickAgent.onProfileSignOff();
-                CallAuthHelper.getInstance().logout();
+                Routerfit.register(AppRouter.class).getCallProvider().logout();
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
                 UserSpHelper.setUserId("");
@@ -300,38 +290,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 Routerfit.register(AppRouter.class).skipTaskDialyContactActivity();
                 break;
             case R.id.tv_update:
-                showLoading("检查更新中");
-                NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
-                    @Override
-                    public void onSuccess(VersionInfoBean response) {
-                        dismissLoading();
-                        if (getActivity() == null) {
-                            return;
-                        }
-                        try {
-                            if (response != null && response.vid > getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionCode) {
-                                Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(getActivity(), response.url);
-                            } else {
-                                MLVoiceSynthetize.startSynthesize(getActivity().getApplicationContext(),
-                                        "当前已经是最新版本了");
-                                ToastUtils.showShort("当前已经是最新版本了");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        dismissLoading();
-                        if (getActivity() == null) {
-                            return;
-                        }
-                        MLVoiceSynthetize.startSynthesize(getActivity().getApplicationContext(),
-                                "当前已经是最新版本了");
-                        ToastUtils.showShort("当前已经是最新版本了");
-                    }
-                });
+                Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(getContext(), true);
                 break;
             case R.id.doctor_status:
                 if ("未绑定".equals(isSignDoctor.getText().toString())) {
@@ -345,32 +304,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             case R.id.iv_alarm:
                 Routerfit.register(AppRouter.class).skipPayActivity();
                 break;
-        }
-    }
-
-    private LoadingDialog mLoadingDialog;
-
-    private void showLoading(String tips) {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-        if (getActivity() == null) {
-            return;
-        }
-        mLoadingDialog = new LoadingDialog.Builder(getActivity())
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord(tips)
-                .create();
-        mLoadingDialog.show();
-    }
-
-    private void dismissLoading() {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
         }
     }
 }
