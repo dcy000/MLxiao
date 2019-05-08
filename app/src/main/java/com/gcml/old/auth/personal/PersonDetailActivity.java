@@ -20,12 +20,13 @@ import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Route(path = "/app/person/detail/activity")
 public class PersonDetailActivity extends AppCompatActivity {
     List<Fragment> fragments = new ArrayList<>();
     private ViewPager vpContent;

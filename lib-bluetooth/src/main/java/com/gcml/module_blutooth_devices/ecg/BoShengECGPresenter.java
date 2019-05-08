@@ -118,6 +118,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
                                 }
                                 if (!UserSpHelper.isNoNetwork()) {
                                     uploadDatas(result);
+                                } else  {
+                                    if (mLoadingDialog != null) {
+                                        mLoadingDialog.dismiss();
+                                    }
                                 }
                             }
                         }

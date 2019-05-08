@@ -1,5 +1,6 @@
 package com.medlink.danbogh.alarm;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -7,14 +8,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.gcml.common.utils.RxUtils;
 import com.suke.widget.SwitchButton;
 
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2017/9/25.
@@ -23,22 +25,35 @@ import butterknife.OnLongClick;
 public class AlarmHolder extends RecyclerView.ViewHolder
         implements SwitchButton.OnCheckedChangeListener {
 
-    @BindView(R.id.tv_noon)
+    private final AlarmRepository alarmRepository;
     TextView tvNoon;
-    @BindView(R.id.sb_enable_alarm)
     SwitchButton sbEnableAlarm;
-    @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.tv_content)
     TextView tvContent;
-    @BindView(R.id.cl_alarm)
     ConstraintLayout clAlarm;
 
     public AlarmModel mModel;
 
-    public AlarmHolder(View itemView) {
+    public AlarmHolder(View itemView, AlarmRepository alarmRepository) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+        this.alarmRepository = alarmRepository;
+        tvNoon = itemView.findViewById(R.id.tv_noon);
+        sbEnableAlarm = itemView.findViewById(R.id.sb_enable_alarm);
+        tvTime = itemView.findViewById(R.id.tv_time);
+        tvContent = itemView.findViewById(R.id.tv_content);
+        clAlarm = itemView.findViewById(R.id.cl_alarm);
+        clAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClAlarmClicked();
+            }
+        });
+        clAlarm.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return onClAlarmLongClicked();
+            }
+        });
         sbEnableAlarm.setOnCheckedChangeListener(this);
     }
 
@@ -52,7 +67,6 @@ public class AlarmHolder extends RecyclerView.ViewHolder
         tvTime.setText(time);
     }
 
-    @OnClick(R.id.cl_alarm)
     public void onClAlarmClicked() {
         long id = mModel.getId();
         Context context = itemView.getContext();
@@ -61,7 +75,6 @@ public class AlarmHolder extends RecyclerView.ViewHolder
         }
     }
 
-    @OnLongClick(R.id.cl_alarm)
     public boolean onClAlarmLongClicked() {
         long id = mModel.getId();
         Context context = itemView.getContext();
@@ -73,13 +86,35 @@ public class AlarmHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-        long id = mModel.getId();
         mModel.setEnabled(isChecked);
         Context context = itemView.getContext();
         if (context != null) {
-//            ((AlarmList2Activity) context).setAlarmEnabled(id, isChecked);
-            mModel.update(id);
-            AlarmHelper.setupAlarms(context);
+            alarmRepository.update(mModel)
+                    .doFinally(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            AlarmHelper.setupAlarms(context);
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter((LifecycleOwner) context))
+                    .subscribe(new DefaultObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
         }
 
     }

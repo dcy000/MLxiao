@@ -14,19 +14,21 @@ import android.widget.TextView;
 import com.crazypumpkin.versatilerecyclerview.library.WheelRecyclerView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.sjtu.yifei.annotation.Route;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/app/alarm/details2/activity")
 public class AlarmDetail2Activity extends BaseActivity {
 
@@ -39,24 +41,15 @@ public class AlarmDetail2Activity extends BaseActivity {
         return intent;
     }
 
-    @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.alarm_detail_sp_repeat)
     Spinner spRepeat;
-    @BindView(R.id.alarm_detail_et_content)
     EditText etContent;
-    @BindView(R.id.alarm_detail_tv_cancel)
     TextView tvCancel;
-    @BindView(R.id.alarm_detail_tv_confirm)
     TextView tvConfirm;
-    //    @BindView(R.id.alarm_detail_tp_time)
-//    TimePicker tpTime;
-    @BindView(R.id.wrv_hour)
     WheelRecyclerView wrvHour;
-    @BindView(R.id.wrv_minute)
     WheelRecyclerView wrvMinute;
 
-    private Unbinder mUnbinder;
+    private AlarmRepository alarmRepository = new AlarmRepository();
 
     private AlarmModel mModel;
 
@@ -64,7 +57,6 @@ public class AlarmDetail2Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_detail2);
-        mUnbinder = ButterKnife.bind(this);
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText(R.string.medication_reminder);
@@ -77,13 +69,48 @@ public class AlarmDetail2Activity extends BaseActivity {
             int minute = calendar.get(Calendar.MINUTE);
             mModel.setHourOfDay(hourOfDay);
             mModel.setMinute(minute);
+            show(mModel);
         } else {
-            mModel = DataSupport.find(AlarmModel.class, id);
+            alarmRepository.findOneById(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new DefaultObserver<AlarmModel>() {
+                        @Override
+                        public void onNext(AlarmModel alarmModel) {
+                            mModel = alarmModel;
+                            show(mModel);
+                        }
+                    });
         }
-        show(mModel);
     }
 
     private void initView() {
+        ivBack = findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onIvBackClicked();
+            }
+        });
+        tvCancel = findViewById(R.id.alarm_detail_tv_cancel);
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvCancelClicked();
+            }
+        });
+        tvConfirm = findViewById(R.id.alarm_detail_tv_confirm);
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvConfirmClicked();
+            }
+        });
+        spRepeat = findViewById(R.id.alarm_detail_sp_repeat);
+        etContent = findViewById(R.id.alarm_detail_et_content);
+        wrvHour = findViewById(R.id.wrv_hour);
+        wrvMinute = findViewById(R.id.wrv_minute);
         spRepeat.setAdapter(new ArrayAdapter<>(this, R.layout.common_item_spinner_layout, getResources().getStringArray(R.array.repeats)));
         wrvHour.setData(provideHours());
         wrvMinute.setData(provideMinutes());
@@ -128,28 +155,52 @@ public class AlarmDetail2Activity extends BaseActivity {
         etContent.setText(model.getContent());
     }
 
-    @OnClick(R.id.iv_back)
     public void onIvBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.alarm_detail_tv_cancel)
     public void onTvCancelClicked() {
         finish();
     }
 
-    @OnClick(R.id.alarm_detail_tv_confirm)
     public void onTvConfirmClicked() {
-        updateModel();
-        AlarmHelper.cancelAlarms(this);
-        if (mModel.getId() < 0) {
-            mModel.save();
-        } else {
-            mModel.update(mModel.getId());
-        }
-        AlarmHelper.setupAlarms(this);
-        setResult(RESULT_OK);
-        finish();
+        Observable.just("updateAlarms")
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        updateModel(); // 从 UI 更新 alarm
+                        AlarmHelper.cancelAlarms(AlarmDetail2Activity.this);
+                        return s;
+                    }
+                })
+                .flatMap(new Function<String, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<Object> apply(String s) throws Exception {
+                        if (mModel.getId() < 0) {
+                            return alarmRepository.add(mModel).subscribeOn(Schedulers.io());
+                        } else {
+                            return alarmRepository.update(mModel).subscribeOn(Schedulers.io());
+                        }
+                    }
+                })
+                .map(new Function<Object, Object>() {
+                    @Override
+                    public Object apply(Object o) throws Exception {
+                        AlarmHelper.setupAlarms(AlarmDetail2Activity.this);
+                        return o;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                });
+
     }
 
     private void updateModel() {
@@ -173,13 +224,5 @@ public class AlarmDetail2Activity extends BaseActivity {
         }
         mModel.setInterval(interval);
         mModel.setEnabled(true);
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-        super.onDestroy();
     }
 }

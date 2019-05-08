@@ -11,7 +11,9 @@
         <activity
             android:name=".old.music.TheOldMusicActivity"
             android:screenOrientation="landscape" />
-
+        <activity
+            android:name=".RadioActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

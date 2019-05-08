@@ -59,6 +59,27 @@
         <activity
             android:name="com.gcml.old.OrderListActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.DefineActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.PayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.PayInfoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.QRCodeAliPayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.QRCodeWXPayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.service_package.ServicePackageActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.service_package.ServicePackageDetailActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

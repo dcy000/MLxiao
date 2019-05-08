@@ -14,11 +14,6 @@ import android.widget.TextView;
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity2;
-import com.example.han.referralproject.service_package.ServicePackageActivity;
-import com.example.han.referralproject.tcm.SymptomCheckActivity;
-import com.example.lenovo.rto.APP;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
@@ -32,6 +27,7 @@ import com.sjtu.yifei.route.Routerfit;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import tech.linjiang.pandora.Pandora;
 
@@ -279,6 +275,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                         .getUserProvider()
                         .getUserEntity()
                         .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
@@ -289,24 +286,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip", false));
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
-//                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
-//                                            .addParam("skip", true)
-//                                            .addParam("currentUser", false)
-//                                            .build()
-//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                                                @Override
-//                                                public void onResult(CC cc, CCResult result) {
-//                                                    boolean skip = "skip".equals(result.getErrorMessage());
-//                                                    if (result.isSuccess() || skip) {
-//                                                        startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",skip));
-////                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-//                                                    } else {
-//                                                        ToastUtils.showShort(result.getErrorMessage());
-//                                                    }
-//                                                }
-//                                            });
+                                    Routerfit.register(AppRouter.class).skipServicePackageActivity(false);
                                 }
                             }
                         });
@@ -350,9 +330,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                     ToastUtils.showShort("请使用有网模式登录");
                     return;
                 }
-//                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
-//                getDoctorInfo();
-                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
+                Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
                 break;
         }
     }

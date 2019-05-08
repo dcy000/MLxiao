@@ -2,8 +2,7 @@ package com.gcml.old;
 
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.common.recommend.bean.get.GoodsBean;
-import com.gcml.mall.bean.OrderBean;
+import com.gcml.common.recommend.bean.get.ServicePackageBean;
 
 import java.util.List;
 
@@ -75,5 +74,63 @@ public interface GoodsService {
             @Query("bname") String bname,
             @Query("page") String page,
             @Query("limit") String limit
+    );
+
+    @POST("ZZB/br/chongzhi")
+    Observable<ApiResult<Object>> PayInfo(
+            @Query("eqid") String eqid,
+            @Query("bba") String bba,
+            @Query("time") String time,
+            @Query("bid") String userId
+    );
+
+    /**
+     * 购买套餐预支付
+     *
+     * @param userId
+     * @param price
+     * @param description
+     * @return
+     */
+    @GET("ZZB/order/set_meal_buy")
+    Observable<ApiResult<Object>> bugServicePackage(
+            @Query("userid") String userId,
+            @Query("price") String price,
+            @Query("articles") String description
+    );
+
+    /**
+     * 套餐生效
+     *
+     * @param type
+     * @param orderid
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/order/pay_set_meal")
+    Observable<ApiResult<String>> servicePackageEffective(
+            @Query("type") String type,
+            @Query("orderid") String orderid,
+            @Query("userid") String userId
+    );
+
+    /**
+     * 获取指定订单号的订单状态
+     */
+    @GET("ZZB/order/selSetmealByOrderid")
+    Observable<ApiResult<Object>> getOrderStarte(
+            @Query("orderid") String userId
+    );
+
+
+    /**
+     * 查询该用户的检测套餐是否生效
+     *
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/order/judge")
+    Observable<ApiResult<ServicePackageBean>> queryServicePackage(
+            @Query("userid") String userId
     );
 }

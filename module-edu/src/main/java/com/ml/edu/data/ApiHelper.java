@@ -1,5 +1,6 @@
 package com.ml.edu.data;
 
+import com.gcml.common.utils.RxUtils;
 import com.ml.edu.data.entity.SheetEntity;
 import com.ml.edu.data.entity.SongEntity;
 
@@ -51,5 +52,9 @@ public class ApiHelper {
             int limit) {
         return musicService.songs(3, "", sheetId, page, limit)
                 .compose(RxResultUtils.<List<SongEntity>>apiResultTransformer());
+    }
+
+    public Observable<List<RadioEntity>> getFM(String type,String page,String limit){
+        return musicService.getFM(type,page,limit,"0").compose(RxUtils.apiResultTransformer());
     }
 }

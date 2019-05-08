@@ -1,9 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gcml.lib_video_ksyplayer">
-
-    <application>
-        <meta-data
-            android:name="com.gcml.lib_video_ksyplayer.lifecycle.VideoPlayerLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
-    </application>
-</manifest>
+    package="com.gcml.lib_video_ksyplayer"/>

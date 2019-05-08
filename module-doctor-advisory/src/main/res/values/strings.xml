@@ -1,0 +1,39 @@
+<resources>
+    <string name="doctor_name" formatted="false">%1$s</string>
+    <string name="zhiji">职&#160;&#160;&#160;级：主任医师</string>
+
+    <string name="shanchang">擅&#160;&#160;&#160;长：高血压、糖尿病</string>
+
+    <string name="shoufei">收费标准：10元/分钟</string>
+    <string name="doctor_zhiji" formatted="false">职级：%1$s</string>
+    <string name="doctor_shanchang" formatted="false">擅长：%1$s</string>
+    <string name="doctor_shoufei" formatted="false">收费标准：%1$s元/分钟</string>
+
+    <string name="doctor_online">您已发送与健康顾问的视频请求，请耐心等待五分钟</string>
+
+    <string name="qianyue_doctor">请咨询健康顾问</string>
+
+    <string name="yuyue_video">预&#160;&#160;约&#160;&#160;视&#160;&#160;频</string>
+
+    <string name="yuyue_tim">主人您的预约时间到了，请及时和健康顾问进行视频通话</string>
+    <string name="doctor_qianyue">视&#160;&#160;频&#160;&#160;咨&#160;&#160;询</string>
+
+    <string name="online_qianyue">在&#160;&#160;线&#160;&#160;顾&#160;&#160;问</string>
+
+    <string name="zixun">咨&#160;询</string>
+
+    <string name="offline_doctor">一、联系您所在社区的社区健康顾问或您信任的健康顾问，将“致健康顾问的一封信”交给健康顾问，健康顾问可根据内容提示完成注册。\n二、注册完成后您可以在健康顾问库中搜索健康顾问信息，即可完成绑定。\n三、如果您的社区还没有绑定健康顾问，你可以拨打我们的客服热线400-007-0079。</string>
+
+    <string name="user_help">认真阅读用户须知，帮助您完成绑定</string>
+
+    <string name="no_yz">目前还没有消息</string>
+    <string name="qianyue">绑&#160;&#160;定</string>
+
+    <string name="text">
+        主任医师，1982年本科毕业开始从事医学临床、教学及科研工作。1995年毕业于北京医科大学（现北京大学医学部）获医学硕士学位。主攻高血压、冠心病的诊断及治疗，擅长疑难病及危重急症的诊治。并从事冠心病的介入诊断及治疗，每年独立完成冠状动脉造影、PTCA或支架植入术500例以上。至今已在国内外杂志发表论文数十篇，为国内外多家杂志的审稿人。主持浙江省科技攻关项目、浙江省教育厅等多项课题，参编《儿科学词典》等著作。研究方向：高血压、冠心病的诊断及治疗。
+    </string>
+
+    <string name="tips_doctor">请选择您最信任的健康顾问完成绑定，如果他没在里面可以点击右下角的线下绑定按钮。</string>
+    <string name="tips_info">如果需要绑定就点击绑定按钮。</string>
+    <string name="online_info">您可以点击咨询按钮与在线健康顾问进行视频通话。</string>
+</resources>

@@ -12,14 +12,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.OverFlyingLayoutManager;
 import com.ml.edu.OldRouter;
 import com.ml.edu.R;
 import com.gcml.common.widget.CenterScrollListener;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Route(path = "/edu/the/old/home/activity")
 public class TheOldHomeActivity extends AppCompatActivity {
 
@@ -77,25 +80,11 @@ public class TheOldHomeActivity extends AppCompatActivity {
             }
 
             if (position == 1) {
-                try {
-                    Class<?> aClass = Class.forName("com.example.han.referralproject.video.VideoListActivity");
-                    Intent intent = new Intent();
-                    intent.setClass(TheOldHomeActivity.this, aClass);
-                    startActivity(intent);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
                 return;
             }
             if (position == 0) {
-                try {
-                    Class<?> aClass = Class.forName("com.example.han.referralproject.radio.RadioActivity");
-                    Intent intent = new Intent();
-                    intent.setClass(TheOldHomeActivity.this, aClass);
-                    startActivity(intent);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                Routerfit.register(AppRouter.class).skipRadioActivity();
             }
         }
     };

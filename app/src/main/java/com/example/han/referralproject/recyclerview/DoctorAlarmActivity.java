@@ -1,7 +1,7 @@
 package com.example.han.referralproject.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -13,16 +13,20 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.call.CallHelper;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
-
-import org.litepal.crud.DataSupport;
+import com.medlink.danbogh.alarm.AlarmRepository;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DoctorAlarmActivity extends BaseActivity {
 
@@ -38,7 +42,9 @@ public class DoctorAlarmActivity extends BaseActivity {
     //   ImageView mImageView1;
 
     SharedPreferences sharedPreferences1;
-    String startTime;
+    String startTime = "";
+
+    private AlarmRepository alarmRepository = new AlarmRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,34 +57,32 @@ public class DoctorAlarmActivity extends BaseActivity {
 
 
         id = getIntent().getLongExtra(AlarmHelper.ID, -1);
-        model = DataSupport.find(AlarmModel.class, id);
-        if (model != null && model.getTimestamp() != 0) {
-
-            startTime = String.valueOf(model.getTimestamp() + 60000);
-
-        }
+        alarmRepository.findOneById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<AlarmModel>() {
+                    @Override
+                    public void onNext(AlarmModel alarmModel) {
+                        model = alarmModel;
+                        if (model != null && model.getTimestamp() != 0) {
+                            startTime = String.valueOf(model.getTimestamp() + 60000);
+                        }
+                    }
+                });
 
         mButton1 = findViewById(R.id.video_true);
         mButton2 = findViewById(R.id.video_cancel);
 
-        mTitleText.setText(getString(R.string.yuyue_video));
+        mTitleText.setText("预 约 视 频");
 
-        speak(getString(R.string.yuyue_tim));
+        speak("主人您的预约时间到了，请及时和健康顾问进行视频通话");
 
 
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                int rows = DataSupport.delete(AlarmModel.class, id);
-
-                if (rows >= 1) {
-                    CallHelper.launch(DoctorAlarmActivity.this, "doctor_18940866148");
-                    finish();
-                }
-
-
+                delete();
             }
         });
 
@@ -121,9 +125,7 @@ public class DoctorAlarmActivity extends BaseActivity {
 
                 }
 
-            }, new NetworkManager.FailedCallback()
-
-            {
+            }, new NetworkManager.FailedCallback() {
                 @Override
                 public void onFailed(String message) {
 
@@ -150,36 +152,46 @@ public class DoctorAlarmActivity extends BaseActivity {
         getWindow().getDecorView().postDelayed(releaseWakelock, WAKELOCK_TIMEOUT);
     }
 
+    private void delete() {
+        alarmRepository.delete(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object alarmModel) {
+                        finish();
+                    }
+                });
+    }
+
 
     /**
      * 返回上一页
      */
     protected void backLastActivity() {
-
-        int rows = DataSupport.delete(AlarmModel.class, id);
-
-        if (rows >= 1) {
-            finish();
-        }
+        delete();
     }
 
     /**
      * 返回到主页面
      */
     protected void backMainActivity() {
-
-        int rows = DataSupport.delete(AlarmModel.class, id);
-
-        if (rows >= 1) {
-
-            Intent intent = new Intent(DoctorAlarmActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
+        alarmRepository.delete(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object alarmModel) {
+                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        finish();
+                    }
+                });
     }
 
 
+    @SuppressLint("InvalidWakeLockTag")
     @Override
     protected void onResume() {
         super.onResume();

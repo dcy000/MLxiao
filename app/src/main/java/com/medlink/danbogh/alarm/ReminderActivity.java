@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,24 +17,15 @@ import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.Handlers;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class ReminderActivity extends BaseActivity {
 
     private static final String TAG = "ReminderActivity";
 
-    @BindView(R.id.tv_alarm_reminder_content)
     TextView tvContent;
-    @BindView(R.id.iv_alarm_medical)
     ImageView ivMedical;
-    @BindView(R.id.tv_btn_ignore)
     TextView tvIgnore;
-    @BindView(R.id.tv_btn_confirm)
     TextView tvConfirm;
-    public Unbinder mUnbinder;
 
     private String mContent;
 
@@ -41,7 +33,23 @@ public class ReminderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
-        mUnbinder = ButterKnife.bind(this);
+        tvContent = findViewById(R.id.tv_alarm_reminder_content);
+        ivMedical = findViewById(R.id.iv_alarm_medical);
+        tvIgnore = findViewById(R.id.tv_btn_ignore);
+        tvConfirm = findViewById(R.id.tv_btn_confirm);
+
+        tvIgnore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvBtnIgnoreClicked();
+            }
+        });
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvBtnConfirmClicked();
+            }
+        });
 
         mContent = getIntent().getStringExtra(AlarmHelper.CONTENT);
         int hourOfDay = getIntent().getIntExtra(AlarmHelper.HOUR_OF_DAY, 0);
@@ -98,7 +106,6 @@ public class ReminderActivity extends BaseActivity {
 
     private PowerManager.WakeLock mWakeLock;
 
-    @OnClick(R.id.tv_btn_ignore)
     public void onTvBtnIgnoreClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
         NetworkApi.addEatMedicalRecord(
@@ -118,7 +125,6 @@ public class ReminderActivity extends BaseActivity {
                 });
     }
 
-    @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
         NetworkApi.addEatMedicalRecord(
@@ -169,9 +175,6 @@ public class ReminderActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
         if (mAlarm != null) {
             Handlers.ui().removeCallbacks(mAlarm);
         }

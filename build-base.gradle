@@ -162,7 +162,7 @@ dependencies {
     implementation rootProject.ext.dependencies["rxpermissions2"]
     implementation rootProject.ext.dependencies["rxandroidble2"]
 
-    implementation rootProject.ext.dependencies["litepal"]
+//    implementation rootProject.ext.dependencies["litepal"]
     // room database
     implementation rootProject.ext.dependencies["room-rxjava2"]
     implementation rootProject.ext.dependencies["room-runtime"]

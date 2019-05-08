@@ -17,31 +17,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.RobotAmount;
-import com.example.han.referralproject.bean.ServicePackageBean;
-import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.module_control_volume.ui.SettingActivity;
-import com.example.module_control_volume.update.UpdateAppManager;
-import com.example.han.referralproject.util.Utils;
 import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.recommend.bean.get.Doctor;
+import com.gcml.common.recommend.bean.get.RobotAmount;
+import com.gcml.common.recommend.bean.get.ServicePackageBean;
+import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
+import com.gcml.common.utils.app.AppUtils;
+import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
-import com.gcml.module_health_record.HealthRecordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
@@ -107,7 +102,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         sharedPreferences = getActivity().getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         sharedPreferences1 = getActivity().getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
         signDoctorName = view.findViewById(R.id.doctor_name);
-        ((TextView) view.findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(getActivity()));
+        ((TextView) view.findViewById(R.id.tv_update)).setText("检查更新 v" + AppUtils.getAppInfo().getVersionName());
         return view;
     }
 
@@ -213,7 +208,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                     }
                 });
 
-        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
+        NetworkApi.Person_Amount(DeviceUtils.getIMEI(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
             public void onSuccess(final RobotAmount response) {
                 if (response.getAmount() != null) {
@@ -268,7 +263,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 //账户充值
 //                ToastUtils.showShort("该功能暂未开放");
 //                MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),"该功能暂未开放",false);
-                startActivity(new Intent(getActivity(), PayActivity.class));
+                Routerfit.register(AppRouter.class).skipPayActivity();
 //                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
                 break;
             case R.id.iv_message:
@@ -276,7 +271,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 Routerfit.register(AppRouter.class).skipOldOrderListActivity();
                 break;
             case R.id.iv_shezhi:
-                startActivity(new Intent(getActivity(), SettingActivity.class));
+                Routerfit.register(AppRouter.class).skipSettingActivity();
                 break;
             case R.id.iv_laoren_yule:
                 Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
@@ -299,7 +294,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 Routerfit.register(AppRouter.class).skipProfileInfoActivity();
                 break;
             case R.id.iv_record:
-                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+                Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
                 break;
             case R.id.iv_jiankang_riji:
                 Routerfit.register(AppRouter.class).skipTaskDialyContactActivity();
@@ -315,7 +310,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                         }
                         try {
                             if (response != null && response.vid > getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionCode) {
-                                new UpdateAppManager(getActivity()).showNoticeDialog(response.url);
+                                Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(getActivity(), response.url);
                             } else {
                                 MLVoiceSynthetize.startSynthesize(getActivity().getApplicationContext(),
                                         "当前已经是最新版本了");
@@ -340,18 +335,15 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.doctor_status:
                 if ("未绑定".equals(isSignDoctor.getText().toString())) {
-                    Intent intentStatus = new Intent(getActivity(), OnlineDoctorListActivity.class);
-                    intentStatus.putExtra("flag", "contract");
-                    startActivity(intentStatus);
+                    Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
                     return;
                 }
                 if ("待审核".equals(isSignDoctor.getText().toString())) {
-                    Intent intentStatus = new Intent(getActivity(), CheckContractActivity.class);
-                    startActivity(intentStatus);
+                    Routerfit.register(AppRouter.class).skipCheckContractActivity();
                 }
                 break;
             case R.id.iv_alarm:
-                startActivity(new Intent(getActivity(), PayActivity.class));
+                Routerfit.register(AppRouter.class).skipPayActivity();
                 break;
         }
     }

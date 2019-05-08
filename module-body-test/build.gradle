@@ -1,0 +1,38 @@
+ext.alwaysLib=true
+apply from: rootProject.file("build-base.gradle")
+//apply plugin: 'com.dd.comgradle'
+
+android {
+
+    defaultConfig {
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.body.test"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
+        }
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+//combuild {
+//    applicationName = 'com.example.han.referralproject.application.MyApplication'
+//    isRegisterCompoAuto = true
+//}
+
+dependencies {
+    api 'com.luojilab.ddcomponent:componentlib:1.0.0'
+    annotationProcessor 'com.luojilab.ddcomponent:router-anno-compiler:1.0.0'
+    api name: 'libbase-release', ext: 'aar'
+    api name: 'unitbody-release', ext: 'aar'
+    api name: 'unitdisease-release', ext: 'aar'
+    api 'com.zhy:okhttputils:2.6.2'
+    api 'com.zhy:base-rvadapter:3.0.3'
+    api 'com.nex3z:flow-layout:1.2.4'
+    api 'com.facebook.fresco:fresco:1.7.1'
+}

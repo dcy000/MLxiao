@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
 import com.gcml.common.RetrofitHelper;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -23,5 +24,9 @@ public class ControlRepository {
             e.printStackTrace();
         }
         return controlService.getVersionInfo(msg).compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<UserEntity> PersonInfo(String userId) {
+        return controlService.PersonInfo(userId).compose(RxUtils.apiResultTransformer());
     }
 }

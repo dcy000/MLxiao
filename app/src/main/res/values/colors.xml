@@ -5,8 +5,6 @@
     <!--<color name="colorAccent">#8C8C8C</color>-->
     <color name="backgd">#222A2A</color>
 
-    <color name="textcolor">#6AB7EB</color>
-
     <color name="white">@android:color/white</color>
 
 
