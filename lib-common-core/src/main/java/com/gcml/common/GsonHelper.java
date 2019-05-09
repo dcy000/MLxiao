@@ -30,7 +30,7 @@ public class GsonHelper {
         return instance;
     }
 
-    public static GsonHelper INSTANCE;
+    private static GsonHelper INSTANCE;
 
     static {
         INSTANCE = new GsonHelper();

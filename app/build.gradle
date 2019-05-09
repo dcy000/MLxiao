@@ -67,6 +67,7 @@ dependencies {
     addComponent 'module-health-record'
     addComponent 'module-doctor-advisory'
     addComponent 'module-body-test'
+    addComponent 'module-alarm'
     addComponent 'lib-call'
     //黄油刀
     implementation rootProject.ext.dependencies["butterknife"]

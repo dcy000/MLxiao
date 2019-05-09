@@ -10,7 +10,6 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
-import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.sjtu.yifei.route.Routerfit;
 
 /**
@@ -54,8 +53,7 @@ public class NewMain3Fragment extends RecycleBaseFragment implements View.OnClic
                 Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 break;
             case R.id.iv_eat_medicine:
-                Intent intentAlarm = AlarmList2Activity.newLaunchIntent(getActivity());
-                startActivity(intentAlarm);
+                Routerfit.register(AppRouter.class).skipAlarmList2Activity();
                 break;
         }
     }

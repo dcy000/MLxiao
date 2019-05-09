@@ -36,8 +36,6 @@ public class OrderListActivity extends ToolbarBaseActivity implements View.OnCli
     private int mCurrPage = 1;
     private RecyclerView mRecyclerView;
 
-    SharedPreferences mSharedPreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +44,6 @@ public class OrderListActivity extends ToolbarBaseActivity implements View.OnCli
         MLVoiceSynthetize.startSynthesize(UM.getApp(), "请查看您的订单");
 
         mRecyclerView = findViewById(R.id.order_list);
-        mSharedPreferences = getSharedPreferences("person_message", Context.MODE_PRIVATE);
         GoodsRepository repository = new GoodsRepository();
         repository.order("2", "0", "1", UserSpHelper.getUserName(), "1", "1000")
                 .subscribeOn(Schedulers.io())

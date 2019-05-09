@@ -121,34 +121,7 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name="com.medlink.danbogh.alarm.AlarmService"
-            android:enabled="true" />
 
-        <receiver android:name="com.medlink.danbogh.alarm.AlarmReceiver">
-            <intent-filter>
-                <action android:name="com.medlink.intent.Alarm" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <activity
-            android:name="com.medlink.danbogh.alarm.AlarmList2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.alarm.AlarmActivity"
-            android:screenOrientation="landscape" />
-
-
-        <activity
-            android:name="com.medlink.danbogh.alarm.ReminderActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.alarm.DoctorAlarmActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"
             android:launchMode="singleTask"

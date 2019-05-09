@@ -73,17 +73,14 @@
     </string-array>
 
 
-    <string name="clerk_remind">吃&#160;&#160;药&#160;&#160;提&#160;&#160;醒</string>
 
 
-    <string name="medication_reminder">吃&#160;&#160;药&#160;&#160;提&#160;&#160;醒</string>
+
+
 
     <string name="robot_amount" formatted="false">¥%1$s</string>
 
-    <string name="doctor_remind">您的预约时间到了</string>
-    <string name="doctor_reminds">请及时与健康顾问进行视频通话</string>
-    <string name="phone_true">开始通话</string>
-    <string name="phone_cancel">忽&#160;略</string>
+
 
 
     <string name="noData">暂无数据</string>

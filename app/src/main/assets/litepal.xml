@@ -5,7 +5,7 @@
     <version value="4" />
 
     <list>
-        <mapping class="com.medlink.danbogh.alarm.AlarmModel" />
+        <mapping class="com.gcml.alarm.AlarmEntity" />
     </list>
 
 </litepal>

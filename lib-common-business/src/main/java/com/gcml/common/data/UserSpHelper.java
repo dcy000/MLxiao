@@ -3,6 +3,8 @@ package com.gcml.common.data;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.gcml.common.GsonHelper;
+import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.data.SPUtil;
 
 import java.text.SimpleDateFormat;
@@ -119,6 +121,21 @@ public class UserSpHelper {
             refreshToken = "";
         }
         SPUtil.put(KEY_REFRESH_TOKEN, refreshToken);
+    }
+
+    public static void setDoctor(Doctor doctor) {
+        SPUtil.put(getUserId(), GsonHelper.get().toJson(doctor));
+    }
+
+    public static Doctor getDoctor() {
+        String userId = getUserId();
+        if (!TextUtils.isEmpty(userId)) {
+            String doctorJson = (String) SPUtil.get(userId, "");
+            if (!TextUtils.isEmpty(doctorJson)) {
+                return GsonHelper.get().fromJson(doctorJson, Doctor.class);
+            }
+        }
+        return null;
     }
 
     /**
@@ -314,8 +331,6 @@ public class UserSpHelper {
         SPUtil.clear();
         if (context != null) {
             context.getSharedPreferences("com.iflytek.setting", Context.MODE_PRIVATE)
-                    .edit().clear().apply();
-            context.getSharedPreferences("doctor_message", Context.MODE_PRIVATE)
                     .edit().clear().apply();
         }
     }

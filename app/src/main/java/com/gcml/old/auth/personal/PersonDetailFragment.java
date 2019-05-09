@@ -1,7 +1,5 @@
 package com.gcml.old.auth.personal;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -26,16 +23,14 @@ import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.RobotAmount;
 import com.gcml.common.recommend.bean.get.ServicePackageBean;
-import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.app.AppUtils;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.LoadingDialog;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
@@ -53,7 +48,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public ImageView headImg;
     public ImageView mIvAlarm;
 
-    SharedPreferences sharedPreferences;
     public TextView signDoctorName;
     public TextView tvBalance;
 
@@ -64,7 +58,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     public ImageView education;
 
-    SharedPreferences sharedPreferences1;
 
     @Nullable
     @Override
@@ -97,8 +90,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.tv_update).setOnClickListener(this);
         mIvAlarm = view.findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(this);
-        sharedPreferences = getActivity().getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        sharedPreferences1 = getActivity().getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
         signDoctorName = view.findViewById(R.id.doctor_name);
         ((TextView) view.findViewById(R.id.tv_update)).setText("检查更新 v" + AppUtils.getAppInfo().getVersionName());
         return view;
@@ -215,15 +206,12 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("doctor_id", response.getDocterid() + "");
-                editor.putString("name", response.getDoctername());
-                editor.putString("position", response.getDuty());
-                editor.putString("feature", response.getDepartment());
-                editor.putString("hospital", response.getHosname());
-                editor.putString("service_amount", response.getService_amount());
-                editor.putString("docter_photo", response.getDocter_photo());
-                editor.commit();
+                Handlers.bg().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        UserSpHelper.setDoctor(response);
+                    }
+                });
                 if (!"".equals(response.getDoctername())) {
                     signDoctorName.setText(response.getDoctername());
                 }

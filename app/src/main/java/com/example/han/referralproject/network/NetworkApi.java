@@ -2,20 +2,14 @@ package com.example.han.referralproject.network;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.application.MyApplication;
-import com.medlink.danbogh.alarm.AlreadyYuyue;
-import com.medlink.danbogh.alarm.ClueInfoBean;
-import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.AppDelegate;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.RobotAmount;
 import com.gcml.common.recommend.bean.get.VersionInfoBean;
-import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,8 +43,8 @@ public class NetworkApi {
         ApplicationInfo appInfo = null;
         String msg = "";
         try {
-            appInfo = MyApplication.getInstance().getPackageManager()
-                    .getApplicationInfo(MyApplication.getInstance().getPackageName(), PackageManager.GET_META_DATA);
+            appInfo = AppDelegate.INSTANCE.app().getPackageManager()
+                    .getApplicationInfo(AppDelegate.INSTANCE.app().getPackageName(), PackageManager.GET_META_DATA);
             msg = appInfo.metaData.getString("com.gcml.version");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

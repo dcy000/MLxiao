@@ -22,11 +22,13 @@ import com.example.module_control_volume.R;
 import com.example.module_control_volume.net.ControlRepository;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.SharedPreferencesUtils;
 import com.gcml.common.utils.UM;
@@ -644,11 +646,17 @@ public class DataDealHelper {
 
         } else if (inSpell.matches(".*guwen.*zixun.*") || inSpell.matches("wenguwen|guwenzixun|jiatingguwen|yuyue")) {
 
-            if ("".equals(context.getSharedPreferences("doctor_message", Context.MODE_PRIVATE).getString("name", ""))) {
-                ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
-            } else {
-                Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
-            }
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    Doctor doctor = UserSpHelper.getDoctor();
+                    if (doctor != null && !TextUtils.isEmpty(doctor.doctername)) {
+                        ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
+                    } else {
+                        Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
+                    }
+                }
+            });
 
 
         } else if (inSpell.matches(".*dashengyin.*")
