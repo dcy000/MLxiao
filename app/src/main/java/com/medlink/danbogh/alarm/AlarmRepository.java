@@ -126,7 +126,7 @@ public class AlarmRepository {
                         entities.add(model);
                         for (AlarmModel alarmModel : models) {
                             if (alarmModel.getId() != model.getId()) {
-                                entities.add(model);
+                                entities.add(alarmModel);
                             }
                         }
                         return entities;
@@ -158,7 +158,7 @@ public class AlarmRepository {
                         entities.add(model);
                         for (AlarmModel alarmModel : models) {
                             if (alarmModel.getId() != model.getId()) {
-                                entities.add(model);
+                                entities.add(alarmModel);
                             }
                         }
                         return entities;
