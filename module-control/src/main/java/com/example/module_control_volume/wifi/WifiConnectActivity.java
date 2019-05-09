@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
@@ -24,12 +23,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.module_control_volume.R;
-import com.example.module_control_volume.adapter.WifiConnectRecyclerAdapter;
 import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
@@ -37,8 +34,8 @@ import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.common.utils.network.WiFiUtil;
-import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.common.widget.dialog.InputDialog;
 import com.gcml.common.wifi.WifiUtils;
 import com.gcml.common.wifi.wifiConnect.ConnectionSuccessListener;
@@ -52,11 +49,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 @Route(path = "/app/activity/wifi/connect")
-public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnClickListener, ConnectionSuccessListener {
+public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
     private RecyclerView mRecycler;
     private List<ScanResult> mList = new ArrayList<>();
@@ -72,6 +72,9 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
     private ScanResult currentWifi;
     private String currentPassword;
     private boolean currentConnected;
+    private boolean isSearchingWifi;
+    //wifi连接超时时间
+    private static final int WIFI_CONNECT_TIMEOUT = 10;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,6 +127,12 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                 }
             }
         });
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mNetworkReceiver, filter);
     }
 
     private void setAdapter() {
@@ -150,61 +159,117 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                 ScanResult itemResult = mList.get(position);
                 currentWifi = itemResult;
                 String capabilities = itemResult.capabilities;
+
                 if (capabilities.contains("WPA2") || capabilities.contains("WPA-PSK") || capabilities.contains("WPA") || capabilities.contains("WEP")) {
                     checkWifiCache();
                 } else {
+
                     currentPassword = "";
                     showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
-                    WifiUtils.withContext(WifiConnectActivity.this)
-                            .connectWith(itemResult.SSID, "")
-                            .setTimeout(1000)
-                            .onConnectionResult(WifiConnectActivity.this)
-                            .start();
+                    resetConnectAndTimeCountDown();
+                    WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(itemResult.SSID, "", WiFiUtil.Data.WIFI_CIPHER_NOPASS);
                 }
             }
         });
         getWifiData(mWifiManager.isWifiEnabled());
     }
 
+    private Disposable wifiTimeout;
+
+    private void resetConnectAndTimeCountDown() {
+        //开始连接倒计时
+        RxUtils.rxCountDown(1, WIFI_CONNECT_TIMEOUT)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        wifiTimeout = disposable;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (!currentConnected) {
+                            dismissLoading();
+                            showInputPasswordDialog();
+                        }
+                    }
+                });
+        currentConnected = false;
+    }
+
     private void checkWifiCache() {
         Handlers.bg().post(new Runnable() {
             @Override
             public void run() {
+
                 WifiEntity result = RoomHelper.db(WifiDB.class, WifiDB.class.getName()).wifiDao().queryByKey(currentWifi.BSSID);
                 if (result == null) {
                     Handlers.ui().post(new Runnable() {
                         @Override
                         public void run() {
-                            showInputPasswordDialog(currentWifi.SSID);
+                            showInputPasswordDialog();
                         }
                     });
                 } else {
-                    showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
-                    WifiUtils.withContext(WifiConnectActivity.this)
-                            .connectWith(result.SSID, result.password)
-                            .setTimeout(1000)
-                            .onConnectionResult(WifiConnectActivity.this)
-                            .start();
+                    Handlers.ui().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
+                            resetConnectAndTimeCountDown();
+                            String capabilities = result.capabilities;
+                            String wifiName = result.SSID;
+                            String password = result.password;
+                            if (capabilities.contains("WPA2")) {
+                                WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WPA2);
+                            } else if (capabilities.contains("WPA-PSK")) {
+                                WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WPA2);
+                            } else if (capabilities.contains("WPA")) {
+                                WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WPA);
+                            } else if (capabilities.contains("WEP")) {
+                                WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WEP);
+                            }
+                        }
+                    });
                 }
             }
         });
     }
 
-    private void showInputPasswordDialog(String wifiName) {
+    private void showInputPasswordDialog() {
+        String wifiName = currentWifi.SSID;
+        String capabilities = currentWifi.capabilities;
         new InputDialog(this)
                 .builder()
                 .setMsg(wifiName)
                 .setMsgColor(R.color.config_color_appthema)
                 .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
                     @Override
-                    public void onInput(String s) {
-                        currentPassword = s;
+                    public void onInput(String password) {
+                        currentPassword = password;
                         showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
-                        WifiUtils.withContext(WifiConnectActivity.this)
-                                .connectWith(wifiName, s)
-                                .setTimeout(1000)
-                                .onConnectionResult(WifiConnectActivity.this)
-                                .start();
+                        resetConnectAndTimeCountDown();
+                        if (capabilities.contains("WPA2")) {
+                            WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WPA2);
+                        } else if (capabilities.contains("WPA-PSK")) {
+                            WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WPA2);
+                        } else if (capabilities.contains("WPA")) {
+                            WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WPA);
+                        } else if (capabilities.contains("WEP")) {
+                            WiFiUtil.getInstance(WifiConnectActivity.this).addWiFiNetwork(wifiName, password, WiFiUtil.Data.WIFI_CIPHER_WEP);
+                        }
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -233,30 +298,34 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                             }
                         });
             }
-            WifiUtils.withContext(getApplicationContext())
-                    .scanWifi(new ScanResultsListener() {
-                        @Override
-                        public void onScanResults(@NonNull List<ScanResult> scanResults) {
-                            mList.clear();
-                            for (ScanResult result : scanResults) {
-                                if (TextUtils.isEmpty(result.SSID)) {
-                                    continue;
+            if (!isSearchingWifi) {
+                isSearchingWifi = true;
+                WifiUtils.withContext(getApplicationContext())
+                        .scanWifi(new ScanResultsListener() {
+                            @Override
+                            public void onScanResults(@NonNull List<ScanResult> scanResults) {
+                                isSearchingWifi = false;
+                                mList.clear();
+                                for (ScanResult result : scanResults) {
+                                    if (TextUtils.isEmpty(result.SSID)) {
+                                        continue;
+                                    }
+                                    if (mInfo != null && TextUtils.equals(mInfo.getBSSID(), result.BSSID)) {
+                                        continue;
+                                    }
+                                    if (result.level < -60) {
+                                        continue;
+                                    }
+                                    Timber.e(result.toString());
+                                    if (!mList.contains(result)) {
+                                        mList.add(result);
+                                    }
                                 }
-                                if (mInfo != null && TextUtils.equals(mInfo.getBSSID(), result.BSSID)) {
-                                    continue;
-                                }
-                                if (result.level < -60) {
-                                    continue;
-                                }
-                                if (!mList.contains(result)) {
-                                    mList.add(result);
-                                }
+                                adapter.notifyDataSetChanged();
+                                mRightView.clearAnimation();
                             }
-                            adapter.notifyDataSetChanged();
-                            mRightView.clearAnimation();
-                            Log.e("xxxxxxxxxx", scanResults.size() + scanResults.toArray().toString());
-                        }
-                    }).start();
+                        }).start();
+            }
         } else {
             currentConnected = false;
             mList.clear();
@@ -271,41 +340,90 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
         int i = v.getId();
         if (i == R.id.iv_top_right) {
             getWifiData(mWifiManager.isWifiEnabled());
+        }
+    }
+
+    private void saveRoom() {
+        if (currentWifi != null) {
+            Handlers.bg().post(new Runnable() {
+                @Override
+                public void run() {
+                    WifiEntity entity = new WifiEntity();
+                    entity.SSID = currentWifi.SSID;
+                    entity.BSSID = currentWifi.BSSID;
+                    entity.frequency = currentWifi.frequency;
+                    entity.password = currentPassword;
+                    entity.capabilities = currentWifi.capabilities;
+                    RoomHelper.db(WifiDB.class, WifiDB.class.getName()).wifiDao().insertWifiCache(entity);
+                }
+            });
 
         }
     }
 
-    @Override
-    public void isSuccessful(boolean isSuccess) {
-        if (isSuccess) {
-            currentConnected = true;
-            //存数据库
-            if (currentWifi != null) {
-                Handlers.bg().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        WifiEntity entity = new WifiEntity();
-                        entity.SSID = currentWifi.SSID;
-                        entity.BSSID = currentWifi.BSSID;
-                        entity.frequency = currentWifi.frequency;
-                        entity.password = currentPassword;
-                        RoomHelper.db(WifiDB.class, WifiDB.class.getName()).wifiDao().insertWifiCache(entity);
+    private BroadcastReceiver mNetworkReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i("mylog", intent.getAction());
+            switch (intent.getAction()) {
+                case WifiManager.WIFI_STATE_CHANGED_ACTION:
+                    int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
+                    Log.e("TAG", "wifiState:" + wifiState);
+                    switch (wifiState) {
+                        case WifiManager.WIFI_STATE_DISABLED:
+                            break;
+                        case WifiManager.WIFI_STATE_DISABLING:
+                            break;
                     }
-                });
+                    break;
+                // 监听wifi的连接状态即是否连上了一个有效无线路由
+                case WifiManager.NETWORK_STATE_CHANGED_ACTION:
+                    Parcelable parcelableExtra = intent
+                            .getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+                    if (null != parcelableExtra) {
+                        // 获取联网状态的NetWorkInfo对象
+                        NetworkInfo networkInfo = (NetworkInfo) parcelableExtra;
+                        //获取的State对象则代表着连接成功与否等状态
+                        NetworkInfo.State state = networkInfo.getState();
+                        //判断网络是否已经连接
+                        boolean isConnected = state == NetworkInfo.State.CONNECTED;
+                        if (isConnected) {
+                            mConnectedLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            mConnectedLayout.setVisibility(View.GONE);
+                        }
+                    }
+                    break;
+                // 监听网络连接，包括wifi和移动数据的打开和关闭,以及连接上可用的连接都会接到监听
+                case ConnectivityManager.CONNECTIVITY_ACTION:
+                    ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        dismissLoading();
+                        currentConnected = true;
+                        if (wifiTimeout != null && wifiTimeout.isDisposed()) {
+                            wifiTimeout.dispose();
+                        }
+                        saveRoom();
+                        if (isFirstWifi) {
+                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+                                Routerfit.register(AppRouter.class).skipAuthActivity();
+                            } else {
+                                Routerfit.register(AppRouter.class).skipMainActivity();
+                            }
+                            finish();
+                        }
+                    }
+                    getWifiData(mWifiManager.isWifiEnabled());
+                    break;
 
             }
-            mConnectedLayout.setVisibility(View.VISIBLE);
-            if (isFirstWifi) {
-                if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                    Routerfit.register(AppRouter.class).skipAuthActivity();
-                } else {
-                    Routerfit.register(AppRouter.class).skipMainActivity();
-                }
-                finish();
-            }
-        } else {
-            mConnectedLayout.setVisibility(View.GONE);
         }
-        getWifiData(mWifiManager.isWifiEnabled());
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mNetworkReceiver);
     }
 }
