@@ -7,8 +7,8 @@ android {
         applicationId "com.example.han.referralproject"
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
-        versionCode 27//2019/02/19
-        versionName "Robot-HOS-wuhan.1.1.2.27.beta"//2019/02/19
+        versionCode 28
+        versionName "Robot-HOS-wuhan.1.1.3"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
