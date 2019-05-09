@@ -1,4 +1,4 @@
-package com.gcml.old.auth.personal;
+package com.gcml.auth.ui.mine;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.AppRepository;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.auth.R;
+import com.gcml.auth.model.UserRepository;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
@@ -25,7 +23,6 @@ import com.gcml.common.recommend.bean.get.RobotAmount;
 import com.gcml.common.recommend.bean.get.ServicePackageBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.app.AppUtils;
@@ -35,6 +32,7 @@ import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -58,6 +56,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     public ImageView education;
 
+    private UserRepository userRepository = new UserRepository();
 
     @Nullable
     @Override
@@ -109,7 +108,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        AppRepository.queryServicePackage()
+        userRepository.queryServicePackage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -158,9 +157,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             return;
         }
 
-        Routerfit.register(AppRouter.class)
-                .getUserProvider()
-                .getUserEntity()
+        userRepository.getUserSignIn()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -189,39 +186,43 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                     }
                 });
 
-        NetworkApi.Person_Amount(DeviceUtils.getIMEI(), new NetworkManager.SuccessCallback<RobotAmount>() {
-            @Override
-            public void onSuccess(final RobotAmount response) {
-                if (response.getAmount() != null) {
-                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
-
-        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
-            @Override
-            public void onSuccess(Doctor response) {
-                Handlers.bg().post(new Runnable() {
+        userRepository.amount(DeviceUtils.getIMEI())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<RobotAmount>() {
                     @Override
-                    public void run() {
-                        UserSpHelper.setDoctor(response);
+                    public void onNext(RobotAmount robotAmount) {
+                        if (robotAmount.getAmount() != null) {
+                            tvBalance.setText(String.format(getString(R.string.robot_amount), robotAmount.getAmount()));
+                        }
                     }
                 });
-                if (!"".equals(response.getDoctername())) {
-                    signDoctorName.setText(response.getDoctername());
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                signDoctorName.setText("暂无");
-            }
-        });
+
+        userRepository.doctor(UserSpHelper.getUserId())
+                .doOnNext(new Consumer<Doctor>() {
+                    @Override
+                    public void accept(Doctor doctor) throws Exception {
+                        UserSpHelper.setDoctor(doctor);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Doctor>() {
+                    @Override
+                    public void onNext(Doctor doctor) {
+                        if (!"".equals(doctor.getDoctername())) {
+                            signDoctorName.setText(doctor.getDoctername());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        signDoctorName.setText("暂无");
+                    }
+                });
     }
 
     @Override
@@ -232,66 +233,63 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             ToastUtils.showShort("请使用有网模式登录");
             return;
         }
-        switch (v.getId()) {
-            case R.id.iv_order:
-                //我的订单
-                Routerfit.register(AppRouter.class).skipOldOrderListActivity();
-                break;
-            case R.id.iv_pay:
-                //账户充值
+        int i = v.getId();
+        if (i == R.id.iv_order) {//我的订单
+            Routerfit.register(AppRouter.class).skipOldOrderListActivity();
+
+        } else if (i == R.id.iv_pay) {//账户充值
 //                ToastUtils.showShort("该功能暂未开放");
 //                MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),"该功能暂未开放",false);
-                Routerfit.register(AppRouter.class).skipPayActivity();
+            Routerfit.register(AppRouter.class).skipPayActivity();
 //                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
-                break;
-            case R.id.iv_message:
-//                startActivity(new Intent(getActivity(), MessageActivity.class));
-                Routerfit.register(AppRouter.class).skipOldOrderListActivity();
-                break;
-            case R.id.iv_shezhi:
-                Routerfit.register(AppRouter.class).skipSettingActivity();
-                break;
-            case R.id.iv_laoren_yule:
-                Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
-                break;
-            case R.id.iv_change_account:
-                MobclickAgent.onProfileSignOff();
-                Routerfit.register(AppRouter.class).getCallProvider().logout();
-                UserSpHelper.setToken("");
-                UserSpHelper.setEqId("");
-                UserSpHelper.setUserId("");
-                Routerfit.register(AppRouter.class).skipAuthActivity();
-                FragmentActivity activity = getActivity();
-                if (activity != null) {
-                    activity.finish();
-                }
+
+        } else if (i == R.id.iv_message) {//                startActivity(new Intent(getActivity(), MessageActivity.class));
+            Routerfit.register(AppRouter.class).skipOldOrderListActivity();
+
+        } else if (i == R.id.iv_shezhi) {
+            Routerfit.register(AppRouter.class).skipSettingActivity();
+
+        } else if (i == R.id.iv_laoren_yule) {
+            Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
+
+        } else if (i == R.id.iv_change_account) {
+            MobclickAgent.onProfileSignOff();
+            Routerfit.register(AppRouter.class).getCallProvider().logout();
+            UserSpHelper.setToken("");
+            UserSpHelper.setEqId("");
+            UserSpHelper.setUserId("");
+            Routerfit.register(AppRouter.class).skipAuthActivity();
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                activity.finish();
+            }
 //                mChangeAccountDialog = new ChangeAccountDialog(getActivity());
 //                mChangeAccountDialog.show();
-                break;
-            case R.id.per_image:
-                Routerfit.register(AppRouter.class).skipProfileInfoActivity();
-                break;
-            case R.id.iv_record:
-                Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
-                break;
-            case R.id.iv_jiankang_riji:
-                Routerfit.register(AppRouter.class).skipTaskDialyContactActivity();
-                break;
-            case R.id.tv_update:
-                Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(getContext(), true);
-                break;
-            case R.id.doctor_status:
-                if ("未绑定".equals(isSignDoctor.getText().toString())) {
-                    Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
-                    return;
-                }
-                if ("待审核".equals(isSignDoctor.getText().toString())) {
-                    Routerfit.register(AppRouter.class).skipCheckContractActivity();
-                }
-                break;
-            case R.id.iv_alarm:
-                Routerfit.register(AppRouter.class).skipPayActivity();
-                break;
+
+        } else if (i == R.id.per_image) {
+            Routerfit.register(AppRouter.class).skipProfileInfoActivity();
+
+        } else if (i == R.id.iv_record) {
+            Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+
+        } else if (i == R.id.iv_jiankang_riji) {
+            Routerfit.register(AppRouter.class).skipTaskDialyContactActivity();
+
+        } else if (i == R.id.tv_update) {
+            Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(getContext(), true);
+
+        } else if (i == R.id.doctor_status) {
+            if ("未绑定".equals(isSignDoctor.getText().toString())) {
+                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                return;
+            }
+            if ("待审核".equals(isSignDoctor.getText().toString())) {
+                Routerfit.register(AppRouter.class).skipCheckContractActivity();
+            }
+
+        } else if (i == R.id.iv_alarm) {
+            Routerfit.register(AppRouter.class).skipPayActivity();
+
         }
     }
 }

@@ -15,7 +15,6 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
-import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import com.sjtu.yifei.route.ActivityCallback;
@@ -81,7 +80,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
             default:
                 break;
             case R.id.iv_person_center:
-                startActivity(new Intent(getContext(), PersonDetailActivity.class));
+                Routerfit.register(AppRouter.class).skipPersonDetailActivity();
                 break;
             case R.id.iv_health_course:
                 //健康管理

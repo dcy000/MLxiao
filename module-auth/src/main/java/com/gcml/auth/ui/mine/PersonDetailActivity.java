@@ -1,4 +1,4 @@
-package com.gcml.old.auth.personal;
+package com.gcml.auth.ui.mine;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,8 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.auth.R;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.display.ToastUtils;
@@ -82,7 +81,7 @@ public class PersonDetailActivity extends AppCompatActivity {
                 R.drawable.icon_wifi, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-                        startActivity(new Intent(PersonDetailActivity.this, MainActivity.class));
+                        Routerfit.register(AppRouter.class).skipMainActivity();
                     }
 
                     @Override

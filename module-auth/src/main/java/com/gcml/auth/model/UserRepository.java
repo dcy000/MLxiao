@@ -5,11 +5,13 @@ import android.text.TextUtils;
 
 import com.gcml.common.AppDelegate;
 import com.gcml.common.RetrofitHelper;
-import com.gcml.common.RoomHelper;
 import com.gcml.common.RxCacheHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
+import com.gcml.common.recommend.bean.get.Doctor;
+import com.gcml.common.recommend.bean.get.RobotAmount;
+import com.gcml.common.recommend.bean.get.ServicePackageBean;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 
@@ -26,7 +28,6 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import io.rx_cache2.EvictProvider;
 import io.rx_cache2.ProviderHelper;
@@ -381,6 +382,26 @@ public class UserRepository {
 
     public Observable<Object> isIdCardNotExit(String idCard) {
         return mUserService.isIdCardNotExit(idCard)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 查询套餐是否生效
+     *
+     * @return
+     */
+    public Observable<ServicePackageBean> queryServicePackage() {
+        return mUserService.queryServicePackage(UserSpHelper.getUserId())
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<RobotAmount> amount(String eqid) {
+        return mUserService.amount(eqid)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<Doctor> doctor(String userId) {
+        return mUserService.doctor(userId)
                 .compose(RxUtils.apiResultTransformer());
     }
 }

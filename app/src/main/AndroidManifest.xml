@@ -123,10 +123,6 @@
 
 
         <activity
-            android:name="com.gcml.old.auth.personal.PersonDetailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".homepage.MainActivity"
             android:label="20180730主页面"
             android:launchMode="singleTask"
