@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.gcml.auth.face2.BR;
 import com.gcml.auth.face2.R;
 import com.gcml.auth.face2.databinding.FaceActivityBdSignInBinding;
 import com.gcml.auth.face2.model.FaceBdErrorUtils;
