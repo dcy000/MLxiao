@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.alarm">
+
+    <application>
+        <activity
+            android:name="com.gcml.alarm.AlarmList2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.alarm.AlarmDetail2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.alarm.ReminderActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.alarm.DoctorAlarmActivity"
+            android:screenOrientation="landscape" />
+        <service
+            android:name="com.gcml.alarm.AlarmService"
+            android:enabled="true" />
+        <receiver android:name="com.gcml.alarm.AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.medlink.intent.Alarm" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

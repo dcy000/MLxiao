@@ -2,6 +2,9 @@ package com.gcml.auth.model;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
+import com.gcml.common.recommend.bean.get.Doctor;
+import com.gcml.common.recommend.bean.get.RobotAmount;
+import com.gcml.common.recommend.bean.get.ServicePackageBean;
 import com.gcml.common.user.UserToken;
 
 import java.util.List;
@@ -95,4 +98,21 @@ public interface UserService {
     Observable<ApiResult<List<UserEntity>>> getAllUsers(
             @Query("users") String usersIds
     );
+
+    /**
+     * 查询该用户的检测套餐是否生效
+     *
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/order/judge")
+    Observable<ApiResult<ServicePackageBean>> queryServicePackage(
+            @Query("userid") String userId
+    );
+
+    @GET("ZZB/eq/eq_amount")
+    Observable<ApiResult<RobotAmount>> amount(@Query("eqid") String eqid);
+
+    @GET("ZZB/docter/search_OneDocter")
+    Observable<ApiResult<Doctor>> doctor(@Query("bid") String userId);
 }

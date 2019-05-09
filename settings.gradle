@@ -1,10 +1,10 @@
-include ':app', ':module-doctor-advisory', ':module_alarm',
+include ':app',
+        ':module-doctor-advisory',
+        ':module-alarm',
         ':module-body-test',
         ':module-hypertension-manager',
         ':module-edu-child',
-        ':lib-common-core',
         ':lib-common-business',
-        ':lib-common-app',
         ':lib-common-core',
         ':lib-bluetooth'
 

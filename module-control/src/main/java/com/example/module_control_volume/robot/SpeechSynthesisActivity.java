@@ -37,11 +37,13 @@ import com.example.module_control_volume.R;
 import com.example.module_control_volume.net.ControlRepository;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.SharedPreferencesUtils;
 import com.gcml.common.utils.UM;
@@ -136,9 +138,6 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
     public ImageView ivBack;
     Random rand;
 
-
-    SharedPreferences sharedPreferences;
-
     ImageView mImageView;
     private LottieAnimationView mLottieView;
     private static final int TO_MUSICPLAY = 1;
@@ -165,7 +164,6 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
         setContentView(R.layout.activity_speech_synthesis);
         mToolbar.setVisibility(View.GONE);
         rand = new Random();
-        sharedPreferences = getSharedPreferences("doctor_message", Context.MODE_PRIVATE);
         mImageView = findViewById(R.id.iat_recognizes);
 
 
@@ -1090,14 +1088,17 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 Routerfit.register(AppRouter.class).skipVideoListActivity(0);
 
             } else if (inSpell.matches(".*yisheng.*zixun.*") || inSpell.matches("wenyisheng|yishengzixun|jiatingyisheng|yuyue")) {
-
-                if ("".equals(sharedPreferences.getString("name", ""))) {
-                    ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
-                } else {
-                    Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
-                }
-
-
+                Handlers.bg().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Doctor doctor = UserSpHelper.getDoctor();
+                        if (doctor != null && !TextUtils.isEmpty(doctor.doctername)) {
+                            ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
+                        } else {
+                            Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
+                        }
+                    }
+                });
             } else if (inSpell.matches(".*dashengyin.*")
                     || inSpell.matches(".*dayinliang.*")
                     || inSpell.matches(".*dashengdian.*")

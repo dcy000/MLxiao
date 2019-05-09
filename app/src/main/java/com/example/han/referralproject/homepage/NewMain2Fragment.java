@@ -15,9 +15,8 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
-import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.alarm.AlarmList2Activity;
+
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -81,7 +80,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
             default:
                 break;
             case R.id.iv_person_center:
-                startActivity(new Intent(getContext(), PersonDetailActivity.class));
+                Routerfit.register(AppRouter.class).skipPersonDetailActivity();
                 break;
             case R.id.iv_health_course:
                 //健康管理
@@ -106,8 +105,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                         });
                 break;
             case R.id.entertainment_center:
-                Intent intent = AlarmList2Activity.newLaunchIntent(getActivity());
-                startActivity(intent);
+                Routerfit.register(AppRouter.class).skipAlarmList2Activity();
                 //娱乐中心
 //                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;

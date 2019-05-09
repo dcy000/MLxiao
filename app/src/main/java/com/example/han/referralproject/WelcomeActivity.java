@@ -1,13 +1,8 @@
 package com.example.han.referralproject;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Chronometer;
 
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.network.NetUitls;
 import com.sjtu.yifei.annotation.Route;

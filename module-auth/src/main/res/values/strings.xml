@@ -1,4 +1,8 @@
 <resources>
     <string name="auth_id_card_tip">请输入正确的身份证号码</string>
     <string name="auth_empty_name">输入姓名不能为空</string>
+
+    <string name="person_info">欢迎来到个人中心</string>
+
+    <string name="robot_amount" formatted="false">¥%1$s</string>
 </resources>
