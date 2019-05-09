@@ -15,4 +15,5 @@ public class WifiEntity {
     @NonNull
     public int frequency;
     public String password;
+    public String capabilities;
 }

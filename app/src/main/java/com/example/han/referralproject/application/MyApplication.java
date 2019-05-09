@@ -160,7 +160,6 @@ public class MyApplication extends Application {
                     }
                 });
     }
-
     public static MyApplication getInstance() {
         return mInstance;
     }
