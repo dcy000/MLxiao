@@ -2,13 +2,13 @@ package com.gcml.auth.ui.signin;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
@@ -43,14 +43,15 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     @Override
-    protected int variableId() {
-        return BR.signInViewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    @Override
     protected void init(Bundle savedInstanceState) {
         UserSpHelper.setNoNetwork(false);
         binding.setPresenter(this);
+        binding.setSignInViewModel(viewModel);
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

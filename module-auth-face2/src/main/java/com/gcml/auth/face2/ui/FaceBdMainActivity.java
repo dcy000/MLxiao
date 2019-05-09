@@ -5,12 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 
 import com.gcml.auth.face2.R;
-import com.gcml.auth.face2.BR;
 import com.gcml.auth.face2.databinding.FaceActivityBdMain2Binding;
 import com.gcml.auth.face2.model.FaceBdErrorUtils;
 import com.gcml.auth.face2.model.entity.FaceBdUser;
@@ -54,17 +54,18 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMain2Binding,
         return R.layout.face_activity_bd_main2;
     }
 
-    @Override
-    protected int variableId() {
-        return BR.viewModel;
-    }
-
     private PreviewHelper mPreviewHelper;
     private String faceId;
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
+    }
+
     protected void init(Bundle savedInstanceState) {
         binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);

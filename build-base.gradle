@@ -150,6 +150,7 @@ dependencies {
 //    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
 
     implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxrelay2"]
     implementation rootProject.ext.dependencies["rxandroid2"]
     implementation rootProject.ext.dependencies["retrofit"]
     implementation rootProject.ext.dependencies["retrofit-url-manager"]

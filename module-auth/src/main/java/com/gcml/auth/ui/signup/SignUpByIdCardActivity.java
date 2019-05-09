@@ -2,10 +2,10 @@ package com.gcml.auth.ui.signup;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpByIdCardBinding;
 import com.gcml.common.data.UserEntity;
@@ -39,13 +39,14 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
     }
 
     @Override
-    protected int variableId() {
-        return BR.viewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    @Override
     protected void init(Bundle savedInstanceState) {
         binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -294,56 +295,11 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        Routerfit.register(AppRouter.class)
-                                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
-                                    @Override
-                                    public void onActivityResult(int result, Object data) {
-                                        if (result == Activity.RESULT_OK) {
-                                            String sResult = data.toString();
-                                            if (TextUtils.isEmpty(sResult)) return;
-                                            if (sResult.equals("success")) {
-                                                Routerfit.register(AppRouter.class)
-                                                        .skipSimpleProfileActivity(IDCARD, binding.etPhone.getText().toString().trim(),
-                                                                new ActivityCallback() {
-                                                                    @Override
-                                                                    public void onActivityResult(int result, Object data) {
-                                                                        if (result == Activity.RESULT_OK) {
-                                                                            String sResult = data.toString();
-                                                                            if (TextUtils.equals("success", sResult)) {
-                                                                                Routerfit.register(AppRouter.class).skipProfile2Activity(
-                                                                                        new ActivityCallback() {
-                                                                                            @Override
-                                                                                            public void onActivityResult(int result, Object data) {
-                                                                                                if (result == Activity.RESULT_OK) {
-                                                                                                    if (TextUtils.equals(data.toString(), "success")) {
-                                                                                                        Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                );
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                });
-                                            } else if (sResult.equals("failed")) {
-                                                ToastUtils.showShort("录入人脸失败");
-                                            }
-                                        }
-                                    }
-                                });
-//                        CC.obtainBuilder("com.gcml.auth.face2.signup")
-//                                .build()
-//                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                                    @Override
-//                                    public void onResult(CC cc, CCResult result) {
-//                                        if (result.isSuccess()) {
-//
-//
-//                                        }
-//                                    }
-//                                });
-                        finish();
+                        // 1.注册人脸
+                        // 2. 更新用户信息 1
+                        // 3. 更新用户信息 2
+                        // 4. 在线医生 列表
+                        toFaceSignUpIfNeeded();
                     }
 
                     @Override
@@ -354,6 +310,56 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), message);
                     }
                 });
+    }
+
+    private void toFaceSignUpIfNeeded() {
+        Routerfit.register(AppRouter.class)
+                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            String sResult = data.toString();
+                            if (TextUtils.isEmpty(sResult)) return;
+                            if (sResult.equals("success")) {
+                                toUpdateSimpleProfile1IfNeeded();
+                            } else if (sResult.equals("failed")) {
+                                ToastUtils.showShort("录入人脸失败");
+                            }
+                        }
+                    }
+                });
+        finish();
+    }
+
+    private void toUpdateSimpleProfile1IfNeeded() {
+        Routerfit.register(AppRouter.class)
+                .skipSimpleProfileActivity(IDCARD, binding.etPhone.getText().toString().trim(),
+                        new ActivityCallback() {
+                            @Override
+                            public void onActivityResult(int result, Object data) {
+                                if (result == Activity.RESULT_OK) {
+                                    String sResult = data.toString();
+                                    if (TextUtils.equals("success", sResult)) {
+                                        toUpdateSimpleProfile2IfNeeded();
+                                    }
+                                }
+                            }
+                        });
+    }
+
+    private void toUpdateSimpleProfile2IfNeeded() {
+        Routerfit.register(AppRouter.class).skipProfile2Activity(
+                new ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            if (TextUtils.equals(data.toString(), "success")) {
+                                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                            }
+                        }
+                    }
+                }
+        );
     }
 
     public void goUserProtocol() {

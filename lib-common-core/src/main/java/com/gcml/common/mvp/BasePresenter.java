@@ -3,26 +3,37 @@ package com.gcml.common.mvp;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 
-import com.gcml.common.utils.RxUtils;
-import com.uber.autodispose.AutoDisposeConverter;
-
 /**
  * Created by afirez on 2017/7/12.
  */
 
 public abstract class BasePresenter<V extends IView>
-        implements IPresenter {
-    protected V view;
+        implements IPresenter<V> {
+    private V view;
 
-    protected LifecycleOwner lifecycleOwner;
+    private LifecycleOwner lifecycleOwner;
 
-    public BasePresenter(V view) {
+    public BasePresenter() {
+
+    }
+
+    @Override
+    public void setView(V view) {
         this.view = view;
+    }
+
+    public V getView() {
+        return view;
     }
 
     @Override
     public void setLifecycleOwner(LifecycleOwner lifecycleOwner) {
         this.lifecycleOwner = lifecycleOwner;
+    }
+
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return lifecycleOwner;
     }
 
     @Override
@@ -60,10 +71,19 @@ public abstract class BasePresenter<V extends IView>
 
     }
 
-    public <T> AutoDisposeConverter<T> autoDisposeConverter() {
-        if (lifecycleOwner == null) {
-            throw new NullPointerException(String.valueOf("lifecycleOwner == null"));
-        }
-        return RxUtils.autoDisposeConverter(lifecycleOwner);
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onCleared() {
+        view = null;
+        lifecycleOwner = null;
     }
 }

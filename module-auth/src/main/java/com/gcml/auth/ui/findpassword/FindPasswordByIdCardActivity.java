@@ -1,10 +1,10 @@
 package com.gcml.auth.ui.findpassword;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityFindPasswordByIdCardBinding;
 import com.gcml.common.mvvm.BaseActivity;
@@ -30,13 +30,14 @@ public class FindPasswordByIdCardActivity extends BaseActivity<AuthActivityFindP
     }
 
     @Override
-    protected int variableId() {
-        return BR.viewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    @Override
     protected void init(Bundle savedInstanceState) {
         binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         mPhone = getIntent().getStringExtra("phone");
         if (!TextUtils.isEmpty(mPhone)) {
             binding.etPhone.setText(mPhone);

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -49,6 +50,8 @@ import timber.log.Timber;
 @Route(path = "/auth/face/bd/signin/activity")
 public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBinding, FaceBdSignInViewModel> {
 
+    private PreviewHelper mPreviewHelper;
+    private Animation mAnimation;
 
     @Override
     protected int layoutId() {
@@ -56,14 +59,11 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
     }
 
     @Override
-    protected int variableId() {
-        return BR.viewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    private PreviewHelper mPreviewHelper;
-    private Animation mAnimation;
-
-    @Override
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
         skip = getIntent().getBooleanExtra("skip", false);

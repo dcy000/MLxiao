@@ -3,9 +3,9 @@ package com.gcml.auth.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
 import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
@@ -31,13 +31,14 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     @Override
-    protected int variableId() {
-        return BR.authViewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    @Override
     protected void init(Bundle savedInstanceState) {
-        binding.setVariable(BR.presenter, this);
+        binding.setPresenter(this);
+        binding.setAuthViewModel(viewModel);
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
