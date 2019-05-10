@@ -13,6 +13,7 @@
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
@@ -71,6 +72,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+
     <application
         android:name="com.gcml.common.App"
         android:allowBackup="true"
@@ -93,12 +95,13 @@
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

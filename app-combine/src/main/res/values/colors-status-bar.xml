@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_bar_text_color">#555555</color>
+    <color name="status_bar_battery_normal">#686868</color>
+    <color name="status_bar_battery_low">#FF2D2D</color>
+    <color name="status_bar_battery_charging">#63EF22</color>
+</resources>

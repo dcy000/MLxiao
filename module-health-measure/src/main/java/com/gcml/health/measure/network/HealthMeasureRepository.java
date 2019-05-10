@@ -14,6 +14,7 @@ import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
+import com.gcml.health.measure.utils.ChannelUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -109,7 +110,7 @@ public class HealthMeasureRepository {
 
         if (!noNetwork) {
             //hasNetwork
-            return healthMeasureServer.postMeasureData(userId, datas).compose(RxUtils.apiResultTransformer());
+            return healthMeasureServer.postMeasureData(userId, ChannelUtils.getChannelMeta(), datas).compose(RxUtils.apiResultTransformer());
         }
 
         // noNetwork
@@ -154,6 +155,7 @@ public class HealthMeasureRepository {
 
     /**
      * 上传惯用手
+     *
      * @param hand
      * @return
      */
@@ -163,20 +165,22 @@ public class HealthMeasureRepository {
 
     /**
      * 获取周报告或者月报告
+     *
      * @param endTimeStamp
      * @param page
      * @return
      */
-    public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp,String page ){
-        return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(),endTimeStamp,page).compose(RxUtils.apiResultTransformer());
+    public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp, String page) {
+        return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(), endTimeStamp, page).compose(RxUtils.apiResultTransformer());
     }
 
     /**
      * 取消套餐
+     *
      * @param setmealId
      * @return
      */
-    public static Observable<Object> cancelServicePackage(String setmealId){
+    public static Observable<Object> cancelServicePackage(String setmealId) {
         return healthMeasureServer.cancelServicePackage(setmealId);
     }
 }
