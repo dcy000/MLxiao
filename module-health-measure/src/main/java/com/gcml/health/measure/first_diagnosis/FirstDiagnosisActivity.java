@@ -106,12 +106,18 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             case "HealthFirstTipsFragment":
                 mToolbar.setVisibility(View.GONE);
                 fragment = new HealthFirstTipsFragment();
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthChooseDevicesFragment":
                 fragment = new HealthChooseDevicesFragment();
                 mToolbar.setVisibility(View.VISIBLE);
                 mRightView.setImageResource(R.drawable.white_wifi_3);
                 mTitleText.setText("仪 器 选 择");
+                isShowHealthChooseDevicesFragment=true;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthBloodDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -132,6 +138,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                     }
                 }
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthBloodOxygenDetectionFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -139,6 +148,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthBloodOxygenDetectionFragment();
                 measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthTemperatureDetectionFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -146,12 +158,17 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthTemperatureDetectionFragment();
                 measureType = IPresenter.MEASURE_TEMPERATURE;
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "ChooseECGDeviceFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("心 电 设 备 选 择");
                 fragment = new ChooseECGDeviceFragment();
                 mRightView.setImageResource(R.drawable.white_wifi_3);
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
                 isShowSelectECGDevice=true;
                 break;
             case "ECGFragment":
@@ -164,13 +181,18 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                     fragment=new HealthECGBoShengFragment();
                 }
                 measureType = IPresenter.MEASURE_ECG;
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("选 择 测 量 时 间");
                 mRightView.setImageResource(R.drawable.white_wifi_3);
                 fragment = new HealthSelectSugarDetectionTimeFragment();
-                isShowSelectBloodsugarMeasureTime = true;
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=true;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthSugarDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -179,6 +201,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 fragment = new HealthSugarDetectionUiFragment();
                 measureType = IPresenter.MEASURE_BLOOD_SUGAR;
                 fragment.setArguments(bundle);
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthThreeInOneDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -187,6 +212,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 fragment = new HealthThreeInOneDetectionUiFragment();
                 measureType = IPresenter.MEASURE_THREE;
                 fragment.setArguments(bundle);
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             case "HealthWeightDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -194,6 +222,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthWeightDetectionUiFragment();
                 measureType = IPresenter.MEASURE_WEIGHT;
+                isShowHealthChooseDevicesFragment=false;
+                isShowSelectBloodsugarMeasureTime=false;
+                isShowSelectECGDevice=false;
                 break;
             default:
                 break;
@@ -385,6 +416,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         if (showPosition > 0) {
             if (showPosition == 1) {
                 isShowHealthChooseDevicesFragment = true;
+                isShowSelectBloodsugarMeasureTime = false;
+                isShowSelectECGDevice = false;
                 //如果是重新回到仪器选择界面，则把前数据初始化
                 firstDiagnosisBeans.clear();
                 initFirstDiagnosis();

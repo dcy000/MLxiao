@@ -22,7 +22,7 @@ public interface AppRouter {
     IUserEntityProvider getUserProvider();
 
     @Go("/health/measure/bloodpressure/manager")
-    boolean skipBloodpressureManagerActivity(@Extra("fromActivity") String fromActivity);
+    boolean skipBloodpressureManagerActivity(@Extra("fromActivity") String fromActivity,@Extra("DetectionAcountDay") int days);
 
     @Go("/health/measure/bloodpressure/manager")
     boolean skipBloodpressureManagerActivity(@Extra("fromActivity") String fromActivity, @Extra("toActivity") String toActivity);

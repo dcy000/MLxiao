@@ -2,6 +2,7 @@ package com.gcml.health.measure.hypertension_management;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -35,11 +36,13 @@ import io.reactivex.schedulers.Schedulers;
 public class BloodpressureManagerActivity extends BaseManagementActivity {
     private String fromActivity;
     private String toActivity;
+    private int detectionAcountDay;
 
     @Override
     protected void dealLogic() {
         fromActivity = getIntent().getStringExtra("fromActivity");
         toActivity = getIntent().getStringExtra("toActivity");
+        detectionAcountDay = getIntent().getIntExtra("DetectionAcountDay", 3);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
         jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
         super.dealLogic();
@@ -49,6 +52,11 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
         mTitleText.setText("血 压 测 量");
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         baseFragment = new HealthBloodDetectionOnlyOneFragment();
+        if (detectionAcountDay < 2) {
+            Bundle bundle = new Bundle();
+            bundle.putString("button", "完  成");
+            baseFragment.setArguments(bundle);
+        }
         baseFragment.setOnDealVoiceAndJumpListener(this);
         baseFragment.setOnDealVoiceAndJumpListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, baseFragment).commitAllowingStateLoss();
@@ -66,7 +74,12 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
         //点击了下一步
         if (TextUtils.isEmpty(fromActivity)) return;
         if (fromActivity.equals("SlowDiseaseManagementActivity")) {
-            showEndDialog();
+            if (detectionAcountDay >= 2) {
+                //TODO:此处应该再请求一次(ZZB/api/healthMonitor/hypertension/diagnose/{userId}/)这个接口，并判断平均血压的高低
+                Routerfit.register(AppRouter.class).skipBasicInformationActivity("pressureNormal");
+            } else {
+                showEndDialog();
+            }
         } else if (fromActivity.equals("DetecteTipActivity")) {
             if (TextUtils.isEmpty(toActivity)) return;
             if (toActivity.equals("WeightManagerActivity")) {
@@ -109,14 +122,6 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
                 .setPositiveButton("每日任务", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        CCAppActions.jump2MainActivity();
-//                        CC.obtainBuilder("com.app.symptom.check")
-//                                .build()
-//                                .call();
-
-//                        CC.obtainBuilder("app.hypertension.manager.slow.disease")
-//                                .build()
-//                                .call();
                         toTask();
                     }
                 }).show();

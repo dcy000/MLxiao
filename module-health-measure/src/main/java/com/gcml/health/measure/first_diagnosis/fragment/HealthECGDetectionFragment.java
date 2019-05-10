@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
@@ -36,6 +37,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -103,10 +105,18 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         initOther();
     }
 
+    @Override
+    public void autoConnect() {
+        SPUtil.remove(BluetoothConstants.SP.SP_SAVE_ECG);
+        startDiscovery();
+    }
 
     public void startDiscovery() {
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
+        }
     }
 
     public void initOther() {
@@ -119,7 +129,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             isRegistReceiver = true;
             context.registerReceiver(connectReceiver, filter);
         }
-        context.startService(new Intent(context, ReceiveService.class));
+//        context.startService(new Intent(context, ReceiveService.class));
         context.bindService(new Intent(context, ReceiveService.class), serviceConnect, Service.BIND_AUTO_CREATE);
     }
 
@@ -207,6 +217,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         drawThread = null;
         context.stopService(new Intent(context, ReceiveService.class));
         if (serviceConnect != null && isServiceBind) {
+            isServiceBind = false;
             context.unbindService(serviceConnect);
         }
         if (isRegistReceiver) {
@@ -214,6 +225,8 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             context.unregisterReceiver(connectReceiver);
         }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
+        //初始化ECGBluetooth的状态
+        ECGBluetooth.bluStatus = ECGBluetooth.BLU_STATUS_NORMAL;
 
     }
 
