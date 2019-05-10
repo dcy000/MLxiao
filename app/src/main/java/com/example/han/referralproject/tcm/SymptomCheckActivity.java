@@ -68,32 +68,32 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
     @Override
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_symptom_check:
-                Routerfit.register(AppRouter.class)
-                        .getUserProvider()
-                        .getUserEntity().subscribeOn(Schedulers.io())
-                        .as(RxUtils.autoDisposeConverter(this))
-                        .subscribe(new DefaultObserver<UserEntity>() {
-                            @Override
-                            public void onNext(UserEntity user) {
-                                if (TextUtils.isEmpty(user.sex) || TextUtils.isEmpty(user.birthday)) {
-                                    ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                                    MLVoiceSynthetize.startSynthesize(
-                                            getApplicationContext(),
-                                            "请先去个人中心完善性别和年龄信息");
-                                } else {
-                                    toRisk();
-                                }
+        int i = v.getId();
+        if (i == R.id.iv_symptom_check) {
+            Routerfit.register(AppRouter.class)
+                    .getUserProvider()
+                    .getUserEntity().subscribeOn(Schedulers.io())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new DefaultObserver<UserEntity>() {
+                        @Override
+                        public void onNext(UserEntity user) {
+                            if (TextUtils.isEmpty(user.sex) || TextUtils.isEmpty(user.birthday)) {
+                                ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                                MLVoiceSynthetize.startSynthesize(
+                                        getApplicationContext(),
+                                        "请先去个人中心完善性别和年龄信息");
+                            } else {
+                                toRisk();
                             }
-                        });
-                break;
-            case R.id.iv_chine_constitution:
-                toChineseConsititution();
-                break;
-            case R.id.iv_risk_assessment:
-                toSymptom();
-                break;
+                        }
+                    });
+
+        } else if (i == R.id.iv_chine_constitution) {
+            toChineseConsititution();
+
+        } else if (i == R.id.iv_risk_assessment) {
+            toSymptom();
+
         }
     }
 

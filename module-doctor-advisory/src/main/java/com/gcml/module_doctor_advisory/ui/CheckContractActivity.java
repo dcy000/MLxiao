@@ -3,10 +3,12 @@ package com.gcml.module_doctor_advisory.ui;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -19,7 +21,6 @@ import com.gcml.module_doctor_advisory.bean.DoctorInfoBean;
 import com.gcml.module_doctor_advisory.net.QianYueRepository;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
-import com.squareup.picasso.Picasso;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -115,12 +116,10 @@ public class CheckContractActivity extends ToolbarBaseActivity {
                                @Override
                                public void onNext(DoctorInfoBean response) {
                                    if (!TextUtils.isEmpty(response.docter_photo)) {
-                                       Picasso.with(CheckContractActivity.this)
+                                       ImageLoader.with(CheckContractActivity.this)
                                                .load(response.docter_photo)
                                                .placeholder(R.drawable.avatar_placeholder)
                                                .error(R.drawable.avatar_placeholder)
-                                               .tag(this)
-                                               .fit()
                                                .into(ivDoctorAvatar);
                                    }
                                    tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.doctername));

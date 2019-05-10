@@ -244,59 +244,50 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.clock:
-                break;
-            case R.id.image_weather:
-                if (BuildConfig.DEBUG) {
-                    Pandora.get().open();
-                }
-                break;
-            case R.id.temperature:
-                break;
-            case R.id.weather:
-                break;
-            case R.id.gregorian_calendar:
-                break;
-            case R.id.lunar_calendar:
-                break;
-            case R.id.weekToday:
-                break;
-            case R.id.ll_date_and_week:
-                break;
-            case R.id.iv_health_measure:
-                if (UserSpHelper.isNoNetwork()) {
-                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, null, "");
-                    return;
-                }
-                Routerfit.register(AppRouter.class)
-                        .getUserProvider()
-                        .getUserEntity()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .as(RxUtils.autoDisposeConverter(this))
-                        .subscribe(new DefaultObserver<UserEntity>() {
-                            @Override
-                            public void onNext(UserEntity userEntity) {
-                                if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
-                                    ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                                    MLVoiceSynthetize.startSynthesize(
-                                            getActivity().getApplicationContext(),
-                                            "请先去个人中心完善性别和年龄信息");
-                                } else {
-                                    Routerfit.register(AppRouter.class).skipServicePackageActivity(false);
-                                }
-                            }
-                        });
+        int i = v.getId();
+        if (i == R.id.clock) {
+        } else if (i == R.id.image_weather) {
+            if (BuildConfig.DEBUG) {
+                Pandora.get().open();
+            }
 
-                break;
-            case R.id.iv_health_dialy_task:
-                if (UserSpHelper.isNoNetwork()) {
-                    ToastUtils.showShort("请使用有网模式登录");
-                    return;
-                }
+        } else if (i == R.id.temperature) {
+        } else if (i == R.id.weather) {
+        } else if (i == R.id.gregorian_calendar) {
+        } else if (i == R.id.lunar_calendar) {
+        } else if (i == R.id.weekToday) {
+        } else if (i == R.id.ll_date_and_week) {
+        } else if (i == R.id.iv_health_measure) {
+            if (UserSpHelper.isNoNetwork()) {
+                Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, null, "");
+                return;
+            }
+            Routerfit.register(AppRouter.class)
+                    .getUserProvider()
+                    .getUserEntity()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new DefaultObserver<UserEntity>() {
+                        @Override
+                        public void onNext(UserEntity userEntity) {
+                            if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                                ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                                MLVoiceSynthetize.startSynthesize(
+                                        getActivity().getApplicationContext(),
+                                        "请先去个人中心完善性别和年龄信息");
+                            } else {
+                                Routerfit.register(AppRouter.class).skipServicePackageActivity(false);
+                            }
+                        }
+                    });
+
+
+        } else if (i == R.id.iv_health_dialy_task) {
+            if (UserSpHelper.isNoNetwork()) {
+                ToastUtils.showShort("请使用有网模式登录");
+                return;
+            }
 //                rxUser.subscribeOn(Schedulers.io())
 //                        .as(RxUtils.autoDisposeConverter(this))
 //                        .subscribe(new DefaultObserver<UserEntity>() {
@@ -323,15 +314,16 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 //                                }
 //                            }
 //                        });
-                Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
-                break;
-            case R.id.iv_health_call_family:
-                if (UserSpHelper.isNoNetwork()) {
-                    ToastUtils.showShort("请使用有网模式登录");
-                    return;
-                }
-                Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
-                break;
+            Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
+
+        } else if (i == R.id.iv_health_call_family) {
+            if (UserSpHelper.isNoNetwork()) {
+                ToastUtils.showShort("请使用有网模式登录");
+                return;
+            }
+            Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
+
+        } else {
         }
     }
 }

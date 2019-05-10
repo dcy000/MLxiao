@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.RobotAmount;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
@@ -25,7 +26,6 @@ import com.gcml.module_doctor_advisory.bean.Docter;
 import com.gcml.module_doctor_advisory.net.QianYueRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
-import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -179,12 +179,10 @@ public class DoctorMesActivity extends ToolbarBaseActivity implements View.OnCli
 
             }
 
-            Picasso.with(this)
+            ImageLoader.with(this)
                     .load(doctor.getDocter_photo())
                     .placeholder(R.drawable.avatar_placeholder)
                     .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
                     .into(mImageView1);
 
 

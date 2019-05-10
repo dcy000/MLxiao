@@ -21,7 +21,7 @@ import com.ml.edu.common.widget.recycleyview.AutoLoadMoreHelper;
 import com.ml.edu.data.ApiObserver;
 import com.ml.edu.data.entity.SheetEntity;
 import com.ml.edu.domain.GetSheetListUseCase;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -229,10 +229,7 @@ public class SheetListFragment extends Fragment {
             }
             if (holder instanceof SheetHolder) {
                 SheetHolder sheetHolder = (SheetHolder) holder;
-//                Glide.with(sheetHolder.ivSheetCover.getContext())
-//                        .load(entity.getImageUrl())
-//                        .into(sheetHolder.ivSheetCover);
-                Picasso.with(sheetHolder.ivSheetCover.getContext())
+                Glide.with(sheetHolder.ivSheetCover.getContext())
                         .load(entity.getImageUrl())
                         .into(sheetHolder.ivSheetCover);
                 sheetHolder.tvSheetName.setText(entity.getName());

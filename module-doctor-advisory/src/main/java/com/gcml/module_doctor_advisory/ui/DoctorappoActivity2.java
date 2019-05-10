@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -20,7 +21,6 @@ import com.gcml.module_doctor_advisory.net.QianYueRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
-import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -88,12 +88,10 @@ public class DoctorappoActivity2 extends ToolbarBaseActivity implements View.OnC
                     @Override
                     public void onNext(Doctor doctor) {
                         if (!TextUtils.isEmpty(doctor.getDocter_photo())) {
-                            Picasso.with(DoctorappoActivity2.this)
+                            ImageLoader.with(DoctorappoActivity2.this)
                                     .load(doctor.getDocter_photo())
                                     .placeholder(R.drawable.avatar_placeholder)
                                     .error(R.drawable.avatar_placeholder)
-                                    .tag(this)
-                                    .fit()
                                     .into(mCircleImageView1);
                         }
                         mDocotorName.setText(String.format(getString(R.string.doctor_name), doctor.getDoctername()));
