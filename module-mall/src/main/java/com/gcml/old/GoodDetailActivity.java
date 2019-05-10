@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
@@ -29,7 +30,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.Objects;
 
@@ -86,12 +87,10 @@ public class GoodDetailActivity extends ToolbarBaseActivity implements View.OnCl
         mTextView1.setText(goods.goodsprice.toString());
         mTextView3.setText(String.format("总价：%1$s", goods.goodsprice.floatValue()));
 
-        Picasso.with(this)
+        ImageLoader.with(mImageView1.getContext())
                 .load(goods.goodsimage)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
-                .tag(this)
-                .fit()
                 .into(mImageView1);
     }
 

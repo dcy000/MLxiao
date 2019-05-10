@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.utils.Utils;
 import com.gcml.mall.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,15 +38,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
 
         holder.mContext = context;
         holder.mPosition = position;
-        Picasso.with(context)
+        ImageLoader.with(context)
                 .load(mList.get(position).getPhoto())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(context)
-                .fit()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .into(holder.mImageView);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
-
         String date = Utils.getDateToString(Long.parseLong(mList.get(position).getTime()), "yyyy-MM-dd");
         holder.mTextView1.setText(date);
 

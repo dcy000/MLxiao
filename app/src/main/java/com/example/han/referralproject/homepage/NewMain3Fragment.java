@@ -44,17 +44,15 @@ public class NewMain3Fragment extends RecycleBaseFragment implements View.OnClic
             ToastUtils.showShort("请使用有网模式登录");
             return;
         }
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.iv_entertainment_enter:
-                //娱乐中心
+        int i = v.getId();
+        if (i == R.id.iv_entertainment_enter) {//娱乐中心
 //                CC.obtainBuilder("app.component.recreation").build().callAsync();
-                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
-                break;
-            case R.id.iv_eat_medicine:
-                Routerfit.register(AppRouter.class).skipAlarmList2Activity();
-                break;
+            Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+
+        } else if (i == R.id.iv_eat_medicine) {
+            Routerfit.register(AppRouter.class).skipAlarmList2Activity();
+
+        } else {
         }
     }
 }

@@ -6,10 +6,10 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.utils.Utils;
 import com.gcml.mall.R;
 import com.gcml.mall.bean.OrderBean;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,12 +24,10 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderBean,BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder helper, OrderBean item) {
-        Picasso.with(mContext)
+        ImageLoader.with(mContext)
                 .load(item.photo)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
-                .tag(mContext)
-                .fit()
                 .into((ImageView) helper.getView(R.id.iv_order_image));
         String date = Utils.getDateToString(Long.parseLong(item.time), "yyyy-MM-dd");
         double price = Double.parseDouble(item.price) / Integer.parseInt(item.number);

@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.module_doctor_advisory.R;
 import com.gcml.module_doctor_advisory.bean.Docter;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -53,14 +53,12 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
         });
         holder.mContext = context;
         holder.mPosition = position;
-        Picasso.with(context)
+
+        ImageLoader.with(context)
                 .load(mListPat.get(position).getDocter_photo())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(context)
-                .fit()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .into(holder.mImagine);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
         holder.mNameview.setText(mListPat.get(position).getDoctername());
         holder.mRoomId.setText(mListPat.get(position).getDepartment());
 

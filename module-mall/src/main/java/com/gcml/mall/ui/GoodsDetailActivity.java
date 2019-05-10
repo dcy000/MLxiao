@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -28,7 +29,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
-import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -89,12 +89,10 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         goodsShopping.setOnClickListener(this);
 
         if (goods != null) {
-            Picasso.with(this)
+            ImageLoader.with(this)
                     .load(goods.goodsimage)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder)
-                    .tag(this)
-                    .fit()
                     .into(goodsImage);
             goodsName.setText(goods.goodsname);
             goodsPrice.setText("¥" + goods.goodsprice);
@@ -109,20 +107,16 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         if (i == R.id.iv_goods_increase) {
             mQunatity++;
             if (mQunatity == 1) {
-                Picasso.with(this)
+                ImageLoader.with(this)
                         .load(R.drawable.img_goods_decrease)
                         .placeholder(R.drawable.img_goods_decrease)
                         .error(R.drawable.img_goods_decrease)
-                        .tag(this)
-                        .fit()
                         .into(goodsDecrease);
             } else {
-                Picasso.with(this)
+                ImageLoader.with(this)
                         .load(R.drawable.img_goods_decrease_2)
                         .placeholder(R.drawable.img_goods_decrease)
                         .error(R.drawable.img_goods_decrease)
-                        .tag(this)
-                        .fit()
                         .into(goodsDecrease);
             }
             goodsQuantity.setText(mQunatity + "");
@@ -131,21 +125,17 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         } else if (i == R.id.iv_goods_decrease) {
             mQunatity--;
             if (mQunatity > 1) {
-                Picasso.with(this)
+                ImageLoader.with(this)
                         .load(R.drawable.img_goods_decrease_2)
                         .placeholder(R.drawable.img_goods_decrease_2)
                         .error(R.drawable.img_goods_decrease_2)
-                        .tag(this)
-                        .fit()
                         .into(goodsDecrease);
             } else {
                 mQunatity = 1;
-                Picasso.with(this)
+                ImageLoader.with(this)
                         .load(R.drawable.img_goods_decrease)
                         .placeholder(R.drawable.img_goods_decrease_2)
                         .error(R.drawable.img_goods_decrease_2)
-                        .tag(this)
-                        .fit()
                         .into(goodsDecrease);
             }
             goodsQuantity.setText(mQunatity + "");

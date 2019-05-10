@@ -5,9 +5,10 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.mall.R;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -24,12 +25,10 @@ public class Goods1Adapter extends BaseQuickAdapter<GoodBean,BaseViewHolder> {
     protected void convert(BaseViewHolder helper, GoodBean goods) {
         helper.setText(R.id.name,goods.goodsname);
         helper.setText(R.id.price,"￥ "+goods.goodsprice);
-        Picasso.with(mContext)
+        ImageLoader.with(mContext)
                 .load(goods.goodsimage)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
-                .tag(mContext)
-                .fit()
                 .into((ImageView) helper.getView(R.id.img));
     }
 }
