@@ -123,6 +123,9 @@ public class ZenDuanActivity extends com.gcml.common.base.BaseActivity implement
                         try {
                             if (data != null) {
                                 List<OutBean.LinksBean> links = data.links;
+                                if (data.links == null) {
+                                    links = data.maps;
+                                }
                                 initFragments(links);
                                 initRadioGroup(links);
                             }
