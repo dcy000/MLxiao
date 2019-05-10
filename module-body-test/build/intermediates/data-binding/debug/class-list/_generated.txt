@@ -1,0 +1,10 @@
+com.witspring.unitbody.databinding.WsbodyActivityBodyBinding
+com.witspring.unitbody.databinding.WsbodyActivityChooseMemberBinding
+com.witspring.unitdisease.databinding.WsdiseActivityMedicineDetailBinding
+com.witspring.unitdisease.databinding.WsdiseFragmentDiseaseCureBinding
+com.witspring.unitdisease.databinding.WsdiseFragmentDiseaseInfoBinding
+com.witspring.unitdisease.databinding.WsdiseActivityDiseaseBinding
+com.witspring.unitdisease.databinding.WsdiseFragmentDiseaseDrugBinding
+com.witspring.unitdisease.databinding.WsdiseFragmentDiseaseDiagBinding
+android.databinding.DataBindingComponent
+com.witspring.unitbody.databinding.WsbodyActivityBodyPartBinding

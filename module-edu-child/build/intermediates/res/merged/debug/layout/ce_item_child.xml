@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="680pt"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ce_home_iv_item_indicator"
+        android:layout_width="680pt"
+        android:layout_height="680pt"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ce_home_iv_item_indicator"/>
+
+    <TextView
+        android:id="@+id/ce_home_tv_item_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62pt"
+        android:textColor="#FFFFFF"
+        android:textSize="64pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ce_home_iv_item_indicator"
+        tools:text="儿童幼教"/>
+</android.support.constraint.ConstraintLayout>

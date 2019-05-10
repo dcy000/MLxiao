@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ce_common_bg"
+    tools:context="com.example.han.referralproject.com.gcml.module_edu_child.ChildEduPoemListActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ce_poems_rv_poems"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt"
+        android:layout_marginTop="210pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+        android:id="@+id/ce_common_iv_back"
+        android:layout_width="185pt"
+        android:layout_height="154pt"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt"
+        android:paddingTop="42pt"
+        android:background="@drawable/ce_common_item_bg"
+        android:src="@drawable/ce_common_ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_title"
+        android:layout_width="507pt"
+        android:layout_height="130pt"
+        android:layout_marginTop="30pt"
+        android:src="@drawable/ce_study_iv_poems_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</android.support.constraint.ConstraintLayout>

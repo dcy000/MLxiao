@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:background="@drawable/shape_bg_event"
+            android:gravity="center"
+            android:text="事件"
+            android:textColor="#FFBA3333"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="15dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxEms="36"
+            android:singleLine="true"
+            android:text="1854年2月28日 (农历二月初二)"
+            android:textColor="#FF333333"
+            android:textSize="29sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <com.gcml.common.widget.ExpandTextView
+            android:id="@+id/expandableTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:contentTextSize="28sp"
+            app:expandHint="点击展开"
+            app:foldHint="点击收回" />
+
+
+        <com.gcml.lib_widget.MixtureTextView
+            android:id="@+id/mt_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:textColor="#FF333333"
+            android:textSize="28dp"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:id="@+id/img_pic"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY" />
+        </com.gcml.lib_widget.MixtureTextView>
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#FFBBBBBB"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</LinearLayout>

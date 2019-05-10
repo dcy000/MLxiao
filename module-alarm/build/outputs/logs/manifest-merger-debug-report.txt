@@ -1,0 +1,83 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+	package
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:2:5-29
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:1-28:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:1:11-69
+application
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:4:5-26:19
+activity#com.gcml.alarm.AlarmList2Activity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:5:9-7:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:7:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:6:13-61
+activity#com.gcml.alarm.AlarmDetail2Activity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:8:9-10:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:10:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:9:13-63
+activity#com.gcml.alarm.ReminderActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:11:9-13:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:13:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:12:13-59
+activity#com.gcml.alarm.DoctorAlarmActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:14:9-16:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:16:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:15:13-62
+service#com.gcml.alarm.AlarmService
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:17:9-19:38
+	android:enabled
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:19:13-35
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:18:13-55
+receiver#com.gcml.alarm.AlarmReceiver
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:20:9-25:20
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:20:19-62
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:com.medlink.intent.Alarm
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:21:13-24:29
+action#com.medlink.intent.Alarm
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:22:17-67
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:22:25-64
+action#android.intent.action.BOOT_COMPLETED
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:23:17-79
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml:23:25-76
+uses-sdk
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-alarm\src\main\AndroidManifest.xml

@@ -1,0 +1,99 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+	package
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:2:5-46
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:1-36:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:1:11-69
+application
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:4:5-35:19
+activity#com.gcml.module_doctor_advisory.ui.CheckContractActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:5:9-7:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:7:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:6:13-53
+activity#com.gcml.module_doctor_advisory.ui.ConfirmContractActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:8:9-10:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:10:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:9:13-55
+activity#com.gcml.module_doctor_advisory.ui.DiseaseDetailsActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:11:9-13:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:13:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:12:13-54
+activity#com.gcml.module_doctor_advisory.ui.DoctorappoActivity2
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:14:9-16:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:16:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:15:13-51
+activity#com.gcml.module_doctor_advisory.ui.DoctorAskGuideActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:17:9-19:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:19:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:18:13-54
+activity#com.gcml.module_doctor_advisory.ui.DoctorMesActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:20:9-22:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:22:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:21:13-49
+activity#com.gcml.module_doctor_advisory.ui.MessageActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:23:9-25:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:25:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:24:13-47
+activity#com.gcml.module_doctor_advisory.ui.OfflineActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:26:9-28:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:28:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:27:13-47
+activity#com.gcml.module_doctor_advisory.ui.OnlineDoctorListActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:29:9-31:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:31:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:30:13-56
+activity#com.gcml.module_doctor_advisory.ui.RecoDocActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:32:9-34:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:34:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml:33:13-47
+uses-sdk
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-doctor-advisory\src\main\AndroidManifest.xml

@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-v21\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\md_btn_shape.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable-v21\\md_btn_shape.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_password_eye.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable-v21\\design_password_eye.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_show_password.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable-v21\\avd_show_password.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable-v21\\notification_action_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\md_btn_selector_ripple_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable-v21\\md_btn_selector_ripple_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\md_btn_selector_ripple.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable-v21\\md_btn_selector_ripple.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-body-test\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_hide_password.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable-v21\\avd_hide_password.xml"
+    }
+]

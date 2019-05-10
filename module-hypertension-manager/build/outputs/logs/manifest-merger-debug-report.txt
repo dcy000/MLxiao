@@ -1,0 +1,165 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+	package
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:2:5-51
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:1-69:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:1:11-69
+application
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:4:5-68:19
+activity#com.gcml.module_hypertension_manager.ui.plan.FoodMaterialDetailActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:5:9-7:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:7:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:6:13-63
+activity#com.gcml.module_hypertension_manager.ui.plan.SportPlanDetailActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:8:9-10:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:10:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:9:13-60
+activity#com.gcml.module_hypertension_manager.ui.plan.TreatmentPlanActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:11:9-13:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:13:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:12:13-58
+activity#com.gcml.module_hypertension_manager.ui.BasicInformationActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:14:9-16:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:16:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:15:13-56
+activity#com.gcml.module_hypertension_manager.ui.DetecteTipActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:17:9-19:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:19:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:18:13-50
+activity#com.gcml.module_hypertension_manager.ui.HasDiseaseOrNotActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:20:9-22:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:22:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:21:13-55
+activity#com.gcml.module_hypertension_manager.ui.HypertensionActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:23:9-25:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:25:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:24:13-52
+activity#com.gcml.module_hypertension_manager.ui.HypertensionTipActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:26:9-28:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:28:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:27:13-55
+activity#com.gcml.module_hypertension_manager.ui.IsEmptyStomachOrNotActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:29:9-31:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:31:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:30:13-59
+activity#com.gcml.module_hypertension_manager.ui.NormalHightActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:32:9-34:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:34:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:33:13-51
+activity#com.gcml.module_hypertension_manager.ui.NormalHighTipActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:35:9-37:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:37:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:36:13-53
+activity#com.gcml.module_hypertension_manager.ui.OriginHypertensionTipActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:38:9-40:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:40:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:39:13-61
+activity#com.gcml.module_hypertension_manager.ui.PressureFlatTipActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:41:9-43:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:43:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:42:13-55
+activity#com.gcml.module_hypertension_manager.ui.PressureNornalTipActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:44:9-46:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:46:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:45:13-57
+activity#com.gcml.module_hypertension_manager.ui.PrimaryHypertensionActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:47:9-49:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:49:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:48:13-59
+activity#com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:50:9-52:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:52:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:51:13-61
+activity#com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementTipActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:53:9-55:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:55:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:54:13-64
+activity#com.gcml.module_hypertension_manager.zhongyi.ChineseMedicineMonitorActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:56:9-58:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:58:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:57:13-67
+activity#com.gcml.module_hypertension_manager.zhongyi.MonitorResultActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:59:9-61:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:61:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:60:13-58
+activity#com.gcml.module_hypertension_manager.zhongyi.HealthManagementResultActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:62:9-64:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:64:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:63:13-67
+activity#com.gcml.module_hypertension_manager.zhongyi.OlderHealthManagementSerciveActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:65:9-67:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:67:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml:66:13-73
+uses-sdk
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-hypertension-manager\src\main\AndroidManifest.xml

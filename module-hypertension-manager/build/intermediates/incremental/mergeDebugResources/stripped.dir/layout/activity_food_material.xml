@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
+        <ImageView
+            android:id="@+id/food_material_img"
+            android:layout_width="360pt"
+            android:layout_height="360pt"
+            android:layout_marginLeft="60pt"
+            android:layout_marginTop="40pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <TextView
+            android:id="@+id/food_material_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="8pt"
+            android:text=""
+            android:textColor="#333"
+            android:textSize="72pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/food_material_img"
+            app:layout_constraintTop_toTopOf="@id/food_material_img" />
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="@id/food_material_name"
+            app:layout_constraintTop_toBottomOf="@id/food_material_name">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="食量建议："
+                android:textColor="#333"
+                android:textSize="56pt" />
+
+            <TextView
+                android:id="@+id/meal_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#666"
+                android:textSize="56pt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32pt"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="@id/food_material_name"
+            app:layout_constraintTop_toBottomOf="@id/ll_1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="适宜人群："
+                android:textColor="#333"
+                android:textSize="56pt" />
+
+            <TextView
+                android:id="@+id/fit_population"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#666"
+                android:textSize="56pt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32pt"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="@id/food_material_name"
+            app:layout_constraintTop_toBottomOf="@id/ll_2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="禁忌人群："
+                android:textColor="#FF2D2D"
+                android:textSize="56pt" />
+
+            <TextView
+                android:id="@+id/taboo_population"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#666"
+                android:textSize="56pt" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_tip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80pt"
+            android:text="适宜体质"
+            android:textColor="#333"
+            android:textSize="64pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/food_material_img"
+            app:layout_constraintTop_toBottomOf="@id/food_material_img" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tip1"
+            android:layout_marginLeft="36pt"
+            android:focusable="false"
+            />
+
+        <TextView
+            android:id="@+id/tv_tip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80pt"
+            android:text="营养价值"
+            android:textColor="#333"
+            android:textSize="64pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/food_material_img"
+            app:layout_constraintTop_toBottomOf="@id/label" />
+
+        <TextView
+            android:id="@+id/nutritive_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60pt"
+            android:layout_marginLeft="60pt"
+            android:layout_marginRight="60pt"
+            android:layout_marginTop="32pt"
+            android:textColor="#888"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tip2" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

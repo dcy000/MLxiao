@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="500dp"
+    android:layout_height="280dp"
+    android:layout_gravity="center"
+    android:alpha="0.85"
+    android:background="@drawable/volume_bg">
+
+    <TextView
+        android:id="@+id/ludashi"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="30dp"
+        android:text="鲁大师"
+        android:textColor="#333333"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/robot"
+        android:layout_marginRight="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:text="机器人"
+        android:textColor="#333333"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/volume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="音量"
+        android:textColor="#333333"
+        android:textSize="40sp" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/volume"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/image_volume"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/volume_control_icon_voice" />
+        <TextView
+            android:id="@+id/tv_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50%"
+            android:textSize="40sp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            />
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_volume"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
+        android:focusable="true"
+        android:max="100"
+        android:progress="20"
+        android:progressDrawable="@drawable/volume_control_seekbar"
+        android:thumb="@drawable/volume_control_circle"
+        />
+
+
+</RelativeLayout>

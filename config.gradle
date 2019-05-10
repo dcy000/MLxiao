@@ -22,10 +22,10 @@ ext {
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
     //开发使用的IP地址
-    developUrl = api.heguiXunfei
+    developUrl = api.JGYSProduce
 
     //线上正式运行的IP地址
-    produceUrl = api.heguiXunfei
+    produceUrl = api.JGYSProduce
 
 
     android = [
@@ -33,8 +33,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 29,
-            versionName      : "Robot-JGYS.1.0.1.2.beta"
+            versionCode      : 30,
+            versionName      : "Robot-JGYS.1.0.1"
     ]
 
     version = [

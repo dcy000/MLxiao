@@ -1,0 +1,137 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+	package
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:2:5-48
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:1-54:12
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:4:5-79
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:4:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:5:5-76
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:5:22-73
+application
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:7:5-53:19
+activity#com.example.module_control_volume.ui.AboutActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:8:9-10:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:10:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:9:13-45
+activity#com.example.module_control_volume.ui.CameraActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:11:9-13:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:13:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:12:13-46
+activity#com.example.module_control_volume.ui.CustomKeyWordsActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:14:9-16:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:16:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:15:13-54
+activity#com.example.module_control_volume.ui.KeyWordEditActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:17:9-19:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:19:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:18:13-51
+activity#com.example.module_control_volume.ui.KeyWordEdit2Activity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:20:9-22:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:22:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:21:13-52
+activity#com.example.module_control_volume.ui.ScreenPointActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:23:9-25:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:25:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:24:13-51
+activity#com.example.module_control_volume.ui.ScreenTouchActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:26:9-28:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:28:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:27:13-51
+activity#com.example.module_control_volume.ui.SetKeyWordActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:29:9-31:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:31:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:30:13-50
+activity#com.example.module_control_volume.ui.SetKeyWord2Activity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:32:9-34:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:34:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:33:13-51
+activity#com.example.module_control_volume.ui.SettingActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:35:9-37:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:37:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:36:13-47
+activity#com.example.module_control_volume.ui.VoicerSettingDemoActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:38:9-40:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:40:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:39:13-57
+activity#com.example.module_control_volume.ui.VoiceSettingActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:41:9-43:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:43:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:42:13-52
+activity#com.example.module_control_volume.wifi.WifiConnectActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:44:9-46:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:46:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:45:13-53
+activity#com.example.module_control_volume.robot.SpeechSynthesisActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:47:9-49:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:49:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:48:13-58
+activity#com.example.module_control_volume.wifi.WifiDetailActivity
+ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:50:9-52:53
+	android:screenOrientation
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:52:13-50
+	android:name
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml:51:13-52
+uses-sdk
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+		ADDED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\hegui-yanshi\MLxiao\module-control\src\main\AndroidManifest.xml

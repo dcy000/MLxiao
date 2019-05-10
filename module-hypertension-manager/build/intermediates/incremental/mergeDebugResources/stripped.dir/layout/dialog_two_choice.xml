@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="1200pt"
+    android:layout_height="658pt"
+    android:background="@drawable/common_bg_clear_reset_dialog">
+
+    <LinearLayout
+        android:layout_width="1200pt"
+        android:layout_height="658pt"
+        android:background="@drawable/common_bg_clear_reset_dialog"
+        android:orientation="vertical">
+
+        <TextView
+            android:gravity="center_vertical"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="498pt"
+            android:paddingLeft="80pt"
+            android:paddingRight="80pt"
+            android:paddingTop="60pt"
+            android:text="您是否诊断过原发性高血压，且正在进行高血压规范治疗？"
+            android:textColor="#333333"
+            android:textSize="72pt" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:background="#ffbbbbbb" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160pt"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="是"
+                android:textColor="#333333"
+                android:textSize="68pt" />
+
+            <View
+                android:layout_width="1pt"
+                android:layout_height="match_parent"
+                android:background="#ffbbbbbb" />
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="否"
+                android:textColor="#333333"
+                android:textSize="68pt" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

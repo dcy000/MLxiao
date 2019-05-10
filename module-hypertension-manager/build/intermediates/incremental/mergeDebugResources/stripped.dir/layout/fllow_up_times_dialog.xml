@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="1200pt"
+    android:layout_height="658pt"
+    android:background="@drawable/common_bg_clear_reset_dialog">
+
+    <LinearLayout
+        android:layout_width="1200pt"
+        android:layout_height="658pt"
+        android:background="@drawable/common_bg_clear_reset_dialog"
+        android:orientation="vertical">
+
+        <!--android:paddingRight="80pt"-->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="498pt"
+            android:gravity="center_vertical"
+            android:paddingLeft="70pt"
+            android:paddingRight="70pt"
+            android:paddingTop="60pt"
+            android:text="您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测2日即可为您开启方案。"
+            android:textColor="#333333"
+            android:textSize="72pt" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:background="#ffbbbbbb" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160pt"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="去测量"
+                android:textColor="#3F86FC"
+                android:textSize="68pt" />
+
+            <View
+                android:layout_width="1pt"
+                android:layout_height="match_parent"
+                android:background="#ffbbbbbb" />
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="下次再说"
+                android:textColor="#999999"
+                android:textSize="68pt" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

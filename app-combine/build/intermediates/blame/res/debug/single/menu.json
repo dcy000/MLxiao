@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\menu\\wsbody_comm_menu.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\menu\\wsbody_comm_menu.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\menu\\pd_menu_common.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\menu\\pd_menu_common.xml"
+    }
+]

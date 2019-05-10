@@ -49,7 +49,10 @@ public interface HealthMeasureServer {
     Observable<ApiResult<Object>> checkIsNormalData(@Path("userId") String userId, @Body List<DetectionData> datas);
 
     @POST("ZZB/api/healthMonitor/detection/{userId}/")
-    Observable<ApiResult<List<DetectionResult>>> postMeasureData(@Path("userId") String userId, @Body ArrayList<DetectionData> datas);
+    Observable<ApiResult<List<DetectionResult>>> postMeasureData(
+            @Path("userId") String userId,
+            @Query("vname") String vname,
+            @Body ArrayList<DetectionData> datas);
 
     @POST("ZZB/api/healthMonitor/detection/hypertension/hand/{userId}/")
     Observable<ApiResult<Object>> postHypertensionHand(@Path("userId") String userId, @Query("handState") int hand);
@@ -68,6 +71,6 @@ public interface HealthMeasureServer {
      */
     @PUT("ZZB/order/end_set_meal")
     Observable<Object> cancelServicePackage(
-         @Query("orderId") String setmealId
+            @Query("orderId") String setmealId
     );
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mp_play_time_start"
+            android:textColor="#ffffffff"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+        <SeekBar
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxHeight="2dp"
+            android:minHeight="2dp"
+            android:progressDrawable="@drawable/mp_seek_bar_progress_style"
+            android:thumb="@drawable/mp_ic_seek_bar_progress_btn"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mp_play_time_start"
+            android:textColor="#80FFFFFF"
+            android:textSize="10sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/mp_iv_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/mp_play_mode_level_list"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/mp_iv_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/mp_iv_play"
+            android:src="@drawable/mp_play_btn_prev_selector"
+            android:visibility="gone" />
+
+
+        <ImageView
+            android:id="@+id/mp_iv_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/mp_play_btn_play_pause_selector" />
+
+        <ImageView
+            android:id="@+id/mp_iv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/mp_iv_play"
+            android:src="@drawable/mp_play_btn_next_selector"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

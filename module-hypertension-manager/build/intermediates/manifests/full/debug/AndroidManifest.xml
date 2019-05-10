@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_hypertension_manager"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="27" />
+
+    <application>
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.plan.FoodMaterialDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.plan.SportPlanDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.plan.TreatmentPlanActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.BasicInformationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.DetecteTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.HasDiseaseOrNotActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.HypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.HypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.IsEmptyStomachOrNotActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.NormalHightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.NormalHighTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.OriginHypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.PressureFlatTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.PressureNornalTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.PrimaryHypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.ChineseMedicineMonitorActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.MonitorResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.HealthManagementResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.OlderHealthManagementSerciveActivity"
+            android:screenOrientation="landscape" />
+    </application>
+
+</manifest>

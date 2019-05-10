@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="841pt"
+        android:layout_height="770pt"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_fragment_notice_bg" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100pt"
+        android:orientation="vertical"
+        android:paddingLeft="59pt">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.是否有以下症状? (1/4)"
+            android:textColor="#333333"
+            android:textSize="64pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:text="(可多选，选择“无”后自动跳转到下一页)"
+            android:id="@+id/tv_tip_content"
+            android:layout_width="1200pt"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36pt"
+            android:textColor="#ff999999"
+            android:textSize="56pt" />
+
+        <GridView
+            android:id="@+id/grid_view"
+            android:layout_width="1360pt"
+            android:layout_height="match_parent"
+            android:layout_marginTop="72pt"
+            android:columnWidth="432pt"
+            android:numColumns="3"
+            android:stretchMode="spacingWidth"
+            android:verticalSpacing="48pt" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_button"
+        android:layout_width="320pt"
+        android:layout_height="100pt"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="100pt"
+        android:layout_marginLeft="59pt"
+        android:background="@drawable/bg_notice_btn"
+        android:gravity="center"
+        android:paddingBottom="22pt"
+        android:paddingLeft="38pt"
+        android:paddingRight="38pt"
+        android:paddingTop="22pt"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="48pt" />
+
+</RelativeLayout>

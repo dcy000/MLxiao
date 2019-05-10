@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ws_txt_gray66_medium"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:gravity="center_vertical"
+    android:drawableLeft="@mipmap/ws_ic_search_gray"
+    android:drawableRight="@mipmap/ws_arrow_right_gray_heavy"
+    android:drawablePadding="12dp"
+    android:background="@drawable/ws_item_selector_white_to_graycc"
+    android:singleLine="true"
+    android:ellipsize="end"/>

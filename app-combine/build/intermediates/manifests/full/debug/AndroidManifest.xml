@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.han.referralproject"
+    android:versionCode="1"
+    android:versionName="Robot-Combine.1.0.0.1.beta" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="27" />
+
+    <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
+    <permission
+        android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
+        android:protectionLevel="signature" />
+    <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
+    <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 读取网络信息状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <!-- 蓝牙 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- 网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 录音 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 访问网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 访问WIFI状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 访问精确定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 读取手机状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入外部存储 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取外部存储 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 安装卸载文件系统 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 修改音频设置 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 读取启动设置 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <!-- 唤醒锁屏，音视频通话所需 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 开机自启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 悬浮窗权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 声明云信后台服务 -->
+    <service
+        android:name="com.netease.nimlib.service.NimService"
+        android:process=":core" /> <!-- 运行后台辅助服务 -->
+    <service
+        android:name="com.netease.nimlib.service.NimService$Aux"
+        android:process=":core" /> <!-- 声明云信后台辅助服务 -->
+    <service
+        android:name="com.netease.nimlib.job.NIMJobService"
+        android:exported="true"
+        android:permission="android.permission.BIND_JOB_SERVICE"
+        android:process=":core" /> <!-- 云信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录 -->
+    <receiver
+        android:name="com.netease.nimlib.service.NimReceiver"
+        android:exported="false"
+        android:process=":core" >
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+        </intent-filter>
+    </receiver> <!-- 云信进程间通信receiver -->
+    <receiver android:name="com.netease.nimlib.service.ResponseReceiver" /> <!-- 云信进程间通信service -->
+    <service android:name="com.netease.nimlib.service.ResponseService" />
+
+    <permission
+        android:name="com.example.han.referralproject.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" /> <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.example.han.referralproject.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+
+    <application
+        android:name="com.gcml.common.App"
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="健康管家"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.gcml.version"
+            android:value="gcml_version_combine" />
+
+        <activity
+            android:name="com.example.han.referralproject.WelcomeActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:theme="@style/WelcomeTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.ToolsActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.RecreationMainActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.BaikeActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.BaikeResultActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.CalculationActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.CookBookActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.CookBookResultActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.DateInquireActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.DateInquireResultActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.HistoryTodayActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.JieMengActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.JieMengRetultActivity" />
+        <activity android:name="com.zhang.hui.lib_recreation.tool.activtiy.RiddleActivit" />
+        <activity android:name="com.zhang.hui.lib_recreation.navigation.RecreationEntranceActivity" />
+
+        <service android:name="com.gcml.health.measure.ecg.ReceiveService" />
+
+        <activity
+            android:name="com.gcml.health.measure.single_measure.AllMeasureActivity"
+            android:label="测量页面的容器Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity"
+            android:label="单侧选择测量仪器界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.ecg.ECGConnectActivity"
+            android:label="新店蓝牙连接动画界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity"
+            android:label="展示单测血压结果分析界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity"
+            android:label="新的首诊容器Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.health_report_form.HealthReportFormActivity"
+            android:label="首诊结果报表"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.health_inquiry.HealthInquiryActivity"
+            android:label="健康调查"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.health_report_form.HealthReportFormDetailActivity"
+            android:label="结果分析详情页"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.hypertension_management.BloodpressureManagerActivity"
+            android:label="慢病管理中的血压测量"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.hypertension_management.BloodsugarManagerActivity"
+            android:label="慢病管理中的血糖测量"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.hypertension_management.WeightManagerActivity"
+            android:label="慢病管理中的体重测量"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.demo.DemoGoodDetailActivity"
+            android:label="演示推荐商品的页面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity"
+            android:label="惯用手"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity"
+            android:label="测量异常后确定原因的界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.test.TestWuhuaqiActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name="com.gcml.auth.ui.AuthActivity" />
+        <activity android:name="com.gcml.auth.ui.signin.SignInActivity" />
+        <activity android:name="com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity" />
+        <activity android:name="com.gcml.auth.ui.signup.SignUpActivity" />
+        <activity android:name="com.gcml.auth.ui.signup.SignUpByIdCardActivity" />
+        <activity android:name="com.gcml.auth.ui.signup.UserProtocolActivity" />
+        <activity android:name="com.gcml.auth.ui.findpassword.FindPasswordActivity" />
+        <activity android:name="com.gcml.auth.ui.findpassword.FindPasswordByIdCardActivity" />
+        <activity android:name="com.gcml.auth.ui.findpassword.SetPasswordActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.SimpleProfileActivity" />
+        <activity android:name="com.gcml.auth.ui.mine.PersonDetailActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.Profile2Activity" />
+        <activity android:name="com.gcml.auth.ui.profile.ProfileInfoActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertNameActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertAgeActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertSexActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertHeightActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertWeightActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertBloodTypeActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertAddressActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertIDCardActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertSportActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertSmokeActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertEatingActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertDrinkingActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertMHActivity" /> <!-- <activity android:name=".ui.FaceSignUpActivity" /> -->
+        <!-- <activity android:name=".ui.FaceSignInActivity" /> -->
+        <activity android:name="com.gcml.auth.face2.ui.FaceBdSignUpActivity" />
+        <activity android:name="com.gcml.auth.face2.ui.FaceBdSignInActivity" />
+        <activity
+            android:name="com.gcml.task.ui.TaskActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.gcml.task.ui.TaskComplyChoiceActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.gcml.task.ui.TaskComplyResultActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.gcml.task.ui.TaskComplyActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.gcml.task.ui.TaskDialyActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.gcml.task.ui.TaskDialyContactActivity"
+            android:launchMode="singleTask" />
+
+        <meta-data
+            android:name="com.gcml.task.TaskApplication"
+            android:value="AppLifecycleCallbacks" />
+
+        <activity
+            android:name="com.gcml.mall.ui.MallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.gcml.mall.ui.RechargeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.gcml.mall.ui.RechargeDefineActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.gcml.mall.ui.RechargeQrcodeActivity"
+            android:launchMode="singleTask" />
+        <activity android:name="com.gcml.mall.ui.GoodsDetailActivity" />
+        <activity
+            android:name="com.gcml.old.MarketActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.SearchGoodsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.GoodDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mall.ui.OrderListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.OrderListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.DefineActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.PayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.PayInfoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.QRCodeAliPayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.pay.QRCodeWXPayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.service_package.ServicePackageActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.service_package.ServicePackageDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_video.measure.MeasureVideoPlayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_video.normal.NormalVideoPlayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_video.video.DemoVideoListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_video.video.VideoListActivity"
+            android:screenOrientation="landscape" />
+
+        <service
+            android:name="com.sinocare.bluetoothle.SN_BluetoothLeService"
+            android:enabled="true" >
+            <meta-data
+                android:name="AccessKey"
+                android:value="ak692c5e54836146d0b5c76cdb8886ae61" />
+            <meta-data
+                android:name="SecretKey"
+                android:value="saksvhflsjxywxu" />
+        </service> <!-- 同乐达手环 -->
+        <service
+            android:name="com.yc.pedometer.sdk.BluetoothLeService"
+            android:enabled="true" />
+        <service android:name="com.realsil.android.blehub.dfu.DfuService" />
+
+        <meta-data
+            android:name="YCAPPKEY"
+            android:value="f0b520cdb42c7103f6683977793ae81c" />
+
+        <activity
+            android:name="com.gcml.module_factory_test.ui.CameraActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_factory_test.ui.FactoryTestActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_factory_test.ui.ScreenPointActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_factory_test.ui.ScreenTouchActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_factory_test.ui.NormalVideoPlayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.plan.FoodMaterialDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.plan.SportPlanDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.plan.TreatmentPlanActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.BasicInformationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.DetecteTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.HasDiseaseOrNotActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.HypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.HypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.IsEmptyStomachOrNotActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.NormalHightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.NormalHighTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.OriginHypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.PressureFlatTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.PressureNornalTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.PrimaryHypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.ui.SlowDiseaseManagementTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.ChineseMedicineMonitorActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.MonitorResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.HealthManagementResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_hypertension_manager.zhongyi.OlderHealthManagementSerciveActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduBrainTeaserActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduCartoonActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduEntertainmentActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduHomeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduJokesActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduPoemListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduPoemDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduSheetDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduSheetListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduStoriesActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduStories2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduStudyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduWhyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_edu_child.ui.ChildEduWordsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.AboutActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.CameraActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.CustomKeyWordsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.KeyWordEditActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.KeyWordEdit2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.ScreenPointActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.ScreenTouchActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.SetKeyWordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.SetKeyWord2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.SettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.VoicerSettingDemoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.ui.VoiceSettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.wifi.WifiConnectActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.robot.SpeechSynthesisActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_control_volume.wifi.WifiDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.ml.edu.old.TheOldHomeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.ml.edu.old.music.TheOldMusicActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.ml.edu.RadioActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_health_record.ShowPDFActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.CheckContractActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.ConfirmContractActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.DiseaseDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.DoctorappoActivity2"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.DoctorAskGuideActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.DoctorMesActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.MessageActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.OfflineActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.OnlineDoctorListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_doctor_advisory.ui.RecoDocActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.alarm.AlarmList2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.alarm.AlarmDetail2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.alarm.ReminderActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.alarm.DoctorAlarmActivity"
+            android:screenOrientation="landscape" />
+
+        <service
+            android:name="com.gcml.alarm.AlarmService"
+            android:enabled="true" />
+
+        <receiver android:name="com.gcml.alarm.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="com.medlink.intent.Alarm" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.gcml.call.NimCallActivity" />
+        <activity
+            android:name="com.gcml.call.CallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
+        </activity>
+
+        <meta-data
+            android:name="com.netease.nim.appKey"
+            android:value="a114ad1e5d86c2d3fa83d2a15bbc29cc" /> <!-- 声明网易云通信后台服务，如需保持后台推送，使用独立进程效果会更好。 -->
+        <service
+            android:name="com.netease.nimlib.service.NimService"
+            android:process=":core" /> <!-- 运行后台辅助服务 -->
+        <service
+            android:name="com.netease.nimlib.service.NimService$Aux"
+            android:process=":core" /> <!-- 声明网易云通信后台辅助服务 -->
+        <service
+            android:name="com.netease.nimlib.job.NIMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":core" />
+        <!--
+             网易云通信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
+            保持和 NimService 同一进程
+        -->
+        <receiver
+            android:name="com.netease.nimlib.service.NimReceiver"
+            android:exported="false"
+            android:process=":core" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver> <!-- 网易云通信进程间通信 Receiver -->
+        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" /> <!-- 网易云通信进程间通信service -->
+        <service android:name="com.netease.nimlib.service.ResponseService" />
+
+        <receiver android:name="com.gcml.call.CallInComingReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.example.han.referralproject.new_music.MusicPlayActivity"
+            android:screenOrientation="landscape" />
+
+        <service android:name="com.example.han.referralproject.new_music.MusicService" />
+
+        <meta-data
+            android:name="com.gcml.common.CommonApp"
+            android:value="AppLifecycleCallbacks" />
+        <meta-data
+            android:name="com.gcml.common.CommonRepositoryConfig"
+            android:value="RepositoryConfig" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="MDMGtSWAjuIlCSQE7lkYbAHzKos6PNIG" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" /> <!-- User defined.  For test only  用户自定义的广播接收器 -->
+        <receiver
+            android:name="com.gcml.common.jipush.JiPushReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.example.han.referralproject" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
+            android:enabled="false"
+            android:process=":leakcanary" />
+        <service
+            android:name="com.squareup.leakcanary.DisplayLeakService"
+            android:enabled="false"
+            android:process=":leakcanary" />
+
+        <activity
+            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
+            android:enabled="false"
+            android:icon="@drawable/leak_canary_icon"
+            android:label="@string/leak_canary_display_activity_label"
+            android:process=":leakcanary"
+            android:taskAffinity="com.squareup.leakcanary.com.example.han.referralproject"
+            android:theme="@style/leak_canary_LeakCanary.Base" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.squareup.leakcanary.internal.RequestStoragePermissionActivity"
+            android:enabled="false"
+            android:excludeFromRecents="true"
+            android:icon="@drawable/leak_canary_icon"
+            android:label="@string/leak_canary_storage_permission_activity_label"
+            android:process=":leakcanary"
+            android:taskAffinity="com.squareup.leakcanary.com.example.han.referralproject"
+            android:theme="@style/leak_canary_Theme.Transparent" />
+        <activity
+            android:name="com.github.moduth.blockcanary.ui.DisplayActivity"
+            android:enabled="false"
+            android:icon="@drawable/block_canary_icon"
+            android:label="@string/block_canary_display_activity_label"
+            android:taskAffinity="com.github.moduth.blockcanary"
+            android:theme="@style/block_canary_BlockCanary.Base" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="tech.linjiang.pandora.ui.Dispatcher"
+            android:theme="@style/PdTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="tech.linjiang.pandora.ui.TransActivity"
+            android:theme="@style/PdTheme.Trans" />
+
+        <provider
+            android:name="tech.linjiang.pandora.PdFileProvider"
+            android:authorities="com.example.han.referralproject.pdFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path" />
+        </provider>
+        <provider
+            android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"
+            android:authorities="com.example.han.referralproject.lifecycle-trojan"
+            android:exported="false"
+            android:multiprocess="true" />
+
+        <activity
+            android:name="com.yhao.floatwindow.FloatActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="standard"
+            android:theme="@style/permission_PermissionActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PayPalProfileSharingActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.ProfileSharingConsentActivity" />
+
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" /> <!-- Rich push 核心功能 since 2.0.6 -->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle" /> <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.example.han.referralproject" />
+            </intent-filter>
+        </activity> <!-- Required SDK 核心功能 -->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":pushcore" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service> <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.example.han.referralproject" />
+            </intent-filter>
+        </service> <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
+                <category android:name="com.example.han.referralproject" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver> <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" /> <!-- since 3.0.9 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="com.example.han.referralproject.DataProvider"
+            android:exported="false" /> <!-- since 3.1.0 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DownloadProvider"
+            android:authorities="com.example.han.referralproject.DownloadProvider"
+            android:exported="true" /> <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="81695cca09ae6e2afffe15f4" />
+
+        <service android:name="com.inuker.bluetooth.library.BluetoothService" />
+        <service
+            android:name="com.vtrump.vtble.VTBluetoothLeService"
+            android:enabled="true" />
+
+        <activity
+            android:name="com.witspring.unitbody.ChooseMemberActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.AddMemberActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.BodyActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.BodyPartActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.InquiryActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.InquiryRecordsActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.InquiryDetailActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitbody.SearchActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitdisease.DiseaseActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="com.witspring.unitdisease.MedicineDetailActivity"
+            android:theme="@style/WSAppTheme" />
+        <activity
+            android:name="io.card.payment.CardIOActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="io.card.payment.DataEntryActivity" />
+    </application>
+
+</manifest>

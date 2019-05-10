@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                       
+                                                   
+
+    
+
+                 
+                            
+                                                                  
+
+                 
+                            
+                                                                   
+           
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.profile.ProfileInfoActivity" android:tag="layout/auth_activity_profile_info_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+        <com.gcml.common.widget.toolbar.TranslucentToolBar
+            android:id="@+id/tb_profile_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="32pt">
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_basic_info"
+                    android:layout_width="608pt"
+                    android:layout_height="1320pt"
+                    android:background="@color/config_color_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="300pt"
+                        android:layout_height="300pt"
+                        android:layout_marginTop="50pt"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/placeholder" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_name"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:layout_marginTop="30pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_avatar">
+
+                        <TextView
+                            android:id="@+id/tv_title_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="姓名"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_name"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_name"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_age"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_name">
+
+                        <TextView
+                            android:id="@+id/tv_title_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="年龄"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_age"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_age"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_sex"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_age">
+
+                        <TextView
+                            android:id="@+id/tv_title_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="性别"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_sex"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_sex"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_height"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_sex">
+
+                        <TextView
+                            android:id="@+id/tv_title_height"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="身高"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_height"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_height"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_height"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_weight"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_height">
+
+                        <TextView
+                            android:id="@+id/tv_title_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="体重"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_weight"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_weight"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_blood"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_weight">
+
+                        <TextView
+                            android:id="@+id/tv_title_blood"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="血型"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_blood"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_blood"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_blood"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_wc"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_blood">
+
+                        <TextView
+                            android:id="@+id/tv_title_wc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="腰围"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_wc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_wc"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_wc"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_other_info"
+                    android:layout_width="0dp"
+                    android:layout_height="700pt"
+                    android:layout_marginLeft="32pt"
+                    android:background="@color/config_color_white"
+                    app:layout_constraintLeft_toRightOf="@+id/cl_basic_info"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_other_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="44pt"
+                        android:layout_marginTop="50pt"
+                        android:text="身份信息"
+                        android:textColor="@color/config_color_base_3"
+                        android:textSize="58pt"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:layout_marginTop="30pt"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_other_info">
+
+                        <TextView
+                            android:id="@+id/tv_title_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="电话号码"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="60pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_phone"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_phone"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_id_card"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_phone">
+
+                        <TextView
+                            android:id="@+id/tv_title_id_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="身份证号"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_id_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_id_card"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_id_card"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_device_id"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_id_card">
+
+                        <TextView
+                            android:id="@+id/tv_title_device_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="仪器编号"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_device_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="60pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_device_id"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_device_id"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_address"
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_device_id">
+
+                        <TextView
+                            android:id="@+id/tv_title_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="详细地址"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="800pt"
+                            android:layout_marginRight="20pt"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:maxWidth="800pt"
+                            android:maxLines="1"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_address"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qssssssssssssssssssssssssssssssss" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_address"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_address">
+
+                        <TextView
+                            android:id="@+id/tv_item_title_device_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="设备编号"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_item_content_device_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="60pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="id" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_health_info"
+                    android:layout_width="0dp"
+                    android:layout_height="644pt"
+                    android:layout_marginLeft="32pt"
+                    android:layout_marginTop="32pt"
+                    android:background="@color/config_color_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/cl_basic_info"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_other_info">
+
+                    <TextView
+                        android:id="@+id/tv_health_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="44pt"
+                        android:layout_marginTop="40pt"
+                        android:text="健康状态"
+                        android:textColor="@color/config_color_base_3"
+                        android:textSize="58pt"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_sports"
+                        android:layout_width="0dp"
+                        android:layout_height="90pt"
+                        android:layout_marginTop="20pt"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_health_info">
+
+                        <TextView
+                            android:id="@+id/tv_title_sports"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="运动情况"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_sports"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_sports"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_sports"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_smoke"
+                        android:layout_width="0dp"
+                        android:layout_height="90pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_sports">
+
+                        <TextView
+                            android:id="@+id/tv_title_smoke"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="吸烟情况"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_smoke"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_smoke"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_smoke"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_eat"
+                        android:layout_width="0dp"
+                        android:layout_height="90pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_smoke">
+
+                        <TextView
+                            android:id="@+id/tv_title_eat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="饮食情况"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_eat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_eat"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_eat"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_drink"
+                        android:layout_width="0dp"
+                        android:layout_height="90pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_eat">
+
+                        <TextView
+                            android:id="@+id/tv_title_drink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="饮酒情况"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_drink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="800pt"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_drink"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_drink"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cl_item_desease"
+                        android:layout_width="0dp"
+                        android:layout_height="90pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_drink">
+
+                        <TextView
+                            android:id="@+id/tv_title_desease"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="病史"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_desease"
+                            android:layout_width="wrap_content"
+                            android:layout_height="800pt"
+                            android:layout_marginRight="20pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_indicator_desease"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="qs" />
+
+                        <ImageView
+                            android:id="@+id/iv_indicator_desease"
+                            android:layout_width="28pt"
+                            android:layout_height="56pt"
+                            android:layout_marginRight="44pt"
+                            android:src="@drawable/common_ic_nav_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
+    </LinearLayout>
+         

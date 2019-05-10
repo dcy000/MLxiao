@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_tool_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.gcml.common.widget.toolbar.TranslucentToolBar>
+
+    <ImageView
+        android:id="@+id/iv_jiemeng"
+        android:layout_width="198pt"
+        android:layout_height="198pt"
+        android:layout_marginStart="101pt"
+        android:layout_marginTop="88pt"
+        android:background="@drawable/jimeng_set"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_tool_title" />
+
+    <ImageView
+        android:id="@+id/iv_jinjintian"
+        android:layout_width="198pt"
+        android:layout_height="198pt"
+        android:layout_marginStart="106pt"
+        android:background="@drawable/lishi_jintian_set"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_jiemeng"
+        app:layout_constraintStart_toEndOf="@+id/iv_jiemeng"
+        app:layout_constraintTop_toTopOf="@+id/iv_jiemeng" />
+
+    <ImageView
+        android:id="@+id/iv_riqi_chaxun"
+        android:layout_width="198pt"
+        android:layout_height="198pt"
+        android:layout_marginStart="106pt"
+        android:background="@drawable/riqi_chaxun_set"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_jiemeng"
+        app:layout_constraintStart_toEndOf="@+id/iv_jinjintian"
+        app:layout_constraintTop_toTopOf="@+id/iv_jiemeng"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/iv_caipu"
+        android:layout_width="198pt"
+        android:layout_height="198pt"
+        android:layout_marginStart="106pt"
+        android:background="@drawable/caipu_set"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_jiemeng"
+        app:layout_constraintStart_toEndOf="@+id/iv_riqi_chaxun"
+        app:layout_constraintTop_toTopOf="@+id/iv_jiemeng"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/iv_jisuan"
+        android:layout_width="198pt"
+        android:layout_height="198pt"
+        android:layout_marginStart="106pt"
+        android:background="@drawable/jisuan_set"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_jiemeng"
+        app:layout_constraintStart_toEndOf="@+id/iv_baike"
+        app:layout_constraintTop_toTopOf="@+id/iv_jiemeng"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+
+        android:id="@+id/iv_baike"
+        android:layout_width="198pt"
+        android:layout_height="198pt"
+        android:layout_marginStart="106pt"
+        android:background="@drawable/baike_set"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_jiemeng"
+        app:layout_constraintStart_toEndOf="@+id/iv_caipu"
+        app:layout_constraintTop_toTopOf="@+id/iv_jiemeng"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_caimi"
+        android:layout_width="198pt"
+        android:layout_height="198pt"
+        android:layout_marginTop="56pt"
+        android:background="@drawable/caimi_set"
+        app:layout_constraintEnd_toEndOf="@+id/iv_jiemeng"
+        app:layout_constraintStart_toStartOf="@+id/iv_jiemeng"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32pt"
+        android:text="周公解梦"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_jiemeng"
+        app:layout_constraintStart_toStartOf="@+id/iv_jiemeng"
+        app:layout_constraintTop_toBottomOf="@+id/iv_jiemeng" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32pt"
+        android:text="猜谜"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_caimi"
+        app:layout_constraintStart_toStartOf="@+id/iv_caimi"
+        app:layout_constraintTop_toBottomOf="@+id/iv_caimi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32pt"
+        android:text="历史今天"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_jinjintian"
+        app:layout_constraintStart_toStartOf="@+id/iv_jinjintian"
+        app:layout_constraintTop_toBottomOf="@+id/iv_jiemeng" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32pt"
+        android:text="日期查询"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_riqi_chaxun"
+        app:layout_constraintStart_toStartOf="@+id/iv_riqi_chaxun"
+        app:layout_constraintTop_toBottomOf="@+id/iv_jiemeng" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32pt"
+        android:text="菜谱"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_caipu"
+        app:layout_constraintStart_toStartOf="@+id/iv_caipu"
+        app:layout_constraintTop_toBottomOf="@+id/iv_jiemeng" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32pt"
+        android:text="百科"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_baike"
+        app:layout_constraintStart_toStartOf="@+id/iv_baike"
+        app:layout_constraintTop_toBottomOf="@+id/iv_jiemeng" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32pt"
+        android:text="计算器"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_jisuan"
+        app:layout_constraintStart_toStartOf="@+id/iv_jisuan"
+        app:layout_constraintTop_toBottomOf="@+id/iv_jiemeng" />
+
+
+</android.support.constraint.ConstraintLayout>

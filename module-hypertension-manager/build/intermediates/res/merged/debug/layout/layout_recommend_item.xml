@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="628pt"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_good_item_set"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_good_image"
+        android:layout_width="406pt"
+        android:layout_height="406pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="61pt"
+        android:background="#999" />
+
+    <TextView
+        android:id="@+id/tv_good_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36pt"
+        android:layout_marginRight="36pt"
+        android:layout_marginTop="97pt"
+        android:text="仲景 降压片"
+        android:textColor="#ff333333"
+        android:textSize="48pt" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36pt"
+        android:layout_marginTop="30pt"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="#FF2D2D"
+            android:textSize="44pt" />
+
+        <TextView
+            android:id="@+id/tv_good_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="99999999.00"
+            android:textColor="#FF2D2D"
+            android:textSize="64pt" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

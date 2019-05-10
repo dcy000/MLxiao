@@ -1,0 +1,1566 @@
+[
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_good_item_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_good_item_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_task_unprogress.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_task_unprogress.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_ic_poems.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_ic_poems.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_phone_code_send.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_phone_code_send.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_rb_market_shape.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_rb_market_shape.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\sample_footer_loading.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\BaseRecyclerViewAdapterHelper-2.9.30.aar\\763333096ecef4c8a23bde5261a095d8\\res\\drawable\\sample_footer_loading.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_phone_1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_phone_1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_task_choice.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_task_choice.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_ic_wifi_state.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_ic_wifi_state.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\video_default_selector_play_state.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\video_default_selector_play_state.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_dialy_more_item.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_dialy_more_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_ic_wifi_blue_state.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_ic_wifi_blue_state.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\design_fab_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_phone.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_phone.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_all.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_all.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_btn_selector.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_btn_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_xuetang_result.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_xuetang_result.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_bg_refuse.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_bg_refuse.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_img_wifi.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\common_img_wifi.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_loop_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_loop_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_gengduo.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_gengduo.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_arrow_white_up_down.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_arrow_white_up_down.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_lower.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_lower.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_head_back.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_head_back.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\default_scroll_handle_left.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\android-pdf-viewer-3.1.0-beta.1.aar\\0cd6617aa7b7ebffba1ffda23372a8ae\\res\\drawable\\default_scroll_handle_left.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_tab_bg.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_tab_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_btn_3f86fc.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_btn_3f86fc.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_btn_selected.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_btn_selected.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_task_common.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_task_common.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\zhanghu_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\zhanghu_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_selector_inquiry_700_full.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_selector_inquiry_700_full.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay5.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay5.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_chongzhi.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_chongzhi.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_bg_hang_up.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_bg_hang_up.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\healthhistory_time_text.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\healthhistory_time_text.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_item_selector_white_to_graycc.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_item_selector_white_to_graycc.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_item_key_word_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_item_key_word_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\fade_xueya_gaoya.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\fade_xueya_gaoya.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_btn_selected_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_btn_selected_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_upper.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_upper.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_tag_comm_symptom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_tag_comm_symptom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\iv_yuyin_baike_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\iv_yuyin_baike_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\radio_last_sel.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\radio_last_sel.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_tag_search_item.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_tag_search_item.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_selector_tab_jbzd.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_selector_tab_jbzd.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pay2.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_pay2.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_round_white.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_round_white.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pay3.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_pay3.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_task_action2.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_task_action2.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_bg_event.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_bg_event.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\video_default_shape_replay.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\video_default_shape_replay.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_radio_indicator.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_radio_indicator.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_shuffle_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_shuffle_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\yule_new_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\yule_new_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_neck.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_neck.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_round_green.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_round_green.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_ic_brain_teaser.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_ic_brain_teaser.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_gray_round.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_gray_round.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_abdomen.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_abdomen.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_task_again.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_task_again.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay4.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay4.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\indicator_sel.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\indicator_sel.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_loading_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_loading_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_circle_avator.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_circle_avator.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\seekbar_look_like.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\packaged_res\\debug\\drawable\\seekbar_look_like.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_xuetang.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_xuetang.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\alert_right_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\alert_right_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_selector_disease_btn.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_selector_disease_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_yuyin_riqi_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\ic_yuyin_riqi_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_shape_btn_press.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_shape_btn_press.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\but_xyt_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\but_xyt_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_chest_woman.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_chest_woman.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_seek_bar_progress_style.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_seek_bar_progress_style.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_sugar_empty_stomach.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_sugar_empty_stomach.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay_11.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay_11.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_selector_btn_negative.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_selector_btn_negative.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_selector_tab_xgyw.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_selector_tab_xgyw.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shapes_pay2.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shapes_pay2.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_blue_dotted_line.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_blue_dotted_line.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\pd_shadow_131124.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\drawable\\pd_shadow_131124.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_sugar.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_sugar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_alert_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_alert_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bluetooth_btn_health_history_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-bluetooth\\build\\intermediates\\packaged_res\\debug\\drawable\\bluetooth_btn_health_history_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\auth_sign_in_bg_et.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\auth_sign_in_bg_et.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_dialy_more_content.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_dialy_more_content.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_tv_salty_preference.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_tv_salty_preference.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_selector_btn_health_program.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_selector_btn_health_program.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_item_key_word_click.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_item_key_word_click.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_bg_refuse_normal.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_bg_refuse_normal.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\jisuan_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\jisuan_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\video_selector_jump2next.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\video_selector_jump2next.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_weight.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_weight.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_stroke_gray_small_round.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_stroke_gray_small_round.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_yuyin_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\ic_yuyin_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_xindian.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_xindian.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_item_key_word.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_item_key_word.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\zhengzhuang_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\zhengzhuang_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_cancel_contract.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_cancel_contract.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_electrocardiogram.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_electrocardiogram.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_round_white_gray_stroke.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_round_white_gray_stroke.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_round_tag_comm_symptom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_round_tag_comm_symptom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\default_scroll_handle_bottom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\android-pdf-viewer-3.1.0-beta.1.aar\\0cd6617aa7b7ebffba1ffda23372a8ae\\res\\drawable\\default_scroll_handle_bottom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_home_ic_music.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_home_ic_music.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_selector_btn_blue.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_selector_btn_blue.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\riqi_chaxun_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\riqi_chaxun_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_abdomen_man.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_abdomen_man.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\pd_shape_btn_bg.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\drawable\\pd_shape_btn_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_radio_back.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_radio_back.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_btn_disable.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_btn_disable.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\xueya_diya.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\xueya_diya.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_bg_dream.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_bg_dream.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pay_5.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_pay_5.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\utils_wheel_bg.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\utils_wheel_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\toolbar_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\toolbar_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_home_music.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_home_music.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\button_shape.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\button_shape.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_prev_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_prev_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_tv_disease_unselected.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_tv_disease_unselected.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_shape_mount.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_shape_mount.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_selector_disease_btn.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_selector_disease_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_snahe.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_snahe.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_pressure.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_pressure.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_round_gray.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_round_gray.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_single_choice.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_single_choice.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\multiple_choice_item_bg.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\multiple_choice_item_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_stories_rb_tab.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_stories_rb_tab.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_play_pause_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_play_pause_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_rb_health_record4.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_rb_health_record4.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\volume_control_seekbar.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\packaged_res\\debug\\drawable\\volume_control_seekbar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\but_xsda_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\but_xsda_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_text_to_mall.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_text_to_mall.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_iv_show_next.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_iv_show_next.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\video_default_shape_next.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\video_default_shape_next.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_layer_gray_line_bottom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_layer_gray_line_bottom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_ic_close_camera.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_ic_close_camera.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_ic_hang_up.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_ic_hang_up.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_temperature.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_temperature.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_rb_health_record2.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_rb_health_record2.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_result.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_result.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\blue_dotted_line.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\blue_dotted_line.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_item_selete_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_item_selete_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\xueya_gao.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\xueya_gao.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\market_search_text_bg.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\market_search_text_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\iv_yuyin_caimi_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\iv_yuyin_caimi_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_butt_woman.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_butt_woman.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\sel_switch.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\sel_switch.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_tizhong.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_tizhong.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pay4.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_pay4.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\default_scroll_handle_top.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\android-pdf-viewer-3.1.0-beta.1.aar\\0cd6617aa7b7ebffba1ffda23372a8ae\\res\\drawable\\default_scroll_handle_top.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_layer_blue_line_bottom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_layer_blue_line_bottom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\video_selector_seekbar_thumb.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\video_selector_seekbar_thumb.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_shape_et_content.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_shape_et_content.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_bg_song.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_bg_song.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_chk_3f86fc_50.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_chk_3f86fc_50.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_factory_btn.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_factory_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shapes_pay_3.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shapes_pay_3.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\qianyue_doc_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\qianyue_doc_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_mode_level_list.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_mode_level_list.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_input_gray.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_input_gray.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_btn.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bluetooth_btn_unclick_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-bluetooth\\build\\intermediates\\packaged_res\\debug\\drawable\\bluetooth_btn_unclick_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_goods_mount.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_goods_mount.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_shape_tv_repeat.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_shape_tv_repeat.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_selector_tab_jbzl.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_selector_tab_jbzl.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\utils_toolbar_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\utils_toolbar_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_layer_gray_line_bottom_press.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_layer_gray_line_bottom_press.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_selector_gray_line_bottom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_selector_gray_line_bottom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\volume_control_circle.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\packaged_res\\debug\\drawable\\volume_control_circle.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\youjiao_wenyu_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\youjiao_wenyu_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_selector_txt_green_withe.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_selector_txt_green_withe.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay_5.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay_5.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_ic_poem_replay.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_ic_poem_replay.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_ic_stories.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_ic_stories.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_btn_back.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_btn_back.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_tab_white_bg.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_tab_white_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\utils_wheel_val_holo.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\utils_wheel_val_holo.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\alert_left_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\alert_left_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_health_record_btn_corner.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_health_record_btn_corner.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_back_man.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_back_man.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_three_in_one.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_three_in_one.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\youjiao_new_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\youjiao_new_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\alert_single_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\alert_single_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_item_organ_bg.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_item_organ_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_bg_refuse_pressed.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_bg_refuse_pressed.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_notice_btn.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_notice_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_selector_alarm_ignore.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_selector_alarm_ignore.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_ic_mute.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_ic_mute.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_buy.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_buy.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_et_search.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_et_search.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_blue_round.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_blue_round.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_ic_poem_next.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_ic_poem_next.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_selector_btn_go_forward.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_selector_btn_go_forward.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\tools_new_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\tools_new_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shezhi_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\shezhi_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\tooltip_frame_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\tooltip_frame_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\default_scroll_handle_right.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\android-pdf-viewer-3.1.0-beta.1.aar\\0cd6617aa7b7ebffba1ffda23372a8ae\\res\\drawable\\default_scroll_handle_right.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_btn_action_bg_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_btn_action_bg_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_multi_choice.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_multi_choice.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\lishi_jintian_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\lishi_jintian_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\video_default_style_video_player_video_seekbar.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\video_default_style_video_player_video_seekbar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_change_ecg_device.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-bluetooth\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_change_ecg_device.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_next_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_next_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_tv_salty_preference_selected.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_tv_salty_preference_selected.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\jianyi_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\jianyi_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_shape_tv_content.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_shape_tv_content.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_buy_1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_buy_1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\fade_red.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\fade_red.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_round_big_blue.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_round_big_blue.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_home_back.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_home_back.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\dingdan_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\dingdan_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_entertainment_ic_baby.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_entertainment_ic_baby.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_selector_btn_risk_assessment.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_selector_btn_risk_assessment.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_spinner.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_spinner.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_mount.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_mount.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\leak_canary_toast_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\drawable\\leak_canary_toast_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\utils_shape_round_white.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\utils_shape_round_white.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pay_3.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_pay_3.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\radiobutton_bottom_blue_line.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\radiobutton_bottom_blue_line.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_home_video.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_home_video.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_page_cover_top_line_shape.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_page_cover_top_line_shape.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_arrow_black_up_down.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_arrow_black_up_down.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_bg_receive_normal.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_bg_receive_normal.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_task_progress.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_task_progress.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_bg_btn.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_bg_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_bg_receive_pressed.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_bg_receive_pressed.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_item_selected.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_item_selected.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shapes_pay3.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shapes_pay3.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_next_btn.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_next_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_buy.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_buy.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_radio_pause_or_play.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_radio_pause_or_play.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_bg_dialog_brain_teaser_answer.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_bg_dialog_brain_teaser_answer.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_bg_receive.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_bg_receive.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_iv_show_answer.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_iv_show_answer.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_xueyang.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_xueyang.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pay.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_pay.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_one_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_one_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pay1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_pay1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_selector_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_selector_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_sugar_other_time.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_sugar_other_time.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_neck_back.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_neck_back.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay3.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay3.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\caimi_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\caimi_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_music_exit.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_music_exit.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\widget_shape_bg_clear_reset_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-widget\\build\\intermediates\\packaged_res\\debug\\drawable\\widget_shape_bg_clear_reset_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_play_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_play_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\face_anim.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\packaged_res\\debug\\drawable\\face_anim.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_seek_bar_volume_style.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_seek_bar_volume_style.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_head.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_head.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_page_cover_border_shape.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_page_cover_border_shape.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_back.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_back.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_video_family.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_video_family.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\xuetang_time.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\xuetang_time.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\fade_xueya_diya.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\fade_xueya_diya.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_genital.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_genital.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\indicator_unsel.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-hypertension-manager\\build\\intermediates\\packaged_res\\debug\\drawable\\indicator_unsel.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_transparent.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_transparent.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\caipu_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\caipu_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_btn_next.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_btn_next.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_task_action1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_task_action1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_selector.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bluetooth_celiang_shape.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-bluetooth\\build\\intermediates\\packaged_res\\debug\\drawable\\bluetooth_celiang_shape.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_entertainment_ic_lullaby.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_entertainment_ic_lullaby.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\tooltip_frame_light.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\tooltip_frame_light.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_yuyin_caipu_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\ic_yuyin_caipu_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_selector_btn_go_back.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_selector_btn_go_back.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_chest_man.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_chest_man.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_oxygen.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_oxygen.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_pickerview_btn.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\57e10034105fb81c9d3bfd1f78824b75\\res\\drawable\\selector_pickerview_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_home_ic_edu.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_home_ic_edu.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\baike_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\baike_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_btn_transparent.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_btn_transparent.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_clear_reset_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_clear_reset_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_popup_edit.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-factory-test\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_popup_edit.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_common_item_bg.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_common_item_bg.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_organ.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_organ.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_empty_data_btn.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_empty_data_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_button_recharge.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_button_recharge.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_btn_selector_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_btn_selector_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_selector_inquiry_432.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_selector_inquiry_432.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\mp_play_btn_pause_selector.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-music-player\\build\\intermediates\\packaged_res\\debug\\drawable\\mp_play_btn_pause_selector.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_btn_home.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_btn_home.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_xueya.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_xueya.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shapes_pay1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shapes_pay1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_selector_tv_add_alarm.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_selector_tv_add_alarm.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_sugar_two_hours.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_sugar_two_hours.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay_1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay_1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_record_toolbar_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\health_record_toolbar_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_rb_health_record1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_rb_health_record1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\white_radius.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\white_radius.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\md_item_selected_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.5.0.aar\\f9dfabacea10191c19a1ba5550a547ab\\res\\drawable\\md_item_selected_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_selector_device_sel.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_selector_device_sel.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_pay2.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_pay2.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_home_radio.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_home_radio.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_code.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_code.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\jiankang_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\jiankang_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\call_ic_switch_camera.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable\\call_ic_switch_camera.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_home_iv_item_indicator.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_home_iv_item_indicator.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_phone.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_phone.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\pd_shape_btn_bg_related.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\drawable\\pd_shape_btn_bg_related.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_btn_86b2ff.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_btn_86b2ff.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\pd_divider_horizontal.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\drawable\\pd_divider_horizontal.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\qhzh_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\qhzh_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bluetooth_btn_video_demo_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-bluetooth\\build\\intermediates\\packaged_res\\debug\\drawable\\bluetooth_btn_video_demo_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_text_bg_tiwen.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_text_bg_tiwen.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\laorenyule_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\laorenyule_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_phone_1.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\selector_phone_1.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_task_action3.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-task\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_task_action3.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\tool_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\tool_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_tv_disease_selected.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_tv_disease_selected.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shapes_pay4.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\shapes_pay4.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_round_btn.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_round_btn.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_iv_voice.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_iv_voice.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\jimeng_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-recreation\\build\\intermediates\\packaged_res\\debug\\drawable\\jimeng_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_rb_health_record3.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_rb_health_record3.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\sample_footer_loading_progress.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\BaseRecyclerViewAdapterHelper-2.9.30.aar\\763333096ecef4c8a23bde5261a095d8\\res\\drawable\\sample_footer_loading_progress.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_btn_choose.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_btn_choose.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_study_ic_words.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_study_ic_words.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\radio_next_sel.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\radio_next_sel.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_music_favorite.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_music_favorite.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_shape_btn_unpress.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_shape_btn_unpress.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_welcome.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\src\\main\\res\\drawable\\bg_welcome.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wifi_button_blue_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\packaged_res\\debug\\drawable\\wifi_button_blue_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ws_round_gray_stroke.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\libbase-release.aar\\15dadf5a4af771bce43c9e401d7468e7\\res\\drawable\\ws_round_gray_stroke.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_selector_alarm_eat.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-alarm\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_selector_alarm_eat.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_ic_more.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_ic_more.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsdise_selector_tab_info.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitdisease-release.aar\\faff7881851e6f225b87fdc9efae7edc\\res\\drawable\\wsdise_selector_tab_info.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_home_ic_video.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_home_ic_video.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_round_tag_comm_symptom_checked.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_round_tag_comm_symptom_checked.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_rb_history_record.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_rb_history_record.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_health_record_detail.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\shape_health_record_detail.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\pd_shadow_23354.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\drawable\\pd_shadow_23354.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\old_ic_music_home.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu\\build\\intermediates\\packaged_res\\debug\\drawable\\old_ic_music_home.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\fade_tiwen.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-record\\build\\intermediates\\packaged_res\\debug\\drawable\\fade_tiwen.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_diary_indicator_ruler.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_diary_indicator_ruler.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_rb_market_menu.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_rb_market_menu.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\celiang_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-auth\\build\\intermediates\\packaged_res\\debug\\drawable\\celiang_set.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_doctor_tag.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_doctor_tag.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_entertainment_ic_jokes.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_entertainment_ic_jokes.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_entertainment_ic_child.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_entertainment_ic_child.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_mall_base.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-mall\\build\\intermediates\\packaged_res\\debug\\drawable\\btn_mall_base.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\ce_poem_details_tv_read_again.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-edu-child\\build\\intermediates\\packaged_res\\debug\\drawable\\ce_poem_details_tv_read_again.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\common_bg_menu_setting.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\common_bg_menu_setting.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\bluetooth_bg_measure_corner.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-bluetooth\\build\\intermediates\\packaged_res\\debug\\drawable\\bluetooth_bg_measure_corner.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\wsbody_selector_body_part_butt_man.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\unitbody-release.aar\\4023f4af67145581c2970827ad4074e9\\res\\drawable\\wsbody_selector_body_part_butt_man.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\health_measure_selector_inquiry_432_full.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-health-measure\\build\\intermediates\\packaged_res\\debug\\drawable\\health_measure_selector_inquiry_432_full.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\drawable\\online_doc_set.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\packaged_res\\debug\\drawable\\online_doc_set.xml"
+    }
+]

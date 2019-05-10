@@ -1,0 +1,582 @@
+[
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_separator.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\utils_dialog_image.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\utils_dialog_image.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_tooltip.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_tooltip.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_display_leak.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\layout\\leak_canary_display_leak.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_layout_tab_text.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_layout_entrance.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_layout_entrance.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_trans_toolbar.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_trans_toolbar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_key_value.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_key_value.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\item_message.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\item_message.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_view_name.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_view_name.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\auth_activity_alert_name.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\auth_activity_alert_name.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_no_data_view.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_no_data_view.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\include_sign_up_tab.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\include_sign_up_tab.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_item_disease.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_item_disease.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_check_contract.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_check_contract.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\utils_dialog_sure_false.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\utils_dialog_sure_false.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_message.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_message.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_navigation_item.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\include_pickerview_topbar.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\57e10034105fb81c9d3bfd1f78824b75\\res\\layout\\include_pickerview_topbar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\view_no_data.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\view_no_data.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\dialog_tip_signed_succeed.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\dialog_tip_signed_succeed.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_icon_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_icon_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_layout_view_panel.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_layout_view_panel.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_good_for_name.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\fragment_good_for_name.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\auth_activity_confirm_contract.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\auth_activity_confirm_contract.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\block_canary_ref_row.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\436bc8351917dbde4f1dc85bbfcc5967\\res\\layout\\block_canary_ref_row.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_item_spinner.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_item_spinner.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\jpush_popwin_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\jpush-3.1.1.aar\\b0c2ace3a3025241714b21e63763425d\\res\\layout\\jpush_popwin_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\include_sign_up_contract_appbar.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\include_sign_up_contract_appbar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_ref_top_row.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\layout\\leak_canary_ref_top_row.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_rencommend_for_single.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\fragment_rencommend_for_single.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_health_history_empty_data.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_health_history_empty_data.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar_include.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_leak_row.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\layout\\leak_canary_leak_row.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_doctorappo2.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_doctorappo2.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\cube_ptr_simple_loading.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\ultra-ptr-1.0.11.aar\\34fecd0b56734204fb476dc0b5d447c9\\res\\layout\\cube_ptr_simple_loading.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_item_eat.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_item_eat.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_option.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_option.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_checkbox.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_checkbox.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_round_corner_progress_bar.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-widget\\build\\intermediates\\packaged_res\\debug\\layout\\layout_round_corner_progress_bar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_common.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_common.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_net.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_net.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_ref_row.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\layout\\leak_canary_ref_row.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\utils_dialog_sure.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\utils_dialog_sure.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_include_sign_up_nav.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_include_sign_up_nav.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_text_input_password_icon.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_text_input_password_icon.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\item_wheel.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\lib-wheelrecyclerview.aar\\287b56b833c6bd1feee8359d7b760033\\res\\layout\\item_wheel.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_offline.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_offline.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_title.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_title.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_menu_item_action_area.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\cube_ptr_classic_default_header.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\ultra-ptr-1.0.11.aar\\34fecd0b56734204fb476dc0b5d447c9\\res\\layout\\cube_ptr_classic_default_header.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_reco_doc.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_reco_doc.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_popup_friend.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_popup_friend.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\expand_text_view.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\expand_text_view.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_rencommend_market.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\fragment_rencommend_market.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\water_fall_item.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\water_fall_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_online_doctor_list.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_online_doctor_list.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_rencommend_risk.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\fragment_rencommend_risk.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\quick_view_load_more.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\BaseRecyclerViewAdapterHelper-2.9.30.aar\\763333096ecef4c8a23bde5261a095d8\\res\\layout\\quick_view_load_more.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_header.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_navigation_item_header.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_navigation_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\block_canary_display_leak.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\436bc8351917dbde4f1dc85bbfcc5967\\res\\layout\\block_canary_display_leak.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_layout_ui_inspect.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_layout_ui_inspect.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\item_account_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\item_account_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_recommend_market_item.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_recommend_market_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_table_cell.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_table_cell.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_custom_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_custom_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\utils_title_layout.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\utils_title_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_alert_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_alert_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_item_spinner_layout.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_item_spinner_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_account_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_account_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pickerview_time.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\57e10034105fb81c9d3bfd1f78824b75\\res\\layout\\pickerview_time.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_doctor_mes.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_doctor_mes.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\widget_fllow_up_times_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-widget\\build\\intermediates\\packaged_res\\debug\\layout\\widget_fllow_up_times_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_doctor_ask_guide2.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_doctor_ask_guide2.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_loading_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_loading_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_sheet_dialog.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\utils_dialog_year_month_day.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\utils_dialog_year_month_day.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pickerview_options.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\57e10034105fb81c9d3bfd1f78824b75\\res\\layout\\pickerview_options.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\block_canary_block_row.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\436bc8351917dbde4f1dc85bbfcc5967\\res\\layout\\block_canary_block_row.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_item_select.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_item_select.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_jpush_popwin.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_jpush_popwin.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_rencommend.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\fragment_rencommend.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\leak_canary_heap_dump_toast.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\layout\\leak_canary_heap_dump_toast.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\pd_item_hierachy.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\pandora-v1.2.1.aar\\c68db805c58dad274603137a3fd9b6b3\\res\\layout\\pd_item_hierachy.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_doctor_ask_guide.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_doctor_ask_guide.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\activity_disease_details.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\layout\\activity_disease_details.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_icon.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_sheet_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_sheet_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_recommend_item.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_recommend_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_empty_data.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_empty_data.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_input_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\layout_input_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_title_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_text_round_corner_progress_bar.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-widget\\build\\intermediates\\packaged_res\\debug\\layout\\layout_text_round_corner_progress_bar.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\block_canary_ref_top_row.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\436bc8351917dbde4f1dc85bbfcc5967\\res\\layout\\block_canary_ref_top_row.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\c39946ff597f8353624e9ca73708acaf\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\layout\\design_navigation_menu.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\common_sms_vertification_dialog.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\layout\\common_sms_vertification_dialog.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\jpush_webview_layout.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\jpush-3.1.1.aar\\b0c2ace3a3025241714b21e63763425d\\res\\layout\\jpush_webview_layout.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\layout\\layout_basepickerview.xml",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\57e10034105fb81c9d3bfd1f78824b75\\res\\layout\\layout_basepickerview.xml"
+    }
+]

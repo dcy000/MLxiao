@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--会先匹配前面的匹配成功之后 后面的就不会匹配了-->
+    <item android:state_pressed="true" android:state_selected="true">
+
+        <shape android:shape="rectangle">
+            <!--圆角-->
+            <corners android:radius="6pt" />
+            <!--填充颜色-->
+            <solid android:color="#ffbdd6fc" />
+        </shape>
+
+    </item>
+    <item android:state_pressed="false" android:state_selected="true">
+
+        <shape android:shape="rectangle">
+            <!--圆角-->
+            <corners android:radius="6pt" />
+            <!--填充颜色-->
+            <solid android:color="#ff3f86fc" />
+        </shape>
+
+    </item>
+    <item android:state_selected="true">
+
+        <shape android:shape="rectangle">
+            <!--圆角-->
+            <corners android:radius="6pt" />
+            <!--填充颜色-->
+            <solid android:color="#ff3f86fc" />
+        </shape>
+
+    </item>
+    <item android:state_selected="false">
+
+        <shape android:shape="rectangle">
+            <!--圆角-->
+            <corners android:radius="6pt" />
+            <!--填充颜色-->
+            <solid android:color="#ffbdd6fc" />
+        </shape>
+
+    </item>
+
+
+</selector>

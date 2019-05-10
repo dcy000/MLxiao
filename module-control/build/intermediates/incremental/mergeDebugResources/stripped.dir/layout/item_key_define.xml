@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_delete"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/shape_item_key_word"
+        android:gravity="center"
+        android:text="血压"
+        android:textColor="#ff333333"
+        android:textSize="28sp" />
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item  android:state_checked="true">
+        <shape>
+            <size android:width="16pt" android:height="56pt" />
+            <solid android:color="@color/market_toolbar_bg" />
+        </shape>
+    </item>
+
+    <item android:state_checked="false">
+        <shape>
+            <size android:width="16pt" android:height="56pt" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+
+</selector>

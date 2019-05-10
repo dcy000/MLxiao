@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ws_white"
+    tools:context="com.witspring.unitbody.InquiryDetailActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/ws_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ws_white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@drawable/ws_round_gray_stroke"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/ws_txt_gray66_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="问诊编号：" />
+                    <TextView
+                        android:id="@+id/tvNo"
+                        style="@style/ws_txt_main_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="123456" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/ws_txt_gray66_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="性别" />
+
+                    <TextView
+                        android:id="@+id/tvSex"
+                        style="@style/ws_txt_main_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ws_layer_gray_line_bottom"
+                        android:layout_marginLeft="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="64dp"
+                        android:paddingRight="64dp"
+                        android:text="男" />
+                    <TextView
+                        style="@style/ws_txt_gray66_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="88dp"
+                        android:text="年龄" />
+
+                    <TextView
+                        android:id="@+id/tvAge"
+                        style="@style/ws_txt_main_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ws_layer_gray_line_bottom"
+                        android:layout_marginLeft="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="64dp"
+                        android:paddingRight="64dp"
+                        android:text="26岁" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    style="@style/ws_txt_gray66_large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="2018/01/15"
+                    android:layout_gravity="right"/>
+            </LinearLayout>
+
+            <TextView
+                style="@style/ws_txt_black_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/ws_layer_gray_line_bottom"
+                android:paddingBottom="4dp"
+                android:textStyle="bold"
+                android:text="主诉："/>
+
+            <TextView
+                android:id="@+id/tvSymptom"
+                style="@style/ws_txt_main_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingMultiplier="1.2"/>
+
+            <TextView
+                style="@style/ws_txt_black_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ws_layer_gray_line_bottom"
+                android:layout_marginTop="16dp"
+                android:paddingBottom="4dp"
+                android:textStyle="bold"
+                android:text="可能患的疾病："/>
+
+            <LinearLayout
+                android:id="@+id/llDisease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

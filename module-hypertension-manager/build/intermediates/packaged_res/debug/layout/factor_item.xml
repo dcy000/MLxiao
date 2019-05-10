@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <View
+        android:layout_width="32pt"
+        android:layout_height="32pt"
+        android:background="#3F86FC"/>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="阻塞性睡眠呼吸暂 停低通气综合征"
+        android:textColor="#333"
+        android:textSize="56pt"
+        android:textStyle="bold"
+        android:layout_marginLeft="24pt"/>
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\tips_wendu.mp4",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\raw\\tips_wendu.mp4"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\tips_xueya.mp4",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\raw\\tips_xueya.mp4"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\call_peer_reject.mp3",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\raw\\call_peer_reject.mp3"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\call_no_response.mp3",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\raw\\call_no_response.mp3"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\tips_xueyang.mp4",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\raw\\tips_xueyang.mp4"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\tips_sanheyi.mp4",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\raw\\tips_sanheyi.mp4"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\tips_xuetang.mp4",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\raw\\tips_xuetang.mp4"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\tips_xindian.mp4",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\raw\\tips_xindian.mp4"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\call_peer_busy.mp3",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\raw\\call_peer_busy.mp3"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\call_connecting.mp3",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\raw\\call_connecting.mp3"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\app-combine\\build\\intermediates\\res\\merged\\debug\\raw\\call_ring.mp3",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\raw\\call_ring.mp3"
+    }
+]

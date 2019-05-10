@@ -1,0 +1,578 @@
+[
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_icon_back.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_icon_back.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_star_half_black_36dp.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_star_half_black_36dp.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\leak_canary_icon.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\drawable-xhdpi-v4\\leak_canary_icon.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_3.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_3.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\img_qyys_click.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\img_qyys_click.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_back_pressed.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_back_pressed.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_never_smoke.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_never_smoke.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\img_zxys_click.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\img_zxys_click.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_img_wifi_2.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_img_wifi_2.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\doc_zaixian.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\doc_zaixian.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_icon_back_pressed.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_icon_back_pressed.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\image_dialog_enter_main.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\image_dialog_enter_main.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\decorate_right.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\decorate_right.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\iv_yuyin_baike.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\iv_yuyin_baike.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\utils_icon_back.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\utils_icon_back.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_img_wifi_1.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_img_wifi_1.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_star_activated.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\ic_star_activated.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_search.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\ic_search.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\alert_left_pressed.9.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\alert_left_pressed.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_sometimes_drink.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_sometimes_drink.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_back.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_back.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_light.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_wifi_blue_state_1.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_wifi_blue_state_1.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_back.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_back.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_search_good.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_search_good.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\alert_right_pressed.9.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\alert_right_pressed.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_few_times_per_week_sports.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_few_times_per_week_sports.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_nav_right.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_nav_right.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_forward.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_forward.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\icon_notify_error.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\icon_notify_error.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\doc_qianyue.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\doc_qianyue.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\design_ic_visibility.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable-xhdpi-v4\\design_ic_visibility.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\placeholder.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\placeholder.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\indicator_right.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\indicator_right.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_star_black_36dp.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_meat_collocation.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_meat_collocation.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\leak_canary_notification.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\1e797aa5ebef9adbcecc5a8501bd1588\\res\\drawable-xhdpi-v4\\leak_canary_notification.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_wifi_blue_state_2.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_wifi_blue_state_2.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_shadow.9.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_shadow.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_greasy_preference.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_greasy_preference.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\offine_doctor.jpg",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\offine_doctor.jpg"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_everyday_sports.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_everyday_sports.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_clear.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_clear.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_update_profile.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_update_profile.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\widget_progress_img.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-widget\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\widget_progress_img.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_switch_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_more.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_more.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_always_smoke.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_always_smoke.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_img_wifi_3.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_img_wifi_3.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_img_wifi_0.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_img_wifi_0.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_2.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_2.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\icon_notify_done.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\icon_notify_done.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_never_drink.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_never_drink.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_longpressed_holo.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\qianyue_call_family.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\qianyue_call_family.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_salty_preference.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_salty_preference.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\alert_trans_normal.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\alert_trans_normal.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\white_wifi_1.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\white_wifi_1.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_always_drink.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_always_drink.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_star_black_48dp.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_star_black_48dp.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_video_family.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\ic_video_family.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\avatar_placeholder.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\avatar_placeholder.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_pressed_holo_light.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_pressed_holo_dark.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\icon_notify_info.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\icon_notify_info.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\block_canary_icon.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\436bc8351917dbde4f1dc85bbfcc5967\\res\\drawable-xhdpi-v4\\block_canary_icon.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_yuyin_baike_click.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\ic_yuyin_baike_click.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_star_half_black_16dp.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\bg_tab3_contract_doctor.jpg",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\bg_tab3_contract_doctor.jpg"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_text_select_handle_left_mtrl_light.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_text_select_handle_left_mtrl_light.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\white_wifi_error.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\white_wifi_error.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_text_select_handle_right_mtrl_light.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_text_select_handle_right_mtrl_light.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\utils_transparent_bg.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\utils_transparent_bg.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_text_select_handle_middle_mtrl_dark.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_text_select_handle_middle_mtrl_dark.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_015.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ptr_rotate_arrow.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\ultra-ptr-1.0.11.aar\\34fecd0b56734204fb476dc0b5d447c9\\res\\drawable-xhdpi-v4\\ptr_rotate_arrow.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\img_recommend_no_data.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\img_recommend_no_data.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_text_select_handle_left_mtrl_dark.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_text_select_handle_left_mtrl_dark.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_icon_home.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_icon_home.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_list_focused_holo.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_popup_background_mtrl_mult.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_popup_background_mtrl_mult.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_star_half_black_48dp.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_star_half_black_48dp.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\icon_empty_data_illustration.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\icon_empty_data_illustration.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\white_wifi_3.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\white_wifi_3.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\block_canary_notification.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\436bc8351917dbde4f1dc85bbfcc5967\\res\\drawable-xhdpi-v4\\block_canary_notification.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_1.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_1.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\design_ic_visibility_off.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\c90a2e69f7ccf8781f87797103029ec1\\res\\drawable-xhdpi-v4\\design_ic_visibility_off.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_spinner_normal.9.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_spinner_normal.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_star_black_16dp.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_000.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_never_sports.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_never_sports.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_sometimes_sports.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_sometimes_sports.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_disconnected.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_wifi_state_disconnected.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_sweet_preference.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_sweet_preference.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_text_select_handle_middle_mtrl_light.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_text_select_handle_middle_mtrl_light.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\alert_single_pressed.9.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\alert_single_pressed.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_wifi_blue_state_3.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_wifi_blue_state_3.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\bg_shadow.9.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\bg_shadow.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\white_wifi_2.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\white_wifi_2.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\bg_singed_succeed.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\bg_singed_succeed.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_vegetarian_preference.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_vegetarian_preference.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_forward_pressed.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_btn_go_forward_pressed.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_robot.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_robot.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_arrow_down_light_round.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\ic_arrow_down_light_round.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\decorate_left.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\decorate_left.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\normal_bg.jpg",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\normal_bg.jpg"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_bg_spinner_pressed.9.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_bg_spinner_pressed.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_sometimes_smoke.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_sometimes_smoke.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\utils_icon_home.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\utils_icon_home.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_icon_home_pressed.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_icon_home_pressed.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\cbb80e74b92f966b3b5f82070b476916\\res\\drawable-xhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_check_contract.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\src\\main\\res\\drawable-xhdpi\\ic_check_contract.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_ic_meat_preference.png",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable-xhdpi-v4\\common_ic_meat_preference.png"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-doctor-advisory\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\gcml-gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\fabd77925e25ea0fd207fe0c0578adab\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
+    }
+]

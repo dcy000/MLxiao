@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language_values_iat">
+        <item>mandarin</item>
+        <item>cantonese</item>
+        <!--<item>shandongnese</item>-->
+        <!--<item>shanxinese</item>-->
+        <!--<item>lmz</item>-->
+        <item>henanese</item>
+    </string-array>
+    <string-array name="languages">
+        <item>普通话</item>
+        <!--<item>粤语</item>-->
+        <!--<item>山东话</item>-->
+        <!--<item>陕西话</item>-->
+        <!--<item>四川话</item>-->
+        <item>河南话</item>
+    </string-array>
+    <string-array name="voicer_values">
+        <item>nannan</item>
+        <item>xiaoyan</item>
+        <item>xiaoyu</item>
+        <item>vixy</item>
+        <item>xiaoqi</item>
+        <item>vils</item>
+        <item>nannan</item>
+    </string-array>
+    <color name="colorAccent">#3F51B5</color>
+    <color name="colorBlue">#0000FF</color>
+    <color name="colorGreen">#00FF00</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorViolet">#8B00FF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorYellow">#FFFF00</color>
+    <declare-styleable name="FlowLayout"><attr format="dimension" name="width_space"/><attr format="dimension" name="height_space"/></declare-styleable>
+    <declare-styleable name="SignView"><attr format="color" name="lineColor"/><attr format="dimension" name="lineWidth"/></declare-styleable>
+    <dimen name="text_size_30">30sp</dimen>
+    <string name="add_volume">调大声音</string>
+    <string name="max_volume">当前已经是最大声音了</string>
+    <string name="min_volume">当前已经是最小声音了</string>
+    <string name="reduce_volume">调小声音</string>
+    <string name="speak_1">我没听清，你能再说一遍吗</string>
+    <string name="speak_10">虽然我不知道你在说什么，但是你还是会爱我的吧</string>
+    <string name="speak_2">这个我得回去问问老师再回答你</string>
+    <string name="speak_3">你说的好复杂啊，都把我绕晕了</string>
+    <string name="speak_4">这个问题好难啊，等我升级了再来回答你</string>
+    <string name="speak_5">虽然我是机器人，但是也还有好多知识要学习呢</string>
+    <string name="speak_6">让我回去学习一下，下次再回答你</string>
+    <string name="speak_7">我的小脑袋都想的要短路了</string>
+    <string name="speak_8">这个问题太难了，我们还是聊点别的吧</string>
+    <string name="speak_9">我觉得我可能还是更擅长卖萌</string>
+    <string name="speak_null">我真的不知道了</string>
+    <string name="unable_to_play">暂时无法播放</string>
+    <string name="version_update_action_cancel">取消</string>
+    <string name="version_update_action_download">下载安装</string>
+    <string name="version_update_action_download_title">新版本下载...</string>
+    <string name="version_update_action_later">以后再说</string>
+    <string name="version_update_new_verion_message">检测到新版本，建议您更新！</string>
+    <string name="version_update_title">版本更新</string>
+    <string name="wifi_choose">选取网络</string>
+    <string name="wlan">WLAN</string>
+    <style name="jiaohu">
+        <item name="android:textColor">#b6b2b2</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">30dp</item>
+    </style>
+</resources>

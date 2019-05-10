@@ -12,6 +12,7 @@ import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
+import com.gcml.health.measure.utils.ChannelUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,12 +94,13 @@ public class HealthMeasureRepository {
      */
     public static Observable<List<DetectionResult>> postMeasureData(ArrayList<DetectionData> datas) {
         String userId = UserSpHelper.getUserId();
-        Timber.i("上传测量数据：userID="+userId);
-        return healthMeasureServer.postMeasureData(userId, datas).compose(RxUtils.apiResultTransformer());
+        Timber.i("上传测量数据：userID=" + userId);
+        return healthMeasureServer.postMeasureData(userId, ChannelUtils.getChannelMeta(), datas).compose(RxUtils.apiResultTransformer());
     }
 
     /**
      * 上传惯用手
+     *
      * @param hand
      * @return
      */
@@ -108,20 +110,22 @@ public class HealthMeasureRepository {
 
     /**
      * 获取周报告或者月报告
+     *
      * @param endTimeStamp
      * @param page
      * @return
      */
-    public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp,String page ){
-        return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(),endTimeStamp,page).compose(RxUtils.apiResultTransformer());
+    public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp, String page) {
+        return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(), endTimeStamp, page).compose(RxUtils.apiResultTransformer());
     }
 
     /**
      * 取消套餐
+     *
      * @param setmealId
      * @return
      */
-    public static Observable<Object> cancelServicePackage(String setmealId){
+    public static Observable<Object> cancelServicePackage(String setmealId) {
         return healthMeasureServer.cancelServicePackage(setmealId);
     }
 }

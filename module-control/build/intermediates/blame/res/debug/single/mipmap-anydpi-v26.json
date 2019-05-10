@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26\\ic_launcher.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-baidu-unit\\build\\intermediates\\packaged_res\\debug\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "G:\\AP\\hegui-yanshi\\MLxiao\\module-control\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26\\ic_launcher_round.xml",
+        "source": "G:\\AP\\hegui-yanshi\\MLxiao\\lib-baidu-unit\\build\\intermediates\\packaged_res\\debug\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    }
+]
