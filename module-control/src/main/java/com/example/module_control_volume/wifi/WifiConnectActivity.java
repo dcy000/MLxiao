@@ -30,6 +30,7 @@ import com.example.module_control_volume.R;
 import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -37,6 +38,10 @@ import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.widget.dialog.InputDialog;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.common.wifi.WifiUtils;
 import com.gcml.common.wifi.wifiConnect.ConnectionSuccessListener;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
@@ -151,6 +156,13 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                                 ((ImageView) helper.getView(R.id.item_iv_wifi_level)).setImageLevel(level);
                             }
                         });
+                helper.getView(R.id.wifi_detail).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Routerfit.register(AppRouter.class).skipWifiDetailActivity(item);
+                        showWifiDetailDialog(item);
+                    }
+                });
             }
         });
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -163,7 +175,6 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                 if (capabilities.contains("WPA2") || capabilities.contains("WPA-PSK") || capabilities.contains("WPA") || capabilities.contains("WEP")) {
                     checkWifiCache();
                 } else {
-
                     currentPassword = "";
                     showLoading(currentConnected ? "正在切换WiFi" : "正在连接WiFi");
                     resetConnectAndTimeCountDown();
@@ -172,6 +183,37 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
             }
         });
         getWifiData(mWifiManager.isWifiEnabled());
+    }
+
+    private void showWifiDetailDialog(ScanResult item) {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_wifi_detail_page)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.setText(R.id.title, item.SSID);
+                        holder.setText(R.id.wifi_level, item.level + "");
+                        String capabilities = item.capabilities;
+                        StringBuffer buffer = new StringBuffer(" ");
+                        if (capabilities.contains("WPA-PSK")) {
+                            buffer.append("WPA-PSK/");
+                        }
+                        if (capabilities.contains("WPA2-PSK")) {
+                            buffer.append("WPA2-PSK/");
+                        }
+                        holder.setText(R.id.wifi_capabilities, buffer.subSequence(0, buffer.length() - 1).toString());
+                        holder.getView(R.id.btn_foget_password).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                Handlers.bg().post(() -> RoomHelper.db(WifiDB.class, WifiDB.class.getName()).wifiDao().deleteByKey(item.BSSID));
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(400)
+                .show(getSupportFragmentManager());
     }
 
     private Disposable wifiTimeout;

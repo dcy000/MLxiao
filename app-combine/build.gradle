@@ -1,15 +1,13 @@
 ext.mainApp = true
-//ext.alwaysLib=true
 apply from: rootProject.file("build-base.gradle")
 apply plugin: 'com.dd.comgradle'
 
 android {
     defaultConfig {
         if (project.ext.runAsApp) {
-//            applicationId "com.example.han.referralproject.jgys"
             applicationId "com.example.han.referralproject"
-            versionCode = rootProject.ext.android["versionCode"]
-            versionName rootProject.ext.android["versionName"]
+            versionCode 1
+            versionName "Robot-Combine.1.0.0.1.beta"
         }
 
         manifestPlaceholders = [
@@ -44,7 +42,6 @@ android {
 }
 
 combuild {
-//    applicationName = 'com.example.han.referralproject.application.MyApplication'
     applicationName = 'com.gcml.common.App'
     isRegisterCompoAuto = true
 }
@@ -71,4 +68,3 @@ dependencies {
     addComponent 'module-alarm'
     addComponent 'lib-call'
 }
-

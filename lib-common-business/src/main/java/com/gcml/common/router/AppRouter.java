@@ -2,6 +2,7 @@ package com.gcml.common.router;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.net.wifi.ScanResult;
 
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.get.GoodsBean;
@@ -367,5 +368,8 @@ public interface AppRouter {
 
     @Go("/baidu/unit/ak/provider")
     IBaiduAKProvider getBaiduAKProvider();
+
+    @Go("/module/control/wifi/detail/activity")
+    boolean skipWifiDetailActivity(@Extra("wifi") ScanResult wifi);
 
 }

@@ -1,5 +1,6 @@
-include ':app',
-        ':module-doctor-advisory',
+include ':module-doctor-advisory',
+//        ':app',
+        ':app-combine',
         ':module-alarm',
         ':module-body-test',
         ':module-hypertension-manager',
@@ -34,7 +35,7 @@ include ':module-video',
         ':module-health-record',
         ':module-edu',
         ':module-recreation',
-        ':module-family' ,
+        ':module-family',
         ':module-auth-face2',
         ':module-factory-test'
 

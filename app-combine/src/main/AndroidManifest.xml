@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.han.referralproject"
-    tools:overrideLibrary="com.witspring.mlrobot"> <!-- 解决下面这些库最低支持版本大于统一配置的最低版本 -->
-    <uses-sdk tools:overrideLibrary="     tv.danmaku.ijk.media.player_arm64,     com.carlos.voiceline.mylibrary,     com.witspring.mlrobot,     com.megvii.faceppidcardui,     com.medlink.crash,     com.crazypumpkin.versatilerecyclerview.library,     com.linheimx.app.library,     com.vmloft.develop.library.tools,     com.example.fixedfloatwindow,     com.polidea.rxandroidble2,     com.carlos.voiceline.mylibrary,     com.gcml.lib_widget" />
+    package="com.example.han.referralproject">
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-
     <permission
         android:name="com.example.han.referralproject.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
@@ -17,11 +13,9 @@
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -77,33 +71,18 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-
-    <!-- Bugly -->
-    <!-- <uses-permission -->
-    <!-- android:name="android.permission.READ_LOGS" -->
-    <!-- tools:ignore="ProtectedPermissions" /> -->
     <application
         android:name="com.gcml.common.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="健康管家"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="icon,label">
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_henan" />
+            android:value="gcml_version_combine" />
 
 
         <activity
@@ -121,16 +100,5 @@
             </intent-filter>
         </activity>
 
-
-        <activity
-            android:name=".homepage.MainActivity"
-            android:label="20180730主页面"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tcm.SymptomCheckActivity"
-            android:screenOrientation="landscape" />
-
     </application>
-
 </manifest>

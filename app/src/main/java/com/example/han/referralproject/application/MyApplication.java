@@ -18,10 +18,13 @@ import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.network.AppRepository;
 import com.gcml.common.AppDelegate;
+import com.gcml.common.api.AppLifecycleCallbacks;
 import com.gcml.common.location.BdLocationHelper;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.ui.UiUtils;
+import com.google.auto.service.AutoService;
 import com.umeng.analytics.MobclickAgent;
 
 import java.text.SimpleDateFormat;
@@ -36,36 +39,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class MyApplication extends Application {
+@AutoService(AppLifecycleCallbacks.class)
+public class MyApplication implements AppLifecycleCallbacks {
     private static MyApplication mInstance;
 
     private String city;
     public MutableLiveData<String[]> timeData = new MutableLiveData<>();
     public MutableLiveData<HomepageWeatherBean> weatherData = new MutableLiveData<>();
     public BdLocationHelper bdLocation = new BdLocationHelper();
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-        AppDelegate.INSTANCE.attachBaseContext(this, base);
-    }
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        AppDelegate.INSTANCE.onTerminate(this);
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        AppDelegate.INSTANCE.onCreate(this);
-
-        mInstance = this;
-
-        syncWeatherAndTime();
-    }
 
     private void syncWeatherAndTime() {
         Observable.interval(0, 10, TimeUnit.SECONDS)
@@ -107,7 +88,7 @@ public class MyApplication extends Application {
 
     private void checkLocation() {
         if (TextUtils.isEmpty(city)) {
-            bdLocation.startLocation(this)
+            bdLocation.startLocation(AppDelegate.INSTANCE.app())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new io.reactivex.observers.DefaultObserver<BDLocation>() {
@@ -160,7 +141,24 @@ public class MyApplication extends Application {
                     }
                 });
     }
+
     public static MyApplication getInstance() {
         return mInstance;
+    }
+
+    @Override
+    public void attachBaseContext(Application app, Context base) {
+
+    }
+
+    @Override
+    public void onCreate(Application app) {
+        mInstance = this;
+        syncWeatherAndTime();
+    }
+
+    @Override
+    public void onTerminate(Application app) {
+
     }
 }

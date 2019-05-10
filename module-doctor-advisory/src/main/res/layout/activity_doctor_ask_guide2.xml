@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
-    tools:context="com.example.han.referralproject.com.gcml.module_doctor_advisory.ui.DoctorAskGuideActivity">
+    android:background="#f5f5f5">
 
     <LinearLayout
         android:id="@+id/ll_call_family"

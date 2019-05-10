@@ -17,4 +17,7 @@ public interface WifiDao {
 
     @Query("SELECT * FROM wificache")
     List<WifiEntity> getAllWifiCache();
+
+    @Query("DELETE FROM WifiCache WHERE `BSSID`=:bssid")
+    void deleteByKey(String bssid);
 }
