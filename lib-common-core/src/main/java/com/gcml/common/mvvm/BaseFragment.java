@@ -1,20 +1,21 @@
 package com.gcml.common.mvvm;
 
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gcml.common.LazyFragment;
+
 import java.lang.reflect.ParameterizedType;
 
-public abstract class BaseFragment<B extends ViewDataBinding, VM extends AndroidViewModel> extends Fragment {
+public abstract class BaseFragment<B extends ViewDataBinding, VM extends BaseViewModel>
+        extends LazyFragment {
 
     protected B binding;
 
@@ -27,13 +28,11 @@ public abstract class BaseFragment<B extends ViewDataBinding, VM extends Android
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
-        viewModel = provideViewModel();
-        binding.setVariable(variableId(), viewModel);
-        init(savedInstanceState);
+        viewModel = initViewModel();
         return binding.getRoot();
     }
 
-    protected VM provideViewModel() {
+    protected VM initViewModel() {
         Class<VM> vmClass = (Class<VM>) ((ParameterizedType) getClass().getGenericSuperclass())
                 .getActualTypeArguments()[1];
         return ViewModelProviders.of(this).get(vmClass);
@@ -41,8 +40,15 @@ public abstract class BaseFragment<B extends ViewDataBinding, VM extends Android
 
     protected abstract int layoutId();
 
-    protected abstract int variableId();
+    @Override
+    protected void onPageResume() {
+        super.onPageResume();
+        viewModel.onResume();
+    }
 
-    protected abstract void init(Bundle savedInstanceState);
-
+    @Override
+    protected void onPagePause() {
+        super.onPagePause();
+        viewModel.onPause();
+    }
 }

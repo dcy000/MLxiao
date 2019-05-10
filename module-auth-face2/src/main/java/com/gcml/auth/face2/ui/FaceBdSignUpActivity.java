@@ -6,12 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.gcml.auth.face2.BR;
 import com.gcml.auth.face2.R;
 import com.gcml.auth.face2.databinding.FaceActivityBdSignUpBinding;
 import com.gcml.auth.face2.model.FaceBdErrorUtils;
@@ -45,10 +45,12 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
+
 @Route(path = "/auth/face2/face/bd/signup/activity")
 public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBinding, FaceBdSignUpViewModel> {
-
     private String userId;
+    private PreviewHelper mPreviewHelper;
+    private Animation mAnimation;
 
     @Override
     protected int layoutId() {
@@ -56,18 +58,16 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
     }
 
     @Override
-    protected int variableId() {
-        return BR.viewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    private PreviewHelper mPreviewHelper;
-    private Animation mAnimation;
-
-    @Override
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
         userId = getIntent().getStringExtra("userId");
         binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);

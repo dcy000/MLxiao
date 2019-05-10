@@ -20,12 +20,10 @@ import android.widget.TextView;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.gcml.common.bus.RxBus;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.task.R;
 import com.gcml.task.bean.ChannelModel;
 import com.gcml.task.bean.ItemsModel;
 import com.gcml.task.event.MoreChannelEvent;
-import com.gcml.task.event.SelectChannelEvent;
 
 import java.util.ArrayList;
 import java.util.List;

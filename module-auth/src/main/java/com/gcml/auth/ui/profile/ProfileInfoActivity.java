@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -16,7 +17,6 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityProfileInfoBinding;
 import com.gcml.auth.ui.AuthActivity;
@@ -71,12 +71,14 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     @Override
-    protected int variableId() {
-        return BR.viewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    @Override
     protected void init(Bundle savedInstanceState) {
+        binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         binding.tbProfileInfo.setData("健 康 档 案", R.drawable.common_icon_back, "返回",
                 R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override

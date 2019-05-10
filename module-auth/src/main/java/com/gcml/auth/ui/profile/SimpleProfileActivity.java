@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySimpleProfileBinding;
 import com.gcml.common.data.UserEntity;
@@ -44,12 +43,6 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
         return R.layout.auth_activity_simple_profile;
     }
 
-    @Override
-    protected int variableId() {
-        return BR.viewModel;
-    }
-
-    @Override
     protected void init(Bundle savedInstanceState) {
         if (getIntent() != null) {
             signUpType = getIntent().getStringExtra("signUpType");
@@ -62,6 +55,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
         }
         callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         binding.tbSimpleProfile.setData(
                 "完 善 信 息（1／2）",
                 0, null,

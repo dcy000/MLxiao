@@ -3,6 +3,7 @@ package com.gcml.auth.ui.profile;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -10,7 +11,6 @@ import com.bigkoo.pickerview.listener.OnDismissListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityProfile2Binding;
 import com.gcml.common.data.UserEntity;
@@ -46,14 +46,15 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
     }
 
     @Override
-    protected int variableId() {
-        return BR.viewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    @Override
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         binding.tbSimpleProfile.setData(
                 "完 善 信 息（2／2）",
                 0, null,

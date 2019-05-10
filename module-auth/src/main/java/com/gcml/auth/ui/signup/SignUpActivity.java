@@ -3,10 +3,10 @@ package com.gcml.auth.ui.signup;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpBinding;
 import com.gcml.common.data.UserEntity;
@@ -42,13 +42,14 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     @Override
-    protected int variableId() {
-        return BR.viewModel;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
     }
 
-    @Override
     protected void init(Bundle savedInstanceState) {
         binding.setPresenter(this);
+        binding.setViewModel(viewModel);
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

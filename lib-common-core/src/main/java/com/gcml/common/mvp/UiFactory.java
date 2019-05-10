@@ -5,7 +5,7 @@ package com.gcml.common.mvp;
  */
 
 public interface UiFactory<V extends IView, P extends IPresenter> {
-    P providePresenter(V view);
+    P providePresenter();
 
     V provideView();
 }

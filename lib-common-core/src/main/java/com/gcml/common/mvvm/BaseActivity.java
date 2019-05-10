@@ -1,6 +1,5 @@
 package com.gcml.common.mvvm;
 
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -10,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.lang.reflect.ParameterizedType;
 
-public abstract class BaseActivity<B extends ViewDataBinding, VM extends AndroidViewModel>
+public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseViewModel>
         extends AppCompatActivity {
 
     protected B binding;
@@ -21,12 +20,10 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends Android
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, layoutId());
-        viewModel = provideViewModel();
-        binding.setVariable(variableId(), viewModel);
-        init(savedInstanceState);
+        viewModel = initViewModel();
     }
 
-    protected VM provideViewModel() {
+    protected VM initViewModel() {
         Class<VM> vmClass = (Class<VM>) ((ParameterizedType) getClass().getGenericSuperclass())
                 .getActualTypeArguments()[1];
         return ViewModelProviders.of(this).get(vmClass);
@@ -34,7 +31,15 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends Android
 
     protected abstract int layoutId();
 
-    protected abstract int variableId();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.onResume();
+    }
 
-    protected abstract void init(Bundle savedInstanceState);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        viewModel.onPause();
+    }
 }

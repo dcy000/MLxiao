@@ -1,8 +1,5 @@
 package com.gcml.auth.face2.ui;
 
-import android.app.Application;
-import android.support.annotation.NonNull;
-
 
 import com.gcml.auth.face2.model.FaceBdRepository;
 import com.gcml.auth.face2.model.entity.FaceBdUser;
@@ -15,10 +12,6 @@ import io.reactivex.ObservableTransformer;
 
 public class FaceBdMainViewModel extends BaseViewModel {
     private FaceBdRepository mFaceBdRepository = new FaceBdRepository();
-
-    public FaceBdMainViewModel(@NonNull Application application) {
-        super(application);
-    }
 
     public Observable<String> addFace(String image, String userId) {
         return mFaceBdRepository.addFace(image, userId, "");

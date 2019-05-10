@@ -1,12 +1,13 @@
 package com.gcml.common.bus;
 
+import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.Relay;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
 
 /**
  * Implementation of tagable EventBus powered by RxJava2
@@ -17,12 +18,12 @@ public class RxBus {
     private static volatile RxBus sDefault;
     private static final Map<String, RxBus> BUS_MAP = new ConcurrentHashMap<>();
 
-    private final Subject<Object> mRxEvent;
-    private final Map<Class<?>, Object> mStickyEventMap;
+    private final Relay<Object> relay;
+    private final Map<Class<?>, Object> stickyEventMap;
 
     public RxBus() {
-        mRxEvent = PublishSubject.create().toSerialized();
-        mStickyEventMap = new ConcurrentHashMap<>();
+        relay = PublishRelay.create().toSerialized();
+        stickyEventMap = new ConcurrentHashMap<>();
     }
 
     /**
@@ -57,7 +58,7 @@ public class RxBus {
         return rxBus;
     }
 
-    public static <T> BusObserver<T> consumer(Consumer<? super T> onNext) {
+    public static <T> BusObserver<T> consumer(Consumer<T> onNext) {
         return new BusObserver<>(onNext);
     }
 
@@ -69,7 +70,7 @@ public class RxBus {
      * @return Test Normal Event
      */
     public <T> Observable<T> on(Class<T> eventType) {
-        return mRxEvent.ofType(eventType);
+        return relay.ofType(eventType);
     }
 
     /**
@@ -80,7 +81,7 @@ public class RxBus {
      * @return Test Sticky Event to subscribe
      */
     public <T> Observable<T> onSticky(final Class<T> eventType) {
-        Observable<T> rxEvent = mRxEvent.ofType(eventType);
+        Observable<T> rxEvent = relay.ofType(eventType);
         T stickyEvent = stickyEvent(eventType);
         return stickyEvent == null
                 ? rxEvent
@@ -95,8 +96,8 @@ public class RxBus {
      * @return Obtained sticky Event
      */
     public <T> T stickyEvent(Class<T> eventType) {
-        synchronized (mStickyEventMap) {
-            return eventType.cast(mStickyEventMap.get(eventType));
+        synchronized (stickyEventMap) {
+            return eventType.cast(stickyEventMap.get(eventType));
         }
     }
 
@@ -106,7 +107,7 @@ public class RxBus {
      * @param event Normal Event to post
      */
     public void post(Object event) {
-        mRxEvent.onNext(event);
+        relay.accept(event);
     }
 
     /**
@@ -125,8 +126,8 @@ public class RxBus {
      * @param stickyEvent the Sticky Event instance
      */
     private void cacheStickyEvent(Object stickyEvent) {
-        synchronized (mStickyEventMap) {
-            mStickyEventMap.put(stickyEvent.getClass(), stickyEvent);
+        synchronized (stickyEventMap) {
+            stickyEventMap.put(stickyEvent.getClass(), stickyEvent);
         }
     }
 
@@ -136,7 +137,7 @@ public class RxBus {
      * @return Does has Observers in RxBus
      */
     public boolean hasObservers() {
-        return mRxEvent.hasObservers();
+        return relay.hasObservers();
     }
 
     /**
@@ -148,8 +149,8 @@ public class RxBus {
      * @return removed Sticky Event
      */
     public <T> T removeStickyEvent(Class<T> eventType) {
-        synchronized (mStickyEventMap) {
-            return eventType.cast(mStickyEventMap.remove(eventType));
+        synchronized (stickyEventMap) {
+            return eventType.cast(stickyEventMap.remove(eventType));
         }
     }
 
@@ -157,8 +158,8 @@ public class RxBus {
      * remove All Sticky Events in RxBus
      */
     public void removeAllStickyEvents() {
-        synchronized (mStickyEventMap) {
-            mStickyEventMap.clear();
+        synchronized (stickyEventMap) {
+            stickyEventMap.clear();
         }
     }
 
