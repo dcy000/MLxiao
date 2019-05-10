@@ -13,6 +13,7 @@ ext {
 
             seniverse     : "\"https://api.seniverse.com/v3/\"", // 心知天气 baseUrl
             baidubce      : "\"https://aip.baidubce.com/\"",
+            zenduan       : "\"http://third2.deepmega.net/\"",
 
             localtest     : "\"http://192.168.191.1:8080/\"",//成都演示本地服务器
             heguiXunfei   : "\"http://47.96.98.60:8030/\"",//合规版讯飞人脸识别

@@ -19,6 +19,7 @@ public class BuildRetrofitImpl implements BuildRetrofit {
     public void buildRetrofit(Context context, Retrofit.Builder builder) {
         RetrofitUrlManager.getInstance().putDomain("seniverse", BuildConfig.API_SENIVERSE);
         RetrofitUrlManager.getInstance().putDomain("baidubce", BuildConfig.API_BAIDUBCE);
+        RetrofitUrlManager.getInstance().putDomain("zenduan", BuildConfig.API_ZENDUAN);
         builder.baseUrl(BuildConfig.SERVER_ADDRESS)
                 .client(OkHttpClientHelper.get())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

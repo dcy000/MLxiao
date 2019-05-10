@@ -45,6 +45,7 @@ android {
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
+            buildConfigField("String", "API_ZENDUAN", rootProject.ext.api.zenduan)
             minifyEnabled false
         }
 
@@ -53,6 +54,7 @@ android {
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
+            buildConfigField("String", "API_ZENDUAN", rootProject.ext.api.zenduan)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

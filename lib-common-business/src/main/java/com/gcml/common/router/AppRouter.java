@@ -372,4 +372,7 @@ public interface AppRouter {
     @Go("/module/control/wifi/detail/activity")
     boolean skipWifiDetailActivity(@Extra("wifi") ScanResult wifi);
 
+    @Go("/module/yzn/zenduan/activity")
+    boolean skipZenDuanActivity();
+
 }

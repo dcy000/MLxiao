@@ -7,7 +7,7 @@ include ':module-doctor-advisory',
         ':module-edu-child',
         ':lib-common-business',
         ':lib-common-core',
-        ':lib-bluetooth'
+        ':lib-bluetooth', ':module-yzn'
 
 // 支持模块
 include ':lib-baidu-unit',
