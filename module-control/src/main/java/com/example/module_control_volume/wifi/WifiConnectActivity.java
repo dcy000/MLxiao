@@ -30,20 +30,18 @@ import com.example.module_control_volume.R;
 import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.widget.dialog.InputDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
 import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
+import com.gcml.common.wifi.AutoNetworkUtils;
 import com.gcml.common.wifi.WifiUtils;
-import com.gcml.common.wifi.wifiConnect.ConnectionSuccessListener;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
@@ -86,11 +84,17 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_connect_layout);
 
+        AutoNetworkUtils.showWifiDisconnectedPage = false;
+
         bindView();
         bindData();
         setAdapter();
     }
 
+    @Override
+    protected void backMainActivity() {
+
+    }
 
     private void bindView() {
         mConnectedLayout = findViewById(R.id.rl_connected);
@@ -465,6 +469,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
 
     @Override
     protected void onDestroy() {
+        AutoNetworkUtils.showWifiDisconnectedPage = true;
         super.onDestroy();
         unregisterReceiver(mNetworkReceiver);
     }

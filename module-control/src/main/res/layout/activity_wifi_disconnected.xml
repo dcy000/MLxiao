@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".wifi.WifiDisconnectedActivity">
+
+    <ImageView
+        android:id="@+id/ivTips"
+        android:layout_width="680pt"
+        android:layout_height="524pt"
+        android:layout_marginTop="67pt"
+        android:src="@drawable/ic_network_not_connected"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="网络连接似乎断开了"
+        android:textColor="#666666"
+        android:textSize="44pt"
+        android:layout_marginTop="54pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivTips" />
+
+    <TextView
+        android:id="@+id/tvWifi"
+        android:layout_width="420pt"
+        android:layout_height="120pt"
+        android:layout_marginBottom="100pt"
+        android:background="@drawable/wifi_button_blue_set"
+        android:gravity="center"
+        android:text="重新连接网络"
+        android:textColor="#FFFFFF"
+        android:textSize="54pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
