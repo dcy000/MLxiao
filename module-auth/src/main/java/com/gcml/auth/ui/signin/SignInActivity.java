@@ -121,8 +121,8 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void signIn() {
-        if ("123456".equals(binding.etPhone.getText().toString())
-                && "654321".equals(binding.etPassword.getText().toString())) {
+        if ("666666".equals(binding.etPhone.getText().toString())
+                && "160721".equals(binding.etPassword.getText().toString())) {
             CC.obtainBuilder("com.gcml.old.system.factoryTest")
                     .build()
                     .callAsync();

@@ -1,6 +1,5 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;

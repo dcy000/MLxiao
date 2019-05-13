@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_margin="12dp">
+
+    <TextView
+        android:id="@+id/tv_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="WIFI检测"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/tv_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="蓝牙检测"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/tv_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="相机检测"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/tv_micro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="麦克风检测"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/tv_screen_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="屏幕坏点检测"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/tv_screen_touch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="屏幕触摸检测"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/tv_screen_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="视频播放检测"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+    <TextView
+        android:id="@+id/tv_system_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="恢复出厂设置"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:clickable="true"/>
+
+</LinearLayout>

@@ -189,5 +189,9 @@ dependencies {
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
         exclude group: 'org.json', module: 'json'
     }
+
+    //调试工具Pandora
+    debugImplementation rootProject.ext.dependencies["pandora-debug"]
+    releaseImplementation rootProject.ext.dependencies["pandora-release"]
 }
 

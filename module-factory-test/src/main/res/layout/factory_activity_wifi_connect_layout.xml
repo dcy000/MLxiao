@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F5F5"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="30dp"
+        android:background="@color/config_color_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="WLAN"
+            android:textColor="#3f85ff"
+            android:textSize="34sp" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/switch_wifi"
+            android:layout_width="68dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            app:sb_checked_color="#00CD79"
+            app:sb_show_indicator="false"
+            app:sb_uncheck_color="#C4C6C8"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_connected"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:background="@color/config_color_white">
+
+        <TextView
+            android:id="@+id/tv_connect_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#333"
+            android:textSize="30sp"
+            android:text=""/>
+
+        <ImageView
+            android:id="@+id/iv_connect_levle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/common_img_wifi" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="选取网络"
+        android:textColor="#5d5d5d"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/config_color_white"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp" />
+
+</LinearLayout>
