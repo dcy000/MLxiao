@@ -39,8 +39,14 @@ public class BloodOxygenPresenter extends BaseBluetooth {
     DetectionData detectionData = new DetectionData();
 
     public BloodOxygenPresenter(IBluetoothView owner) {
+        this(owner, true);
+    }
+
+    public BloodOxygenPresenter(IBluetoothView owner, boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery) {
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override

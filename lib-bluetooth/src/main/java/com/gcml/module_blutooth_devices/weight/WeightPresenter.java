@@ -30,8 +30,14 @@ public class WeightPresenter extends BaseBluetooth {
     DetectionData detectionData = new DetectionData();
 
     public WeightPresenter(IBluetoothView owner) {
+        this(owner, true);
+    }
+
+    public WeightPresenter(IBluetoothView owner, boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery) {
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override

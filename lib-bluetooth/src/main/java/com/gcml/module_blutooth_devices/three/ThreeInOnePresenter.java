@@ -16,10 +16,15 @@ public class ThreeInOnePresenter extends BaseBluetooth {
     private static final String SELF_SERVICE = "00001808-0000-1000-8000-00805f9b34fb";//主服务
     private static final String SELF_NOTIFY = "00002a18-0000-1000-8000-00805f9b34fb";
     DetectionData detectionData = new DetectionData();
-
     public ThreeInOnePresenter(IBluetoothView owner) {
+        this(owner,true);
+    }
+
+    public ThreeInOnePresenter(IBluetoothView owner,boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery){
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override

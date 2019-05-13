@@ -52,8 +52,14 @@ public class BloodPressurePresenter extends BaseBluetooth {
     DetectionData detectionData = new DetectionData();
 
     public BloodPressurePresenter(IBluetoothView owner) {
+        this(owner, true);
+    }
+
+    public BloodPressurePresenter(IBluetoothView owner, boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery) {
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override

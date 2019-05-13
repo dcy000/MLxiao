@@ -21,8 +21,14 @@ public class BloodSugarPresenter extends BaseBluetooth {
     DetectionData detectionData = new DetectionData();
 
     public BloodSugarPresenter(IBluetoothView owner) {
+        this(owner, true);
+    }
+
+    public BloodSugarPresenter(IBluetoothView owner, boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery) {
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override

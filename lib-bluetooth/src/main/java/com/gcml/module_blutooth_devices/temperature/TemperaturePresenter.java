@@ -26,10 +26,14 @@ public class TemperaturePresenter extends BaseBluetooth {
     private static final String SELF_SERVICE = "00001910-0000-1000-8000-00805f9b34fb";
     private static final String SELF_NOTIFY = "0000fff2-0000-1000-8000-00805f9b34fb";
     DetectionData detectionData = new DetectionData();
-
     public TemperaturePresenter(IBluetoothView owner) {
+        this(owner,true);
+    }
+    public TemperaturePresenter(IBluetoothView owner,boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery){
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override
