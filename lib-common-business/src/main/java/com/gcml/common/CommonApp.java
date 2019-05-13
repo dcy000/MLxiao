@@ -4,9 +4,13 @@ import android.app.Application;
 import android.content.Context;
 
 import com.gcml.common.api.AppLifecycleCallbacks;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.JPushMessageHelper;
 import com.gcml.common.utils.UM;
+
 import com.gcml.common.utils.ui.UiUtils;
+import com.gcml.common.wifi.AutoNetworkUtils;
 import com.google.auto.service.AutoService;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -14,6 +18,7 @@ import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.schedulers.Schedulers;
 
 @AutoService(AppLifecycleCallbacks.class)
 public class CommonApp implements AppLifecycleCallbacks {
@@ -61,6 +66,19 @@ public class CommonApp implements AppLifecycleCallbacks {
         // 路由 ARetrofit
         Routerfit.init(app);
         // end 路由 ARetrofit
+
+        if (AutoNetworkUtils.inMainProcess(app)) {
+            AutoNetworkUtils.rxNetworkConnectionState(app)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new DefaultObserver<String>() {
+                        @Override
+                        public void onNext(String s) {
+                            if (AutoNetworkUtils.showWifiDisconnectedPage && "network_none".equals(s)) {
+                                Routerfit.register(AppRouter.class).skipWifiDisconnectedActivity();
+                            }
+                        }
+                    });
+        }
     }
 
     @Override

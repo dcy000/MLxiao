@@ -52,6 +52,9 @@ public interface AppRouter {
     @Go("/app/activity/wifi/connect")
     boolean skipWifiConnectActivity(@Extra("is_first_wifi") boolean isFirstWifi);
 
+    @Go("/app/activity/wifi/disconnected")
+    boolean skipWifiDisconnectedActivity();
+
     @Go("/health/measure/choose/device")
     boolean skipMeasureChooseDeviceActivity(
             @Extra("isFaceSkip") boolean isFaceSkip

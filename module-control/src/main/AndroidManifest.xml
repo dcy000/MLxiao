@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.module_control_volume">
 
@@ -5,6 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application>
+        <activity
+            android:name=".wifi.WifiDisconnectedActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="landscape" />
@@ -51,4 +56,5 @@
             android:name=".wifi.WifiDetailActivity"
             android:screenOrientation="landscape" />
     </application>
+
 </manifest>
