@@ -624,7 +624,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
     }
 
     private void showLessThan3Dialog(String notice) {
-        if (!isAdded()){
+        if (!isAdded()) {
             return;
         }
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
