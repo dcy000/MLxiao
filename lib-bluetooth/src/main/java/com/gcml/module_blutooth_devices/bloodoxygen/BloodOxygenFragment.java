@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class BloodOxygenFragment extends BluetoothBaseFragment implements View.OnClickListener {
     protected TextView mBtnHealthHistory;
@@ -54,15 +58,16 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
     }
 
     @Override
-    public void updateData(String... datas) {
-        if (datas.length == 3) {
+    public void updateData(DetectionData detectionData) {
+        if (detectionData == null) return;
+        if (detectionData.isInit()) {
             mTvResult.setText("0");
             isMeasureFinishedOfThisTime = false;
-        } else if (datas.length == 2) {
-            mTvResult.setText(datas[0]);
-            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
+        } else {
+            mTvResult.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getBloodOxygen()));
+            if (!isMeasureFinishedOfThisTime && detectionData.getBloodOxygen() != 0) {
                 isMeasureFinishedOfThisTime = true;
-                onMeasureFinished(datas[0], datas[1]);
+                onMeasureFinished(detectionData);
             }
         }
     }

@@ -19,6 +19,7 @@ import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
+
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 8:
                         //护士上门
+                        Routerfit.register(AppRouter.class).skipConnectActivity();
                         break;
                 }
             }

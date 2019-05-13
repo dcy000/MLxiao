@@ -3,9 +3,11 @@ package com.gcml.module_blutooth_devices.ecg;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
@@ -70,28 +72,29 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
     };
 
     @Override
-    public void updateData(String... datas) {
-        if (DataUtils.isEmpty(datas)) {
-            return;
-        }
-        if (datas.length == 1) {
+    public void updateData(DetectionData detectionData) {
+        if (detectionData.getEcgData() != null) {
             //其中超思有的数据获取实在子线程 ，此处展示应在UI线程
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mEcgView.addData(ByteUtils.stringToBytes(datas[0]));
+                    mEcgView.addData(detectionData.getEcgData());
                 }
             });
-        } else if (datas.length == 2) {
-            mMeasureTip.setText(datas[1]);
-        } else if (datas.length == 5) {
-            //pdf编号，pdf地址，异常标识，结论,心率
-            onMeasureFinished(datas[0], datas[1], datas[2], datas[3], datas[4]);
+        }
+        if (!TextUtils.isEmpty(detectionData.getEcgTips())) {
+            mMeasureTip.setText(detectionData.getEcgTips());
+        }
+
+        if (!TextUtils.isEmpty(detectionData.getResultUrl())) {
+            onMeasureFinished(detectionData);
             if (analysisData != null) {
-                if (DataUtils.isNullString(datas[1]) || DataUtils.isNullString(datas[2])) {
+                if (DataUtils.isNullString(detectionData.getResult()) || DataUtils.isNullString(detectionData.getResultUrl())) {
                     analysisData.onError();
                 } else {
-                    analysisData.onSuccess(datas[0], datas[1], datas[2], datas[3], datas[4]);
+                    //pdf地址，异常标识，结论,心率
+                    analysisData.onSuccess(detectionData.getResultUrl(), detectionData.getEcgFlag(),
+                            detectionData.getResult(), detectionData.getHeartRate());
                 }
             }
         }
@@ -140,11 +143,13 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
     }
 
     private AnalysisData analysisData;
+
     public void setOnAnalysisDataListener(AnalysisData analysisData) {
         this.analysisData = analysisData;
     }
+
     public interface AnalysisData {
-        void onSuccess(String fileNum, String fileAddress, String flag,String result,String heartRate);
+        void onSuccess(String fileAddress, int flag, String result, int heartRate);
 
         void onError();
     }

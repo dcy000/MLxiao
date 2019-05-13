@@ -112,10 +112,8 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
     }
 
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 1) {
-            mUiFragment.setValue(Float.parseFloat(results[0]));
-        }
+    protected void onMeasureFinished(DetectionData detectionData) {
+        mUiFragment.setValue(detectionData.getWeight());
     }
 
     private void move2Next() {

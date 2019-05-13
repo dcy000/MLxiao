@@ -52,6 +52,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     private BluetoothConnectHelper connectHelper;
     protected String targetName = null;
     protected String targetAddress = null;
+    private boolean isAutoConnect = true;
 
     @SuppressLint("RestrictedApi")
     public BaseBluetooth(IBluetoothView owner) {
@@ -79,6 +80,26 @@ public abstract class BaseBluetooth implements LifecycleObserver {
      * @param address
      */
     public void startDiscovery(String address) {
+        if (isOnSearching) {
+            return;
+        }
+        if (isConnected) {
+            if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
+            }
+            return;
+        }
+        Set<String> strings = obtainBrands().keySet();
+        start(BluetoothType.BLUETOOTH_TYPE_BLE, address, strings.toArray(new String[strings.size()]));
+    }
+
+    /**
+     * 进行搜索
+     *
+     * @param address
+     */
+    public void startDiscovery(String address, boolean isAutoConnect) {
+        this.isAutoConnect = isAutoConnect;
         if (isOnSearching) {
             return;
         }
@@ -233,10 +254,15 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         @Override
         public void onSearching(boolean isOn) {
             isOnSearching = isOn;
+            if (!isOn) {
+                //结束搜索
+                baseView.discoveryFinished();
+            }
         }
 
         @Override
         public void onNewDeviceFinded(BluetoothDevice newDevice) {
+            BluetoothStore.instance.findNewDevice.postValue(newDevice);
             newDeviceFinded(newDevice);
         }
 
@@ -246,7 +272,9 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             if (isSelfConnect(device.getName(), device.getAddress())) {
                 return;
             }
-            connect(this.device.getAddress());
+            if (isAutoConnect) {
+                connect(this.device.getAddress());
+            }
         }
 
         @Override
@@ -272,7 +300,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             bindDeviceBean.setBluetoothName(targetName);
             bindDeviceBean.setBluetoothMac(targetAddress);
             bindDeviceBean.setBluetoothBrand(obtainBrands().get(targetName));
-            BluetoothStore.bindDevice.postValue(bindDeviceBean);
+            BluetoothStore.instance.bindDevice.postValue(bindDeviceBean);
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             }
@@ -376,19 +404,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
 
     @CallSuper
     protected synchronized void newDeviceFinded(BluetoothDevice device) {
-        boolean isOurDevices = false;
-        Iterator<String> iterator = DeviceBrand.BLOODOXYGEN.keySet().iterator();
-        while (iterator.hasNext()) {
-            if (TextUtils.isEmpty(device.getName())) {
-                break;
-            }
-            if (iterator.next().contains(device.getName())) {
-                isOurDevices = true;
-            }
-        }
-        if (isOurDevices) {
-            baseView.discoveryNewDevice(device);
-        }
+        baseView.discoveryNewDevice(device);
     }
 
     @CallSuper

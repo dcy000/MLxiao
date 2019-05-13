@@ -1,5 +1,6 @@
 package com.gcml.module_blutooth_devices.temperature;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
@@ -24,6 +25,7 @@ public class TemperaturePresenter extends BaseBluetooth {
 
     private static final String SELF_SERVICE = "00001910-0000-1000-8000-00805f9b34fb";
     private static final String SELF_NOTIFY = "0000fff2-0000-1000-8000-00805f9b34fb";
+    DetectionData detectionData = new DetectionData();
 
     public TemperaturePresenter(IBluetoothView owner) {
         super(owner);
@@ -32,7 +34,9 @@ public class TemperaturePresenter extends BaseBluetooth {
 
     @Override
     protected void connectSuccessed(String name, String address) {
-        baseView.updateData("initialization", "0.00");
+        detectionData.setInit(true);
+        detectionData.setTemperAture(0.0f);
+        baseView.updateData(detectionData);
         if (name.startsWith("AET-WD")) {
             handleAilikang(address);
             return;
@@ -90,7 +94,9 @@ public class TemperaturePresenter extends BaseBluetooth {
                     }
                     double v = (data - 44.0) % 10;
                     double result = (30.0 + (data - 44) / 10 + v / 10);
-                    baseView.updateData(result + "");
+                    detectionData.setInit(false);
+                    detectionData.setTemperAture((float) result);
+                    baseView.updateData(detectionData);
                 }
             }
 
@@ -105,10 +111,12 @@ public class TemperaturePresenter extends BaseBluetooth {
         BluetoothStore.getClient().notify(address, UUID.fromString(MEIDILIAN_SERVICE), UUID.fromString(MEIDILIAN_NOTIFY), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                if (bytes[2]==0x06) {
+                if (bytes[2] == 0x06) {
                     float result = ((float) (bytes[7] << 8) + (float) (bytes[6] & 0xff)) / 10;
                     if (result < 50) {
-                        baseView.updateData(result + "");
+                        detectionData.setInit(false);
+                        detectionData.setTemperAture(result);
+                        baseView.updateData(detectionData);
                     }
                 }
             }
@@ -128,7 +136,9 @@ public class TemperaturePresenter extends BaseBluetooth {
                     byte[] bytes1 = new byte[8];
                     System.arraycopy(bytes, 0, bytes1, 0, 8);
                     float result = ((int) (((bytes1[4] << 8) + (float) (bytes1[5] & 0xff)) / 10)) / 10.0f;
-                    baseView.updateData(result + "");
+                    detectionData.setInit(false);
+                    detectionData.setTemperAture(result);
+                    baseView.updateData(detectionData);
                 }
             }
 
@@ -149,7 +159,9 @@ public class TemperaturePresenter extends BaseBluetooth {
                 } else {
                     result = 0.0f;
                 }
-                baseView.updateData(result + "");
+                detectionData.setInit(false);
+                detectionData.setTemperAture(result);
+                baseView.updateData(detectionData);
             }
 
             @Override

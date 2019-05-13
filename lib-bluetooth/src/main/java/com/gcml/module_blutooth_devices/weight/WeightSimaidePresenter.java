@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.handler.WeakHandler;
@@ -33,7 +34,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
     private static final String KEY = "TU1JA3D0ZI078UCC";
     private VTDeviceManager manager;
     private VTDeviceScale device;
-
+    DetectionData detectionData=new DetectionData();
     @SuppressLint("RestrictedApi")
     public WeightSimaidePresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
         this.activity = activity;
@@ -82,7 +83,9 @@ public class WeightSimaidePresenter implements LifecycleObserver {
         @Override
         public void onDeviceConnected(VTDevice vtDevice) {
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            baseView.updateData("initialization", "0.00");
+            detectionData.setInit(true);
+            detectionData.setWeightOver(false);
+            baseView.updateData(detectionData);
             BluetoothDevice btDevice = vtDevice.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
         }
@@ -108,7 +111,9 @@ public class WeightSimaidePresenter implements LifecycleObserver {
         @Override
         public void onDeviceAdvDiscovered(VTDevice device) {
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            baseView.updateData("initialization", "0.00");
+            detectionData.setInit(true);
+            detectionData.setWeightOver(false);
+            baseView.updateData(detectionData);
             BluetoothDevice btDevice = device.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
             //连接成功 然后 给广播称设置数据监听
@@ -147,7 +152,10 @@ public class WeightSimaidePresenter implements LifecycleObserver {
                 SimaideBodyInfo scaleInfo = new Gson().fromJson(response, SimaideBodyInfo.class);
                 if (scaleInfo.getCode() == 200) {
                     float weight = scaleInfo.getDetails().getWeight();
-                    baseView.updateData("result", "result", String.format("%.2f", weight));
+                    detectionData.setInit(true);
+                    detectionData.setWeightOver(true);
+                    detectionData.setWeight(weight);
+                    baseView.updateData(detectionData);
                 }
             }
         }

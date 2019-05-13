@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.FileUtils;
 import com.gcml.common.utils.data.TimeUtils;
@@ -220,5 +221,10 @@ public class ECG_PDF_Fragment extends BluetoothBaseFragment {
         isDestroy = true;
         ThreadUtils.cancel(pdfDownload);
         super.onDestroyView();
+    }
+
+    @Override
+    public void updateData(DetectionData detectionData) {
+
     }
 }

@@ -375,4 +375,6 @@ public interface AppRouter {
     @Go("/module/yzn/zenduan/activity")
     boolean skipZenDuanActivity();
 
+    @Go("/module/detection/connect/activity")
+    boolean skipConnectActivity();
 }

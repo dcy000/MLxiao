@@ -1,5 +1,6 @@
 package com.gcml.module_blutooth_devices.weight;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
@@ -26,6 +27,7 @@ public class WeightPresenter extends BaseBluetooth {
 
     private static final String SELF_SERVICE = "0000fff0-0000-1000-8000-00805f9b34fb";//主服务
     private static final String SELF_NOTIFY = "0000fff1-0000-1000-8000-00805f9b34fb";
+    DetectionData detectionData = new DetectionData();
 
     public WeightPresenter(IBluetoothView owner) {
         super(owner);
@@ -34,7 +36,9 @@ public class WeightPresenter extends BaseBluetooth {
 
     @Override
     protected void connectSuccessed(String name, String address) {
-        baseView.updateData("initialization", "0.00");
+        detectionData.setInit(true);
+        detectionData.setWeightOver(false);
+        baseView.updateData(detectionData);
         if (name.startsWith("VScale")) {
             handleTongfang(address);
             return;
@@ -109,8 +113,10 @@ public class WeightPresenter extends BaseBluetooth {
                     public void onNotify(UUID service, UUID character, byte[] bytes) {
                         if (bytes.length == 14 && (bytes[1] & 0xff) == 221) {
                             float weight = ((float) (bytes[2] << 8) + (float) (bytes[3] & 0xff)) / 10;
-                            baseView.updateData("result", "result", String.format("%.2f", weight));
-
+                            detectionData.setInit(false);
+                            detectionData.setWeightOver(true);
+                            detectionData.setWeight(weight);
+                            baseView.updateData(detectionData);
                         }
                     }
 
@@ -139,7 +145,10 @@ public class WeightPresenter extends BaseBluetooth {
                             weight = (float) ((h * 256 + l) / 10.0);
                             if (weight == 0)
                                 return;
-                            baseView.updateData(weight + "");
+                            detectionData.setInit(false);
+                            detectionData.setWeightOver(false);
+                            detectionData.setWeight(weight);
+                            baseView.updateData(detectionData);
                             //TODO 可以向体重秤写入个人信息然后得到体脂，BIM等一系列更详细的信息
                         }
                     } else {// 详细信息
@@ -232,7 +241,10 @@ public class WeightPresenter extends BaseBluetooth {
                     int h = bytes[6] & 0xff;
                     int l = bytes[5] & 0xff;
                     float weight = ((h << 8) + l) * 0.1f;
-                    baseView.updateData(String.format("%.2f", weight));
+                    detectionData.setInit(false);
+                    detectionData.setWeightOver(false);
+                    detectionData.setWeight(weight);
+                    baseView.updateData(detectionData);
                 }
             }
 

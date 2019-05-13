@@ -1,4 +1,4 @@
-include ':module-doctor-advisory',
+include ':module-doctor-advisory', ':module-detection',
 //        ':app',
         ':app-combine',
         ':module-alarm',

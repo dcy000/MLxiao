@@ -201,7 +201,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
     };
 
     private void dealBindDevice() {
-        BluetoothStore.bindDevice.observe(owner, bindDeviceBean);
+        BluetoothStore.instance.bindDevice.observe(owner, bindDeviceBean);
 
         switch (deviceType) {
             case IPresenter.MEASURE_BLOOD_PRESSURE:
@@ -361,7 +361,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
         }
         bindNameAddress = null;
         if (owner != null) {
-            BluetoothStore.bindDevice.removeObservers(owner);
+            BluetoothStore.instance.bindDevice.removeObservers(owner);
             owner.getLifecycle().removeObserver(this);
         }
         owner = null;

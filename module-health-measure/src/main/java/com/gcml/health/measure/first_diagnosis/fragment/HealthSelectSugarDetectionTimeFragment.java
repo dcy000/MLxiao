@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -63,5 +64,10 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
             }
 
         }
+    }
+
+    @Override
+    public void updateData(DetectionData detectionData) {
+
     }
 }

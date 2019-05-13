@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.click.ClickEventListener;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -108,12 +109,17 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     }
 
     @Override
-    public void updateData(String... datas) {
+    public void updateData(DetectionData detectionData) {
 
     }
 
     @Override
     public void updateState(String state) {
+
+    }
+
+    @Override
+    public void discoveryFinished() {
 
     }
 
@@ -172,7 +178,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     protected void clickVideoDemo(View view) {
     }
 
-    protected void onMeasureFinished(String... results) {
+    protected void onMeasureFinished(DetectionData detectionData) {
     }
 
     protected void showLoading(String tips) {
@@ -196,7 +202,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
         }
     }
 
-    protected void showUploadDataFailedDialog(String[] mResults) {
+    protected void showUploadDataFailedDialog(DetectionData detection) {
         NiceDialog.init()
                 .setLayoutId(R.layout.dialog_first_diagnosis_upload_failed)
                 .setConvertListener(new ViewConvertListener() {
@@ -212,7 +218,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
                         holder.getView(R.id.btn_pos).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                onMeasureFinished(mResults);
+                                onMeasureFinished(detection);
                                 dialog.dismiss();
                             }
                         });

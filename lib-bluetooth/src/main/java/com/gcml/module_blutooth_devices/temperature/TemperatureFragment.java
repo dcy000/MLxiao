@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
+import java.util.Locale;
+
 public class TemperatureFragment extends BluetoothBaseFragment implements View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     private TextView mTvResult;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_temperature;
@@ -36,16 +40,15 @@ public class TemperatureFragment extends BluetoothBaseFragment implements View.O
     }
 
     @Override
-    public void updateData(String... datas) {
-        if (datas.length == 2) {
+    public void updateData(DetectionData detectionData) {
+        if (detectionData.isInit()) {
             mTvResult.setText("0.00");
             isMeasureFinishedOfThisTime = false;
-        } else if (datas.length == 1) {
-            mTvResult.setText(datas[0]);
-            float aFloat = Float.parseFloat(datas[0]);
-            if (!isMeasureFinishedOfThisTime && aFloat > 30) {
+        } else {
+            mTvResult.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getTemperAture()));
+            if (!isMeasureFinishedOfThisTime && detectionData.getTemperAture() > 30) {
                 isMeasureFinishedOfThisTime = true;
-                onMeasureFinished(datas[0]);
+                onMeasureFinished(detectionData);
             }
         }
     }

@@ -2,6 +2,7 @@ package com.gcml.module_blutooth_devices.breathhome;
 
 import android.util.Log;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.data.TimeUtils;
@@ -133,7 +134,10 @@ public class BreathHomePresenter extends BaseBluetooth {
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            baseView.updateData(object.toString());
+                                            DetectionData detectionData=new DetectionData();
+                                            detectionData.setInit(false);
+                                            detectionData.setBreathHome(object.toString());
+                                            baseView.updateData(detectionData);
                                             resultBuffer.setLength(0);
                                             writeReceiveResultCallBackData(address, resultBean);
                                         } else {

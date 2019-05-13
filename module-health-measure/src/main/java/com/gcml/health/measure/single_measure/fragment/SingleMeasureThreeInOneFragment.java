@@ -34,7 +34,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
     DetectionData cholesterolData;
     DetectionData lithicAcidData;
     private int selectMeasureSugarTime;
-    private String[] results;
+    private DetectionData results;
 
     @Override
     protected void initView(View view, Bundle bundle) {
@@ -73,50 +73,48 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
         }
     }
 
-    //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 2) {
-            this.results = results;
-            if (results[0].equals("bloodsugar")) {
-                sugarData = new DetectionData();
-                sugarData.setDetectionType("1");
-                sugarData.setSugarTime(selectMeasureSugarTime);
-                sugarData.setBloodSugar(Float.parseFloat(results[1]));
-                datas.add(sugarData);
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + sugarData.getBloodSugar());
-                uploadData(datas);
+    protected void onMeasureFinished(DetectionData detectionData) {
+        this.results = detectionData;
+        if (detectionData.getBloodSugar()!=0) {
+            sugarData = new DetectionData();
+            sugarData.setDetectionType("1");
+            sugarData.setSugarTime(selectMeasureSugarTime);
+            sugarData.setBloodSugar(detectionData.getBloodSugar());
+            datas.add(sugarData);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + sugarData.getBloodSugar());
+            uploadData(datas);
 
-                if (measureItemChanged != null) {
-                    measureItemChanged.onChanged(2);
-                }
+            if (measureItemChanged != null) {
+                measureItemChanged.onChanged(2);
             }
-            if (results[0].equals("cholesterol")) {
-                cholesterolData = new DetectionData();
-                cholesterolData.setDetectionType("7");
-                cholesterolData.setCholesterol(Float.parseFloat(results[1]));
-                datas.add(cholesterolData);
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量胆固醇" + cholesterolData.getCholesterol());
-                uploadData(datas);
-                if (measureItemChanged != null) {
-                    measureItemChanged.onChanged(5);
-                }
+        }
+        if (detectionData.getCholesterol()!=0) {
+            cholesterolData = new DetectionData();
+            cholesterolData.setDetectionType("7");
+            cholesterolData.setCholesterol(detectionData.getCholesterol());
+            datas.add(cholesterolData);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量胆固醇" + cholesterolData.getCholesterol());
+            uploadData(datas);
+            if (measureItemChanged != null) {
+                measureItemChanged.onChanged(5);
             }
+        }
 
-            if (results[0].equals("bua")) {
-                lithicAcidData = new DetectionData();
-                lithicAcidData.setDetectionType("8");
-                lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
+        if (detectionData.getUricAcid()!=0) {
+            lithicAcidData = new DetectionData();
+            lithicAcidData.setDetectionType("8");
+            lithicAcidData.setUricAcid(detectionData.getUricAcid());
 
-                datas.add(lithicAcidData);
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量尿酸" + lithicAcidData.getUricAcid());
-                uploadData(datas);
-                if (measureItemChanged != null) {
-                    measureItemChanged.onChanged(6);
-                }
+            datas.add(lithicAcidData);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量尿酸" + lithicAcidData.getUricAcid());
+            uploadData(datas);
+            if (measureItemChanged != null) {
+                measureItemChanged.onChanged(6);
             }
         }
     }
+
 
     @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {

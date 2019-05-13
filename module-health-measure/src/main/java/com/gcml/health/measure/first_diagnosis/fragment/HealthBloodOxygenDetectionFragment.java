@@ -58,38 +58,36 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
 
     @SuppressLint("CheckResult")
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 2) {
-            ArrayList<DetectionData> datas = new ArrayList<>();
-            final DetectionData data = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            data.setDetectionType("6");
-            data.setBloodOxygen(Float.parseFloat(results[0]));
-            data.setPulse(Integer.parseInt(results[1]));
-            datas.add(data);
+    protected void onMeasureFinished(DetectionData detectionData) {
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        final DetectionData data = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        data.setDetectionType("6");
+        data.setBloodOxygen(detectionData.getBloodOxygen());
+        data.setPulse(detectionData.getPulse());
+        datas.add(data);
 
-            HealthMeasureRepository.postMeasureData(datas)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-                        @Override
-                        public void onNext(List<DetectionResult> o) {
-                            ToastUtils.showLong("上传数据成功");
-                            setBtnClickableState(true);
-                        }
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> o) {
+                        ToastUtils.showLong("上传数据成功");
+                        setBtnClickableState(true);
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            showUploadDataFailedDialog(results);
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        showUploadDataFailedDialog(detectionData);
+                    }
 
-                        @Override
-                        public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                        }
-                    });
-        }
+                    }
+                });
     }
 
     private void setBtnClickableState(boolean enableClick) {

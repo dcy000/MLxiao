@@ -33,6 +33,7 @@ import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
@@ -81,6 +82,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String userName;
     private static final String TAG = "BoShengECGPresenter";
     private int lgoinTimes;
+    DetectionData detectionData = new DetectionData();
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -118,7 +120,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                                 }
                                 if (!UserSpHelper.isNoNetwork()) {
                                     uploadDatas(result);
-                                } else  {
+                                } else {
                                     if (mLoadingDialog != null) {
                                         mLoadingDialog.dismiss();
                                     }
@@ -189,7 +191,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         public void onCharacteristicChanged(byte[] data) {
                             if (!isMeasureEnd) {
                                 bytesResult.add(data);
-                                baseView.updateData(ByteUtils.byteToString(data));
+                                detectionData.setInit(false);
+                                detectionData.setEcgData(data);
+                                baseView.updateData(detectionData);
                             }
                         }
                     });
@@ -476,7 +480,13 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             ToastUtils.showShort("分析异常，请重新测量");
                             return;
                         }
-                        baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), avgbeatsBean.getHR() + "");
+                        detectionData.setInit(false);
+                        detectionData.setEcgData(null);
+                        detectionData.setResultUrl(entity.getFile_report());
+                        detectionData.setEcgFlag(boShengResultBean.getStop_light());
+                        detectionData.setResult(boShengResultBean.getFindings());
+                        detectionData.setHeartRate(avgbeatsBean.getHR());
+                        baseView.updateData(detectionData);
                     }
 
                     @Override
@@ -486,7 +496,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
                     @Override
                     public void onFailure(int i, String s) {
-                        baseView.updateData(fileNo, null, null);
+
                     }
                 });
 
@@ -540,7 +550,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
             if (fragment.get() != null) {
-                fragment.get().updateData("tip", "测量结束");
+                detectionData.setInit(false);
+                detectionData.setEcgData(null);
+                detectionData.setEcgTips("测量结束");
+                fragment.get().updateData(detectionData);
             }
 
             if (activity != null) {
@@ -561,7 +574,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
             if (fragment.get() != null) {
-                fragment.get().updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+                detectionData.setInit(false);
+                detectionData.setEcgData(null);
+                detectionData.setEcgTips("距离测量结束还有" + millisUntilFinished / 1000 + "s");
+                fragment.get().updateData(detectionData);
             }
         }
     }

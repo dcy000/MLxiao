@@ -49,7 +49,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     private boolean isMeasureTask = false;
     private boolean hasHypertensionHand = false;
     private boolean isOnPause = false;
-    private String[] results;
+    private DetectionData results;
     public SingleMeasureBloodpressureFragment() {
     }
 
@@ -59,56 +59,52 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
         isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
     }
 
-
     @SuppressLint("CheckResult")
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 3 && !isOnPause) {
-            this.results=results;
-            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
-            datas = new ArrayList<>();
-            DetectionData pressureData = new DetectionData();
-            DetectionData dataPulse = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            pressureData.setDetectionType("0");
-            highPressure = Integer.parseInt(results[0]);
-            pressureData.setHighPressure(highPressure);
-            lowPressure = Integer.parseInt(results[1]);
-            pressureData.setLowPressure(lowPressure);
-            dataPulse.setDetectionType("9");
-            dataPulse.setPulse(Integer.parseInt(results[2]));
-            datas.add(pressureData);
-            datas.add(dataPulse);
+    protected void onMeasureFinished(DetectionData detectionData) {
+        this.results=detectionData;
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压" + detectionData.getHighPressure() + ",低压" + detectionData.getLowPressure() + ",脉搏" + detectionData.getPulse(), false);
+        datas = new ArrayList<>();
+        DetectionData pressureData = new DetectionData();
+        DetectionData dataPulse = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        pressureData.setDetectionType("0");
+        highPressure = detectionData.getHighPressure();
+        pressureData.setHighPressure(highPressure);
+        lowPressure = detectionData.getLowPressure();
+        pressureData.setLowPressure(lowPressure);
+        dataPulse.setDetectionType("9");
+        dataPulse.setPulse(detectionData.getPulse());
+        datas.add(pressureData);
+        datas.add(dataPulse);
 
-            if (UserSpHelper.isNoNetwork()) {
-                uploadData();
-                return;
-            }
-
-            HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                    .subscribeWith(new DefaultObserver<Object>() {
-                        @Override
-                        public void onNext(Object o) {
-                            uploadData();
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            HealthMeasureAbnormalActivity.startActivity(
-                                    SingleMeasureBloodpressureFragment.this,
-                                    IPresenter.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-
+        if (UserSpHelper.isNoNetwork()) {
+            uploadData();
+            return;
         }
+
+        HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        uploadData();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        HealthMeasureAbnormalActivity.startActivity(
+                                SingleMeasureBloodpressureFragment.this,
+                                IPresenter.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @SuppressLint("CheckResult")

@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure.no_upload_data;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -13,10 +14,8 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
  */
 public class NonUploadSingleMeasureBloodoxygenFragment extends BloodOxygenFragment {
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 2) {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(),
-                    "您本次测量血氧" + results[0] + "%", false);
-        }
+    protected void onMeasureFinished(DetectionData detectionData) {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                "您本次测量血氧" + detectionData.getBloodOxygen() + "%", false);
     }
 }

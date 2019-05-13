@@ -29,39 +29,37 @@ import io.reactivex.schedulers.Schedulers;
 public class SingleMeasureTemperatureFragment extends TemperatureFragment {
     @SuppressLint("CheckResult")
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 1) {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量耳温" + results[0] + "摄氏度", false);
-            ArrayList<DetectionData> datas = new ArrayList<>();
-            DetectionData temperatureData = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            temperatureData.setDetectionType("4");
-            temperatureData.setTemperAture(Float.parseFloat(results[0]));
-            datas.add(temperatureData);
+    protected void onMeasureFinished(DetectionData detectionData) {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量耳温" + detectionData.getTemperAture() + "摄氏度", false);
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData temperatureData = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        temperatureData.setDetectionType("4");
+        temperatureData.setTemperAture(detectionData.getTemperAture());
+        datas.add(temperatureData);
 
-            HealthMeasureRepository.postMeasureData(datas)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-                        @Override
-                        public void onNext(List<DetectionResult> o) {
-                            ToastUtils.showShort("上传数据成功");
-                        }
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> o) {
+                        ToastUtils.showShort("上传数据成功");
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            showUploadDataFailedDialog(results);
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        showUploadDataFailedDialog(detectionData);
+                    }
 
-                        @Override
-                        public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                        }
-                    });
-
-        }
+                    }
+                });
     }
+
 
     @Override
     public void onDestroyView() {

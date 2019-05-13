@@ -7,6 +7,7 @@ import android.arch.lifecycle.OnLifecycleEvent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
@@ -25,7 +26,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     private String address;
     private final BleScan bleScan;
     private final BleCloudProtocolUtils bleCloudProtocolUtils;
-
+    DetectionData detectionData=new DetectionData();
     @SuppressLint("RestrictedApi")
     public WeightXiangshanPresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
         this.activity = activity;
@@ -45,7 +46,9 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
             public void OnState(boolean b) {
                 if (b) {
                     baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-                    baseView.updateData("initialization", "0.00");
+                    detectionData.setInit(true);
+                    detectionData.setWeightOver(false);
+                    baseView.updateData(detectionData);
                     SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, name + "," + address);
                 } else {
                     if (((Fragment) baseView).isAdded()) {
@@ -66,10 +69,16 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                             case "80":
                                 if (strdata[12].equals("A0")) {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    baseView.updateData(String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
+                                    detectionData.setInit(false);
+                                    detectionData.setWeightOver(false);
+                                    detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
+                                    baseView.updateData(detectionData);
                                 } else {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    baseView.updateData("result", "result", String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
+                                    detectionData.setInit(false);
+                                    detectionData.setWeightOver(true);
+                                    detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
+                                    baseView.updateData(detectionData);
                                 }
                                 break;
                             case "82":

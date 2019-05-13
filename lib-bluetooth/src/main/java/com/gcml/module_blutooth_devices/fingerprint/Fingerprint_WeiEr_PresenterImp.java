@@ -158,7 +158,8 @@ public class Fingerprint_WeiEr_PresenterImp implements LifecycleObserver{
                     Bitmap bitmap = bitmapShow(gfpInterface, byteFpImage, lenIMG);
                     //图像采集完了，再采集模板
                     gfpInterface.fpiGetDevTPT(TIMEOUT, 0);//0xB5
-                    baseView.updateData("image", ImageUtils.convertIconToString(bitmap));
+                    //TODO:暂时没用
+//                    baseView.updateData("image", ImageUtils.convertIconToString(bitmap));
                     break;
                 case 0xB4: //获取指纹特征，然后可用于匹配
                     byte[] feature = (byte[]) msg.obj;
@@ -166,7 +167,8 @@ public class Fingerprint_WeiEr_PresenterImp implements LifecycleObserver{
 
                     if (lengthFTR == 256) { // 获取指纹特征成功
                         System.arraycopy(feature, 0, currentTemplet, 0, 256);
-                        baseView.updateData("validate", ByteUtils.byteToString(currentTemplet));
+                        //TODO:暂时没用
+//                        baseView.updateData("validate", ByteUtils.byteToString(currentTemplet));
                         for (byte[] byt : bytes) {
                             i++;
                             int result = gfpInterface.sysOneMatch(byt, currentTemplet);
@@ -192,7 +194,8 @@ public class Fingerprint_WeiEr_PresenterImp implements LifecycleObserver{
                                 0, 256);
                         baseView.updateState("录入指纹成功");
                         Timber.e(ByteUtils.byteToString(resultTemplet));
-                        baseView.updateData("input", ByteUtils.byteToString(resultTemplet));
+                        //TODO:暂时没用
+//                        baseView.updateData("input", ByteUtils.byteToString(resultTemplet));
                     } else { // 获取指纹模板失败
                     }
                     break;

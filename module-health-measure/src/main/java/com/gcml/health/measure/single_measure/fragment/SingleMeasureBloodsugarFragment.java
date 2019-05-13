@@ -40,7 +40,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
     private Bundle bundle;
     private ArrayList<DetectionData> datas;
     private static final int CODE_REQUEST_ABNORMAL = 10002;
-    private String[] results;
+    private DetectionData results;
 
     @Override
     protected void initView(View view, Bundle bundle) {
@@ -56,57 +56,55 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
 
     @SuppressLint("CheckResult")
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 1) {
-            this.results = results;
-            String roundUp = DataUtils.getRoundUp(results[0], 1);
-            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + roundUp, false);
+    protected void onMeasureFinished(DetectionData detectionData) {
+        this.results = detectionData;
+        String roundUp = DataUtils.getRoundUp(detectionData.getBloodSugar(), 1);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + roundUp, false);
 
-            datas = new ArrayList<>();
-            DetectionData data = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            data.setDetectionType("1");
-            if (bundle != null) {
-                data.setSugarTime(bundle.getInt("selectMeasureSugarTime"));
-            } else {
-                data.setSugarTime(0);
-            }
-            data.setBloodSugar(Float.parseFloat(roundUp));
-            datas.add(data);
-
-            if (UserSpHelper.isNoNetwork()) {
-                uploadData();
-                return;
-            }
-
-            HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                    .subscribeWith(new DefaultObserver<Object>() {
-                        @Override
-                        public void onNext(Object o) {
-                            uploadData();
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            if (UserSpHelper.isNoNetwork()) {
-                                return;
-                            }
-                            HealthMeasureAbnormalActivity.startActivity(
-                                    SingleMeasureBloodsugarFragment.this,
-                                    IPresenter.MEASURE_BLOOD_SUGAR, CODE_REQUEST_ABNORMAL);
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-
+        datas = new ArrayList<>();
+        DetectionData data = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        data.setDetectionType("1");
+        if (bundle != null) {
+            data.setSugarTime(bundle.getInt("selectMeasureSugarTime"));
+        } else {
+            data.setSugarTime(0);
         }
+        data.setBloodSugar(Float.parseFloat(roundUp));
+        datas.add(data);
+
+        if (UserSpHelper.isNoNetwork()) {
+            uploadData();
+            return;
+        }
+
+        HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        uploadData();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (UserSpHelper.isNoNetwork()) {
+                            return;
+                        }
+                        HealthMeasureAbnormalActivity.startActivity(
+                                SingleMeasureBloodsugarFragment.this,
+                                IPresenter.MEASURE_BLOOD_SUGAR, CODE_REQUEST_ABNORMAL);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
+
 
     @SuppressLint("CheckResult")
     private void uploadData() {

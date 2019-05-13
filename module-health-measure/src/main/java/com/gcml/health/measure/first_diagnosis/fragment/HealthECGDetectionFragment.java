@@ -462,4 +462,8 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         }
     }
 
+    @Override
+    public void updateData(DetectionData detectionData) {
+
+    }
 }

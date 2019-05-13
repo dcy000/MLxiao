@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
@@ -25,6 +26,7 @@ public class WeightYikePresenter implements LifecycleObserver {
     private String name;
     private String address;
     private YKScalesManager ykScalesManager;
+    DetectionData detectionData = new DetectionData();
 
     @SuppressLint("RestrictedApi")
     public WeightYikePresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
@@ -77,7 +79,9 @@ public class WeightYikePresenter implements LifecycleObserver {
         @Override
         public void BleConnectSuccess(BluetoothDevice bluetoothDevice) {
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            baseView.updateData("initialization", "0.00");
+            detectionData.setInit(true);
+            detectionData.setWeightOver(false);
+            baseView.updateData(detectionData);
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, bluetoothDevice.getName() + "," + bluetoothDevice.getAddress());
         }
 
@@ -98,7 +102,10 @@ public class WeightYikePresenter implements LifecycleObserver {
 
         @Override
         public void BleReadRS(float v, List<Float> list, List<Float> list1) {
-            baseView.updateData(v + "");
+            detectionData.setInit(true);
+            detectionData.setWeightOver(false);
+            detectionData.setWeight(v);
+            baseView.updateData(detectionData);
         }
 
         @Override

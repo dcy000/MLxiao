@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
@@ -170,8 +171,9 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
         mVideo.stopPlayback();
     }
 
+
     @Override
-    public void updateData(String... datas) {
+    public void updateData(DetectionData detectionData) {
 
     }
 
@@ -182,6 +184,11 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
 
     @Override
     public void discoveryNewDevice(BluetoothDevice device) {
+
+    }
+
+    @Override
+    public void discoveryFinished() {
 
     }
 }

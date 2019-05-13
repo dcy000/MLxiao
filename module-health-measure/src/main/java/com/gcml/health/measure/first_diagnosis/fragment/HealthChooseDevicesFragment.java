@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -265,4 +266,8 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         return deviceNum;
     }
 
+    @Override
+    public void updateData(DetectionData detectionData) {
+
+    }
 }
