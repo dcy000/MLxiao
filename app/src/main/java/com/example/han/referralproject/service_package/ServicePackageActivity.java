@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ServicePackageActivity extends ToolbarBaseActivity implements View.OnClickListener {
@@ -100,6 +99,12 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
         param.put("timestamp", time + "");
         param.put("goodsType", value);
         String sign = HeGui.getSign(param);
+
+        /*PostBean bean = new PostBean();
+        bean.eqid = eqId;
+        bean.timestamp = time;
+        bean.sign = sign;
+        bean.goodsType = value;*/
 
         heguiRepository.getProduct(eqId, time, value, sign)
                 .compose(RxUtils.io2Main())

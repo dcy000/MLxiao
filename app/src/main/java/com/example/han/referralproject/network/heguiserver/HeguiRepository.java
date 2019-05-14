@@ -10,7 +10,14 @@ public class HeguiRepository {
 
     public Observable<Object> getProduct(String eqid, String time, String goodType, String sign) {
         return service
-                .getProduct("", "", "", "")
+                .getProduct(eqid, time, goodType, sign)
+                .compose(RxUtils.apiResultTransformer());
+
+    }
+
+    public Observable<Object> getProduct2(PostBean json) {
+        return service
+                .getProduct2(json)
                 .compose(RxUtils.apiResultTransformer());
 
     }
