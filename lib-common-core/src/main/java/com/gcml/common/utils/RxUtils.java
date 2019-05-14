@@ -124,6 +124,7 @@ public class RxUtils {
         });
     }
 
+
     public static Observable<Integer> rxWifiLevel(Context context, int numsLevel) {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override

@@ -1,4 +1,4 @@
-ext.alwaysLib=true
+ext.alwaysLib = true
 apply from: rootProject.file("build-base.gradle")
 
 android {
@@ -26,4 +26,5 @@ dependencies {
     })
     implementation project(':lib-baidu-unit')
     implementation project(':lib-music-player')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
