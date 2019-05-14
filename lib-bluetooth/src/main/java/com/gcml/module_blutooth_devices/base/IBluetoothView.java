@@ -14,7 +14,7 @@ public interface IBluetoothView {
     void updateState(String state);
     void discoveryStarted();
     void discoveryNewDevice(BluetoothDevice device);
-    void discoveryFinished();
+    void discoveryFinished(boolean isConnected);
     void connectSuccess(BluetoothDevice device);
     void disConnected();
     void connectFailed();

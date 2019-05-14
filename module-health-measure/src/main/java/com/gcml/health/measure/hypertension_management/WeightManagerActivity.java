@@ -11,7 +11,7 @@ import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -40,7 +40,7 @@ public class WeightManagerActivity extends BaseManagementActivity {
         fromActivity = getIntent().getStringExtra("fromActivity");
         toActivity = getIntent().getStringExtra("toActivity");
         mTitleText.setText("体 重 测 量");
-        measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
+        measure_type = IBleConstants.MEASURE_BLOOD_PRESSURE;
         baseFragment = new HealthWeightDetectionUiFragment();
         baseFragment.setOnDealVoiceAndJumpListener(this);
         baseFragment.setOnFragmentChangedListener(this);

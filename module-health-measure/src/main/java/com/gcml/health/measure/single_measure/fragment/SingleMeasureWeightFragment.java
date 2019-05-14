@@ -14,7 +14,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
@@ -43,7 +43,7 @@ public class SingleMeasureWeightFragment extends WeightFragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         if (bundle != null) {
-            isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
+            isMeasureTask = bundle.getBoolean(IBleConstants.IS_MEASURE_TASK);
         }
     }
 

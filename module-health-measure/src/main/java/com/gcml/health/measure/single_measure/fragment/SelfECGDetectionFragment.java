@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -243,12 +242,12 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         }
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_ECG);
+                dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_ECG);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_ECG);
+                dealVoiceAndJump.jump2DemoVideo(IBleConstants.MEASURE_ECG);
             }
             clickHealthHistory(v);
         } else if (i == R.id.tv_change_device) {
@@ -432,7 +431,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             @Override
                             public void onClick(View v) {
                                 if (dealVoiceAndJump != null) {
-                                    dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_ECG);
+                                    dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_ECG);
                                 }
                                 dialog.dismiss();
                             }

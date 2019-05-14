@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.gcml.common.api.AppLifecycleCallbacks;
 import com.gcml.common.recommend.bean.post.DetectionBean;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.google.auto.service.AutoService;
 import com.inuker.bluetooth.library.BluetoothClient;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class BluetoothStore implements AppLifecycleCallbacks {
     private static BluetoothClient client;
     public MutableLiveData<BindDeviceBean> bindDevice = new MutableLiveData<>();
-    public MutableLiveData<DetectionBean> detection = new MutableLiveData<>();
+    public MutableLiveData<DetectionData> detection = new MutableLiveData<>();
     public static BluetoothStore instance;
 
     @Override

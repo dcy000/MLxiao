@@ -12,9 +12,8 @@ import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
-import com.inuker.bluetooth.library.utils.ByteUtils;
 
 public class ECGFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private ECGSingleGuideView mEcgView;
@@ -117,12 +116,12 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
             }
         } else if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_ECG);
+                dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_ECG);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_ECG);
+                dealVoiceAndJump.jump2DemoVideo(IBleConstants.MEASURE_ECG);
             }
             clickVideoDemo(v);
         } else if (i == R.id.tv_next) {

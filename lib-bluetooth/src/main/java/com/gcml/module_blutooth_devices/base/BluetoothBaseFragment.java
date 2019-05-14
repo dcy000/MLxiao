@@ -13,14 +13,12 @@ import android.view.ViewGroup;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.click.ClickEventListener;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
 import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.dialog.BluetoothDialog;
 import com.gcml.module_blutooth_devices.dialog.ChooseBluetoothDevice;
 
@@ -76,7 +74,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
 
     public void showBluetoothDialog() {
         if (bluetoothDialog == null) {
-            bluetoothDialog = new BluetoothDialog(mContext, this, IPresenter.MEASURE_BLOOD_OXYGEN);
+            bluetoothDialog = new BluetoothDialog(mContext, this, IBleConstants.MEASURE_BLOOD_OXYGEN);
             bluetoothDialog.setChooseBluetoothDeviceListener(this);
         }
         if (!bluetoothDialog.isShowing()) {
@@ -124,7 +122,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     }
 
     @Override
-    public void discoveryFinished() {
+    public void discoveryFinished(boolean isConnected) {
 
     }
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_alert_dialog">
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#333"
+        android:textSize="64pt"
+        android:text=""
+        android:padding="60pt"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/config_color_alert_line" />
+    <TextView
+        android:id="@+id/btn_click"
+        android:layout_width="match_parent"
+        android:layout_height="160pt"
+        android:text="确定"
+        android:textSize="34sp"
+        android:textColor="@color/config_color_primary"
+        android:gravity="center"
+        android:textStyle="bold"/>
+</LinearLayout>

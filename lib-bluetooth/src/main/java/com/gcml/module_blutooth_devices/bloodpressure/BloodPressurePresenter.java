@@ -69,6 +69,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
         detectionData.setLowPressure(0);
         detectionData.setPulse(0);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("iChoice")) {
             CHAOSI_SERVICE = "ba11f08c-5f14-0b0d-10a0-00" + address.toLowerCase().replace(":", "").substring(2);
             handleChaosi(address);
@@ -147,6 +148,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure(0);
                             detectionData.setPulse(0);
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
 
@@ -166,6 +168,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure((value[3] & 0xff));
                             detectionData.setPulse((value[14] & 0xff));
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
 
@@ -189,6 +192,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure(0);
                             detectionData.setPulse(0);
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                         } else if (bytes.length == 9 && (bytes[3] & 0xff) == 73 && (bytes[4] & 0xff) == 3) {
                             int highPress = (bytes[6] & 0xff) + 30;
                             int lowPress = (bytes[7] & 0xff) + 30;
@@ -199,6 +203,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure(lowPress);
                             detectionData.setPulse(pulse);
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
 
@@ -223,6 +228,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
                                 detectionData.setLowPressure(0);
                                 detectionData.setPulse(0);
                                 baseView.updateData(detectionData);
+                                BluetoothStore.instance.detection.postValue(detectionData);
                                 break;
                             case 12:
                                 if (!isGetResult) {
@@ -232,6 +238,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
                                     detectionData.setLowPressure((bytes[4] & 0xff));
                                     detectionData.setPulse((bytes[8] & 0xff));
                                     baseView.updateData(detectionData);
+                                    BluetoothStore.instance.detection.postValue(detectionData);
                                 }
                                 break;
                             default:
@@ -294,6 +301,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
                     detectionData.setLowPressure((bytes[6] + bytes[7]));
                     detectionData.setPulse((bytes[8] + bytes[9]));
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 

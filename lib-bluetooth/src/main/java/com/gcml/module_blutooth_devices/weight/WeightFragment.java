@@ -9,7 +9,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 import java.util.Locale;
@@ -79,12 +79,12 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
         int i = v.getId();
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_WEIGHT);
+                dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_WEIGHT);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_WEIGHT);
+                dealVoiceAndJump.jump2DemoVideo(IBleConstants.MEASURE_WEIGHT);
             }
             clickVideoDemo(v);
         }

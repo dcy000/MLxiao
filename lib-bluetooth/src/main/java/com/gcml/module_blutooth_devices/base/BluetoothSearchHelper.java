@@ -77,7 +77,7 @@ public class BluetoothSearchHelper {
 
         @Override
         public void onDeviceFounded(SearchResult device) {
-//            Log.i("BluetoothSearching", device.getName() + ">>>======>>>>" + device.getAddress());
+            Log.i("BluetoothSearching", device.getName() + ">>>======>>>>" + device.getAddress());
             if (!isClear) {
                 if (searchListener != null) {
                     searchListener.onNewDeviceFinded(device.device);

@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 8:
                         //护士上门
-                        Routerfit.register(AppRouter.class).skipConnectActivity();
+                        Routerfit.register(AppRouter.class).skipConnectActivity(22);
                         break;
                 }
             }

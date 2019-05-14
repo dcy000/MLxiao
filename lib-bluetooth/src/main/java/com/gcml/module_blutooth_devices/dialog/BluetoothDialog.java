@@ -23,7 +23,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BindDeviceBean;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.DeviceBrand;
@@ -204,7 +204,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
         BluetoothStore.instance.bindDevice.observe(owner, bindDeviceBean);
 
         switch (deviceType) {
-            case IPresenter.MEASURE_BLOOD_PRESSURE:
+            case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 if (bloodpressureSplit == null) {
                     bindName.setText("暂无绑定设备");
                     return;
@@ -215,7 +215,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
                     bindBrand.setText("(" + DeviceBrand.BLOODPRESSURE.get(bloodpressureSplit[0]) + ")");
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_OXYGEN:
+            case IBleConstants.MEASURE_BLOOD_OXYGEN:
                 if (bloodoxygenSplit == null) {
                     bindName.setText("暂无绑定设备");
                     return;
@@ -226,7 +226,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
                     bindBrand.setText("(" + DeviceBrand.BLOODOXYGEN.get(bloodoxygenSplit[0]) + ")");
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_SUGAR:
+            case IBleConstants.MEASURE_BLOOD_SUGAR:
                 if (bloodsugarSplit == null) {
                     bindName.setText("暂无绑定设备");
                     return;
@@ -237,7 +237,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
                     bindBrand.setText("(" + DeviceBrand.BLOODSUGAR.get(bloodsugarSplit[0]) + ")");
                 }
                 break;
-            case IPresenter.MEASURE_ECG:
+            case IBleConstants.MEASURE_ECG:
                 if (ecgSplit == null) {
                     bindName.setText("暂无绑定设备");
                     return;
@@ -248,7 +248,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
                     bindBrand.setText("(" + DeviceBrand.ECG.get(ecgSplit[0]) + ")");
                 }
                 break;
-            case IPresenter.MEASURE_TEMPERATURE:
+            case IBleConstants.MEASURE_TEMPERATURE:
                 if (temperatureSplit == null) {
                     bindName.setText("暂无绑定设备");
                     return;
@@ -259,7 +259,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
                     bindBrand.setText("(" + DeviceBrand.ECG.get(temperatureSplit[0]) + ")");
                 }
                 break;
-            case IPresenter.MEASURE_WEIGHT:
+            case IBleConstants.MEASURE_WEIGHT:
                 if (weightSplit == null) {
                     bindName.setText("暂无绑定设备");
                     return;

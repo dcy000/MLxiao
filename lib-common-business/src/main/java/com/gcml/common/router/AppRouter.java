@@ -379,5 +379,5 @@ public interface AppRouter {
     boolean skipZenDuanActivity();
 
     @Go("/module/detection/connect/activity")
-    boolean skipConnectActivity();
+    boolean skipConnectActivity(@Extra("detectionType") int type);
 }

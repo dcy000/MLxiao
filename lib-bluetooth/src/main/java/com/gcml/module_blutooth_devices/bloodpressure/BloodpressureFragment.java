@@ -10,7 +10,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 public class BloodpressureFragment extends BluetoothBaseFragment implements View.OnClickListener {
@@ -78,12 +78,12 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
         int i = v.getId();
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_BLOOD_PRESSURE);
+                dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_BLOOD_PRESSURE);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_BLOOD_PRESSURE);
+                dealVoiceAndJump.jump2DemoVideo(IBleConstants.MEASURE_BLOOD_PRESSURE);
             }
             clickVideoDemo(v);
         }

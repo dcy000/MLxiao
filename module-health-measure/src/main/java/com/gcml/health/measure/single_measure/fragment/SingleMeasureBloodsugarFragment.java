@@ -15,7 +15,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -95,7 +95,7 @@ public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
                         }
                         HealthMeasureAbnormalActivity.startActivity(
                                 SingleMeasureBloodsugarFragment.this,
-                                IPresenter.MEASURE_BLOOD_SUGAR, CODE_REQUEST_ABNORMAL);
+                                IBleConstants.MEASURE_BLOOD_SUGAR, CODE_REQUEST_ABNORMAL);
                     }
 
                     @Override

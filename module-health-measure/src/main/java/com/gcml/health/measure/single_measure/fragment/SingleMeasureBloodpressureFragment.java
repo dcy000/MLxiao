@@ -16,7 +16,7 @@ import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -56,7 +56,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
-        isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
+        isMeasureTask = bundle.getBoolean(IBleConstants.IS_MEASURE_TASK);
     }
 
     @SuppressLint("CheckResult")
@@ -97,7 +97,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
                     public void onError(Throwable e) {
                         HealthMeasureAbnormalActivity.startActivity(
                                 SingleMeasureBloodpressureFragment.this,
-                                IPresenter.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
+                                IBleConstants.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
                     }
 
                     @Override

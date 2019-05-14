@@ -2,16 +2,12 @@ package com.gcml.health.measure.single_measure;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -49,7 +45,7 @@ import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 import com.gcml.module_blutooth_devices.ecg.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
@@ -91,17 +87,17 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
     private void dealLogic() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        measure_type = getIntent().getIntExtra(IPresenter.MEASURE_TYPE, -1);
-        isMeasureTask = getIntent().getBooleanExtra(IPresenter.IS_MEASURE_TASK, false);
+        measure_type = getIntent().getIntExtra(IBleConstants.MEASURE_TYPE, -1);
+        isMeasureTask = getIntent().getBooleanExtra(IBleConstants.IS_MEASURE_TASK, false);
         isFaceSkip = getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false);
         servicePackageUUID = getIntent().getStringExtra("ServicePackageUUID");
         servicePackage = getIntent().getStringExtra("ServicePackage");
         //TODO:测试代码
         if (BuildConfig.RUN_AS_APP) {
-            measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
+            measure_type = IBleConstants.MEASURE_BLOOD_PRESSURE;
         }
         switch (measure_type) {
-            case IPresenter.MEASURE_TEMPERATURE:
+            case IBleConstants.MEASURE_TEMPERATURE:
                 //体温测量
                 if (baseFragment == null) {
                     mTitleText.setText("体 温 测 量");
@@ -112,7 +108,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     }
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_PRESSURE:
+            case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 //血压
                 if (baseFragment == null) {
                     mTitleText.setText("血 压 测 量");
@@ -121,13 +117,13 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                         baseFragment = new NonUploadSingleMeasureBloodpressureFragment();
                     } else {
                         Bundle bloodBundle = new Bundle();
-                        bloodBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
+                        bloodBundle.getBoolean(IBleConstants.IS_MEASURE_TASK, isMeasureTask);
                         baseFragment = new SingleMeasureBloodpressureFragment();
                         baseFragment.setArguments(bloodBundle);
                     }
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_SUGAR:
+            case IBleConstants.MEASURE_BLOOD_SUGAR:
                 //血糖
                 if (baseFragment == null) {
                     mTitleText.setText("血 糖 测 量");
@@ -136,7 +132,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_OXYGEN:
+            case IBleConstants.MEASURE_BLOOD_OXYGEN:
                 //血氧
                 if (baseFragment == null) {
                     mTitleText.setText("血 氧 测 量");
@@ -147,7 +143,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     }
                 }
                 break;
-            case IPresenter.MEASURE_WEIGHT:
+            case IBleConstants.MEASURE_WEIGHT:
                 //体重
                 if (baseFragment == null) {
                     mTitleText.setText("体 重 测 量");
@@ -155,13 +151,13 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                         baseFragment = new NonUploadSingleMeasureWeightFragment();
                     } else {
                         Bundle weightBundle = new Bundle();
-                        weightBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
+                        weightBundle.getBoolean(IBleConstants.IS_MEASURE_TASK, isMeasureTask);
                         baseFragment = new SingleMeasureWeightFragment();
                         baseFragment.setArguments(weightBundle);
                     }
                 }
                 break;
-            case IPresenter.MEASURE_ECG:
+            case IBleConstants.MEASURE_ECG:
                 //心电
                 int device = (int) SPUtil.get(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 0);
                 mTitleText.setText("心 电 测 量");
@@ -175,7 +171,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     mRightView.setImageResource(R.drawable.white_wifi_3);
                 }
                 break;
-            case IPresenter.MEASURE_THREE:
+            case IBleConstants.MEASURE_THREE:
                 //三合一
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
@@ -184,12 +180,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                 }
                 break;
-            case IPresenter.CONTROL_FINGERPRINT:
+            case IBleConstants.CONTROL_FINGERPRINT:
                 if (baseFragment == null) {
 //                    baseFragment = new Fingerpint_Fragment();
                 }
                 break;
-            case IPresenter.MEASURE_HAND_RING:
+            case IBleConstants.MEASURE_HAND_RING:
                 //手环
                 if (baseFragment == null) {
                     mTitleText.setText("活 动 监 测");
@@ -229,36 +225,36 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         @Override
         public void jump2HealthHistory(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE:
+                case IBleConstants.MEASURE_TEMPERATURE:
                     //体温测量
 //                    CCHealthRecordActions.jump2HealthRecordActivity(0);
                     Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                case IBleConstants.MEASURE_BLOOD_PRESSURE:
                     //血压
 //                    CCHealthRecordActions.jump2HealthRecordActivity(1);
                     Routerfit.register(AppRouter.class).skipHealthRecordActivity(1);
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR:
+                case IBleConstants.MEASURE_BLOOD_SUGAR:
                     //血糖
 //                    CCHealthRecordActions.jump2HealthRecordActivity(2);
                     Routerfit.register(AppRouter.class).skipHealthRecordActivity(2);
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                case IBleConstants.MEASURE_BLOOD_OXYGEN:
                     //血氧
 //                    CCHealthRecordActions.jump2HealthRecordActivity(3);
                     Routerfit.register(AppRouter.class).skipHealthRecordActivity(3);
                     break;
-                case IPresenter.MEASURE_WEIGHT:
+                case IBleConstants.MEASURE_WEIGHT:
                     //体重
 //                    CCHealthRecordActions.jump2HealthRecordActivity(8);
                     Routerfit.register(AppRouter.class).skipHealthRecordActivity(8);
                     break;
-                case IPresenter.MEASURE_ECG:
+                case IBleConstants.MEASURE_ECG:
 //                    CCHealthRecordActions.jump2HealthRecordActivity(7);
                     Routerfit.register(AppRouter.class).skipHealthRecordActivity(7);
                     break;
-                case IPresenter.MEASURE_THREE:
+                case IBleConstants.MEASURE_THREE:
                     //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
                     if (threeInOnePosition.size() == 0) {
 //                        CCHealthRecordActions.jump2HealthRecordActivity(6);
@@ -277,37 +273,37 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         @Override
         public void jump2DemoVideo(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE:
+                case IBleConstants.MEASURE_TEMPERATURE:
                     //体温测量
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
                     jump2MeasureVideoPlayActivity(uri, "耳温枪测量演示视频");
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                case IBleConstants.MEASURE_BLOOD_PRESSURE:
                     //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
                     jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR:
+                case IBleConstants.MEASURE_BLOOD_SUGAR:
                     //血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
                     jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                case IBleConstants.MEASURE_BLOOD_OXYGEN:
                     //血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
                     jump2MeasureVideoPlayActivity(uri, "血氧测量演示视频");
                     break;
-                case IPresenter.MEASURE_ECG:
+                case IBleConstants.MEASURE_ECG:
                     //心电
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
                     jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
                     break;
-                case IPresenter.MEASURE_THREE:
+                case IBleConstants.MEASURE_THREE:
                     //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
                     jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
                     break;
-                case IPresenter.MEASURE_WEIGHT:
+                case IBleConstants.MEASURE_WEIGHT:
                     //体重
                     ToastUtils.showShort("该设备暂无演示视频");
                     break;
@@ -392,14 +388,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
-                if (measure_type == IPresenter.MEASURE_BLOOD_SUGAR) {
+                if (measure_type == IBleConstants.MEASURE_BLOOD_SUGAR) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
                     } else {
                         baseFragment = new SingleMeasureBloodsugarFragment();
                         baseFragment.setArguments(bundle);
                     }
-                } else if (measure_type == IPresenter.MEASURE_THREE) {
+                } else if (measure_type == IBleConstants.MEASURE_THREE) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
                     } else {
@@ -440,7 +436,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     }
 
     private void setECGListener() {
-        if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG && baseFragment instanceof ECGFragment) {
+        if (baseFragment != null && measure_type == IBleConstants.MEASURE_ECG && baseFragment instanceof ECGFragment) {
             ((ECGFragment) baseFragment).setOnAnalysisDataListener(new ECGFragment.AnalysisData() {
 
 

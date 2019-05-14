@@ -256,7 +256,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             isOnSearching = isOn;
             if (!isOn) {
                 //结束搜索
-                baseView.discoveryFinished();
+                baseView.discoveryFinished(isConnected);
             } else {
                 baseView.discoveryStarted();
             }

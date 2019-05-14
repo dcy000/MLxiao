@@ -36,7 +36,7 @@ import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -59,7 +59,7 @@ import java.util.List;
 public class FirstDiagnosisActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
     private List<FirstDiagnosisBean> firstDiagnosisBeans;
     private FrameLayout mFrame;
-    private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
+    private int measureType = IBleConstants.MEASURE_BLOOD_PRESSURE;
     private int showPosition = 0;
     private Uri uri;
     private BluetoothBaseFragment fragment;
@@ -131,21 +131,21 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                         fragment = new HealthBloodDetectionOnlyOneFragment();
                     }
                 }
-                measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
+                measureType = IBleConstants.MEASURE_BLOOD_PRESSURE;
                 break;
             case "HealthBloodOxygenDetectionFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("血 氧 测 量");
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthBloodOxygenDetectionFragment();
-                measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
+                measureType = IBleConstants.MEASURE_BLOOD_OXYGEN;
                 break;
             case "HealthTemperatureDetectionFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("体 温 测 量");
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthTemperatureDetectionFragment();
-                measureType = IPresenter.MEASURE_TEMPERATURE;
+                measureType = IBleConstants.MEASURE_TEMPERATURE;
                 break;
             case "ChooseECGDeviceFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -163,7 +163,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 }else{
                     fragment=new HealthECGBoShengFragment();
                 }
-                measureType = IPresenter.MEASURE_ECG;
+                measureType = IBleConstants.MEASURE_ECG;
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -177,7 +177,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("血 糖 测 量");
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthSugarDetectionUiFragment();
-                measureType = IPresenter.MEASURE_BLOOD_SUGAR;
+                measureType = IBleConstants.MEASURE_BLOOD_SUGAR;
                 fragment.setArguments(bundle);
                 break;
             case "HealthThreeInOneDetectionUiFragment":
@@ -185,7 +185,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("三 合 一 测 量");
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthThreeInOneDetectionUiFragment();
-                measureType = IPresenter.MEASURE_THREE;
+                measureType = IBleConstants.MEASURE_THREE;
                 fragment.setArguments(bundle);
                 break;
             case "HealthWeightDetectionUiFragment":
@@ -193,7 +193,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("体 重 测 量");
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                 fragment = new HealthWeightDetectionUiFragment();
-                measureType = IPresenter.MEASURE_WEIGHT;
+                measureType = IBleConstants.MEASURE_WEIGHT;
                 break;
             default:
                 break;

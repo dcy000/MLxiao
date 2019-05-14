@@ -70,6 +70,11 @@ public class BluetoothListDialog extends BaseNiceDialog {
         mBtnSearchBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //先把原来的列表清空 因为此时列表中的设备可能已经关闭，再次点击连接，则连接不成功
+                deviceContainer.clear();
+                devices.clear();
+                if (adapter != null) adapter.notifyDataSetChanged();
+                deviceContainer.clear();
                 mBtnSearchBluetooth.startAnimation(mDevicesListRefreshAnim);
                 startDevicesListAnim();
             }
