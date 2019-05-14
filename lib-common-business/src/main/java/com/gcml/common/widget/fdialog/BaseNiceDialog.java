@@ -185,4 +185,8 @@ public abstract class BaseNiceDialog extends DialogFragment {
         ft.commitAllowingStateLoss();
         return this;
     }
+
+    public boolean isShow() {
+        return getDialog() != null && getDialog().isShowing();
+    }
 }

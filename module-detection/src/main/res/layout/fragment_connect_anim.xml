@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.gcml.module_detection.wrap.WaveView
+        android:id="@+id/wave_view"
+        android:layout_width="match_parent"
+        android:layout_height="2000pt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-1000pt" />
+    <ImageView
+        android:layout_width="365pt"
+        android:layout_height="287pt"
+        android:src="@drawable/searching_bloodpressure"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="86pt"/>
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="将血压仪佩戴好后按下测量键"
+        android:textColor="#333"
+        android:textSize="72pt"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88pt"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测量的同时机器人会自动连接蓝牙"
+        android:textSize="56pt"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_title1"
+        android:textColor="#666666"
+        android:layout_marginTop="28pt"/>
+</RelativeLayout>

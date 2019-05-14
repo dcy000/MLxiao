@@ -448,11 +448,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                         }
                         saveRoom();
                         if (isFirstWifi) {
-                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                Routerfit.register(AppRouter.class).skipAuthActivity();
-                            } else {
-                                Routerfit.register(AppRouter.class).skipMainActivity();
-                            }
+                            Routerfit.register(AppRouter.class).skipMainActivity();
                             finish();
                         }
                     }

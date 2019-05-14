@@ -257,12 +257,14 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             if (!isOn) {
                 //结束搜索
                 baseView.discoveryFinished();
+            } else {
+                baseView.discoveryStarted();
             }
         }
 
         @Override
         public void onNewDeviceFinded(BluetoothDevice newDevice) {
-            BluetoothStore.instance.findNewDevice.postValue(newDevice);
+            baseView.discoveryNewDevice(newDevice);
             newDeviceFinded(newDevice);
         }
 
@@ -304,7 +306,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             }
-
+            baseView.connectSuccess(device);
             connectSuccessed(targetName, targetAddress);
         }
 
@@ -314,6 +316,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connect_fail));
             }
+            baseView.connectFailed();
             connectFailed();
         }
 
@@ -323,6 +326,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
             }
+            baseView.disConnected();
             disConnected(address);
             //3秒之后尝试重连
             new WeakHandler().postDelayed(new Runnable() {
@@ -404,7 +408,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
 
     @CallSuper
     protected synchronized void newDeviceFinded(BluetoothDevice device) {
-        baseView.discoveryNewDevice(device);
+
     }
 
     @CallSuper

@@ -32,6 +32,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
@@ -202,6 +203,17 @@ public class RxUtils {
 
     public static Observable<Integer> rxCountDown(int interval, int times) {
         return Observable.interval(0, interval, TimeUnit.SECONDS)
+                .map(new Function<Long, Integer>() {
+                    @Override
+                    public Integer apply(Long aLong) throws Exception {
+                        return times - aLong.intValue();
+                    }
+                })
+                .take(times + 1);
+    }
+
+    public static Observable<Integer> rxCountDown(int interval, int times,TimeUnit unit) {
+        return Observable.interval(0, interval, unit)
                 .map(new Function<Long, Integer>() {
                     @Override
                     public Integer apply(Long aLong) throws Exception {

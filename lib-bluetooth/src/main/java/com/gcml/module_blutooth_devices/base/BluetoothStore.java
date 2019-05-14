@@ -16,10 +16,10 @@ import java.util.List;
 @AutoService(AppLifecycleCallbacks.class)
 public class BluetoothStore implements AppLifecycleCallbacks {
     private static BluetoothClient client;
-    public  MutableLiveData<BindDeviceBean> bindDevice = new MutableLiveData<>();
+    public MutableLiveData<BindDeviceBean> bindDevice = new MutableLiveData<>();
     public MutableLiveData<DetectionBean> detection = new MutableLiveData<>();
-    public MutableLiveData<BluetoothDevice> findNewDevice = new MutableLiveData<>();
     public static BluetoothStore instance;
+
     @Override
     public void attachBaseContext(Application app, Context base) {
 
@@ -27,15 +27,16 @@ public class BluetoothStore implements AppLifecycleCallbacks {
 
     @Override
     public void onCreate(@NonNull Application application) {
-        instance=this;
-        client=new BluetoothClient(application);
+        instance = this;
+        client = new BluetoothClient(application);
     }
 
     @Override
     public void onTerminate(@NonNull Application application) {
 
     }
-    public static BluetoothClient getClient(){
+
+    public static BluetoothClient getClient() {
         return client;
     }
 

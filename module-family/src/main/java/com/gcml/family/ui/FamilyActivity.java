@@ -8,15 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
-
 import com.gcml.family.R;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.gcml.family.adapter.FamilyMenuAdapter;
 import com.gcml.family.bean.FamilyBean;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;

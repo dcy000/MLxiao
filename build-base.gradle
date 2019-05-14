@@ -194,8 +194,8 @@ dependencies {
     releaseImplementation rootProject.ext.dependencies["pandora-release"]
 
     //网易视频通话
-    implementation 'com.netease.nimlib:basesdk:4.3.0'
-    implementation 'com.netease.nimlib:avchat:4.3.0'
+//    implementation 'com.netease.nimlib:basesdk:4.3.0'
+//    implementation 'com.netease.nimlib:avchat:4.3.0'
     //ARetrofit
     implementation "com.sjtu.yifei:auto-api:1.7.0"
     annotationProcessor "com.sjtu.yifei:auto-complier:1.5.0"

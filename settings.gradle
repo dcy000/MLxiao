@@ -8,8 +8,6 @@ include ':module-doctor-advisory', ':module-detection',
         ':lib-common-business',
         ':lib-common-core',
         ':lib-bluetooth', ':module-yzn'
-
-// 支持模块
 include ':lib-baidu-unit',
 //        ':lib-auth-face',
 //        ':lib-mlvoice',
@@ -21,8 +19,11 @@ include ':lib-baidu-unit',
         ':lib-widget',
 //        ':lib-bluetooth',
 //        ':lib-sub-bluetooth',
-        ':lib-video',
-        ':lib-call'
+//        ':lib-call',
+        ':lib-video'
+
+
+// 支持模块
 
 // 业务模块
 include ':module-video',

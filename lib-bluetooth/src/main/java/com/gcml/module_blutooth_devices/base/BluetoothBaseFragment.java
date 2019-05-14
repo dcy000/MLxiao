@@ -63,6 +63,11 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     }
 
     @Override
+    public void discoveryStarted() {
+
+    }
+
+    @Override
     public void discoveryNewDevice(BluetoothDevice device) {
         if (bluetoothDialog != null) {
             bluetoothDialog.addDevice(device);
@@ -120,6 +125,21 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
 
     @Override
     public void discoveryFinished() {
+
+    }
+
+    @Override
+    public void connectSuccess(BluetoothDevice device) {
+
+    }
+
+    @Override
+    public void disConnected() {
+
+    }
+
+    @Override
+    public void connectFailed() {
 
     }
 

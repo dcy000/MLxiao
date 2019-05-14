@@ -20,90 +20,106 @@
         android:id="@+id/iv_top_right_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/set_bg_white_btn_click"
         android:padding="60pt"
         android:src="@drawable/ic_dialog_refresh_top_right"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_connected"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22pt"
         app:layout_constraintTop_toBottomOf="@id/iv_top_right_refresh">
 
-        <TextView
-            android:id="@+id/tv_connected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60pt"
-            android:text="已连接"
-            android:textColor="#999999"
-            android:textSize="48pt"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24pt"
-            android:src="@drawable/ic_dialog_refresh_middle"
-            app:layout_constraintBottom_toBottomOf="@id/tv_connected"
-            app:layout_constraintLeft_toRightOf="@id/tv_connected"
-            app:layout_constraintTop_toTopOf="@id/tv_connected" />
-
-        <TextView
-            android:id="@+id/tv_device_connected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60pt"
-            android:layout_marginTop="72pt"
-            android:textColor="#333333"
-            android:textSize="56pt"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_connected" />
-
-        <View
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="1pt"
-            android:layout_marginLeft="60pt"
-            android:layout_marginTop="47pt"
-            android:layout_marginRight="60pt"
-            android:background="#bbbbbb"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_device_connected" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_choose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60pt"
-        android:text="选择设备"
-        android:textColor="#999999"
-        android:textSize="48pt"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_connected" />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_connected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22pt"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone">
 
-    <ImageView
-        android:id="@+id/iv_refresh_device_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24pt"
-        android:src="@drawable/ic_dialog_refresh_middle"
-        app:layout_constraintBottom_toBottomOf="@id/tv_choose"
-        app:layout_constraintLeft_toRightOf="@id/tv_choose"
-        app:layout_constraintTop_toTopOf="@id/tv_choose" />
+                <TextView
+                    android:id="@+id/tv_connected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60pt"
+                    android:text="已连接"
+                    android:textColor="#999999"
+                    android:textSize="48pt"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_devices"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60pt"
-        android:layout_marginTop="24pt"
-        android:layout_marginRight="60pt"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_choose" />
+                <ImageView
+                    android:id="@+id/iv_try_connect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24pt"
+                    android:src="@drawable/ic_dialog_refresh_middle"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_connected"
+                    app:layout_constraintLeft_toRightOf="@id/tv_connected"
+                    app:layout_constraintTop_toTopOf="@id/tv_connected"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tv_device_connected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60pt"
+                    android:layout_marginTop="72pt"
+                    android:textColor="#333333"
+                    android:textSize="56pt"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_connected" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginLeft="60pt"
+                    android:layout_marginTop="47pt"
+                    android:layout_marginRight="60pt"
+                    android:background="#bbbbbb"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_device_connected" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:layout_marginTop="80pt"
+                android:text="选择设备"
+                android:textColor="#999999"
+                android:textSize="48pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_connected" />
+
+            <ImageView
+                android:id="@+id/iv_refresh_device_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24pt"
+                android:src="@drawable/ic_dialog_refresh_middle"
+                app:layout_constraintBottom_toBottomOf="@id/tv_choose"
+                app:layout_constraintLeft_toRightOf="@id/tv_choose"
+                app:layout_constraintTop_toTopOf="@id/tv_choose" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_devices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:layout_marginTop="24pt"
+                android:layout_marginRight="60pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_choose" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

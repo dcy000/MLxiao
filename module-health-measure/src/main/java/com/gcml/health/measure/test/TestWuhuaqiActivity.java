@@ -183,12 +183,32 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
     }
 
     @Override
+    public void discoveryStarted() {
+
+    }
+
+    @Override
     public void discoveryNewDevice(BluetoothDevice device) {
 
     }
 
     @Override
     public void discoveryFinished() {
+
+    }
+
+    @Override
+    public void connectSuccess(BluetoothDevice device) {
+
+    }
+
+    @Override
+    public void disConnected() {
+
+    }
+
+    @Override
+    public void connectFailed() {
 
     }
 }

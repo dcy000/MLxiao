@@ -12,6 +12,10 @@ public interface IBluetoothView {
      */
     void updateData(DetectionData detectionData);
     void updateState(String state);
+    void discoveryStarted();
     void discoveryNewDevice(BluetoothDevice device);
     void discoveryFinished();
+    void connectSuccess(BluetoothDevice device);
+    void disConnected();
+    void connectFailed();
 }
