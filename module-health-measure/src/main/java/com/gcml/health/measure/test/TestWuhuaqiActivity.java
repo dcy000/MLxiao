@@ -197,6 +197,11 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
 
     }
 
+    @Override
+    public void unFindTargetDevice() {
+
+    }
+
 
     @Override
     public void connectSuccess(BluetoothDevice device) {

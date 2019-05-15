@@ -380,4 +380,7 @@ public interface AppRouter {
 
     @Go("/module/detection/connect/activity")
     boolean skipConnectActivity(@Extra("detectionType") int type);
+
+    @Go("/module/detection/choose/dection/type")
+    boolean skipChooseDetectionTypeActivity();
 }

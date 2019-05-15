@@ -34,6 +34,7 @@ public class ThreeInOnePresenter extends BaseBluetooth {
         detectionData.setUricAcid(0.0f);
         detectionData.setCholesterol(0.0f);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("BeneCheck")) {
             handleSelf(address);
             return;
@@ -97,19 +98,21 @@ public class ThreeInOnePresenter extends BaseBluetooth {
             detectionData.setUricAcid(0.0f);
             detectionData.setCholesterol(0.0f);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
         } else if (bytes[1] == 81) {//尿酸
             detectionData.setInit(false);
             detectionData.setBloodSugar(0.0f);
             detectionData.setUricAcid(result);
             detectionData.setCholesterol(0.0f);
             baseView.updateData(detectionData);
-
+            BluetoothStore.instance.detection.postValue(detectionData);
         } else if (bytes[1] == 97) {//胆固醇
             detectionData.setInit(false);
             detectionData.setBloodSugar(0.0f);
             detectionData.setUricAcid(0.0f);
             detectionData.setCholesterol(result);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
         }
     }
 }

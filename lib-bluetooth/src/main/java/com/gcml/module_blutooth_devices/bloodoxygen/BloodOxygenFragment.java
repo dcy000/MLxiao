@@ -63,7 +63,7 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
             mTvResult.setText("0");
             isMeasureFinishedOfThisTime = false;
         } else {
-            mTvResult.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getBloodOxygen()));
+            mTvResult.setText(String.format(Locale.getDefault(), "%.0f", detectionData.getBloodOxygen()));
             if (!isMeasureFinishedOfThisTime && detectionData.getBloodOxygen() != 0) {
                 isMeasureFinishedOfThisTime = true;
                 onMeasureFinished(detectionData);

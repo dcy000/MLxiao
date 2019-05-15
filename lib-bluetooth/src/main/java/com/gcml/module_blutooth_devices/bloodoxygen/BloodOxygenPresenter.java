@@ -56,7 +56,7 @@ public class BloodOxygenPresenter extends BaseBluetooth {
         detectionData.setBloodOxygen(0.0f);
         detectionData.setPulse(0);
         baseView.updateData(detectionData);
-
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("POD")) {
             //自家血氧仪
             handleSelf(address);
@@ -146,6 +146,7 @@ public class BloodOxygenPresenter extends BaseBluetooth {
                     detectionData.setPulse((int) bytes[4]);
                     detectionData.setInit(false);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
 //                    baseView.updateData(bytes[3] + "", bytes[4] + "");
                 }
             }
@@ -167,6 +168,7 @@ public class BloodOxygenPresenter extends BaseBluetooth {
                             detectionData.setPulse((int) value[6]);
                             detectionData.setInit(false);
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
 //                            baseView.updateData(value[5] + "", value[6] + "");
                         }
                     }

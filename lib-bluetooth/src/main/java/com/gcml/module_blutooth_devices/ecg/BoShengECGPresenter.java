@@ -45,6 +45,7 @@ import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
@@ -194,6 +195,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                                 detectionData.setInit(false);
                                 detectionData.setEcgData(data);
                                 baseView.updateData(detectionData);
+                                BluetoothStore.instance.detection.postValue(detectionData);
                             }
                         }
                     });
@@ -487,6 +489,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         detectionData.setResult(boShengResultBean.getFindings());
                         detectionData.setHeartRate(avgbeatsBean.getHR());
                         baseView.updateData(detectionData);
+                        BluetoothStore.instance.detection.postValue(detectionData);
                     }
 
                     @Override

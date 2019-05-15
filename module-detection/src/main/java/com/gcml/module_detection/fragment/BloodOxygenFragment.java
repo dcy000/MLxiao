@@ -12,16 +12,16 @@ import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
 
-public class BloodpressureFragment extends BluetoothBaseFragment implements View.OnClickListener {
+import java.util.Locale;
+
+public class BloodOxygenFragment extends BluetoothBaseFragment implements View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
-    private TextView mTvGaoya;
-    private TextView mTvDiya;
-    private TextView mTvMaibo;
+    private TextView mTvResult;
 
     @Override
     protected int initLayout() {
-        return R.layout.bluetooth_fragment_bloodpressure;
+        return R.layout.bluetooth_fragment_bloodoxygen;
     }
 
     @Override
@@ -30,12 +30,8 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
         mBtnHealthHistory.setOnClickListener(this);
         mBtnVideoDemo = view.findViewById(com.gcml.module_blutooth_devices.R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
-        mTvGaoya = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_gaoya);
-        mTvDiya = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_diya);
-        mTvMaibo = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_maibo);
-        mTvGaoya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
-        mTvDiya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
-        mTvMaibo.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvResult = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_result);
+        mTvResult.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         obserData();
     }
 
@@ -45,15 +41,11 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
                 if (detectionData.isInit()) {
-                    mTvGaoya.setText(String.valueOf(detectionData.getHighPressure()));
-                    mTvDiya.setText("0");
-                    mTvMaibo.setText("0");
+                    mTvResult.setText("0");
                     isMeasureFinishedOfThisTime = false;
                 } else {
-                    mTvGaoya.setText(String.valueOf(detectionData.getHighPressure()));
-                    mTvDiya.setText(String.valueOf(detectionData.getLowPressure()));
-                    mTvMaibo.setText(String.valueOf(detectionData.getPulse()));
-                    if (!isMeasureFinishedOfThisTime && detectionData.getHighPressure() != 0) {
+                    mTvResult.setText(String.format(Locale.getDefault(), "%.0f", detectionData.getBloodOxygen()));
+                    if (!isMeasureFinishedOfThisTime && detectionData.getBloodOxygen() != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
                     }

@@ -41,6 +41,7 @@ public class TemperaturePresenter extends BaseBluetooth {
         detectionData.setInit(true);
         detectionData.setTemperAture(0.0f);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("AET-WD")) {
             handleAilikang(address);
             return;
@@ -101,6 +102,7 @@ public class TemperaturePresenter extends BaseBluetooth {
                     detectionData.setInit(false);
                     detectionData.setTemperAture((float) result);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -121,6 +123,7 @@ public class TemperaturePresenter extends BaseBluetooth {
                         detectionData.setInit(false);
                         detectionData.setTemperAture(result);
                         baseView.updateData(detectionData);
+                        BluetoothStore.instance.detection.postValue(detectionData);
                     }
                 }
             }
@@ -143,6 +146,7 @@ public class TemperaturePresenter extends BaseBluetooth {
                     detectionData.setInit(false);
                     detectionData.setTemperAture(result);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -166,6 +170,7 @@ public class TemperaturePresenter extends BaseBluetooth {
                 detectionData.setInit(false);
                 detectionData.setTemperAture(result);
                 baseView.updateData(detectionData);
+                BluetoothStore.instance.detection.postValue(detectionData);
             }
 
             @Override

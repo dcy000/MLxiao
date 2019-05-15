@@ -40,7 +40,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class PersonDetailFragment extends Fragment implements View.OnClickListener {
-    public String userId;
+    public int userId;
 
     public TextView tvUserName;
     public ImageView headImg;
@@ -98,7 +98,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onStart() {
         super.onStart();
-        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+        if (UserSpHelper.getUserId()==0) {
             ToastUtils.showShort("请重新登录");
             return;
         }
@@ -141,7 +141,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     }
 
     private void getData() {
-        boolean empty = TextUtils.isEmpty(UserSpHelper.getUserId());
+        boolean empty =UserSpHelper.getUserId()==0;
         if (empty) {
             String message = "请重新登录！";
             ToastUtils.showShort(message);
@@ -257,7 +257,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             Routerfit.register(AppRouter.class).getCallProvider().logout();
             UserSpHelper.setToken("");
             UserSpHelper.setEqId("");
-            UserSpHelper.setUserId("");
+            UserSpHelper.setUserId(0);
             Routerfit.register(AppRouter.class).skipAuthActivity();
             FragmentActivity activity = getActivity();
             if (activity != null) {

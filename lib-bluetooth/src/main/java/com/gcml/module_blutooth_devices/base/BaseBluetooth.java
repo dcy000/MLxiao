@@ -271,6 +271,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         @Override
         public void obtainDevice(BluetoothDevice device) {
             this.device = device;
+            //自己实现连接流程
             if (isSelfConnect(device.getName(), device.getAddress())) {
                 return;
             }
@@ -282,6 +283,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         @Override
         public void noneFind() {
             BaseBluetooth.this.noneFind();
+            baseView.unFindTargetDevice();
         }
     }
 

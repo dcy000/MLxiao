@@ -6,5 +6,8 @@
         <activity
             android:name=".ConnectActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".ChooseDetectionTypeActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

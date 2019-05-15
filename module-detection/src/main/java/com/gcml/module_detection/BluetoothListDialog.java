@@ -30,7 +30,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Consumer;
-import timber.log.Timber;
 
 public class BluetoothListDialog extends BaseNiceDialog {
     private List<BluetoothDevice> devices = new ArrayList<>();
@@ -124,6 +123,7 @@ public class BluetoothListDialog extends BaseNiceDialog {
                     if (selfDevice) {
                         if (controlBluetooth != null) {
                             controlBluetooth.connect(device);
+                            dismiss();
                         }
                     } else {
                         ToastUtils.showShort("不支持非本公司设备连接");

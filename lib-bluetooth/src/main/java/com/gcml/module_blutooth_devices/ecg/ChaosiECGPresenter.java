@@ -113,6 +113,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                         detectionData.setInit(false);
                         detectionData.setEcgData(one);
                         baseView.updateData(detectionData);
+                        BluetoothStore.instance.detection.postValue(detectionData);
                     }
                 }
             }
@@ -135,6 +136,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                     detectionData.setInit(false);
                     detectionData.setEcgData(two);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -156,6 +158,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                     detectionData.setInit(false);
                     detectionData.setEcgData(three);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -176,6 +179,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                     detectionData.setInit(false);
                     detectionData.setEcgData(four);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -196,6 +200,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                     detectionData.setInit(false);
                     detectionData.setEcgData(four);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 

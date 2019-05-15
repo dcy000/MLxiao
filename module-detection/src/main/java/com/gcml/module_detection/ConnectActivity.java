@@ -1,5 +1,6 @@
 package com.gcml.module_detection;
 
+import android.arch.lifecycle.Observer;
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,8 +19,13 @@ import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodPressurePresenter;
+import com.gcml.module_blutooth_devices.weight.WeightPresenter;
+import com.gcml.module_detection.fragment.BloodOxygenFragment;
 import com.gcml.module_detection.fragment.BloodpressureFragment;
+import com.gcml.module_detection.fragment.ECGFragment;
 import com.gcml.module_detection.fragment.SearchAnimFragment;
+import com.gcml.module_detection.fragment.TemperatureFragment;
+import com.gcml.module_detection.fragment.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 
@@ -45,7 +51,6 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     private void dealSearchFragment() {
         detectionType = getIntent().getIntExtra("detectionType", 22);
-
         switch (detectionType) {
             case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 //血压
@@ -59,6 +64,24 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 baseBluetooth = new BloodOxygenPresenter(this);
                 initFragment("将血氧仪夹在手指上", "将血氧仪器夹在手指上，机器人会自动连接蓝牙", R.drawable.searching_bloodoxygen);
                 break;
+            case IBleConstants.MEASURE_WEIGHT:
+                //体重
+                mTitleText.setText("体 重 测 量");
+                baseBluetooth = new WeightPresenter(this);
+                initFragment("站在体重秤上", "站上体重秤后，机器人会自动连接蓝牙", R.drawable.searching_weight);
+                break;
+            case IBleConstants.MEASURE_TEMPERATURE:
+                //耳温
+                mTitleText.setText("耳 温 测 量");
+                baseBluetooth = new WeightPresenter(this);
+                initFragment("按下耳温枪START键开机，连接蓝牙", "连接成功后，将探头尽可能的伸入耳道内，按下START扫描键开始测量", R.drawable.searching_temperature);
+                break;
+            case IBleConstants.MEASURE_ECG:
+                //心电
+                mTitleText.setText("心 电 测 量");
+                baseBluetooth = new WeightPresenter(this);
+                initFragment("将心电仪夹在两只手指中间", "将心电仪夹在两只手指中间，机器人会自动连接蓝牙", R.drawable.searching_ecg_bosheng);
+                break;
         }
     }
 
@@ -67,27 +90,35 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
             case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 //血压
                 baseFragment = new BloodpressureFragment();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
-                        .addToBackStack(null)
-                        .replace(R.id.fl_container, baseFragment).commit();
                 break;
             case IBleConstants.MEASURE_BLOOD_OXYGEN:
                 //血氧
-                baseBluetooth = new BloodOxygenPresenter(this);
+                baseFragment = new BloodOxygenFragment();
                 break;
+            case IBleConstants.MEASURE_WEIGHT:
+                //体重
+                baseFragment = new WeightFragment();
+                break;
+            case IBleConstants.MEASURE_TEMPERATURE:
+                //耳温
+                baseFragment = new TemperatureFragment();
+                break;
+            case IBleConstants.MEASURE_ECG:
+                //心电
+                baseFragment = new ECGFragment();
+                break;
+        }
+        if (baseFragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
+                    .addToBackStack(null)
+                    .replace(R.id.fl_container, baseFragment).commit();
         }
     }
 
     private void initFragment(String mainTitle, String subTitle, int imgRes) {
-        if (baseFragment instanceof BloodpressureFragment) {
-            getSupportFragmentManager().popBackStack();
-            return;
-        }
-        if (baseFragment instanceof SearchAnimFragment) {
-            return;
-        }
+
         Bundle bundle = new Bundle();
         bundle.putString("mainTitle", mainTitle);
         bundle.putString("subTitle", subTitle);
@@ -149,9 +180,12 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         if (dialog != null) {
             dialog.stopDevicesListAnim();
         }
-        if (!isConnected) {
-            showUnSearchedDeviceDialog();
-        }
+
+    }
+
+    @Override
+    public void unFindTargetDevice() {
+        showUnSearchedDeviceDialog();
     }
 
     @Override
@@ -168,9 +202,15 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     public void disConnected() {
         mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
         //同时回到尝试搜索的页面
-        dealSearchFragment();
+        popSearchFragment();
         if (dialog != null) {
             dialog.hideConnectedUI();
+        }
+    }
+
+    private void popSearchFragment() {
+        if (!(baseFragment instanceof SearchAnimFragment)) {
+            getSupportFragmentManager().popBackStack();
         }
     }
 

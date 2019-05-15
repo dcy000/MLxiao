@@ -12,6 +12,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
@@ -81,7 +82,9 @@ public class WeightYikePresenter implements LifecycleObserver {
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             detectionData.setInit(true);
             detectionData.setWeightOver(false);
+            detectionData.setWeight(0.0f);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, bluetoothDevice.getName() + "," + bluetoothDevice.getAddress());
         }
 
@@ -102,10 +105,11 @@ public class WeightYikePresenter implements LifecycleObserver {
 
         @Override
         public void BleReadRS(float v, List<Float> list, List<Float> list1) {
-            detectionData.setInit(true);
+            detectionData.setInit(false);
             detectionData.setWeightOver(false);
             detectionData.setWeight(v);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
         }
 
         @Override

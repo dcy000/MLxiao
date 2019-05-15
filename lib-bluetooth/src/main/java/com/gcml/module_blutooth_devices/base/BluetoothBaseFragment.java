@@ -28,7 +28,6 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     protected Context mContext;
     protected Activity mActivity;
     protected BaseBluetooth basePresenter;
-    protected BluetoothDialog bluetoothDialog;
     private LoadingDialog mLoadingDialog;
 
     @Override
@@ -67,27 +66,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
 
     @Override
     public void discoveryNewDevice(BluetoothDevice device) {
-        if (bluetoothDialog != null) {
-            bluetoothDialog.addDevice(device);
-        }
-    }
 
-    public void showBluetoothDialog() {
-        if (bluetoothDialog == null) {
-            bluetoothDialog = new BluetoothDialog(mContext, this, IBleConstants.MEASURE_BLOOD_OXYGEN);
-            bluetoothDialog.setChooseBluetoothDeviceListener(this);
-        }
-        if (!bluetoothDialog.isShowing()) {
-            bluetoothDialog.show();
-            if (basePresenter != null && !basePresenter.isOnSearching()) {
-                basePresenter.startDiscovery(null);
-            }
-        } else {
-            if (bluetoothDialog != null) {
-                bluetoothDialog.dismiss();
-            }
-            bluetoothDialog = null;
-        }
     }
 
     @Override
@@ -123,6 +102,11 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
 
     @Override
     public void discoveryFinished(boolean isConnected) {
+
+    }
+
+    @Override
+    public void unFindTargetDevice() {
 
     }
 

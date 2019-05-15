@@ -44,7 +44,9 @@ public class WeightPresenter extends BaseBluetooth {
     protected void connectSuccessed(String name, String address) {
         detectionData.setInit(true);
         detectionData.setWeightOver(false);
+        detectionData.setWeight(0.0f);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("VScale")) {
             handleTongfang(address);
             return;
@@ -123,6 +125,7 @@ public class WeightPresenter extends BaseBluetooth {
                             detectionData.setWeightOver(true);
                             detectionData.setWeight(weight);
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
 
@@ -155,6 +158,7 @@ public class WeightPresenter extends BaseBluetooth {
                             detectionData.setWeightOver(false);
                             detectionData.setWeight(weight);
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                             //TODO 可以向体重秤写入个人信息然后得到体脂，BIM等一系列更详细的信息
                         }
                     } else {// 详细信息
@@ -251,6 +255,7 @@ public class WeightPresenter extends BaseBluetooth {
                     detectionData.setWeightOver(false);
                     detectionData.setWeight(weight);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 

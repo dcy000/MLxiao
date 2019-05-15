@@ -11,6 +11,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 
@@ -48,7 +49,9 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                     baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
                     detectionData.setInit(true);
                     detectionData.setWeightOver(false);
+                    detectionData.setWeight(0.0f);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                     SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, name + "," + address);
                 } else {
                     if (((Fragment) baseView).isAdded()) {
@@ -73,12 +76,14 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                                     detectionData.setWeightOver(false);
                                     detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
                                     baseView.updateData(detectionData);
+                                    BluetoothStore.instance.detection.postValue(detectionData);
                                 } else {
                                     String tmpNum = strdata[7] + strdata[8];
                                     detectionData.setInit(false);
                                     detectionData.setWeightOver(true);
                                     detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
                                     baseView.updateData(detectionData);
+                                    BluetoothStore.instance.detection.postValue(detectionData);
                                 }
                                 break;
                             case "82":

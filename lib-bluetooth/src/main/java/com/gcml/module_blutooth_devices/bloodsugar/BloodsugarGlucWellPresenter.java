@@ -13,6 +13,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.vivachek.ble.sdk.outer.BleManager;
@@ -83,6 +84,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
                 detectionData.setInit(true);
                 detectionData.setBloodSugar(0.0f);
                 baseView.updateData(detectionData);
+                BluetoothStore.instance.detection.postValue(detectionData);
                 SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODSUGAR, name + "," + address);
                 BleManager.getInstance().sendGetSnCommond();
                 break;
@@ -162,6 +164,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
         detectionData.setInit(false);
         detectionData.setBloodSugar(result);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
     }
 
     @SuppressLint("RestrictedApi")

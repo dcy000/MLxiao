@@ -13,6 +13,7 @@ import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
@@ -85,7 +86,9 @@ public class WeightSimaidePresenter implements LifecycleObserver {
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             detectionData.setInit(true);
             detectionData.setWeightOver(false);
+            detectionData.setWeight(0.0f);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
             BluetoothDevice btDevice = vtDevice.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
         }
@@ -113,7 +116,9 @@ public class WeightSimaidePresenter implements LifecycleObserver {
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             detectionData.setInit(true);
             detectionData.setWeightOver(false);
+            detectionData.setWeight(0.0f);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
             BluetoothDevice btDevice = device.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
             //连接成功 然后 给广播称设置数据监听
@@ -152,10 +157,11 @@ public class WeightSimaidePresenter implements LifecycleObserver {
                 SimaideBodyInfo scaleInfo = new Gson().fromJson(response, SimaideBodyInfo.class);
                 if (scaleInfo.getCode() == 200) {
                     float weight = scaleInfo.getDetails().getWeight();
-                    detectionData.setInit(true);
+                    detectionData.setInit(false);
                     detectionData.setWeightOver(true);
                     detectionData.setWeight(weight);
                     baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
         }

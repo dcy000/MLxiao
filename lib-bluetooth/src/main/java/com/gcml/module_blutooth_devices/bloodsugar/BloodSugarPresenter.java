@@ -37,6 +37,7 @@ public class BloodSugarPresenter extends BaseBluetooth {
         detectionData.setInit(true);
         detectionData.setBloodSugar(0.0f);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("BLE-Glucowell")) {
             return;
         }
@@ -94,6 +95,7 @@ public class BloodSugarPresenter extends BaseBluetooth {
                             detectionData.setInit(false);
                             detectionData.setBloodSugar(sugar);
                             baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
 
