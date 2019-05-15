@@ -244,7 +244,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 .setConvertListener(new ViewConvertListener() {
                     @Override
                     protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
-                        holder.setText(R.id.tv_msg, "设备连接失败！\n请点击右上角蓝牙图标，尝试手动连接");
+                        holder.setText(R.id.tv_msg, "连接蓝牙失败！\n请点击右上角蓝牙图标，尝试手动连接");
                         holder.getView(R.id.btn_click).setOnClickListener(v -> {
                             dialog.dismiss();
                         });
