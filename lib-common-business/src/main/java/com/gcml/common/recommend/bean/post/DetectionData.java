@@ -164,7 +164,7 @@ public class DetectionData implements Serializable {
         this.sugarTime = sugarTime;
     }
 
-    public float getTemperAture() {
+    public Float getTemperAture() {
         return temperAture;
     }
 
@@ -180,7 +180,7 @@ public class DetectionData implements Serializable {
         this.time = time;
     }
 
-    public float getUricAcid() {
+    public Float getUricAcid() {
         return uricAcid;
     }
 
@@ -204,7 +204,7 @@ public class DetectionData implements Serializable {
         this.weight = weight;
     }
 
-    public boolean isWeightOver() {
+    public Boolean isWeightOver() {
         return weightOver;
     }
 
@@ -276,11 +276,11 @@ public class DetectionData implements Serializable {
         this.ecgFlag = ecgFlag;
     }
 
-    public boolean isInit() {
+    public Boolean isInit() {
         return isInit;
     }
 
-    public void setInit(boolean init) {
+    public void setInit(Boolean init) {
         isInit = init;
     }
 }

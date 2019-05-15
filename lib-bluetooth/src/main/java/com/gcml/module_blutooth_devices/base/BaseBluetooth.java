@@ -299,16 +299,10 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             targetAddress = device.getAddress();
             //本地缓存
             saveSP(targetName + "," + targetAddress);
-            //存入全局变量
-            BindDeviceBean bindDeviceBean = new BindDeviceBean();
-            bindDeviceBean.setBluetoothName(targetName);
-            bindDeviceBean.setBluetoothMac(targetAddress);
-            bindDeviceBean.setBluetoothBrand(obtainBrands().get(targetName));
-            BluetoothStore.instance.bindDevice.postValue(bindDeviceBean);
             if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             }
-            baseView.connectSuccess(device);
+            baseView.connectSuccess(device, targetName);
             connectSuccessed(targetName, targetAddress);
         }
 

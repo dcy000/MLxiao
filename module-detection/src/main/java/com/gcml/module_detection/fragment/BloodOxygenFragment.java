@@ -11,7 +11,6 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
-
 import java.util.Locale;
 
 public class BloodOxygenFragment extends BluetoothBaseFragment implements View.OnClickListener {

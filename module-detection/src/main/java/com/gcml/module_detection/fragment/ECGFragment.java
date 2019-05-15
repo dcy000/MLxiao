@@ -17,6 +17,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGSingleGuideView;
+import com.gcml.module_detection.ConnectActivity;
 
 public class ECGFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private ECGSingleGuideView mEcgView;
@@ -78,6 +79,27 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
                 }
             }
         });
+        BaseBluetooth presenter = ((ConnectActivity) getActivity()).getPresenter();
+        if (presenter instanceof ECGPresenter) {
+            ((ECGPresenter) presenter).ecgBrand.observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(@Nullable String s) {
+                    if (s.startsWith("WeCardio")) {
+                        mEcgView.setBaseLineValue(3600f);
+                        mEcgView.setBrand("BoSheng");
+                        return;
+                    }
+                    if (s.startsWith("A12-B")) {
+                        mEcgView.setBrand("ChaoSi");
+                        mEcgView.setReverse(true);
+                        mEcgView.setSampling(250);
+                        mEcgView.setDefaultBaseLinewValue(600);
+                        mEcgView.setGain(70);
+                        return;
+                    }
+                }
+            });
+        }
     }
 
     @Override

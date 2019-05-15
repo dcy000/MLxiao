@@ -58,6 +58,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                 // 设备超时
                 case 3:
                     baseView.updateState("设备连接超时");
+                    baseView.connectFailed();
                     break;
                 // 充不上气
                 case 4:
@@ -72,6 +73,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     baseView.updateState("设备电量不足");
                     break;
                 case 7:
+                    baseView.disConnected();
                     break;
                 // 测量中
                 case 8:
@@ -146,6 +148,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                 //设备连接成功
                 isSuccess = true;
                 baseView.updateState(activity.getString(R.string.bluetooth_device_connected));
+                baseView.connectSuccess(bluetoothDevice, name);
                 detectionData.setInit(true);
                 detectionData.setHighPressure(0);
                 detectionData.setLowPressure(0);
@@ -159,6 +162,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
             isEnd = false;
         } catch (IOException e) {
             e.printStackTrace();
+            baseView.connectFailed();
         }
     }
 

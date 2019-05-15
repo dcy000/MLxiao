@@ -19,10 +19,8 @@ import com.gcml.common.widget.fdialog.NiceDialog;
 import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.dialog.BluetoothDialog;
-import com.gcml.module_blutooth_devices.dialog.ChooseBluetoothDevice;
 
-public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView, ChooseBluetoothDevice {
+public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView {
     protected View view = null;
     protected boolean isMeasureFinishedOfThisTime = false;
     protected Context mContext;
@@ -69,24 +67,9 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
 
     }
 
-    @Override
-    public void choosed(BluetoothDevice device) {
-        if (basePresenter != null) {
-            basePresenter.startConnect(device);
-        }
-    }
-
-    @Override
     public void autoConnect() {
         if (basePresenter != null) {
             basePresenter.startDiscovery(null);
-        }
-    }
-
-    @Override
-    public void cancelSearch() {
-        if (basePresenter != null) {
-            basePresenter.stopDiscovery();
         }
     }
 
@@ -111,7 +94,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     }
 
     @Override
-    public void connectSuccess(BluetoothDevice device) {
+    public void connectSuccess(BluetoothDevice device, String bluetoothName) {
 
     }
 

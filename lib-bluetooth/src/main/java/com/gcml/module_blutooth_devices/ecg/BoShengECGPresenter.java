@@ -158,10 +158,12 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private final BleGattCallback bleGattCallback = new BleGattCallback() {
         @Override
         public void onStartConnect() {
+
         }
 
         @Override
         public void onConnectFail(BleDevice bleDevice, BleException exception) {
+            baseView.connectFailed();
         }
 
         @Override
@@ -169,6 +171,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
             isMeasureEnd = false;
             lockedDevice = bleDevice;
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
+            baseView.connectSuccess(bleDevice.getDevice(),name);
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
 
             BleManager.getInstance().notify(bleDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
@@ -203,6 +206,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
         @Override
         public void onDisConnected(boolean isActiveDisConnected, BleDevice device, BluetoothGatt gatt, int status) {
+            baseView.disConnected();
             if (baseView instanceof Activity) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
             } else if (baseView instanceof Fragment) {

@@ -202,11 +202,11 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
 
     }
 
-
     @Override
-    public void connectSuccess(BluetoothDevice device) {
+    public void connectSuccess(BluetoothDevice device, String bluetoothName) {
 
     }
+
 
     @Override
     public void disConnected() {

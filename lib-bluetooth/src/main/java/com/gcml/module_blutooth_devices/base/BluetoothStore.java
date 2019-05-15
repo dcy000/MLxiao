@@ -17,7 +17,6 @@ import java.util.List;
 @AutoService(AppLifecycleCallbacks.class)
 public class BluetoothStore implements AppLifecycleCallbacks {
     private static BluetoothClient client;
-    public MutableLiveData<BindDeviceBean> bindDevice = new MutableLiveData<>();
     public MutableLiveData<DetectionData> detection = new MutableLiveData<>();
     public static BluetoothStore instance;
 

@@ -1,6 +1,5 @@
 package com.gcml.module_detection;
 
-import android.arch.lifecycle.Observer;
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +18,8 @@ import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodPressurePresenter;
+import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
+import com.gcml.module_blutooth_devices.temperature.TemperaturePresenter;
 import com.gcml.module_blutooth_devices.weight.WeightPresenter;
 import com.gcml.module_detection.fragment.BloodOxygenFragment;
 import com.gcml.module_detection.fragment.BloodpressureFragment;
@@ -29,16 +30,14 @@ import com.gcml.module_detection.fragment.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 
-import timber.log.Timber;
-
 @Route(path = "/module/detection/connect/activity")
 public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothView, DialogControlBluetooth {
-
 
     private BaseBluetooth baseBluetooth;
     private BluetoothListDialog dialog;
     private int detectionType;
     private BluetoothBaseFragment baseFragment;
+    private boolean isAfterPause;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +48,18 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         dealSearchFragment();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isAfterPause = false;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isAfterPause = true;
+    }
+
     private void dealSearchFragment() {
         detectionType = getIntent().getIntExtra("detectionType", 22);
         switch (detectionType) {
@@ -56,31 +67,31 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 //血压
                 mTitleText.setText("血 压 测 量");
                 baseBluetooth = new BloodPressurePresenter(this);
-                initFragment("将血压仪佩戴好后按下测量键", "测量的同时机器人会自动连接蓝牙", R.drawable.searching_bloodpressure);
+                initSearchFragment("将血压仪佩戴好后按下测量键", "测量的同时机器人会自动连接蓝牙", R.drawable.searching_bloodpressure);
                 break;
             case IBleConstants.MEASURE_BLOOD_OXYGEN:
                 //血氧
                 mTitleText.setText("血 氧 测 量");
                 baseBluetooth = new BloodOxygenPresenter(this);
-                initFragment("将血氧仪夹在手指上", "将血氧仪器夹在手指上，机器人会自动连接蓝牙", R.drawable.searching_bloodoxygen);
+                initSearchFragment("将血氧仪夹在手指上", "将血氧仪器夹在手指上，机器人会自动连接蓝牙", R.drawable.searching_bloodoxygen);
                 break;
             case IBleConstants.MEASURE_WEIGHT:
                 //体重
                 mTitleText.setText("体 重 测 量");
                 baseBluetooth = new WeightPresenter(this);
-                initFragment("站在体重秤上", "站上体重秤后，机器人会自动连接蓝牙", R.drawable.searching_weight);
+                initSearchFragment("站在体重秤上", "站上体重秤后，机器人会自动连接蓝牙", R.drawable.searching_weight);
                 break;
             case IBleConstants.MEASURE_TEMPERATURE:
                 //耳温
                 mTitleText.setText("耳 温 测 量");
-                baseBluetooth = new WeightPresenter(this);
-                initFragment("按下耳温枪START键开机，连接蓝牙", "连接成功后，将探头尽可能的伸入耳道内，按下START扫描键开始测量", R.drawable.searching_temperature);
+                baseBluetooth = new TemperaturePresenter(this);
+                initSearchFragment("按下耳温枪START键开机，连接蓝牙", "连接成功后，将探头尽可能的伸入耳道内，按下START扫描键开始测量", R.drawable.searching_temperature);
                 break;
             case IBleConstants.MEASURE_ECG:
                 //心电
                 mTitleText.setText("心 电 测 量");
-                baseBluetooth = new WeightPresenter(this);
-                initFragment("将心电仪夹在两只手指中间", "将心电仪夹在两只手指中间，机器人会自动连接蓝牙", R.drawable.searching_ecg_bosheng);
+                baseBluetooth = new ECGPresenter(this);
+                initSearchFragment("将心电仪夹在两只手指中间", "将心电仪夹在两只手指中间，机器人会自动连接蓝牙", R.drawable.searching_ecg_bosheng);
                 break;
         }
     }
@@ -113,11 +124,11 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                     .beginTransaction()
                     .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
                     .addToBackStack(null)
-                    .replace(R.id.fl_container, baseFragment).commit();
+                    .replace(R.id.fl_container, baseFragment).commitAllowingStateLoss();
         }
     }
 
-    private void initFragment(String mainTitle, String subTitle, int imgRes) {
+    private void initSearchFragment(String mainTitle, String subTitle, int imgRes) {
 
         Bundle bundle = new Bundle();
         bundle.putString("mainTitle", mainTitle);
@@ -128,7 +139,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
-                .replace(R.id.fl_container, baseFragment).commit();
+                .replace(R.id.fl_container, baseFragment).commitAllowingStateLoss();
     }
 
     private void initView() {
@@ -189,14 +200,13 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     @Override
-    public void connectSuccess(BluetoothDevice device) {
+    public void connectSuccess(BluetoothDevice device, String bluetoothName) {
         mRightView.setImageResource(R.drawable.ic_bluetooth_connected);
         dealMeasureFragment();
         if (dialog != null) {
             dialog.showConnectedUI(device);
         }
     }
-
 
     @Override
     public void disConnected() {
@@ -209,7 +219,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     private void popSearchFragment() {
-        if (!(baseFragment instanceof SearchAnimFragment)) {
+        if (!(baseFragment instanceof SearchAnimFragment) && !isAfterPause) {
             getSupportFragmentManager().popBackStack();
         }
     }
@@ -294,5 +304,9 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 .setWidth(600)
                 .setHeight(330)
                 .show(getSupportFragmentManager());
+    }
+
+    public BaseBluetooth getPresenter() {
+        return baseBluetooth;
     }
 }
