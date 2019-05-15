@@ -16,6 +16,7 @@ public class OutBean implements Serializable {
 
     public String type;
     public List<LinksBean> links;
+    public List<LinksBean> maps;
 
     public static class LinksBean implements Serializable {
         /**
