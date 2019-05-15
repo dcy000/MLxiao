@@ -18,14 +18,20 @@ import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodPressurePresenter;
+import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
 import com.gcml.module_blutooth_devices.temperature.TemperaturePresenter;
+import com.gcml.module_blutooth_devices.three.ThreeInOnePresenter;
 import com.gcml.module_blutooth_devices.weight.WeightPresenter;
 import com.gcml.module_detection.fragment.BloodOxygenFragment;
+import com.gcml.module_detection.fragment.BloodSugarFragment;
 import com.gcml.module_detection.fragment.BloodpressureFragment;
+import com.gcml.module_detection.fragment.BloodsugarSearchFragment;
+import com.gcml.module_detection.fragment.CholesterolFragment;
 import com.gcml.module_detection.fragment.ECGFragment;
 import com.gcml.module_detection.fragment.SearchAnimFragment;
 import com.gcml.module_detection.fragment.TemperatureFragment;
+import com.gcml.module_detection.fragment.UricAcidFragment;
 import com.gcml.module_detection.fragment.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
@@ -93,7 +99,33 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 baseBluetooth = new ECGPresenter(this);
                 initSearchFragment("将心电仪夹在两只手指中间", "将心电仪夹在两只手指中间，机器人会自动连接蓝牙", R.drawable.searching_ecg_bosheng);
                 break;
+            case IBleConstants.MEASURE_CHOLESTEROL:
+                //胆固醇
+                mTitleText.setText("胆 固 醇 测 量");
+                baseBluetooth = new ThreeInOnePresenter(this);
+                initSearchFragment("给三合一插上检测试纸", "测上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
+                break;
+            case IBleConstants.MEASURE_URIC_ACID:
+                //血尿酸
+                mTitleText.setText("胆 固 醇 测 量");
+                baseBluetooth = new ThreeInOnePresenter(this);
+                initSearchFragment("给三合一插上检测试纸", "测上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
+                break;
+            case IBleConstants.MEASURE_BLOOD_SUGAR:
+                //测量血糖
+                mTitleText.setText("血 糖 测 量");
+                baseBluetooth = new BloodSugarPresenter(this);
+                initBloodsugarSearchFragment();
+                break;
         }
+    }
+
+    private void initBloodsugarSearchFragment() {
+        baseFragment = new BloodsugarSearchFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
+                .replace(R.id.fl_container, baseFragment).commitAllowingStateLoss();
     }
 
     private void dealMeasureFragment() {
@@ -117,6 +149,18 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
             case IBleConstants.MEASURE_ECG:
                 //心电
                 baseFragment = new ECGFragment();
+                break;
+            case IBleConstants.MEASURE_CHOLESTEROL:
+                //胆固醇
+                baseFragment = new CholesterolFragment();
+                break;
+            case IBleConstants.MEASURE_URIC_ACID:
+                //血尿酸
+                baseFragment = new UricAcidFragment();
+                break;
+            case IBleConstants.MEASURE_BLOOD_SUGAR:
+                //血糖
+                baseFragment = new BloodSugarFragment();
                 break;
         }
         if (baseFragment != null) {
@@ -219,6 +263,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     private void popSearchFragment() {
+        if (baseFragment instanceof BloodsugarSearchFragment) return;
         if (!(baseFragment instanceof SearchAnimFragment) && !isAfterPause) {
             getSupportFragmentManager().popBackStack();
         }

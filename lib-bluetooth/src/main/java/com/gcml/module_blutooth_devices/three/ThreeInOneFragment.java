@@ -78,6 +78,7 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
 
     @Override
     public void updateData(DetectionData detectionData) {
+        if (detectionData==null) return;
         if (detectionData.isInit()) {
             isMeasureBloodsugarFinished = false;
             isMeasureBUAFinished = false;

@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import timber.log.Timber;
+
 /**
  * @author Mrz
  * @date 2018/9/5 16:44
@@ -53,13 +55,13 @@ public class BannerIndicatorView extends View implements ViewPager.OnPageChangeL
         mPaint.setTextSize(16);
         mPaint.setStyle(Paint.Style.FILL);
 
-        mPaint2=new Paint();
+        mPaint2 = new Paint();
         mPaint2.setAntiAlias(true);
         mPaint2.setColor(Color.parseColor("#DDDDDD"));
         mPaint2.setTextSize(16);
         mPaint2.setStyle(Paint.Style.FILL);
 
-        r = dip2px(8);
+        r = 28;
     }
 
 
@@ -90,7 +92,7 @@ public class BannerIndicatorView extends View implements ViewPager.OnPageChangeL
 
     private void drawRect(Canvas canvas) {
         int x1 = (int) (mCurrentPosition * distance * r - 0.5 * r);
-        int x2 = (int) ((distance * mCurrentPosition + (distance - 1) + 0.5) * r);
+        int x2 = (int) ((distance * mCurrentPosition + (distance - 2) + 0.5) * r);
         canvas.drawRoundRect(new RectF(x1, -r /
                 2, x2, r / 2), r / 2, r / 2, mPaint);
     }
