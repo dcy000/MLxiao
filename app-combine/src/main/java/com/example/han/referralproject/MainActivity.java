@@ -18,6 +18,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
+import com.gcml.web.WebActivity;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainMenuBeans.add(new MainMenuBean(R.drawable.main_family_doctor_service, "家庭医生"));
         mainMenuBeans.add(new MainMenuBean(R.drawable.main_nurse, "护士上门"));
 
+        mainMenuBeans.add(new MainMenuBean(R.drawable.main_self_check_and_guide, "智能诊断"));
+        mainMenuBeans.add(new MainMenuBean(R.drawable.main_self_check_and_medical, "智能问药"));
     }
 
     private CircleImageView mCivHead;
@@ -144,6 +147,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case 8:
                         //护士上门
                         ToastUtils.showLong("正在努力开发中");
+                        break;
+                    case 9:
+                        //智能诊断
+                        WebActivity.start(MainActivity.this, WebActivity.URL_0);
+                        break;
+                    case 10:
+                        //智能问药
+                        WebActivity.start(MainActivity.this, WebActivity.URL_1);
                         break;
                 }
             }
