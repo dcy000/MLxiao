@@ -105,15 +105,16 @@ dependencies {
 //            && "lib-voice" != project.name
             && "lib-widget" != project.name
     ) {
-        implementation project(":lib-common-core")
+        api project(":lib-common-core")
     }
 
     if ("lib-common-business" != project.name
             && "lib-common-core" != project.name
             && "lib-voice" != project.name
             && "lib-widget" != project.name
+            && "lib-webview" != project.name
     ) {
-        implementation project(":lib-common-business")
+        api project(":lib-common-business")
     }
 
     implementation rootProject.ext.dependencies["multidex"]

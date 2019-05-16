@@ -7,7 +7,9 @@ include ':module-doctor-advisory', ':module-detection',
         ':module-edu-child',
         ':lib-common-business',
         ':lib-common-core',
-        ':lib-bluetooth', ':module-yzn'
+        ':lib-bluetooth',
+        ':module-yzn',
+        ':lib-webview'
 include ':lib-baidu-unit',
 //        ':lib-auth-face',
 //        ':lib-mlvoice',
