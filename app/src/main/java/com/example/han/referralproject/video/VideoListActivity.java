@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
@@ -107,7 +107,7 @@ public class VideoListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，欢迎观看健康课堂");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),"主人，欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;

@@ -16,7 +16,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.BuildConfig;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -222,7 +222,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请选择你需要测量的项目", false);
         AllMeasureActivity.dedectInfoListener = this;
         liveData.setValue(new DetectTimesInfoBean());
         liveData.observe(this, infoBean -> {

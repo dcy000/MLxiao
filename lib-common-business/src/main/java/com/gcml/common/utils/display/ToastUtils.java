@@ -7,7 +7,7 @@ import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 
 
 /**
@@ -18,7 +18,7 @@ public class ToastUtils {
     private static Toast mToast = null;//全局唯一的Toast
 
     private static Application getApplication() {
-        return UtilsManager.getApplication();
+        return UM.getApp();
     }
 
     private ToastUtils() {

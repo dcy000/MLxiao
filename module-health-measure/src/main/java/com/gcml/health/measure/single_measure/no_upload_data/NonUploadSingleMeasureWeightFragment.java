@@ -7,7 +7,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -60,7 +60,7 @@ public class NonUploadSingleMeasureWeightFragment extends WeightFragment {
                         });
 
             }
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量体重" + results[0] + "公斤", false);
         }
     }
 }

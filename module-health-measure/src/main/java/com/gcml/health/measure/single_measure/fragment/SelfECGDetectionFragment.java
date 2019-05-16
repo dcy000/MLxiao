@@ -20,7 +20,8 @@ import android.widget.Toast;
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.ecg.BackGround;
@@ -33,6 +34,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -101,6 +103,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
     @Override
     public void autoConnect() {
+        SPUtil.remove(BluetoothConstants.SP.SP_SAVE_ECG);
         startDiscovery();
     }
 
@@ -167,7 +170,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
                         String message = "连接失败，点击右上角按钮重连";
                         ToastUtils.showShort(message);
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), message);
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), message);
                     }
                 }
             } else if (action.equals(ReceiveService.ACTION_BLUETOOH_OFF)) {
@@ -386,7 +389,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         ecgData.setDetectionType("2");
         ecgData.setEcg(String.valueOf(ecg));
         ecgData.setHeartRate(heartRate);
-        String s = UtilsManager.getApplication().getResources().getStringArray(R.array.ecg_measureres)[ecg];
+        String s = UM.getApp().getResources().getStringArray(R.array.ecg_measureres)[ecg];
         ecgData.setResult(s);
         datas.add(ecgData);
 

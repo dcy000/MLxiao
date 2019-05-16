@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
@@ -42,7 +42,7 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请打开设备开关,开始测量", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请打开设备开关,开始测量", false);
     }
 
     @Override

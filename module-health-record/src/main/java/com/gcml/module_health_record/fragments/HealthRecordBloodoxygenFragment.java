@@ -5,15 +5,13 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -78,7 +76,7 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
         mRgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
 //        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
-        mColor1.setBackgroundColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node_color));
+        mColor1.setBackgroundColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
         mIndicator1.setText("血氧");
         mLlSecond.setVisibility(View.GONE);
 
@@ -125,7 +123,7 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
         LimitLine ll1 = new LimitLine(94f, "最低94%");
         ll1.setLineWidth(2f);
 //        ll1.setLineColor(getResources().getColor(R.color.health_record_picket_line));
-        ll1.setLineColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_picket_line));
+        ll1.setLineColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(18f);
@@ -161,7 +159,7 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
                 colors.add(Color.RED);
             } else {
 //                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
-                colors.add(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node_text_color));//正常字体的颜色
+                colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));//正常字体的颜色
             }
             value.add(new Entry(i, response.get(i).blood_oxygen));
             times.add(response.get(i).time);
@@ -193,9 +191,9 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
                 //走势线的样式
                 set1.setValueTextColors(colors);
 //                set1.setColor(getResources().getColor(R.color.health_record_line_color));
-                set1.setColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_line_color));
 //                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
-                set1.setCircleColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
 
                 //走势线的粗细
                 set1.setLineWidth(6f);

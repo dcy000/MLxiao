@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,7 +18,7 @@ public class SPUtil {
     public static final String FILE_NAME = "ScopeMediaPrefsFile";
 
     private static Application getApplication() {
-        return UtilsManager.getApplication();
+        return UM.getApp();
     }
 
     /**

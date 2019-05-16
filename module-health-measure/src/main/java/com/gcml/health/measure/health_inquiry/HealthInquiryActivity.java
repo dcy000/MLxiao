@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -153,7 +153,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         //播报语音
         Timber.d(questionListBean.getQuestionName());
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，" + questionListBean.getQuestionName(), false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，" + questionListBean.getQuestionName(), false);
     }
 
     private void initView() {

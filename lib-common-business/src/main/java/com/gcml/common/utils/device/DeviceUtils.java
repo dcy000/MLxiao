@@ -28,7 +28,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.FileUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -59,7 +59,7 @@ import java.util.List;
 public class DeviceUtils {
 
     private static Application getApplication(){
-        return UtilsManager.getApplication();
+        return UM.getApp();
     }
 
 

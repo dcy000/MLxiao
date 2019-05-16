@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.qrcode.QRCodeUtils;
@@ -46,7 +46,6 @@ import com.gcml.module_health_record.fragments.HealthRecordECGFragment;
 import com.gcml.module_health_record.fragments.HealthRecordHeartrateFragment;
 import com.gcml.module_health_record.fragments.HealthRecordTemperatureFragment;
 import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
-import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.gcml.module_health_record.network.HealthRecordRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -146,7 +145,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的健康数据", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请查看您的健康数据", false);
 
         initView();
         initDialog();

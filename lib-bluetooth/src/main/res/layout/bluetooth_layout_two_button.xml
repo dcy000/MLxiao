@@ -36,5 +36,6 @@
         android:textColor="@color/bluetooth_white"
         android:textSize="56pt"
         android:clickable="true"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:visibility="gone"/>
 </LinearLayout>
