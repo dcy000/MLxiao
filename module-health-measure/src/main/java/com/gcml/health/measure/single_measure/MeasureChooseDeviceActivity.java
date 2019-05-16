@@ -86,6 +86,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         } else {
             if (!TextUtils.isEmpty(servicePackage) && (servicePackage.equals("1") || servicePackage.equals("2"))) {
                 showQuitDialog(false);
+            } else if (TextUtils.equals("4", servicePackage)) {
+                finish();
             } else {
                 new AlertDialog(MeasureChooseDeviceActivity.this)
                         .builder()
@@ -134,6 +136,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     protected void backMainActivity() {
         if (!TextUtils.isEmpty("servicePackage") && (servicePackage.equals("1") || servicePackage.equals("2"))) {
             showQuitDialog(true);
+        } else if (TextUtils.equals("4", servicePackage)) {
+            CCAppActions.jump2MainActivity();
         } else {
             new AlertDialog(MeasureChooseDeviceActivity.this)
                     .builder()
@@ -378,7 +382,9 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
-        intent.putExtra("fromWhere", "servicePay");
+        if (!TextUtils.equals("4", servicePackage)) {
+            intent.putExtra("fromWhere", "servicePay");
+        }
         intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
         startActivity(intent);
     }
