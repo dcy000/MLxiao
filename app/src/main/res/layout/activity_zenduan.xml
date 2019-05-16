@@ -44,8 +44,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="60pt"
             android:layout_marginStart="60pt"
+            android:layout_marginEnd="60pt"
             android:background="@drawable/market_search_text_bg">
 
             <ImageView

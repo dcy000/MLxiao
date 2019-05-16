@@ -10,6 +10,8 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -49,6 +51,20 @@ public class ZenDuanActivity extends com.gcml.common.base.BaseActivity implement
     private void initView() {
         TextView input = findViewById(R.id.et_item_name);
         findViewById(R.id.rv_back).setOnClickListener(v -> finish());
+
+        input.setOnEditorActionListener((v, actionId, event) -> {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        String inputText = input.getText().toString().trim().replaceAll(" ", "");
+                        if (TextUtils.isEmpty(inputText)) {
+                            ToastUtils.showShort("请输入关键词");
+                            return true;
+                        }
+                        startActivity(new Intent(this, ZenDuanActivity.class).putExtra("inputText", inputText));
+                        return true;
+                    }
+                    return false;
+                }
+        );
 
         findViewById(R.id.iv_search_items).setOnClickListener(v -> {
             String inputText = input.getText().toString().trim().replaceAll(" ", "");
