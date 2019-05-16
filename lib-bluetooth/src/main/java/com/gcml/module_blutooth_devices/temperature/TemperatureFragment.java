@@ -46,7 +46,7 @@ public class TemperatureFragment extends BluetoothBaseFragment implements View.O
             isMeasureFinishedOfThisTime = false;
         } else {
             mTvResult.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getTemperAture()));
-            if (!isMeasureFinishedOfThisTime && detectionData.getTemperAture() > 30) {
+            if (!isMeasureFinishedOfThisTime && detectionData.getTemperAture() != null && detectionData.getTemperAture() > 30) {
                 isMeasureFinishedOfThisTime = true;
                 onMeasureFinished(detectionData);
             }

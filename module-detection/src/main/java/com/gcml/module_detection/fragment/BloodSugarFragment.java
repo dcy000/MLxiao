@@ -48,8 +48,9 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
                     mTvResult.setText("0.00");
                     isMeasureFinishedOfThisTime = false;
                 } else {
-                    mTvResult.setText(String.format(Locale.getDefault(), "%.1f", detectionData.getBloodSugar()));
-                    if (!isMeasureFinishedOfThisTime && detectionData.getBloodSugar() != 0) {
+                    Float bloodSugar = detectionData.getBloodSugar();
+                    mTvResult.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
+                    if (!isMeasureFinishedOfThisTime && bloodSugar != null&& bloodSugar !=0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
                     }

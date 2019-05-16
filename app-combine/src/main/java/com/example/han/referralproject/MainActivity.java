@@ -14,6 +14,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.ShowStateBar;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
@@ -109,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (position) {
                     case 0:
                         //健康测量
-                        Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, "", "");
+//                        Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, "", "");
+                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
                         break;
                     case 1:
                         //自诊导诊
@@ -117,9 +119,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 2:
                         //自测用药
+                        ToastUtils.showLong("正在努力开发中");
                         break;
                     case 3:
                         //健康自测
+                        ToastUtils.showLong("正在努力开发中");
                         break;
                     case 4:
                         //医智囊
@@ -127,17 +131,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 5:
                         //视频医生
+                        ToastUtils.showLong("正在努力开发中");
                         break;
                     case 6:
                         //电话医生
+                        ToastUtils.showLong("正在努力开发中");
                         break;
                     case 7:
                         //家庭医生服务
+                        ToastUtils.showLong("正在努力开发中");
                         break;
                     case 8:
                         //护士上门
-//                        Routerfit.register(AppRouter.class).skipConnectActivity(22);
-                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+                        ToastUtils.showLong("正在努力开发中");
                         break;
                 }
             }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
@@ -36,6 +37,15 @@ import com.gcml.module_detection.fragment.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DefaultObserver;
+import timber.log.Timber;
+
 @Route(path = "/module/detection/connect/activity")
 public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothView, DialogControlBluetooth {
 
@@ -44,6 +54,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     private int detectionType;
     private BluetoothBaseFragment baseFragment;
     private boolean isAfterPause;
+    private boolean isTimeCountDownOver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,10 +125,36 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
             case IBleConstants.MEASURE_BLOOD_SUGAR:
                 //测量血糖
                 mTitleText.setText("血 糖 测 量");
-                baseBluetooth = new BloodSugarPresenter(this);
+                baseBluetooth = new BloodSugarPresenter(ConnectActivity.this);
                 initBloodsugarSearchFragment();
+                setTimeCountDown();
                 break;
         }
+    }
+
+
+    private void setTimeCountDown() {
+        //如果是血糖测量则10s之后再连接失败的弹窗
+        RxUtils.rxCountDown(1, 10)
+                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
+                        Timber.i(">>>countdown" + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        isTimeCountDownOver = true;
+                    }
+                });
     }
 
     private void initBloodsugarSearchFragment() {
@@ -263,7 +300,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     private void popSearchFragment() {
-        if (baseFragment instanceof BloodsugarSearchFragment) return;
+        if (baseFragment instanceof BloodSugarFragment) return;
         if (!(baseFragment instanceof SearchAnimFragment) && !isAfterPause) {
             getSupportFragmentManager().popBackStack();
         }
@@ -273,7 +310,12 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     public void connectFailed() {
         mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
         //连接失败后，提示他主动连接
-        connectedFailedTips();
+        if (baseFragment instanceof BloodsugarSearchFragment && isTimeCountDownOver) {
+            connectedFailedTips();
+        } else if (baseFragment instanceof SearchAnimFragment) {
+            connectedFailedTips();
+        }
+
         if (dialog != null) {
             dialog.hideConnectedUI();
         }

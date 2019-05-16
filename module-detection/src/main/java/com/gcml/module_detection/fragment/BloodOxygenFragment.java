@@ -11,6 +11,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+
 import java.util.Locale;
 
 public class BloodOxygenFragment extends BluetoothBaseFragment implements View.OnClickListener {
@@ -43,8 +44,9 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                     mTvResult.setText("0");
                     isMeasureFinishedOfThisTime = false;
                 } else {
-                    mTvResult.setText(String.format(Locale.getDefault(), "%.0f", detectionData.getBloodOxygen()));
-                    if (!isMeasureFinishedOfThisTime && detectionData.getBloodOxygen() != 0) {
+                    Float bloodOxygen = detectionData.getBloodOxygen();
+                    mTvResult.setText(String.format(Locale.getDefault(), "%.0f", bloodOxygen));
+                    if (!isMeasureFinishedOfThisTime && bloodOxygen != null && bloodOxygen != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
                     }

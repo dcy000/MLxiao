@@ -83,12 +83,12 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         if (isOnSearching) {
             return;
         }
-        if (isConnected) {
-            if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            }
-            return;
-        }
+//        if (isConnected) {
+//            if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+//                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
+//            }
+//            return;
+//        }
         Set<String> strings = obtainBrands().keySet();
         start(BluetoothType.BLUETOOTH_TYPE_BLE, address, strings.toArray(new String[strings.size()]));
     }
