@@ -2,6 +2,7 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 
 import android.annotation.SuppressLint;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -24,15 +25,11 @@ public class NonUploadSingleMeasureBloodpressureFragment extends BloodpressureFr
 //    }
 
 
-    @SuppressLint("CheckResult")
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 3 && !isOnPause) {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(),
-                    "您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
-        }
+    protected void onMeasureFinished(DetectionData detectionData) {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                "您本次测量高压" + detectionData.getHighPressure() + ",低压" + detectionData.getLowPressure() + ",脉搏" + detectionData.getPulse(), false);
     }
-
 //    /**
 //     * 获取惯用手
 //     */

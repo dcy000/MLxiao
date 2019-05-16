@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.health.measure.R;
@@ -74,6 +75,11 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
                                 HealthFirstTipsFragment.this, null);
                     }
                 });
+    }
+
+    @Override
+    public void updateData(DetectionData detectionData) {
+
     }
 
     class OnSynthesizerListener implements SynthesizerListener {

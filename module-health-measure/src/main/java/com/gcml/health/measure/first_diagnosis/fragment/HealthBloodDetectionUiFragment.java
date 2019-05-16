@@ -49,14 +49,12 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
     private SparseIntArray pulses = new SparseIntArray();
 
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 3) {
-            highPressures.put(detectionStep, Integer.parseInt(results[0]));
-            lowPressures.put(detectionStep, Integer.parseInt(results[1]));
-            pulses.put(detectionStep, Integer.parseInt(results[2]));
-            TimeCountDownUtils.getInstance().create(3000, 1000, timeCountListener);
-            TimeCountDownUtils.getInstance().start();
-        }
+    protected void onMeasureFinished(DetectionData detectionData) {
+        highPressures.put(detectionStep, detectionData.getHighPressure());
+        lowPressures.put(detectionStep, detectionData.getLowPressure());
+        pulses.put(detectionStep, detectionData.getPulse());
+        TimeCountDownUtils.getInstance().create(3000, 1000, timeCountListener);
+        TimeCountDownUtils.getInstance().start();
     }
 
     private final TimeCountDownUtils.TimeCountListener timeCountListener = new TimeCountDownUtils.TimeCountListener() {

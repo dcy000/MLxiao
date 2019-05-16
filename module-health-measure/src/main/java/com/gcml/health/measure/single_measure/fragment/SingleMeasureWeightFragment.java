@@ -14,7 +14,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
@@ -43,79 +43,75 @@ public class SingleMeasureWeightFragment extends WeightFragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         if (bundle != null) {
-            isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
+            isMeasureTask = bundle.getBoolean(IBleConstants.IS_MEASURE_TASK);
         }
     }
 
     @SuppressLint("CheckResult")
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 1) {
-            //得到身高和体重，再计算一下体质
-            if (mTvTizhi != null) {
-                Routerfit.register(AppRouter.class)
-                        .getUserProvider()
-                        .getUserEntity()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                        .subscribe(new Consumer<UserEntity>() {
-                            @Override
-                            public void accept(UserEntity userEntity) throws Exception {
-                                if (userEntity != null) {
-                                    String userHeight = userEntity.height;
-                                    if (!TextUtils.isEmpty(userHeight)) {
-                                        float parseFloat = Float.parseFloat(userHeight);
-                                        float weight = Float.parseFloat(results[0]);
-                                        if (mTvTizhi != null) {
-                                            mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
-                                        }
-                                    }
-                                }
-
-                            }
-
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                Timber.e(throwable);
-                            }
-                        });
-
-            }
-            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量体重" + results[0] + "公斤", false);
-            ArrayList<DetectionData> datas = new ArrayList<>();
-            DetectionData data = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            data.setDetectionType("3");
-            data.setWeight(Float.parseFloat(results[0]));
-            datas.add(data);
-
-            HealthMeasureRepository.postMeasureData(datas)
+    protected void onMeasureFinished(DetectionData detectionData) {
+        //得到身高和体重，再计算一下体质
+        if (mTvTizhi != null) {
+            Routerfit.register(AppRouter.class)
+                    .getUserProvider()
+                    .getUserEntity()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    .subscribe(new Consumer<UserEntity>() {
                         @Override
-                        public void onNext(List<DetectionResult> o) {
-                            ToastUtils.showLong("数据上传成功");
-                            if (isMeasureTask && !mActivity.isFinishing()) {
-                                mActivity.finish();
+                        public void accept(UserEntity userEntity) throws Exception {
+                            if (userEntity != null) {
+                                String userHeight = userEntity.height;
+                                if (!TextUtils.isEmpty(userHeight)) {
+                                    float parseFloat = Float.parseFloat(userHeight);
+                                    if (mTvTizhi != null) {
+                                        mTvTizhi.setText(String.format("%.2f", detectionData.getWeight() / (parseFloat * parseFloat / 10000)));
+                                    }
+                                }
                             }
+
                         }
 
+                    }, new Consumer<Throwable>() {
                         @Override
-                        public void onError(Throwable e) {
-                            showUploadDataFailedDialog(results);
-                        }
-
-                        @Override
-                        public void onComplete() {
-
+                        public void accept(Throwable throwable) throws Exception {
+                            Timber.e(throwable);
                         }
                     });
 
         }
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量体重" + detectionData.getWeight() + "公斤", false);
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData data = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        data.setDetectionType("3");
+        data.setWeight(detectionData.getWeight());
+        datas.add(data);
+
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> o) {
+                        ToastUtils.showLong("数据上传成功");
+                        if (isMeasureTask && !mActivity.isFinishing()) {
+                            mActivity.finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        showUploadDataFailedDialog(detectionData);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 

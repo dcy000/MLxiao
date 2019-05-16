@@ -1,5 +1,6 @@
 package com.gcml.module_blutooth_devices.bloodsugar;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
@@ -17,15 +18,26 @@ public class BloodSugarPresenter extends BaseBluetooth {
     private static final String SELF_NOTIFY = "00001002-0000-1000-8000-00805f9b34fb";
     private static final String SELF_WRITE = "00001001-0000-1000-8000-00805f9b34fb";
     private static final byte[] SELF_DATA_SUGAR_TO_WRITE = {0x5A, 0x0A, 0x03, 0x10, 0x05, 0x02, 0x0F, 0x21, 0x3B, (byte) 0xEB};
+    DetectionData detectionData = new DetectionData();
 
     public BloodSugarPresenter(IBluetoothView owner) {
+        this(owner, true);
+    }
+
+    public BloodSugarPresenter(IBluetoothView owner, boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery) {
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override
     protected void connectSuccessed(String name, String address) {
-        baseView.updateData("initialization", "0.0");
+
+        detectionData.setInit(true);
+        detectionData.setBloodSugar(0.0f);
+        baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("BLE-Glucowell")) {
             return;
         }
@@ -80,7 +92,10 @@ public class BloodSugarPresenter extends BaseBluetooth {
                     public void onNotify(UUID service, UUID character, byte[] bytes) {
                         if (bytes.length >= 12) {
                             float sugar = ((float) (bytes[10] << 8) + (float) (bytes[9] & 0xff)) / 18;
-                            baseView.updateData(String.format("%.1f", sugar));
+                            detectionData.setInit(false);
+                            detectionData.setBloodSugar(sugar);
+                            baseView.updateData(detectionData);
+                            BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
 

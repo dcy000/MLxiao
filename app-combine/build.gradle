@@ -55,7 +55,7 @@ dependencies {
     addComponent 'module-auth-face2'
 //    addComponent 'module-task'
 //    addComponent 'module-mall'
-//    addComponent 'module-video'
+    addComponent 'module-video'
 //    addComponent 'lib-bluetooth'
     addComponent 'module-factory-test'
 //    addComponent 'module-hypertension-manager'
@@ -68,4 +68,5 @@ dependencies {
 //    addComponent 'module-alarm'
 //    addComponent 'lib-call'
     addComponent 'module-yzn'
+    addComponent 'module-detection'
 }

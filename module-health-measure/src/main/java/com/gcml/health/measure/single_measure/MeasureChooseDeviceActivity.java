@@ -18,7 +18,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
@@ -171,35 +171,35 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         Uri uri;
         int i = v.getId();
         if (i == R.id.ll_xueya) {
-            measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
+            measureType = IBleConstants.MEASURE_BLOOD_PRESSURE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
             jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
         } else if (i == R.id.ll_xueyang) {
-            measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
+            measureType = IBleConstants.MEASURE_BLOOD_OXYGEN;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
             jump2MeasureVideoPlayActivity(uri, "血氧测量演示视频");
         } else if (i == R.id.ll_tiwen) {
-            measureType = IPresenter.MEASURE_TEMPERATURE;
+            measureType = IBleConstants.MEASURE_TEMPERATURE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
             jump2MeasureVideoPlayActivity(uri, "耳温测量演示视频");
         } else if (i == R.id.ll_xuetang) {
-            measureType = IPresenter.MEASURE_BLOOD_SUGAR;
+            measureType = IBleConstants.MEASURE_BLOOD_SUGAR;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
             jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
         } else if (i == R.id.ll_xindian) {
-            measureType = IPresenter.MEASURE_ECG;
+            measureType = IBleConstants.MEASURE_ECG;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
         } else if (i == R.id.ll_san) {
-            measureType = IPresenter.MEASURE_THREE;
+            measureType = IBleConstants.MEASURE_THREE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
             jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
         } else if (i == R.id.ll_tizhong) {
             //体重
-            measureType = IPresenter.MEASURE_WEIGHT;
+            measureType = IBleConstants.MEASURE_WEIGHT;
             Routerfit.register(AppRouter.class).skipAllMeasureActivity(measureType);
         } else if (i == R.id.ll_more) {
-//            measureType=IPresenter.MEASURE_HAND_RING;
+//            measureType=IBleConstants.MEASURE_HAND_RING;
 //            AllMeasureActivity.startActivity(this,measureType);
             ToastUtils.showLong("敬请期待");
 //            startActivity(new Intent(this, TestWuhuaqiActivity.class));

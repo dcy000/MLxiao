@@ -1,14 +1,16 @@
 package com.gcml.module_blutooth_devices.bloodpressure;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 public class BloodpressureFragment extends BluetoothBaseFragment implements View.OnClickListener {
@@ -18,6 +20,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
     private TextView mTvGaoya;
     private TextView mTvDiya;
     private TextView mTvMaibo;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_bloodpressure;
@@ -43,22 +46,22 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
         return new BloodPressurePresenter(this);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    public void updateData(String... datas) {
-        if (datas.length == 1) {
-            mTvGaoya.setText(datas[0]);
+    public void updateData(DetectionData detectionData) {
+        if (detectionData.isInit()) {
+            mTvGaoya.setText(String.valueOf(detectionData.getHighPressure()));
             mTvDiya.setText("0");
             mTvMaibo.setText("0");
             isMeasureFinishedOfThisTime = false;
-        } else if (datas.length == 3) {
-            mTvGaoya.setText(datas[0]);
-            mTvDiya.setText(datas[1]);
-            mTvMaibo.setText(datas[2]);
-            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
-                isMeasureFinishedOfThisTime = true;
-                onMeasureFinished(datas[0], datas[1], datas[2]);
-            }
         } else {
+            mTvGaoya.setText(String.format("%d", detectionData.getHighPressure()));
+            mTvDiya.setText(String.format("%d", detectionData.getLowPressure()));
+            mTvMaibo.setText(String.format("%d", detectionData.getPulse()));
+            if (!isMeasureFinishedOfThisTime && detectionData.getHighPressure() != 0) {
+                isMeasureFinishedOfThisTime = true;
+                onMeasureFinished(detectionData);
+            }
         }
     }
 
@@ -75,12 +78,12 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
         int i = v.getId();
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_BLOOD_PRESSURE);
+                dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_BLOOD_PRESSURE);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_BLOOD_PRESSURE);
+                dealVoiceAndJump.jump2DemoVideo(IBleConstants.MEASURE_BLOOD_PRESSURE);
             }
             clickVideoDemo(v);
         }

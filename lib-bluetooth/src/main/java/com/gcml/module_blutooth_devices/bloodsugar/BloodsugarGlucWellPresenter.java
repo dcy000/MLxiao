@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.vivachek.ble.sdk.outer.BleManager;
@@ -28,6 +30,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
     private IBluetoothView baseView;
     private String name;
     private String address;
+    DetectionData detectionData = new DetectionData();
 
     @SuppressLint("RestrictedApi")
     public BloodsugarGlucWellPresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
@@ -78,7 +81,10 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
             case BleConnectState.CONNECT_SUCCESS:
                 // 蓝牙连接设备成功
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-                baseView.updateData("initialization", "0.00");
+                detectionData.setInit(true);
+                detectionData.setBloodSugar(0.0f);
+                baseView.updateData(detectionData);
+                BluetoothStore.instance.detection.postValue(detectionData);
                 SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODSUGAR, name + "," + address);
                 BleManager.getInstance().sendGetSnCommond();
                 break;
@@ -98,6 +104,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
                 break;
         }
     }
+
     @Override
     public void onBleSnCallback(String s, String s1) {
         BleManager.getInstance().sendGetUnitCommond();
@@ -154,18 +161,20 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
 
         BaseGlucoseEntity baseGlucoseEntity = list.get(0);
         float result = baseGlucoseEntity.getValue();//+ baseGlucoseEntity.getMeasureUnit();
-        baseView.updateData(String.format("%.2f", result));
-
+        detectionData.setInit(false);
+        detectionData.setBloodSugar(result);
+        baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
     }
 
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
-        if (activity!=null){
+        if (activity != null) {
             BleManager.getInstance().destroy(activity);
             activity.getLifecycle().removeObserver(this);
         }
-        activity=null;
+        activity = null;
     }
 
 }

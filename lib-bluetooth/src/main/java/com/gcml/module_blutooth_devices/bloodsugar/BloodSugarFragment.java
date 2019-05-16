@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+
+import java.util.Locale;
 
 public class BloodSugarFragment extends BluetoothBaseFragment implements View.OnClickListener {
     protected TextView mBtnHealthHistory;
@@ -37,15 +40,15 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
     }
 
     @Override
-    public void updateData(String... datas) {
-        if (datas.length == 2) {
+    public void updateData(DetectionData detectionData) {
+        if (detectionData.isInit()){
             mTvResult.setText("0.00");
             isMeasureFinishedOfThisTime = false;
-        } else if (datas.length == 1) {
-            mTvResult.setText(datas[0]);
-            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
+        }else{
+            mTvResult.setText(String.format(Locale.getDefault(),"%.2f",detectionData.getBloodSugar()));
+            if (!isMeasureFinishedOfThisTime && detectionData.getBloodSugar() != 0) {
                 isMeasureFinishedOfThisTime = true;
-                onMeasureFinished(datas[0]);
+                onMeasureFinished(detectionData);
             }
         }
     }
@@ -63,12 +66,12 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
         int i = v.getId();
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_BLOOD_SUGAR);
+                dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_BLOOD_SUGAR);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_BLOOD_SUGAR);
+                dealVoiceAndJump.jump2DemoVideo(IBleConstants.MEASURE_BLOOD_SUGAR);
             }
             clickVideoDemo(v);
         }

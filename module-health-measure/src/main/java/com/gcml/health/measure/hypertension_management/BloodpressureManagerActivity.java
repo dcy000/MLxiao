@@ -15,7 +15,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.CustomDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
@@ -47,7 +47,7 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
 
     private void initFragment() {
         mTitleText.setText("血 压 测 量");
-        measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
+        measure_type = IBleConstants.MEASURE_BLOOD_PRESSURE;
         baseFragment = new HealthBloodDetectionOnlyOneFragment();
         baseFragment.setOnDealVoiceAndJumpListener(this);
         baseFragment.setOnDealVoiceAndJumpListener(this);

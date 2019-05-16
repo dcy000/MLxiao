@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.InputDialog;
@@ -114,8 +115,9 @@ public class BreathHomeFragment extends BluetoothBaseFragment implements View.On
     }
 
     @Override
-    public void updateData(String... datas) {
-        BreathHomeResultBean breathHomeResultBean = new Gson().fromJson(datas[0], BreathHomeResultBean.class);
+    public void updateData(DetectionData detectionData) {
+
+        BreathHomeResultBean breathHomeResultBean = new Gson().fromJson(detectionData.getBreathHome(), BreathHomeResultBean.class);
         mTvGaoya.setText(breathHomeResultBean.getPef());
         mTvDiya.setText(breathHomeResultBean.getFev1());
         mTvMaibo.setText(breathHomeResultBean.getFvc());

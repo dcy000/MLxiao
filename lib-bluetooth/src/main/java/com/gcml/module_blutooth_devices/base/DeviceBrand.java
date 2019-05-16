@@ -1,5 +1,7 @@
 package com.gcml.module_blutooth_devices.base;
 
+import com.gcml.common.utils.Handlers;
+
 import java.util.HashMap;
 
 public class DeviceBrand {
@@ -55,6 +57,32 @@ public class DeviceBrand {
     };
     public static final HashMap<String, String> THREE_IN_ONE = new HashMap<String, String>() {
         {
+            put("BeneCheck", "三合一·自家");
+        }
+    };
+
+    public static final HashMap<String,String> All_DEVICES=new HashMap<String,String>(){
+        {
+            put("eBlood-Pressure", "血压计·自家");
+            put("LD", "血压计·西恩4");
+            put("Dual-SPP", "血压计·西恩2");
+            put("Yuwell", "血压计·鱼跃");
+
+            put("POD", "血氧仪·自家");
+
+
+            put("Bioland-BGM", "血糖仪·自家");
+
+            put("WeCardio", "心电仪·博声");
+            put("PC80B-BLE", "心电仪·自家");
+
+            put("MEDXING-IRT", "耳温枪·美的连");
+            put("FSRKB-EWQ01", "耳温枪·自家");
+
+            put("000FatScale01", "体重秤·自家");
+            put("SENSSUN", "体重秤·香山");
+            put("IF_B2A", "体重秤·香山");
+
             put("BeneCheck", "三合一·自家");
         }
     };

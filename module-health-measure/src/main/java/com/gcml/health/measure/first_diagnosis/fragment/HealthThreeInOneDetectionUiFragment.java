@@ -76,39 +76,30 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
         MLVoiceSynthetize.startSynthesize(UM.getApp(), "请将试纸插入仪器，开始测量", false);
     }
 
-
     @Override
-    protected void onMeasureFinished(String... results) {
+    protected void onMeasureFinished(DetectionData detectionData) {
+        if (detectionData.getBloodSugar() != 0) {
+            sugarData = new DetectionData();
+            sugarData.setDetectionType("1");
+            sugarData.setSugarTime(selectMeasureSugarTime);
+            sugarData.setBloodSugar(detectionData.getBloodSugar());
+            datas.add(sugarData);
+            uploadData(datas);
+        }
+        if (detectionData.getCholesterol() != 0) {
+            cholesterolData = new DetectionData();
+            cholesterolData.setDetectionType("7");
+            cholesterolData.setCholesterol(detectionData.getCholesterol());
+            datas.add(cholesterolData);
+            uploadData(datas);
+        }
 
-        if (results.length == 2) {
-            if (results[0].equals("bloodsugar")) {
-                sugarData = new DetectionData();
-                sugarData.setDetectionType("1");
-                sugarData.setSugarTime(selectMeasureSugarTime);
-                sugarData.setBloodSugar(Float.parseFloat(results[1]));
-                datas.add(sugarData);
-//                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + sugarData.getBloodSugar());
-                uploadData(datas);
-            }
-            if (results[0].equals("cholesterol")) {
-                cholesterolData = new DetectionData();
-                cholesterolData.setDetectionType("7");
-                cholesterolData.setCholesterol(Float.parseFloat(results[1]));
-                datas.add(cholesterolData);
-
-//                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量胆固醇" + cholesterolData.getCholesterol());
-                uploadData(datas);
-            }
-
-            if (results[0].equals("bua")) {
-                lithicAcidData = new DetectionData();
-                lithicAcidData.setDetectionType("8");
-                lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
-
-                datas.add(lithicAcidData);
-//                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量尿酸" + lithicAcidData.getUricAcid());
-                uploadData(datas);
-            }
+        if (detectionData.getUricAcid() != 0) {
+            lithicAcidData = new DetectionData();
+            lithicAcidData.setDetectionType("8");
+            lithicAcidData.setUricAcid(detectionData.getUricAcid());
+            datas.add(lithicAcidData);
+            uploadData(datas);
         }
     }
 

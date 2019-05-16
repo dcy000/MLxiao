@@ -11,25 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.click.ClickEventListener;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
 import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
-import com.gcml.module_blutooth_devices.dialog.BluetoothDialog;
-import com.gcml.module_blutooth_devices.dialog.ChooseBluetoothDevice;
 
-public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView, ChooseBluetoothDevice {
+public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView {
     protected View view = null;
     protected boolean isMeasureFinishedOfThisTime = false;
     protected Context mContext;
     protected Activity mActivity;
     protected BaseBluetooth basePresenter;
-    protected BluetoothDialog bluetoothDialog;
     private LoadingDialog mLoadingDialog;
 
     @Override
@@ -62,38 +58,15 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     }
 
     @Override
+    public void discoveryStarted() {
+
+    }
+
+    @Override
     public void discoveryNewDevice(BluetoothDevice device) {
-        if (bluetoothDialog != null) {
-            bluetoothDialog.addDevice(device);
-        }
+
     }
 
-    public void showBluetoothDialog() {
-        if (bluetoothDialog == null) {
-            bluetoothDialog = new BluetoothDialog(mContext, this, IPresenter.MEASURE_BLOOD_OXYGEN);
-            bluetoothDialog.setChooseBluetoothDeviceListener(this);
-        }
-        if (!bluetoothDialog.isShowing()) {
-            bluetoothDialog.show();
-            if (basePresenter != null && !basePresenter.isOnSearching()) {
-                basePresenter.startDiscovery(null);
-            }
-        } else {
-            if (bluetoothDialog != null) {
-                bluetoothDialog.dismiss();
-            }
-            bluetoothDialog = null;
-        }
-    }
-
-    @Override
-    public void choosed(BluetoothDevice device) {
-        if (basePresenter != null) {
-            basePresenter.startConnect(device);
-        }
-    }
-
-    @Override
     public void autoConnect() {
         if (basePresenter != null) {
             basePresenter.startDiscovery(null);
@@ -101,19 +74,37 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     }
 
     @Override
-    public void cancelSearch() {
-        if (basePresenter != null) {
-            basePresenter.stopDiscovery();
-        }
-    }
-
-    @Override
-    public void updateData(String... datas) {
+    public void updateData(DetectionData detectionData) {
 
     }
 
     @Override
     public void updateState(String state) {
+
+    }
+
+    @Override
+    public void discoveryFinished(boolean isConnected) {
+
+    }
+
+    @Override
+    public void unFindTargetDevice() {
+
+    }
+
+    @Override
+    public void connectSuccess(BluetoothDevice device, String bluetoothName) {
+
+    }
+
+    @Override
+    public void disConnected() {
+
+    }
+
+    @Override
+    public void connectFailed() {
 
     }
 
@@ -172,7 +163,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     protected void clickVideoDemo(View view) {
     }
 
-    protected void onMeasureFinished(String... results) {
+    protected void onMeasureFinished(DetectionData detectionData) {
     }
 
     protected void showLoading(String tips) {
@@ -196,7 +187,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
         }
     }
 
-    protected void showUploadDataFailedDialog(String[] mResults) {
+    protected void showUploadDataFailedDialog(DetectionData detection) {
         NiceDialog.init()
                 .setLayoutId(R.layout.dialog_first_diagnosis_upload_failed)
                 .setConvertListener(new ViewConvertListener() {
@@ -212,7 +203,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
                         holder.getView(R.id.btn_pos).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                onMeasureFinished(mResults);
+                                onMeasureFinished(detection);
                                 dialog.dismiss();
                             }
                         });

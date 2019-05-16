@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import timber.log.Timber;
@@ -57,11 +57,11 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
             default:
                 Timber.e("HealthMeasureAbnormalActivity：传入的参数不正确");
                 break;
-            case IPresenter.MEASURE_BLOOD_PRESSURE:
+            case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 //血压测量
                 baseFragment = new MeasureXueyaWarningFragment();
                 break;
-            case IPresenter.MEASURE_BLOOD_SUGAR:
+            case IBleConstants.MEASURE_BLOOD_SUGAR:
                 baseFragment=new MeasureXuetangWarningFragment();
                 break;
         }

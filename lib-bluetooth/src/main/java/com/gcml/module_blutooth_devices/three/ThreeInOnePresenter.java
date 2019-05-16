@@ -1,5 +1,6 @@
 package com.gcml.module_blutooth_devices.three;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
@@ -14,15 +15,26 @@ import java.util.UUID;
 public class ThreeInOnePresenter extends BaseBluetooth {
     private static final String SELF_SERVICE = "00001808-0000-1000-8000-00805f9b34fb";//主服务
     private static final String SELF_NOTIFY = "00002a18-0000-1000-8000-00805f9b34fb";
-
+    DetectionData detectionData = new DetectionData();
     public ThreeInOnePresenter(IBluetoothView owner) {
+        this(owner,true);
+    }
+
+    public ThreeInOnePresenter(IBluetoothView owner,boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery){
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override
     protected void connectSuccessed(String name, String address) {
-        baseView.updateData("initialization");
+        detectionData.setInit(true);
+        detectionData.setBloodSugar(0.0f);
+        detectionData.setUricAcid(0.0f);
+        detectionData.setCholesterol(0.0f);
+        baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("BeneCheck")) {
             handleSelf(address);
             return;
@@ -81,11 +93,26 @@ public class ThreeInOnePresenter extends BaseBluetooth {
         int number = temp % basic;
         float result = (float) (number / Math.pow(10, 13 - flag));
         if (bytes[1] == 65) {//血糖
-            baseView.updateData("bloodsugar", String.format("%.1f", result));
+            detectionData.setInit(false);
+            detectionData.setBloodSugar(result);
+            detectionData.setUricAcid(0.0f);
+            detectionData.setCholesterol(0.0f);
+            baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
         } else if (bytes[1] == 81) {//尿酸
-            baseView.updateData("bua", String.format("%.2f", result));
+            detectionData.setInit(false);
+            detectionData.setBloodSugar(0.0f);
+            detectionData.setUricAcid(result);
+            detectionData.setCholesterol(0.0f);
+            baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
         } else if (bytes[1] == 97) {//胆固醇
-            baseView.updateData("cholesterol", String.format("%.2f", result));
+            detectionData.setInit(false);
+            detectionData.setBloodSugar(0.0f);
+            detectionData.setUricAcid(0.0f);
+            detectionData.setCholesterol(result);
+            baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
         }
     }
 }

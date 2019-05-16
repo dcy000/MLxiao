@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ImageUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
@@ -64,17 +65,18 @@ public class FingerpintFragment extends BluetoothBaseFragment implements View.On
 
 
     @Override
-    public void updateData(String... datas) {
-        if (datas.length == 2) {
-            String data = datas[0];
-            if (data.equals("input")) {
-                mInputFeature.setText(datas[1]);
-            } else if (data.equals("validate")) {
-                mValidateFeature.setText(datas[1]);
-            } else if (data.equals("image")) {
-                mFingerprintImage.setImageBitmap(ImageUtils.convertStringToIcon(datas[1]));
-            }
-        }
+    public void updateData(DetectionData detectionData) {
+        //TODO:暂时不用
+//        if (datas.length == 2) {
+//            String data = datas[0];
+//            if (data.equals("input")) {
+//                mInputFeature.setText(datas[1]);
+//            } else if (data.equals("validate")) {
+//                mValidateFeature.setText(datas[1]);
+//            } else if (data.equals("image")) {
+//                mFingerprintImage.setImageBitmap(ImageUtils.convertStringToIcon(datas[1]));
+//            }
+//        }
     }
 
     @Override

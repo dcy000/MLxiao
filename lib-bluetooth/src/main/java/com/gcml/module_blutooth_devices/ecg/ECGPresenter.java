@@ -13,8 +13,13 @@ import java.util.HashMap;
 public class ECGPresenter extends BaseBluetooth {
     public MutableLiveData<String> ecgBrand = new MutableLiveData<>();
     public ECGPresenter(IBluetoothView owner) {
+        this(owner,true);
+    }
+    public ECGPresenter(IBluetoothView owner,boolean isAutoDiscovery) {
         super(owner);
-        startDiscovery(targetAddress);
+        if (isAutoDiscovery){
+            startDiscovery(targetAddress);
+        }
     }
 
     @Override

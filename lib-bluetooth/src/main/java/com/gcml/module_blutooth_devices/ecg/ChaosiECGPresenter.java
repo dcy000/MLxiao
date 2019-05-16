@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.SupportActivity;
 import android.util.Log;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
@@ -14,7 +15,7 @@ import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.UUID;
 
-public class ChaosiECGPresenter implements LifecycleObserver{
+public class ChaosiECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
     private IBluetoothView baseView;
     private String name;
@@ -44,16 +45,18 @@ public class ChaosiECGPresenter implements LifecycleObserver{
     private boolean isFirstReceivedData = true;
     //是不是测量结束，用于控制倒计时的结束
     private static boolean isMeasureEnd = false;
+    DetectionData detectionData = new DetectionData();
 
     public ChaosiECGPresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
         this.activity = activity;
         this.baseView = baseView;
         this.name = name;
         this.address = address;
-        timeCount = new TimeCount(30000, 1000, baseView);
+        timeCount = new TimeCount(30000, 1000, baseView, detectionData);
         bluetoothNotify();
     }
-    private void bluetoothNotify(){
+
+    private void bluetoothNotify() {
         //7个通道必须依次打开 否则没有数据返回
         openOne();
         openTwo();
@@ -101,13 +104,16 @@ public class ChaosiECGPresenter implements LifecycleObserver{
                 if (bytes.length == 20) {//20个字节的数据表示是实时测量数据
                     if (isFirstReceivedData) {
                         isFirstReceivedData = false;
-                        isMeasureEnd=false;
+                        isMeasureEnd = false;
                         timeCount.start();
                     }
                     System.arraycopy(bytes, 0, one, 0, 17);
                     System.arraycopy(bytes, 17, oneCache, 0, 3);
                     if (!isMeasureEnd) {
-                        baseView.updateData(ByteUtils.byteToString(one));
+                        detectionData.setInit(false);
+                        detectionData.setEcgData(one);
+                        baseView.updateData(detectionData);
+                        BluetoothStore.instance.detection.postValue(detectionData);
                     }
                 }
             }
@@ -127,7 +133,10 @@ public class ChaosiECGPresenter implements LifecycleObserver{
                 System.arraycopy(bytes, 0, two, 3, 14);
                 System.arraycopy(bytes, 14, twoCache, 0, 6);
                 if (!isMeasureEnd) {
-                    baseView.updateData(com.inuker.bluetooth.library.utils.ByteUtils.byteToString(two));
+                    detectionData.setInit(false);
+                    detectionData.setEcgData(two);
+                    baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -146,7 +155,10 @@ public class ChaosiECGPresenter implements LifecycleObserver{
                 System.arraycopy(bytes, 0, three, 6, 11);
                 System.arraycopy(bytes, 11, threeCache, 0, 9);
                 if (!isMeasureEnd) {
-                    baseView.updateData(com.inuker.bluetooth.library.utils.ByteUtils.byteToString(three));
+                    detectionData.setInit(false);
+                    detectionData.setEcgData(three);
+                    baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -164,7 +176,10 @@ public class ChaosiECGPresenter implements LifecycleObserver{
                 System.arraycopy(threeCache, 0, four, 0, 9);
                 System.arraycopy(bytes, 0, four, 9, 8);
                 if (!isMeasureEnd) {
-                    baseView.updateData(com.inuker.bluetooth.library.utils.ByteUtils.byteToString(four));
+                    detectionData.setInit(false);
+                    detectionData.setEcgData(four);
+                    baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -182,7 +197,10 @@ public class ChaosiECGPresenter implements LifecycleObserver{
                 System.arraycopy(threeCache, 0, four, 0, 9);
                 System.arraycopy(bytes, 0, four, 9, 8);
                 if (!isMeasureEnd) {
-                    baseView.updateData(com.inuker.bluetooth.library.utils.ByteUtils.byteToString(four));
+                    detectionData.setInit(false);
+                    detectionData.setEcgData(four);
+                    baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
 
@@ -218,29 +236,38 @@ public class ChaosiECGPresenter implements LifecycleObserver{
             }
         });
     }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    public void onStop(){
+    public void onStop() {
 
     }
 
     static class TimeCount extends CountDownTimer {
         private IBluetoothView fragment;
+        private DetectionData detection;
 
-        TimeCount(long millisInFuture, long countDownInterval, IBluetoothView fragment) {
+        TimeCount(long millisInFuture, long countDownInterval, IBluetoothView fragment, DetectionData detectionData) {
             super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
             this.fragment = fragment;
+            this.detection = detectionData;
         }
 
         @Override
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
-            fragment.updateData("tip", "测量结束");
+            detection.setInit(false);
+            detection.setEcgData(null);
+            detection.setEcgTips("测量结束");
+            fragment.updateData(detection);
 
         }
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
-            fragment.updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            detection.setInit(false);
+            detection.setEcgData(null);
+            detection.setEcgTips("距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            fragment.updateData(detection);
         }
     }
 }

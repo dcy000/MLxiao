@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.SupportActivity;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.common.utils.thread.ThreadUtils;
@@ -39,6 +40,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
     private boolean isEnd;
     private StartDeviceTask startDeviceTask;
     public List<byte[]> listNum = new ArrayList<>();
+    DetectionData detectionData = new DetectionData();
     private WeakHandler weakHandler = new WeakHandler(new Handler.Callback() {
         @SuppressLint("MissingPermission")
         @Override
@@ -56,6 +58,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                 // 设备超时
                 case 3:
                     baseView.updateState("设备连接超时");
+                    baseView.connectFailed();
                     break;
                 // 充不上气
                 case 4:
@@ -70,6 +73,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     baseView.updateState("设备电量不足");
                     break;
                 case 7:
+                    baseView.disConnected();
                     break;
                 // 测量中
                 case 8:
@@ -86,7 +90,11 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     byte[] result2 = (byte[]) msg.obj;
                     int num;
                     num = (result2[5] & 0xff) | (result2[6] << 8 & 0xff00);
-                    baseView.updateData(String.valueOf(num));
+                    detectionData.setInit(true);
+                    detectionData.setHighPressure(num);
+                    detectionData.setLowPressure(0);
+                    detectionData.setPulse(0);
+                    baseView.updateData(detectionData);
                     break;
                 case 13:
                     //经典蓝牙测量结果
@@ -100,7 +108,11 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     } else {
                         low = (((byte) i) & 0XFF) + 1 + 0xff + 30;
                     }
-                    baseView.updateData(high + "", low + "", pulse + "");
+                    detectionData.setInit(false);
+                    detectionData.setHighPressure(high);
+                    detectionData.setLowPressure(low);
+                    detectionData.setPulse(pulse);
+                    baseView.updateData(detectionData);
                     break;
                 case 14:
                     if (BluetoothUtils.getBluetoothAdapter().isDiscovering()) {
@@ -136,7 +148,12 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                 //设备连接成功
                 isSuccess = true;
                 baseView.updateState(activity.getString(R.string.bluetooth_device_connected));
-                baseView.updateData("0", "0", "0");
+                baseView.connectSuccess(bluetoothDevice, name);
+                detectionData.setInit(true);
+                detectionData.setHighPressure(0);
+                detectionData.setLowPressure(0);
+                detectionData.setPulse(0);
+                baseView.updateData(detectionData);
                 SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, name + "," + address);
             } else {
                 isSuccess = false;
@@ -145,6 +162,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
             isEnd = false;
         } catch (IOException e) {
             e.printStackTrace();
+            baseView.connectFailed();
         }
     }
 

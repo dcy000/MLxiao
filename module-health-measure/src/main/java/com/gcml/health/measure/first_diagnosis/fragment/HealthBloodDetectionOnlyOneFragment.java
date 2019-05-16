@@ -41,47 +41,42 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
 
     @SuppressLint("CheckResult")
     @Override
-    protected void onMeasureFinished(String... results) {
-        if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压"
-                    + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+    protected void onMeasureFinished(DetectionData detectionData) {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压"
+                + detectionData.getHighPressure()+ ",低压" + detectionData.getLowPressure() + ",脉搏" + detectionData.getPulse(), false);
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData pressureData = new DetectionData();
+        DetectionData dataPulse = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        pressureData.setDetectionType("0");
+        pressureData.setHighPressure(detectionData.getHighPressure());
+        pressureData.setLowPressure(detectionData.getLowPressure());
+        dataPulse.setDetectionType("9");
+        dataPulse.setPulse(detectionData.getPulse());
+        datas.add(pressureData);
+        datas.add(dataPulse);
 
-            ArrayList<DetectionData> datas = new ArrayList<>();
-            DetectionData pressureData = new DetectionData();
-            DetectionData dataPulse = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            pressureData.setDetectionType("0");
-            int highPressure = Integer.parseInt(results[0]);
-            pressureData.setHighPressure(highPressure);
-            int lowPressure = Integer.parseInt(results[1]);
-            pressureData.setLowPressure(lowPressure);
-            dataPulse.setDetectionType("9");
-            dataPulse.setPulse(Integer.parseInt(results[2]));
-            datas.add(pressureData);
-            datas.add(dataPulse);
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> o) {
+                        ToastUtils.showLong("上传数据成功");
+                        setBtnClickableState(true);
+                    }
 
-            HealthMeasureRepository.postMeasureData(datas)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-                        @Override
-                        public void onNext(List<DetectionResult> o) {
-                            ToastUtils.showLong("上传数据成功");
-                            setBtnClickableState(true);
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        showUploadDataFailedDialog(detectionData);
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            showUploadDataFailedDialog(results);
-                        }
+                    @Override
+                    public void onComplete() {
 
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-        }
+                    }
+                });
     }
 
     @Override

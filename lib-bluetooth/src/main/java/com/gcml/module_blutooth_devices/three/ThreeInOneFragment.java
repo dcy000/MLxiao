@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+
+import java.util.Locale;
 
 public class ThreeInOneFragment extends BluetoothBaseFragment implements View.OnClickListener {
     /**
@@ -47,6 +50,7 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
      */
     protected TextView mTitle13;
     protected TextView mTitle1;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_three_in_one;
@@ -73,31 +77,30 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
     }
 
     @Override
-    public void updateData(String... datas) {
-        if (datas.length == 1) {
-//            mTvGaoya.setText("0.00");
-//            mTvDiya.setText("0.00");
-//            mTvMaibo.setText("0.00");
+    public void updateData(DetectionData detectionData) {
+        if (detectionData==null) return;
+        if (detectionData.isInit()) {
             isMeasureBloodsugarFinished = false;
             isMeasureBUAFinished = false;
             isMeasureCholesterolFinished = false;
-            return;
-        }
-        if (datas.length == 2) {
-            if (datas[0].equals("bloodsugar") && !isMeasureBloodsugarFinished) {
+        } else {
+            if (detectionData.getBloodSugar() != 0 && !isMeasureBloodsugarFinished) {
                 isMeasureBloodsugarFinished = true;
-                mTvGaoya.setText(datas[1]);
-                onMeasureFinished(datas[0], datas[1]);
-            } else if (datas[0].equals("bua") && !isMeasureBUAFinished) {
-                isMeasureBUAFinished = true;
-                mTvDiya.setText(datas[1]);
-                onMeasureFinished(datas[0], datas[1]);
-            } else if (datas[0].equals("cholesterol") && !isMeasureCholesterolFinished) {
-                isMeasureCholesterolFinished = true;
-                mTvMaibo.setText(datas[1]);
-                onMeasureFinished(datas[0], datas[1]);
+                mTvGaoya.setText(String.format(Locale.getDefault(), "%.1f", detectionData.getBloodSugar()));
+                onMeasureFinished(detectionData);
             }
 
+            if (detectionData.getUricAcid() != 0 && !isMeasureBUAFinished) {
+                isMeasureBUAFinished = true;
+                mTvDiya.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getUricAcid()));
+                onMeasureFinished(detectionData);
+            }
+
+            if (detectionData.getCholesterol() != 0 && !isMeasureCholesterolFinished) {
+                isMeasureCholesterolFinished = true;
+                mTvMaibo.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getCholesterol()));
+                onMeasureFinished(detectionData);
+            }
         }
     }
 
@@ -114,12 +117,12 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
         int i = v.getId();
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_THREE);
+                dealVoiceAndJump.jump2HealthHistory(IBleConstants.MEASURE_THREE);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_THREE);
+                dealVoiceAndJump.jump2DemoVideo(IBleConstants.MEASURE_THREE);
             }
             clickVideoDemo(v);
         }

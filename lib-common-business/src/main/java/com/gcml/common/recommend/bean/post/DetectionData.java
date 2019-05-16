@@ -45,10 +45,16 @@ public class DetectionData implements Serializable {
     private Float uricAcid;
     private Integer userid;
     private Float weight;
+    private Boolean weightOver;
     private String yz;
     private Integer zid;
     private String result;
     private String resultUrl;
+    private String breathHome;
+    private byte[] ecgData;
+    private String ecgTips;
+    private Integer ecgFlag;
+    private Boolean isInit;
 
     public DetectionData() {
 
@@ -158,7 +164,7 @@ public class DetectionData implements Serializable {
         this.sugarTime = sugarTime;
     }
 
-    public float getTemperAture() {
+    public Float getTemperAture() {
         return temperAture;
     }
 
@@ -174,7 +180,7 @@ public class DetectionData implements Serializable {
         this.time = time;
     }
 
-    public float getUricAcid() {
+    public Float getUricAcid() {
         return uricAcid;
     }
 
@@ -196,6 +202,14 @@ public class DetectionData implements Serializable {
 
     public void setWeight(Float weight) {
         this.weight = weight;
+    }
+
+    public Boolean isWeightOver() {
+        return weightOver;
+    }
+
+    public void setWeightOver(boolean weightOver) {
+        this.weightOver = weightOver;
     }
 
     public String getYz() {
@@ -228,5 +242,45 @@ public class DetectionData implements Serializable {
 
     public void setResultUrl(String resultUrl) {
         this.resultUrl = resultUrl;
+    }
+
+    public String getBreathHome() {
+        return breathHome;
+    }
+
+    public void setBreathHome(String breathHome) {
+        this.breathHome = breathHome;
+    }
+
+    public byte[] getEcgData() {
+        return ecgData;
+    }
+
+    public void setEcgData(byte[] ecgData) {
+        this.ecgData = ecgData;
+    }
+
+    public String getEcgTips() {
+        return ecgTips;
+    }
+
+    public void setEcgTips(String ecgTips) {
+        this.ecgTips = ecgTips;
+    }
+
+    public int getEcgFlag() {
+        return ecgFlag;
+    }
+
+    public void setEcgFlag(int ecgFlag) {
+        this.ecgFlag = ecgFlag;
+    }
+
+    public Boolean isInit() {
+        return isInit;
+    }
+
+    public void setInit(Boolean init) {
+        isInit = init;
     }
 }

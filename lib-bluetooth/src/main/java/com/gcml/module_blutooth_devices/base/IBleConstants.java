@@ -1,10 +1,6 @@
 package com.gcml.module_blutooth_devices.base;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
-
-public interface IPresenter {
+public interface IBleConstants {
     /**
      * 品牌
      */
@@ -121,22 +117,13 @@ public interface IPresenter {
      * 测量身高
      */
     int MEASURE_HEIGHT=33;
-
     /**
-     * 检查蓝牙是否已开
+     * 测量胆固醇
      */
-    void checkBlueboothOpened();
-
+    int MEASURE_CHOLESTEROL=34;
     /**
-     * 搜索设备
+     * 测量血尿酸
      */
-    void searchDevices();
-
-    /**
-     * 连接设备
-     */
-    void connectDevice(String macAddress);
-    void onResume();
-    void onDestroy();
+    int MEASURE_URIC_ACID=35;
 }
 

@@ -3,6 +3,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 
@@ -43,7 +44,7 @@ public class HealthECGBoShengFragment extends ECGFragment {
     }
 
     @Override
-    protected void onMeasureFinished(String... results) {
+    protected void onMeasureFinished(DetectionData detectionData) {
         setBtnClickableState(true);
     }
 }

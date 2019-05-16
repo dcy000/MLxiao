@@ -3,5 +3,8 @@ apply from: rootProject.file("build-base.gradle")
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //网易视频通话
+    implementation 'com.netease.nimlib:basesdk:4.3.0'
+    implementation 'com.netease.nimlib:avchat:4.3.0'
 }
 

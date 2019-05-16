@@ -7,11 +7,14 @@ import android.arch.lifecycle.OnLifecycleEvent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
+import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
 import java.math.BigDecimal;
 
@@ -25,6 +28,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     private String address;
     private final BleScan bleScan;
     private final BleCloudProtocolUtils bleCloudProtocolUtils;
+    DetectionData detectionData = new DetectionData();
 
     @SuppressLint("RestrictedApi")
     public WeightXiangshanPresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
@@ -45,10 +49,19 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
             public void OnState(boolean b) {
                 if (b) {
                     baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-                    baseView.updateData("initialization", "0.00");
+                    baseView.connectSuccess(BluetoothUtils.getRemoteDevice(address), name);
+                    detectionData.setInit(true);
+                    detectionData.setWeightOver(false);
+                    detectionData.setWeight(0.0f);
+                    baseView.updateData(detectionData);
+                    BluetoothStore.instance.detection.postValue(detectionData);
                     SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, name + "," + address);
                 } else {
-                    if (((Fragment) baseView).isAdded()) {
+                    if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+                        baseView.disConnected();
+                        baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
+                    } else if (baseView instanceof SupportActivity) {
+                        baseView.disConnected();
                         baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
                     }
                 }
@@ -66,10 +79,18 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                             case "80":
                                 if (strdata[12].equals("A0")) {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    baseView.updateData(String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
+                                    detectionData.setInit(false);
+                                    detectionData.setWeightOver(false);
+                                    detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
+                                    baseView.updateData(detectionData);
+                                    BluetoothStore.instance.detection.postValue(detectionData);
                                 } else {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    baseView.updateData("result", "result", String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
+                                    detectionData.setInit(false);
+                                    detectionData.setWeightOver(true);
+                                    detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
+                                    baseView.updateData(detectionData);
+                                    BluetoothStore.instance.detection.postValue(detectionData);
                                 }
                                 break;
                             case "82":
@@ -93,6 +114,13 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
+        if (bleCloudProtocolUtils != null) {
+            try {
+                bleCloudProtocolUtils.Disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }

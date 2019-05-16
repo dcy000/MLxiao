@@ -3,6 +3,7 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -55,27 +56,24 @@ public class NonUploadSingleMeasureThreeInOneFragment extends ThreeInOneFragment
     }
 
     @Override
-    protected void onMeasureFinished(String... results) {
-        //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
-        if (results.length == 2) {
-            if (results[0].equals("bloodsugar")) {
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + results[1]);
-                if (measureItemChanged!=null){
-                    measureItemChanged.onChanged(2);
-                }
+    protected void onMeasureFinished(DetectionData detectionData) {
+        if (detectionData.getBloodSugar() != 0) {
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + detectionData.getBloodSugar());
+            if (measureItemChanged != null) {
+                measureItemChanged.onChanged(2);
             }
-            if (results[0].equals("cholesterol")) {
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量胆固醇" + results[1]);
-                if (measureItemChanged!=null){
-                    measureItemChanged.onChanged(5);
-                }
+        }
+        if (detectionData.getCholesterol() != 0) {
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量胆固醇" + detectionData.getCholesterol());
+            if (measureItemChanged != null) {
+                measureItemChanged.onChanged(5);
             }
+        }
 
-            if (results[0].equals("bua")) {
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量尿酸" + results[1]);
-                if (measureItemChanged!=null){
-                    measureItemChanged.onChanged(6);
-                }
+        if (detectionData.getUricAcid() != 0) {
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量尿酸" + detectionData.getUricAcid());
+            if (measureItemChanged != null) {
+                measureItemChanged.onChanged(6);
             }
         }
     }
