@@ -2,7 +2,11 @@ include ':app',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc', ':lib-common-core', ':module-auth-face2', ':lib-bluetooth', ':module-factory-test'
+        ':component-cc',
+        ':lib-common-core',
+        ':module-auth-face2',
+//        ':lib-bluetooth',
+        ':module-factory-test', ':lib-bluetooth'
 
 // 支持模块
 include ':lib-baidu-unit',

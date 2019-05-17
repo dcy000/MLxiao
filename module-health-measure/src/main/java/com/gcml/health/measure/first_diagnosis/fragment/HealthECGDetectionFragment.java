@@ -8,31 +8,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCHealthRecordActions;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.BackGround;
 import com.gcml.health.measure.ecg.DrawThreadPC80B;
 import com.gcml.health.measure.ecg.ECGBluetooth;
-import com.gcml.health.measure.ecg.ECGConnectActivity;
 import com.gcml.health.measure.ecg.ReceiveService;
 import com.gcml.health.measure.ecg.StaticReceive;
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -41,6 +33,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -109,6 +102,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
     @Override
     public void autoConnect() {
+        SPUtil.remove(BluetoothConstants.SP.SP_SAVE_ECG);
         startDiscovery();
     }
 
@@ -116,7 +110,6 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
     public void startDiscovery() {
         Timber.i("可瑞康心电开始搜索");
-        Log.e(TAG, "可瑞康心电开始搜索 ");
         if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
             ToastUtils.showShort("正在搜索设备...");
             context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
@@ -175,7 +168,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
                     if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
                         String message = "连接失败，点击右上角按钮重连";
                         ToastUtils.showShort(message);
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), message);
+                        MLVoiceSynthetize.startSynthesize(UM.getApp(), message);
                     }
                 }
             } else if (action.equals(ReceiveService.ACTION_BLUETOOH_OFF)) {
@@ -230,7 +223,8 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             context.unregisterReceiver(connectReceiver);
         }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
-
+        //初始化ECGBluetooth的状态
+        ECGBluetooth.bluStatus = ECGBluetooth.BLU_STATUS_NORMAL;
     }
 
     @Override

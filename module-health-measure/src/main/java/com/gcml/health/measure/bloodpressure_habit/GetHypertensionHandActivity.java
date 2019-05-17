@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
@@ -79,7 +79,7 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         } else if (disconnected.equals(voice)) {
             mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         }
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
     }
 
     @Override

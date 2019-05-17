@@ -18,7 +18,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
@@ -303,7 +303,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
             }
 
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), voice, false);
         }
 
         @Override

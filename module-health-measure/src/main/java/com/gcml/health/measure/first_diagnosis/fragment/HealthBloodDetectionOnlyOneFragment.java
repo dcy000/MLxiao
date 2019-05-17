@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
@@ -50,7 +50,7 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压"
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量高压"
                     + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
             ArrayList<DetectionData> datas = new ArrayList<>();
@@ -129,7 +129,7 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
 //
 //
 //    private void showHypertensionHandDialog(String hand) {
-//        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请使用" + hand + "测量");
+//        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请使用" + hand + "测量");
 //
 //        new AlertDialog(mContext)
 //                .builder()

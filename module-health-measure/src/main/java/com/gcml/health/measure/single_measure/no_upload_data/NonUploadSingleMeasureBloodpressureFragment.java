@@ -2,7 +2,7 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 
 import android.annotation.SuppressLint;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -28,7 +28,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends BloodpressureFr
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3 && !isOnPause) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),
                     "您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
         }
     }
@@ -52,7 +52,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends BloodpressureFr
 //
 //
 //    private void showHypertensionHandDialog(String hand) {
-//        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请使用" + hand + "测量");
+//        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请使用" + hand + "测量");
 //        new AlertDialog(mContext)
 //                .builder()
 //                .setMsg("请使用" + hand + "测量")

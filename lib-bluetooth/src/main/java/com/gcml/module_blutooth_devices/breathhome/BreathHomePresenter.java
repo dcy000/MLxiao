@@ -2,7 +2,7 @@ package com.gcml.module_blutooth_devices.breathhome;
 
 import android.util.Log;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.R;
@@ -272,7 +272,7 @@ public class BreathHomePresenter extends BaseBluetooth {
             //数据写完之后初始化状态
             writePosition = 0;
             if (!isWriteResultCall) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
                 isRealConnectSuccess = true;
             }
 

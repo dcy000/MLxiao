@@ -27,5 +27,4 @@ dependencies {
     implementation project(':lib-video')
     implementation project(':lib-widget')
     implementation project(':lib-progress-orb')
-//    implementation (project(':lib-sub-bluetooth')) { exclude group: "com.inuker.bluetooth" }
 }

@@ -3,7 +3,7 @@ package com.gcml.health.measure.utils;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -29,8 +29,8 @@ public class ChannelUtils {
     private static String getChannelMeta() {
         String channel = null;
         try {
-            ApplicationInfo appInfo = UtilsManager.getApplication().getPackageManager()
-                    .getApplicationInfo(UtilsManager.getApplication().getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo = UM.getApp().getPackageManager()
+                    .getApplicationInfo(UM.getApp().getPackageName(), PackageManager.GET_META_DATA);
             channel = appInfo.metaData.getString("com.gcml.version");
 
         } catch (PackageManager.NameNotFoundException e) {

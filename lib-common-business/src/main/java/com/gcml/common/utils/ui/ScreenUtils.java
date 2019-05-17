@@ -8,11 +8,11 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 
 public class ScreenUtils {
     private static Application getApplication(){
-        return UtilsManager.getApplication();
+        return UM.getApp();
     }
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)

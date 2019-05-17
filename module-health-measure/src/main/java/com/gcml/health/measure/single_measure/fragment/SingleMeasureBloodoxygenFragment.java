@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
@@ -29,7 +29,7 @@ public class SingleMeasureBloodoxygenFragment extends BloodOxygenFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+            MLVoiceSynthetize.startSynthesize(UM.getApp(),
                     "主人，您本次测量血氧" + results[0] + "%", false);
 
 
