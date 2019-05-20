@@ -1,6 +1,8 @@
 package com.example.han.referralproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -79,10 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onNext(UserEntity userEntity) {
                         if (userEntity == null) return;
-                        ImageLoader.with(MainActivity.this)
-                                .load(userEntity.avatar)
-                                .into(mCivHead);
-                        mUserName.setText(userEntity.name);
+                        if (!isDestroyed()){
+                            ImageLoader.with(MainActivity.this)
+                                    .load(userEntity.avatar)
+                                    .into(mCivHead);
+                            mUserName.setText(userEntity.name);
+                        }
                     }
 
                     @Override
@@ -146,7 +150,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 8:
                         //护士上门
-                        ToastUtils.showLong("正在努力开发中");
+//                        ToastUtils.showLong("正在努力开发中");
+                        Routerfit.register(AppRouter.class).getSystemSettingProvider().skipSettingDisplay(MainActivity.this);
                         break;
                     case 9:
                         //智能诊断

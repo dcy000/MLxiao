@@ -9,7 +9,9 @@ import android.widget.SeekBar;
 
 import com.example.module_control_volume.R;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.sjtu.yifei.annotation.Route;
 
+@Route(path = "module/control/voice/setting/activity")
 public class VoiceSettingActivity extends ToolbarBaseActivity implements SeekBar.OnSeekBarChangeListener {
 
     SeekBar seekBar;

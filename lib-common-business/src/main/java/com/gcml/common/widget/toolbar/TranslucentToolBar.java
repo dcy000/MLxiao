@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import com.gcml.common.business.R;
 public final class TranslucentToolBar extends LinearLayout {
 
     private View layRoot;
-    private View layLeft;
+    public View layLeft;
     private View layRight;
     private TextView tvTitle;
     private TextView tvLeft;
@@ -29,7 +30,7 @@ public final class TranslucentToolBar extends LinearLayout {
     }
 
     public TranslucentToolBar(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public TranslucentToolBar(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -83,6 +84,41 @@ public final class TranslucentToolBar extends LinearLayout {
     }
 
     /**
+     * 设置right 图标
+     *
+     * @param resIdRight
+     */
+    public void setResIdRight(int resIdRight) {
+        if (resIdRight == 0) {
+            iconRight.setVisibility(View.GONE);
+        } else {
+            ((ImageView) iconRight).setImageResource(resIdRight);
+            iconRight.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    /**
+     * strLeft
+     */
+    public void setStrLeft(String strLeft) {
+        if (!TextUtils.isEmpty(strLeft)) {
+            tvLeft.setText(strLeft);
+            tvLeft.setVisibility(View.VISIBLE);
+        } else {
+            tvLeft.setVisibility(View.GONE);
+        }
+    }
+
+    public void setImageLevel(Integer integer) {
+        try {
+            ((ImageView) iconRight).setImageLevel(integer);
+        } catch (Exception e) {
+
+        }
+    }
+
+    /**
      * 设置数据
      *
      * @param strTitle
@@ -121,7 +157,7 @@ public final class TranslucentToolBar extends LinearLayout {
         if (resIdRight == 0) {
             iconRight.setVisibility(View.GONE);
         } else {
-            iconRight.setBackgroundResource(resIdRight);
+            ((ImageView) iconRight).setImageResource(resIdRight);
             iconRight.setVisibility(View.VISIBLE);
         }
 
@@ -134,13 +170,14 @@ public final class TranslucentToolBar extends LinearLayout {
                     listener.onLeftClick();
                 }
             });
-            layRight.setOnClickListener(new OnClickListener() {
+            layRight.setOnClickListener(new FilterClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onRightClick();
                 }
-            });
+            }));
         }
     }
+
 
 }

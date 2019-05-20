@@ -9,7 +9,7 @@ include ':module-doctor-advisory', ':module-detection',
         ':lib-common-core',
         ':lib-bluetooth',
         ':module-yzn',
-        ':lib-webview'
+        ':lib-webview', ':module-auth-hospital', ':lib-idcard-reader'
 include ':lib-baidu-unit',
 //        ':lib-auth-face',
 //        ':lib-mlvoice',

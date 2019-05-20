@@ -69,4 +69,5 @@ dependencies {
 //    addComponent 'lib-call'
     addComponent 'module-yzn'
     addComponent 'module-detection'
+    addComponent 'module-auth-hospital'
 }

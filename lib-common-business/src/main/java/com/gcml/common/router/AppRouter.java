@@ -17,6 +17,7 @@ import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IMusicPlayProvider;
+import com.gcml.common.service.ISystemSettingProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.service.IVideoListFragmentProvider;
@@ -383,4 +384,16 @@ public interface AppRouter {
 
     @Go("/module/detection/choose/dection/type")
     boolean skipChooseDetectionTypeActivity();
+
+    @Go("/module/control/system/setting/provider")
+    ISystemSettingProvider getSystemSettingProvider();
+
+    @Go("/auth/hospital/user/logins2/activity")
+    boolean skipUserLogins2Activity();
+
+    @Go("module/control/voice/setting/activity")
+    boolean skipVoiceSettingActivity();
+
+    @Go("/module/control/about/activity")
+    boolean skipAboutActivity();
 }

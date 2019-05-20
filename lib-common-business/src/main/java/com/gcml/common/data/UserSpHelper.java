@@ -65,6 +65,10 @@ public class UserSpHelper {
      * 判断有没有做过风险评估
      */
     private static final String KEY_IS_FIRST_RISK_ASSESSMENT = "isFirstRisk";
+    /**
+     * 身份证阅读器
+     */
+    private static final String KEY_KT_ADDRESS = "KT8000";
 
     /**
      * 获取SP中存储的userid
@@ -341,6 +345,17 @@ public class UserSpHelper {
     public static void clearPartData() {
         SPUtil.remove(KEY_USER_ID);
         SPUtil.remove(KEY_USER_HYPERTENSIONHAND);
+    }
+
+    public static void setKTAddress(String address) {
+        if (TextUtils.isEmpty(address)) {
+            address = "";
+        }
+        SPUtil.put(KEY_KT_ADDRESS, address);
+    }
+
+    public static String getKTAddress() {
+        return (String) SPUtil.get(KEY_KT_ADDRESS, "");
     }
 
 }

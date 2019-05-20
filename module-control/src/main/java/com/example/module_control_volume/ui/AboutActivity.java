@@ -7,7 +7,9 @@ import android.widget.TextView;
 import com.example.module_control_volume.R;
 import com.gcml.common.utils.AppUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.sjtu.yifei.annotation.Route;
 
+@Route(path = "/module/control/about/activity")
 public class AboutActivity extends ToolbarBaseActivity {
 
     TextView tvVersion;
