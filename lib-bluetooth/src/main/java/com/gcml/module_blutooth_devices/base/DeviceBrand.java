@@ -60,8 +60,12 @@ public class DeviceBrand {
             put("BeneCheck", "三合一·自家");
         }
     };
-
-    public static final HashMap<String,String> All_DEVICES=new HashMap<String,String>(){
+    public static final HashMap<String, String> ID_CARD = new HashMap<String, String>() {
+        {
+            put("KT8000", "身份证阅读器·自家");
+        }
+    };
+    public static final HashMap<String, String> All_DEVICES = new HashMap<String, String>() {
         {
             put("eBlood-Pressure", "血压计·自家");
             put("LD", "血压计·西恩4");
@@ -84,6 +88,7 @@ public class DeviceBrand {
             put("IF_B2A", "体重秤·香山");
 
             put("BeneCheck", "三合一·自家");
+            put("KT8000", "身份证阅读器·自家");
         }
     };
 }
