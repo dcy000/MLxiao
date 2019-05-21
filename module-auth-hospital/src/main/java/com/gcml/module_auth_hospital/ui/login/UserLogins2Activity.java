@@ -44,40 +44,96 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isShowToolbar = false;
         setContentView(R.layout.activity_doctor_2_logins);
 
         lllogins = findViewById(R.id.ll_logins);
         tvRegister = findViewById(R.id.tv_to_register);
 
-        tvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserLogins2Activity.this, UserRegisters2Activity.class));
-            }
-        });
+        tvRegister.setOnClickListener(v -> startActivity(new Intent(UserLogins2Activity.this, UserRegisters2Activity.class)));
 
         tb = findViewById(R.id.tb_logins);
-        tb.setData("用 户 登 录", 0, "  杭州", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
-            @Override
-            public void onLeftClick() {
+        tb.setData("登 陆 注 册",
+                R.drawable.common_btn_back, "返回",
+                R.drawable.common_ic_wifi_state, null,
+                new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
 
-            }
+                    }
 
-            @Override
-            public void onRightClick() {
-                Routerfit.register(AppRouter.class).skipSettingActivity();
-            }
-        });
-//        tb.layLeft.setOnClickListener(null);
-        tb.layLeft.setClickable(false);
-//        updatePage();
+                    @Override
+                    public void onRightClick() {
+                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                    }
+                });
         AppManager.getAppManager().addActivity(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updatePage();
+//        updatePage();
+        updatePage2();
+    }
+
+    private void updatePage2() {
+        lllogins.getChildAt(0).setVisibility(View.VISIBLE);
+        lllogins.getChildAt(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserLogins2Activity.this, ScanIdCardLoginActivity.class));
+            }
+        });
+
+        lllogins.getChildAt(1).setVisibility(View.VISIBLE);
+        lllogins.getChildAt(1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserLogins2Activity.this, IDCardNuberLoginActivity.class));
+            }
+        });
+
+        lllogins.getChildAt(2).setVisibility(View.VISIBLE);
+        lllogins.getChildAt(2).setOnClickListener(v -> Routerfit.register(AppRouter.class)
+                .getFaceProvider()
+                .getFaceId(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String faceId) {
+                        Routerfit.register(AppRouter.class)
+                                .skipFaceBdSignInActivity(false, false, faceId, true, new ActivityCallback() {
+                                    @Override
+                                    public void onActivityResult(int result, Object data) {
+                                        if (result == Activity.RESULT_OK) {
+                                            String sResult = data.toString();
+                                            if (TextUtils.isEmpty(sResult))
+                                                return;
+                                            if (sResult.equals("success")) {
+                                                Routerfit.register(AppRouter.class).skipMainActivity();
+                                            } else if (sResult.equals("failed")) {
+                                                ToastUtils.showShort("人脸登录失败");
+                                            }
+
+                                        }
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+
+
     }
 
     private void updatePage() {

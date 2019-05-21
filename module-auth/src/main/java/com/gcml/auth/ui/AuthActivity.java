@@ -22,7 +22,9 @@ import com.sjtu.yifei.route.Routerfit;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/auth/auth/activity")
+//@Route(path = "/auth/hospital/user/logins2/activity")
 public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthViewModel> {
 
     @Override

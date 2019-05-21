@@ -63,7 +63,8 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
 
         translucentToolBar.setData("身 份 证 号 码 登 录",
                 R.drawable.common_btn_back, "返回",
-                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
+                R.drawable.common_ic_wifi_state, null,
+                new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
