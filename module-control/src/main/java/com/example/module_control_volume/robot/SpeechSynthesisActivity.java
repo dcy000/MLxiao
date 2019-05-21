@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +16,10 @@ import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,7 +44,6 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
-import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.Handlers;
@@ -50,6 +53,7 @@ import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.data.StringUtil;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.lib_widget.VoiceLineView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,6 +65,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.recognition.JsonParser;
 import com.iflytek.settting.IatSettings;
@@ -75,6 +80,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -95,7 +101,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
     // 语音听写对象
     private SpeechRecognizer mIat;
     // 语音听写UI
-//    private RecognizerDialog mIatDialog;
+    private RecognizerDialog mIatDialog;
     // 用HashMap存储听写结果
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
 
@@ -113,13 +119,10 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             switch (msg.what) {
                 case 0:
                     //startSynthesis(str1);
-                    MLVoiceSynthetize.startSynthesize(UM.getApp(), str1, isDefaultParam);
+                    speak(str1, isDefaultParam);
                     startAnim();
-
                     break;
-
                 case 1:
-
                     findViewById(R.id.iat_recognizes).performClick();
                     break;
                 case 2:
@@ -131,12 +134,19 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
     };
 
+    private void speak(String str1, boolean isDefaultParam) {
+        MLVoiceSynthetize.startSynthesize(this, str1, isDefaultParam);
+    }
+
 
     int maxVolume = 0;
     int volume = 0;
     AudioManager mAudioManager;
     public ImageView ivBack;
     Random rand;
+
+
+    SharedPreferences sharedPreferences;
 
     ImageView mImageView;
     private LottieAnimationView mLottieView;
@@ -157,13 +167,33 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
     private AccessToken data;
     private String sessionId = "";
     private StringBuilder sb;
+    private UpdateVolumeRunnable updateVolumeRunnable;
+
+    protected FrameLayout mContentParent;
+    private WeakHandler weakHandler = new WeakHandler();
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isShowToolbar = false;
         setContentView(R.layout.activity_speech_synthesis);
-        mToolbar.setVisibility(View.GONE);
+        setShowVoiceView(true);
+        if (isShowVoiceView) {
+            mContentParent = findViewById(android.R.id.content);
+            voiceLineView = new com.carlos.voiceline.mylibrary.VoiceLineView(this);
+            voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
+            voiceLineView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.common_popshow_anim));
+            int width = 900;
+            int height = 200;
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            mContentParent.addView(voiceLineView, params);
+            mContentParent.bringToFront();
+            voiceLineView.setVisibility(View.GONE);
+        }
         rand = new Random();
+        sharedPreferences = getSharedPreferences("doctor_message", Context.MODE_PRIVATE);
         mImageView = findViewById(R.id.iat_recognizes);
 
 
@@ -177,7 +207,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
         initLayout();
 
         //初始化音频管理器
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
@@ -222,7 +252,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-//        speak("来和我聊天吧", isDefaultParam);
+//        speak("主人,来和我聊天吧", isDefaultParam);
         //默认是时时聊天
         yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", true);
         if (yuyinFlag) {
@@ -238,8 +268,15 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 onChoiceLanguages();
             }
         });
+
+
     }
 
+    protected boolean isShowVoiceView = false;//是否显示声音录入图像
+
+    protected void setShowVoiceView(boolean showVoiceView) {
+        isShowVoiceView = showVoiceView;
+    }
 
     private void onChoiceLanguages() {
         String[] languages = languages();
@@ -303,7 +340,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "来和我聊天吧", isDefaultParam);
+        speak("主人,来和我聊天吧", isDefaultParam);
         mLottieView.resumeAnimation();
     }
 
@@ -368,7 +405,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                     return;
                 }
                 if (response == null || response.getSong() == null) {
-                    MLVoiceSynthetize.startSynthesize(UM.getApp(), "抱歉，没找到这首歌", isDefaultParam);
+                    speak("抱歉，没找到这首歌", isDefaultParam);
                     mHandler.sendEmptyMessageDelayed(1, 3000);
                     return;
                 }
@@ -394,7 +431,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtils.showShort("暂时无法播放");
+                        ToastUtils.showShort(R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -445,33 +482,32 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             setParam();
             boolean isShowDialog = false;
             if (isShowDialog) {
-                MLVoiceSynthetize.stop();
+                stopSpeaking();
                 mHandler.sendEmptyMessageDelayed(2, 500);
 
             } else {
                 // 不显示听写对话框
-                MLVoiceSynthetize.stop();
+                stopSpeaking();
                 ret = mIat.startListening(mRecognizerListener);
                 if (ret != ErrorCode.SUCCESS) {
                     showTip("听写失败,错误码：" + ret);
                 }
             }
-
         } else if (i == R.id.tv_normal) {
             isDefaultParam = true;
-
         } else if (i == R.id.tv_whine) {
             MLVoiceSynthetize.setRandomParam();
             isDefaultParam = false;
-
         } else if (i == R.id.iv_yuyin) {
             onEndOfSpeech();
             notice.setVisibility(View.GONE);
             mImageView.performClick();
-
-        } else {
         }
 
+    }
+
+    private void stopSpeaking() {
+        MLVoiceSynthetize.stop();
     }
 
     int recordTotalTime = 0;
@@ -485,28 +521,28 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
         mHandler.removeCallbacksAndMessages(null);
     }
 
-        //TODO:必须重新写
-//    @Override
-//    protected void onActivitySpeakFinish() {
-//        super.onActivitySpeakFinish();
-//        if (!TextUtils.isEmpty(mAudioPath)) {
-//
-//            int tag = TO_STORY;
-//            String service = results.get("service");
-//            if ("storyTelling".equals(service)) {
-//                tag = TO_PING_SHU;
-//            }
-//            onPlayAudio(mAudioPath, tag);
-//            mAudioPath = null;
-//            return;
+
+   /* @Override
+    protected void onActivitySpeakFinish() {
+        super.onActivitySpeakFinish();
+        if (!TextUtils.isEmpty(mAudioPath)) {
+
+            int tag = TO_STORY;
+            String service = results.get("service");
+            if ("storyTelling".equals(service)) {
+                tag = TO_PING_SHU;
+            }
+            onPlayAudio(mAudioPath, tag);
+            mAudioPath = null;
+            return;
+        }
+//        if (faceAnim != null && faceAnim.isRunning()) {
+//            faceAnim.stop();
 //        }
-////        if (faceAnim != null && faceAnim.isRunning()) {
-////            faceAnim.stop();
-////        }
-//        if (yuyinFlag) {
-//            findViewById(R.id.iat_recognizes).performClick();
-//        }
-//    }
+        if (yuyinFlag) {
+            findViewById(R.id.iat_recognizes).performClick();
+        }
+    }*/
 
     private void onPlayAudio(String audioPath, int tag) {
         Music music = new Music(audioPath);
@@ -540,6 +576,13 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
         lineWave.setText(string);
     }
 
+    protected com.carlos.voiceline.mylibrary.VoiceLineView voiceLineView;
+
+    protected void showWaveView(boolean visible) {
+        if (voiceLineView != null) {
+            voiceLineView.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
+    }
 
     /**
      * 听写监听器。
@@ -551,7 +594,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
             //   showTip("开始说话");
             if (yuyinFlag) {
-//                showWaveView(true);
+                showWaveView(true);
             } else {
                 //直方图波形
                 showWave();
@@ -565,7 +608,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             if (yuyinFlag) {
                 findViewById(R.id.iat_recognizes).performClick();
             } else {
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), "我没听清您能再说一遍吗", isDefaultParam);
+                speak("主人,我没听清您能再说一遍吗", isDefaultParam);
             }
         }
 
@@ -574,7 +617,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             //  showTip("结束说话");
             if (yuyinFlag) {
-//                showWaveView(false);
+                showWaveView(false);
             } else {
                 SpeechSynthesisActivity.this.onEndOfSpeech();
             }
@@ -591,7 +634,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             //    showTip("当前正在说话，音量大小：" + volume);
             //   Logg.d(TAG, "返回音频数据：" + data.length);
             if (yuyinFlag) {
-//                updateVolume(voiceLineView);
+                updateVolume(voiceLineView);
             } else {
                 lineWave.waveH = volume / 6 + 2;
             }
@@ -602,6 +645,27 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
         }
     };
+
+    protected void updateVolume(com.carlos.voiceline.mylibrary.VoiceLineView voiceLineView) {
+        if (isShowVoiceView) {
+            updateVolumeRunnable = new UpdateVolumeRunnable(voiceLineView);
+            weakHandler.postDelayed(updateVolumeRunnable, 100);
+        }
+    }
+
+
+    private static class UpdateVolumeRunnable implements Runnable {
+        private WeakReference<com.carlos.voiceline.mylibrary.VoiceLineView> weakVoiceline;
+
+        public UpdateVolumeRunnable(com.carlos.voiceline.mylibrary.VoiceLineView voiceLineView) {
+            weakVoiceline = new WeakReference<com.carlos.voiceline.mylibrary.VoiceLineView>(voiceLineView);
+        }
+
+        @Override
+        public void run() {
+            weakVoiceline.get().setVolume(0);
+        }
+    }
 
     private void dealData(RecognizerResult results, boolean isLast) {
         printResult(results);
@@ -624,58 +688,26 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 String am = matcherWhenAlarm.group(1);
                 String hourOfDay = matcherWhenAlarm.group(2);
                 String minute = matcherWhenAlarm.group(3);
-                //TODO:重写
 //                AlarmHelper.setupAlarm(SpeechSynthesisActivity.this.getApplicationContext(),
 //                        am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
 //                        Integer.valueOf(minute));
                 String tip = String.format(Locale.CHINA,
-                        "小易将在%s:%s提醒您吃药", hourOfDay, minute);
-                MLVoiceSynthetize.startSynthesize(UM.getApp(), tip, isDefaultParam);
+                        "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
+                speak(tip, isDefaultParam);
                 return;
             }
 
             if (inSpell.matches(".*woyaogengxin|genxinxitong|xitonggengxin.*") || inSpell.matches(".*gengxin.*")) {
-                showLoading("检查更新中");
-                new ControlRepository()
-                        .getVersionInfo()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new io.reactivex.observers.DefaultObserver<VersionInfoBean>() {
-                            @Override
-                            public void onNext(VersionInfoBean versionInfoBean) {
-                                try {
-                                    if (versionInfoBean != null && versionInfoBean.vid > getPackageManager().getPackageInfo(SpeechSynthesisActivity.this.getPackageName(), 0).versionCode) {
-                                        Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(SpeechSynthesisActivity.this, versionInfoBean.url);
-                                    } else {
-                                        MLVoiceSynthetize.startSynthesize(UM.getApp(), "当前已经是最新版本了");
-                                        ToastUtils.showShort("当前已经是最新版本了");
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                dismissLoading();
-                                MLVoiceSynthetize.startSynthesize(UM.getApp(), "当前已经是最新版本了");
-                                ToastUtils.showShort("当前已经是最新版本了");
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                dismissLoading();
-                            }
-                        });
+                Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(this, true);
                 return;
             }
 
-            if (inSpell.matches(".*((jiankang|meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
+            if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
                 Routerfit.register(AppRouter.class).skipTaskActivity("MLSpeech");
                 return;
             }
 
-            if (inSpell.matches(".*(jiankangjiance|zuogejiancha|jianchashenti|zuotijian).*")) {
+            if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
                 jiance();
                 return;
             }
@@ -703,7 +735,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 return;
             }
 
-            if (inSpell.matches(".*(ceizhong|liangtizhong).*")) {
+            if (inSpell.matches(".*(celizhong|liangtizhong).*")) {
                 jiance();
                 return;
             }
@@ -713,106 +745,75 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 return;
             }
 
-          /*  if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
-                NimCallActivity.launchNoCheck(this, UserSpHelper.getEqId());
-//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
-//                    @Override
-//                    public void onSuccess(UserInfo response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
-                return;
-            }*/
 
             if (inSpell.matches(".*(yulezhongxin).*")) {
-//                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 return;
             }
 
             if (inSpell.matches(".*(laorenyule).*")) {
                 Routerfit.register(AppRouter.class).skipTheOldHomeActivity();
+
                 return;
             }
 
             if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
                 Routerfit.register(AppRouter.class).skipChildEduHomeActivity();
+
                 return;
             }
 
             if (inSpell.matches(".*(gushi|tangshisongci|songci|tangshi).*") || result.matches(".*古诗.*")) {
                 Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
+
                 return;
             }
 
             if (inSpell.matches(".*(jianggexiaohua|xiaohua|youqudehua).*")) {
                 Routerfit.register(AppRouter.class).skipChildEduJokesActivity();
+
                 return;
             }
 
 
             if (result.matches(".*听故事|故事.*")) {
                 Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
+
                 return;
             }
 
 
             if (inSpell.matches(".*(xiaogongju).*")) {
-//                CC.obtainBuilder("app.component.recreation.tools").build().call();
                 Routerfit.register(AppRouter.class).skipToolsActivity();
                 return;
             }
 
-            if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng|zuolemeng).*")) {
-//                CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+            if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng).*")) {
                 Routerfit.register(AppRouter.class).skipJieMengActivity();
                 return;
             }
 
             if (inSpell.matches(".*(lishijintian|lishishangdejintian|lishishangjintiandeshijian).*")) {
-//                CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
                 Routerfit.register(AppRouter.class).skipHistoryTodayActivity();
                 return;
             }
 
             if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizi).*")) {
-//                CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
                 Routerfit.register(AppRouter.class).skipDateInquireActivity();
                 return;
             }
             if (inSpell.matches(".*(caipu|shaocai|zuocai|chishenme|chishengme|tuijiancai).*")) {
-//                CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
                 Routerfit.register(AppRouter.class).skipCookBookActivity();
                 return;
             }
 
             if (inSpell.matches(".*(baike).*")) {
-//                CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
                 Routerfit.register(AppRouter.class).skipBaikeActivity();
                 return;
             }
 
 
             if (inSpell.matches(".*(jisuanqi|zuosuanshu).*")) {
-//                CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
                 Routerfit.register(AppRouter.class).skipCalculationActivity();
                 return;
             }
@@ -822,7 +823,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             }
 
             if (inSpell.matches(".*(zhongyitizhi).*")) {
-                Routerfit.register(AppRouter.class).skipOlderHealthManagementSerciveActivity();
+                Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
                 return;
             }
 
@@ -834,16 +835,19 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
                     "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
                 Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
+
                 return;
             }
             if (inSpell.matches(".*(fengxian|fengxianpinggu|fengxianpanduan" +
                     "|huanbingfenxiang|debingfengxian|jiankangyuce|jiankangyuche|pinggu).*")) {
                 Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
+
                 return;
             }
 
             if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|zhongxindenglu|tianjiazhanghao).*")) {
                 Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+
                 return;
             }
 
@@ -854,7 +858,6 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
 
             if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
-//                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 vertifyFaceThenHealthRecordActivity();
                 return;
             }
@@ -874,6 +877,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
             if (inSpell.matches(".*(guangbo|diantai|shouyinji|zhisheng|diantai).*")) {
                 Routerfit.register(AppRouter.class).skipRadioActivity();
+
                 return;
             }
 
@@ -891,12 +895,14 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
             if (inSpell.matches(".*(taijiaoyinyue|taijiao|taijiaoyinle).*")) {
                 Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("胎教音乐");
+
                 return;
             }
 
 
             if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan|yinleguan|tingyinle).*")) {
                 Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
+
                 return;
             }
 
@@ -922,8 +928,8 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 return;
             }
 
-           /* if (inSpell.matches(REGEX_SET_ALARM)) {
-                Intent intent = AlarmList2Activity.newLaunchIntent(SpeechSynthesisActivity.this);
+          /*  if (inSpell.matches(REGEX_SET_ALARM)) {
+                Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(this);
                 startActivity(intent);
                 return;
             }*/
@@ -950,16 +956,16 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
                 return;
             }*/
-            if (inSpell.matches(".*(qianyueguwen|zhuanshuguwen|sirenguwen).*")) {
+            if (inSpell.matches(".*(qianyueyisheng).*")) {
                 gotoQianyueYiSheng();
                 return;
             }
-            if (inSpell.matches(".*(zaixiangu(wen|weng)).*")) {
+
+            if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
                 Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("");
                 return;
             }
-            if (inSpell.matches(".*(zi|zhi)xun.*")
-                    || inSpell.matches(".*(gu(wen|weng)|shipin)((zi|zhi)xun).*")) {
+            if (inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")) {
                 Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
                 return;
             }
@@ -1167,20 +1173,6 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 new SpeechTask().execute();
             }
         }
-    }
-
-    private void exit() {
-        MobclickAgent.onProfileSignOff();
-        Routerfit.register(AppRouter.class).getCallProvider().logout();
-        UserSpHelper.setToken("");
-        UserSpHelper.setEqId("");
-        UserSpHelper.setUserId("");
-        Routerfit.register(AppRouter.class).skipAuthActivity();
-        finish();
-    }
-
-    private void jiance() {
-        Routerfit.register(AppRouter.class).skipServicePackageActivity(false);
     }
 
     private void gotoHomePage() {
@@ -1448,7 +1440,6 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 return true;
             }
         }
-
         //吃药提醒
         List<KeyWordDefinevBean> chiyaoTixing = getDefineData("chiyaotixing");
         for (int i = 0; i < chiyaoTixing.size(); i++) {
@@ -1813,160 +1804,6 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
         return str1;
     }
 
-   /* private static String parseXffunQAResponse(String text) {
-    private void searchAndPlayMusic(String music) {
-
-    }
-
-    private static String parseXffunQAResponse(String text) {
-        try {
-            Logg.i("mylog", text);
-            JSONObject apiResponseObj = new JSONObject(text);
-            text = apiResponseObj.optString("data");
-            JSONObject qaResponseObj = new JSONObject(text);
-            String code = qaResponseObj.optString("code");
-            if (text.equals("1")) {
-                return "我真的不知道了";
-            }
-            if (code == null || !code.equals("00000")) {
-                return "我真的不知道了";
-            }
-            JSONObject dataObj = qaResponseObj.optJSONObject("data");
-            if (dataObj == null) {
-                return "我真的不知道了";
-            }
-            JSONObject answerObj = dataObj.optJSONObject("answer");
-            if (answerObj == null) {
-                return "我真的不知道了";
-            }
-            String answer = answerObj.optString("text");
-            if (answer == null) {
-                return "我真的不知道了";
-            }
-            return answer;
-        } catch (JSONException e) {
-            Logg.i("mylog", e.getMessage());
-            e.printStackTrace();
-            return "我真的不知道了";
-        }
-    }*/
-
-
-   /* public void startSynthesis(String str) {
-
-        //  mTts = SpeechSynthesizer.createSynthesizer(IatDemo.this, mTtsInitListener);
-
-        // 设置参数
-        setParams();
-        mTts.startSpeaking(str, mTtsListener);
-
-
-    }*/
-
-
-    /**
-     * 初始化监听。
-     */
-   /* private InitListener mTtsInitListener = new InitListener() {
-        @Override
-        public void onInit(int code) {
-            Logg.d(TAG, "InitListener init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                showTip("初始化失败,错误码：" + code);
-            } else {
-                // 初始化成功，之后可以调用startSpeaking方法
-                // 注：有的开发者在onCreate方法中创建完合成对象之后马上就调用startSpeaking进行合成，
-                // 正确的做法是将onCreate中的startSpeaking调用移至这里
-            }
-        }
-    };*/
-
-
-    /**
-     * 合成回调监听。
-     */
-   /* private SynthesizerListener mTtsListener = new SynthesizerListener() {
-
-        @Override
-        public void onSpeakBegin() {
-            showTip("开始播放");
-        }
-
-        @Override
-        public void onSpeakPaused() {
-            showTip("暂停播放");
-        }
-
-        @Override
-        public void onSpeakResumed() {
-            showTip("继续播放");
-        }
-
-        @Override
-        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-            // 合成进度
-            mPercentForBuffering = percent;
-            //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
-        }
-
-        @Override
-        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-            // 播放进度
-            mPercentForPlaying = percent;
-            //    showTip(String.format(getString(R.string.tts_toast_format), mPercentForBuffering, mPercentForPlaying));
-        }
-
-        @Override
-        public void onCompleted(SpeechError error) {
-            if (error == null) {
-                showTip("播放完成");
-            } else if (error != null) {
-                showTip(error.getPlainDescription(true));
-            }
-            findViewById(R.id.iat_recognizes).performClick();
-        }
-
-        @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-        }
-    };*/
-
-
-    /*private void setParams() {
-        // 清空参数
-        mTts.setParameter(SpeechConstant.PARAMS, null);
-        // 根据合成引擎设置相应参数
-        if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
-            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-            // 设置在线合成发音人
-            mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
-            //设置合成语速
-            mTts.setParameter(SpeechConstant.SPEED, mIatPreferences.getString("speed_preference", "50"));
-            //设置合成音调
-            mTts.setParameter(SpeechConstant.PITCH, mIatPreferences.getString("pitch_preference", "50"));
-            //设置合成音量
-            mTts.setParameter(SpeechConstant.VOLUME, mIatPreferences.getString("volume_preference", "50"));
-        } else {
-            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
-            // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
-            mTts.setParameter(SpeechConstant.VOICE_NAME, "");
-            */
-    /**
-     * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
-     * 开发者如需自定义参数，请参考在线合成参数设置
-     *//*
-        }
-        //设置播放器音频流类型
-        mTts.setParameter(SpeechConstant.STREAM_TYPE, mIatPreferences.getString("stream_preference", "3"));
-        // 设置播放合成音频打断音乐播放，默认为true
-        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
-
-        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
-    }*/
-
 
     //private MediaPlayer mediaPlayer;//MediaPlayer对象
     private File file;//要播放的文件
@@ -2123,6 +1960,17 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
     }
 
+    private void exit() {
+        MobclickAgent.onProfileSignOff();
+        Routerfit.register(AppRouter.class).getCallProvider().logout();
+        UserSpHelper.setToken("");
+        UserSpHelper.setEqId("");
+        UserSpHelper.setUserId("");
+        Routerfit.register(AppRouter.class).skipAuthActivity();
+        finish();
+    }
+
+
     private void vertifyFaceThenHealthRecordActivity() {
         Routerfit.register(AppRouter.class)
                 .getUserProvider()
@@ -2176,4 +2024,9 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                     }
                 });
     }
+
+    private void jiance() {
+        Routerfit.register(AppRouter.class).skipServicePackageActivity(false);
+    }
+
 }
