@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onNext(UserEntity userEntity) {
                         if (userEntity == null) return;
-                        if (!isDestroyed()){
+                        if (!isDestroyed()) {
                             ImageLoader.with(MainActivity.this)
                                     .load(userEntity.avatar)
                                     .into(mCivHead);

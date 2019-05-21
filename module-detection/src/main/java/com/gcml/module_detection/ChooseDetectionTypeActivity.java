@@ -12,13 +12,16 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Arrays;
 
+import timber.log.Timber;
+
 @Route(path = "/module/detection/choose/dection/type")
 public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
-    String[] projects = {"血压", "血糖", "耳温", "体重", "血氧", "胆固醇", "血尿酸", "心电"};
+    String[] projects = {"血压", "血糖", "耳温", "体重", "血氧", "胆固醇", "血尿酸", "心电", "身份证阅读"};
     private RecyclerView mRv;
     private BaseQuickAdapter<String, BaseViewHolder> adapter;
 
@@ -63,6 +66,14 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                         break;
                     case 7:
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_ECG);
+                        break;
+                    case 8:
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.SCAN_ID_CARD, new ActivityCallback() {
+                            @Override
+                            public void onActivityResult(int result, Object data) {
+                                Timber.i(">>>" + data);
+                            }
+                        });
                         break;
                 }
             }
