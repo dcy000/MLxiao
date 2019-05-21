@@ -3,9 +3,10 @@ package com.example.module_control_volume.init;
 import android.app.Application;
 import android.content.Context;
 
-import com.example.module_control_volume.wakeup.WakeupHelper;
 import com.gcml.common.api.AppLifecycleCallbacks;
+import com.gcml.common.router.AppRouter;
 import com.google.auto.service.AutoService;
+import com.sjtu.yifei.route.Routerfit;
 
 import timber.log.Timber;
 
@@ -18,7 +19,7 @@ public class ControlInit implements AppLifecycleCallbacks {
 
     @Override
     public void onCreate(Application app) {
-        WakeupHelper.init(app);
+        Routerfit.register(AppRouter.class).getWakeControlProvider().init(app);
         Timber.i("wake up is init");
     }
 

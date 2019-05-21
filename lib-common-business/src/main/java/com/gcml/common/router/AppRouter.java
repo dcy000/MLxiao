@@ -22,6 +22,7 @@ import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.service.IVideoListFragmentProvider;
 import com.gcml.common.service.IVolumeControlProvider;
+import com.gcml.common.service.IWakeUpControlProvider;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
@@ -247,8 +248,8 @@ public interface AppRouter {
             @Extra ActivityCallback callback
     );
 
-    //    @Go("/auth/auth/activity")
-    @Go("/auth/hospital/user/logins2/activity")
+    @Go("/auth/auth/activity")
+//    @Go("/auth/hospital/user/logins2/activity")
     boolean skipAuthActivity();
 
     @Go("/auth/simple/profile/activity")
@@ -328,6 +329,9 @@ public interface AppRouter {
 
     @Go("/module/control/volume/control/provider")
     IVolumeControlProvider getVolumeControlProvider();
+
+    @Go("/module/control/wake/control/provider")
+    IWakeUpControlProvider getWakeControlProvider();
 
     @Go("/module/control/app/update/provider")
     IAppUpdateProvider getAppUpdateProvider();
