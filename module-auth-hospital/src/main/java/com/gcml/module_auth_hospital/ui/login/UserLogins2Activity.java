@@ -22,6 +22,7 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.ServerBean;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
+import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
@@ -82,7 +83,14 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
         lllogins.getChildAt(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserLogins2Activity.this, ScanIdCardLoginActivity.class));
+                Routerfit.register(AppRouter.class).skipConnectActivity(36, new ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int result, Object data) {
+                        if (data instanceof IDCardItem) {
+// TODO: 2019/5/22  身份证信息确认界面
+                        }
+                    }
+                });
             }
         });
 

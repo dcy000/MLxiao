@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
         android:id="@+id/auth_idcard_numer_tb"
@@ -36,12 +36,18 @@
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-    <com.gcml.module_auth_hospital.wrap.CanClearEditText
+    <EditText
         android:id="@+id/ccet_phone"
         android:layout_width="880pt"
         android:layout_height="132pt"
         android:layout_marginStart="59pt"
         android:layout_marginTop="37pt"
+        android:background="@drawable/text_input_bg"
+        android:gravity="center_vertical"
+        android:hint="请输入您的身份证号"
+        android:paddingLeft="32pt"
+        android:textColorHint="#ffbbbbbb"
+        android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -60,26 +66,28 @@
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
 
     <EditText
-        android:visibility="gone"
         android:id="@+id/et_psw"
         android:layout_width="880pt"
         android:layout_height="132pt"
         android:layout_marginTop="60pt"
-        android:background="@null"
-        android:hint="请输入你的密码"
+        android:background="@drawable/text_input_bg"
+        android:gravity="center_vertical"
+        android:hint="请输入6位数字密码"
         android:inputType="textPassword"
-        android:paddingLeft="10pt"
+        android:maxLength="6"
+        android:paddingLeft="32pt"
+        android:textColorHint="#ffbbbbbb"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
 
     <View
-        android:visibility="gone"
         android:layout_width="880pt"
         android:layout_height="1pt"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="192pt"
         android:background="#ff333333"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
 
