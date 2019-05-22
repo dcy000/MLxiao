@@ -141,7 +141,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     }
 
     private void getData() {
-        boolean empty =TextUtils.isEmpty(UserSpHelper.getUserId());
+        boolean empty = TextUtils.isEmpty(UserSpHelper.getUserId());
         if (empty) {
             String message = "请重新登录！";
             ToastUtils.showShort(message);
@@ -280,7 +280,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
         } else if (i == R.id.doctor_status) {
             if ("未绑定".equals(isSignDoctor.getText().toString())) {
-                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
+                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract", "签 约 医 生", "PersonDetailFragment");
                 return;
             }
             if ("待审核".equals(isSignDoctor.getText().toString())) {

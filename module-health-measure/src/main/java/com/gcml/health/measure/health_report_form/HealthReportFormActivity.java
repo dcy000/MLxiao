@@ -50,6 +50,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     public static final String KEY_TYPE = "key_type";
     private String userId;
     private int checkViewpageState = 5;
+    private int currentViewPagePosition = 0;
     private ImageView nextIndicator;
 
     public static void startActivity(Context context) {
@@ -64,12 +65,6 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         MLVoiceSynthetize.startSynthesize(UM.getApp(), "请查看您的疾病风险评估报告，向左滑动查看详情");
         getData();
 
-    }
-
-    @Override
-    protected void backMainActivity() {
-//        CCAppActions.jump2MainActivity();
-        super.backMainActivity();
     }
 
     @SuppressLint("CheckResult")
@@ -175,7 +170,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                currentViewPagePosition = position;
                 switch (position) {
                     case 0:
                         mTitleText.setText("健 康 报 告");
@@ -232,6 +227,31 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         mViewpage = (ViewPager) findViewById(R.id.viewpage);
         mTitleText.setText("健 康 报 告");
         nextIndicator = findViewById(R.id.iv_ani);
+        nextIndicator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (currentViewPagePosition) {
+                    case 0:
+                        mViewpage.setCurrentItem(1);
+                        break;
+                    case 1:
+                        mViewpage.setCurrentItem(2);
+                        break;
+                    case 2:
+                        mViewpage.setCurrentItem(3);
+                        break;
+                    case 3:
+                        mViewpage.setCurrentItem(4);
+                        break;
+                    case 4:
+                        mViewpage.setCurrentItem(5);
+                        break;
+                    case 5:
+                        showEndDialog();
+                        break;
+                }
+            }
+        });
     }
 
     @Override

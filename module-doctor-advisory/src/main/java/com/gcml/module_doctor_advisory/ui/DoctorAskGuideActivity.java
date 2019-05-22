@@ -8,16 +8,20 @@ import android.widget.ImageView;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.module_doctor_advisory.R;
 import com.gcml.module_doctor_advisory.net.QianYueRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/doctor/advisory/doctor/ask/guide/activity")
 public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.OnClickListener {
     /**
@@ -45,23 +49,16 @@ public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.
         super.onClick(v);
         int i = v.getId();
         if (i == R.id.doctor_yuyue) {
-            new QianYueRepository()
-                    .PersonInfo(UserSpHelper.getUserId())
+            Routerfit.register(AppRouter.class).getUserProvider().getUserEntity()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
-                        public void onNext(UserEntity userEntity) {
-                            if (userEntity == null) {
-                                return;
-                            }
-                            if (TextUtils.isEmpty(userEntity.doctorId)) {
-                                Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
-                                intent.putExtra("flag", "contract");
-                                intent.putExtra("title", "签 约 医 生");
-                                startActivity(intent);
+                        public void onNext(UserEntity user) {
+                            if (TextUtils.isEmpty(user.doctorId)) {
+                                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract","签 约 医 生","DoctorAskGuideActivity");
                             } else {
-                                if ("0".equals(userEntity.state)) {
+                                if ("0".equals(user.state)) {
                                     Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
                                     startActivity(intent);
                                 } else {

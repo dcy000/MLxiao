@@ -19,13 +19,11 @@ import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 
 import io.reactivex.observers.DefaultObserver;
@@ -138,12 +136,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         if (isConnected && !TextUtils.isEmpty(targetAddress)) {
             //如果是已经和其他设备连接，则先断开已有连接，1秒以后再和该设备连接
             BluetoothStore.getClient().disconnect(targetAddress);
-            new WeakHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startDiscovery(device.getAddress());
-                }
-            }, 1000);
+            Handlers.bg().postDelayed(() -> startDiscovery(device.getAddress()), 1000);
         } else {
             startDiscovery(device.getAddress());
         }
@@ -332,12 +325,14 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             baseView.disConnected();
             disConnected(address);
             //3秒之后尝试重连
-            new WeakHandler().postDelayed(new Runnable() {
+            Timber.i(">>>准备重试");
+            Handlers.bg().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    Timber.i(">>>重试中");
                     if (!isOnDestroy && targetAddress != null) {
                         Timber.i(">>>>BaseBluetooth进行重连");
-                        if (!isConnected&&!isOnDestroy){
+                        if (!isConnected && !isOnDestroy) {
                             connect(targetAddress);
                         }
                     }
