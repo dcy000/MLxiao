@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application>
         <activity android:name=".ui.login.UserLoginsActivity" />
         <activity android:name=".ui.login.UserLogins2Activity" />
@@ -21,6 +22,7 @@
         <activity android:name=".doctor.DoctorSettingActivity" />
         <activity android:name=".doctor.SelectUserDefualtLoginTypeActivity" />
         <activity android:name=".doctor.SelectUserDefualtRegisterTypeActivity" />
+        <activity android:name=".ui.login.IdCardInfoActivity" />
     </application>
 
 </manifest>
