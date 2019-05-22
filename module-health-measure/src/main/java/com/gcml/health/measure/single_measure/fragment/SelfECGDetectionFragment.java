@@ -109,11 +109,11 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
 
     public void startDiscovery() {
-        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_CONNECTED || ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_DISCOVERING) {
-            return;
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
         }
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
     }
 
     public void initOther() {
@@ -220,7 +220,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             context.unregisterReceiver(connectReceiver);
         }
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
-
+        ECGBluetooth.bluStatus = ECGBluetooth.BLU_STATUS_NORMAL;
     }
 
     @Override
