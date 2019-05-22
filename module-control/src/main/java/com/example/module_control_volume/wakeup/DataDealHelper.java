@@ -202,35 +202,10 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*gengxin.*")) {
-            new ControlRepository()
-                    .getVersionInfo()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new io.reactivex.observers.DefaultObserver<VersionInfoBean>() {
-                        @Override
-                        public void onNext(VersionInfoBean versionInfoBean) {
-                            try {
-                                if (versionInfoBean != null && versionInfoBean.vid > context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode) {
-                                    Routerfit.register(AppRouter.class).getAppUpdateProvider().showDialog(context, versionInfoBean.url);
-                                } else {
-                                    MLVoiceSynthetize.startSynthesize(UM.getApp(), "当前已经是最新版本了");
-                                    ToastUtils.showShort("当前已经是最新版本了");
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "当前已经是最新版本了");
-                            ToastUtils.showShort("当前已经是最新版本了");
-                        }
-
-                        @Override
-                        public void onComplete() {
-                        }
-                    });
+            Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(context, true);
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -257,6 +232,9 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(erge|ertonggequ).*")) {
             Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("儿童歌曲");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         /*******************************************************/
@@ -284,17 +262,23 @@ public class DataDealHelper {
         if (inSpell.matches(".*(geren|xiugai)xinxi.*")
                 || inSpell.matches(".*huantouxiang.*")) {
             Routerfit.register(AppRouter.class).skipProfileInfoActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
                 "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
             Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
-//            startActivity(HealthRecordActivity.class);
+            Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
             if (listener != null) {
                 listener.onEnd();
             }
@@ -313,12 +297,18 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|zhongxindenglu|tianjiazhanghao).*")) {
             Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
 
         if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|diaojieyinliang|tiaojieyinliang|yiliangdaxiao).*")) {
             Routerfit.register(AppRouter.class).skipSettingActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -333,12 +323,17 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(laorenyule).*")) {
             Routerfit.register(AppRouter.class).skipTheOldHomeActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
 
         if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
-            Routerfit.register(AppRouter.class).skipChildEduHomeActivity();
+            Routerfit.register(AppRouter.class).skipChildEduHomeActivity();if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -353,11 +348,17 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(yaolanqu).*")) {
             Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("摇篮曲");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(taijiaoyinyue|taijiaoyinle|taijiao|tingyinle).*")) {
             Routerfit.register(AppRouter.class).skipChildEduSheetDetailsActivity("胎教音乐");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -416,37 +417,58 @@ public class DataDealHelper {
         }
         if (inSpell.matches(".*(zaima|jiqirenduihua|liaotian|shuohua).*")) {
             Routerfit.register(AppRouter.class).skipSpeechSynthesisActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(zhengzhuangzicha).*")) {
             Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(zhongyitizhi).*")) {
             Routerfit.register(AppRouter.class).skipOlderHealthManagementSerciveActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan|yinleguan).*")) {
             Routerfit.register(AppRouter.class).skipTheOldMusicActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(gushi|tangshisongci|songci|tangshi).*") || result.matches(".*古诗.*")) {
             Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(jianggexiaohua|xiaohua|youqudehua).*")) {
             Routerfit.register(AppRouter.class).skipChildEduJokesActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
 
         if (result.matches(".*听故事|故事.*")) {
             Routerfit.register(AppRouter.class).skipChildEduPoemListActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -462,11 +484,17 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*xiaoxi.*")) {
             Routerfit.register(AppRouter.class).skipMessageActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(guangbo|diantai|shouyinji|zhisheng|diantai).*")) {
             Routerfit.register(AppRouter.class).skipRadioActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -491,6 +519,9 @@ public class DataDealHelper {
         }*/
         if (inSpell.matches(REGEX_SEE_DOCTOR)) {
             Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(context);
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -498,6 +529,9 @@ public class DataDealHelper {
                 "|tingke|xuexi|yiqishiyong|shebeishiyong|shiyongjiaocheng|shiyongfangfa" +
                 "|shebeijianjie|yiqijieshao|jiankangjiaoyu|jiankangxuanjiao).*")) {
             Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         /*if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
@@ -506,6 +540,9 @@ public class DataDealHelper {
         }*/
         if (inSpell.matches(".*(shenghuozhushou).*")) {
             Routerfit.register(AppRouter.class).skipVideoListActivity(2);
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
        /* if (inSpell.matches(".*(donghuapian|dongman).*")) {
@@ -518,24 +555,39 @@ public class DataDealHelper {
         }
         if (inSpell.matches(".*(zaixiangu(wen|weng)).*")) {
             Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(zi|zhi)xun.*")
                 || inSpell.matches(".*(gu(wen|weng)|shipin)((zi|zhi)xun).*")) {
             Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("冠心病");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("支气管哮喘");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肝硬化");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 //        if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
@@ -544,42 +596,72 @@ public class DataDealHelper {
 //        }
         if (inSpell.matches(".*(tongfeng).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("痛风");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(changweiyan).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肠胃炎");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("急性上呼吸道感染");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(xinbaoyan).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("心包炎");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("贫血");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(feiyan).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肺炎");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(di(xie|xue)tang).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("低血糖");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("脑出血");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("肺栓塞");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         if (inSpell.matches(".*(dianxian).*")) {
             Routerfit.register(AppRouter.class).skipDiseaseDetailsActivity("癫痫");
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
         boolean dealKeyWord = keyWordDeal(inSpell);
@@ -643,6 +725,9 @@ public class DataDealHelper {
 
         } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
             Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+            if (listener != null) {
+                listener.onEnd();
+            }
 
         } else if (inSpell.matches(".*guwen.*zixun.*") || inSpell.matches("wenguwen|guwenzixun|jiatingguwen|yuyue")) {
 
@@ -654,6 +739,9 @@ public class DataDealHelper {
                         ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
                     } else {
                         Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
+                        if (listener != null) {
+                            listener.onEnd();
+                        }
                     }
                 }
             });
@@ -696,8 +784,14 @@ public class DataDealHelper {
                 || result.contains("闭嘴") || inSpell.matches(".*baibai.*")) {
         } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
             Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(context);
+            if (listener != null) {
+                listener.onEnd();
+            }
         } else if (inSpell.matches(".*chongqian|qianbugou|meiqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
             Routerfit.register(AppRouter.class).skipPayActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
         } else if (inSpell.matches(".*maidongxi")
                 || inSpell.matches(".*mai.*shizhi")
                 || inSpell.matches(".*mai.*xueyaji")
@@ -714,11 +808,20 @@ public class DataDealHelper {
                 || inSpell.matches(".*tuijian(shangpin|shanpin)")
         ) {
             Routerfit.register(AppRouter.class).skipMarketActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
         } else if (inSpell.matches(".*dingdan|wodedingdan|chakandingdan|dingdanxiangqing|gouwuqingdan")) {
 
             Routerfit.register(AppRouter.class).skipOldOrderListActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
         } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
             Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(context);
+            if (listener != null) {
+                listener.onEnd();
+            }
         } else if (inSpell.matches(".*(dangan).*")) {
             Routerfit.register(AppRouter.class).skipProfileInfoActivity();
             if (listener != null) {
@@ -731,6 +834,9 @@ public class DataDealHelper {
 
     private void jiance() {
         Routerfit.register(AppRouter.class).skipServicePackageActivity(false);
+        if (listener != null) {
+            listener.onEnd();
+        }
     }
 
 
@@ -763,6 +869,9 @@ public class DataDealHelper {
 
     private void gotoHomePage() {
         Routerfit.register(AppRouter.class).skipMainActivity();
+        if (listener != null) {
+            listener.onEnd();
+        }
     }
 
     class SpeechTask extends AsyncTask<Void, Void, Void> {
@@ -1019,6 +1128,9 @@ public class DataDealHelper {
 
     private void gotoPersonCenter() {
         Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+        if (listener != null) {
+            listener.onEnd();
+        }
     }
 
     private void addVoice() {

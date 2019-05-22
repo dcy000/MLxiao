@@ -155,7 +155,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
     private static final int TO_PING_SHU = 3;
     private TextView voiceNormal;
     private TextView voiceWhine;
-    private boolean isDefaultParam = true;
+    private boolean isDefaultParam = false;
     private HashMap<String, String> results;
     private ImageView yuyin;
     private VoiceLineView lineWave;
@@ -171,7 +171,6 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
 
     protected FrameLayout mContentParent;
     private WeakHandler weakHandler = new WeakHandler();
-    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -494,10 +493,10 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                 }
             }
         } else if (i == R.id.tv_normal) {
-            isDefaultParam = true;
+            isDefaultParam = false;
         } else if (i == R.id.tv_whine) {
             MLVoiceSynthetize.setRandomParam();
-            isDefaultParam = false;
+            isDefaultParam = true;
         } else if (i == R.id.iv_yuyin) {
             onEndOfSpeech();
             notice.setVisibility(View.GONE);
