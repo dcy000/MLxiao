@@ -79,6 +79,7 @@ public class DeviceBrand {
 
             put("WeCardio", "心电仪·博声");
             put("PC80B-BLE", "心电仪·自家");
+            put("A12-B", "心电仪·超思");
 
             put("MEDXING-IRT", "耳温枪·美的连");
             put("FSRKB-EWQ01", "耳温枪·自家");
