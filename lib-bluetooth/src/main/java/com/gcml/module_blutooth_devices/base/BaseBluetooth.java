@@ -336,7 +336,10 @@ public abstract class BaseBluetooth implements LifecycleObserver {
                 @Override
                 public void run() {
                     if (!isOnDestroy && targetAddress != null) {
-                        connect(targetAddress);
+                        Timber.i(">>>>BaseBluetooth进行重连");
+                        if (!isConnected&&!isOnDestroy){
+                            connect(targetAddress);
+                        }
                     }
                 }
             }, 3000);

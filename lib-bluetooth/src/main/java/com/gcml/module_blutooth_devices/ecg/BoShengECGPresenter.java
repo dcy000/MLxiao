@@ -61,6 +61,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -83,6 +84,8 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String userName;
     private static final String TAG = "BoShengECGPresenter";
     private int lgoinTimes;
+    private boolean isConnected;
+    private boolean isDestroyed;
     DetectionData detectionData = new DetectionData();
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
@@ -158,20 +161,22 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private final BleGattCallback bleGattCallback = new BleGattCallback() {
         @Override
         public void onStartConnect() {
-
+            isConnected = false;
         }
 
         @Override
         public void onConnectFail(BleDevice bleDevice, BleException exception) {
+            isConnected = false;
             baseView.connectFailed();
         }
 
         @Override
         public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
+            isConnected = true;
             isMeasureEnd = false;
             lockedDevice = bleDevice;
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            baseView.connectSuccess(bleDevice.getDevice(),name);
+            baseView.connectSuccess(bleDevice.getDevice(), name);
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
 
             BleManager.getInstance().notify(bleDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
@@ -196,7 +201,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             if (!isMeasureEnd) {
                                 bytesResult.add(data);
                                 detectionData.setInit(false);
-                                detectionData.setEcgDataString(ByteUtils.byteToString(data));
+                                detectionData.setEcgData(data);
                                 baseView.updateData(detectionData);
                                 BluetoothStore.instance.detection.postValue(detectionData);
                             }
@@ -206,6 +211,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
         @Override
         public void onDisConnected(boolean isActiveDisConnected, BleDevice device, BluetoothGatt gatt, int status) {
+            isConnected = false;
             baseView.disConnected();
             if (baseView instanceof Activity) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
@@ -221,7 +227,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
             new WeakHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    connect();
+                    Timber.i(">>>>博声进行重连");
+                    if (!isConnected && !isDestroyed) {
+                        connect();
+                    }
                 }
             }, 3000);
         }
@@ -487,7 +496,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             return;
                         }
                         detectionData.setInit(false);
-                        detectionData.setEcgDataString(null);
+                        detectionData.setEcgData(null);
                         detectionData.setResultUrl(entity.getFile_report());
                         detectionData.setEcgFlag(boShengResultBean.getStop_light());
                         detectionData.setResult(boShengResultBean.getFindings());
@@ -558,7 +567,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
             isMeasureEnd = true;
             if (fragment.get() != null) {
                 detectionData.setInit(false);
-                detectionData.setEcgDataString(null);
+                detectionData.setEcgData(null);
                 detectionData.setEcgTips("测量结束");
                 fragment.get().updateData(detectionData);
             }
@@ -582,10 +591,20 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public void onTick(long millisUntilFinished) {// 计时过程显示
             if (fragment.get() != null) {
                 detectionData.setInit(false);
-                detectionData.setEcgDataString(null);
+                detectionData.setEcgData(null);
                 detectionData.setEcgTips("距离测量结束还有" + millisUntilFinished / 1000 + "s");
                 fragment.get().updateData(detectionData);
             }
         }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
+        isDestroyed = true;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume() {
+        isDestroyed = false;
     }
 }

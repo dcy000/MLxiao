@@ -53,12 +53,14 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
-                if (detectionData.getEcgDataString() != null) {
+                if (detectionData.getEcgDataString() != null || detectionData.getEcgData() != null) {
                     //其中超思有的数据获取实在子线程 ，此处展示应在UI线程
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mEcgView.addData(ByteUtils.stringToBytes(detectionData.getEcgDataString()));
+                            mEcgView.addData(detectionData.getEcgData() == null ?
+                                    ByteUtils.stringToBytes(detectionData.getEcgDataString())
+                                    : detectionData.getEcgData());
                         }
                     });
                 }
