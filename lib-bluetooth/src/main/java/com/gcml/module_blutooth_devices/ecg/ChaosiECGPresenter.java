@@ -5,7 +5,6 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.os.CountDownTimer;
 import android.support.v4.app.SupportActivity;
-import android.util.Log;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
@@ -14,6 +13,8 @@ import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.UUID;
+
+import timber.log.Timber;
 
 public class ChaosiECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -111,7 +112,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                     System.arraycopy(bytes, 17, oneCache, 0, 3);
                     if (!isMeasureEnd) {
                         detectionData.setInit(false);
-                        detectionData.setEcgData(one);
+                        detectionData.setEcgDataString(ByteUtils.byteToString(one));
                         baseView.updateData(detectionData);
                         BluetoothStore.instance.detection.postValue(detectionData);
                     }
@@ -120,7 +121,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
 
             @Override
             public void onResponse(int i) {
-                Log.e(TAG, "openOne " + (i == 0 ? "成功" : "失败"));
+                Timber.i("openOne %s", (i == 0 ? "成功" : "失败"));
             }
         });
     }
@@ -134,7 +135,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                 System.arraycopy(bytes, 14, twoCache, 0, 6);
                 if (!isMeasureEnd) {
                     detectionData.setInit(false);
-                    detectionData.setEcgData(two);
+                    detectionData.setEcgDataString(ByteUtils.byteToString(two));
                     baseView.updateData(detectionData);
                     BluetoothStore.instance.detection.postValue(detectionData);
                 }
@@ -142,7 +143,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
 
             @Override
             public void onResponse(int i) {
-                Log.e(TAG, "openTwo " + (i == 0 ? "成功" : "失败"));
+                Timber.i("openTwo %s", (i == 0 ? "成功" : "失败"));
             }
         });
     }
@@ -156,7 +157,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                 System.arraycopy(bytes, 11, threeCache, 0, 9);
                 if (!isMeasureEnd) {
                     detectionData.setInit(false);
-                    detectionData.setEcgData(three);
+                    detectionData.setEcgDataString(ByteUtils.byteToString(three));
                     baseView.updateData(detectionData);
                     BluetoothStore.instance.detection.postValue(detectionData);
                 }
@@ -164,7 +165,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
 
             @Override
             public void onResponse(int i) {
-                Log.e(TAG, "openThree " + (i == 0 ? "成功" : "失败"));
+                Timber.i("openThree %s", (i == 0 ? "成功" : "失败"));
             }
         });
     }
@@ -177,7 +178,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                 System.arraycopy(bytes, 0, four, 9, 8);
                 if (!isMeasureEnd) {
                     detectionData.setInit(false);
-                    detectionData.setEcgData(four);
+                    detectionData.setEcgDataString(ByteUtils.byteToString(four));
                     baseView.updateData(detectionData);
                     BluetoothStore.instance.detection.postValue(detectionData);
                 }
@@ -185,7 +186,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
 
             @Override
             public void onResponse(int i) {
-                Log.e(TAG, "openFour " + (i == 0 ? "成功" : "失败"));
+                Timber.i("openFour %s", (i == 0 ? "成功" : "失败"));
             }
         });
     }
@@ -198,7 +199,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
                 System.arraycopy(bytes, 0, four, 9, 8);
                 if (!isMeasureEnd) {
                     detectionData.setInit(false);
-                    detectionData.setEcgData(four);
+                    detectionData.setEcgDataString(ByteUtils.byteToString(four));
                     baseView.updateData(detectionData);
                     BluetoothStore.instance.detection.postValue(detectionData);
                 }
@@ -206,7 +207,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
 
             @Override
             public void onResponse(int i) {
-                Log.e(TAG, "openFive " + (i == 0 ? "成功" : "失败"));
+                Timber.i("openFive %s", (i == 0 ? "成功" : "失败"));
             }
         });
     }
@@ -215,12 +216,12 @@ public class ChaosiECGPresenter implements LifecycleObserver {
         BluetoothStore.getClient().notify(address, Service_UUID, Characteristic_UUID_6, new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Log.e(TAG, "onNotify6: " + ByteUtils.byteToString(bytes));
+                Timber.i("onNotify6: %s", ByteUtils.byteToString(bytes));
             }
 
             @Override
             public void onResponse(int i) {
-                Log.e(TAG, "openSix " + (i == 0 ? "成功" : "失败"));
+                Timber.i("openSix %s", (i == 0 ? "成功" : "失败"));
             }
         });
     }
@@ -256,7 +257,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
             detection.setInit(false);
-            detection.setEcgData(null);
+            detection.setEcgDataString(null);
             detection.setEcgTips("测量结束");
             fragment.updateData(detection);
 
@@ -265,7 +266,7 @@ public class ChaosiECGPresenter implements LifecycleObserver {
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
             detection.setInit(false);
-            detection.setEcgData(null);
+            detection.setEcgDataString(null);
             detection.setEcgTips("距离测量结束还有" + millisUntilFinished / 1000 + "s");
             fragment.updateData(detection);
         }

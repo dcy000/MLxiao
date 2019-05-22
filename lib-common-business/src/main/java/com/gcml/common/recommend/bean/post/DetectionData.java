@@ -51,7 +51,7 @@ public class DetectionData implements Serializable {
     private String result;
     private String resultUrl;
     private String breathHome;
-    private byte[] ecgData;
+    private String ecgDataString;
     private String ecgTips;
     private Integer ecgFlag;
     private Boolean isInit;
@@ -252,12 +252,12 @@ public class DetectionData implements Serializable {
         this.breathHome = breathHome;
     }
 
-    public byte[] getEcgData() {
-        return ecgData;
+    public String getEcgDataString() {
+        return ecgDataString;
     }
 
-    public void setEcgData(byte[] ecgData) {
-        this.ecgData = ecgData;
+    public void setEcgDataString(String ecgDataString) {
+        this.ecgDataString = ecgDataString;
     }
 
     public String getEcgTips() {

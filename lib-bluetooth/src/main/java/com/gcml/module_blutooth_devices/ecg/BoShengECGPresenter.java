@@ -196,7 +196,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             if (!isMeasureEnd) {
                                 bytesResult.add(data);
                                 detectionData.setInit(false);
-                                detectionData.setEcgData(data);
+                                detectionData.setEcgDataString(ByteUtils.byteToString(data));
                                 baseView.updateData(detectionData);
                                 BluetoothStore.instance.detection.postValue(detectionData);
                             }
@@ -487,7 +487,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             return;
                         }
                         detectionData.setInit(false);
-                        detectionData.setEcgData(null);
+                        detectionData.setEcgDataString(null);
                         detectionData.setResultUrl(entity.getFile_report());
                         detectionData.setEcgFlag(boShengResultBean.getStop_light());
                         detectionData.setResult(boShengResultBean.getFindings());
@@ -558,7 +558,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
             isMeasureEnd = true;
             if (fragment.get() != null) {
                 detectionData.setInit(false);
-                detectionData.setEcgData(null);
+                detectionData.setEcgDataString(null);
                 detectionData.setEcgTips("测量结束");
                 fragment.get().updateData(detectionData);
             }
@@ -582,7 +582,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public void onTick(long millisUntilFinished) {// 计时过程显示
             if (fragment.get() != null) {
                 detectionData.setInit(false);
-                detectionData.setEcgData(null);
+                detectionData.setEcgDataString(null);
                 detectionData.setEcgTips("距离测量结束还有" + millisUntilFinished / 1000 + "s");
                 fragment.get().updateData(detectionData);
             }

@@ -385,7 +385,9 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                         }
                     });
         }
-        retryDialog.show();
+        if (!isFinishing() && !isDestroyed()) {
+            retryDialog.show();
+        }
     }
 
     private void showUnSearchedDeviceDialog() {

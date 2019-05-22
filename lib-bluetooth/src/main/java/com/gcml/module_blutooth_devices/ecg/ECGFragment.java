@@ -14,6 +14,7 @@ import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.inuker.bluetooth.library.utils.ByteUtils;
 
 public class ECGFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private ECGSingleGuideView mEcgView;
@@ -72,12 +73,12 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
 
     @Override
     public void updateData(DetectionData detectionData) {
-        if (detectionData.getEcgData() != null) {
+        if (detectionData.getEcgDataString() != null) {
             //其中超思有的数据获取实在子线程 ，此处展示应在UI线程
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mEcgView.addData(detectionData.getEcgData());
+                    mEcgView.addData(ByteUtils.stringToBytes(detectionData.getEcgDataString()));
                 }
             });
         }
