@@ -98,7 +98,6 @@ repositories {
         dirs rootProject.file('aar')
     }
 }
-
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 

@@ -664,13 +664,15 @@ public class DataDealHelper {
             }
             return;
         }
-        boolean dealKeyWord = keyWordDeal(inSpell);
+      /*
+       自定义关键词处理
+       boolean dealKeyWord = keyWordDeal(inSpell);
         if (dealKeyWord) {
             if (listener != null) {
                 listener.onEnd();
             }
             return;
-        }
+        }*/
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
             jiance();
             if (listener != null) {

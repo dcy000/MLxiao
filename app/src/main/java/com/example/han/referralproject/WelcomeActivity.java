@@ -15,7 +15,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initContentView();
-        Routerfit.register(AppRouter.class).getWakeControlProvider().enableWakeuperListening(true);
     }
 
     private void initContentView() {

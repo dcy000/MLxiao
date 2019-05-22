@@ -55,6 +55,7 @@ public class MainActivity extends ToolbarBaseActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_main);
+        Routerfit.register(AppRouter.class).getWakeControlProvider().enableWakeuperListening(true);
         mToolbar.setVisibility(View.GONE);
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
         MLVoiceSynthetize.startSynthesize(UM.getApp(), getString(R.string.tips_splash));

@@ -4,35 +4,23 @@ package com.example.han.referralproject.application;
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.os.Build;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Process;
-import android.os.StrictMode;
-import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
-import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.network.AppRepository;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.api.AppLifecycleCallbacks;
 import com.gcml.common.location.BdLocationHelper;
-import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
-import com.gcml.common.utils.ui.UiUtils;
 import com.google.auto.service.AutoService;
-import com.umeng.analytics.MobclickAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import cn.jpush.android.api.JPushInterface;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
