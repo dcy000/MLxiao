@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
@@ -20,7 +22,6 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
-import com.gcml.module_auth_hospital.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -31,10 +32,10 @@ import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivi
 import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_FORM_WHERE;
 import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_IDCARD_NUMBER;
 
-public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
+public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
-    private CanClearEditText ccetPhone;
+    private EditText ccetPhone;
     private TextView tvNext;
     private UserRepository userRepository = new UserRepository();
     private TranslucentToolBar translucentToolBar;
@@ -49,13 +50,27 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
 
     private void initView() {
         translucentToolBar = findViewById(R.id.auth_idcard_numer_register__tb);
-        ccetPhone = (CanClearEditText) findViewById(R.id.ccet_phone);
-        tvNext = (TextView) findViewById(R.id.tv_next);
+        ccetPhone = findViewById(R.id.ccet_phone);
+        tvNext = findViewById(R.id.tv_next);
         tvNext.setText("下一步");
         tvNext.setOnClickListener(this);
-        ccetPhone.setListener(this);
+        ccetPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//        ccetPhone.setValue("340321199112256551");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                onTextChange(s);
+            }
+        });
+
 
         translucentToolBar.setData("身 份 证 号 码 注 册",
                 R.drawable.common_btn_back, "返回",
@@ -84,7 +99,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     }
 
     private void checkIdCard() {
-        String idCardNumber = ccetPhone.getPhone();
+        String idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
         if (TextUtils.isEmpty(idCardNumber)) {
             speak("请输入您的身份证号码");
             return;
@@ -112,7 +127,8 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
                     public void onNext(Object o) {
                         super.onNext(o);
                         //身份证未被绑定后其他异常情况
-                        toFilllRegisterInfo(idCardNumber);
+//                        toFilllRegisterInfo(idCardNumber);
+                        startActivity(new Intent(IDCardNuberRegisterActivity.this, SetPassWordActivity.class));
                     }
 
 
@@ -132,7 +148,6 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
         );
     }
 
-    @Override
     public void onTextChange(Editable phone) {
         if (TextUtils.isEmpty(phone.toString()) && Utils.checkIdCard1(phone.toString())) {
             tvNext.setEnabled(false);

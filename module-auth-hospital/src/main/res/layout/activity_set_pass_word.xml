@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
-        android:id="@+id/auth_idcard_numer_tb"
+        android:id="@+id/tb_set_pass_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView17"
@@ -18,11 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59pt"
         android:layout_marginTop="100pt"
-        android:text="身份证号码登录"
+        android:text="密码设置"
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_idcard_numer_tb" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_set_pass_word" />
 
     <TextView
         android:id="@+id/textView18"
@@ -48,6 +50,7 @@
         android:paddingLeft="32pt"
         android:textColorHint="#ffbbbbbb"
         android:textSize="64pt"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -59,7 +62,7 @@
         android:background="@drawable/shape_rectangle_next_btn"
         android:enabled="false"
         android:gravity="center"
-        android:text="登录"
+        android:text="下一步"
         android:textColor="#fff"
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -80,17 +83,6 @@
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
-
-    <View
-        android:layout_width="880pt"
-        android:layout_height="1pt"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="192pt"
-        android:background="#ff333333"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
-
 
     <ImageView
         android:id="@+id/imageView2"

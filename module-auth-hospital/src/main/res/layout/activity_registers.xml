@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -23,8 +24,7 @@
             android:layout_width="468pt"
             android:layout_height="648pt"
             android:layout_marginLeft="-8pt"
-            android:layout_marginTop="156pt"
-            android:visibility="gone">
+            android:layout_marginTop="156pt">
 
             <ImageView
                 android:layout_width="468pt"
@@ -49,8 +49,7 @@
             android:layout_width="468pt"
             android:layout_height="648pt"
             android:layout_marginLeft="-8pt"
-            android:layout_marginTop="156pt"
-            android:visibility="gone">
+            android:layout_marginTop="156pt">
 
             <ImageView
                 android:layout_width="468pt"
@@ -75,8 +74,7 @@
             android:layout_width="468pt"
             android:layout_height="648pt"
             android:layout_marginLeft="-8pt"
-            android:layout_marginTop="156pt"
-            android:visibility="gone">
+            android:layout_marginTop="156pt">
 
             <ImageView
 
@@ -97,6 +95,22 @@
 
         </RelativeLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="58pt"
+        android:drawableLeft="@drawable/img_textdrable_confirm"
+        android:drawablePadding="16pt"
+        android:gravity="center"
+        android:text="我已阅读并同意《用户服务协议及隐私政策》"
+        android:textColor="#ff909399"
+        android:textSize="40pt">
+
+
+    </TextView>
 
 
 </RelativeLayout>

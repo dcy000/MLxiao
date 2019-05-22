@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
         android:id="@+id/auth_idcard_numer_register__tb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView17"
@@ -25,7 +27,6 @@
         app:layout_constraintTop_toBottomOf="@+id/auth_idcard_numer_register__tb" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,12 +37,18 @@
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-    <com.gcml.module_auth_hospital.wrap.CanClearEditText
+    <EditText
         android:id="@+id/ccet_phone"
         android:layout_width="880pt"
         android:layout_height="132pt"
         android:layout_marginStart="59pt"
         android:layout_marginTop="37pt"
+        android:background="@drawable/text_input_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="32pt"
+        android:hint="请输入您的身份证号"
+        android:textColorHint="#ffbbbbbb"
+        android:textSize="56pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 

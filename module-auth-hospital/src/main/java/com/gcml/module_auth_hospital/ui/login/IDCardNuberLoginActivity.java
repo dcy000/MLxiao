@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +25,6 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
-import com.gcml.module_auth_hospital.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -34,10 +34,10 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
+public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
-    private CanClearEditText ccetPhone;
+    private EditText ccetPhone;
     private TextView tvNext;
     private EditText etPsw;
     private UserRepository userRepository = new UserRepository();
@@ -46,6 +46,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isShowToolbar = false;
         setContentView(R.layout.activity_login_by_idcard_nuber);
         initView();
         AppManager.getAppManager().addActivity(this);
@@ -53,11 +54,26 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
 
     private void initView() {
         translucentToolBar = findViewById(R.id.auth_idcard_numer_tb);
-        ccetPhone = (CanClearEditText) findViewById(R.id.ccet_phone);
+        ccetPhone = findViewById(R.id.ccet_phone);
         tvNext = (TextView) findViewById(R.id.tv_next);
-        etPsw =findViewById(R.id.et_psw);
+        etPsw = findViewById(R.id.et_psw);
         tvNext.setOnClickListener(this);
-        ccetPhone.setListener(this);
+        ccetPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                onTextChange(s);
+            }
+        });
 
 //        ccetPhone.setValue("340321199112256552");
 
@@ -88,9 +104,9 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     }
 
     private void checkIdCard() {
-        String idCardNumber = ccetPhone.getPhone();
+        String idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
         if (TextUtils.isEmpty(idCardNumber)) {
-            speak("请输入您的身份证号码");
+            speak("请输入您的身份证号");
             return;
         }
         if (!Utils.checkIdCard1(idCardNumber)) {
@@ -98,10 +114,10 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
             return;
         }
 
-      /*  if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
-            speak("请输入密码");
+        if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
+            speak("请输入6位数字密码");
             return;
-        }*/
+        }
 
         checkIdCardIsRegisterOrNot(idCardNumber);
     }
@@ -176,7 +192,6 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                 });
     }
 
-    @Override
     public void onTextChange(Editable phone) {
         if (TextUtils.isEmpty(phone.toString()) && Utils.checkIdCard1(phone.toString())) {
             tvNext.setEnabled(false);
