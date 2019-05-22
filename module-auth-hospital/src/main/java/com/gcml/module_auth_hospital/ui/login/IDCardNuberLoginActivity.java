@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +25,6 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
-import com.gcml.module_auth_hospital.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -34,7 +34,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
+public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
     private EditText ccetPhone;
@@ -58,6 +58,22 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
         tvNext = (TextView) findViewById(R.id.tv_next);
         etPsw = findViewById(R.id.et_psw);
         tvNext.setOnClickListener(this);
+        ccetPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                onTextChange(s);
+            }
+        });
 
 //        ccetPhone.setValue("340321199112256552");
 
@@ -176,7 +192,6 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                 });
     }
 
-    @Override
     public void onTextChange(Editable phone) {
         if (TextUtils.isEmpty(phone.toString()) && Utils.checkIdCard1(phone.toString())) {
             tvNext.setEnabled(false);

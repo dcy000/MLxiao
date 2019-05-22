@@ -20,5 +20,5 @@ android {
 
 dependencies {
     implementation project(':lib-idcard-reader')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
-

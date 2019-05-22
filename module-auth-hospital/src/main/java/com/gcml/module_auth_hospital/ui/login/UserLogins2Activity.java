@@ -68,6 +68,7 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                         Routerfit.register(AppRouter.class).skipSettingActivity();
                     }
                 });
+        setWifiLevel(tb);
         AppManager.getAppManager().addActivity(this);
     }
 
