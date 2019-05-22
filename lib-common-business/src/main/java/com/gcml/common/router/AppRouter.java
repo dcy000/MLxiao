@@ -88,6 +88,9 @@ public interface AppRouter {
     @Go("/app/online/doctor/list")
     boolean skipOnlineDoctorListActivity(@Extra("flag") String flag);
 
+    @Go("/app/online/doctor/list")
+    boolean skipOnlineDoctorListActivity(@Extra("flag") String flag, @Extra("title") String title, @Extra("fromWhere") String from);
+
     @Go("/app/hypertension/slow/disease/management")
     boolean skipSlowDiseaseManagementActivity();
 

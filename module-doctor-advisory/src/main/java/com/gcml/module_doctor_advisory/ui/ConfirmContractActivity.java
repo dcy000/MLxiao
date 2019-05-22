@@ -25,9 +25,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ConfirmContractActivity extends AppCompatActivity {
 
-    public static void start(Context context, String doctorId) {
+    public static void start(Context context, String doctorId, String fromWhere) {
         Intent intent = new Intent(context, ConfirmContractActivity.class);
         intent.putExtra("doctorId", doctorId);
+        intent.putExtra("fromWhere", fromWhere);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -152,7 +153,14 @@ public class ConfirmContractActivity extends AppCompatActivity {
                         dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
-                                Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+                                String fromWhere = getIntent().getStringExtra("fromWhere");
+                                if (TextUtils.isEmpty(fromWhere)) {
+                                    Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
+                                } else if (TextUtils.equals(fromWhere, "PersonDetailFragment")) {
+                                    Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+                                } else if (TextUtils.equals(fromWhere, "DoctorAskGuideActivity")) {
+                                    Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
+                                }
                                 finish();
                             }
                         });

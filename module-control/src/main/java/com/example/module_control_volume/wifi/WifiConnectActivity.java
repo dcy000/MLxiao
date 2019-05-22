@@ -249,7 +249,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                     public void onComplete() {
                         if (!currentConnected) {
                             dismissLoading();
-                            showInputPasswordDialog();
+                            showInputPasswordDialog("密码错误，请重新输入");
                         }
                     }
                 });
@@ -266,7 +266,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                     Handlers.ui().post(new Runnable() {
                         @Override
                         public void run() {
-                            showInputPasswordDialog();
+                            showInputPasswordDialog(null);
                         }
                     });
                 } else {
@@ -294,12 +294,12 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
         });
     }
 
-    private void showInputPasswordDialog() {
+    private void showInputPasswordDialog(String msg) {
         String wifiName = currentWifi.SSID;
         String capabilities = currentWifi.capabilities;
         new InputDialog(this)
                 .builder()
-                .setMsg(wifiName)
+                .setMsg(msg == null ? wifiName : (wifiName + "\n" + msg))
                 .setMsgColor(R.color.config_color_appthema)
                 .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
                     @Override

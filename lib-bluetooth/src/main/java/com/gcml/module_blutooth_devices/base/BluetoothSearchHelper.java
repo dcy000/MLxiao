@@ -81,6 +81,8 @@ public class BluetoothSearchHelper {
             if (!isClear) {
                 if (searchListener != null) {
                     searchListener.onNewDeviceFinded(device.device);
+                }else{
+                    Timber.i(">>>>====>>>>>searchListener is NULL");
                 }
                 synchronized (BluetoothSearchHelper.this) {
                     for (String name : bleNames) {
@@ -95,6 +97,8 @@ public class BluetoothSearchHelper {
                         }
                     }
                 }
+            } else {
+                Timber.i("BluetoothSearching>>>====>>>is Cleard");
             }
         }
 

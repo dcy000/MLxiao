@@ -35,6 +35,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
@@ -224,13 +225,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
             if (timeCount != null) {
                 timeCount.cancel();
             }
-            new WeakHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Timber.i(">>>>博声进行重连");
-                    if (!isConnected && !isDestroyed) {
-                        connect();
-                    }
+            Handlers.bg().postDelayed(() -> {
+                Timber.i(">>>>博声进行重连");
+                if (!isConnected && !isDestroyed) {
+                    connect();
                 }
             }, 3000);
         }
