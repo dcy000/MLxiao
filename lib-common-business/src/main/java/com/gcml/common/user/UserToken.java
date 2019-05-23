@@ -32,6 +32,8 @@ public class UserToken {
     private String token;
     @SerializedName("refreshToken")
     private String refreshToken;
+    @SerializedName("expire")
+    private int expire;
 
     public String getAccountId() {
         return accountId;

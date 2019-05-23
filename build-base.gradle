@@ -206,5 +206,8 @@ dependencies {
 
     api name: 'lib-wheelrecyclerview', ext: 'aar'
     api name: 'voicelibrary', ext: 'aar'
+
+    implementation 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
+    implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
 }
 

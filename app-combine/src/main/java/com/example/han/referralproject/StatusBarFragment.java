@@ -33,16 +33,17 @@ public class StatusBarFragment extends Fragment implements
         BatteryHelper.OnBatteryChangeListener,
         BatteryHelper.OnPowerConnectionChangeListener,
         ValueAnimator.AnimatorUpdateListener,
-        Runnable, ShowStateBar {
+        Runnable{
 
     private static final String TAG = "StatusBarFragment";
 
-    public static void show(FragmentManager fm, int id) {
+    public static StatusBarFragment show(FragmentManager fm, int id) {
         StatusBarFragment statusBarFragment = getInstance(fm, id);
         if (statusBarFragment.isHidden()) {
             fm.beginTransaction().show(statusBarFragment).commitNowAllowingStateLoss();
             fm.executePendingTransactions();
         }
+        return statusBarFragment;
     }
 
     public static StatusBarFragment getInstance(FragmentManager fm, int id) {
@@ -108,7 +109,6 @@ public class StatusBarFragment extends Fragment implements
         ivChargingIndicator.setVisibility(mPowerConnectedCache ? View.VISIBLE : View.GONE);
         mDrawableTint = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_battery).mutate());
         mDrawable = ivBatteryIndicator.getDrawable();
-        ((MainActivity) getActivity()).setShowStateBarListener(this);
     }
 
     @Override
@@ -252,8 +252,7 @@ public class StatusBarFragment extends Fragment implements
         }
     };
 
-    @Override
-    public void showStateBar(boolean show) {
+    public void showStatusBar(boolean show) {
         if (show) {
             tvTime.setVisibility(View.VISIBLE);
         } else {

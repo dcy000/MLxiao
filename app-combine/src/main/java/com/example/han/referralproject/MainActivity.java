@@ -13,7 +13,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.service.ShowStateBar;
 import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
@@ -30,6 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 @Route(path = "/app/homepage/main/activity")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ArrayList<MainMenuBean> mainMenuBeans = new ArrayList<>();
+    private StatusBarFragment statusBarFragment;
 
     {
         mainMenuBeans.add(new MainMenuBean(R.drawable.main_health_measure, "健康测量"));
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
+        statusBarFragment = StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
         initView();
         setAdapter();
         getPersonInfo();
@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        if (showStateBar != null) {
-            showStateBar.showStateBar(true);
+        if (statusBarFragment != null) {
+            statusBarFragment.showStatusBar(true);
         }
     }
 
@@ -153,12 +153,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-    }
-
-    private ShowStateBar showStateBar;
-
-    public void setShowStateBarListener(ShowStateBar showStateBar) {
-        this.showStateBar = showStateBar;
     }
 
     private void initView() {
