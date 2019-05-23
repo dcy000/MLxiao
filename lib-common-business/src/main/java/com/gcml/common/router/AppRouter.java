@@ -23,6 +23,7 @@ import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.service.IVideoListFragmentProvider;
 import com.gcml.common.service.IVolumeControlProvider;
 import com.gcml.common.service.IWakeUpControlProvider;
+import com.gcml.common.user.IUserService;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
@@ -252,7 +253,6 @@ public interface AppRouter {
     );
 
     @Go("/auth/auth/activity")
-//    @Go("/auth/hospital/user/logins2/activity")
     boolean skipAuthActivity();
 
     @Go("/auth/simple/profile/activity")
@@ -407,4 +407,13 @@ public interface AppRouter {
 
     @Go("/module/control/about/activity")
     boolean skipAboutActivity();
+
+    /**
+     * 登录的服务
+     */
+    @Go("/user/login/provider")
+    IUserService signInProvider();
+
+    @Go("/user/login/provider")
+    IUserService signInByIdCardProvider();
 }
