@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.gcml.web.widget.X5WebView;
 
 public class WebActivity extends AppCompatActivity {
@@ -32,15 +33,16 @@ public class WebActivity extends AppCompatActivity {
         enableFullScreen(true);
         url = getIntent().getStringExtra("url");
 
+        initView();
+        if (url != null && !url.isEmpty()) {
+            webView.loadUrl(url);
+        } else {
+            webView.loadUrl(URL_0);
+        }
+
         TbsInitHelper.setListener(new TbsInitHelper.Listener() {
             @Override
             public void onInitComplete() {
-                initView();
-                if (url != null && !url.isEmpty()) {
-                    webView.loadUrl(url);
-                } else {
-                    webView.loadUrl(URL_0);
-                }
             }
 
             @Override

@@ -31,7 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-//@Route(path = "/app/homepage/main/activity")
+@Route(path = "/app/homepage/main/activity")
 public class Main3Activity extends AppCompatActivity {
 
     private TextView tvLogout;
@@ -232,6 +232,7 @@ public class Main3Activity extends AppCompatActivity {
                 case 2:
                     //自测用药
                     ToastUtils.showLong("正在开发中");
+                    WebActivity.start(Main3Activity.this, "");
                     break;
                 case 3:
                     //健康自测

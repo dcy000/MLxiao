@@ -69,7 +69,7 @@ public class X5WebView extends WebView {
 
     private void initUI() {
 
-        getX5WebViewExtension().setScrollBarFadingEnabled(false);
+//        getX5WebViewExtension().setScrollBarFadingEnabled(false);
         setHorizontalScrollBarEnabled(false);//水平不显示小方块
         setVerticalScrollBarEnabled(false); //垂直不显示小方块
 

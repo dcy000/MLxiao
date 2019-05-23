@@ -27,7 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-@Route(path = "/app/homepage/main/activity")
+//@Route(path = "/app/homepage/main/activity")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ArrayList<MainMenuBean> mainMenuBeans = new ArrayList<>();
     private StatusBarFragment statusBarFragment;
