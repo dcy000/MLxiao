@@ -144,6 +144,7 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity {
                 if ("contract".equals(mFlag)) {
                     Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
                     intent.putExtra("docMsg", mlist.get(postion));
+                    intent.putExtra("fromWhere", getIntent().getStringExtra("fromWhere"));
                     startActivity(intent);
                     return;
                 }
@@ -228,7 +229,7 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity {
 
                         if (mlist.size() >= 9) {
                             page += 1;
-                            repository.onlinedoctor_list(1,"",page,9)
+                            repository.onlinedoctor_list(1, "", page, 9)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(new DefaultObserver<ArrayList<Docter>>() {
@@ -277,7 +278,7 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity {
     protected void onResume() {
         super.onResume();
         if ("contract".equals(mFlag)) {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(),"请选择您最信任的健康顾问绑定");
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请选择您最信任的健康顾问绑定");
         }
     }
 

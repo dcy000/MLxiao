@@ -44,9 +44,10 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
                 if (detectionData.isInit()) {
                     isMeasureBUAFinished = false;
                 } else {
-                    if (detectionData.getUricAcid() != 0 && !isMeasureBUAFinished) {
+                    Float uricAcid = detectionData.getUricAcid();
+                    if (uricAcid != null && uricAcid != 0 && !isMeasureBUAFinished) {
                         isMeasureBUAFinished = true;
-                        mTvResult.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getUricAcid()));
+                        mTvResult.setText(String.format(Locale.getDefault(), "%.2f", uricAcid));
                         onMeasureFinished(detectionData);
                     }
                 }

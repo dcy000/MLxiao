@@ -10,7 +10,10 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -37,6 +40,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/module/yzn/zenduan/activity")
 public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -54,17 +58,20 @@ public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.O
 
     private void initView() {
         mToolbar.setVisibility(View.GONE);
-        TextView input = findViewById(R.id.et_item_name);
-        findViewById(R.id.rv_back).setOnClickListener(v -> finish());
-
-        findViewById(R.id.iv_search_items).setOnClickListener(v -> {
-            String inputText = input.getText().toString().trim().replaceAll(" ", "");
-            if (TextUtils.isEmpty(inputText)) {
-                ToastUtils.showShort("请输入关键词");
-                return;
+        EditText input = findViewById(R.id.et_item_name);
+        input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search(input);
+                    return true;
+                }
+                return false;
             }
-            startActivity(new Intent(this, ZenDuanActivity.class).putExtra("inputText", inputText));
-            finish();
+        });
+        findViewById(R.id.rv_back).setOnClickListener(v -> finish());
+        findViewById(R.id.iv_search_items).setOnClickListener(v -> {
+            search(input);
         });
 
         mRgMenu = (RadioGroup) findViewById(R.id.rg_menu);
@@ -79,6 +86,16 @@ public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.O
             requestData(repository, inputText);
         }
 
+    }
+
+    private void search(EditText input) {
+        String inputText = input.getText().toString().trim().replaceAll(" ", "");
+        if (TextUtils.isEmpty(inputText)) {
+            ToastUtils.showShort("请输入关键词");
+            return;
+        }
+        startActivity(new Intent(this, ZenDuanActivity.class).putExtra("inputText", inputText));
+        finish();
     }
 
     YZNRepository repository = new YZNRepository();

@@ -48,17 +48,18 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                     }
                     isMeasureFinishedOfThisTime = false;
                 } else {
+                    Float weight = detectionData.getWeight();
                     if (detectionData.isWeightOver()) {
-                        if (!isMeasureFinishedOfThisTime && detectionData.getWeight() != 0) {
+                        if (!isMeasureFinishedOfThisTime && weight != null && weight != 0) {
                             isMeasureFinishedOfThisTime = true;
                             onMeasureFinished(detectionData);
                         }
                         if (mTvTizhong != null) {
-                            mTvTizhong.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getWeight()));
+                            mTvTizhong.setText(String.format(Locale.getDefault(), "%.2f", weight));
                         }
                     } else {
                         if (mTvTizhong != null) {
-                            mTvTizhong.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getWeight()));
+                            mTvTizhong.setText(String.format(Locale.getDefault(), "%.2f", weight));
                         }
                     }
                 }

@@ -116,14 +116,14 @@ public class WakeupHelper {
     private volatile boolean enableCache;
 
     public synchronized void enableWakeuperListening(boolean enable) {
-        if (inited && enableCache == enable) {
-            return;
-        }
-        enableCache = enable;
+//        if (inited && enableCache == enable) {
+////            return;
+////        }
+////        enableCache = enable;
         if (enable) {
             startWakeuprListening(wakeuperlistener());
         } else {
-//            stopWakeuprListening();
+            stopWakeuprListening();
         }
     }
 

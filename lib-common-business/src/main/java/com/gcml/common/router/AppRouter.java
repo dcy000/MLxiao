@@ -17,10 +17,12 @@ import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IMusicPlayProvider;
+import com.gcml.common.service.ISystemSettingProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.service.IVideoListFragmentProvider;
 import com.gcml.common.service.IVolumeControlProvider;
+import com.gcml.common.service.IWakeUpControlProvider;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
@@ -85,6 +87,9 @@ public interface AppRouter {
 
     @Go("/app/online/doctor/list")
     boolean skipOnlineDoctorListActivity(@Extra("flag") String flag);
+
+    @Go("/app/online/doctor/list")
+    boolean skipOnlineDoctorListActivity(@Extra("flag") String flag, @Extra("title") String title, @Extra("fromWhere") String from);
 
     @Go("/app/hypertension/slow/disease/management")
     boolean skipSlowDiseaseManagementActivity();
@@ -247,6 +252,7 @@ public interface AppRouter {
     );
 
     @Go("/auth/auth/activity")
+//    @Go("/auth/hospital/user/logins2/activity")
     boolean skipAuthActivity();
 
     @Go("/auth/simple/profile/activity")
@@ -327,6 +333,9 @@ public interface AppRouter {
     @Go("/module/control/volume/control/provider")
     IVolumeControlProvider getVolumeControlProvider();
 
+    @Go("/module/control/wake/control/provider")
+    IWakeUpControlProvider getWakeControlProvider();
+
     @Go("/module/control/app/update/provider")
     IAppUpdateProvider getAppUpdateProvider();
 
@@ -381,6 +390,21 @@ public interface AppRouter {
     @Go("/module/detection/connect/activity")
     boolean skipConnectActivity(@Extra("detectionType") int type);
 
+    @Go("/module/detection/connect/activity")
+    boolean skipConnectActivity(@Extra("detectionType") int type, @Extra ActivityCallback callback);
+
     @Go("/module/detection/choose/dection/type")
     boolean skipChooseDetectionTypeActivity();
+
+    @Go("/module/control/system/setting/provider")
+    ISystemSettingProvider getSystemSettingProvider();
+
+    @Go("/auth/hospital/user/logins2/activity")
+    boolean skipUserLogins2Activity();
+
+    @Go("module/control/voice/setting/activity")
+    boolean skipVoiceSettingActivity();
+
+    @Go("/module/control/about/activity")
+    boolean skipAboutActivity();
 }

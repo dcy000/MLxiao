@@ -125,5 +125,9 @@ public interface IBleConstants {
      * 测量血尿酸
      */
     int MEASURE_URIC_ACID=35;
+    /**
+     * 身份证扫描
+     */
+    int SCAN_ID_CARD=36;
 }
 

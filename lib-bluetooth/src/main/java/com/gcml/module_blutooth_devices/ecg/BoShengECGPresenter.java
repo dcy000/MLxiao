@@ -35,6 +35,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
@@ -61,6 +62,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -83,6 +85,8 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String userName;
     private static final String TAG = "BoShengECGPresenter";
     private int lgoinTimes;
+    private boolean isConnected;
+    private boolean isDestroyed;
     DetectionData detectionData = new DetectionData();
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
@@ -158,20 +162,22 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private final BleGattCallback bleGattCallback = new BleGattCallback() {
         @Override
         public void onStartConnect() {
-
+            isConnected = false;
         }
 
         @Override
         public void onConnectFail(BleDevice bleDevice, BleException exception) {
+            isConnected = false;
             baseView.connectFailed();
         }
 
         @Override
         public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
+            isConnected = true;
             isMeasureEnd = false;
             lockedDevice = bleDevice;
             baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            baseView.connectSuccess(bleDevice.getDevice(),name);
+            baseView.connectSuccess(bleDevice.getDevice(), name);
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
 
             BleManager.getInstance().notify(bleDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
@@ -206,6 +212,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
         @Override
         public void onDisConnected(boolean isActiveDisConnected, BleDevice device, BluetoothGatt gatt, int status) {
+            isConnected = false;
             baseView.disConnected();
             if (baseView instanceof Activity) {
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
@@ -218,9 +225,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
             if (timeCount != null) {
                 timeCount.cancel();
             }
-            new WeakHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            Handlers.bg().postDelayed(() -> {
+                Timber.i(">>>>博声进行重连");
+                if (!isConnected && !isDestroyed) {
                     connect();
                 }
             }, 3000);
@@ -587,5 +594,15 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 fragment.get().updateData(detectionData);
             }
         }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
+        isDestroyed = true;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume() {
+        isDestroyed = false;
     }
 }

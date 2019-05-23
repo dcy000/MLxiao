@@ -44,9 +44,10 @@ public class CholesterolFragment extends BluetoothBaseFragment implements View.O
                 if (detectionData.isInit()) {
                     isMeasureCholesterolFinished = false;
                 } else {
-                    if (detectionData.getCholesterol() != 0 && !isMeasureCholesterolFinished) {
+                    Float cholesterol = detectionData.getCholesterol();
+                    if (cholesterol != null && cholesterol != 0 && !isMeasureCholesterolFinished) {
                         isMeasureCholesterolFinished = true;
-                        mTvResult.setText(String.format(Locale.getDefault(), "%.2f", detectionData.getCholesterol()));
+                        mTvResult.setText(String.format(Locale.getDefault(), "%.2f", cholesterol));
                         onMeasureFinished(detectionData);
                     }
                 }

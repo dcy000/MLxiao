@@ -15,16 +15,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 
 import io.reactivex.observers.DefaultObserver;
@@ -33,7 +32,7 @@ import timber.log.Timber;
 
 public abstract class BaseBluetooth implements LifecycleObserver {
     private boolean isOnSearching = false;
-    private boolean isOnDestroy = false;
+    protected boolean isOnDestroy = false;
     private boolean isConnected = false;
     private SupportActivity activity;
     private ConnectListener connectListener;
@@ -83,14 +82,28 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         if (isOnSearching) {
             return;
         }
-        if (isConnected) {
-            if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            }
-            return;
-        }
+//        if (isConnected) {
+//            if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+//                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
+//            }
+//            return;
+//        }
         Set<String> strings = obtainBrands().keySet();
         start(BluetoothType.BLUETOOTH_TYPE_BLE, address, strings.toArray(new String[strings.size()]));
+    }
+
+    public void startDiscovery(String address, BluetoothType bluetoothType) {
+        if (isOnSearching) {
+            return;
+        }
+//        if (isConnected) {
+//            if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+//                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
+//            }
+//            return;
+//        }
+        Set<String> strings = obtainBrands().keySet();
+        start(bluetoothType, address, strings.toArray(new String[strings.size()]));
     }
 
     /**
@@ -104,9 +117,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             return;
         }
         if (isConnected) {
-            if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            }
+            updateState(R.string.bluetooth_device_connected);
             return;
         }
         Set<String> strings = obtainBrands().keySet();
@@ -125,12 +136,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         if (isConnected && !TextUtils.isEmpty(targetAddress)) {
             //如果是已经和其他设备连接，则先断开已有连接，1秒以后再和该设备连接
             BluetoothStore.getClient().disconnect(targetAddress);
-            new WeakHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startDiscovery(device.getAddress());
-                }
-            }, 1000);
+            Handlers.bg().postDelayed(() -> startDiscovery(device.getAddress()), 1000);
         } else {
             startDiscovery(device.getAddress());
         }
@@ -299,9 +305,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             targetAddress = device.getAddress();
             //本地缓存
             saveSP(targetName + "," + targetAddress);
-            if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
-            }
+            updateState(R.string.bluetooth_device_connected);
             baseView.connectSuccess(device, targetName);
             connectSuccessed(targetName, targetAddress);
         }
@@ -309,9 +313,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         @Override
         public void failed() {
             isConnected = false;
-            if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connect_fail));
-            }
+            updateState(R.string.bluetooth_device_connect_fail);
             baseView.connectFailed();
             connectFailed();
         }
@@ -319,17 +321,20 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         @Override
         public void disConnect(String address) {
             isConnected = false;
-            if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
-            }
+            updateState(R.string.bluetooth_device_disconnected);
             baseView.disConnected();
             disConnected(address);
             //3秒之后尝试重连
-            new WeakHandler().postDelayed(new Runnable() {
+            Timber.i(">>>准备重试");
+            Handlers.bg().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    Timber.i(">>>重试中");
                     if (!isOnDestroy && targetAddress != null) {
-                        connect(targetAddress);
+                        Timber.i(">>>>BaseBluetooth进行重连");
+                        if (!isConnected && !isOnDestroy) {
+                            connect(targetAddress);
+                        }
                     }
                 }
             }, 3000);
@@ -409,9 +414,35 @@ public abstract class BaseBluetooth implements LifecycleObserver {
 
     @CallSuper
     protected void noneFind() {
-        if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
-            baseView.updateState(UM.getApp().getString(R.string.unfind_devices));
-        }
+        updateState(R.string.unfind_devices);
+    }
+
+    protected void updateState(int msg) {
+        Handlers.ui().post(new Runnable() {
+            @Override
+            public void run() {
+                if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+                    baseView.updateState(UM.getApp().getString(msg));
+                }
+                if (baseView != null && baseView instanceof SupportActivity && !isOnDestroy) {
+                    baseView.updateState(UM.getApp().getString(msg));
+                }
+            }
+        });
+    }
+
+    protected void updateState(String msg) {
+        Handlers.ui().post(new Runnable() {
+            @Override
+            public void run() {
+                if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+                    baseView.updateState(msg);
+                }
+                if (baseView != null && baseView instanceof SupportActivity && !isOnDestroy) {
+                    baseView.updateState(msg);
+                }
+            }
+        });
     }
 
     protected boolean isSelfConnect(String name, String address) {

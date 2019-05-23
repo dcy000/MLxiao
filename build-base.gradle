@@ -1,6 +1,7 @@
 apply from: rootProject.file('auto-dependences.gradle')
 //project.apply plugin: 'cc-register'
 project.apply plugin: 'com.sjtu.yifei.autoinject'
+
 //def dependencyMode = (project.gradle.gradleVersion as float) >= 4.1F ? 'api' : 'compile'
 //project.dependencies.add(dependencyMode, project(":cc"))
 //project.dependencies.add(dependencyMode, "com.billy.android:cc:2.1.1")
@@ -97,7 +98,6 @@ repositories {
         dirs rootProject.file('aar')
     }
 }
-
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 

@@ -1,4 +1,4 @@
-ext.alwaysLib=true
+ext.alwaysLib = true
 apply from: rootProject.file("build-base.gradle")
 
 android {
@@ -35,4 +35,6 @@ dependencies {
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
         exclude group: 'org.json', module: 'json'
     }
+
+    compile 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
 }

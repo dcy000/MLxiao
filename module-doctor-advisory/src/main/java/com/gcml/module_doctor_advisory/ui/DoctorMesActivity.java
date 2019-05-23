@@ -25,12 +25,13 @@ import com.gcml.module_doctor_advisory.R;
 import com.gcml.module_doctor_advisory.bean.Docter;
 import com.gcml.module_doctor_advisory.net.QianYueRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-
+@Route(path = "/doctor/advisory/doctor/mes")
 public class DoctorMesActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
     ImageView mImageView;
@@ -294,13 +295,13 @@ public class DoctorMesActivity extends ToolbarBaseActivity implements View.OnCli
                                 String applyAmount = doctor.getApply_amount();
                                 if (robotAmount.count != 0) {
                                     if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
-                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid(),getIntent().getStringExtra("fromWhere"));
                                         finish();
                                     } else {
                                         onLackOfAmount();
                                     }
                                 } else {
-                                    ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                    ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid(),getIntent().getStringExtra("fromWhere"));
                                     finish();
                                 }
                             }

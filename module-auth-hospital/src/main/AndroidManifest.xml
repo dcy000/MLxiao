@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_auth_hospital">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application>
+        <activity android:name=".ui.login.BindPhoneActivity"></activity>
+        <activity android:name=".ui.login.UserLoginsActivity" />
+        <activity android:name=".ui.login.UserLogins2Activity" />
+        <activity android:name=".ui.login.ScanIdCardLoginActivity" />
+        <activity android:name=".ui.login.IDCardNuberLoginActivity" />
+        <activity android:name=".ui.register.RegisterSuccessActivity" />
+        <activity android:name=".ui.register.UserRegistersActivity" />
+        <activity android:name=".ui.register.UserRegisters2Activity" />
+        <activity android:name=".ui.register.ScanIdCardRegisterActivity" />
+        <activity android:name=".ui.register.IDCardRegisterInfoActivity" />
+        <activity android:name=".ui.register.IDCardNuberRegisterActivity" />
+        <activity android:name=".ui.register.IDCardNumberRegisterInfoActivity" />
+        <activity android:name=".ui.register.SetPassWordActivity" />
+        <activity android:name=".doctor.DoctorLoginActivity" />
+        <activity android:name=".doctor.SelectDefualtLoginTypeActivity" />
+        <activity android:name=".doctor.DoctorSettingActivity" />
+        <activity android:name=".doctor.SelectUserDefualtLoginTypeActivity" />
+        <activity android:name=".doctor.SelectUserDefualtRegisterTypeActivity" />
+        <activity android:name=".ui.login.IdCardInfoActivity" />
+    </application>
+
+</manifest>

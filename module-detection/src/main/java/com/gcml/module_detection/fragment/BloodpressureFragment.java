@@ -44,16 +44,17 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
+                Integer highPressure = detectionData.getHighPressure();
                 if (detectionData.isInit()) {
-                    mTvGaoya.setText(String.valueOf(detectionData.getHighPressure()));
+                    mTvGaoya.setText(String.valueOf(highPressure));
                     mTvDiya.setText("0");
                     mTvMaibo.setText("0");
                     isMeasureFinishedOfThisTime = false;
                 } else {
-                    mTvGaoya.setText(String.valueOf(detectionData.getHighPressure()));
+                    mTvGaoya.setText(String.valueOf(highPressure));
                     mTvDiya.setText(String.valueOf(detectionData.getLowPressure()));
                     mTvMaibo.setText(String.valueOf(detectionData.getPulse()));
-                    if (!isMeasureFinishedOfThisTime && detectionData.getHighPressure() != 0) {
+                    if (!isMeasureFinishedOfThisTime && highPressure != null && highPressure != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
                     }

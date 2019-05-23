@@ -16,6 +16,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.DoctorAskGuideActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.DoctorMesActivity"

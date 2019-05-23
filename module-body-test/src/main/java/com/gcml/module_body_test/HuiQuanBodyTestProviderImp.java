@@ -1,5 +1,6 @@
 package com.gcml.module_body_test;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -33,6 +34,9 @@ public class HuiQuanBodyTestProviderImp implements IHuiQuanBodyTestProvider {
                         );
                         String currentUser = new Gson().toJson(diseaseUser);
                         Intent intent = new Intent(context, com.witspring.unitbody.ChooseMemberActivity.class);
+                        if (!(context instanceof Activity)) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        }
                         intent.putExtra("currentUser", currentUser);
                         context.startActivity(intent);
                     }
