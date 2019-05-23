@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShadowLayout">
+        <attr name="shadow_layout_shadowColor" format="color" />
+        <attr name="shadow_layout_backgroundColor" format="color" />
+        <attr name="shadow_layout_dx" format="dimension" />
+        <attr name="shadow_layout_dy" format="dimension" />
+        <attr name="shadow_layout_shadowRadius" format="dimension" />
+        <attr name="shadow_layout_cornerRadius" format="dimension" />
+    </declare-styleable>
+</resources>

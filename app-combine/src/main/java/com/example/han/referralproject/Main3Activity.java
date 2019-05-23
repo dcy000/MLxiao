@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.recyclerview.banner.BannerAdapterHelper;
 import com.gcml.common.widget.recyclerview.banner.BannerRecyclerView;
@@ -21,6 +22,7 @@ import com.gcml.common.widget.recyclerview.banner.BannerScaleHelper;
 import com.gcml.web.WebActivity;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
+import com.yinglan.shadowimageview.RoundImageView;
 import com.yinglan.shadowimageview.ShadowImageView;
 
 import java.util.ArrayList;
@@ -83,7 +85,7 @@ public class Main3Activity extends AppCompatActivity {
         bannerAdapterHelper.setShowLeftCardWidth(UiUtils.pt(40));
         bannerScaleHelper.setPagePadding(UiUtils.pt(20));
         bannerScaleHelper.setShowLeftCardWidth(UiUtils.pt(40));
-        bannerScaleHelper.setScale(1f);
+        bannerScaleHelper.setScale(0.9f);
         bannerScaleHelper.setPagerLike(true);
         bannerScaleHelper.setFirstItemPosition(1000);
         bannerScaleHelper.attachToRecyclerView(rvBanner);
@@ -143,27 +145,48 @@ public class Main3Activity extends AppCompatActivity {
     private class BannerVH extends RecyclerView.ViewHolder {
 
         private ShadowImageView slBanner;
-        private ImageView ivBanner;
+        private RoundImageView ivBanner;
 
         public BannerVH(View itemView) {
             super(itemView);
             slBanner = itemView.findViewById(R.id.slBanner);
             ivBanner = itemView.findViewById(R.id.ivBanner);
+            ivBanner.setRound(UiUtils.pt(40));
             itemView.setOnClickListener(bannerOnClickListener);
         }
 
-        public void onBind(int position) {
+        public void onBind(int position, int itemCount) {
+            setHMarginIfNeed(position, itemCount);
             int realPosition = position % bannerItems.size();
-//            ivBanner.setImageResource(bannerItems.get(realPosition));
-            ImageLoader.with(ivBanner.getContext())
-                    .load(bannerItems.get(realPosition))
-                    .skipMemoryCache()
-                    .radius(UiUtils.pt(40))
-                    .resize(UiUtils.pt(1760), UiUtils.pt(400))
-                    .into(ivBanner);
+
+            ivBanner.setImageResource(bannerItems.get(realPosition));
+//            ImageLoader.with(ivBanner.getContext())
+//                    .load(bannerItems.get(realPosition))
+//                    .into(ivBanner);
 
 //            slBanner.setImageResource(bannerItems.get(realPosition));
 //            slBanner.setImageShadowColor(Color.parseColor("#29666666"));
+        }
+
+        private int hMargin = UiUtils.pt(40);
+
+        private void setHMarginIfNeed(int position, int itemCount) {
+            RecyclerView.LayoutParams layoutParams =
+                    (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            int leftMargin = position == 0 ? hMargin : 0;
+            int rightMargin = position == itemCount - 1 ? hMargin : 0;
+            boolean changed = false;
+            if (layoutParams.leftMargin != leftMargin) {
+                changed = true;
+                layoutParams.leftMargin = leftMargin;
+            }
+            if (layoutParams.rightMargin != rightMargin) {
+                changed = true;
+                layoutParams.rightMargin = rightMargin;
+            }
+            if (changed) {
+                itemView.setLayoutParams(layoutParams);
+            }
         }
     }
 
@@ -174,15 +197,16 @@ public class Main3Activity extends AppCompatActivity {
         public BannerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             View view = inflater.inflate(R.layout.item_main_banner, parent, false);
-            bannerAdapterHelper.onCreateViewHolder(parent, view);
+//            bannerAdapterHelper.onCreateViewHolder(parent, view);
             return new BannerVH(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull BannerVH holder, int position) {
-            bannerAdapterHelper.onBindViewHolder(holder.itemView, position, getItemCount());
-            holder.onBind(position);
+//            bannerAdapterHelper.onBindViewHolder(holder.itemView, position, getItemCount());
+            holder.onBind(position, getItemCount());
         }
+
 
         @Override
         public int getItemCount() {
@@ -198,7 +222,8 @@ public class Main3Activity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     //健康测量
-                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, "", "");
+//                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, "", "");
+                    Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
                     break;
                 case 1:
                     //自诊导诊
@@ -206,9 +231,11 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 2:
                     //自测用药
+                    ToastUtils.showLong("正在开发中");
                     break;
                 case 3:
                     //健康自测
+                    ToastUtils.showLong("正在开发中");
                     break;
                 case 4:
                     //医智囊
@@ -216,13 +243,16 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 5:
                     //视频医生
+                    ToastUtils.showLong("正在开发中");
                     break;
                 case 6:
                     //家庭医生服务
+                    ToastUtils.showLong("正在开发中");
                     break;
                 case 7:
                     //护士上门
-                    Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+//                    Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+                    ToastUtils.showLong("正在开发中");
                     break;
                 case 8:
                     //智能问药
@@ -234,12 +264,15 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 10:
                     //个人中心
+                    ToastUtils.showLong("正在开发中");
                     break;
                 case 11:
                     //帮助中心
+                    ToastUtils.showLong("正在开发中");
                     break;
                 case 12:
                     //设置
+                    ToastUtils.showLong("正在开发中");
                     break;
             }
         }
@@ -292,18 +325,33 @@ public class Main3Activity extends AppCompatActivity {
 //            itemView.setOnClickListener(menuItemOnClickListener);
         }
 
-        public void onBind(int position) {
-            RecyclerView.LayoutParams layoutParams =
-                    (RecyclerView.LayoutParams) itemView.getLayoutParams();
-            int leftMargin = position == 0 ? UiUtils.pt(63) : 0;
-            if (layoutParams.leftMargin != leftMargin) {
-                layoutParams.leftMargin = leftMargin;
-                itemView.setLayoutParams(layoutParams);
-            }
 
+        public void onBind(int position) {
+            setLeftMarginIfNeed(position);
             MenuEntity menuEntity = menuEntities.get(position);
             ivMenuItem.setImageResource(menuEntity.menuImage);
             tvMenuItem.setText(menuEntity.menuLabel);
+        }
+
+        private int firstLeftMargin = UiUtils.pt(63);
+
+        private void setLeftMarginIfNeed(int position) {
+            RecyclerView.LayoutParams layoutParams =
+                    (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            int leftMargin = position == 0 ? firstLeftMargin : 0;
+            int rightMargin = position == menuEntities.size() - 1 ? firstLeftMargin : 0;
+            boolean changed = false;
+            if (layoutParams.leftMargin != leftMargin) {
+                layoutParams.leftMargin = leftMargin;
+                changed = true;
+            }
+            if (layoutParams.rightMargin != rightMargin) {
+                layoutParams.rightMargin = rightMargin;
+                changed = true;
+            }
+            if (changed) {
+                itemView.setLayoutParams(layoutParams);
+            }
         }
     }
 

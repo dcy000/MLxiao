@@ -31,6 +31,26 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         enableFullScreen(true);
         url = getIntent().getStringExtra("url");
+
+        TbsInitHelper.setListener(new TbsInitHelper.Listener() {
+            @Override
+            public void onInitComplete() {
+                initView();
+                if (url != null && !url.isEmpty()) {
+                    webView.loadUrl(url);
+                } else {
+                    webView.loadUrl(URL_0);
+                }
+            }
+
+            @Override
+            public void onInitError() {
+                Toast.makeText(WebActivity.this.getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initView() {
         setContentView(R.layout.activity_web);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -42,22 +62,6 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-
-        TbsInitHelper.setListener(new TbsInitHelper.Listener() {
-            @Override
-            public void onInitComplete() {
-                if (url != null && !url.isEmpty()) {
-                    webView.loadUrl(url);
-                } else {
-                    webView.loadUrl(URL_0);
-                }
-            }
-
-            @Override
-            public void onInitError() {
-                Toast.makeText(WebActivity.this.getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -60,6 +60,7 @@ public class TbsInitHelper {
         @Override
         public void onViewInitFinished(boolean success) {
             if (!success) {
+                Log.e("TbsInitHelper", "onViewInitFinished success = " + success);
                 init(appContext);
                 if (TbsInitHelper.listener != null) {
                     handler.post(new Runnable() {
