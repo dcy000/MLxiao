@@ -50,6 +50,7 @@ combuild {
 dependencies {
     //component
 //    addComponent 'module-recreation'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     addComponent 'module-health-measure'
     addComponent 'module-auth'
     addComponent 'module-auth-face2'

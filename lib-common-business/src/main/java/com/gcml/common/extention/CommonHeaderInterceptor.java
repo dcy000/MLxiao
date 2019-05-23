@@ -17,6 +17,9 @@ public class CommonHeaderInterceptor implements Interceptor {
         Request newRequest = chain.request().newBuilder()
                 .addHeader("version", "1.0")
                 .addHeader("Authorization", UserSpHelper.getToken())
+                .addHeader("token", UserSpHelper.getToken())
+                .addHeader("source", "gcml")
+                .addHeader("agent", "Android")
                 .addHeader("equipmentId", Utils.getDeviceId(UM.getApp().getContentResolver()))
                 .addHeader("eqid", Utils.getDeviceId(UM.getApp().getContentResolver()))
                 .build();
