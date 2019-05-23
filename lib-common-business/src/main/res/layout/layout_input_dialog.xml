@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:textColor="@color/config_color_primary"
             android:textSize="36sp"
             android:text="请输入密码"/>
