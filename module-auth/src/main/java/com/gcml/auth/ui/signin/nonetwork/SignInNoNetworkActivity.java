@@ -303,7 +303,7 @@ public class SignInNoNetworkActivity extends BaseActivity<AuthActivitySignInNone
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请输入您的手机号进行登录。");
+                "请输入您的账号进行登录。");
     }
 
     @Override

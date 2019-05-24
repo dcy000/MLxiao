@@ -186,18 +186,23 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                     }
                 });
 
-        userRepository.amount(DeviceUtils.getIMEI())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<RobotAmount>() {
-                    @Override
-                    public void onNext(RobotAmount robotAmount) {
-                        if (robotAmount.getAmount() != null) {
-                            tvBalance.setText(String.format(getString(R.string.robot_amount), robotAmount.getAmount()));
+        if (UserSpHelper.isNoNetwork()) {
+            tvBalance.setText(String.format(getString(R.string.robot_amount), "0.00"));
+            return;
+        } else {
+            userRepository.amount(DeviceUtils.getIMEI())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new DefaultObserver<RobotAmount>() {
+                        @Override
+                        public void onNext(RobotAmount robotAmount) {
+                            if (robotAmount.getAmount() != null) {
+                                tvBalance.setText(String.format(getString(R.string.robot_amount), robotAmount.getAmount()));
+                            }
                         }
-                    }
-                });
+                    });
+        }
 
         userRepository.doctor(UserSpHelper.getUserId())
                 .doOnNext(new Consumer<Doctor>() {

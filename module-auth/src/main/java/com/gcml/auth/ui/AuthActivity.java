@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
 import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
@@ -35,6 +36,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserSpHelper.setNoNetwork(false);
         init(savedInstanceState);
     }
 
