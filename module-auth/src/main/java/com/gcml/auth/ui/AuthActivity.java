@@ -100,18 +100,6 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignInByFace() {
-//        CC.obtainBuilder("com.gcml.auth.face2.signin")
-//                .build()
-//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        if (result.isSuccess()) {
-//                            Routerfit.register(AppRouter.class).skipMainActivity();
-//                        } else {
-//                            ToastUtils.showShort(result.getErrorMessage());
-//                        }
-//                    }
-//                });
         Routerfit.register(AppRouter.class)
                 .skipFaceBdSignInActivity(false, false, null, true, new ActivityCallback() {
                     @Override
