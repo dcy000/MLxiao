@@ -1,8 +1,6 @@
 package com.example.han.referralproject;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,7 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-@Route(path = "/app/homepage/main/activity")
+//@Route(path = "/app/homepage/main/activity")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ArrayList<MainMenuBean> mainMenuBeans = new ArrayList<>();
     private StatusBarFragment statusBarFragment;

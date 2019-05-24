@@ -2,14 +2,25 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/clItemRoot"
-    android:layout_width="match_parent"
+    android:layout_width="1800pt"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ivBanner"
-        android:scaleType="centerCrop"
+
+    <com.example.han.referralproject.ShadowLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:shadow_layout_cornerRadius="40pt"
+        app:shadow_layout_dx="0pt"
+        app:shadow_layout_dy="16pt"
+        app:shadow_layout_shadowRadius="24pt">
+
+        <com.yinglan.shadowimageview.RoundImageView
+            android:id="@+id/ivBanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+
+    </com.example.han.referralproject.ShadowLayout>
 
     <com.yinglan.shadowimageview.ShadowImageView
         android:id="@+id/slBanner"
