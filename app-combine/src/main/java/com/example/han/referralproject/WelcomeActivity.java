@@ -22,7 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
         if (!NetUitls.isWifiConnected()) {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
         } else {
-            Routerfit.register(AppRouter.class).skipAuthActivity();
+//            Routerfit.register(AppRouter.class).skipAuthActivity();
+            Routerfit.register(AppRouter.class).skipUserRegistersActivity();
         }
         finish();
     }

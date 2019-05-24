@@ -15,12 +15,14 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public Observable<UserEntity> signIn(UserPostBody body) {
-        return repository.signIn(body);
+//        return repository.signIn(body);
+        return null;
     }
 
     @Override
     public Observable<UserEntity> signInByIdCard(UserPostBody body) {
-        return repository.signInByIdCard(body);
+//        return repository.signInByIdCard(body);
+        return null;
     }
 
 }

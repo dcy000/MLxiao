@@ -402,6 +402,9 @@ public interface AppRouter {
     @Go("/auth/hospital/user/logins2/activity")
     boolean skipUserLogins2Activity();
 
+    @Go("/auth/hospital/user/register2/activity")
+    boolean skipUserRegistersActivity();
+
     @Go("module/control/voice/setting/activity")
     boolean skipVoiceSettingActivity();
 
