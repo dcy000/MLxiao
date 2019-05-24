@@ -13,6 +13,7 @@ import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.user.UserPostBody;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
@@ -22,7 +23,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.model2.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -105,7 +106,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
 
     private void checkIdCard() {
         String idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
-        if (TextUtils.isEmpty(idCardNumber)) {
+       /* if (TextUtils.isEmpty(idCardNumber)) {
             speak("请输入您的身份证号");
             return;
         }
@@ -117,9 +118,10 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
         if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
             speak("请输入6位数字密码");
             return;
-        }
+        }*/
 
-        checkIdCardIsRegisterOrNot(idCardNumber);
+//        checkIdCardIsRegisterOrNot(idCardNumber);
+        signIn();
     }
 
 
@@ -128,32 +130,33 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     }
 
     private void checkIdCardIsRegisterOrNot(String idCardNumber) {
-        String deviceId = Utils.getDeviceId(getContentResolver());
-//        userRepository
-//                .isIdCardNotExit(ccetPhone.getPhone())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<Object>() {
-//                    @Override
-//                    public void onNext(Object o) {
-//                        super.onNext(o);
-////                        ToastUtils.showShort("未注册,请先去注册");
-//                        showAccountInfoDialog();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                    }
-//                });
-        signIn(deviceId, idCardNumber);
+       /* String deviceId = Utils.getDeviceId(getContentResolver());
+        userRepository
+                .isIdCardNotExit(ccetPhone.getText().toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        super.onNext(o);
+//                        ToastUtils.showShort("未注册,请先去注册");
+                        showAccountInfoDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+                });
+        signIn(deviceId, idCardNumber);*/
     }
 
-    private void signIn(String deviceId, String idCardNumber) {
-
+    private void signIn() {
+/*
+        UserPostBody body = new UserPostBody();
         userRepository
-                .signInByIdCard(deviceId, idCardNumber)
+                .signInByIdCard(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -189,7 +192,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                         }
                         ToastUtils.showShort(throwable.getMessage());
                     }
-                });
+                });*/
     }
 
     public void onTextChange(Editable phone) {

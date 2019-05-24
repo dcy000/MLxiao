@@ -273,53 +273,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        Routerfit.register(AppRouter.class)
-                                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
-                                    @Override
-                                    public void onActivityResult(int result, Object data) {
-                                        if (result == Activity.RESULT_OK) {
-                                            String sResult = data.toString();
-                                            if (TextUtils.isEmpty(sResult)) return;
-                                            if (sResult.equals("success")) {
-                                                Routerfit.register(AppRouter.class)
-                                                        .skipSimpleProfileActivity(null, null, new ActivityCallback() {
-                                                            @Override
-                                                            public void onActivityResult(int result, Object data) {
-                                                                if (result == Activity.RESULT_OK) {
-                                                                    String sResult = data.toString();
-                                                                    if (TextUtils.equals(sResult, "success")) {
-                                                                        Routerfit.register(AppRouter.class).skipProfile2Activity(new ActivityCallback() {
-                                                                            @Override
-                                                                            public void onActivityResult(int result, Object data) {
-                                                                                if (result == Activity.RESULT_OK) {
-                                                                                    if (TextUtils.equals(data.toString(), "success")) {
-                                                                                        Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract");
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                }
-                                                            }
-                                                        });
-                                            } else if (sResult.equals("failed")) {
-                                                ToastUtils.showShort("录入人脸失败");
-                                            }
-                                        }
-                                    }
-                                });
-//                        CC.obtainBuilder("com.gcml.auth.face2.signup")
-//                                .build()
-//                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                                    @Override
-//                                    public void onResult(CC cc, CCResult result) {
-//                                        if (result.isSuccess()) {
-//
-//
-//                                        }
-//                                    }
-//                                });
-                        finish();
+                        vertifyFace();
                     }
 
                     @Override
@@ -330,6 +284,28 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), message);
                     }
                 });
+    }
+
+    private void vertifyFace() {
+        Routerfit.register(AppRouter.class)
+                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            String sResult = data.toString();
+                            if (TextUtils.isEmpty(sResult)) return;
+                            if (sResult.equals("success")) {
+                                skipSimpleProfileActivity();
+                            } else if (sResult.equals("failed")) {
+                                ToastUtils.showShort("录入人脸失败");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void skipSimpleProfileActivity() {
+        Routerfit.register(AppRouter.class).skipSimpleProfileActivity(null, null, "SignUpActivity");
     }
 
     public void goUserProtocol() {

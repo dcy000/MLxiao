@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.ui.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -8,14 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.login.BindPhoneActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -24,7 +24,6 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
 
     private TextView tvNext;
     private EditText etPsw;
-    private UserRepository userRepository = new UserRepository();
     private TranslucentToolBar translucentToolBar;
 
     @Override
@@ -33,7 +32,6 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
         isShowToolbar = false;
         setContentView(R.layout.activity_set_pass_word);
         initView();
-        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {
@@ -80,16 +78,20 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
         super.onClick(view);
         int id = view.getId();
         if (id == R.id.tv_next) {
-            checkIdCard();
+            toBindPhone();
         }
     }
 
-    private void checkIdCard() {
-        if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
+
+    private void toBindPhone() {
+        String passWord = etPsw.getText().toString().trim();
+        if (TextUtils.isEmpty(passWord)) {
             speak("请输入6位数字密码");
             return;
         }
-
+        startActivity(new Intent(this, BindPhoneActivity.class)
+                .putExtra("passWord", passWord)
+                .putExtras(getIntent()));
     }
 
     private void speak(String content) {

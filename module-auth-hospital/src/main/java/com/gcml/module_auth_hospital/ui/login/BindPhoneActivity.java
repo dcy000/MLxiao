@@ -1,24 +1,29 @@
 package com.gcml.module_auth_hospital.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.Handlers;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.model2.UserBean;
+import com.gcml.module_auth_hospital.model2.UserRepository;
+import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 import com.sjtu.yifei.route.Routerfit;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class BindPhoneActivity extends ToolbarBaseActivity {
 
@@ -32,6 +37,7 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isShowToolbar = false;
         setContentView(R.layout.activity_bind_phone);
         initView();
     }
@@ -42,6 +48,10 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
         phone = findViewById(R.id.et_phone);
         code = findViewById(R.id.et_code);
         next = findViewById(R.id.tv_next);
+        next.setOnClickListener(new FilterClickListener(v -> {
+            String phoneNumber = phone.getText().toString().trim();
+            signUp(phoneNumber);
+        }));
         sendCode = findViewById(R.id.tv_send_code);
 
         tb.setData("忘 记 密 码",
@@ -61,13 +71,44 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
         setWifiLevel(tb);
 
         phone.addTextChangedListener(watcher);
-        sendCode.setOnClickListener(new FilterClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendCode();
-            }
-        }));
+        sendCode.setOnClickListener(new FilterClickListener(v -> sendCode()));
 
+
+    }
+
+    UserRepository repository = new UserRepository();
+
+    private void signUp(String phoneNumber) {
+        Intent data = getIntent();
+        if (data != null) {
+            String passWord = data.getStringExtra("passWord");
+            String idCardNumber = data.getStringExtra("idCardNumber");
+
+            SignUpBean bean = new SignUpBean();
+            bean.setIdNo(idCardNumber);
+            bean.setTel(phoneNumber);
+
+            repository.signUp(bean, passWord)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new DefaultObserver<UserBean>() {
+                        @Override
+                        public void onNext(UserBean userBean) {
+                            super.onNext(userBean);
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            super.onError(throwable);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            super.onComplete();
+                        }
+                    });
+        }
 
     }
 
@@ -108,7 +149,6 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
     }
 
 
-
     TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -122,11 +162,10 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (TextUtils.isEmpty(phone.getText().toString())
-                    && TextUtils.isEmpty(code.getText().toString())) {
-                next.setEnabled(true);
-            } else {
+            if (TextUtils.isEmpty(phone.getText().toString()) && TextUtils.isEmpty(code.getText().toString())) {
                 next.setEnabled(false);
+            } else {
+                next.setEnabled(true);
             }
 
         }

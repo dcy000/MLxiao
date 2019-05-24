@@ -49,10 +49,15 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                     if (!isMeasureFinishedOfThisTime && bloodOxygen != null && bloodOxygen != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
+                        postData();
                     }
                 }
             }
         });
+    }
+
+    private void postData() {
+
     }
 
     @Override

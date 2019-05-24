@@ -160,6 +160,8 @@ public class ConfirmContractActivity extends AppCompatActivity {
                                     Routerfit.register(AppRouter.class).skipPersonDetailActivity();
                                 } else if (TextUtils.equals(fromWhere, "DoctorAskGuideActivity")) {
                                     Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
+                                } else if (TextUtils.equals(fromWhere, "SimpleProfileActivity")) {
+                                    Routerfit.register(AppRouter.class).skipMainActivity();
                                 }
                                 finish();
                             }

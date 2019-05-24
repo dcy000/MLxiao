@@ -20,9 +20,11 @@ import com.gcml.common.service.IMusicPlayProvider;
 import com.gcml.common.service.ISystemSettingProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
+import com.gcml.common.service.IVertifyFaceProvider;
 import com.gcml.common.service.IVideoListFragmentProvider;
 import com.gcml.common.service.IVolumeControlProvider;
 import com.gcml.common.service.IWakeUpControlProvider;
+import com.gcml.common.user.IUserService;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
@@ -252,7 +254,6 @@ public interface AppRouter {
     );
 
     @Go("/auth/auth/activity")
-//    @Go("/auth/hospital/user/logins2/activity")
     boolean skipAuthActivity();
 
     @Go("/auth/simple/profile/activity")
@@ -260,6 +261,12 @@ public interface AppRouter {
             @Extra("signUpType") String signUpType,
             @Extra("signUpIdCard") String signUpIdCard,
             @Extra ActivityCallback callback);
+
+    @Go("/auth/simple/profile/activity")
+    boolean skipSimpleProfileActivity(
+            @Extra("signUpType") String signUpType,
+            @Extra("signUpIdCard") String signUpIdCard,
+            @Extra("fromWhere") String from);
 
     @Go("/auth/profile2/activity")
     boolean skipProfile2Activity(@Extra ActivityCallback callback);
@@ -402,9 +409,22 @@ public interface AppRouter {
     @Go("/auth/hospital/user/logins2/activity")
     boolean skipUserLogins2Activity();
 
+    @Go("/auth/hospital/user/register2/activity")
+    boolean skipUserRegistersActivity();
+
     @Go("module/control/voice/setting/activity")
     boolean skipVoiceSettingActivity();
 
     @Go("/module/control/about/activity")
     boolean skipAboutActivity();
+
+
+    @Go("/common/business/checkUserEntityAndVertifyFace/face/provider")
+    IVertifyFaceProvider getVertifyFaceProvider();
+
+    /**
+     * 游客登录服务
+     */
+    @Go("/user/tourist/login/provider")
+    IUserService touristSignInProvider();
 }

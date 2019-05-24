@@ -23,6 +23,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -34,6 +35,7 @@ import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.widget.dialog.InputDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
@@ -78,6 +80,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
     private boolean isSearchingWifi;
     //wifi连接超时时间
     private static final int WIFI_CONNECT_TIMEOUT = 10;
+    private WifiInfo connectedWifi;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -173,6 +176,10 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ScanResult itemResult = mList.get(position);
+                if (connectedWifi != null && TextUtils.equals(connectedWifi.getSSID(), itemResult.SSID)) {
+                    ToastUtils.showShort("该WiFi已连接");
+                    return;
+                }
                 currentWifi = itemResult;
                 String capabilities = itemResult.capabilities;
 
@@ -331,6 +338,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
         if (isEbable) {
             WifiInfo mInfo = mWifiManager.getConnectionInfo();
             if (mInfo != null) {
+                connectedWifi = mInfo;
                 currentConnected = true;
                 mConnectedWifiName.setText(mInfo.getSSID());
                 RxUtils.rxWifiLevel(getApplication(), 4)

@@ -288,32 +288,6 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 ToastUtils.showShort("请使用有网模式登录");
                 return;
             }
-//                rxUser.subscribeOn(Schedulers.io())
-//                        .as(RxUtils.autoDisposeConverter(this))
-//                        .subscribe(new DefaultObserver<UserEntity>() {
-//                            @Override
-//                            public void onNext(UserEntity user) {
-//                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
-//                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
-//                                    MLVoiceSynthetize.startSynthesize(
-//                                            getActivity().getApplicationContext(),
-//                                            "请先去个人中心完善体重和身高信息");
-//                                } else {
-//                                    CC.obtainBuilder("com.gcml.task.isTask")
-//                                            .build()
-//                                            .callAsync(new IComponentCallback() {
-//                                                @Override
-//                                                public void onResult(CC cc, CCResult result) {
-//                                                    if (result.isSuccess()) {
-//                                                        CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
-//                                                    } else {
-//                                                        CC.obtainBuilder("app.component.task.comply").build().callAsync();
-//                                                    }
-//                                                }
-//                                            });
-//                                }
-//                            }
-//                        });
             Routerfit.register(AppRouter.class).skipSymptomCheckActivity();
 
         } else if (i == R.id.iv_health_call_family) {
