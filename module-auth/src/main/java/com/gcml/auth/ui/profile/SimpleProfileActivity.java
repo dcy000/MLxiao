@@ -2,6 +2,7 @@ package com.gcml.auth.ui.profile;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -20,6 +21,7 @@ import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/auth/simple/profile/activity")
 public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfileBinding, SimpleProfileViewModel> {
 
@@ -37,13 +40,22 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
     private String signUpIdCard;
     private String name;
     private String idCard;
+    private String fromWhere;
 
     @Override
     protected int layoutId() {
         return R.layout.auth_activity_simple_profile;
     }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
+    }
+
+
     protected void init(Bundle savedInstanceState) {
+
         if (getIntent() != null) {
             signUpType = getIntent().getStringExtra("signUpType");
             if (TextUtils.equals("idcard", signUpType)) {
@@ -53,6 +65,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                 binding.etIdCard.setVisibility(View.GONE);
             }
         }
+        fromWhere = getIntent().getStringExtra("fromWhere");
         callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
         binding.setViewModel(viewModel);
@@ -204,7 +217,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                     public void onNext(UserEntity user) {
                         ToastUtils.showShort("更新资料成功");
                         error = false;
-                        finish();
+                        skipProfile2Activity();
                     }
 
                     @Override
@@ -213,6 +226,22 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });
+    }
+
+    private void skipProfile2Activity() {
+        if (TextUtils.equals(fromWhere, "SignUpActivity")) {
+            Routerfit.register(AppRouter.class).skipProfile2Activity(new ActivityCallback() {
+                @Override
+                public void onActivityResult(int result, Object data) {
+                    if (result == Activity.RESULT_OK) {
+                        if (TextUtils.equals(data.toString(), "success")) {
+                            Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract", "签 约 医 生", "SimpleProfileActivity");
+                            finish();
+                        }
+                    }
+                }
+            });
+        }
     }
 
     private void checkIdCard(final UserEntity user) {
@@ -275,21 +304,15 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
 
     @Override
     public void finish() {
-        if (error){
-            Routerfit.setResult(Activity.RESULT_OK,"failed");
-        }else{
-            Routerfit.setResult(Activity.RESULT_OK,"success");
+        //TODO:临时解决ARetrofit的bug
+        if (!TextUtils.equals(fromWhere, "SignUpActivity")) {
+            if (error) {
+                Routerfit.setResult(Activity.RESULT_OK, "failed");
+            } else {
+                Routerfit.setResult(Activity.RESULT_OK, "success");
+            }
         }
-//        if (!TextUtils.isEmpty(callId)) {
-//            CCResult result;
-//            if (error) {
-//                result = CCResult.error("");
-//            } else {
-//                result = CCResult.success();
-//            }
-//            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
-//            CC.sendCCResult(callId, result);
-//        }
+
         super.finish();
     }
 

@@ -20,6 +20,7 @@ import com.gcml.common.service.IMusicPlayProvider;
 import com.gcml.common.service.ISystemSettingProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
+import com.gcml.common.service.IVertifyFaceProvider;
 import com.gcml.common.service.IVideoListFragmentProvider;
 import com.gcml.common.service.IVolumeControlProvider;
 import com.gcml.common.service.IWakeUpControlProvider;
@@ -261,6 +262,12 @@ public interface AppRouter {
             @Extra("signUpIdCard") String signUpIdCard,
             @Extra ActivityCallback callback);
 
+    @Go("/auth/simple/profile/activity")
+    boolean skipSimpleProfileActivity(
+            @Extra("signUpType") String signUpType,
+            @Extra("signUpIdCard") String signUpIdCard,
+            @Extra("fromWhere") String from);
+
     @Go("/auth/profile2/activity")
     boolean skipProfile2Activity(@Extra ActivityCallback callback);
 
@@ -410,6 +417,10 @@ public interface AppRouter {
 
     @Go("/module/control/about/activity")
     boolean skipAboutActivity();
+
+
+    @Go("/common/business/checkUserEntityAndVertifyFace/face/provider")
+    IVertifyFaceProvider getVertifyFaceProvider();
 
     /**
      * 游客登录服务

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.face.VertifyFaceProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -127,40 +128,17 @@ public class DoctorLoginActivity extends ToolbarBaseActivity implements View.OnC
         } else if (id == R.id.tv_doctor_login_login) {
             toLogin();
         } else if (id == R.id.tv_change_doctor_login_type) {
-            Routerfit.register(AppRouter.class).getFaceProvider().getFaceId(UserSpHelper.getUserId())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
+            Routerfit.register(AppRouter.class).getVertifyFaceProvider()
+                    .onlyVertifyFace(false, false, true, new VertifyFaceProviderImp.VertifyFaceResult() {
                         @Override
-                        public void onNext(String faceId) {
-                            Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(
-                                    false, false, faceId, true, new ActivityCallback() {
-                                        @Override
-                                        public void onActivityResult(int result, Object data) {
-                                            if (result == Activity.RESULT_OK) {
-                                                String sResult = data.toString();
-                                                if (TextUtils.isEmpty(sResult))
-                                                    return;
-                                                if (sResult.equals("success") || sResult.equals("skip")) {
-                                                    Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-                                                    finish();
-                                                } else if (sResult.equals("failed")) {
-                                                    ToastUtils.showShort("人脸验证失败");
-                                                }
-
-                                            }
-                                        }
-                                    });
+                        public void success() {
+                            Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+                            finish();
                         }
 
                         @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
+                        public void failed(String msg) {
+                            ToastUtils.showShort(msg);
                         }
                     });
         }

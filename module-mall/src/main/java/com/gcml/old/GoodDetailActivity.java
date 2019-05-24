@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.face.VertifyFaceProviderImp;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.router.AppRouter;
@@ -229,43 +230,20 @@ public class GoodDetailActivity extends ToolbarBaseActivity implements View.OnCl
     }
 
     private void checkUser(String orderid) {
-
         Routerfit.register(AppRouter.class)
-                .getFaceProvider()
-                .getFaceId(UserSpHelper.getUserId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
+                .getVertifyFaceProvider()
+                .onlyVertifyFace(false, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
                     @Override
-                    public void onNext(String faceId) {
-                        Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(false, true, faceId, true, new ActivityCallback() {
-                            @Override
-                            public void onActivityResult(int result, Object data) {
-                                if (result == Activity.RESULT_OK) {
-                                    String sResult = data.toString();
-                                    if (TextUtils.isEmpty(sResult))
-                                        return;
-                                    if (sResult.equals("success")) {
-                                        showPaySuccessDialog(GoodDetailActivity.this);
-                                        syncOrder(orderid);
-                                    } else if (sResult.equals("failed")) {
-                                        ToastUtils.showShort("支付失败");
-                                        cancelOrder(orderid);
-                                    }
-
-                                }
-                            }
-                        });
+                    public void success() {
+                        showPaySuccessDialog(GoodDetailActivity.this);
+                        syncOrder(orderid);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort("请先注册人脸！");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void failed(String msg) {
+                        Timber.e("支付失败>>>" + msg);
+                        ToastUtils.showShort("支付失败");
+                        cancelOrder(orderid);
                     }
                 });
     }

@@ -1,7 +1,9 @@
 package com.gcml.common;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 
 import com.gcml.common.api.AppLifecycleCallbacks;
 import com.gcml.common.router.AppRouter;
@@ -35,6 +37,7 @@ public class CommonApp implements AppLifecycleCallbacks {
 
         // UI 适配
         UiUtils.init(app, 1920, 1200);
+
         // end UI 适配
 
         // 友盟
