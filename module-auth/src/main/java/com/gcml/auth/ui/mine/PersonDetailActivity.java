@@ -36,26 +36,26 @@ public class PersonDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_detail);
         initView();
-        registerReceiver(wifiChangedReceiver, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));
+//        registerReceiver(wifiChangedReceiver, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
                 getString(R.string.person_info));
     }
 
-    private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int level = obtainWifiInfo();
-            if (level <= 0 && level >= -50) {
-                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_3);
-            } else if (level < -50 && level >= -70) {
-                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_2);
-            } else if (level < -70) {
-                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_1);
-            } else {
-                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_error);
-            }
-        }
-    };
+//    private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            int level = obtainWifiInfo();
+//            if (level <= 0 && level >= -50) {
+//                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_3);
+//            } else if (level < -50 && level >= -70) {
+//                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_2);
+//            } else if (level < -70) {
+//                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_1);
+//            } else {
+//                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_error);
+//            }
+//        }
+//    };
 
     private int obtainWifiInfo() {
         // Wifi的连接速度及信号强度：
@@ -109,9 +109,9 @@ public class PersonDetailActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(wifiChangedReceiver);
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        unregisterReceiver(wifiChangedReceiver);
+//    }
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.face.VertifyFaceProviderImp;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.router.AppRouter;
@@ -32,6 +33,8 @@ import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
 @Route(path = "/mall/goods/detail/activity")
 public class GoodsDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -243,79 +246,19 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
 
     private void checkUser(String orderid) {
         Routerfit.register(AppRouter.class)
-                .getFaceProvider()
-                .getFaceId(UserSpHelper.getUserId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
+                .getVertifyFaceProvider()
+                .onlyVertifyFace(false, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
                     @Override
-                    public void onNext(String faceId) {
-
+                    public void success() {
+                        showPaySuccessDialog(GoodsDetailActivity.this);
+                        confirmOrder(orderid);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-//        CC.obtainBuilder("com.gcml.auth.face2.signin")
-//                .addParam("verify", true)
-//                .build()
-//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        if (result.isSuccess()) {
-//                            showPaySuccessDialog(GoodsDetailActivity.this);
-//                            confirmOrder(orderid);
-//                        } else {
-//                            ToastUtils.showShort(result.getErrorMessage());
-//                            cancelOrder(orderid);
-//                        }
-//                    }
-//                });
-
-        Routerfit.register(AppRouter.class)
-                .getFaceProvider()
-                .getFaceId(UserSpHelper.getUserId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
-                    @Override
-                    public void onNext(String faceId) {
-                        Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(false, true, faceId, true, new ActivityCallback() {
-                            @Override
-                            public void onActivityResult(int result, Object data) {
-                                if (result == Activity.RESULT_OK) {
-                                    String sResult = data.toString();
-                                    if (TextUtils.isEmpty(sResult))
-                                        return;
-                                    if (sResult.equals("success")) {
-                                        showPaySuccessDialog(GoodsDetailActivity.this);
-                                        confirmOrder(orderid);
-                                    } else if (sResult.equals("failed")) {
-                                        ToastUtils.showShort("支付失败");
-                                        cancelOrder(orderid);
-                                    }
-
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort("请先注册人脸！");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void failed(String msg) {
+                        Timber.e("支付失败>>>"+msg);
+                        ToastUtils.showShort("支付失败");
+                        cancelOrder(orderid);
                     }
                 });
     }

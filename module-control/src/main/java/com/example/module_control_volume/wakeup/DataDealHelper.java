@@ -19,19 +19,15 @@ import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
 import com.example.module_control_volume.R;
-import com.example.module_control_volume.net.ControlRepository;
-import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.face.VertifyFaceProviderImp;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
-import com.gcml.common.recommend.bean.get.VersionInfoBean;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.SharedPreferencesUtils;
-import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,7 +35,6 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.iflytek.utils.QaApi;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
@@ -52,8 +47,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static android.content.Context.AUDIO_SERVICE;
@@ -331,7 +324,8 @@ public class DataDealHelper {
 
 
         if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
-            Routerfit.register(AppRouter.class).skipChildEduHomeActivity();if (listener != null) {
+            Routerfit.register(AppRouter.class).skipChildEduHomeActivity();
+            if (listener != null) {
                 listener.onEnd();
             }
             return;
@@ -1505,54 +1499,16 @@ public class DataDealHelper {
 
     private void vertifyFaceThenHealthRecordActivity() {
         Routerfit.register(AppRouter.class)
-                .getUserProvider()
-                .getUserEntity()
-                .subscribeOn(Schedulers.io())
-                .subscribe(new DefaultObserver<UserEntity>() {
+                .getVertifyFaceProvider()
+                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
                     @Override
-                    public void onNext(UserEntity userEntity) {
-                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
-                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                            MLVoiceSynthetize.startSynthesize(UM.getApp(),
-                                    "请先去个人中心完善性别和年龄信息");
-                        } else {
-                            Routerfit.register(AppRouter.class)
-                                    .getFaceProvider()
-                                    .getFaceId(userEntity.id)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
-                                        @Override
-                                        public void onNext(String faceId) {
-                                            Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
-                                                @Override
-                                                public void onActivityResult(int result, Object data) {
-                                                    if (result == Activity.RESULT_OK) {
-                                                        String sResult = data.toString();
-                                                        if (TextUtils.isEmpty(sResult))
-                                                            return;
-                                                        if (sResult.equals("success") || sResult.equals("skip")) {
-                                                            Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
-                                                        } else if (sResult.equals("failed")) {
-                                                            ToastUtils.showShort("人脸验证失败");
-                                                        }
+                    public void success() {
+                        Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+                    }
 
-                                                    }
-                                                }
-                                            });
-                                        }
-
-                                        @Override
-                                        public void onError(Throwable e) {
-                                            ToastUtils.showShort("请先注册人脸！");
-                                        }
-
-                                        @Override
-                                        public void onComplete() {
-
-                                        }
-                                    });
-                        }
+                    @Override
+                    public void failed(String msg) {
+                        ToastUtils.showShort(msg);
                     }
                 });
     }

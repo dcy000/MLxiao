@@ -20,6 +20,7 @@ import com.gcml.common.service.IMusicPlayProvider;
 import com.gcml.common.service.ISystemSettingProvider;
 import com.gcml.common.service.ITaskProvider;
 import com.gcml.common.service.IUserEntityProvider;
+import com.gcml.common.service.IVertifyFaceProvider;
 import com.gcml.common.service.IVideoListFragmentProvider;
 import com.gcml.common.service.IVolumeControlProvider;
 import com.gcml.common.service.IWakeUpControlProvider;
@@ -413,4 +414,7 @@ public interface AppRouter {
 
     @Go("/module/control/about/activity")
     boolean skipAboutActivity();
+
+    @Go("/common/business/checkUserEntityAndVertifyFace/face/provider")
+    IVertifyFaceProvider getVertifyFaceProvider();
 }

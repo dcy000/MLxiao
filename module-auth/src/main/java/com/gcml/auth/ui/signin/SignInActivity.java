@@ -13,6 +13,7 @@ import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.face.VertifyFaceProviderImp;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -248,41 +249,16 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
     public void goSignInByFace() {
         Routerfit.register(AppRouter.class)
-                .getFaceProvider()
-                .getFaceId(UserSpHelper.getUserId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
+                .getVertifyFaceProvider()
+                .onlyVertifyFace(false, false, true, new VertifyFaceProviderImp.VertifyFaceResult() {
                     @Override
-                    public void onNext(String faceId) {
-                        Routerfit.register(AppRouter.class)
-                                .skipFaceBdSignInActivity(false, false, faceId, true, new ActivityCallback() {
-                                    @Override
-                                    public void onActivityResult(int result, Object data) {
-                                        if (result == Activity.RESULT_OK) {
-                                            String sResult = data.toString();
-                                            if (TextUtils.isEmpty(sResult))
-                                                return;
-                                            if (sResult.equals("success")) {
-                                                Routerfit.register(AppRouter.class).skipMainActivity();
-                                            } else if (sResult.equals("failed")) {
-                                                ToastUtils.showShort("人脸登录失败");
-                                            }
-
-                                        }
-                                    }
-                                });
+                    public void success() {
+                        Routerfit.register(AppRouter.class).skipMainActivity();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort("请先注册人脸！");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void failed(String msg) {
+                        ToastUtils.showShort(msg);
                     }
                 });
     }
