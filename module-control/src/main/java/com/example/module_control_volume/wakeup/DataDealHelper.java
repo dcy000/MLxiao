@@ -278,11 +278,11 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
-            Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+            vertifyFaceThenHealthRecordActivity();
             if (listener != null) {
                 listener.onEnd();
             }
-            vertifyFaceThenHealthRecordActivity();
+
             return;
         }
 

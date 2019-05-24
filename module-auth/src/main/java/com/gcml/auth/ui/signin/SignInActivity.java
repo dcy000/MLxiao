@@ -198,9 +198,6 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                                 String sResult = data.toString();
                                 if (TextUtils.isEmpty(sResult)) return;
                                 if (sResult.equals("success")) {
-//                                    CC.obtainBuilder("com.gcml.auth.face.joingroup")
-//                                            .build()
-//                                            .callAsync();
                                 } else if (sResult.equals("failed")) {
                                     ToastUtils.showShort("录入人脸失败");
                                 }
@@ -208,23 +205,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                             }
                         }
                     });
-//            CC.obtainBuilder("com.gcml.auth.face2.signup")
-//                    .build()
-//                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                        @Override
-//                        public void onResult(CC cc, CCResult result) {
-//                            if (result.isSuccess()) {
-//                                CC.obtainBuilder("com.gcml.auth.face.joingroup")
-//                                        .build()
-//                                        .callAsync();
-//                            }
-//                            checkProfile1(user);
-//                        }
-//                    });
         } else {
-//            CC.obtainBuilder("com.gcml.auth.face.joingroup")
-//                    .build()
-//                    .callAsync();
             checkProfile1(user);
         }
     }

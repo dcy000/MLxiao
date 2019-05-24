@@ -49,7 +49,8 @@ public class Main3Activity extends AppCompatActivity {
 
     private void initView() {
         statusBarFragment = StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
-
+        //启动音量控制悬浮按钮
+        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         ivAvatar = (ImageView) findViewById(R.id.ivAvatar);
         tvLogout = (TextView) findViewById(R.id.tvLogout);

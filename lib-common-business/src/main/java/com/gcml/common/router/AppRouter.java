@@ -261,6 +261,12 @@ public interface AppRouter {
             @Extra("signUpIdCard") String signUpIdCard,
             @Extra ActivityCallback callback);
 
+    @Go("/auth/simple/profile/activity")
+    boolean skipSimpleProfileActivity(
+            @Extra("signUpType") String signUpType,
+            @Extra("signUpIdCard") String signUpIdCard,
+            @Extra("fromWhere")String from);
+
     @Go("/auth/profile2/activity")
     boolean skipProfile2Activity(@Extra ActivityCallback callback);
 
