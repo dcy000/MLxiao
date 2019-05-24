@@ -1,6 +1,6 @@
 package com.gcml.common.user;
 
-import com.gcml.common.data.UserEntity;
+import com.gcml.common.http.ApiResult;
 
 import io.reactivex.Observable;
 
@@ -11,12 +11,7 @@ import io.reactivex.Observable;
  */
 public interface IUserService {
     /**
-     * 用户账号登录
+     * 游客账号登录
      */
-    Observable<UserEntity> signIn(UserPostBody body);
-
-    /**
-     * 用户身份证信息登录
-     */
-    Observable<UserEntity> signInByIdCard(UserPostBody body);
+    Observable<ApiResult<UserToken>> signIn(UserPostBody body);
 }

@@ -412,11 +412,8 @@ public interface AppRouter {
     boolean skipAboutActivity();
 
     /**
-     * 登录的服务
+     * 游客登录服务
      */
-    @Go("/user/login/provider")
-    IUserService signInProvider();
-
-    @Go("/user/login/provider")
-    IUserService signInByIdCardProvider();
+    @Go("/user/tourist/login/provider")
+    IUserService touristSignInProvider();
 }

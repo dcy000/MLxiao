@@ -24,7 +24,7 @@ public class WelcomeActivity extends AppCompatActivity {
         } else {
 //            Routerfit.register(AppRouter.class).skipAuthActivity();
             Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-            /*IUserService iUserService = Routerfit.register(AppRouter.class).signInProvider();
+            IUserService iUserService = Routerfit.register(AppRouter.class).signInProvider();
             Observable<UserEntity> userEntityObservable = iUserService.signIn(new UserPostBody());
             if (userEntityObservable == null)
                 Routerfit.register(AppRouter.class).skipAuthActivity();
@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         public void onComplete() {
                             super.onComplete();
                         }
-                    });*/
+                    });
 
         }
         finish();

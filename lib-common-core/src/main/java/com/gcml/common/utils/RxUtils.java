@@ -30,6 +30,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -213,7 +214,7 @@ public class RxUtils {
                 .take(times + 1);
     }
 
-    public static Observable<Integer> rxCountDown(int interval, int times,TimeUnit unit) {
+    public static Observable<Integer> rxCountDown(int interval, int times, TimeUnit unit) {
         return Observable.interval(0, interval, unit)
                 .map(new Function<Long, Integer>() {
                     @Override
@@ -226,5 +227,27 @@ public class RxUtils {
 
     public static Observable<Long> rxTimer(int times) {
         return Observable.timer(times, TimeUnit.SECONDS);
+    }
+
+    public static ObservableTransformer<Object, Object> io2Main() {
+        return new ObservableTransformer<Object, Object>() {
+            @Override
+            public ObservableSource<Object> apply(Observable<Object> upstream) {
+                return upstream
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+    public static ObservableTransformer<Object, Object> io2Io() {
+        return new ObservableTransformer<Object, Object>() {
+            @Override
+            public ObservableSource<Object> apply(Observable<Object> upstream) {
+                return upstream
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io());
+            }
+        };
     }
 }
