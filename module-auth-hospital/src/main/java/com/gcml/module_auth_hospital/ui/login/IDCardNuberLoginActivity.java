@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.http.ApiException;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -30,9 +28,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
@@ -43,6 +38,24 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     private EditText etPsw;
     private UserRepository userRepository = new UserRepository();
     private TranslucentToolBar translucentToolBar;
+    private TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            onTextChange(s);
+        }
+    };
+    private String idCardNumber;
+    private String trim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,23 +72,9 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
         tvNext = (TextView) findViewById(R.id.tv_next);
         etPsw = findViewById(R.id.et_psw);
         tvNext.setOnClickListener(this);
-        ccetPhone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                onTextChange(s);
-            }
-        });
-
+        ccetPhone.addTextChangedListener(watcher);
+        etPsw.addTextChangedListener(watcher);
 //        ccetPhone.setValue("340321199112256552");
 
         translucentToolBar.setData("身 份 证 号 码 登 录",
@@ -105,8 +104,9 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     }
 
     private void checkIdCard() {
-        String idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
-       /* if (TextUtils.isEmpty(idCardNumber)) {
+        idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
+        trim = etPsw.getText().toString().trim();
+        if (TextUtils.isEmpty(idCardNumber)) {
             speak("请输入您的身份证号");
             return;
         }
@@ -115,10 +115,10 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
             return;
         }
 
-        if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
+        if (TextUtils.isEmpty(trim)) {
             speak("请输入6位数字密码");
             return;
-        }*/
+        }
 
 //        checkIdCardIsRegisterOrNot(idCardNumber);
         signIn();
@@ -153,53 +153,44 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     }
 
     private void signIn() {
-/*
+
         UserPostBody body = new UserPostBody();
+        body.password = trim;
+        body.sfz = idCardNumber;
         userRepository
                 .signInByIdCard(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
-                    }
-                })
-                .doOnTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        dismissLoading();
-                    }
-                })
+                .doOnSubscribe(disposable -> showLoading("正在登录..."))
+                .doOnTerminate(() -> dismissLoading())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
-                    public void onNext(UserEntity user) {
-                        JpushAliasUtils.setAlias(user.id);
-                        ToastUtils.showLong("登录成功");
-                        Routerfit.register(AppRouter.class).skipMainActivity();
-                        finish();
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        if (throwable instanceof ApiException) {
-                            int code = ((ApiException) throwable).code();
-                            if (code == 1002) {
-                                showAccountInfoDialog();
-                            }
-                        }
-                        ToastUtils.showShort(throwable.getMessage());
+                    public void onNext(UserEntity UserEntity) {
+                        super.onNext(UserEntity);
+                        ToastUtils.showShort("登录成功");
+                        Routerfit.register(AppRouter.class). skipMain3Activity();
+
                     }
-                });*/
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                    }
+                });
+
     }
 
     public void onTextChange(Editable phone) {
-        if (TextUtils.isEmpty(phone.toString()) && Utils.checkIdCard1(phone.toString())) {
-            tvNext.setEnabled(false);
-        } else {
+        if (!TextUtils.isEmpty(phone.toString()) && (!Utils.checkIdCard1(etPsw.toString()))) {
             tvNext.setEnabled(true);
+        } else {
+            tvNext.setEnabled(false);
         }
     }
 

@@ -27,7 +27,7 @@ public class UserRepository {
 
     private UserService mUserService = RetrofitHelper.service(UserService.class);
 
-    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
+//    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
 
     public Observable<UserEntity> signUp(String deviceId, String account, String pwd) {
         return mUserService.signUp(deviceId, account, pwd)
@@ -180,53 +180,53 @@ public class UserRepository {
                 });
     }
 
-    /**
-     * @return users
-     */
-    public Observable<List<UserEntity>> getUsers() {
-        return mUserDao.findAll()
-                .toObservable()
-                .flatMap(new Function<List<UserEntity>, ObservableSource<List<UserEntity>>>() {
-                    @Override
-                    public ObservableSource<List<UserEntity>> apply(List<UserEntity> users) throws Exception {
-                        if (users.isEmpty()) {
-                            return Observable.just(users);
-                        }
-                        StringBuilder userIdsBuilder = new StringBuilder();
-                        int size = users.size();
-                        for (int i = 0; i < size; i++) {
-                            UserEntity user = users.get(i);
-                            if (user == null || TextUtils.isEmpty(user.id)) {
-                                continue;
-                            }
-                            userIdsBuilder.append(user.id);
-                            if (i != size - 1) {
-                                userIdsBuilder.append(",");
-                            }
-                        }
-                        return mUserService.getAllUsers(userIdsBuilder.toString())
-                                .compose(RxUtils.apiResultTransformer())
-                                .subscribeOn(Schedulers.io());
-                    }
-                })
-                .map(new Function<List<UserEntity>, List<UserEntity>>() {
-                    @Override
-                    public List<UserEntity> apply(List<UserEntity> userEntities) throws Exception {
-                        Iterator<UserEntity> iterator = userEntities.iterator();
-                        while (iterator.hasNext()) {
-                            UserEntity entity = iterator.next();
-                            if (entity == null) {
-                                iterator.remove();
-                            }
-                        }
-                        return userEntities;
-                    }
-                });
-    }
+//    /**
+//     * @return users
+//     */
+//    public Observable<List<UserEntity>> getUsers() {
+//        return mUserDao.findAll()
+//                .toObservable()
+//                .flatMap(new Function<List<UserEntity>, ObservableSource<List<UserEntity>>>() {
+//                    @Override
+//                    public ObservableSource<List<UserEntity>> apply(List<UserEntity> users) throws Exception {
+//                        if (users.isEmpty()) {
+//                            return Observable.just(users);
+//                        }
+//                        StringBuilder userIdsBuilder = new StringBuilder();
+//                        int size = users.size();
+//                        for (int i = 0; i < size; i++) {
+//                            UserEntity user = users.get(i);
+//                            if (user == null || TextUtils.isEmpty(user.id)) {
+//                                continue;
+//                            }
+//                            userIdsBuilder.append(user.id);
+//                            if (i != size - 1) {
+//                                userIdsBuilder.append(",");
+//                            }
+//                        }
+//                        return mUserService.getAllUsers(userIdsBuilder.toString())
+//                                .compose(RxUtils.apiResultTransformer())
+//                                .subscribeOn(Schedulers.io());
+//                    }
+//                })
+//                .map(new Function<List<UserEntity>, List<UserEntity>>() {
+//                    @Override
+//                    public List<UserEntity> apply(List<UserEntity> userEntities) throws Exception {
+//                        Iterator<UserEntity> iterator = userEntities.iterator();
+//                        while (iterator.hasNext()) {
+//                            UserEntity entity = iterator.next();
+//                            if (entity == null) {
+//                                iterator.remove();
+//                            }
+//                        }
+//                        return userEntities;
+//                    }
+//                });
+//    }
 
-    public void deleteUsers() {
-        mUserDao.deleteAll();
-    }
+//    public void deleteUsers() {
+//        mUserDao.deleteAll();
+//    }
 
     public Observable<Object> isIdCardNotExit(String idCard) {
         return mUserService.isIdCardNotExit(idCard)

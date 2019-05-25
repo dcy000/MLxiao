@@ -7,6 +7,7 @@
 
 
     <com.example.han.referralproject.ShadowLayout
+        android:id="@+id/slShadow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:shadow_layout_cornerRadius="40pt"

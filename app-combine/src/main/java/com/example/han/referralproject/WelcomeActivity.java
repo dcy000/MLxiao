@@ -24,7 +24,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");
+//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");
         initContentView();
     }
 
@@ -32,24 +32,29 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         if (!NetUitls.isWifiConnected()) {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
+            finish();
         } else {
-//          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
+          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
 //            Routerfit.register(AppRouter.class).skipUserRegistersActivity();//身份证注册
-            touristLogin();
+//            touristLogin();
         }
-        finish();
+
     }
 
     private void touristLogin() {
         IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
-        iUserService.signIn(new UserPostBody())
+        UserPostBody body = new UserPostBody();
+        body.password = "123";
+        body.username = "superman";
+        iUserService.signIn(body)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object userToken) {
                         super.onNext(userToken);
-                        Routerfit.register(AppRouter.class).skipUserRegistersActivity();
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+                        finish();
                     }
 
                     @Override
