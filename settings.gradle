@@ -1,6 +1,6 @@
 include ':module-doctor-advisory', ':module-detection',
         ':app',
-//        ':app-combine',
+        ':app-combine',
         ':module-alarm',
         ':module-body-test',
         ':module-hypertension-manager',
