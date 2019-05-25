@@ -62,7 +62,6 @@ public class UserRegisters2Activity extends ToolbarBaseActivity {
                     @Override
                     public void onActivityResult(int result, Object data) {
                         if (data instanceof IDCardItem) {
-// TODO: 2019/5/22 去注册 到密码设置页面
                             startActivity(new Intent(UserRegisters2Activity.this,SetPassWordActivity.class));
                         }
                     }

@@ -1,16 +1,13 @@
 package com.gcml.module_auth_hospital.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.face.VertifyFaceProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
