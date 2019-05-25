@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="488pt"
+        android:layout_height="377pt"
+        android:src="@drawable/icon_empty_data_illustration" />
+
+    <TextView
+        android:layout_width="660pt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47pt"
+        android:gravity="center"
+        android:lines="2"
+        android:text="您还没有建立档案，\n请建档后再使用家庭医生服务功能"
+        android:textColor="#666666"
+        android:textSize="48pt" />
+
+    <TextView
+        android:id="@+id/tvBuild"
+        android:layout_width="320pt"
+        android:layout_height="120pt"
+        android:layout_marginTop="178pt"
+        android:background="@drawable/health_profile_selector_blue_button"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="去建档"
+        android:textColor="@color/white"
+        android:textSize="54pt" />
+</LinearLayout>

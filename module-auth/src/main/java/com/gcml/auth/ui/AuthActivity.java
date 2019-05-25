@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
 import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
@@ -41,6 +42,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserSpHelper.setNoNetwork(false);
 //        showIpInputDialog();
         init(savedInstanceState);
     }
@@ -99,18 +101,6 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignInByFace() {
-//        CC.obtainBuilder("com.gcml.auth.face2.signin")
-//                .build()
-//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        if (result.isSuccess()) {
-//                            Routerfit.register(AppRouter.class).skipMainActivity();
-//                        } else {
-//                            ToastUtils.showShort(result.getErrorMessage());
-//                        }
-//                    }
-//                });
         Routerfit.register(AppRouter.class)
                 .skipFaceBdSignInActivity(false, false, null, true, new ActivityCallback() {
                     @Override

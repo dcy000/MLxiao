@@ -129,6 +129,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                                     if (mLoadingDialog != null) {
                                         mLoadingDialog.dismiss();
                                     }
+                                    ToastUtils.showLong("无网模式下，博声无检测报告，建议在有网模式下测量博声心电!");
                                 }
                             }
                         }

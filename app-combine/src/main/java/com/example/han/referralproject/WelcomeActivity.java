@@ -16,6 +16,7 @@ import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.functions.Consumer;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 @Route(path = "/app/welcome/activity")
 public class WelcomeActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");
         initContentView();
     }
 

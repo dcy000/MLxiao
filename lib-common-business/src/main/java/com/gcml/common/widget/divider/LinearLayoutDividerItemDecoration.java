@@ -1,4 +1,4 @@
-package com.gcml.health.measure.divider;
+package com.gcml.common.widget.divider;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

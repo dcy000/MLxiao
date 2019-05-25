@@ -586,4 +586,9 @@ public class TimeUtils {
     public static String getChineseWeek(final long millis) {
         return getChineseWeek(new Date(millis));
     }
+
+    public static String long2StringDate(long millis) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.format(new Date(millis));
+    }
 }

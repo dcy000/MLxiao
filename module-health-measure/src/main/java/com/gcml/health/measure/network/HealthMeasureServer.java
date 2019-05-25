@@ -73,4 +73,16 @@ public interface HealthMeasureServer {
     Observable<Object> cancelServicePackage(
          @Query("orderId") String setmealId
     );
+
+
+    @GET("ZZB/api/health/record/{rdRecordId}/detection/")
+    Observable<ApiResult<List<String>>> getDevices(
+            @Path("rdRecordId") String rdRecordId
+    );
+
+    @POST("ZZB/api/health/record/healthRecord/{userRecordId}/")
+    Observable<Object> postHealthRecordMeasureData(
+            @Path("userRecordId") String userRecordId,
+            @Body ArrayList<DetectionData> datas
+    );
 }
