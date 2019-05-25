@@ -45,6 +45,7 @@ public class DetectionData implements Serializable {
     private Float uricAcid;
     private Integer userid;
     private Float weight;
+    private Float height;
     private Boolean weightOver;
     private String yz;
     private Integer zid;
@@ -203,6 +204,14 @@ public class DetectionData implements Serializable {
 
     public void setWeight(Float weight) {
         this.weight = weight;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
     }
 
     public Boolean isWeightOver() {

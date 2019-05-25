@@ -110,33 +110,13 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
         } else if (i == R.id.iv_communicate) {
             Routerfit.register(AppRouter.class).skipSpeechSynthesisActivity();
 
-        } else if (i == R.id.iv_check_self) {//                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-//                rxUser = result.getDataItem("data");
-//                rxUser.subscribeOn(Schedulers.io())
-//                        .as(RxUtils.autoDisposeConverter(this))
-//                        .subscribe(new DefaultObserver<UserEntity>() {
-//                            @Override
-//                            public void onNext(UserEntity user) {
-//                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
-//                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
-//                                    MLVoiceSynthetize.startSynthesize(
-//                                            getActivity().getApplicationContext(),
-//                                            "请先去个人中心完善体重和身高信息");
-//                                } else {
-//                                    Intent intent = new Intent(getActivity(), SymptomCheckActivity.class);
-//                                    startActivity(intent);
-//                                }
-//                            }
-//                        });
-
-//                CC.obtainBuilder("app.component.recreation").build().callAsync();
+        } else if (i == R.id.iv_check_self) {
             Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
 
-        } else if (i == R.id.iv_shopping_mall) {//                startActivity(new Intent(getContext(), MarketActivity.class));
+        } else if (i == R.id.iv_shopping_mall) {
             Routerfit.register(AppRouter.class).skipMarketActivity();
-//                CC.obtainBuilder("com.gcml.mall.mall").build().callAsync();
 
-        } else if (i == R.id.iv_ask_doctor) {//                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
+        } else if (i == R.id.iv_ask_doctor) {
             //健康课堂
             Routerfit.register(AppRouter.class).skipVideoListActivity(0);
 
@@ -160,7 +140,6 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                     });
         } else if (i == R.id.iv_check_health) {
             Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(getActivity());
-
         } else {
         }
     }
