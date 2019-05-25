@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
 import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
@@ -31,7 +32,6 @@ import io.reactivex.schedulers.Schedulers;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 @Route(path = "/auth/auth/activity")
-//@Route(path = "/auth/hospital/user/logins2/activity")
 public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthViewModel> {
 
     @Override
@@ -42,6 +42,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserSpHelper.setNoNetwork(false);
 //        showIpInputDialog();
         init(savedInstanceState);
     }

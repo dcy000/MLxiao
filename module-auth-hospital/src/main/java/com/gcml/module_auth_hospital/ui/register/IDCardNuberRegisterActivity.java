@@ -11,11 +11,8 @@ import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
@@ -23,15 +20,10 @@ import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_FORM_IDCARD_NUMBER;
-import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_FORM_WHERE;
-import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_IDCARD_NUMBER;
-
+@Route(path = "/auth/hospital/user/register2/activity")
 public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
@@ -43,6 +35,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isShowToolbar = false;
         setContentView(R.layout.activity_register_by_idcard_nuber);
         initView();
         AppManager.getAppManager().addActivity(this);
@@ -109,6 +102,12 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
             return;
         }
         onCheckRegistered(idCardNumber);
+        toSetPassWord(idCardNumber);
+    }
+
+    private void toSetPassWord(String idCardNumber) {
+        startActivity(new Intent(this, SetPassWordActivity.class)
+                .putExtra("idCardNumber", idCardNumber));
     }
 
 
@@ -117,7 +116,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     }
 
     private void onCheckRegistered(String idCardNumber) {
-        userRepository
+      /*  userRepository
                 .isIdCardNotExit(idCardNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -137,15 +136,11 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
                         super.onError(throwable);
                         ToastUtils.showShort(throwable.getMessage());
                     }
-                });
+                });*/
     }
 
 
     private void toFilllRegisterInfo(String idCardNumber) {
-        startActivity(new Intent(this, IDCardNumberRegisterInfoActivity.class)
-                .putExtra(REGISTER_FORM_WHERE, REGISTER_FORM_IDCARD_NUMBER)
-                .putExtra(REGISTER_IDCARD_NUMBER, idCardNumber)
-        );
     }
 
     public void onTextChange(Editable phone) {
