@@ -43,15 +43,17 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void touristLogin() {
         IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
-        iUserService.signIn(new UserPostBody())
+        UserPostBody body = new UserPostBody();
+        body.password = "123";
+        body.username = "superman";
+        iUserService.signIn(body)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object userToken) {
                         super.onNext(userToken);
-//                        Routerfit.register(AppRouter.class).skipUserRegistersActivity();
-                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                         finish();
                     }
 

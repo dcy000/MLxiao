@@ -33,6 +33,9 @@ public interface UserService {
     @POST("/open/common/sys/login/sfzLogin")
     Observable<ApiResult<UserToken>> signInByIdCard(@Body UserPostBody body);
 
+    /**
+     * 注册
+     */
     @POST("/open/common/br/appadd")
     Observable<ApiResult<UserBean>> signUp(@Body SignUpBean bean, @Query("pwd") String pwd);
 
@@ -43,6 +46,9 @@ public interface UserService {
      */
     @GET("/open/common/api/user/info/byToken/")
     Observable<ApiResult<UserEntity>> getUserEntity();
-
-
+    /**
+     * 根据token获取 用户信息
+     */
+    @GET("/open/common/api/user/info/byToken/")
+    Observable<ApiResult<UserBean>> getUserInfoByToken();
 }

@@ -18,7 +18,9 @@ public interface IUserService {
 
     /**
      * 根据token获取PatientId
+     *
      * @return
      */
     Observable<UserEntity> getUserEntity();
+
 }

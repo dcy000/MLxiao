@@ -15,7 +15,7 @@ public class UserServiceImp implements IUserService {
     UserRepository repository = new UserRepository();
 
     @Override
-    public Observable<ApiResult<UserToken>> signIn(UserPostBody body) {
+    public Observable<UserToken> signIn(UserPostBody body) {
         return repository.signIn(body);
     }
 
