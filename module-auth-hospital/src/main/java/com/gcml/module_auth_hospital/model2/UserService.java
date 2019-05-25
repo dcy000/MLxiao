@@ -37,18 +37,13 @@ public interface UserService {
      * 注册
      */
     @POST("/open/common/br/appadd")
-    Observable<ApiResult<UserBean>> signUp(@Body SignUpBean bean, @Query("pwd") String pwd);
+    Observable<ApiResult<UserEntity>> signUp(@Body SignUpBean bean, @Query("pwd") String pwd);
 
-    /**
-     * 根据token拿UserEntity
-     *
-     * @return
-     */
-    @GET("/open/common/api/user/info/byToken/")
-    Observable<ApiResult<UserEntity>> getUserEntity();
     /**
      * 根据token获取 用户信息
      */
     @GET("/open/common/api/user/info/byToken/")
-    Observable<ApiResult<UserBean>> getUserInfoByToken();
+    Observable<ApiResult<UserEntity>> getUserInfoByToken();
+
+
 }

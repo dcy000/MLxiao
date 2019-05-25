@@ -39,7 +39,7 @@ public class UserRepository {
     /**
      * 登录-->返回用户信息
      */
-    public Observable<UserBean> signInByIdCard(UserPostBody body) {
+    public Observable<UserEntity> signInByIdCard(UserPostBody body) {
         return signInByIdCardtrGetToken(body)
                 .compose(token2UserInfoTransformer());
     }
@@ -47,10 +47,10 @@ public class UserRepository {
     /**
      * token转化成用户信息
      */
-    private ObservableTransformer<UserToken, UserBean> token2UserInfoTransformer() {
+    private ObservableTransformer<UserToken, UserEntity> token2UserInfoTransformer() {
         return upstream ->
                 upstream
-                        .flatMap((Function<UserToken, ObservableSource<UserBean>>) userToken -> {
+                        .flatMap((Function<UserToken, ObservableSource<UserEntity>>) userToken -> {
                             return getUserInfoByToken();
                         });
     }
@@ -72,9 +72,9 @@ public class UserRepository {
      *
      * @param body     json 参数
      * @param passWord 密码
-     * @return 用户信息包装 UserBean
+     * @return 用户信息包装 UserEntity
      */
-    public Observable<UserBean> signUp(SignUpBean body, String passWord) {
+    public Observable<UserEntity> signUp(SignUpBean body, String passWord) {
         return mUserService
                 .signUp(body, passWord)
                 .compose(RxUtils.apiResultTransformer());
@@ -85,11 +85,14 @@ public class UserRepository {
     }
 
     /**
-     * 根据token获取用户信息 userBean
+     * 根据token获取用户信息 UserEntity
      */
-    public Observable<UserBean> getUserInfoByToken() {
+    public Observable<UserEntity> getUserInfoByToken() {
         return mUserService
                 .getUserInfoByToken()
-                .compose(RxUtils.apiResultTransformer());
+                .compose(RxUtils.apiResultTransformer())
+                .doOnNext(userEntity -> {
+                    UserSpHelper.setUserId(userEntity.id + "");
+                });
     }
 }

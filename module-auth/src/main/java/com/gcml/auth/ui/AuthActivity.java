@@ -47,34 +47,6 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
         init(savedInstanceState);
     }
 
-    private void showIpInputDialog() {
-        NiceDialog.init()
-                .setLayoutId(R.layout.dialog_ip_input)
-                .setConvertListener(new ViewConvertListener() {
-                    @Override
-                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
-                        EditText ip = holder.getView(R.id.et_input);
-
-                        holder.getView(R.id.btn_click).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String trim = ip.getText().toString().trim();
-                                if (TextUtils.isEmpty(trim)) {
-                                    ToastUtils.showShort("输入的IP不正确");
-                                    return;
-                                }
-                                RetrofitUrlManager.getInstance().setGlobalDomain("http://" + trim);
-                                dialog.dismiss();
-                            }
-                        });
-                    }
-                })
-                .setWidth(700)
-                .setHeight(300)
-                .setOutCancel(false)
-                .show(getSupportFragmentManager());
-    }
-
     protected void init(Bundle savedInstanceState) {
         binding.setPresenter(this);
         binding.setAuthViewModel(viewModel);

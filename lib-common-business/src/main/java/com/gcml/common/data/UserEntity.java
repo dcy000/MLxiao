@@ -16,11 +16,11 @@ public class UserEntity implements Parcelable {
     public String id = "";
     @SerializedName("categoryid")
     public String categoryId;
-    @SerializedName("doid")
+    @SerializedName(value = "doid", alternate = {"doctorId"})
     public String doctorId;
     //    @SerializedName("eq")
 //    public String eq;
-    @SerializedName("bname")
+    @SerializedName(value = "bname", alternate = {"patientName"})
     public String name;
     @SerializedName("sex")
     public String sex;
@@ -34,7 +34,7 @@ public class UserEntity implements Parcelable {
     public String phone;
     @SerializedName("mh")
     public String deseaseHistory;
-    @SerializedName("eqid")
+    @SerializedName(value = "eqid", alternate = {"equipmentId"})
     public String deviceId;
     @SerializedName("state")
     public String state;
@@ -58,9 +58,9 @@ public class UserEntity implements Parcelable {
     public String sportsHabits;
     @SerializedName("userPhoto")
     public String avatar;
-    @SerializedName("xfid")
+    @SerializedName(value = "xfid", alternate = {"faceId"})
     public String xfid;
-    @SerializedName("xfuserid")
+    @SerializedName(value = "xfuserid", alternate = "faceUserId")
     public String xfUserId;
     @SerializedName("allergy")
     public String allergy;
@@ -83,96 +83,57 @@ public class UserEntity implements Parcelable {
     @SerializedName("vipState")
     public String vipState;
 
+    private String medicalHistory;
+    private String source;
+    private String uuid;
+
     //手环信息
     public String watchCode;
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.categoryId);
-        dest.writeString(this.doctorId);
-        dest.writeString(this.name);
-        dest.writeString(this.sex);
-        dest.writeString(this.address);
-        dest.writeString(this.age);
-        dest.writeString(this.idCard);
-        dest.writeString(this.phone);
-        dest.writeString(this.deseaseHistory);
-        dest.writeString(this.deviceId);
-        dest.writeString(this.state);
-//        dest.writeString(this.qyzt);
-        dest.writeString(this.height);
-        dest.writeString(this.weight);
-        dest.writeString(this.waist);
-        dest.writeString(this.bloodType);
-        dest.writeString(this.eatingHabits);
-        dest.writeString(this.smokeHabits);
-        dest.writeString(this.drinkHabits);
-        dest.writeString(this.sportsHabits);
-        dest.writeString(this.avatar);
-        dest.writeString(this.xfid);
-        dest.writeString(this.xfUserId);
-        dest.writeString(this.allergy);
-        dest.writeString(this.fetation);
-        dest.writeString(this.birthday);
-        dest.writeString(this.hypertensionHand);
-        dest.writeString(this.hypertensionPrimaryState);
-        dest.writeString(this.hypertensionLevel);
-        dest.writeString(this.hypertensionTarget);
-        dest.writeString(this.wyyxId);
-        dest.writeString(this.wyyxPwd);
-        dest.writeString(this.vipState);
-    }
-
-    public UserEntity() {
-    }
-
     protected UserEntity(Parcel in) {
-        this.id = in.readString();
-        this.categoryId = in.readString();
-        this.doctorId = in.readString();
-        this.name = in.readString();
-        this.sex = in.readString();
-        this.address = in.readString();
-        this.age = in.readString();
-        this.idCard = in.readString();
-        this.phone = in.readString();
-        this.deseaseHistory = in.readString();
-        this.deviceId = in.readString();
-        this.state = in.readString();
-//        this.qyzt = in.readString();
-        this.height = in.readString();
-        this.weight = in.readString();
-        this.waist = in.readString();
-        this.bloodType = in.readString();
-        this.eatingHabits = in.readString();
-        this.smokeHabits = in.readString();
-        this.drinkHabits = in.readString();
-        this.sportsHabits = in.readString();
-        this.avatar = in.readString();
-        this.xfid = in.readString();
-        this.xfUserId = in.readString();
-        this.allergy = in.readString();
-        this.fetation = in.readString();
-        this.birthday = in.readString();
-        this.hypertensionHand = in.readString();
-        this.hypertensionPrimaryState = in.readString();
-        this.hypertensionLevel = in.readString();
-        this.hypertensionTarget = in.readString();
-        this.wyyxId = in.readString();
-        this.wyyxPwd = in.readString();
-        this.vipState = in.readString();
+        id = in.readString();
+        categoryId = in.readString();
+        doctorId = in.readString();
+        name = in.readString();
+        sex = in.readString();
+        address = in.readString();
+        age = in.readString();
+        idCard = in.readString();
+        phone = in.readString();
+        deseaseHistory = in.readString();
+        deviceId = in.readString();
+        state = in.readString();
+        height = in.readString();
+        weight = in.readString();
+        bloodType = in.readString();
+        waist = in.readString();
+        eatingHabits = in.readString();
+        smokeHabits = in.readString();
+        drinkHabits = in.readString();
+        sportsHabits = in.readString();
+        avatar = in.readString();
+        xfid = in.readString();
+        xfUserId = in.readString();
+        allergy = in.readString();
+        fetation = in.readString();
+        birthday = in.readString();
+        hypertensionHand = in.readString();
+        hypertensionPrimaryState = in.readString();
+        hypertensionLevel = in.readString();
+        hypertensionTarget = in.readString();
+        wyyxId = in.readString();
+        wyyxPwd = in.readString();
+        vipState = in.readString();
+        medicalHistory = in.readString();
+        source = in.readString();
+        uuid = in.readString();
+        watchCode = in.readString();
     }
 
     public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {
         @Override
-        public UserEntity createFromParcel(Parcel source) {
-            return new UserEntity(source);
+        public UserEntity createFromParcel(Parcel in) {
+            return new UserEntity(in);
         }
 
         @Override
@@ -182,41 +143,48 @@ public class UserEntity implements Parcelable {
     };
 
     @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id='" + id + '\'' +
-                ", categoryId='" + categoryId + '\'' +
-                ", doctorId='" + doctorId + '\'' +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", address='" + address + '\'' +
-                ", age='" + age + '\'' +
-                ", idCard='" + idCard + '\'' +
-                ", phone='" + phone + '\'' +
-                ", deseaseHistory='" + deseaseHistory + '\'' +
-                ", deviceId='" + deviceId + '\'' +
-                ", state='" + state + '\'' +
-                ", height='" + height + '\'' +
-                ", weight='" + weight + '\'' +
-                ", waist='" + waist + '\'' +
-                ", bloodType='" + bloodType + '\'' +
-                ", eatingHabits='" + eatingHabits + '\'' +
-                ", smokeHabits='" + smokeHabits + '\'' +
-                ", drinkHabits='" + drinkHabits + '\'' +
-                ", sportsHabits='" + sportsHabits + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", xfid='" + xfid + '\'' +
-                ", xfUserId='" + xfUserId + '\'' +
-                ", allergy='" + allergy + '\'' +
-                ", fetation='" + fetation + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", hypertensionHand='" + hypertensionHand + '\'' +
-                ", hypertensionPrimaryState='" + hypertensionPrimaryState + '\'' +
-                ", hypertensionLevel='" + hypertensionLevel + '\'' +
-                ", hypertensionTarget='" + hypertensionTarget + '\'' +
-                ", wyyxId='" + wyyxId + '\'' +
-                ", wyyxPwd='" + wyyxPwd + '\'' +
-                ", vipState='" + vipState + '\'' +
-                '}';
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(categoryId);
+        dest.writeString(doctorId);
+        dest.writeString(name);
+        dest.writeString(sex);
+        dest.writeString(address);
+        dest.writeString(age);
+        dest.writeString(idCard);
+        dest.writeString(phone);
+        dest.writeString(deseaseHistory);
+        dest.writeString(deviceId);
+        dest.writeString(state);
+        dest.writeString(height);
+        dest.writeString(weight);
+        dest.writeString(bloodType);
+        dest.writeString(waist);
+        dest.writeString(eatingHabits);
+        dest.writeString(smokeHabits);
+        dest.writeString(drinkHabits);
+        dest.writeString(sportsHabits);
+        dest.writeString(avatar);
+        dest.writeString(xfid);
+        dest.writeString(xfUserId);
+        dest.writeString(allergy);
+        dest.writeString(fetation);
+        dest.writeString(birthday);
+        dest.writeString(hypertensionHand);
+        dest.writeString(hypertensionPrimaryState);
+        dest.writeString(hypertensionLevel);
+        dest.writeString(hypertensionTarget);
+        dest.writeString(wyyxId);
+        dest.writeString(wyyxPwd);
+        dest.writeString(vipState);
+        dest.writeString(medicalHistory);
+        dest.writeString(source);
+        dest.writeString(uuid);
+        dest.writeString(watchCode);
     }
 }
