@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="1424pt"
+    android:layout_height="180pt">
+
+    <RelativeLayout
+        android:layout_width="1424pt"
+        android:layout_height="180pt"
+        android:paddingLeft="40pt"
+        android:paddingRight="40pt">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="2017年05月06日"
+            android:textColor="#ff333333"
+            android:textSize="56pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_see"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="查看"
+            android:textColor="#ff3f88fc"
+            android:textSize="56pt" />
+    </RelativeLayout>
+
+</FrameLayout>

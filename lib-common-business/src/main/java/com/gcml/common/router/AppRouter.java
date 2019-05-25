@@ -27,6 +27,7 @@ import com.gcml.common.service.IWakeUpControlProvider;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 
 public interface AppRouter {
@@ -266,7 +267,7 @@ public interface AppRouter {
     boolean skipSimpleProfileActivity(
             @Extra("signUpType") String signUpType,
             @Extra("signUpIdCard") String signUpIdCard,
-            @Extra("fromWhere")String from);
+            @Extra("fromWhere") String from);
 
     @Go("/auth/profile2/activity")
     boolean skipProfile2Activity(@Extra ActivityCallback callback);
@@ -417,4 +418,33 @@ public interface AppRouter {
 
     @Go("/common/business/checkUserEntityAndVertifyFace/face/provider")
     IVertifyFaceProvider getVertifyFaceProvider();
+
+    @Go("/health/profile/add/followup")
+    boolean skipAddFollowupActivity(
+            @Extra("healthRecordId") String healthRecordId,
+            @Extra("rdRecordId") String rdRecordId,
+            @Extra("typeString") String typeString);
+
+    @Go("/health/profile/wenzen/output")
+    boolean skipWenZenOutputActivity(@Extra("highPrssure") String highPrssure, @Extra("lowPressure") String lowPressure);
+
+    @Go("/health/profile/bracelet")
+    boolean skipBraceletActivtity();
+
+    @Go("/health/profile/health/profile/activity")
+    boolean skipHealthProfileActivity();
+
+    /**
+     * @param RdCordId 默认：22d594369d8246ad9542f462d6f0f4ce
+     * @return
+     */
+    @Go("/health/profile/add/health/profile")
+    boolean skipAddHealthProfileActivity(@Extra("RdCordId") String RdCordId);
+
+    @Go("/health/profile/output/result")
+    boolean skipOutputResultActivity(
+            @Extra("rdRecordId") String rdRecordId,
+            @Extra("userRecordId") String userRecordId,
+            @Extra("typeString") String typeString
+    );
 }

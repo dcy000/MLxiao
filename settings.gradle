@@ -1,6 +1,6 @@
 include ':module-doctor-advisory', ':module-detection',
-        ':app',
-//        ':app-combine',
+//        ':app',
+        ':app-combine',
         ':module-alarm',
         ':module-body-test',
         ':module-hypertension-manager',
@@ -9,7 +9,7 @@ include ':module-doctor-advisory', ':module-detection',
         ':lib-common-core',
         ':lib-bluetooth',
         ':module-yzn',
-        ':lib-webview', ':module-auth-hospital', ':lib-idcard-reader'
+        ':lib-webview', ':module-auth-hospital', ':lib-idcard-reader', ':lib-printer-8003dd', ':module-health-profile'
 include ':lib-baidu-unit',
 //        ':lib-auth-face',
 //        ':lib-mlvoice',

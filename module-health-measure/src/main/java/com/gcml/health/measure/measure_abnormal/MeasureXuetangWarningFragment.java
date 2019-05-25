@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
+import com.gcml.common.widget.divider.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
 

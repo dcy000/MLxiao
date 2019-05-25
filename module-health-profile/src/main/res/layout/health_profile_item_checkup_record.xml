@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180pt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/selector_rv_bg"
+    android:clickable="true">
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="56pt"
+        android:textStyle="bold"
+        android:textColor="#333"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="40pt"/>
+    <TextView
+        android:id="@+id/btn_see_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/common_toolbar_bg"
+        android:text="查看"
+        android:textSize="56pt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingLeft="20pt"
+        android:paddingRight="20pt"
+        android:layout_marginTop="10pt"
+        android:paddingBottom="10pt"
+        android:layout_marginRight="20pt"
+        android:background="@drawable/health_profile_selector_trans_button"/>
+</android.support.constraint.ConstraintLayout>
