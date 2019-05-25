@@ -29,7 +29,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-//@Route(path = "/app/homepage/main/activity")
+@Route(path = "/app/homepage/main3/activity")
 public class Main3Activity extends AppCompatActivity {
 
     private TextView tvLogout;

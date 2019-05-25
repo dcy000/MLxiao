@@ -11,12 +11,9 @@ import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.http.ApiException;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.UserPostBody;
-import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.JpushAliasUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -24,7 +21,6 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model2.UserBean;
 import com.gcml.module_auth_hospital.model2.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
@@ -32,9 +28,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
@@ -162,8 +155,8 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     private void signIn() {
 
         UserPostBody body = new UserPostBody();
-        body.password=trim;
-        body.sfz=idCardNumber;
+        body.password = trim;
+        body.sfz = idCardNumber;
         userRepository
                 .signInByIdCard(body)
                 .subscribeOn(Schedulers.io())
@@ -171,16 +164,18 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                 .doOnSubscribe(disposable -> showLoading("正在登录..."))
                 .doOnTerminate(() -> dismissLoading())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserBean>() {
+                .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                     }
 
                     @Override
-                    public void onNext(UserBean userBean) {
-                        super.onNext(userBean);
+                    public void onNext(UserEntity UserEntity) {
+                        super.onNext(UserEntity);
                         ToastUtils.showShort("登录成功");
+                        Routerfit.register(AppRouter.class). skipMain3Activity();
+
                     }
 
                     @Override
@@ -189,29 +184,6 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     }
                 });
 
-
-
-               /* .subscribe(new DefaultObserver<UserEntity>() {
-                    @Override
-                    public void onNext(UserEntity user) {
-                        JpushAliasUtils.setAlias(user.id);
-                        ToastUtils.showLong("登录成功");
-                        Routerfit.register(AppRouter.class).skipMainActivity();
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        if (throwable instanceof ApiException) {
-                            int code = ((ApiException) throwable).code();
-                            if (code == 1002) {
-                                showAccountInfoDialog();
-                            }
-                        }
-                        ToastUtils.showShort(throwable.getMessage());
-                    }
-                });*/
     }
 
     public void onTextChange(Editable phone) {
