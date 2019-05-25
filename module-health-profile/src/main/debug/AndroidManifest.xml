@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_health_profile">
+
+    <application>
+        <activity
+            android:name=".HealthProfileActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

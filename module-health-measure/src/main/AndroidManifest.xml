@@ -68,5 +68,17 @@
         <activity
             android:name=".test.TestWuhuaqiActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.AddBloodsugarFollowupActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.AddFollowupActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.AddHealthCheckupActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.InquiryHealthActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

@@ -1,0 +1,36 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_health_profile">
+
+    <application>
+        <activity
+            android:name=".HealthProfileActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".OutputResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".HealthManagementResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".webview.EditHealthProfileActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".webview.WenZenOutputActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".webview.AddHealthProfileActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".webview.SeeHealthCheckupWebActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".webview.SeeBloodsugarWebActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".webview.SeeBloodpressureWebActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".bracelet.activity.BraceletActivtity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

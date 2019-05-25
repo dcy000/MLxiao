@@ -16,6 +16,7 @@ import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.functions.Consumer;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 @Route(path = "/app/welcome/activity")
 public class WelcomeActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");
         initContentView();
     }
 
@@ -40,13 +42,17 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void touristLogin() {
         IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
-        iUserService.signIn(new UserPostBody())
+        UserPostBody body = new UserPostBody();
+        body.password = "123";
+        body.username = "superman";
+        iUserService.signIn(body)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object userToken) {
                         super.onNext(userToken);
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                         Routerfit.register(AppRouter.class).skipUserRegistersActivity();
                     }
 

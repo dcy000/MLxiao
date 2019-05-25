@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gcml.module_health_profile.bracelet.fragment.DeviceInfoFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104pt"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="102pt"
+                android:layout_height="52pt"
+                android:src="@drawable/health_profile_decorate_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24pt"
+                android:text="关联号码"
+                android:textColor="#ff3f88fc"
+                android:textSize="64pt" />
+
+            <ImageView
+                android:layout_width="102pt"
+                android:layout_height="52pt"
+                android:layout_marginLeft="24pt"
+                android:src="@drawable/health_profile_decorate_right" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4pt"
+            android:layout_marginLeft="88pt"
+            android:layout_marginRight="88pt"
+            android:layout_marginTop="48pt"
+            android:background="@drawable/health_profile_blue_dotted_line" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_item_guardian"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:paddingLeft="88pt"
+        android:paddingRight="88pt"
+        android:paddingTop="-14pt">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>
