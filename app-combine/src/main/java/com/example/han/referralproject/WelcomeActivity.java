@@ -31,9 +31,9 @@ public class WelcomeActivity extends AppCompatActivity {
         if (!NetUitls.isWifiConnected()) {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
         } else {
-//          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
+          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
 //            Routerfit.register(AppRouter.class).skipUserRegistersActivity();//身份证注册
-            touristLogin();
+//            touristLogin();
         }
         finish();
     }

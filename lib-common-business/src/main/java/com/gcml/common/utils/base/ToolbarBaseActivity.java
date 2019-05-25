@@ -1,6 +1,5 @@
 package com.gcml.common.utils.base;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.gcml.common.business.R;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UM;
 import com.gcml.common.utils.click.ClickEventListener;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;

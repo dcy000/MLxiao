@@ -15,7 +15,6 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.ui.UiUtils;
-import com.gcml.common.widget.recyclerview.banner.BannerAdapterHelper;
 import com.gcml.common.widget.recyclerview.banner.BannerRecyclerView;
 import com.gcml.common.widget.recyclerview.banner.BannerScaleHelper;
 import com.gcml.web.WebActivity;
@@ -29,7 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-//@Route(path = "/app/homepage/main/activity")
+@Route(path = "/app/homepage/main/activity")
 public class Main3Activity extends AppCompatActivity {
 
     private TextView tvLogout;
@@ -79,12 +78,9 @@ public class Main3Activity extends AppCompatActivity {
     private void initBanner() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false);
-
-        bannerAdapterHelper.setPagePadding(UiUtils.pt(20));
-        bannerAdapterHelper.setShowLeftCardWidth(UiUtils.pt(40));
         bannerScaleHelper.setPagePadding(UiUtils.pt(20));
         bannerScaleHelper.setShowLeftCardWidth(UiUtils.pt(40));
-        bannerScaleHelper.setScale(1f);
+        bannerScaleHelper.setScale(0.9f);
         bannerScaleHelper.setPagerLike(true);
         bannerScaleHelper.setFirstItemPosition(1000);
         bannerScaleHelper.attachToRecyclerView(rvBanner);
@@ -138,33 +134,67 @@ public class Main3Activity extends AppCompatActivity {
     }
 
     private BannerScaleHelper bannerScaleHelper = new BannerScaleHelper();
-    private BannerAdapterHelper bannerAdapterHelper = new BannerAdapterHelper();
     private BannerAdapter bannerAdapter = new BannerAdapter();
 
     private class BannerVH extends RecyclerView.ViewHolder {
 
         private ShadowImageView slBanner;
+        private ShadowLayout slShadow;
         private ImageView ivBanner;
 
         public BannerVH(View itemView) {
             super(itemView);
             slBanner = itemView.findViewById(R.id.slBanner);
+            slShadow = itemView.findViewById(R.id.slShadow);
             ivBanner = itemView.findViewById(R.id.ivBanner);
             itemView.setOnClickListener(bannerOnClickListener);
         }
 
         public void onBind(int position) {
+            setMarginIfNeed(position);
             int realPosition = position % bannerItems.size();
 //            ivBanner.setImageResource(bannerItems.get(realPosition));
+
+//            slShadow.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    int currentItem = bannerScaleHelper.getCurrentItem();
+//                    if (currentItem == position) {
+//                        slShadow.setShadowRadius(24f);
+//                        slShadow.invalidateShadow();
+//                    } else {
+//                        slShadow.setShadowRadius(UiUtils.pt(0));
+//                        slShadow.invalidateShadow();
+//                    }
+//                }
+//            });
             ImageLoader.with(ivBanner.getContext())
                     .load(bannerItems.get(realPosition))
-                    .skipMemoryCache()
-                    .radius(UiUtils.pt(40))
-                    .resize(UiUtils.pt(1760), UiUtils.pt(400))
                     .into(ivBanner);
 
 //            slBanner.setImageResource(bannerItems.get(realPosition));
 //            slBanner.setImageShadowColor(Color.parseColor("#29666666"));
+        }
+
+        private int margin = UiUtils.pt(40);
+
+        private void setMarginIfNeed(int position) {
+            RecyclerView.LayoutParams layoutParams =
+                    (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            int leftMargin = position == 0 ? margin : 0;
+            int rightMargin = position == bannerAdapter.getItemCount() - 1 ? margin : 0;
+            boolean changed = false;
+            if (layoutParams.leftMargin != leftMargin) {
+                layoutParams.leftMargin = leftMargin;
+                changed = true;
+            }
+            if (layoutParams.rightMargin != rightMargin) {
+                layoutParams.rightMargin = rightMargin;
+                changed = true;
+            }
+            if (changed) {
+                itemView.setLayoutParams(layoutParams);
+            }
         }
     }
 
@@ -175,13 +205,11 @@ public class Main3Activity extends AppCompatActivity {
         public BannerVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             View view = inflater.inflate(R.layout.item_main_banner, parent, false);
-            bannerAdapterHelper.onCreateViewHolder(parent, view);
             return new BannerVH(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull BannerVH holder, int position) {
-            bannerAdapterHelper.onBindViewHolder(holder.itemView, position, getItemCount());
             holder.onBind(position);
         }
 
@@ -206,40 +234,31 @@ public class Main3Activity extends AppCompatActivity {
                     Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(Main3Activity.this);
                     break;
                 case 2:
-                    //自测用药
+                    //自测用药 智能问药（左手）
+                    WebActivity.start(Main3Activity.this, WebActivity.URL_MEDICAL);
                     break;
                 case 3:
-                    //健康自测
+                    //健康自测 智能诊断（左手）
+                    WebActivity.start(Main3Activity.this, WebActivity.URL_DIAGNOSIS);
                     break;
                 case 4:
-                    //医智囊
+                    //医疗百科 医智囊
                     Routerfit.register(AppRouter.class).skipZenDuanActivity();
                     break;
                 case 5:
-                    //视频医生
+                    //家庭医生
                     break;
                 case 6:
-                    //家庭医生服务
-                    break;
-                case 7:
-                    //护士上门
+                    //健康生活
                     Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
                     break;
-                case 8:
-                    //智能问药
-                    WebActivity.start(Main3Activity.this, WebActivity.URL_1);
-                    break;
-                case 9:
-                    //智能诊断
-                    WebActivity.start(Main3Activity.this, WebActivity.URL_0);
-                    break;
-                case 10:
-                    //个人中心
-                    break;
-                case 11:
+                case 7:
                     //帮助中心
                     break;
-                case 12:
+                case 8:
+                    //个人资料
+                    break;
+                case 9:
                     //设置
                     break;
             }
@@ -250,19 +269,16 @@ public class Main3Activity extends AppCompatActivity {
     private MenuAdapter menuAdapter = new MenuAdapter();
 
     {
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_detection, "健康测量")); // 0
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check, "自诊导诊")); // 1
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check_medical, "自测用药")); // 2
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_self_check, "健康自测")); // 3
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_news, "健康资讯"));// 4
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_call_doctor, "视频医生")); // 5
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_dcotor, "家医服务")); // 6
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_nurse, "护士上门")); // 7
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_qa, "智能问药")); // 8
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_diagnosis, "智能诊断")); // 9
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_user_certer, "个人中心")); // 10
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_help, "帮助中心")); // 11
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_settings, "设置")); // 12
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_detection_normal, "健康测量")); // 0
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check_normal, "自诊导诊")); // 1
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check_medical_normal, "自测用药")); // 2
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_self_check_normal, "健康自测")); // 3
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_wiki_normal, "医疗百科"));// 4
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_dcotor_normal, "家庭医生")); // 5
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_nurse_normal, "健康生活")); // 6
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_help_normal, "帮助中心")); // 7
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_user_info_normal, "个人资料")); // 8
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_settings_normal, "设置")); // 9
     }
 
     private class MenuEntity {
@@ -294,17 +310,32 @@ public class Main3Activity extends AppCompatActivity {
         }
 
         public void onBind(int position) {
-            RecyclerView.LayoutParams layoutParams =
-                    (RecyclerView.LayoutParams) itemView.getLayoutParams();
-            int leftMargin = position == 0 ? UiUtils.pt(63) : 0;
-            if (layoutParams.leftMargin != leftMargin) {
-                layoutParams.leftMargin = leftMargin;
-                itemView.setLayoutParams(layoutParams);
-            }
+            setMarginIfNeed(position);
 
             MenuEntity menuEntity = menuEntities.get(position);
             ivMenuItem.setImageResource(menuEntity.menuImage);
             tvMenuItem.setText(menuEntity.menuLabel);
+        }
+
+        private int margin = UiUtils.pt(63);
+
+        private void setMarginIfNeed(int position) {
+            RecyclerView.LayoutParams layoutParams =
+                    (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            int leftMargin = position == 0 ? margin : 0;
+            int rightMargin = position == menuEntities.size() - 1 ? margin : 0;
+            boolean changed = false;
+            if (layoutParams.leftMargin != leftMargin) {
+                layoutParams.leftMargin = leftMargin;
+                changed = true;
+            }
+            if (layoutParams.rightMargin != rightMargin) {
+                layoutParams.rightMargin = rightMargin;
+                changed = true;
+            }
+            if (changed) {
+                itemView.setLayoutParams(layoutParams);
+            }
         }
     }
 
