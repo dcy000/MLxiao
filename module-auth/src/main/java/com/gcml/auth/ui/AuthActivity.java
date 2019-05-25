@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.EditText;
 
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
@@ -17,10 +15,6 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.app.AppUtils;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.fdialog.BaseNiceDialog;
-import com.gcml.common.widget.fdialog.NiceDialog;
-import com.gcml.common.widget.fdialog.ViewConvertListener;
-import com.gcml.common.widget.fdialog.ViewHolder;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
@@ -29,7 +23,6 @@ import com.sjtu.yifei.route.Routerfit;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 @Route(path = "/auth/auth/activity")
 public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthViewModel> {

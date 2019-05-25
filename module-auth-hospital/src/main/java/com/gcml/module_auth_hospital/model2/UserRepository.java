@@ -80,6 +80,10 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
+    public Observable<UserEntity> getUserEntity() {
+        return mUserService.getUserEntity().compose(RxUtils.apiResultTransformer());
+    }
+
     /**
      * 根据token获取用户信息 UserEntity
      */
@@ -91,6 +95,4 @@ public class UserRepository {
                     UserSpHelper.setUserId(userEntity.id + "");
                 });
     }
-
-
 }

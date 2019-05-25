@@ -1,5 +1,8 @@
 package com.gcml.common.user;
 
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.http.ApiResult;
+
 import io.reactivex.Observable;
 
 /**
@@ -11,5 +14,13 @@ public interface IUserService {
     /**
      * 游客账号登录
      */
-    Observable<UserToken> signIn(UserPostBody body);
+    Observable<ApiResult<UserToken>> signIn(UserPostBody body);
+
+    /**
+     * 根据token获取PatientId
+     *
+     * @return
+     */
+    Observable<UserEntity> getUserEntity();
+
 }
