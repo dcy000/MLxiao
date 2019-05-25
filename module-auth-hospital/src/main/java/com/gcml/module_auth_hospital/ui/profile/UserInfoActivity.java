@@ -1,6 +1,5 @@
 package com.gcml.module_auth_hospital.ui.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,15 +8,12 @@ import android.widget.RadioGroup;
 
 import com.gcml.common.LazyFragment;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model2.UserRepository;
-import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -111,29 +107,21 @@ public class UserInfoActivity extends ToolbarBaseActivity {
 
     }
 
-//    private void getData() {
-//        Observable<UserEntity> data = Routerfit.register(AppRouter.class)
-//                .getUserProvider()
-//                .getUserEntity();
-//        if (data == null) {
-//            Intent intent = new Intent(this, AuthActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-//        }
-//        userRepository.
-//        data.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<UserEntity>() {
-//                    @Override
-//                    public void onNext(UserEntity user) {
-//                        showUser(user);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                    }
-//                });
-//    }
+    private void getData() {
+        userRepository.getUserInfoByToken()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        showUser(user);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+                });
+    }
 }

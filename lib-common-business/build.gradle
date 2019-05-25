@@ -36,5 +36,5 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
 
-    compile 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
+    implementation 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
 }

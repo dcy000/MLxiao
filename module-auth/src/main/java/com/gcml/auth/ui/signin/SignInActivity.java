@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.gcml.auth.R;
+
+
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;

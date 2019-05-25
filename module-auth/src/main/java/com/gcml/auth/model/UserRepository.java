@@ -40,8 +40,6 @@ public class UserRepository {
     private UserService mUserService = RetrofitHelper.service(UserService.class);
     private UserProvider userProvider = RxCacheHelper.provider(UserProvider.class);
 
-//    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
-
     public Observable<UserEntity> signUp(String deviceId, String account, String pwd) {
         return mUserService.signUp(deviceId, account, pwd)
                 .compose(RxUtils.apiResultTransformer())

@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.model2;
 
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.user.UserToken;
@@ -36,13 +37,13 @@ public interface UserService {
      * 注册
      */
     @POST("/open/common/br/appadd")
-    Observable<ApiResult<UserBean>> signUp(@Body SignUpBean bean, @Query("pwd") String pwd);
+    Observable<ApiResult<UserEntity>> signUp(@Body SignUpBean bean, @Query("pwd") String pwd);
 
     /**
      * 根据token获取 用户信息
      */
     @GET("/open/common/api/user/info/byToken/")
-    Observable<ApiResult<UserBean>> getUserInfoByToken();
+    Observable<ApiResult<UserEntity>> getUserInfoByToken();
 
 
 }

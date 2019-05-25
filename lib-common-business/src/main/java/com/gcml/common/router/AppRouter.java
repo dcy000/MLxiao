@@ -120,6 +120,9 @@ public interface AppRouter {
     @Go("/app/homepage/main/activity")
     boolean skipMainActivity();
 
+    @Go("/app/homepage/main3/activity")
+    boolean skipMain3Activity();
+
     @Go("/health/measure/first/diagnosis")
     boolean skipFirstDiagnosisActivity();
 

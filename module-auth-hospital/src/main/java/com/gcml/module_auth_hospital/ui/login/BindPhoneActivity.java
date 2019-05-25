@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.Handlers;
@@ -17,7 +18,6 @@ import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model2.UserBean;
 import com.gcml.module_auth_hospital.model2.UserRepository;
 import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 import com.sjtu.yifei.route.Routerfit;
@@ -92,10 +92,10 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
-                    .subscribe(new DefaultObserver<UserBean>() {
+                    .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
-                        public void onNext(UserBean userBean) {
-                            super.onNext(userBean);
+                        public void onNext(UserEntity userEntity) {
+                            super.onNext(userEntity);
                         }
 
                         @Override
