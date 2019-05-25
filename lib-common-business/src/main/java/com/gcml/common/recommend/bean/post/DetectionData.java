@@ -1,5 +1,6 @@
 package com.gcml.common.recommend.bean.post;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.device.DeviceUtils;
 
 import java.io.Serializable;
@@ -30,15 +31,25 @@ public class DetectionData implements Serializable {
     private Float bloodOxygen;
     private Float bloodSugar;
     private Float cholesterol;
+    private String createdBy;
+    private String createdOn;
+    private String deletionState;
+    private String description;
     private String detectionType;
     private String ecg;
     private String eqid = DeviceUtils.getIMEI();
+    private String equipmentId = DeviceUtils.getIMEI();
     private Integer heartRate;
     private Integer highPressure;
     private Integer lowPressure;
+    private Integer id;
+    private String modifiedBy;
+    private String modifiedOn;
     private Integer offset;
+    private String patientId = UserSpHelper.getUserId();
     private Integer pulse;
     private Integer state;
+    private Integer seq;
     private Integer sugarTime;
     private Float temperAture;
     private String time = String.valueOf(System.currentTimeMillis());
@@ -60,6 +71,86 @@ public class DetectionData implements Serializable {
 
     public DetectionData() {
 
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getDeletionState() {
+        return deletionState;
+    }
+
+    public void setDeletionState(String deletionState) {
+        this.deletionState = deletionState;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEquipmentId() {
+        return equipmentId;
+    }
+
+    public void setEquipmentId(String equipmentId) {
+        this.equipmentId = equipmentId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public String getModifiedOn() {
+        return modifiedOn;
+    }
+
+    public void setModifiedOn(String modifiedOn) {
+        this.modifiedOn = modifiedOn;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     public Float getBloodOxygen() {

@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.service;
 
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.IUserService;
 import com.gcml.common.user.UserPostBody;
@@ -16,5 +17,10 @@ public class UserServiceImp implements IUserService {
     @Override
     public Observable<ApiResult<UserToken>> signIn(UserPostBody body) {
         return repository.signIn(body);
+    }
+
+    @Override
+    public Observable<UserEntity> getUserEntity() {
+        return repository.getUserEntity();
     }
 }

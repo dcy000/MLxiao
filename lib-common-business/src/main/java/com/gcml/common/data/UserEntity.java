@@ -12,13 +12,13 @@ import com.google.gson.annotations.SerializedName;
 public class UserEntity implements Parcelable {
     @NonNull
     @PrimaryKey
-    @SerializedName("bid")
+    @SerializedName(value = "bid", alternate = {"patientId"})
     public String id = "";
     @SerializedName("categoryid")
     public String categoryId;
     @SerializedName("doid")
     public String doctorId;
-//    @SerializedName("eq")
+    //    @SerializedName("eq")
 //    public String eq;
     @SerializedName("bname")
     public String name;
@@ -28,7 +28,7 @@ public class UserEntity implements Parcelable {
     public String address;
     @SerializedName("age")
     public String age;
-    @SerializedName("sfz")
+    @SerializedName(value = "sfz", alternate = {"idNo"})
     public String idCard;
     @SerializedName("tel")
     public String phone;
@@ -38,7 +38,7 @@ public class UserEntity implements Parcelable {
     public String deviceId;
     @SerializedName("state")
     public String state;
-//    @SerializedName("qyzt")
+    //    @SerializedName("qyzt")
 //    public String qyzt;
     @SerializedName("height")
     public String height;
@@ -79,12 +79,13 @@ public class UserEntity implements Parcelable {
     @SerializedName("wyyxId")
     public String wyyxId;
     @SerializedName("wyyxPwd")
-    public String wyyxPwd; 
+    public String wyyxPwd;
     @SerializedName("vipState")
     public String vipState;
 
     //手环信息
     public String watchCode;
+
     @Override
     public int describeContents() {
         return 0;

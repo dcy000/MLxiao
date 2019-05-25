@@ -6,6 +6,7 @@ import com.gcml.common.AppDelegate;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.RoomHelper;
 import com.gcml.common.constant.Global;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserPostBody;
@@ -48,4 +49,7 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
+    public Observable<UserEntity> getUserEntity() {
+        return mUserService.getUserEntity().compose(RxUtils.apiResultTransformer());
+    }
 }

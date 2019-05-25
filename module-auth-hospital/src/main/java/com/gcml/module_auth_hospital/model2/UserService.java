@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.model2;
 
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.user.UserToken;
@@ -7,6 +8,7 @@ import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -33,6 +35,14 @@ public interface UserService {
 
     @POST("/open/common/br/appadd")
     Observable<ApiResult<UserBean>> signUp(@Body SignUpBean bean, @Query("pwd") String pwd);
+
+    /**
+     * 根据token拿UserEntity
+     *
+     * @return
+     */
+    @GET("/open/common/api/user/info/byToken/")
+    Observable<ApiResult<UserEntity>> getUserEntity();
 
 
 }
