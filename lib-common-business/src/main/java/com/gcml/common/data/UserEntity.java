@@ -82,13 +82,15 @@ public class UserEntity implements Parcelable {
     public String wyyxPwd;
     @SerializedName("vipState")
     public String vipState;
-
     private String medicalHistory;
     private String source;
     private String uuid;
 
     //手环信息
     public String watchCode;
+
+    public UserEntity() {
+    }
 
     protected UserEntity(Parcel in) {
         id = in.readString();
