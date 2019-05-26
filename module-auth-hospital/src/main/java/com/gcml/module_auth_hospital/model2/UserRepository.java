@@ -80,10 +80,6 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<UserEntity> getUserEntity() {
-        return mUserService.getUserInfoByToken().compose(RxUtils.apiResultTransformer());
-    }
-
     /**
      * 根据token获取用户信息 UserEntity
      */

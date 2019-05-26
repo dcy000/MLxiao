@@ -4,26 +4,40 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
+import com.gcml.module_detection.bean.ChooseDetectionTypeBean;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import timber.log.Timber;
 
 @Route(path = "/module/detection/choose/dection/type")
 public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
-    String[] projects = {"血压", "血糖", "耳温", "体重", "血氧", "胆固醇", "血尿酸", "心电", "身份证阅读"};
     private RecyclerView mRv;
-    private BaseQuickAdapter<String, BaseViewHolder> adapter;
+    private BaseQuickAdapter<ChooseDetectionTypeBean, BaseViewHolder> adapter;
+    ArrayList<ChooseDetectionTypeBean> types = new ArrayList<>();
+
+    {
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_bloodpressure, "血压", "", "", "(mmHg)"));
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_bloodsugar, "血糖", "", "", "(mmol/L)"));
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_temper, "体温", "", "", "(℃)"));
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_weight, "体重", "", "", "(kg)"));
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_ecg, "心电", "", "", ""));
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_bloodoxygen, "血氧", "", "", "(%)"));
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_chrol, "胆固醇", "", "", "(mmol/L)"));
+        types.add(new ChooseDetectionTypeBean(R.drawable.type_uac, "血尿酸", "", "", "(mmol/L)"));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,10 +46,15 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
         mRv = findViewById(R.id.rv);
 
         mRv.setLayoutManager(new GridLayoutManager(this, 4));
-        mRv.setAdapter(adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.layout_item_detection_type, Arrays.asList(projects)) {
+        mRv.setAdapter(adapter = new BaseQuickAdapter<ChooseDetectionTypeBean, BaseViewHolder>(R.layout.layout_item_detection_type, types) {
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.item, item);
+            protected void convert(BaseViewHolder helper, ChooseDetectionTypeBean item) {
+//                ((TextView) helper.getView(R.id.tv_last_data)).setTypeface(Typeface.createFromAsset(getAssets(), "font/DINEngschrift-Alternate.otf"));
+                ((ImageView) helper.getView(R.id.iv_icon)).setImageResource(item.getIcon());
+                helper.setText(R.id.tv_title, item.getTitle());
+                helper.setText(R.id.tv_unit, item.getUnit());
+                if (TextUtils.isEmpty(item.getDate())) helper.setText(R.id.tv_date, item.getDate());
+                if (TextUtils.isEmpty(item.getResult())) helper.setText(R.id.tv_last_data, item.getResult());
             }
         });
 

@@ -289,12 +289,6 @@ public class Main3Activity extends AppCompatActivity {
                                 .getUserEntity();
                     }
                 })
-                .doOnNext(new Consumer<UserEntity>() {
-                    @Override
-                    public void accept(UserEntity entity) throws Exception {
-                        UserSpHelper.setUserId(entity.id);
-                    }
-                })
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {

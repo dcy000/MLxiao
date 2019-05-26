@@ -21,6 +21,6 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public Observable<UserEntity> getUserEntity() {
-        return repository.getUserEntity();
+        return repository.getUserInfoByToken();
     }
 }
