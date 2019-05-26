@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <com.example.han.referralproject.ShadowLayout
+    <com.gcml.common.widget.ShadowLayout
         android:id="@+id/slShadow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
-    </com.example.han.referralproject.ShadowLayout>
+    </com.gcml.common.widget.ShadowLayout>
 
     <com.yinglan.shadowimageview.ShadowImageView
         android:id="@+id/slBanner"

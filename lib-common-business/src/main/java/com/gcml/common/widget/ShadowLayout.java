@@ -1,4 +1,4 @@
-package com.example.han.referralproject;
+package com.gcml.common.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,6 +13,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+
+import com.gcml.common.business.R;
 
 public final class ShadowLayout extends FrameLayout {
     private int shadowColor;

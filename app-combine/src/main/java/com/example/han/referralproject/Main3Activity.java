@@ -15,6 +15,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.ui.UiUtils;
+import com.gcml.common.widget.ShadowLayout;
 import com.gcml.common.widget.recyclerview.banner.BannerRecyclerView;
 import com.gcml.common.widget.recyclerview.banner.BannerScaleHelper;
 import com.gcml.web.WebActivity;
