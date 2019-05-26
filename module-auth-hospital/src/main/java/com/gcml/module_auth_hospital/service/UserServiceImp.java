@@ -19,8 +19,8 @@ public class UserServiceImp implements IUserService {
         return repository.signIn(body);
     }
 
-//    @Override
-//    public Observable<UserEntity> getUserEntity() {
-//        return repository.getUserEntity();
-//    }
+    @Override
+    public Observable<UserEntity> getUserEntity() {
+        return repository.getUserEntity();
+    }
 }

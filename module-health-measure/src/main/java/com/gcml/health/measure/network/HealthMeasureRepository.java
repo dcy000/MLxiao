@@ -14,7 +14,7 @@ import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
-import com.gcml.health.measure.utils.ChannelUtils;
+import com.gcml.common.utils.ChannelUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

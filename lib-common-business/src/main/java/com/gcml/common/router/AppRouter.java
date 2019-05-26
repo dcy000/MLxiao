@@ -10,6 +10,7 @@ import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.recommend.bean.post.TaskSchemaResultBean;
 import com.gcml.common.service.IAppUpdateProvider;
 import com.gcml.common.service.IBaiduAKProvider;
+import com.gcml.common.service.IBloodsugarTimeFragmentProvider;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.IECG_PDF_FragmentProvider;
@@ -459,4 +460,7 @@ public interface AppRouter {
             @Extra("userRecordId") String userRecordId,
             @Extra("typeString") String typeString
     );
+
+    @Go("/health/measure/bloodsugar/time/fragment")
+    IBloodsugarTimeFragmentProvider getBloodsugarTimeFragmentProvider();
 }

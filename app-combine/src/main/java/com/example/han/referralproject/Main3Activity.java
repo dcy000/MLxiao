@@ -12,8 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.user.IUserService;
+import com.gcml.common.user.UserPostBody;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.recyclerview.banner.BannerRecyclerView;
 import com.gcml.common.widget.recyclerview.banner.BannerScaleHelper;
@@ -24,9 +28,13 @@ import com.yinglan.shadowimageview.ShadowImageView;
 
 import java.util.ArrayList;
 
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 
 @Route(path = "/app/homepage/main/activity")
@@ -60,7 +68,7 @@ public class Main3Activity extends AppCompatActivity {
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Routerfit.register(AppRouter.class).skipAuthActivity();
+                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
             }
         });
 
@@ -228,7 +236,7 @@ public class Main3Activity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     //健康测量
-                    Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+                    siginIn();
                     break;
                 case 1:
                     //自诊导诊
@@ -265,6 +273,46 @@ public class Main3Activity extends AppCompatActivity {
             }
         }
     };
+
+    private void siginIn() {
+        IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
+        UserPostBody body = new UserPostBody();
+        body.username = "15181438908";
+        body.password = "123456";
+        iUserService.signIn(body)
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Function<Object, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(Object o) throws Exception {
+                        return Routerfit.register(AppRouter.class).touristSignInProvider()
+                                .getUserEntity();
+                    }
+                })
+                .doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity entity) throws Exception {
+                        UserSpHelper.setUserId(entity.id);
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity s) {
+                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.e(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
     private ArrayList<MenuEntity> menuEntities = new ArrayList<>();
     private MenuAdapter menuAdapter = new MenuAdapter();

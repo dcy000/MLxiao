@@ -16,11 +16,11 @@ public interface IUserService {
      */
     Observable<UserToken> signIn(UserPostBody body);
 
-//    /**
-//     * 根据token获取PatientId
-//     *
-//     * @return
-//     */
-//    Observable<UserEntity> getUserEntity();
+    /**
+     * 根据token获取PatientId
+     *
+     * @return
+     */
+    Observable<UserEntity> getUserEntity();
 
 }

@@ -2,16 +2,23 @@ package com.gcml.module_detection;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.qrcode.QRCodeUtils;
+import com.gcml.common.widget.base.dialog.DialogImage;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
@@ -19,12 +26,14 @@ import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodPressurePresenter;
 import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
+import com.gcml.module_blutooth_devices.ecg.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.temperature.TemperaturePresenter;
 import com.gcml.module_blutooth_devices.three.ThreeInOnePresenter;
 import com.gcml.module_blutooth_devices.weight.WeightPresenter;
@@ -56,7 +65,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 @Route(path = "/module/detection/connect/activity")
-public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothView, DialogControlBluetooth, IDCardPresenter.IDCardRead, IDCardReadFragment.ClickPage {
+public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothView, DialogControlBluetooth, IDCardPresenter.IDCardRead, IDCardReadFragment.ClickPage, ECGFragment.AnalysisData, FragmentChanged {
 
     private BaseBluetooth baseBluetooth;
     private BluetoothListDialog dialog;
@@ -65,6 +74,9 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     private boolean isAfterPause;
     private boolean isTimeCountDownOver;
     private AlertDialog retryDialog;
+    private boolean onShowingEcgPDF;
+    private String pdfUrl;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,16 +140,16 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 break;
             case IBleConstants.MEASURE_URIC_ACID:
                 //血尿酸
-                mTitleText.setText("胆 固 醇 测 量");
+                mTitleText.setText("血 尿 酸 测 量");
                 baseBluetooth = new ThreeInOnePresenter(this);
                 initSearchFragment("给三合一插上检测试纸", "测上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
                 break;
             case IBleConstants.MEASURE_BLOOD_SUGAR:
                 //测量血糖
                 mTitleText.setText("血 糖 测 量");
-                baseBluetooth = new BloodSugarPresenter(ConnectActivity.this);
-                initBloodsugarSearchFragment();
-                setTimeCountDown();
+                baseFragment = (BluetoothBaseFragment) Routerfit.register(AppRouter.class).getBloodsugarTimeFragmentProvider().getHealthSelectSugarDetectionTimeFragment();
+                baseFragment.setOnFragmentChangedListener(this);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, baseFragment, "BloodsugarTime").commitAllowingStateLoss();
                 break;
             case IBleConstants.SCAN_ID_CARD:
                 //身份证
@@ -203,6 +215,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
             case IBleConstants.MEASURE_ECG:
                 //心电
                 baseFragment = new ECGFragment();
+                ((ECGFragment) baseFragment).setOnAnalysisDataListener(this);
                 break;
             case IBleConstants.MEASURE_CHOLESTEROL:
                 //胆固醇
@@ -215,6 +228,9 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
             case IBleConstants.MEASURE_BLOOD_SUGAR:
                 //血糖
                 baseFragment = new BloodSugarFragment();
+                if (bundle != null) {
+                    baseFragment.setArguments(bundle);
+                }
                 break;
             case IBleConstants.SCAN_ID_CARD:
                 //身份证
@@ -251,7 +267,19 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     @Override
     protected void backMainActivity() {
-        showBluetoothListDialog();
+        if (onShowingEcgPDF) {
+            if (DataUtils.isNullString(pdfUrl)) {
+                return;
+            }
+            Bitmap bitmap = QRCodeUtils.creatQRCode(pdfUrl, 600, 600);
+            DialogImage dialogImage = new DialogImage(this);
+            dialogImage.setImage(bitmap);
+            dialogImage.setDescription("扫一扫，下载该报告");
+            dialogImage.setCanceledOnTouchOutside(true);
+            dialogImage.show();
+        } else {
+            showBluetoothListDialog();
+        }
     }
 
     private void showBluetoothListDialog() {
@@ -464,6 +492,41 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         //点击了重新读取身份证阅读
         if (baseBluetooth != null && baseBluetooth instanceof IDCardPresenter) {
             ((IDCardPresenter) baseBluetooth).readFailed();
+        }
+    }
+
+    @Override
+    public void onSuccess(String fileAddress, int flag, String result, int heartRate) {
+        pdfUrl = fileAddress;
+        //心电测量结束后展示分析报告
+        ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
+        Bundle pdfBundle = new Bundle();
+        pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, fileAddress);
+        pdf_fragment.setArguments(pdfBundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
+                .replace(R.id.fl_container, pdf_fragment).commitAllowingStateLoss();
+        //右上角的图标换成二维码的，支持扫描下载报告
+        onShowingEcgPDF = true;
+        mRightView.setImageResource(R.drawable.health_measure_icon_qrcode);
+    }
+
+    @Override
+    public void onError() {
+        ToastUtils.showShort("心电报告分析出现异常");
+    }
+
+    @Override
+    public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+        this.bundle = bundle;
+        String tag = fragment.getTag();
+        if (TextUtils.isEmpty(tag)) return;
+        if (TextUtils.equals(tag, "BloodsugarTime")) {
+            //血糖时间选择
+            baseBluetooth = new BloodSugarPresenter(ConnectActivity.this);
+            initBloodsugarSearchFragment();
+            setTimeCountDown();
         }
     }
 }

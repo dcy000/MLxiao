@@ -31,6 +31,7 @@ import com.example.module_control_volume.R;
 import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -460,7 +461,13 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                         }
                         saveRoom();
                         if (isFirstWifi) {
-                            Routerfit.register(AppRouter.class).skipAuthActivity();
+                            //TODO:版本兼容
+                            if (ChannelUtils.isJGYS()) {
+                                Routerfit.register(AppRouter.class).skipAuthActivity();
+                            }
+                            if (ChannelUtils.isAppCombine()) {
+                                Routerfit.register(AppRouter.class).skipMainActivity();
+                            }
                             finish();
                         }
                     }

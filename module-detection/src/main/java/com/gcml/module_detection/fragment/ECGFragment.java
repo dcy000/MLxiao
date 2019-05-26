@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
@@ -18,7 +19,16 @@ import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGSingleGuideView;
 import com.gcml.module_detection.ConnectActivity;
+import com.gcml.module_detection.net.DetectionRepository;
 import com.inuker.bluetooth.library.utils.ByteUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class ECGFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private ECGSingleGuideView mEcgView;
@@ -74,6 +84,7 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
                         if (DataUtils.isNullString(detectionData.getResult()) || DataUtils.isNullString(detectionData.getResultUrl())) {
                             analysisData.onError();
                         } else {
+                            postData(detectionData);
                             //pdf地址，异常标识，结论,心率
                             analysisData.onSuccess(detectionData.getResultUrl(), detectionData.getEcgFlag(),
                                     detectionData.getResult(), detectionData.getHeartRate());
@@ -105,14 +116,45 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
         }
     }
 
+    private void postData(DetectionData detectionData) {
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        DetectionData ecgData = new DetectionData();
+        ecgData.setDetectionType("2");
+        ecgData.setEcg(detectionData.getEcgFlag() == 2 ? "1" : String.valueOf(detectionData.getEcgFlag()));
+        ecgData.setResult(detectionData.getResult());
+        ecgData.setHeartRate(detectionData.getHeartRate());
+        ecgData.setResultUrl(detectionData.getResultUrl());
+        datas.add(ecgData);
+        DetectionRepository.postMeasureData(datas)
+                .compose(RxUtils.io2Main())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        Timber.i(">>>>" + o.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     @Override
     public void onClick(View v) {
 
     }
 
-    private com.gcml.module_blutooth_devices.ecg.ECGFragment.AnalysisData analysisData;
+    private AnalysisData analysisData;
 
-    public void setOnAnalysisDataListener(com.gcml.module_blutooth_devices.ecg.ECGFragment.AnalysisData analysisData) {
+    public void setOnAnalysisDataListener(AnalysisData analysisData) {
         this.analysisData = analysisData;
     }
 
