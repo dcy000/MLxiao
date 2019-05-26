@@ -228,7 +228,7 @@ public class Main3Activity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     //健康测量
-                    Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, "", "");
+                    Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
                     break;
                 case 1:
                     //自诊导诊
@@ -251,7 +251,7 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 6:
                     //健康生活
-                    Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+
                     break;
                 case 7:
                     //帮助中心
