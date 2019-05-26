@@ -1,12 +1,7 @@
 ext.mainApp = true
-mainmodulename = "app-combine"
-rootProject.mainmodulename = "app-combine"
-println mainmodulename
-println rootProject.mainmodulename
-
 apply from: rootProject.file("build-base.gradle")
 apply plugin: 'com.dd.comgradle'
-
+rootProject.mainmodulename = "app-combine"
 android {
     defaultConfig {
         if (project.ext.runAsApp) {
