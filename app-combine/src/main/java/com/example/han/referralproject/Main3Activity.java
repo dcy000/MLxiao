@@ -19,6 +19,7 @@ import com.gcml.common.user.IUserService;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.ui.UiUtils;
+import com.gcml.common.widget.ShadowLayout;
 import com.gcml.common.widget.recyclerview.banner.BannerRecyclerView;
 import com.gcml.common.widget.recyclerview.banner.BannerScaleHelper;
 import com.gcml.web.WebActivity;
