@@ -1,5 +1,7 @@
-package com.gcml.module_auth_hospital.ui.login;
+package com.gcml.module_auth_hospital.ui.register;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,18 +13,27 @@ import android.widget.TextView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
+import com.gcml.module_auth_hospital.ui.findPassWord.CodeRepository;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
+import java.util.Locale;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class BindPhoneActivity extends ToolbarBaseActivity {
@@ -33,6 +44,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
     private EditText phone;
     private EditText code;
     private TranslucentToolBar tb;
+    private Intent data;
+    private String codeNumer = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +53,16 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
         isShowToolbar = false;
         setContentView(R.layout.activity_bind_phone);
         initView();
+    }
+
+    public static void startMe(Context context, String passWord, String from) {
+        Intent intent = new Intent(context, BindPhoneActivity.class);
+        intent.putExtra("passWord", passWord);
+        intent.putExtra("fromWhere", from);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
     }
 
     private void initView() {
@@ -53,8 +76,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             signUp(phoneNumber);
         }));
         sendCode = findViewById(R.id.tv_send_code);
-
-        tb.setData("忘 记 密 码",
+        data = getIntent();
+        tb.setData("绑 定 手 机",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_ic_wifi_state, null,
                 new ToolBarClickListener() {
@@ -72,13 +95,21 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
 
         phone.addTextChangedListener(watcher);
         sendCode.setOnClickListener(new FilterClickListener(v -> sendCode()));
-
-
     }
+
 
     UserRepository repository = new UserRepository();
 
     private void signUp(String phoneNumber) {
+        if (TextUtils.isEmpty(code.getText().toString())) {
+            ToastUtils.showShort("请输入验证码");
+            return;
+        }
+        if (!this.codeNumer.equals(code.getText().toString())) {
+            ToastUtils.showShort("验证码错误");
+            return;
+        }
+
         Intent data = getIntent();
         if (data != null) {
             String passWord = data.getStringExtra("passWord");
@@ -112,44 +143,46 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
 
     }
 
-    private void sendCode() {
-        updateCountDownUi();
-        //请求验证码
-       /* showLoadingDialog("");
-        NetworkApi.getCode(phoneNumber, new NetworkManager.SuccessCallback<String>() {
+    private CodeRepository codeRepository = new CodeRepository();
+    Disposable countDownDisposable = Disposables.empty();
 
-            @Override
-            public void onSuccess(String codeJson) {
-                hideLoadingDialog();
-                try {
-                    JSONObject codeObj = new JSONObject(codeJson);
-                    String code = codeObj.optString("code");
-                    CodeActivity.this.code = code;
-                    if (code != null) {
-                        updateCountDownUi();
-                        T.show("获取验证码成功");
-                        mlSpeak("获取验证码成功");
+    private void sendCode() {
+        final String phoneNumer = phone.getText().toString().trim();
+        if (!Utils.isValidPhone(phoneNumer)) {
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号码", false);
+            ToastUtils.showShort("请输入正确的手机号码");
+            return;
+        }
+
+        codeRepository.fetchCode(phone.getText().toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        startTimer();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String code) {
+                        BindPhoneActivity.this.codeNumer = code;
+                        ToastUtils.showShort("获取验证码成功");
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    T.show("获取验证码失败");
-                    mlSpeak("获取验证码失败");
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                hideLoadingDialog();
-                T.show("获取验证码失败");
-                mlSpeak("获取验证码失败");
-            }
-        });
-*/
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort("获取验证码失败");
+                        countDownDisposable.dispose();
+                    }
+                });
+
     }
 
 
-    TextWatcher watcher = new TextWatcher() {
+    private TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -171,25 +204,37 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
         }
     };
 
-    private void updateCountDownUi() {
-        sendCode.setSelected(false);
-        sendCode.setEnabled(false);
-        Handlers.ui().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                count--;
-                if (count <= 0) {
-                    sendCode.setSelected(true);
-                    sendCode.setEnabled(true);
-                    sendCode.setText("发送验证码");
-                    count = 60;
-                    return;
-                }
-                sendCode.setText(count + "秒重发");
-                Handlers.ui().postDelayed(this, 1000);
-            }
-        }, 1000);
+    private void startTimer() {
+        countDownDisposable = RxUtils.rxCountDown(1, 60)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        code.setEnabled(false);
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        code.setText("获取验证码");
+                        code.setEnabled(true);
+                    }
+                })
+                .doOnDispose(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        code.setText("获取验证码");
+                        code.setEnabled(true);
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
+                        code.setText(
+                                String.format(Locale.getDefault(), "已发送（%d）", integer));
+                    }
+                });
     }
-
-    private int count = 60;
 }

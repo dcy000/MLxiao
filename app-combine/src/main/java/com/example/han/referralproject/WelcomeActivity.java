@@ -49,9 +49,9 @@ public class WelcomeActivity extends AppCompatActivity {
         iUserService.signIn(body)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<UserToken>() {
                     @Override
-                    public void onNext(Object userToken) {
+                    public void onNext(UserToken userToken) {
                         super.onNext(userToken);
                         Routerfit.register(AppRouter.class).skipUserLogins2Activity();
 //                        Routerfit.register(AppRouter.class).skipMainActivity();

@@ -71,6 +71,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:layout_width="468pt"
             android:layout_height="648pt"
             android:layout_marginLeft="-8pt"
