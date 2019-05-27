@@ -26,7 +26,7 @@ public class ChannelUtils {
         return false;
     }
 
-    private static String getChannelMeta() {
+    public static String getChannelMeta() {
         String channel = null;
         try {
             ApplicationInfo appInfo = UM.getApp().getPackageManager()

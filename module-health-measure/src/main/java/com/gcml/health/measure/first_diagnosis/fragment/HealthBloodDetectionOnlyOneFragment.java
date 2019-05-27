@@ -1,6 +1,8 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -35,7 +37,17 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
     public void onStart() {
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
-        mBtnHealthHistory.setText("下一步");
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String button = arguments.getString("button");
+            if (TextUtils.isEmpty(button)) {
+                mBtnHealthHistory.setText("下一步");
+            } else {
+                mBtnHealthHistory.setText(button);
+            }
+        } else {
+            mBtnHealthHistory.setText("下一步");
+        }
         setBtnClickableState(false);
     }
 

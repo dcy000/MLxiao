@@ -437,79 +437,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     @Override
     public void onClickConfirm() {
         //-->人脸-->测量血压
-//        CC.obtainBuilder("com.gcml.auth.face2.signin")
-//                .addParam("skip", true)
-//                .build()
-//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        boolean skip = "skip".equals(result.getErrorMessage());
-//                        if (result.isSuccess() || skip) {
-//                            toBloodPressure();
-//                        } else {
-//                            ToastUtils.showShort(result.getErrorMessage());
-//                        }
-//                    }
-//                });
-        Routerfit.register(AppRouter.class)
-                .getFaceProvider()
-                .getFaceId(UserSpHelper.getUserId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
-                    @Override
-                    public void onNext(String faceId) {
-                        Routerfit.register(AppRouter.class).skipFaceBdSignInActivity(true, true, faceId, true, new ActivityCallback() {
-                            @Override
-                            public void onActivityResult(int result, Object data) {
-                                if (result == Activity.RESULT_OK) {
-                                    String sResult = data.toString();
-                                    if (TextUtils.isEmpty(sResult))
-                                        return;
-                                    if (sResult.equals("success") || sResult.equals("skip")) {
-                                        toBloodPressure();
-                                    } else if (sResult.equals("failed")) {
-                                        ToastUtils.showShort("人脸验证失败");
-                                    }
-
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort("请先注册人脸！");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        toBloodPressure();
     }
 
     private void toBloodPressure() {
-        Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity("SlowDiseaseManagementActivity");
-//        Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity(new ActivityCallback() {
-//            @Override
-//            public void onActivityResult(int result, Object data) {
-//                ToastUtils.showShort("测试成功"+result+"---"+data);
-//            }
-//        });
-//        TODO:还需调试2019/04/24
-//        CC.obtainBuilder("health_measure")
-//                .setActionName("To_BloodpressureManagerActivity")
-//                .build()
-//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        String callback = result.getDataItem("key_cc_callback", "");
-//                        if (!TextUtils.isEmpty(callback) && callback.equals("measure_success")) {
-//                            showEndDialog();
-//                        }
-//                    }
-//                });
+        Routerfit.register(AppRouter.class).skipBloodpressureManagerActivity("SlowDiseaseManagementActivity",diagnoseInfo.detectionDayCount.intValue());
     }
 
     @Override
