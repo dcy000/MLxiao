@@ -18,7 +18,6 @@ import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.web.WebActivity;
-import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -153,11 +152,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 9:
                         //智能诊断
-                        WebActivity.start(MainActivity.this, WebActivity.URL_0);
+                        WebActivity.start(MainActivity.this, WebActivity.URL_DIAGNOSIS);
                         break;
                     case 10:
                         //智能问药
-                        WebActivity.start(MainActivity.this, WebActivity.URL_1);
+                        WebActivity.start(MainActivity.this, WebActivity.URL_MEDICAL);
                         break;
                 }
             }

@@ -392,7 +392,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         activity = null;
         connectListener = null;
         searchListener = null;
-
+        BluetoothStore.instance.detection.postValue(null);
     }
 
     public boolean isOnSearching() {

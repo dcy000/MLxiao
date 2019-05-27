@@ -103,7 +103,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_henan" />
+            android:value="gcml_version_jgys" />
 
 
         <activity

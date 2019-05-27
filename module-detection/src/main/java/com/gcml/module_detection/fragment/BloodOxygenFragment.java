@@ -7,12 +7,23 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.net.DetectionRepository;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.util.ArrayList;
 import java.util.Locale;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class BloodOxygenFragment extends BluetoothBaseFragment implements View.OnClickListener {
     protected TextView mBtnHealthHistory;
@@ -49,15 +60,45 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                     if (!isMeasureFinishedOfThisTime && bloodOxygen != null && bloodOxygen != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
-                        postData();
+                        robotSpeak(detectionData);
+                        postData(detectionData);
                     }
                 }
             }
         });
     }
 
-    private void postData() {
+    private void robotSpeak(DetectionData detectionData) {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                "您本次测量血氧" + detectionData.getBloodOxygen() + "%", false);
+    }
 
+    private void postData(DetectionData detectionData) {
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData oxygenData = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        oxygenData.setDetectionType("6");
+        oxygenData.setBloodOxygen(detectionData.getBloodOxygen());
+        datas.add(oxygenData);
+        DetectionRepository.postMeasureData(datas)
+                .compose(RxUtils.io2Main())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        Timber.i(">>>>" + o.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

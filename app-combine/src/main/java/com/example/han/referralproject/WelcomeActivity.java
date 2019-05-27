@@ -32,12 +32,13 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         if (!NetUitls.isWifiConnected()) {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
+            finish();
         } else {
 //          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
 //            Routerfit.register(AppRouter.class).skipUserRegistersActivity();//身份证注册
             touristLogin();
         }
-        finish();
+
     }
 
     private void touristLogin() {
@@ -52,13 +53,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onNext(Object userToken) {
                         super.onNext(userToken);
-                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-                        Routerfit.register(AppRouter.class).skipUserRegistersActivity();
+//                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        finish();
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        Routerfit.register(AppRouter.class).skipMainActivity();
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });

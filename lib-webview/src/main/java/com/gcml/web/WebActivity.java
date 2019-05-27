@@ -16,8 +16,8 @@ public class WebActivity extends AppCompatActivity {
     private X5WebView webView;
     private Button btnBack;
 
-    public static final String URL_0 = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cc197e8b60c48171066f0e7";
-    public static final String URL_1 = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cd3d5cbb60c48343fafe493";
+    public static final String URL_DIAGNOSIS = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cc197e8b60c48171066f0e7";
+    public static final String URL_MEDICAL = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cd3d5cbb60c48343fafe493";
 
     public static void start(Context context, String url) {
         Intent intent = new Intent(context, WebActivity.class);
@@ -37,7 +37,7 @@ public class WebActivity extends AppCompatActivity {
         if (url != null && !url.isEmpty()) {
             webView.loadUrl(url);
         } else {
-            webView.loadUrl(URL_0);
+            webView.loadUrl(URL_DIAGNOSIS);
         }
 
         TbsInitHelper.setListener(new TbsInitHelper.Listener() {

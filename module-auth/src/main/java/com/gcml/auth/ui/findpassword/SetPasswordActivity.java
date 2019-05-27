@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.gcml.auth.R;
+
 import com.gcml.auth.databinding.AuthActivitySetPasswordBinding;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;

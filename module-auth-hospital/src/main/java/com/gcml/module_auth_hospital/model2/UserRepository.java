@@ -21,7 +21,7 @@ import io.reactivex.functions.Function;
 public class UserRepository {
     private UserService mUserService = RetrofitHelper.service(UserService.class);
     private Context mContext = AppDelegate.INSTANCE.app();
-    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
+//    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
 
 
     /**
@@ -91,6 +91,4 @@ public class UserRepository {
                     UserSpHelper.setUserId(userEntity.id + "");
                 });
     }
-
-
 }

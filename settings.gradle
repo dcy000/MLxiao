@@ -1,5 +1,5 @@
 include ':module-doctor-advisory', ':module-detection',
-//        ':app',
+        ':app',
         ':app-combine',
         ':module-alarm',
         ':module-body-test',

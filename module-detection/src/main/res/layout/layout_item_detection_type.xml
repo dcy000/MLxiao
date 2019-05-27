@@ -1,10 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:textSize="36sp"
-    android:textStyle="bold"
-    android:gravity="center">
+<com.gcml.common.widget.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:shadow_layout_dx="0pt"
+    app:shadow_layout_dy="14pt"
+    app:shadow_layout_shadowRadius="16pt">
 
-</Button>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="420pt"
+        android:layout_height="476pt"
+        android:background="@drawable/common_shadow_line">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="80pt"
+            android:layout_height="80pt"
+            android:layout_marginLeft="32pt"
+            android:layout_marginTop="60pt"
+            android:src="@drawable/type_bloodoxygen"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12pt"
+            android:text="血压"
+            android:textColor="#303133"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="@id/iv_icon"
+            app:layout_constraintLeft_toRightOf="@id/iv_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_icon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32pt"
+            android:layout_marginBottom="60pt"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今天12:30"
+                android:textColor="#909399"
+                android:textSize="40pt" />
+
+            <TextView
+                android:id="@+id/tv_last_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="155/102"
+                android:textColor="#E53B3B"
+                android:textSize="100pt"
+                android:textStyle="bold"
+                android:layout_marginLeft="-10pt"/>
+
+            <TextView
+                android:id="@+id/tv_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(mmHg)"
+                android:textColor="#BFC2CC"
+                android:textSize="40pt" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32pt"
+            android:layout_marginBottom="36pt"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:textColor="#303133"
+                android:textSize="100pt"
+                android:textStyle="bold"
+                android:layout_marginLeft="20pt"/>
+            <com.gcml.common.widget.ShadowLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:shadow_layout_dx="0pt"
+                app:shadow_layout_dy="14pt"
+                app:shadow_layout_shadowRadius="16pt"
+                >
+                <TextView
+                    android:layout_width="160pt"
+                    android:layout_height="72pt"
+                    android:background="@drawable/shape_66_blue"
+                    android:gravity="center"
+                    android:text="测量"
+                    android:textColor="@color/white"
+                    android:textSize="40pt" />
+            </com.gcml.common.widget.ShadowLayout>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</com.gcml.common.widget.ShadowLayout>

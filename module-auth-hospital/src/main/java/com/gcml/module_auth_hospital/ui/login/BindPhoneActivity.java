@@ -94,8 +94,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     .as(RxUtils.autoDisposeConverter(this))
                     .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
-                        public void onNext(UserEntity userBean) {
-                            super.onNext(userBean);
+                        public void onNext(UserEntity userEntity) {
+                            super.onNext(userEntity);
                         }
 
                         @Override
