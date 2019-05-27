@@ -29,7 +29,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
 
     private EditText ccetPhone;
     private TextView tvNext;
-    private UserRepository userRepository = new UserRepository();
+    private UserRepository repository = new UserRepository();
     private TranslucentToolBar translucentToolBar;
 
     @Override

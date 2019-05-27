@@ -21,7 +21,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model2.UserRepository;
+import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -174,7 +174,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     public void onNext(UserEntity UserEntity) {
                         super.onNext(UserEntity);
                         ToastUtils.showShort("登录成功");
-                        Routerfit.register(AppRouter.class). skipMain3Activity();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
 
                     }
 

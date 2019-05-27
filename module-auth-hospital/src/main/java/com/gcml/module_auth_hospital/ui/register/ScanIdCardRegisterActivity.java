@@ -490,7 +490,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
 
 
     private void onCheckRegistered(final IDCardItem item) {
-        String deviceId = Utils.getDeviceId(getContentResolver());
+        /*String deviceId = Utils.getDeviceId(getContentResolver());
         if (item == null) {
             return;
         }
@@ -520,7 +520,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
                         ToastUtils.showShort(throwable.getMessage());
 
                     }
-                });
+                });*/
     }
 
     private void toFilllRegisterInfo(IDCardItem item) {

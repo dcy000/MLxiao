@@ -53,8 +53,8 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onNext(Object userToken) {
                         super.onNext(userToken);
-//                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+//                        Routerfit.register(AppRouter.class).skipMainActivity();
                         finish();
                     }
 

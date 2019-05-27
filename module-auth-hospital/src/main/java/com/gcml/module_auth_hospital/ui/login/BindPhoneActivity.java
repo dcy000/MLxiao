@@ -18,7 +18,7 @@ import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model2.UserRepository;
+import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 import com.sjtu.yifei.route.Routerfit;
 

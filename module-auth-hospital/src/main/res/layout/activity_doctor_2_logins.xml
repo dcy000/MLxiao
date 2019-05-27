@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -102,8 +103,7 @@
             android:layout_height="648pt"
             android:layout_marginLeft="-8pt"
             android:layout_marginTop="156pt"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -128,11 +128,10 @@
         android:id="@+id/ll_to_register"
         android:layout_width="wrap_content"
         android:layout_height="78pt"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="80pt"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="60pt"
-        android:visibility="gone">
+        android:layout_marginBottom="80pt">
 
         <TextView
             android:id="@+id/tv_no_count"

@@ -29,6 +29,7 @@ public class UserRegisters2Activity extends ToolbarBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isShowToolbar = false;
         setContentView(R.layout.activity_registers);
 
         tb = findViewById(R.id.tb_registers);
