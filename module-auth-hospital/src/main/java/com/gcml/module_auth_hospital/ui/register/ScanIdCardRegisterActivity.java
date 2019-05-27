@@ -524,12 +524,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
     }
 
     private void toFilllRegisterInfo(IDCardItem item) {
-        startActivity(new Intent(this, IDCardRegisterInfoActivity.class)
-                .putExtra(REGISTER_IDCARD_NUMBER, item.certNumber)
-                .putExtra(REGISTER_IDCARD_MINZU, item.nation)
-                .putExtra(REGISTER_REAL_NAME, item.partyName)
-                .putExtra(REGISTER_SEX, item.gender)
-                .putExtra(REGISTER_ADDRESS, item.certAddress));
+
     }
 
     @Override

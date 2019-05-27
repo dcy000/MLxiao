@@ -62,7 +62,7 @@ public class UserRegisters2Activity extends ToolbarBaseActivity {
                     @Override
                     public void onActivityResult(int result, Object data) {
                         if (data instanceof IDCardItem) {
-                            startActivity(new Intent(UserRegisters2Activity.this,SetPassWordActivity.class));
+                            startActivity(new Intent(UserRegisters2Activity.this, SetPassWordActivity.class));
                         }
                     }
                 });

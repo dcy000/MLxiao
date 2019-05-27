@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.Handlers;
@@ -91,9 +92,9 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
-                    .subscribe(new DefaultObserver<UserBean>() {
+                    .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
-                        public void onNext(UserBean userBean) {
+                        public void onNext(UserEntity userBean) {
                             super.onNext(userBean);
                         }
 

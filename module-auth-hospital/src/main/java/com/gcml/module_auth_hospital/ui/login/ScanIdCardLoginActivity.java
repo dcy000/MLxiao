@@ -39,7 +39,6 @@ import com.sjtu.yifei.route.Routerfit;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
