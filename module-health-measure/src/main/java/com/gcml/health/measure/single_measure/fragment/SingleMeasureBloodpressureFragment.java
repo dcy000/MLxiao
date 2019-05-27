@@ -11,6 +11,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -154,7 +155,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        showUploadDataFailedDialog(results);
+                        showUploadDataFailedDialog(results, R.string.xml_dialog_upload_failed_single);
                     }
 
                     @Override

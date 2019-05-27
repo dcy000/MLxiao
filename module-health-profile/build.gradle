@@ -22,4 +22,5 @@ android {
 
 dependencies {
     implementation project(':lib-voice')
+    implementation project(':lib-printer-8003dd')
 }

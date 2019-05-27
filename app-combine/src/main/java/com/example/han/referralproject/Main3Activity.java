@@ -257,10 +257,11 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 5:
                     //家庭医生
+                    Routerfit.register(AppRouter.class).skipHealthProfileActivity();
                     break;
                 case 6:
                     //健康生活
-
+                    Routerfit.register(AppRouter.class).skipHealthLifeActivity();
                     break;
                 case 7:
                     //帮助中心
@@ -270,6 +271,7 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 9:
                     //设置
+                    Routerfit.register(AppRouter.class).skipSettingActivity();
                     break;
             }
         }

@@ -59,7 +59,7 @@ dependencies {
     addComponent 'module-video'
 //    addComponent 'lib-bluetooth'
     addComponent 'module-factory-test'
-//    addComponent 'module-hypertension-manager'
+    addComponent 'module-hypertension-manager'
 //    addComponent 'module-edu-child'
     addComponent 'module-control'
 //    addComponent 'module-edu'
@@ -71,4 +71,5 @@ dependencies {
     addComponent 'module-yzn'
     addComponent 'module-detection'
     addComponent 'module-auth-hospital'
+    addComponent 'module-health-profile'
 }

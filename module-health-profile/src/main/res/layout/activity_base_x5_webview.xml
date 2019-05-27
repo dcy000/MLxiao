@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <include layout="@layout/utils_title_layout" />
-
     <com.tencent.smtt.sdk.WebView
         android:id="@+id/x5_webview"
         android:layout_width="match_parent"

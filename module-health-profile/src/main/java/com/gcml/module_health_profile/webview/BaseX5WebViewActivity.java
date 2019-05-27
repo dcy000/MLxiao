@@ -30,13 +30,6 @@ import timber.log.Timber;
 
 public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implements View.OnClickListener {
     private WebView mX5Webview;
-    protected ImageView mIvTopLeft;
-    protected TextView mTvTopLeft;
-    private LinearLayout mLlBack;
-    private TextView mTvTopTitle;
-    private TextView mTvTopRight;
-    private ImageView mIvTopRight;
-    private RelativeLayout mToolbar;
     private boolean isPageFinished;
     private long time;
 
@@ -53,22 +46,8 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
     }
 
     protected void initView() {
-        mIvTopLeft = (ImageView) findViewById(R.id.iv_top_left);
-        mTvTopLeft = (TextView) findViewById(R.id.tv_top_left);
-        mLlBack = (LinearLayout) findViewById(R.id.ll_back);
-        mLlBack.setOnClickListener(this);
-        mTvTopTitle = (TextView) findViewById(R.id.tv_top_title);
-        mTvTopTitle.setText(setTitle());
-        mTvTopRight = (TextView) findViewById(R.id.tv_top_right);
-        mIvTopRight = (ImageView) findViewById(R.id.iv_top_right);
-        mIvTopRight.setOnClickListener(this);
-        mToolbar = (RelativeLayout) findViewById(R.id.toolbar);
         mX5Webview = (WebView) findViewById(R.id.x5_webview);
-
-        mTvTopRight.setVisibility(View.GONE);
-        mTvTopRight.setVisibility(View.VISIBLE);
-        mIvTopRight.setImageResource(com.gcml.common.business.R.drawable.common_ic_wifi_state);
-        setWifiLevel(mIvTopRight);
+        mTitleText.setText(setTitle());
     }
 
     protected void initWebView() {
@@ -219,14 +198,6 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
 //            mX5Webview.clearSslPreferences();
             mX5Webview.destroy();
         }
-    }
-
-    protected WebView getWebView() {
-        return mX5Webview;
-    }
-
-    protected RelativeLayout getToolbar() {
-        return mToolbar;
     }
 
     protected String setTitle() {

@@ -32,6 +32,8 @@ import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 
+import retrofit2.http.GET;
+
 public interface AppRouter {
 
     @Go("/common/business/user/provider")
@@ -463,4 +465,7 @@ public interface AppRouter {
 
     @Go("/health/measure/bloodsugar/time/fragment")
     IBloodsugarTimeFragmentProvider getBloodsugarTimeFragmentProvider();
+
+    @Go("/app/health/life/activity")
+    boolean skipHealthLifeActivity();
 }

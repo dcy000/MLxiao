@@ -4,5 +4,6 @@
     <string name="bluetooth_device_disconnected">设备已断开</string>
     <string name="bluetooth_device_connect_fail">蓝牙连接失败</string>
     <string name="unfind_devices">未搜索到设备</string>
-    <string name="xml_dialog_upload_failed">数据上传出现了一点小问题，是否重试？</string>
+    <string name="xml_dialog_upload_failed_single">数据上传出现了一点小问题，是否重试？</string>
+    <string name="xml_dialog_upload_failed">数据上传失败！是否重试？\n点击“否”将直接进行下一个步骤，但分析报告中的结论将失去准确性。</string>
 </resources>

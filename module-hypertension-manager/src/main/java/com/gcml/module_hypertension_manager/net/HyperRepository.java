@@ -1,6 +1,7 @@
 package com.gcml.module_hypertension_manager.net;
 
 import com.gcml.common.RetrofitHelper;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_hypertension_manager.bean.DailyRecommendIntake;
 import com.gcml.module_hypertension_manager.bean.DiagnoseInfoBean;
@@ -88,10 +89,14 @@ public class HyperRepository {
     }
 
     public Observable<OlderHealthManagementBean.DataBean> getHealthManagementForOlder() {
+        if (ChannelUtils.isAppCombine())
+            return hyperServer.getQuestionnaireForOlder().compose(RxUtils.apiResultTransformer());
         return hyperServer.getHealthManagementForOlder().compose(RxUtils.apiResultTransformer());
     }
 
     public Observable<List<HealthManagementResultBean.DataBean>> postHealthManagementAnwser(HealthManagementAnwserBean bean) {
+        if (ChannelUtils.isAppCombine())
+            return hyperServer.postQuestionnaireForOlder(bean).compose(RxUtils.apiResultTransformer());
         return hyperServer.postHealthManagementAnwser(bean).compose(RxUtils.apiResultTransformer());
     }
 }

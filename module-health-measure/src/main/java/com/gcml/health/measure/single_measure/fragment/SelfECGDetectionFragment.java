@@ -427,6 +427,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                 .setConvertListener(new ViewConvertListener() {
                     @Override
                     protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.setText(R.id.tv_msg,R.string.xml_dialog_upload_failed_single);
                         holder.getView(com.gcml.module_blutooth_devices.R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
