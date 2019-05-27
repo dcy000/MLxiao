@@ -1,6 +1,7 @@
 package com.gcml.module_auth_hospital.ui.login;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -40,7 +41,8 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
         lllogins = findViewById(R.id.ll_logins);
         tvRegister = findViewById(R.id.tv_to_register);
 
-        tvRegister.setOnClickListener(v -> startActivity(new Intent(UserLogins2Activity.this, UserRegisters2Activity.class)));
+        tvRegister.setOnClickListener(
+                v -> startActivity(new Intent(UserLogins2Activity.this, UserRegisters2Activity.class)));
 
         tb = findViewById(R.id.tb_logins);
         tb.setData("登 陆 注 册",
@@ -70,27 +72,27 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
 
     private void updatePage2() {
         lllogins.getChildAt(0).setVisibility(View.VISIBLE);
-        lllogins.getChildAt(0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Routerfit.register(AppRouter.class).skipConnectActivity(36, new ActivityCallback() {
-                    @Override
-                    public void onActivityResult(int result, Object data) {
-                        if (data instanceof IDCardItem) {
-// TODO: 2019/5/22  身份证信息确认界面
-                        }
-                    }
-                });
-            }
-        });
+        lllogins.getChildAt(0).setOnClickListener(
+                v ->
+                        Routerfit.register(AppRouter.class).skipConnectActivity(36, (result, data) -> {
+                            if (data instanceof IDCardItem) {
+                                IDCardItem cardItem = ((IDCardItem) data);
+                                if (cardItem != null) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("name", cardItem.partyName);
+                                    bundle.putString("gender", cardItem.gender);
+                                    bundle.putString("nation", cardItem.nation);
+                                    bundle.putString("address", cardItem.certAddress);
+                                    bundle.putParcelable("profile", cardItem.picBitmap);
+                                    bundle.putString("idCard", cardItem.certNumber);
+                                    startActivity(new Intent(UserLogins2Activity.this, IdCardInfoActivity.class));
+                                }
+                            }
+                        }));
 
         lllogins.getChildAt(1).setVisibility(View.VISIBLE);
-        lllogins.getChildAt(1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserLogins2Activity.this, IDCardNuberLoginActivity.class));
-            }
-        });
+        lllogins.getChildAt(1).setOnClickListener(v ->
+                startActivity(new Intent(UserLogins2Activity.this, IDCardNuberLoginActivity.class)));
 
         lllogins.getChildAt(2).setVisibility(View.VISIBLE);
         lllogins.getChildAt(2).setOnClickListener(v ->

@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.ui.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,8 +10,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.user.UserPostBody;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.model.UserRepository;
+import com.sjtu.yifei.route.Routerfit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
@@ -25,6 +40,7 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
     ImageView mIdCardIvProfile;
     TextView mIdCardTvNumberInfo;
     TextView mIdCardTvAction;
+    private String idCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +58,7 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
             String nation = intent.getStringExtra("nation");
             String address = intent.getStringExtra("address");
             Bitmap profile = intent.getParcelableExtra("profile");
-            String idCard = intent.getStringExtra("idCard");
+            idCard = intent.getStringExtra("idCard");
             if (TextUtils.isEmpty(name)
                     || TextUtils.isEmpty(gender)
                     || TextUtils.isEmpty(nation)
@@ -95,7 +111,50 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.id_card_tv_action) {
-
+            signIn();
         }
+    }
+
+    private UserRepository repository = new UserRepository();
+
+    @SuppressLint("CheckResult")
+    private void signIn() {
+        UserPostBody body = new UserPostBody();
+        body.sfz = idCard;
+        repository.signInByIdCard(body)
+                /* .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())*/
+                .compose(RxUtils.io2Main())
+                .doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity o) throws Exception {
+                        showLoading("登陆中...");
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        super.onNext(userEntity);
+                        ToastUtils.showShort("登录成功");
+                        Routerfit.register(AppRouter.class).skipMainActivity();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                    }
+                })
+        ;
     }
 }
