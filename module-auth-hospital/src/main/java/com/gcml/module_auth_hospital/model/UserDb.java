@@ -1,4 +1,4 @@
-//package com.gcml.module_auth_hospital.model;
+//package com.gcml.module_auth_hospital.model2;
 //
 //import android.arch.persistence.room.Database;
 //import android.arch.persistence.room.RoomDatabase;

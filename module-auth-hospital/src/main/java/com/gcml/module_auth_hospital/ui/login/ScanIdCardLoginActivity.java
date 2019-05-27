@@ -39,7 +39,6 @@ import com.sjtu.yifei.route.Routerfit;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -517,7 +516,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     private void signIn(String deviceId, String idCardNumber) {
 
-        userRepository
+        /*userRepository
                 .signInByIdCard(deviceId, idCardNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -554,7 +553,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                         }
                         ToastUtils.showShort(throwable.getMessage());
                     }
-                });
+                });*/
     }
 
 

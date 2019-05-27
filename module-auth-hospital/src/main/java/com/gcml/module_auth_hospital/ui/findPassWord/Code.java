@@ -1,4 +1,4 @@
-package com.gcml.module_auth_hospital.model;
+package com.gcml.module_auth_hospital.ui.findPassWord;
 
 import com.google.gson.annotations.SerializedName;
 
