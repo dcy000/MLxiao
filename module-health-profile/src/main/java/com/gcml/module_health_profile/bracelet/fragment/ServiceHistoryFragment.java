@@ -97,7 +97,7 @@ public class ServiceHistoryFragment extends Fragment {
     HealthProfileRepository repository = new HealthProfileRepository();
 
     private void getData() {
-        repository.getWannings(UserSpHelper.getUserId())
+        repository.getWannings()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "hypertension/manager/older/health/management/sercive")
 public class OlderHealthManagementSerciveActivity extends ToolbarBaseActivity {
 
@@ -155,7 +157,9 @@ public class OlderHealthManagementSerciveActivity extends ToolbarBaseActivity {
         showLoading("正在提交...");
         HealthManagementAnwserBean anwserBean = new HealthManagementAnwserBean();
         anwserBean.equipmentId = DeviceUtils.getIMEI();
-        anwserBean.userId = UserSpHelper.getUserId();
+        String userId = UserSpHelper.getUserId();
+        anwserBean.userId = userId;
+        anwserBean.patientId = TextUtils.isEmpty(userId) ? 0 : Integer.parseInt(userId);
         anwserBean.hmQuestionnaireId = this.hmQuestionnaireId;
         anwserBean.answerList = new ArrayList<>();
 

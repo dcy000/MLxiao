@@ -8,11 +8,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.net.DetectionRepository;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.util.ArrayList;
 import java.util.Locale;
+
+import io.reactivex.observers.DefaultObserver;
+import timber.log.Timber;
 
 public class UricAcidFragment extends BluetoothBaseFragment implements View.OnClickListener {
     protected TextView mBtnHealthHistory;
@@ -49,10 +57,43 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
                         isMeasureBUAFinished = true;
                         mTvResult.setText(String.format(Locale.getDefault(), "%.2f", uricAcid));
                         onMeasureFinished(detectionData);
+                        robotSpeak(detectionData);
+                        postData(detectionData);
                     }
                 }
             }
         });
+    }
+
+    private void robotSpeak(DetectionData detectionData) {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量耳温" + detectionData.getTemperAture() + "摄氏度", false);
+    }
+
+    private void postData(DetectionData detectionData) {
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData lithicAcidData = new DetectionData();
+        lithicAcidData.setDetectionType("8");
+        lithicAcidData.setUricAcid(detectionData.getUricAcid());
+        datas.add(lithicAcidData);
+        DetectionRepository.postMeasureData(datas)
+                .compose(RxUtils.io2Main())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        Timber.i(">>>>" + o.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

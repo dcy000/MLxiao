@@ -187,12 +187,13 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
         }
     }
 
-    protected void showUploadDataFailedDialog(DetectionData detection) {
+    protected void showUploadDataFailedDialog(DetectionData detection,int msg) {
         NiceDialog.init()
                 .setLayoutId(R.layout.dialog_first_diagnosis_upload_failed)
                 .setConvertListener(new ViewConvertListener() {
                     @Override
                     protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.setText(R.id.tv_msg,msg);
                         holder.getView(R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

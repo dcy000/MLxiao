@@ -5,6 +5,7 @@ import android.webkit.JavascriptInterface;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.module_health_profile.R;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 import com.tencent.smtt.sdk.WebView;
@@ -38,8 +39,7 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
 
     @Override
     protected String loadUrl(WebView webView) {
-//        String url = getString(R.string.web_path);
-        String url = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cc197e8b60c48171066f0e7";
+        String url = getString(R.string.web_path);
         webView.loadUrl(url);
         return url;
     }

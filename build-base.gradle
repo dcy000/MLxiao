@@ -47,6 +47,7 @@ android {
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
             buildConfigField("String", "API_ZENDUAN", rootProject.ext.api.zenduan)
+            buildConfigField("String", "API_YL_SERVICE", rootProject.ext.api.ylservice)
             minifyEnabled false
         }
 
@@ -56,6 +57,7 @@ android {
             buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
             buildConfigField("String", "API_ZENDUAN", rootProject.ext.api.zenduan)
+            buildConfigField("String", "API_YL_SERVICE", rootProject.ext.api.ylservice)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -209,5 +211,7 @@ dependencies {
 
     implementation 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
     implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+    //webview缓存框架
+    implementation 'ren.yale.android:cachewebviewlib:2.1.8'
 }
 
