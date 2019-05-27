@@ -14,7 +14,7 @@ public interface IUserService {
     /**
      * 游客账号登录
      */
-    Observable<ApiResult<UserToken>> signIn(UserPostBody body);
+    Observable<UserToken> signIn(UserPostBody body);
 
     /**
      * 根据token获取PatientId

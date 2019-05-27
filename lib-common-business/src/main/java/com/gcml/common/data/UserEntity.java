@@ -132,9 +132,6 @@ public class UserEntity implements Parcelable {
         watchCode = in.readString();
     }
 
-    public UserEntity() {
-    }
-
     public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {
         @Override
         public UserEntity createFromParcel(Parcel in) {

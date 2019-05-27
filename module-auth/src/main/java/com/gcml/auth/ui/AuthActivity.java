@@ -35,7 +35,6 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserSpHelper.setNoNetwork(false);
 //        showIpInputDialog();
         init(savedInstanceState);
     }

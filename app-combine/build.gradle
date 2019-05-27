@@ -71,4 +71,5 @@ dependencies {
     addComponent 'module-yzn'
     addComponent 'module-detection'
     addComponent 'module-auth-hospital'
+    addComponent 'module-help'
 }

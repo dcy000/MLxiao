@@ -459,4 +459,10 @@ public interface AppRouter {
             @Extra("userRecordId") String userRecordId,
             @Extra("typeString") String typeString
     );
+
+    @Go("help/help/activity")
+    boolean skipHelpActivity();
+
+    @Go("help/help/detail/activity")
+    boolean skipHelpDetailActivity(@Extra("help") String help, @Extra("helpDetail") String helpDetail);
 }

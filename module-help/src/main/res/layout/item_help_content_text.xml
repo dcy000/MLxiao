@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.gcml.common.widget.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="46pt"
+    android:layout_marginTop="6pt"
+    android:layout_marginRight="6pt"
+    android:layout_marginBottom="6pt"
+    app:shadow_layout_cornerRadius="20pt"
+    app:shadow_layout_dx="0pt"
+    app:shadow_layout_dy="14pt"
+    app:shadow_layout_shadowRadius="24pt">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="880pt"
+        android:layout_height="150pt"
+        android:background="@drawable/help_bg_help">
+
+        <TextView
+            android:id="@+id/tvHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40pt"
+            android:drawableLeft="@drawable/help_ic_help"
+            android:drawablePadding="24pt"
+            android:gravity="center"
+            android:maxWidth="600pt"
+            android:maxLines="1"
+            android:textColor="#303133"
+            android:textSize="56pt"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="关于修改头像。" />
+
+        <TextView
+            android:id="@+id/tvAction"
+            android:layout_width="200pt"
+            android:layout_height="100pt"
+            android:layout_marginRight="5pt"
+            android:gravity="center"
+            android:text="查看"
+            android:textColor="#3F86FC"
+            android:textSize="48pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</com.gcml.common.widget.ShadowLayout>

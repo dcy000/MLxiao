@@ -81,7 +81,7 @@ public class UserRepository {
     }
 
     public Observable<UserEntity> getUserEntity() {
-        return mUserService.getUserEntity().compose(RxUtils.apiResultTransformer());
+        return mUserService.getUserInfoByToken().compose(RxUtils.apiResultTransformer());
     }
 
     /**
