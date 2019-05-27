@@ -15,7 +15,6 @@ import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.ui.register.BindPhoneActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -35,7 +34,7 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
     }
 
     private void initView() {
-        translucentToolBar = findViewById(R.id.tb_set_pass_word);
+        translucentToolBar = findViewById(R.id.tb_set_pass_word2);
         tvNext = (TextView) findViewById(R.id.tv_next);
         etPsw = findViewById(R.id.et_psw);
         etPsw.addTextChangedListener(new TextWatcher() {

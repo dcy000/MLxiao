@@ -24,7 +24,7 @@
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_set_pass_word" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_set_pass_word2" />
 
     <TextView
         android:id="@+id/textView18"

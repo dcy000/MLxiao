@@ -85,7 +85,8 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                                     bundle.putString("address", cardItem.certAddress);
                                     bundle.putParcelable("profile", cardItem.picBitmap);
                                     bundle.putString("idCard", cardItem.certNumber);
-                                    startActivity(new Intent(UserLogins2Activity.this, IdCardInfoActivity.class));
+                                    startActivity(new Intent(UserLogins2Activity.this, IdCardInfoActivity.class)
+                                            .putExtra("flag", "login"));
                                 }
                             }
                         }));

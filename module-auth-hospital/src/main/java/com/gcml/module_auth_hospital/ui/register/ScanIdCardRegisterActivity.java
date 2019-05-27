@@ -40,13 +40,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScanIdCardRegisterActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
-    public static final String REGISTER_IDCARD_NUMBER = "registerIdCardNumber";
-    public static final String REGISTER_IDCARD_MINZU = "registerIdCardMinZu";
-    public static final String REGISTER_REAL_NAME = "registeRrealName";
-    public static final String REGISTER_SEX = "registerSex";
-    public static final String REGISTER_ADDRESS = "registerAddress";
-    public static final String REGISTER_FORM_WHERE = "registerFormWhere";
-    public static final String REGISTER_FORM_IDCARD_NUMBER = "idNumber";
 
     //    请把身份证放在身份证阅读器上
     private static final String TAG = "MyBluetooth";

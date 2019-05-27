@@ -108,7 +108,7 @@ public class SetPassWord2Activity extends ToolbarBaseActivity implements View.On
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        Routerfit.register(AppRouter.class).skipSignInActivity();
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                     }
 
                     @Override

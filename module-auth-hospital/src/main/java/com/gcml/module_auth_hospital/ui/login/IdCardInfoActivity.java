@@ -19,7 +19,10 @@ import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.register.SetPassWordActivity;
 import com.sjtu.yifei.route.Routerfit;
+
+import org.w3c.dom.Text;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -111,8 +114,27 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.id_card_tv_action) {
+            signInOrUp();
+        }
+    }
+
+    private void signInOrUp() {
+        Intent data = getIntent();
+        if (data == null) {
+            return;
+        }
+        String flag = data.getStringExtra("flag");
+        if (TextUtils.equals("register", flag)) {
+            signUp();
+        } else if (TextUtils.equals("login", flag)) {
             signIn();
         }
+
+    }
+
+    private void signUp() {
+        startActivity(new Intent(this, SetPassWordActivity.class)
+                .putExtra("idCardNumber", idCard));
     }
 
     private UserRepository repository = new UserRepository();
@@ -122,8 +144,6 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
         UserPostBody body = new UserPostBody();
         body.sfz = idCard;
         repository.signInByIdCard(body)
-                /* .subscribeOn(Schedulers.io())
-                 .observeOn(AndroidSchedulers.mainThread())*/
                 .compose(RxUtils.io2Main())
                 .doOnNext(new Consumer<UserEntity>() {
                     @Override

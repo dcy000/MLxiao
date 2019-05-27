@@ -13,6 +13,8 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.login.IdCardInfoActivity;
+import com.gcml.module_auth_hospital.ui.login.UserLogins2Activity;
 import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
@@ -63,7 +65,18 @@ public class UserRegisters2Activity extends ToolbarBaseActivity {
                     @Override
                     public void onActivityResult(int result, Object data) {
                         if (data instanceof IDCardItem) {
-                            startActivity(new Intent(UserRegisters2Activity.this, SetPassWordActivity.class));
+                            IDCardItem cardItem = ((IDCardItem) data);
+                            if (cardItem != null) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name", cardItem.partyName);
+                                bundle.putString("gender", cardItem.gender);
+                                bundle.putString("nation", cardItem.nation);
+                                bundle.putString("address", cardItem.certAddress);
+                                bundle.putParcelable("profile", cardItem.picBitmap);
+                                bundle.putString("idCard", cardItem.certNumber);
+                                startActivity(new Intent(UserRegisters2Activity.this, IdCardInfoActivity.class)
+                                        .putExtra("flag", "register"));
+                            }
                         }
                     }
                 });
