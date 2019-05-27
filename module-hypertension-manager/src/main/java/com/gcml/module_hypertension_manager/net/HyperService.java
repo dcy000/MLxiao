@@ -73,9 +73,36 @@ public interface HyperService {
     @POST("ZZB/api/healthMonitor/questionnaire/hypertension/primary/{userId}/")
     Observable<ApiResult<Object>> postPrimaryHypertensionQuestion(@Path("userId") String userId, @Body PrimaryHypertensionBean bean);
 
+    /**
+     * 旧版中医体质获取问卷
+     *
+     * @return
+     */
     @GET("ZZB/api/health/inquiry/constitution/questionnaire/")
     Observable<ApiResult<OlderHealthManagementBean.DataBean>> getHealthManagementForOlder();
 
+    /**
+     * 合版中医体质获取问卷
+     *
+     * @return
+     */
+    @GET("/open/common/api/health/inquiry/constitution/questionnaire/")
+    Observable<ApiResult<OlderHealthManagementBean.DataBean>> getQuestionnaireForOlder();
+
+    /**
+     * 旧版中医体质提交问卷
+     *
+     * @param bean
+     * @return
+     */
     @POST("ZZB/api/health/inquiry/constitution/questionnaire/")
     Observable<ApiResult<List<HealthManagementResultBean.DataBean>>> postHealthManagementAnwser(@Body HealthManagementAnwserBean bean);
+
+    /**
+     * 合版中医体质提交问卷
+     *
+     * @return
+     */
+    @POST("/open/common/api/health/inquiry/constitution/questionnaire/")
+    Observable<ApiResult<List<HealthManagementResultBean.DataBean>>> postQuestionnaireForOlder(@Body HealthManagementAnwserBean bean);
 }

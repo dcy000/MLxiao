@@ -18,16 +18,28 @@ public class ChannelUtils {
     public static final String CHANNEL_APP_COMBINE = "gcml_version_combine";
     public static final String CHANNEL_JGYS = "gcml_version_jgys";
 
+    /**
+     * 基础版本
+     * @return
+     */
     public static boolean isBase() {
         if (TextUtils.equals(getChannelMeta(), CHANNEL_BASE)) return true;
         return false;
     }
 
+    /**
+     * 健管演示
+     * @return
+     */
     public static boolean isJGYS() {
         if (TextUtils.equals(getChannelMeta(), CHANNEL_JGYS)) return true;
         return false;
     }
 
+    /**
+     * 合版
+     * @return
+     */
     public static boolean isAppCombine() {
         if (TextUtils.equals(getChannelMeta(), CHANNEL_APP_COMBINE)) return true;
         return false;

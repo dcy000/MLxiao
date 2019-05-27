@@ -76,7 +76,7 @@ public class HealthTemperatureDetectionFragment extends TemperatureFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        showUploadDataFailedDialog(detectionData);
+                        showUploadDataFailedDialog(detectionData,R.string.xml_dialog_upload_failed);
                     }
 
                     @Override

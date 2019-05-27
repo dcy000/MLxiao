@@ -138,7 +138,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
 
     private void getData() {
         HealthProfileRepository repository = new HealthProfileRepository();
-        repository.getHealthRecordList(recordId, UserSpHelper.getUserId())
+        repository.getHealthRecordList(recordId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<List<HealthRecordBean>>() {

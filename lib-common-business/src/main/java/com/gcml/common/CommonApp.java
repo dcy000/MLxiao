@@ -21,6 +21,8 @@ import com.umeng.analytics.MobclickAgent;
 
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.schedulers.Schedulers;
+import ren.yale.android.cachewebviewlib.WebViewCacheInterceptor;
+import ren.yale.android.cachewebviewlib.WebViewCacheInterceptorInst;
 
 @AutoService(AppLifecycleCallbacks.class)
 public class CommonApp implements AppLifecycleCallbacks {
@@ -82,6 +84,9 @@ public class CommonApp implements AppLifecycleCallbacks {
                         }
                     });
         }
+
+        //webview缓存框架
+        WebViewCacheInterceptorInst.getInstance().init(new WebViewCacheInterceptor.Builder(app));
     }
 
     @Override
