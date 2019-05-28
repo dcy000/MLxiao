@@ -52,15 +52,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onNext(UserToken userToken) {
                         super.onNext(userToken);
-//                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+//                        Routerfit.register(AppRouter.class).skipMainActivity();
                         finish();
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });

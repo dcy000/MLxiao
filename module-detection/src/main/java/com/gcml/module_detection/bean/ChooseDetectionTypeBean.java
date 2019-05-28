@@ -6,7 +6,7 @@ public class ChooseDetectionTypeBean {
     private String date;
     private String result;
     private String unit;
-
+    private boolean isNormal;
     public ChooseDetectionTypeBean(int icon, String title, String date, String result, String unit) {
         this.icon = icon;
         this.title = title;
@@ -53,5 +53,13 @@ public class ChooseDetectionTypeBean {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public boolean isNormal() {
+        return isNormal;
+    }
+
+    public void setNormal(boolean normal) {
+        isNormal = normal;
     }
 }
