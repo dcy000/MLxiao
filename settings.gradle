@@ -9,7 +9,12 @@ include ':module-doctor-advisory', ':module-detection',
         ':lib-common-core',
         ':lib-bluetooth',
         ':module-yzn',
-        ':lib-webview', ':module-auth-hospital', ':lib-idcard-reader', ':lib-printer-8003dd', ':module-health-profile'
+        ':lib-webview',
+        ':module-auth-hospital',
+        ':lib-idcard-reader',
+        ':lib-printer-8003dd',
+        ':module-health-profile'
+
 include ':lib-baidu-unit',
 //        ':lib-auth-face',
 //        ':lib-mlvoice',
@@ -41,5 +46,6 @@ include ':module-video',
         ':module-family',
         ':module-auth-face2',
         ':module-auth-face3',
+        ':module-help',
         ':module-factory-test'
 

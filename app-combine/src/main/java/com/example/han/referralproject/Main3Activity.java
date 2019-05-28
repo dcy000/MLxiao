@@ -53,8 +53,9 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         initView();
-        getPersonInfo();
+
     }
+
 
     private void initView() {
         statusBarFragment = StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
@@ -110,6 +111,8 @@ public class Main3Activity extends AppCompatActivity {
                         ImageLoader.with(Main3Activity.this)
                                 .load(userEntity.avatar)
                                 .circle()
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .error(R.drawable.avatar_placeholder)
                                 .into(ivAvatar);
                         tvUserName.setText(userEntity.name);
                     }
@@ -265,11 +268,16 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 7:
                     //帮助中心
+                    Routerfit.register(AppRouter.class).skipHelpActivity();
                     break;
                 case 8:
-                    //个人资料
+                    //健康数据
+                    Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
                     break;
                 case 9:
+                    //个人资料
+                    break;
+                case 10:
                     //设置
                     Routerfit.register(AppRouter.class).skipSettingActivity();
                     break;
@@ -325,8 +333,9 @@ public class Main3Activity extends AppCompatActivity {
         menuEntities.add(new MenuEntity(R.drawable.main_ic_family_dcotor_normal, "家庭医生")); // 5
         menuEntities.add(new MenuEntity(R.drawable.main_ic_family_nurse_normal, "健康生活")); // 6
         menuEntities.add(new MenuEntity(R.drawable.main_ic_help_normal, "帮助中心")); // 7
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_user_info_normal, "个人资料")); // 8
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_settings_normal, "设置")); // 9
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_help_normal, "健康数据")); // 8
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_user_info_normal, "个人资料")); // 9
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_settings_normal, "设置")); // 10
     }
 
     private class MenuEntity {
@@ -411,6 +420,7 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getPersonInfo();
         if (statusBarFragment != null) {
             statusBarFragment.showStatusBar(true);
         }

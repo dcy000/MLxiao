@@ -463,6 +463,12 @@ public interface AppRouter {
             @Extra("typeString") String typeString
     );
 
+    @Go("help/help/activity")
+    boolean skipHelpActivity();
+
+    @Go("help/help/detail/activity")
+    boolean skipHelpDetailActivity(@Extra("help") String help, @Extra("helpDetail") String helpDetail);
+
     @Go("/health/measure/bloodsugar/time/fragment")
     IBloodsugarTimeFragmentProvider getBloodsugarTimeFragmentProvider();
 

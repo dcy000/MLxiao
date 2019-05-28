@@ -72,4 +72,5 @@ dependencies {
     addComponent 'module-detection'
     addComponent 'module-auth-hospital'
     addComponent 'module-health-profile'
+    addComponent 'module-help'
 }

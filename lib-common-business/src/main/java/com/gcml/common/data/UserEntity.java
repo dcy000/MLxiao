@@ -89,6 +89,10 @@ public class UserEntity implements Parcelable {
     //手环信息
     public String watchCode;
 
+    public UserEntity() {
+
+    }
+
     protected UserEntity(Parcel in) {
         id = in.readString();
         categoryId = in.readString();
@@ -127,9 +131,6 @@ public class UserEntity implements Parcelable {
         source = in.readString();
         uuid = in.readString();
         watchCode = in.readString();
-    }
-
-    public UserEntity() {
     }
 
     public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {

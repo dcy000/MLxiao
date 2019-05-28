@@ -1,11 +1,11 @@
-ext.alwaysLib=true
+ext.alwaysLib = true
 apply from: rootProject.file("build-base.gradle")
 
 android {
 
     defaultConfig {
         if (project.ext.runAsApp) {
-            applicationId "com.gcml.health.profile"
+            applicationId "com.gcml.help"
             versionCode = rootProject.ext.android["versionCode"]
             versionName rootProject.ext.android["versionName"]
         }
@@ -22,5 +22,6 @@ android {
 
 dependencies {
     implementation project(':lib-voice')
-    implementation project(':lib-printer-8003dd')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'org.raphets:roundimageview:1.2.0'
 }

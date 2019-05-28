@@ -16,6 +16,7 @@ import com.gcml.auth.face2.R;
 import com.gcml.auth.face2.databinding.FaceActivityBdSignUpBinding;
 import com.gcml.auth.face2.model.FaceBdErrorUtils;
 import com.gcml.auth.face2.model.exception.FaceBdError;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.PreviewHelper;
@@ -207,6 +208,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
     }
 
     private void start() {
+        UserSpHelper.setNoNetwork(false);
         mPreviewHelper.rxFrame()
                 .buffer(1)
                 .map(bitmapToBase64Mapper())
