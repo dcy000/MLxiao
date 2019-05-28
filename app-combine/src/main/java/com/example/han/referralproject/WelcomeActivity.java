@@ -3,7 +3,6 @@ package com.example.han.referralproject;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.gcml.common.http.ApiResult;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.IUserService;
 import com.gcml.common.user.UserPostBody;
@@ -15,7 +14,6 @@ import com.gcml.common.utils.network.NetUitls;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.functions.Consumer;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 @Route(path = "/app/welcome/activity")
@@ -24,6 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
+        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.222:5555/");//左
         initContentView();
     }
 

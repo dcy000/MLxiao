@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face.VertifyFaceProviderImp;
+import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.router.AppRouter;
@@ -29,11 +29,8 @@ import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.mall.R;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
-
-import java.util.Objects;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -232,7 +229,7 @@ public class GoodDetailActivity extends ToolbarBaseActivity implements View.OnCl
     private void checkUser(String orderid) {
         Routerfit.register(AppRouter.class)
                 .getVertifyFaceProvider()
-                .onlyVertifyFace(false, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
+                .onlyVertifyFace(false, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
                     public void success() {
                         showPaySuccessDialog(GoodDetailActivity.this);

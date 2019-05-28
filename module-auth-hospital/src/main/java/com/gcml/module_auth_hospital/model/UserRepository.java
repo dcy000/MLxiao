@@ -5,6 +5,7 @@ import android.content.Context;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.constant.Global;
+import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.user.UserPostBody;
@@ -90,4 +91,10 @@ public class UserRepository {
                     UserSpHelper.setUserId(userEntity.id + "");
                 });
     }
+
+
+    public Observable<UserEntity> updateUserInfo(PostUserEntity entity) {
+        return mUserService.updateUserInfo(entity.getPatientId()+"",entity);
+    }
+
 }

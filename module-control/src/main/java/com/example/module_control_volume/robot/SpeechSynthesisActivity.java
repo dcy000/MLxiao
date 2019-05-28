@@ -41,12 +41,11 @@ import com.example.module_control_volume.R;
 import com.example.module_control_volume.net.ControlRepository;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face.VertifyFaceProviderImp;
+import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.SharedPreferencesUtils;
@@ -73,7 +72,6 @@ import com.iflytek.settting.IatSettings;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.iflytek.utils.QaApi;
 import com.sjtu.yifei.annotation.Route;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
@@ -1974,7 +1972,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
     private void vertifyFaceThenHealthRecordActivity() {
         Routerfit.register(AppRouter.class)
                 .getVertifyFaceProvider()
-                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
+                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
                     public void success() {
                         Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);

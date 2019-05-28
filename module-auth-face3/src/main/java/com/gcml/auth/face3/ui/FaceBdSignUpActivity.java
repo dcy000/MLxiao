@@ -46,7 +46,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-@Route(path = "/auth/face2/face/bd/signup/activity")
+@Route(path = "/auth/face3/face/bd/signup/activity")
 public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBinding, FaceBdSignUpViewModel> {
     private String userId;
     private PreviewHelper mPreviewHelper;
@@ -222,7 +222,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                     }
                 })
                 .compose(checkFace())
-//                .compose(viewModel.ensureFaceAdded())
+//                .compose(viewModel.ensureFaceAdded())UtUt
 //                .compose(ensureAddFace())
                 .flatMap(new Function<String, ObservableSource<String>>() {
 

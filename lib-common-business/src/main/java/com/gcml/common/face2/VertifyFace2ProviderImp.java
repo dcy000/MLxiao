@@ -1,4 +1,4 @@
-package com.gcml.common.face;
+package com.gcml.common.face2;
 
 import android.app.Activity;
 import android.text.TextUtils;
@@ -19,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/common/business/checkUserEntityAndVertifyFace/face/provider")
-public class VertifyFaceProviderImp implements IVertifyFaceProvider {
+public class VertifyFace2ProviderImp implements IVertifyFaceProvider {
 
 
     private boolean isShowSkipButton;

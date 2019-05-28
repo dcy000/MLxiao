@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.model;
 
+import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserPostBody;
@@ -10,6 +11,8 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserService {
@@ -45,5 +48,6 @@ public interface UserService {
     @GET("/open/common/api/user/info/byToken/")
     Observable<ApiResult<UserEntity>> getUserInfoByToken();
 
-
+    @PUT("/open/common/api/user/info/{patientId}/")
+    Observable<UserEntity> updateUserInfo(@Path("patientId") String path,@Body PostUserEntity entity);
 }

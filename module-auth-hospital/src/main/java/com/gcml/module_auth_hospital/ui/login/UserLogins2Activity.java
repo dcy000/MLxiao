@@ -1,18 +1,18 @@
 package com.gcml.module_auth_hospital.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
-import com.gcml.common.face.VertifyFaceProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
@@ -96,20 +96,25 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                 startActivity(new Intent(UserLogins2Activity.this, IDCardNuberLoginActivity.class)));
 
         lllogins.getChildAt(2).setVisibility(View.VISIBLE);
-        lllogins.getChildAt(2).setOnClickListener(v ->
-                Routerfit.register(AppRouter.class)
-                        .getVertifyFaceProvider()
-                        .onlyVertifyFace(false, false, true, new VertifyFaceProviderImp.VertifyFaceResult() {
-                            @Override
-                            public void success() {
+        lllogins.getChildAt(2).setOnClickListener(new FilterClickListener(v ->
+                Routerfit.register(AppRouter.class).skipFaceBd3SignInActivity(false, false, "", false, new ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            String sResult = data.toString();
+                            if (!TextUtils.isEmpty(sResult)) {
                                 Routerfit.register(AppRouter.class).skipMainActivity();
+                                return;
+                            }
+                            if (sResult.equals("success") || sResult.equals("skip")) {
+
+                            } else if (sResult.equals("failed")) {
+
                             }
 
-                            @Override
-                            public void failed(String msg) {
-                                ToastUtils.showShort("人脸登录失败");
-                            }
-                        }));
+                        }
+                    }
+                })));
 
 
     }
