@@ -86,6 +86,7 @@ public class UserRepository {
     public Observable<UserEntity> getUserInfoByToken() {
         return mUserService
                 .getUserInfoByToken()
+                .compose(RxUtils.io2Main())
                 .compose(RxUtils.apiResultTransformer())
                 .doOnNext(userEntity -> {
                     UserSpHelper.setUserId(userEntity.id + "");
