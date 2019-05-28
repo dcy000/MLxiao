@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
 
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
@@ -15,6 +17,10 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.app.AppUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
@@ -23,6 +29,7 @@ import com.sjtu.yifei.route.Routerfit;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 @Route(path = "/auth/auth/activity")
 public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthViewModel> {
@@ -36,8 +43,43 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UserSpHelper.setNoNetwork(false);
-//        showIpInputDialog();
+        showIpInputDialog();
         init(savedInstanceState);
+    }
+
+    private void showIpInputDialog() {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_ip_input)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        EditText ip = holder.getView(R.id.et_input);
+                        EditText port = holder.getView(R.id.et_port);
+                        holder.getView(R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String trim = ip.getText().toString().trim();
+                                String portTrim = port.getText().toString().trim();
+                                if (TextUtils.isEmpty(trim) || TextUtils.isEmpty(portTrim)) {
+                                    ToastUtils.showShort("输入的IP不正确和端口");
+                                    return;
+                                }
+                                RetrofitUrlManager.getInstance().setGlobalDomain("http://" + trim + ":" + portTrim+"/");
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.getView(R.id.btn_pos).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(300)
+                .setOutCancel(false)
+                .show(getSupportFragmentManager());
     }
 
     protected void init(Bundle savedInstanceState) {
