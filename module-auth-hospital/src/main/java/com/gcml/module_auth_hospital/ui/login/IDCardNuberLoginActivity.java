@@ -24,7 +24,6 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.findPassWord.FindPassWordActivity;
-import com.gcml.module_auth_hospital.ui.register.BindPhoneActivity;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
@@ -40,26 +39,9 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     private EditText etPsw;
     private UserRepository userRepository = new UserRepository();
     private TranslucentToolBar translucentToolBar;
-    private TextWatcher watcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            onTextChange(s);
-        }
-    };
     private String idCardNumber;
-    private String trim;
+    private String passWord="";
     private TextView findPsw;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +100,8 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
 
     void checkIdCard() {
         idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
-        trim = etPsw.getText().toString().trim();
+        passWord = etPsw.getText().toString().trim();
+
         if (TextUtils.isEmpty(idCardNumber)) {
             speak("请输入您的身份证号");
             return;
@@ -128,7 +111,12 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
             return;
         }
 
-        if (TextUtils.isEmpty(trim)) {
+        if (TextUtils.isEmpty(passWord)) {
+            speak("请输入6位数字密码");
+            return;
+        }
+
+        if (passWord.length()!=6) {
             speak("请输入6位数字密码");
             return;
         }
@@ -166,9 +154,8 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     }
 
     private void signIn() {
-
         UserPostBody body = new UserPostBody();
-        body.password = trim;
+        body.password = passWord;
         body.sfz = idCardNumber;
         userRepository
                 .signInByIdCard(body)
@@ -199,13 +186,6 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
 
     }
 
-    public void onTextChange(Editable phone) {
-        if (!TextUtils.isEmpty(phone.toString()) && (!Utils.checkIdCard1(etPsw.toString()))) {
-            tvNext.setEnabled(true);
-        } else {
-            tvNext.setEnabled(false);
-        }
-    }
 
     private AcountInfoDialog dialog;
 
@@ -231,5 +211,27 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     public void onConfirm() {
         startActivity(new Intent(this, UserRegisters2Activity.class));
     }
+
+
+    private TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (!TextUtils.isEmpty(ccetPhone.getText().toString()) && (!Utils.checkIdCard1(etPsw.getText().toString()))) {
+                tvNext.setEnabled(true);
+            } else {
+                tvNext.setEnabled(false);
+            }
+        }
+    };
 
 }
