@@ -113,7 +113,11 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 }
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         getData();
     }
 
