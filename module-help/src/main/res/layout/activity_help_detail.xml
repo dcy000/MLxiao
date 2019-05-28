@@ -29,10 +29,9 @@
         android:layout_width="1800pt"
         android:layout_height="wrap_content"
         android:layout_marginTop="60pt"
-        android:lineSpacingExtra="84pt"
         android:textColor="#909399"
         android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="@+id/tvHelp"
+        app:layout_constraintTop_toBottomOf="@+id/tvHelp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

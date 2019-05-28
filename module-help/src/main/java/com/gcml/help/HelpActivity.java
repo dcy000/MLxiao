@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.ui.UiUtils;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -29,6 +30,8 @@ public class HelpActivity extends ToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+        mTitleText.setText("帮  助  中  心");
+
         rvHelp = findViewById(R.id.rvHelp);
 
         GridLayoutManager layoutManager = new GridLayoutManager(
@@ -220,7 +223,7 @@ public class HelpActivity extends ToolbarBaseActivity {
 
         public VideoListVH(View itemView) {
             super(itemView);
-            rvVideos = (RecyclerView) findViewById(R.id.rvVideos);
+            rvVideos = (RecyclerView) itemView.findViewById(R.id.rvVideos);
             rvVideos.setLayoutManager(new LinearLayoutManager(
                     itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
             rvVideos.setAdapter(adapter = new RecyclerView.Adapter<VideoVH>() {
@@ -254,10 +257,13 @@ public class HelpActivity extends ToolbarBaseActivity {
         private class VideoVH extends RecyclerView.ViewHolder {
 
             private final ImageView ivMask;
+            private final TextView tvLabel;
+
 
             public VideoVH(View itemView) {
                 super(itemView);
                 ivMask = itemView.findViewById(R.id.ivMask);
+                tvLabel = itemView.findViewById(R.id.tvLabel);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -267,8 +273,32 @@ public class HelpActivity extends ToolbarBaseActivity {
             }
 
             public void onBind(int position) {
+                setMarginIfNeed(position);
                 VideoEntity entity = videos.entities.get(position);
                 ivMask.setImageResource(entity.getImgRes());
+                tvLabel.setText(entity.getLabel());
+            }
+
+            private int smallMargin = UiUtils.pt(10);
+            private int largeMargin = UiUtils.pt(50);
+
+            private void setMarginIfNeed(int position) {
+                RecyclerView.LayoutParams layoutParams =
+                        (RecyclerView.LayoutParams) itemView.getLayoutParams();
+                int leftMargin = position == 0 ? largeMargin : smallMargin;
+                int rightMargin = position == videos.entities.size() - 1 ? largeMargin : smallMargin;
+                boolean changed = false;
+                if (layoutParams.leftMargin != leftMargin) {
+                    layoutParams.leftMargin = leftMargin;
+                    changed = true;
+                }
+                if (layoutParams.rightMargin != rightMargin) {
+                    layoutParams.rightMargin = rightMargin;
+                    changed = true;
+                }
+                if (changed) {
+                    itemView.setLayoutParams(layoutParams);
+                }
             }
         }
     }
@@ -292,8 +322,23 @@ public class HelpActivity extends ToolbarBaseActivity {
 
         @Override
         public void onBind(int position) {
+            setPaddingIfNeed(position);
+
             TextEntity textEntity = (TextEntity) items.get(position);
             tvHelp.setText(textEntity.getHelpText());
+        }
+
+        int padding = UiUtils.pt(40);
+
+        public void setPaddingIfNeed(int position) {
+            int paddingLeft = 0;
+            int paddingRight = 0;
+            if (position % 2 == 1) {
+                paddingLeft = padding;
+            } else {
+                paddingRight = padding;
+            }
+            itemView.setPadding(paddingLeft, 0, paddingRight, 0);
         }
     }
 

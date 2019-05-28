@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.sjtu.yifei.annotation.Route;
 
-@Route(path = "help/help/activity")
+@Route(path = "help/help/detail/activity")
 public class HelpDetailActivity extends ToolbarBaseActivity {
 
     private TextView tvHelp;
@@ -16,6 +16,8 @@ public class HelpDetailActivity extends ToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_detail);
+
+        mTitleText.setText("帮  助  中  心");
 
         tvHelp = ((TextView) findViewById(R.id.tvHelp));
         tvHelpDetail = ((TextView) findViewById(R.id.tvHelpDetail));

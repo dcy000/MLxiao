@@ -9,6 +9,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvHelp"
         android:layout_width="0dp"
+        android:overScrollMode="never"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

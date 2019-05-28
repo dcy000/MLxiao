@@ -2,30 +2,43 @@
 <com.gcml.common.widget.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="560pt"
+    android:layout_width="540pt"
     android:layout_height="380pt"
-    android:padding="20pt"
+    android:layout_marginRight="10pt"
     app:shadow_layout_cornerRadius="20pt"
     app:shadow_layout_dx="0pt"
-    app:shadow_layout_dy="14pt"
-    app:shadow_layout_shadowRadius="24pt">
+    app:shadow_layout_dy="7pt"
+    app:shadow_layout_shadowRadius="10pt">
 
     <org.raphets.roundimageview.RoundImageView
         android:id="@+id/ivMask"
         android:layout_width="520pt"
         android:layout_height="340pt"
-        android:layout_gravity="bottom"
+        android:layout_gravity="top"
         app:border_color="#EEEEEE"
         app:border_width="2pt"
         app:corner_radius="20pt"
+        app:type="round"
         tools:src="@drawable/help_ic_oxygen" />
 
     <TextView
-        android:background="@drawable/help_bg_label"
         android:id="@+id/tvLabel"
         android:layout_width="520pt"
         android:layout_height="180pt"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="7pt"
+        android:background="@drawable/help_bg_label"
+        android:gravity="left|bottom"
+        android:paddingLeft="28pt"
+        android:paddingBottom="25pt"
+        android:text="血压检测教程"
         android:textColor="#FFFFFF"
         android:textSize="48pt" />
+
+    <ImageView
+        android:id="@+id/ivPlay"
+        android:layout_width="120pt"
+        android:layout_height="120pt"
+        android:layout_gravity="center"
+        android:src="@drawable/help_ic_video" />
 </com.gcml.common.widget.ShadowLayout>
