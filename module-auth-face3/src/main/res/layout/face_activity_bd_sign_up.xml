@@ -7,11 +7,11 @@
 
         <variable
             name="presenter"
-            type="com.gcml.auth.face2.ui.FaceBdSignUpActivity" />
+            type="com.gcml.auth.face3.ui.FaceBdSignUpActivity" />
 
         <variable
             name="viewModel"
-            type="com.gcml.auth.face2.ui.FaceBdSignUpViewModel" />
+            type="com.gcml.auth.face3.ui.FaceBdSignUpViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
