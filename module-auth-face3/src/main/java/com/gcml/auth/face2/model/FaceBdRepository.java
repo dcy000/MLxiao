@@ -11,8 +11,11 @@ import com.gcml.auth.face2.model.entity.FaceBdUser;
 import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.entity.FaceBdVerifyParam;
 import com.gcml.auth.face2.model.entity.FaceUser;
+import com.gcml.auth.face2.model.entity.PostFaceSignInBean;
 import com.gcml.auth.face2.model.exception.FaceBdError;
 import com.gcml.common.RetrofitHelper;
+import com.gcml.common.constant.Global;
+import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
@@ -57,7 +60,7 @@ public class FaceBdRepository {
                 .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(String url) throws Exception {
-                        return mFaceBdService.uploadAvatarUrl(UserSpHelper.getUserId(),url, faceId, faceId)
+                        return mFaceBdService.uploadAvatarUrl(UserSpHelper.getUserId(), url, faceId, faceId)
                                 .compose(RxUtils.apiResultTransformer())
                                 .map(new Function<Object, String>() {
                                     @Override
@@ -202,9 +205,10 @@ public class FaceBdRepository {
                 })
                 .flatMap(new Function<String, ObservableSource<Object>>() {
                     @Override
-                    public ObservableSource<Object> apply(String r) throws Exception {
-                        UserEntity user = new UserEntity();
-                        user.avatar = r;
+                    public ObservableSource<Object> apply(String photo) throws Exception {
+                        PostUserEntity user = new PostUserEntity();
+                        user.setPatientId(Integer.parseInt(UserSpHelper.getUserId()));
+                        user.setUserPhoto(photo);
                         return Routerfit.register(AppRouter.class)
                                 .getUserProvider()
                                 .updateUserEntity(user)
@@ -255,7 +259,10 @@ public class FaceBdRepository {
                         .flatMap(new Function<FaceBdUser, ObservableSource<UserEntity>>() {
                             @Override
                             public ObservableSource<UserEntity> apply(FaceBdUser bdUser) throws Exception {
-                                return mFaceBdService.signInByFace(bdUser.getUserId(), bdUser.getGroupId())
+                                PostFaceSignInBean signInBean = new PostFaceSignInBean();
+                                signInBean.setFaceId(bdUser.getUserId());
+                                signInBean.setGroupId(bdUser.getGroupId());
+                                return mFaceBdService.signInByFace(signInBean)
                                         .compose(RxUtils.apiResultTransformer())
                                         .compose(userTokenTransformer())
                                         .subscribeOn(Schedulers.io());
@@ -273,23 +280,19 @@ public class FaceBdRepository {
                         .doOnNext(new Consumer<UserToken>() {
                             @Override
                             public void accept(UserToken userToken) throws Exception {
-                                UserSpHelper.setUserId(userToken.getUserId());
-                                UserSpHelper.setToken(userToken.getToken());
-                                UserSpHelper.setRefreshToken(userToken.getRefreshToken());
+                                UserSpHelper.setToken(Global.TOKEN_PREFIX + userToken.getToken());
                             }
                         })
                         .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
                             @Override
                             public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
-                                return Routerfit.register(AppRouter.class).getUserProvider().fetchUser();
+                                return Routerfit.register(AppRouter.class).getUserProvider().getUserEntity();
                             }
                         })
                         .doOnNext(new Consumer<UserEntity>() {
                             @Override
                             public void accept(UserEntity user) throws Exception {
-                                UserSpHelper.setFaceId(user.xfid);
-                                UserSpHelper.setEqId(user.deviceId);
-                                UserSpHelper.setUserName(user.name);
+                                UserSpHelper.setUserId(user.id);
                             }
                         });
             }
@@ -395,10 +398,11 @@ public class FaceBdRepository {
                                         String[] imgData = image.split(",");
                                         param.setImageType(imgData[0]);
                                         param.setImage(imgData[1]);
-                                        param.setGroupIdList(groups);
+                                        param.setGroupIdList(groups.replaceAll(",", ""));
                                         if (!TextUtils.isEmpty(faceId)) {
                                             param.setUserId(faceId);
                                         }
+
                                         return mFaceBdService.search(token, param)
                                                 .compose(FaceBdResultUtils.faceBdResultTransformer())
                                                 .flatMap(new Function<FaceBdSearch, ObservableSource<FaceBdUser>>() {

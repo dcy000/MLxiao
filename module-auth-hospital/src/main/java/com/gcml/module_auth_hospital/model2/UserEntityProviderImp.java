@@ -1,8 +1,9 @@
 package com.gcml.module_auth_hospital.model2;
 
+import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.service.IUserEntityProvider;
+import com.gcml.module_auth_hospital.model.UserRepository;
 import com.sjtu.yifei.annotation.Route;
 
 import io.reactivex.Observable;
@@ -12,6 +13,11 @@ public class UserEntityProviderImp implements IUserEntityProvider {
     @Override
     public Observable<UserEntity> getUserEntity() {
         return new UserRepository().getUserInfoByToken();
+    }
+
+    @Override
+    public Observable<UserEntity> updateUserEntity(PostUserEntity user) {
+        return new UserRepository().updateUserInfo(user);
     }
 
     @Override

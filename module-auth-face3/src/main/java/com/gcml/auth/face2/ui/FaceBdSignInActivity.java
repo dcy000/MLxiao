@@ -46,7 +46,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-@Route(path = "/auth/face/bd/signin/activity")
+@Route(path = "/auth/face3/bd/signin/activity")
 public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBinding, FaceBdSignInViewModel> {
 
     private PreviewHelper mPreviewHelper;

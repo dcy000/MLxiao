@@ -10,6 +10,7 @@ import com.gcml.auth.face2.model.entity.FaceBdSearchParam;
 import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.entity.FaceBdVerifyParam;
 import com.gcml.auth.face2.model.entity.FaceUser;
+import com.gcml.auth.face2.model.entity.PostFaceSignInBean;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserToken;
 
@@ -32,7 +33,7 @@ public interface FaceBdService {
     String API_KEY = "HVVhGHwxMbOQetB2wzcqaV53";
     String SECRET_KEY = "o1zeFFQAKfyQ81HECVbATrDolWdyYLhj";
 
-    @GET("/open/common/br/seltoken")
+    @POST("/open/common/br/seltoken")
     Observable<ApiResult<String>> getQiniuToken();
 
     @FormUrlEncoded
@@ -63,15 +64,18 @@ public interface FaceBdService {
             @Query("imageType") String imageType
     );
 
-    @POST("/open/common/sys/login/faceLogin")
+   /* @POST("/open/common/sys/login/faceLogin")
     Observable<ApiResult<UserToken>> signInByFace(
             @Field("faceId") String faceId,
             @Field("groupId") String groupId
-    );
+    );*/
 
-    @GET("ZZB/api/user/face/{userId}/")
+    @POST("/open/common/sys/login/faceLogin")
+    Observable<ApiResult<UserToken>> signInByFace(@Body PostFaceSignInBean signInBean);
+
+    @GET("/open/common/api/user/face/{patientId}/")
     Observable<ApiResult<List<FaceUser>>> getFace(
-            @Path("userId") String userId
+            @Path("patientId") String userId
     );
 
     @Headers({"Domain-Name:baidubce"})

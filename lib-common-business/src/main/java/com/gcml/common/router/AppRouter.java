@@ -29,10 +29,7 @@ import com.gcml.common.user.IUserService;
 import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
-import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
-
-import retrofit2.http.GET;
 
 public interface AppRouter {
 
@@ -250,12 +247,41 @@ public interface AppRouter {
     @Go("/auth/face2/face/provider")
     IFaceProvider getFaceProvider();
 
+
+
     /**
+     * 合版百度人脸
      * 1. 注册人脸
      * 2. 更新人脸
      */
     @Go("/auth/face2/face/bd/signup/activity")
     boolean skipFaceBdSignUpActivity(
+            @Extra("userId") String userId,
+            @Extra ActivityCallback callback
+    );
+
+    /**
+     * 合版百度人脸
+     * 1. 人脸识别登录 （verify = false）
+     * 2. 人脸认证登录 （verify = true）
+     */
+    @Go("/auth/face3/bd/signin/activity")
+    boolean skipFaceBd3SignInActivity(
+            @Extra("skip") boolean isShowSkipButton,
+            @Extra("verify") boolean verify,
+            @Extra("faceId") String faceId,
+            @Extra("hidden") boolean hidden,
+            @Extra ActivityCallback callback);
+
+    @Go("/auth/face3/face/provider")
+    IFaceProvider getFace3Provider();
+    /**
+     * 合版百度人脸
+     * 1. 注册人脸
+     * 2. 更新人脸
+     */
+    @Go("/auth/face3/face/bd/signup/activity")
+    boolean skipFaceBd3SignUpActivity(
             @Extra("userId") String userId,
             @Extra ActivityCallback callback
     );
@@ -433,6 +459,8 @@ public interface AppRouter {
 
     @Go("/common/business/checkUserEntityAndVertifyFace/face/provider")
     IVertifyFaceProvider getVertifyFaceProvider();
+    @Go("/common/business/checkUserEntityAndVertifyFace3/face/provider")
+    IVertifyFaceProvider getVertifyFaceProvider3();
 
     @Go("/health/profile/add/followup")
     boolean skipAddFollowupActivity(
