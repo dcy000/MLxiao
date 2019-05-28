@@ -8,6 +8,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
@@ -133,7 +134,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
                     @Override
                     public void onError(Throwable e) {
                         datas.clear();
-                        showUploadDataFailedDialog(results);
+                        showUploadDataFailedDialog(results, R.string.xml_dialog_upload_failed_single);
                     }
 
                     @Override

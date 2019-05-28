@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -45,6 +46,8 @@
         android:background="@drawable/text_input_bg"
         android:gravity="center_vertical"
         android:hint="请输入您的身份证号"
+        android:inputType="number"
+        android:maxLength="18"
         android:paddingLeft="32pt"
         android:textColorHint="#ffbbbbbb"
         android:textSize="64pt"
@@ -73,7 +76,7 @@
         android:background="@drawable/text_input_bg"
         android:gravity="center_vertical"
         android:hint="请输入6位数字密码"
-        android:inputType="textPassword"
+        android:inputType="numberPassword"
         android:maxLength="6"
         android:paddingLeft="32pt"
         android:textColorHint="#ffbbbbbb"
@@ -99,6 +102,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_pages_right_bg" />
+
+    <TextView
+        android:id="@+id/tv_foget_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64pt"
+        android:gravity="center_vertical"
+        android:text="忘记密码"
+        android:textColor="#ff909399"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_next"
+        app:layout_constraintStart_toEndOf="@+id/tv_next"
+        app:layout_constraintTop_toTopOf="@+id/tv_next" />
 
 
 </android.support.constraint.ConstraintLayout>

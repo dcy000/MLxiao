@@ -139,7 +139,7 @@ public class HealthCheckupFragment extends RecycleBaseFragment implements View.O
 
     private void getData() {
         HealthProfileRepository repository = new HealthProfileRepository();
-        repository.getHealthRecordList(recordId, UserSpHelper.getUserId())
+        repository.getHealthRecordList(recordId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<List<HealthRecordBean>>() {

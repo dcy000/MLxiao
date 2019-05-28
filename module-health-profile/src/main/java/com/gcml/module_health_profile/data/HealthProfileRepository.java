@@ -16,6 +16,8 @@ import io.reactivex.Observable;
 
 public class HealthProfileRepository {
     HealthProfileAPI healthProfile = RetrofitHelper.service(HealthProfileAPI.class);
+    //TODO:目前直接使用的是医疗演示版的功能，后期如果需要做这个模块，还需要再梳理
+    String userId = "130442";
 
     /**
      * 获取导航栏
@@ -30,10 +32,9 @@ public class HealthProfileRepository {
      * 获取记录列表
      *
      * @param recordId
-     * @param userId
      * @return
      */
-    public Observable<List<HealthRecordBean>> getHealthRecordList(String recordId, String userId) {
+    public Observable<List<HealthRecordBean>> getHealthRecordList(String recordId) {
         return healthProfile.getHealthRecordList(recordId, userId).compose(RxUtils.apiResultTransformer());
     }
 
@@ -58,15 +59,15 @@ public class HealthProfileRepository {
         return healthProfile.getHealthRecordMeasureResult(rdRecordId, userHealthRecordId).compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<List<GuardianInfo>> getGuardians(String userId) {
+    public Observable<List<GuardianInfo>> getGuardians() {
         return healthProfile.getGuardians(userId).compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<List<WarnBean>> getWannings(String userId) {
+    public Observable<List<WarnBean>> getWannings() {
         return healthProfile.getWanings(userId).compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<List<TiZhiBean>> getConstitution(String userId) {
+    public Observable<List<TiZhiBean>> getConstitution() {
         return healthProfile.getConstitution(userId).compose(RxUtils.apiResultTransformer());
     }
 

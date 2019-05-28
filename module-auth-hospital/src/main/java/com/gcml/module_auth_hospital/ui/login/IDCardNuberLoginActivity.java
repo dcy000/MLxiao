@@ -21,8 +21,10 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model2.UserRepository;
+import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
+import com.gcml.module_auth_hospital.ui.findPassWord.FindPassWordActivity;
+import com.gcml.module_auth_hospital.ui.register.BindPhoneActivity;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
@@ -56,6 +58,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     };
     private String idCardNumber;
     private String trim;
+    private TextView findPsw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,9 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
         tvNext = (TextView) findViewById(R.id.tv_next);
         etPsw = findViewById(R.id.et_psw);
         tvNext.setOnClickListener(this);
+
+        findPsw = findViewById(R.id.tv_foget_psw);
+        findPsw.setOnClickListener(this);
 
         ccetPhone.addTextChangedListener(watcher);
         etPsw.addTextChangedListener(watcher);
@@ -101,9 +107,16 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
         if (id == R.id.tv_next) {
             checkIdCard();
         }
+        if (id == R.id.tv_foget_psw) {
+            toFindPassWord();
+        }
     }
 
-    private void checkIdCard() {
+    private void toFindPassWord() {
+        FindPassWordActivity.startMe(this);
+    }
+
+    void checkIdCard() {
         idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
         trim = etPsw.getText().toString().trim();
         if (TextUtils.isEmpty(idCardNumber)) {
@@ -174,7 +187,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     public void onNext(UserEntity UserEntity) {
                         super.onNext(UserEntity);
                         ToastUtils.showShort("登录成功");
-                        Routerfit.register(AppRouter.class). skipMain3Activity();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
 
                     }
 

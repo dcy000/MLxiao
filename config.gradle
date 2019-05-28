@@ -14,12 +14,14 @@ ext {
             seniverse     : "\"https://api.seniverse.com/v3/\"", // 心知天气 baseUrl
             baidubce      : "\"https://aip.baidubce.com/\"",
             zenduan       : "\"http://third2.deepmega.net/\"",
+            ylservice     : "\"http://47.96.98.60:8100/\"",
 
             localtest     : "\"http://192.168.191.1:8080/\"",//成都演示本地服务器
             heguiXunfei   : "\"http://47.96.98.60:8030/\"",//合规版讯飞人脸识别
             heguiProduce  : "\"http://47.110.60.249:8090/\"",//合规版正式服务器
             JGYSProduce   : "\"http://47.110.60.249:8070/\"",//健管演示版本线上
             lougaobo      : "\"http://192.168.200.210:5555/\"",//健管演示版本线上
+            zuobowen      : "\"http://192.168.200.222:5555/\"",//左博文
             JGYSLocal     : "\"http://gcml.vaiwan.com/\""//演示（本地）
     ]
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
@@ -37,7 +39,7 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 30,
-            versionName      : "Robot-JGYS.1.0.2"
+            versionName      : "Robot-JGYS.1.0.2.10.beta"
     ]
 
     version = [

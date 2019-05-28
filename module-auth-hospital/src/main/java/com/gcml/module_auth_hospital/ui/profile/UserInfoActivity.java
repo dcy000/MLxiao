@@ -12,7 +12,7 @@ import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.model2.UserRepository;
+import com.gcml.module_auth_hospital.model.UserRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

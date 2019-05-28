@@ -95,6 +95,9 @@
             android:screenOrientation="landscape">
 
         </activity>
+        <activity
+            android:name=".HealthLifeActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

@@ -40,13 +40,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScanIdCardRegisterActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
-    public static final String REGISTER_IDCARD_NUMBER = "registerIdCardNumber";
-    public static final String REGISTER_IDCARD_MINZU = "registerIdCardMinZu";
-    public static final String REGISTER_REAL_NAME = "registeRrealName";
-    public static final String REGISTER_SEX = "registerSex";
-    public static final String REGISTER_ADDRESS = "registerAddress";
-    public static final String REGISTER_FORM_WHERE = "registerFormWhere";
-    public static final String REGISTER_FORM_IDCARD_NUMBER = "idNumber";
 
     //    请把身份证放在身份证阅读器上
     private static final String TAG = "MyBluetooth";
@@ -490,7 +483,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
 
 
     private void onCheckRegistered(final IDCardItem item) {
-        String deviceId = Utils.getDeviceId(getContentResolver());
+        /*String deviceId = Utils.getDeviceId(getContentResolver());
         if (item == null) {
             return;
         }
@@ -520,16 +513,11 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
                         ToastUtils.showShort(throwable.getMessage());
 
                     }
-                });
+                });*/
     }
 
     private void toFilllRegisterInfo(IDCardItem item) {
-        startActivity(new Intent(this, IDCardRegisterInfoActivity.class)
-                .putExtra(REGISTER_IDCARD_NUMBER, item.certNumber)
-                .putExtra(REGISTER_IDCARD_MINZU, item.nation)
-                .putExtra(REGISTER_REAL_NAME, item.partyName)
-                .putExtra(REGISTER_SEX, item.gender)
-                .putExtra(REGISTER_ADDRESS, item.certAddress));
+
     }
 
     @Override

@@ -88,8 +88,8 @@ public class UserEntity implements Parcelable {
 
     //手环信息
     public String watchCode;
-
     public UserEntity() {
+
     }
 
     protected UserEntity(Parcel in) {

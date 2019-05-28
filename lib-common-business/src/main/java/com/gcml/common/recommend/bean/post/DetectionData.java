@@ -1,32 +1,11 @@
 package com.gcml.common.recommend.bean.post;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.device.DeviceUtils;
 
 import java.io.Serializable;
 
-//    TDate {
-//        bloodOxygen (number, optional): 血氧（%） ,
-//        bloodSugar (number, optional): 血糖 ,
-//        cholesterol (number, optional): 胆固醇 ,
-//        detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-//        ecg (string, optional): 心电结果 ,
-//        eqid (string, optional): 机器id ,
-//        heartRate (integer, optional): 心率 ,
-//        highPressure (integer, optional): 高压 ,
-//        lowPressure (integer, optional): 低压 ,
-//        offset (integer, optional): 偏移量状态字 ,
-//        pulse (integer, optional): 脉搏 ,
-//        state (integer, optional): 是否观看过 ,
-//        sugarTime (integer, optional): 测血糖时间 ,
-//        temperAture (number, optional): 温度 ,
-//        time (string, optional): 测量时间 ,
-//        uricAcid (number, optional): 血尿酸 ,
-//        userid (integer, optional): 患者id ,
-//        weight (number, optional): 体重 ,
-//        yz (string, optional): 医嘱 ,
-//        zid (integer, optional): 数据信息id
-//    }
 public class DetectionData implements Serializable {
     private Float bloodOxygen;
     private Float bloodSugar;
@@ -37,8 +16,10 @@ public class DetectionData implements Serializable {
     private String description;
     private String detectionType;
     private String ecg;
-    private String eqid = DeviceUtils.getIMEI();
-    private String equipmentId = DeviceUtils.getIMEI();
+    //旧版字段
+    private String eqid = ChannelUtils.isJGYS() ? DeviceUtils.getIMEI() : null;
+    //合版字段
+    private String equipmentId = ChannelUtils.isAppCombine() ? DeviceUtils.getIMEI() : null;
     private Integer heartRate;
     private Integer highPressure;
     private Integer lowPressure;
@@ -46,13 +27,15 @@ public class DetectionData implements Serializable {
     private String modifiedBy;
     private String modifiedOn;
     private Integer offset;
-    private String patientId = UserSpHelper.getUserId();
+    //合版字段
+    private String patientId = ChannelUtils.isAppCombine() ? UserSpHelper.getUserId() : null;
     private Integer pulse;
     private Integer state;
     private Integer seq;
     private Integer sugarTime;
     private Float temperAture;
-    private String time = String.valueOf(System.currentTimeMillis());
+    //旧版字段
+    private String time = ChannelUtils.isJGYS() ? String.valueOf(System.currentTimeMillis()) : null;
     private Float uricAcid;
     private Integer userid;
     private Float weight;

@@ -228,7 +228,6 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
         int i = v.getId();
         if (i == R.id.tv_see_detail) {
             HealthReportFormDetailActivity.startActivity(mContext,result,advice);
-
         } else {
         }
     }

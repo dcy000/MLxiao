@@ -10,10 +10,12 @@ import android.widget.TextView;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
 import com.gcml.module_detection.net.DetectionRepository;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -58,11 +60,17 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                     if (!isMeasureFinishedOfThisTime && bloodOxygen != null && bloodOxygen != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
+                        robotSpeak(detectionData);
                         postData(detectionData);
                     }
                 }
             }
         });
+    }
+
+    private void robotSpeak(DetectionData detectionData) {
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),
+                "您本次测量血氧" + detectionData.getBloodOxygen() + "%", false);
     }
 
     private void postData(DetectionData detectionData) {
@@ -78,7 +86,7 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        Timber.i(">>>>"+o.toString());
+                        Timber.i(">>>>" + o.toString());
                     }
 
                     @Override

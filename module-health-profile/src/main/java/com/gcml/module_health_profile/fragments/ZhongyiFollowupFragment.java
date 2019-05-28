@@ -144,7 +144,7 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
     HealthProfileRepository repository = new HealthProfileRepository();
 
     private void getData() {
-        repository.getConstitution(UserSpHelper.getUserId())
+        repository.getConstitution()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

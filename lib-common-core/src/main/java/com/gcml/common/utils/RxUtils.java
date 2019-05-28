@@ -34,7 +34,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 /**
@@ -229,25 +228,8 @@ public class RxUtils {
         return Observable.timer(times, TimeUnit.SECONDS);
     }
 
-    public static ObservableTransformer<Object, Object> io2Main() {
-        return new ObservableTransformer<Object, Object>() {
-            @Override
-            public ObservableSource<Object> apply(Observable<Object> upstream) {
-                return upstream
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
-    }
-
-    public static ObservableTransformer<Object, Object> io2Io() {
-        return new ObservableTransformer<Object, Object>() {
-            @Override
-            public ObservableSource<Object> apply(Observable<Object> upstream) {
-                return upstream
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(Schedulers.io());
-            }
-        };
+    public static <T>ObservableTransformer<T, T> io2Main() {
+        return upstream -> upstream.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

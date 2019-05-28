@@ -121,7 +121,7 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
 
     private void getData() {
         HealthProfileRepository repository = new HealthProfileRepository();
-        repository.getHealthRecordList(selfRecordId, UserSpHelper.getUserId())
+        repository.getHealthRecordList(selfRecordId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
