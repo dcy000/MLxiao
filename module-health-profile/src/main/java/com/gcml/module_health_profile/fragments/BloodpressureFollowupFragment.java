@@ -189,23 +189,28 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
     }
 
     private void checkIsSignDoctor() {
-        Routerfit.register(AppRouter.class).getUserProvider()
-                .getUserEntity()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
-                    @Override
-                    public void onNext(UserEntity userEntity) {
-                        if (!isBuildHealthRecord) {
-                            ToastUtils.showShort("请先在居民健康档案中进行建档");
-                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
-                            return;
-                        }
-                        getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
-                                .putExtra("RdCordId", recordId)
-                                .putExtra("type", "高血压")
-                                .putExtra("title", "高 血 压 随 访"));
-                    }
-                });
+        //TODO：这还是医疗版的逻辑，之后需要重写
+//        Routerfit.register(AppRouter.class).getUserProvider()
+//                .getUserEntity()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
+//                    @Override
+//                    public void onNext(UserEntity userEntity) {
+//                        if (!isBuildHealthRecord) {
+//                            ToastUtils.showShort("请先在居民健康档案中进行建档");
+//                            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
+//                            return;
+//                        }
+//                        getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
+//                                .putExtra("RdCordId", recordId)
+//                                .putExtra("type", "高血压")
+//                                .putExtra("title", "高 血 压 随 访"));
+//                    }
+//                });
+        getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
+                .putExtra("RdCordId", recordId)
+                .putExtra("type", "高血压")
+                .putExtra("title", "高 血 压 随 访"));
     }
 }

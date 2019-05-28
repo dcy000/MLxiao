@@ -134,6 +134,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
     }
 
     private void start() {
+        UserSpHelper.setNoNetwork(false);
         mPreviewHelper.rxFrame()
                 .buffer(1)
                 .map(bitmapToBase64Mapper())

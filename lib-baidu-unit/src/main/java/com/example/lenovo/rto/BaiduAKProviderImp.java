@@ -5,7 +5,6 @@ import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.service.IBaiduAKProvider;
-import com.gcml.common.utils.display.ToastUtils;
 import com.sjtu.yifei.annotation.Route;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
@@ -22,7 +21,7 @@ public class BaiduAKProviderImp implements IBaiduAKProvider {
 
             @Override
             public void onError() {
-                ToastUtils.showShort("初始化AK失败");
+//                ToastUtils.showShort("初始化AK失败");
             }
 
             @Override

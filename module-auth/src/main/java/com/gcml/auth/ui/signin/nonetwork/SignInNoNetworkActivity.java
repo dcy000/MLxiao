@@ -125,6 +125,7 @@ public class SignInNoNetworkActivity extends BaseActivity<AuthActivitySignInNone
     }
 
     public void signIn() {
+        UserSpHelper.setNoNetwork(true);
 //        if ("123456".equals(binding.etPhone.getText().toString())
 //                && "654321".equals(binding.etPassword.getText().toString())) {
 //            CC.obtainBuilder("com.gcml.old.system.factoryTest")

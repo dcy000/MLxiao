@@ -69,12 +69,14 @@ public class UserRepository {
             String deviceId,
             String userName,
             String pwd) {
+        UserSpHelper.setNoNetwork(false);
         return mUserService.signIn(deviceId, userName, pwd)
                 .compose(RxUtils.apiResultTransformer())
                 .compose(userTokenTransformer());
     }
 
     public Observable<UserEntity> signInNoNetWork(String phone) {
+        UserSpHelper.setNoNetwork(true);
         Observable<List<UserEntity>> exists = userProvider.usersLocal(Observable.empty(), new EvictProvider(false))
                 .toObservable()
                 .onErrorResumeNext(Observable.just(Collections.emptyList()));
@@ -87,10 +89,13 @@ public class UserRepository {
                 ArrayList<UserEntity> entities = new ArrayList<>();
                 boolean exist = false;
                 for (UserEntity entity : userEntities) {
-                    if (!TextUtils.isEmpty(entity.id) && !entity.id.equals(user.id)) {
-                        entities.add(entity);
-                    } else {
+                    if (!TextUtils.isEmpty(entity.id) && entity.id.equals(user.id)) {
+                        if (!exist) {
+                            entities.add(entity);
+                        }
                         exist = true;
+                    } else {
+                        entities.add(entity);
                     }
                 }
                 if (!exist) {
@@ -109,7 +114,6 @@ public class UserRepository {
             @Override
             public UserEntity apply(List<UserEntity> userEntities) throws Exception {
                 UserSpHelper.setUserId(phone);
-                UserSpHelper.setNoNetwork(true);
                 return user;
             }
         });
@@ -137,7 +141,6 @@ public class UserRepository {
                         .doOnNext(new Consumer<UserEntity>() {
                             @Override
                             public void accept(UserEntity user) throws Exception {
-                                UserSpHelper.setNoNetwork(false);
                                 UserSpHelper.setFaceId(user.xfid);
                                 UserSpHelper.setEqId(user.deviceId);
                                 UserSpHelper.setUserName(user.name);
@@ -178,8 +181,9 @@ public class UserRepository {
                     }
                 });
     }
-    public Observable<Boolean> hasAccount2(String account,String name) {
-        return mUserService.hasAccount2("3", account,name)
+
+    public Observable<Boolean> hasAccount2(String account, String name) {
+        return mUserService.hasAccount2("3", account, name)
                 .compose(RxUtils.apiResultTransformer())
                 .map(new Function<Object, Boolean>() {
                     @Override

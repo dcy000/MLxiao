@@ -52,7 +52,6 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     protected void init(Bundle savedInstanceState) {
-        UserSpHelper.setNoNetwork(false);
         binding.setPresenter(this);
         binding.setSignInViewModel(viewModel);
         RxUtils.rxWifiLevel(getApplication(), 4)

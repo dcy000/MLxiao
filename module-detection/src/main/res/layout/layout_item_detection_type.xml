@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
     app:shadow_layout_dx="0pt"
     app:shadow_layout_dy="14pt"
     app:shadow_layout_shadowRadius="16pt">

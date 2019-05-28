@@ -72,7 +72,6 @@ public class UerInfoListFragment extends RecycleBaseFragment implements View.OnC
     private String selfRecordId;
     private String historyRecordId;
     private boolean bindDoctor;
-    private boolean bindWacher;
 
     public static UerInfoListFragment instance(String recordId, String selfRecordId) {
         Bundle bundle = new Bundle();
@@ -130,11 +129,11 @@ public class UerInfoListFragment extends RecycleBaseFragment implements View.OnC
                         if (user != null && user.doctorId != null) {
                             bindDoctor = true;
                         }
-                        if (!TextUtils.isEmpty(user.watchCode)) {
-                            bindWacher = true;
-                        } else {
-                            bindWacher = false;
-                        }
+//                        if (!TextUtils.isEmpty(user.watchCode)) {
+//                            bindWacher = true;
+//                        } else {
+//                            bindWacher = false;
+//                        }
                     }
                 });
     }
@@ -218,15 +217,19 @@ public class UerInfoListFragment extends RecycleBaseFragment implements View.OnC
                     .putExtra("HealthRecordId", historyRecordId));
 
         } else if (i == R.id.tvBuild) {
-            if (bindDoctor) {
-                getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
-                        .putExtra("isUserInfoList", true)
-                        .putExtra("RdCordId", selfRecordId)
-                        .putExtra("title", "添 加 健 康 档 案"));
-            } else {
-                //TODO:去绑定医生
-//                CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
-            }
+            getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
+                    .putExtra("isUserInfoList", true)
+                    .putExtra("RdCordId", selfRecordId)
+                    .putExtra("title", "添 加 健 康 档 案"));
+//            if (bindDoctor) {
+//                getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
+//                        .putExtra("isUserInfoList", true)
+//                        .putExtra("RdCordId", selfRecordId)
+//                        .putExtra("title", "添 加 健 康 档 案"));
+//            } else {
+//                //TODO:去绑定医生
+////                CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
+//            }
         }
     }
 

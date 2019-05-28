@@ -189,23 +189,23 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_new_record) {
-
-            Routerfit.register(AppRouter.class)
-                    .getUserProvider()
-                    .getUserEntity()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
-                        @Override
-                        public void onNext(UserEntity userEntity) {
-                            if (!isBuildHealthRecord) {
-                                ToastUtils.showShort("请先在居民健康档案中进行建档");
-                                MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
-                                return;
-                            }
-                            Routerfit.register(AppRouter.class).skipOlderHealthManagementSerciveActivity();
-                        }
-                    });
+            Routerfit.register(AppRouter.class).skipOlderHealthManagementSerciveActivity();
+//            Routerfit.register(AppRouter.class)
+//                    .getUserProvider()
+//                    .getUserEntity()
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
+//                        @Override
+//                        public void onNext(UserEntity userEntity) {
+//                            if (!isBuildHealthRecord) {
+//                                ToastUtils.showShort("请先在居民健康档案中进行建档");
+//                                MLVoiceSynthetize.startSynthesize(UM.getApp(), "请先建立个人档案");
+//                                return;
+//                            }
+//                            Routerfit.register(AppRouter.class).skipOlderHealthManagementSerciveActivity();
+//                        }
+//                    });
         } else {
         }
     }

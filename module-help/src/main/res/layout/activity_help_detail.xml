@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HelpDetailActivity">
+
+    <TextView
+        android:id="@+id/tvHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="60pt"
+        android:drawableLeft="@drawable/help_ic_help"
+        android:drawablePadding="24pt"
+        android:gravity="center"
+        android:maxWidth="600pt"
+        android:maxLines="1"
+        android:textColor="#303133"
+        android:textSize="72pt"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="关于修改头像。" />
+
+    <TextView
+        android:id="@+id/tvHelpDetail"
+        android:layout_width="1800pt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60pt"
+        android:textColor="#909399"
+        android:textSize="56pt"
+        app:layout_constraintTop_toBottomOf="@+id/tvHelp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

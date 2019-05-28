@@ -197,7 +197,7 @@ dependencies {
     releaseImplementation rootProject.ext.dependencies["pandora-release"]
 
     //ARetrofit
-    implementation "com.sjtu.yifei:auto-api:1.7.0"
+    implementation "com.sjtu.yifei:auto-api:1.8.0"
     annotationProcessor "com.sjtu.yifei:auto-complier:1.5.0"
 
     //极光推送

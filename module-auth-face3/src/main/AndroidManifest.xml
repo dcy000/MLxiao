@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gcml.auth.face2">
+    package="com.gcml.auth.face3">
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -14,8 +14,8 @@
     <application>
         <!--<activity android:name=".ui.FaceSignUpActivity" />-->
         <!--<activity android:name=".ui.FaceSignInActivity" />-->
-        <activity android:name=".ui.FaceBdSignUpActivity" />
-        <activity android:name=".ui.FaceBdSignInActivity" />
+        <activity android:name="com.gcml.auth.face3.ui.FaceBdSignUpActivity" />
+        <activity android:name="com.gcml.auth.face3.ui.FaceBdSignInActivity" />
     </application>
 
 </manifest>
