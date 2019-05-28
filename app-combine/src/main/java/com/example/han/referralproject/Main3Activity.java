@@ -284,14 +284,16 @@ public class Main3Activity extends AppCompatActivity {
         body.password = "123456";
         iUserService.signIn(body)
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Function<Object, ObservableSource<UserEntity>>() {
                     @Override
                     public ObservableSource<UserEntity> apply(Object o) throws Exception {
-                        return Routerfit.register(AppRouter.class).touristSignInProvider()
-                                .getUserEntity();
+                        return iUserService
+                                .getUserEntity()
+                                .subscribeOn(Schedulers.io());
                     }
                 })
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
