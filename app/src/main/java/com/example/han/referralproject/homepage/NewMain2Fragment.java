@@ -1,7 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,7 +7,7 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face.VertifyFaceProviderImp;
+import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -18,10 +16,8 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -127,7 +123,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
             }
             Routerfit.register(AppRouter.class)
                     .getVertifyFaceProvider()
-                    .checkUserEntityAndVertifyFace(true, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
+                    .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                         @Override
                         public void success() {
                             Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);

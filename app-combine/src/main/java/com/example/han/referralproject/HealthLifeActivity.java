@@ -34,7 +34,7 @@ public class HealthLifeActivity extends ToolbarBaseActivity {
         mRvLayout.setAdapter(adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_layout_health_life, Arrays.asList(menus)) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.button, item);
+//                helper.setText(R.id.button, item);
             }
         });
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

@@ -5,14 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face.VertifyFaceProviderImp;
+import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.router.AppRouter;
@@ -28,7 +27,6 @@ import com.gcml.mall.bean.PayingOrderBean;
 import com.gcml.mall.network.MallRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -247,7 +245,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     private void checkUser(String orderid) {
         Routerfit.register(AppRouter.class)
                 .getVertifyFaceProvider()
-                .onlyVertifyFace(false, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
+                .onlyVertifyFace(false, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
                     public void success() {
                         showPaySuccessDialog(GoodsDetailActivity.this);

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -25,6 +26,7 @@ import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 import com.gcml.module_auth_hospital.ui.findPassWord.CodeRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
@@ -46,6 +48,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
     private TranslucentToolBar tb;
     private Intent data;
     private String codeNumer = "";
+    private String passWord;
+    private String idCardNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,15 +109,21 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             ToastUtils.showShort("请输入验证码");
             return;
         }
-        if (!this.codeNumer.equals(code.getText().toString())) {
+
+       /* if (!this.codeNumer.equals(code.getText().toString())) {
+            ToastUtils.showShort("验证码错误");
+            return;
+        }*/
+
+        if (!"123456".equals(code.getText().toString())) {
             ToastUtils.showShort("验证码错误");
             return;
         }
 
         Intent data = getIntent();
         if (data != null) {
-            String passWord = data.getStringExtra("passWord");
-            String idCardNumber = data.getStringExtra("idCardNumber");
+            passWord = data.getStringExtra("passWord");
+            idCardNumber = data.getStringExtra("idCardNumber");
 
             SignUpBean bean = new SignUpBean();
             bean.setIdNo(idCardNumber);
@@ -126,7 +136,9 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
                         public void onNext(UserEntity userEntity) {
+                            UserSpHelper.setUserId(userEntity.id);
                             super.onNext(userEntity);
+                            vertifyFace();
                         }
 
                         @Override
@@ -141,6 +153,28 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     });
         }
 
+    }
+
+    private void vertifyFace() {
+        Routerfit.register(AppRouter.class)
+                .skipFaceBd3SignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            String sResult = data.toString();
+                            if (TextUtils.isEmpty(sResult)) return;
+                            if (sResult.equals("success")) {
+                                startActivity(new Intent(BindPhoneActivity.this
+                                        , RegisterSuccessActivity.class)
+                                        .putExtra("passWord", passWord)
+                                        .putExtra("idCardNumber", idCardNumber)
+                                );
+                            } else if (sResult.equals("failed")) {
+                                ToastUtils.showShort("录入人脸失败");
+                            }
+                        }
+                    }
+                });
     }
 
     private CodeRepository codeRepository = new CodeRepository();

@@ -14,7 +14,7 @@ import com.gcml.auth.databinding.AuthActivitySignInNonetworkBinding;
 import com.gcml.auth.ui.signin.SignInViewModel;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face.VertifyFaceProviderImp;
+import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
@@ -253,7 +253,7 @@ public class SignInNoNetworkActivity extends BaseActivity<AuthActivitySignInNone
     public void goSignInByFace() {
         Routerfit.register(AppRouter.class)
                 .getVertifyFaceProvider()
-                .onlyVertifyFace(false, false, true, new VertifyFaceProviderImp.VertifyFaceResult() {
+                .onlyVertifyFace(false, false, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
                     public void success() {
                         Routerfit.register(AppRouter.class).skipMainActivity();

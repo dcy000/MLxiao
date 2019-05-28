@@ -76,7 +76,7 @@
         android:background="@drawable/text_input_bg"
         android:gravity="center_vertical"
         android:hint="请输入6位数字密码"
-        android:inputType="textPassword"
+        android:inputType="numberPassword"
         android:maxLength="6"
         android:paddingLeft="32pt"
         android:textColorHint="#ffbbbbbb"

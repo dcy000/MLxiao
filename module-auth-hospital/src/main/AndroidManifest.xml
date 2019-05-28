@@ -8,6 +8,7 @@
     <application>
         <activity android:name=".ui.profile.UserInfoActivity"></activity>
         <activity android:name=".ui.register.BindPhoneActivity" />
+        <activity android:name=".ui.register.RegisterSuccessActivity" />
         <activity
             android:name=".ui.login.UserLogins2Activity"
             android:launchMode="singleTask" />

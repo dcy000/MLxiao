@@ -20,7 +20,7 @@ import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
 import com.example.module_control_volume.R;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face.VertifyFaceProviderImp;
+import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
@@ -1500,7 +1500,7 @@ public class DataDealHelper {
     private void vertifyFaceThenHealthRecordActivity() {
         Routerfit.register(AppRouter.class)
                 .getVertifyFaceProvider()
-                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFaceProviderImp.VertifyFaceResult() {
+                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
                     public void success() {
                         Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);

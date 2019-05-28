@@ -240,6 +240,7 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
     }
 
     private void bindData() {
+        //TODO：这还是医疗版的逻辑，之后需要重写
         Routerfit.register(AppRouter.class)
                 .getUserProvider()
                 .getUserEntity()

@@ -1,7 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="400pt"
-    android:id="@+id/button">
+<com.gcml.common.widget.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:shadow_layout_dx="0pt"
+    app:shadow_layout_dy="14pt"
+    app:shadow_layout_cornerRadius="24pt"
+    app:shadow_layout_shadowRadius="24pt">
 
-</Button>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="880pt"
+        android:layout_height="340pt"
+        android:background="@drawable/common_shadow_line">
+
+        <ImageView
+            android:layout_width="340pt"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_health_life_1"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="36pt"
+            android:text="中医体质辨识度"
+            android:textColor="#303133"
+            android:textSize="64pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/main_title"
+            app:layout_constraintTop_toBottomOf="@id/main_title"
+            android:text="测测你是什么体质？"
+            android:textColor="#909399"
+            android:textSize="40pt"
+            android:layout_marginTop="16pt"/>
+        <com.gcml.common.widget.ShadowLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:shadow_layout_dx="0pt"
+            app:shadow_layout_dy="8pt"
+            app:shadow_layout_shadowRadius="16pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/main_title"
+            >
+            <TextView
+                android:layout_width="160pt"
+                android:layout_height="72pt"
+                android:background="@drawable/shape_66_blue"
+                android:gravity="center"
+                android:text="查看"
+                android:textColor="@color/white"
+                android:textSize="40pt" />
+        </com.gcml.common.widget.ShadowLayout>
+    </android.support.constraint.ConstraintLayout>
+</com.gcml.common.widget.ShadowLayout>
