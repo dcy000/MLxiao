@@ -1,8 +1,8 @@
 package com.gcml.module_auth_hospital.model2;
 
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.service.IUserEntityProvider;
+import com.gcml.module_auth_hospital.model.UserRepository;
 import com.sjtu.yifei.annotation.Route;
 
 import io.reactivex.Observable;
