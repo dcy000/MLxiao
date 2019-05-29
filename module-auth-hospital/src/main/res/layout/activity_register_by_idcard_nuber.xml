@@ -70,7 +70,7 @@
         <TextView
             android:id="@+id/tv_next"
             android:layout_width="320pt"
-            android:layout_height="100pt"
+            android:layout_height="132pt"
             android:background="@drawable/shape_rectangle_next_btn"
             android:enabled="false"
             android:gravity="center"

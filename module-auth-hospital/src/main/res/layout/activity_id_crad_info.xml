@@ -239,7 +239,7 @@
         <TextView
             android:id="@+id/id_card_tv_action"
             android:layout_width="360pt"
-            android:layout_height="120pt"
+            android:layout_height="132pt"
             android:background="@drawable/id_card_tv_action"
             android:clickable="true"
             android:gravity="center"

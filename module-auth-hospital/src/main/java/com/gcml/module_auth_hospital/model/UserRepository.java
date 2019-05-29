@@ -95,7 +95,7 @@ public class UserRepository {
 
 
     public Observable<UserEntity> updateUserInfo(PostUserEntity entity) {
-        return mUserService.updateUserInfo(entity.getPatientId()+"",entity);
+        return mUserService.updateUserInfo(entity.getPatientId()+"",entity).compose(RxUtils.apiResultTransformer());
     }
 
 }
