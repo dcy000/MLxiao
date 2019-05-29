@@ -1,4 +1,9 @@
-package com.gcml.common.data;
+package com.gcml.module_auth_hospital.model;
+
+import android.text.TextUtils;
+
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 
 /**
  * 接口请求参数用户实体
@@ -347,5 +352,51 @@ public class PostUserEntity {
 
     public void setWyyxPwd(String wyyxPwd) {
         this.wyyxPwd = wyyxPwd;
+    }
+
+    public static PostUserEntity from(UserEntity user) {
+        PostUserEntity post = new PostUserEntity();
+
+        if (user == null) {
+            return post;
+        }
+
+        post.address = user.address;
+        post.age = TextUtils.isEmpty(user.age) ? 0 : Integer.parseInt(user.age);
+        post.birthday = user.birthday;
+        post.bloodType = user.bloodType;
+        post.categoryId = TextUtils.isEmpty(user.categoryId) ? 0 : Integer.parseInt(user.categoryId);
+        post.doctorId = TextUtils.isEmpty(user.doctorId) ? 0 : Integer.parseInt(user.doctorId);
+        post.drink = user.drinkHabits;
+        post.smoke = user.smokeHabits;
+        post.eatingHabits = user.eatingHabits;
+        post.exerciseHabits = user.sportsHabits;
+        post.medicalHistory = user.deseaseHistory;
+        post.equipmentId = user.deviceId;
+        post.faceId = user.xfid;
+        post.faceUserId = user.xfUserId;
+        post.allergy = user.allergy;
+        post.fetation = user.fetation;
+        post.height = TextUtils.isEmpty(user.height) ? 0 : Integer.parseInt(user.height);
+        post.hypertensionHand = user.hypertensionHand;
+        post.hypertensionLevel = user.hypertensionLevel;
+        post.hypertensionPrimaryState = user.hypertensionPrimaryState;
+        post.hypertensionTarget = user.hypertensionTarget;
+        post.idNo = user.idCard;
+        String userId = UserSpHelper.getUserId();
+        post.patientId = TextUtils.isEmpty(userId) ? 0 : Integer.parseInt(userId);
+        post.patientName = user.name;
+        post.sex = user.sex;
+        post.state = TextUtils.isEmpty(user.state) ? 0 : Integer.parseInt(user.state);
+        post.tel = user.phone;
+        post.userPhoto = user.avatar;
+        post.waist = TextUtils.isEmpty(user.waist) ? 0 : Integer.parseInt(user.waist);
+        post.weight = TextUtils.isEmpty(user.weight) ? 0 : Integer.parseInt(user.weight);
+        post.wyyxId = user.wyyxId;
+        post.wyyxPwd = user.wyyxPwd;
+
+//        post.source = user.source;
+//        post.uuid = user.uuid;
+        return post;
     }
 }

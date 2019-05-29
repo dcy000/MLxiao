@@ -21,6 +21,15 @@
         <activity android:name=".ui.login.IdCardInfoActivity" />
         <activity android:name=".ui.findPassWord.FindPassWordActivity" />
         <activity android:name=".ui.findPassWord.SetPassWord2Activity" />
+
+        <activity android:name=".ui.profile.update.AlertNameActivity" />
+        <activity android:name=".ui.profile.update.AlertAgeActivity" />
+        <activity android:name=".ui.profile.update.AlertSexActivity" />
+        <activity android:name=".ui.profile.update.AlertHeightActivity" />
+        <activity android:name=".ui.profile.update.AlertWeightActivity" />
+        <activity android:name=".ui.profile.update.AlertBloodTypeActivity" />
+        <activity android:name=".ui.profile.update.AlertAddressActivity" />
+        <activity android:name=".ui.profile.update.AlertIDCardActivity" />
     </application>
 
 </manifest>

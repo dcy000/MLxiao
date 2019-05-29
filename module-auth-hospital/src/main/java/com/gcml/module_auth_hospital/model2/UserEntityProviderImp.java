@@ -1,6 +1,5 @@
 package com.gcml.module_auth_hospital.model2;
 
-import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.module_auth_hospital.model.UserRepository;
@@ -16,13 +15,13 @@ public class UserEntityProviderImp implements IUserEntityProvider {
     }
 
     @Override
-    public Observable<UserEntity> updateUserEntity(PostUserEntity user) {
+    public Observable<UserEntity> updateUserEntity(UserEntity user) {
         return new UserRepository().updateUserInfo(user);
     }
 
     @Override
-    public Observable<UserEntity> updateUserEntity(UserEntity user) {
-        return null;
+    public Observable<Object> isAccountExist(String account, int type) {
+        return new UserRepository().isAccountExist(account, type);
     }
 
     @Override

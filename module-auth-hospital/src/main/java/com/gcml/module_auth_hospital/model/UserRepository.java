@@ -5,7 +5,6 @@ import android.content.Context;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.constant.Global;
-import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.user.UserPostBody;
@@ -17,6 +16,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository {
     private UserService mUserService = RetrofitHelper.service(UserService.class);
@@ -92,9 +92,25 @@ public class UserRepository {
                 });
     }
 
-
-    public Observable<UserEntity> updateUserInfo(PostUserEntity entity) {
-        return mUserService.updateUserInfo(entity.getPatientId()+"",entity);
+    public Observable<UserEntity> updateUserInfo(UserEntity user) {
+        PostUserEntity entity = PostUserEntity.from(user);
+        return updateUserInfo(entity);
     }
 
+    public Observable<UserEntity> updateUserInfo(PostUserEntity entity) {
+        return mUserService.updateUserInfo(entity.getPatientId() + "", entity)
+                .compose(RxUtils.apiResultTransformer())
+                .flatMap(new Function<Object, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(Object obj) throws Exception {
+                        return getUserInfoByToken()
+                                .subscribeOn(Schedulers.io());
+                    }
+                });
+    }
+
+    public Observable<Object> isAccountExist(String account, int type) {
+        return mUserService.isAccountExist(account, type)
+                .compose(RxUtils.apiResultTransformer());
+    }
 }

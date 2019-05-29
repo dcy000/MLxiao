@@ -67,7 +67,7 @@ public class UserInfoBaseFragment extends LazyFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tv_name = view.findViewById(R.id.tv_name);
-        tv_age = view.findViewById(R.id.tv_label_age);
+        tv_age = view.findViewById(R.id.tv_age);
         tv_gender = view.findViewById(R.id.tv_gender);
         tv_height = view.findViewById(R.id.tv_height);
         tv_weight = view.findViewById(R.id.tv_weight);
@@ -95,7 +95,7 @@ public class UserInfoBaseFragment extends LazyFragment {
                 if (activity == null) {
                     return;
                 }
-                ((UserInfoActivity) activity).selectBirthday();
+                ((UserInfoActivity) activity).selectAge();
             }
         });
         clItemGender = view.findViewById(R.id.cl_item_gender);

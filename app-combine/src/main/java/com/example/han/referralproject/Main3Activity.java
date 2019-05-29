@@ -17,11 +17,11 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.IUserService;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.ShadowLayout;
 import com.gcml.common.widget.recyclerview.banner.BannerRecyclerView;
 import com.gcml.common.widget.recyclerview.banner.BannerScaleHelper;
-import com.gcml.web.WebActivity;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 import com.yinglan.shadowimageview.ShadowImageView;
@@ -58,7 +58,7 @@ public class Main3Activity extends AppCompatActivity {
     private void initView() {
         statusBarFragment = StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
         //启动音量控制悬浮按钮
-        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
+//        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         ivAvatar = (ImageView) findViewById(R.id.ivAvatar);
         tvLogout = (TextView) findViewById(R.id.tvLogout);
@@ -99,7 +99,9 @@ public class Main3Activity extends AppCompatActivity {
     }
 
     private void getPersonInfo() {
-        Routerfit.register(AppRouter.class).getUserProvider().getUserEntity()
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<UserEntity>() {
@@ -246,11 +248,11 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 2:
                     //自测用药 智能问药（左手）
-                    WebActivity.start(Main3Activity.this, WebActivity.URL_MEDICAL);
+                    Routerfit.register(AppRouter.class).skipWebActivity(AppRouter.URL_MEDICAL);
                     break;
                 case 3:
                     //健康自测 智能诊断（左手）
-                    WebActivity.start(Main3Activity.this, WebActivity.URL_DIAGNOSIS);
+                    Routerfit.register(AppRouter.class).skipWebActivity(AppRouter.URL_DIAGNOSIS);
                     break;
                 case 4:
                     //医疗百科 医智囊
@@ -279,6 +281,14 @@ public class Main3Activity extends AppCompatActivity {
                 case 10:
                     //设置
                     Routerfit.register(AppRouter.class).skipSettingActivity();
+                    break;
+                case 11:
+                    //护士上门
+                    ToastUtils.showShort("开发中");
+                    break;
+                case 12:
+                    //家庭医生
+                    ToastUtils.showShort("开发中");
                     break;
             }
         }
@@ -324,17 +334,19 @@ public class Main3Activity extends AppCompatActivity {
     private MenuAdapter menuAdapter = new MenuAdapter();
 
     {
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_detection_normal, "健康测量")); // 0
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check_normal, "自诊导诊")); // 1
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check_medical_normal, "自测用药")); // 2
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_self_check_normal, "健康自测")); // 3
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_wiki_normal, "医疗百科"));// 4
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_dcotor_normal, "家庭医生")); // 5
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_nurse_normal, "健康生活")); // 6
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_help_normal, "帮助中心")); // 7
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_help_normal, "健康数据")); // 8
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_user_info_normal, "个人资料")); // 9
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_settings_normal, "设置")); // 10
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_detection, "健康测量")); // 0
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check, "自诊导诊")); // 1
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check_medical, "自测用药")); // 2
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_self_check, "健康自测")); // 3
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_wiki, "医疗百科"));// 4
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_doctor, "家庭医生")); // 5
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_life, "健康生活")); // 6
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_help, "帮助中心")); // 7
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_data, "健康数据")); // 8
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_user_info, "个人资料")); // 9
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_settings, "设置")); // 10
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_nurse, "护士上门")); // 11
+        menuEntities.add(new MenuEntity(R.drawable.main_ic_call_doctor_disabled, "视频医生")); // 12
     }
 
     private class MenuEntity {

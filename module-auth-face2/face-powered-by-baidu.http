@@ -219,3 +219,19 @@ version: 1.0
 
 ###
 GET http://47.96.98.60:8080/ZZB/xf/select_group_record?userid=0&&state=0
+
+###
+PUT http://192.168.200.210:5555/open/common/api/user/info/28/
+  
+version: 1.0
+Authorization: "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInV1aWQiOiJhNmY3ZWM5My1kYTcyLTQ0Y2QtYjQ4OC1lMmQyYmNiNTk3NmEiLCJjYXRlZ29yeSI6IjMiLCJzdWIiOiJhNmY3ZWM5My1kYTcyLTQ0Y2QtYjQ4OC1lMmQyYmNiNTk3NmEiLCJpYXQiOjE1NTkwOTk0MDQsImV4cCI6MTU1OTcwNDIwNH0.PFgznJf3lXEdk-OSdTSnGMJDK6jRqN2bsNqyX5zOvCGWry_ZPgn5fAtb5ffHFKf5K-556RJ3AvwmUpuyminpOg"
+token: "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInV1aWQiOiJhNmY3ZWM5My1kYTcyLTQ0Y2QtYjQ4OC1lMmQyYmNiNTk3NmEiLCJjYXRlZ29yeSI6IjMiLCJzdWIiOiJhNmY3ZWM5My1kYTcyLTQ0Y2QtYjQ4OC1lMmQyYmNiNTk3NmEiLCJpYXQiOjE1NTkwOTk0MDQsImV4cCI6MTU1OTcwNDIwNH0.PFgznJf3lXEdk-OSdTSnGMJDK6jRqN2bsNqyX5zOvCGWry_ZPgn5fAtb5ffHFKf5K-556RJ3AvwmUpuyminpOg"
+source: gcml
+agent: Android
+equipmentId: 5f563170db6420ba
+eqid: 5f563170db6420ba
+Content-Type: application/json; charset=UTF-8
+Host: 192.168.200.210:5555
+Accept-Encoding: gzip
+     
+{"age":0,"categoryId":0,"doctorId":0,"height":0,"patientId":28,"patientName":"就来了","state":0,"waist":0,"weight":0} 

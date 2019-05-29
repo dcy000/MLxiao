@@ -248,7 +248,6 @@ public interface AppRouter {
     IFaceProvider getFaceProvider();
 
 
-
     /**
      * 合版百度人脸
      * 1. 注册人脸
@@ -275,6 +274,7 @@ public interface AppRouter {
 
     @Go("/auth/face3/face/provider")
     IFaceProvider getFace3Provider();
+
     /**
      * 合版百度人脸
      * 1. 注册人脸
@@ -462,6 +462,7 @@ public interface AppRouter {
 
     @Go("/common/business/checkUserEntityAndVertifyFace/face/provider")
     IVertifyFaceProvider getVertifyFaceProvider();
+
     @Go("/common/business/checkUserEntityAndVertifyFace3/face/provider")
     IVertifyFaceProvider getVertifyFaceProvider3();
 
@@ -505,4 +506,11 @@ public interface AppRouter {
 
     @Go("/app/health/life/activity")
     boolean skipHealthLifeActivity();
+
+    String URL_DIAGNOSIS = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cc197e8b60c48171066f0e7";
+
+    String URL_MEDICAL = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cd3d5cbb60c48343fafe493";
+
+    @Go("/common/web/activity")
+    boolean skipWebActivity(@Extra("url") String url);
 }
