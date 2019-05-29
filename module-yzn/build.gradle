@@ -1,4 +1,4 @@
-ext.alwaysLib=true
+ext.alwaysLib = true
 apply from: rootProject.file("build-base.gradle")
 
 android {
@@ -19,5 +19,5 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
-

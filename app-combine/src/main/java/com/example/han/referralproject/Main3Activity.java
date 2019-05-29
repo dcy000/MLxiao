@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.IUserService;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;

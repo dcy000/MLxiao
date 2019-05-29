@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60pt"
         android:layout_marginTop="72pt"
+        android:text="账户信息"
         android:textColor="#303133"
         android:textSize="72pt"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="账户信息" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"

@@ -445,6 +445,9 @@ public interface AppRouter {
     @Go("/auth/hospital/user/register2/activity")
     boolean skipUserRegistersActivity();
 
+    @Go("/auth/hospital/user/info/activity")
+    boolean skipUserInfoActivity();
+
     @Go("module/control/voice/setting/activity")
     boolean skipVoiceSettingActivity();
 

@@ -41,7 +41,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-@Route(path = "/module/yzn/zenduan/activity")
+//@Route(path = "/module/yzn/zenduan/activity")
 public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private List<Fragment> fragments;

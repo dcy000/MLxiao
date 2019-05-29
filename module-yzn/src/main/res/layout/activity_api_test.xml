@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".repository.ApiTestActivity"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:layout_marginTop="30pt"
+        android:background="#999"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/tv_bingli"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:layout_marginTop="60pt"
+        android:background="#999"
+        android:gravity="center"
+        android:text="病历本入口"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+</LinearLayout>

@@ -1,7 +1,5 @@
 package com.gcml.module_yzn.bean;
 
-import com.gcml.common.data.UserSpHelper;
-
 import java.io.Serializable;
 
 /**
@@ -9,7 +7,9 @@ import java.io.Serializable;
  */
 
 public class InputBean implements Serializable {
-    public String userId = "user007";
-//    public String userId = UserSpHelper.getUserId();
-    public String input = "糖尿病";
+    public String userId;
+    //    public String userId = UserSpHelper.getUserId();
+    public String input;
+    public String name;
+    public String url = "";
 }
