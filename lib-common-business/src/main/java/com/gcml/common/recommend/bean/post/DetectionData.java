@@ -1,5 +1,7 @@
 package com.gcml.common.recommend.bean.post;
 
+import android.text.TextUtils;
+
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.device.DeviceUtils;
@@ -28,7 +30,7 @@ public class DetectionData implements Serializable {
     private String modifiedOn;
     private Integer offset;
     //合版字段
-    private String patientId = ChannelUtils.isAppCombine() ? UserSpHelper.getUserId() : null;
+    private Integer patientId = ChannelUtils.isAppCombine() ? (TextUtils.isEmpty(UserSpHelper.getUserId())?0:Integer.parseInt(UserSpHelper.getUserId())) : null;
     private Integer pulse;
     private Integer state;
     private Integer seq;
@@ -36,6 +38,7 @@ public class DetectionData implements Serializable {
     private Float temperAture;
     //旧版字段
     private String time = ChannelUtils.isJGYS() ? String.valueOf(System.currentTimeMillis()) : null;
+    private String dataTime = ChannelUtils.isAppCombine() ? String.valueOf(System.currentTimeMillis()) : null;
     private Float uricAcid;
     private Integer userid;
     private Float weight;
@@ -120,12 +123,20 @@ public class DetectionData implements Serializable {
         this.modifiedOn = modifiedOn;
     }
 
-    public String getPatientId() {
+    public Integer getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(String patientId) {
+    public void setPatientId(Integer patientId) {
         this.patientId = patientId;
+    }
+
+    public String getDataTime() {
+        return dataTime;
+    }
+
+    public void setDataTime(String dataTime) {
+        this.dataTime = dataTime;
     }
 
     public Integer getSeq() {

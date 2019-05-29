@@ -13,6 +13,7 @@ import com.gcml.common.service.IBaiduAKProvider;
 import com.gcml.common.service.IBloodsugarTimeFragmentProvider;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.ICallProvider;
+import com.gcml.common.service.ICheckUserInfoProvider;
 import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
@@ -248,7 +249,6 @@ public interface AppRouter {
     IFaceProvider getFaceProvider();
 
 
-
     /**
      * 合版百度人脸
      * 1. 注册人脸
@@ -275,6 +275,7 @@ public interface AppRouter {
 
     @Go("/auth/face3/face/provider")
     IFaceProvider getFace3Provider();
+
     /**
      * 合版百度人脸
      * 1. 注册人脸
@@ -462,6 +463,7 @@ public interface AppRouter {
 
     @Go("/common/business/checkUserEntityAndVertifyFace/face/provider")
     IVertifyFaceProvider getVertifyFaceProvider();
+
     @Go("/common/business/checkUserEntityAndVertifyFace3/face/provider")
     IVertifyFaceProvider getVertifyFaceProvider3();
 
@@ -505,4 +507,7 @@ public interface AppRouter {
 
     @Go("/app/health/life/activity")
     boolean skipHealthLifeActivity();
+
+    @Go("/common/business/check/user/info/provider")
+    ICheckUserInfoProvider getCheckUserInfoProvider();
 }
