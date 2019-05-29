@@ -26,14 +26,13 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_yzn.R;
-import com.gcml.module_yzn.bean.InputBean;
+import com.gcml.module_yzn.bean.NewsInputBean;
 import com.gcml.module_yzn.bean.OutBean;
 import com.gcml.module_yzn.repository.YZNRepository;
 import com.gcml.module_yzn.ui.fragment.ZenDuanItemsFragment;
 import com.gcml.module_yzn.util.BASE64Encoder;
 import com.gcml.module_yzn.util.MD5Util;
 import com.google.gson.Gson;
-import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,9 +118,9 @@ public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.O
                 .create();
 
 
-        InputBean src = new InputBean();
-        src.input = input;
-        String inputJson = new Gson().toJson(src);
+        NewsInputBean newsInputBean = new NewsInputBean();
+        newsInputBean.input = input;
+        String inputJson = new Gson().toJson(newsInputBean);
         String param = BASE64Encoder.encodeString(inputJson);
 //        String param = "eyJ1c2VySWQiOiJ1c2VyMDAwMDEiLCJpbnB1dCI6ICLns5blsL/nl4UifQ==";
 

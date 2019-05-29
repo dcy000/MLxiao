@@ -16,12 +16,12 @@ import retrofit2.http.POST;
 public interface YZNService {
 
     /**
-     * 注册接口
+     * 病例入口
      */
     @Headers({"Domain-Name:zenduan"})
     @FormUrlEncoded
     @POST("api/ShortUrl")
-    Observable<ApiResult<Object>> ShortUrl(
+    Observable<ApiResult<Object>> bingLi(
             @Field("AppId") String appId,
             @Field("CurTime") String currentTime,
             @Field("Param") String param,
@@ -49,6 +49,20 @@ public interface YZNService {
     @FormUrlEncoded
     @POST("api/chat")
     Observable<ApiResult<OutBean>> chat(
+            @Field("AppId") String appId,
+            @Field("CurTime") String currentTime,
+            @Field("Param") String param,
+            @Field("Token") String token
+    );
+
+    /**
+     * 问卷 api/wenjuan
+     */
+
+    @Headers({"Domain-Name:zenduan"})
+    @FormUrlEncoded
+    @POST("api/wenjuan")
+    Observable<ApiResult<OutBean>> wenJuan(
             @Field("AppId") String appId,
             @Field("CurTime") String currentTime,
             @Field("Param") String param,

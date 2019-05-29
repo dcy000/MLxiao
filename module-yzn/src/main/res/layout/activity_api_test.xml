@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".repository.ApiTestActivity"
+    tools:context=".ui.ApiTestActivity"
     tools:ignore="MissingDefaultResource">
 
     <TextView
@@ -27,6 +27,28 @@
         android:background="#999"
         android:gravity="center"
         android:text="病历本入口"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/tv_wenjuan"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:layout_marginTop="60pt"
+        android:background="#999"
+        android:gravity="center"
+        android:text="问卷"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/tv_zixun_fenlei"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:layout_marginTop="60pt"
+        android:background="#999"
+        android:gravity="center"
+        android:text="资讯分类"
         android:textColor="@color/white"
         android:textSize="30dp" />
 
