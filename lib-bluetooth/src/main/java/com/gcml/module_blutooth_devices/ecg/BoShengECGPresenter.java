@@ -33,10 +33,12 @@ import com.clj.fastble.callback.BleGattCallback;
 import com.clj.fastble.callback.BleNotifyCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
+import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
@@ -259,61 +261,52 @@ public class BoShengECGPresenter implements LifecycleObserver {
     }
 
     private void getUser() {
+
         Routerfit.register(AppRouter.class)
-                .getUserProvider()
-                .getUserEntity()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UserEntity>() {
+                .getCheckUserInfoProvider()
+                .check(new CheckUserInfoProviderImp.CheckUserInfo() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable = d;
+                    public void complete(UserEntity userEntity) {
+                        phone = userEntity.phone;
+                        birth = userEntity.birthday;
+                        sex = userEntity.sex;
+                        userName = userEntity.name;
+                        connect();
+                        initNet();
+                        getNetConfig();
                     }
 
                     @Override
-                    public void onNext(UserEntity userEntity) {
-                        if (userEntity != null) {
-                            phone = userEntity.phone;
-                            birth = userEntity.birthday;
-                            sex = userEntity.sex;
-                            userName = userEntity.name;
-                            if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(birth) || TextUtils.isEmpty(userEntity.name) || TextUtils.isEmpty(sex)) {
-                                showNotMsgDiaglog();
-                                return;
-                            }
-                            connect();
-                            initNet();
-                            getNetConfig();
-                        }
+                    public void incomplete(UserEntity entity, List<EUserInfo> args, String s) {
+                        showNotMsgDiaglog(s);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
 
                     }
-                });
+                }, EUserInfo.NAME, EUserInfo.PHONE, EUserInfo.BIRTHDAY, EUserInfo.GENDER);
     }
 
-    private void showNotMsgDiaglog() {
+    private void showNotMsgDiaglog(String s) {
         if (!isDestroyed) {
             BaseNiceDialog dialog = NiceDialog.init()
                     .setLayoutId(R.layout.dialog_not_person_msg)
                     .setConvertListener(new ViewConvertListener() {
                         @Override
                         protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                            holder.setText(R.id.txt_msg, "心电测量必须先完善" + s + "等信息，方便我们为您生成心电报告。");
                             holder.setOnClickListener(R.id.btn_neg, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    dialog.dismiss();
                                     activity.finish();
                                 }
                             });
                             holder.setOnClickListener(R.id.btn_pos, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    dialog.dismiss();
                                     Routerfit.register(AppRouter.class).skipPersonDetailActivity();
                                 }
                             });

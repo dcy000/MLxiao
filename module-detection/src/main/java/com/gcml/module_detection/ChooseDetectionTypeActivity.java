@@ -3,6 +3,8 @@ package com.gcml.module_detection;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,9 +13,16 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.constant.EUserInfo;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_detection.bean.ChooseDetectionTypeBean;
 import com.gcml.module_detection.bean.LatestDetecBean;
@@ -27,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -95,7 +105,8 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_TEMPERATURE);
                         break;
                     case 3:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT);
+                        //测量体重需要完善身高信息，后台需要计算BMI
+                        checkHeight();
                         break;
                     case 4:
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_ECG);
@@ -115,6 +126,53 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
         });
     }
 
+    private void checkHeight() {
+        Routerfit.register(AppRouter.class).getCheckUserInfoProvider()
+                .check(new CheckUserInfoProviderImp.CheckUserInfo() {
+                    @Override
+                    public void complete(UserEntity userEntity) {
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT);
+                    }
+
+                    @Override
+                    public void incomplete(UserEntity entity, List<EUserInfo> args, String s) {
+                        showNotMsgDiaglog(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                }, EUserInfo.HEIGHT);
+    }
+
+    private void showNotMsgDiaglog(String msg) {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_not_person_msg)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.setText(R.id.txt_msg, "测量体重需要先完善" + msg + "等信息，方便我们为您计算BMI。");
+                        holder.setOnClickListener(R.id.btn_neg, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.setOnClickListener(R.id.btn_pos, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(350)
+                .show(getSupportFragmentManager());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -124,10 +182,9 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     private void getData() {
         DetectionRepository.getLatestDetectionData()
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new DefaultObserver<List<LatestDetecBean>>() {
+                .doOnNext(new Consumer<List<LatestDetecBean>>() {
                     @Override
-                    public void onNext(List<LatestDetecBean> latestDetecBeans) {
+                    public void accept(List<LatestDetecBean> latestDetecBeans) throws Exception {
                         for (LatestDetecBean latest : latestDetecBeans) {
                             //检测数据类型 -1低血压 0高血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸
                             String type = latest.getType();
@@ -177,10 +234,13 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     break;
                             }
                         }
-                        Handlers.ui().post(() -> {
-                            Timber.i(">>>>数据变动");
-                            adapter.notifyDataSetChanged();
-                        });
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<List<LatestDetecBean>>() {
+                    @Override
+                    public void onNext(List<LatestDetecBean> latestDetecBeans) {
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
