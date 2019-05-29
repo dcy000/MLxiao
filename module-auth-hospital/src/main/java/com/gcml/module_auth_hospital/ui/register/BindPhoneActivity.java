@@ -209,8 +209,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("获取验证码失败");
                         countDownDisposable.dispose();
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
 

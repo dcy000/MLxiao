@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shadow="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -54,19 +55,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-    <TextView
-        android:id="@+id/tv_next"
-        android:layout_width="320pt"
-        android:layout_height="100pt"
+    <com.gcml.common.widget.ShadowLayout
+        android:id="@+id/slShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="267pt"
-        android:background="@drawable/shape_rectangle_next_btn"
-        android:enabled="false"
-        android:gravity="center"
-        android:text="登录"
-        android:textColor="#fff"
-        android:textSize="56pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/ccet_phone"
+        shadow:shadow_layout_cornerRadius="40pt"
+        shadow:shadow_layout_dx="0pt"
+        shadow:shadow_layout_dy="16pt"
+        shadow:shadow_layout_shadowRadius="24pt">
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="320pt"
+            android:layout_height="100pt"
+            android:background="@drawable/shape_rectangle_next_btn"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="#fff"
+            android:textSize="56pt" />
+
+    </com.gcml.common.widget.ShadowLayout>
+
 
     <ImageView
         android:id="@+id/imageView2"

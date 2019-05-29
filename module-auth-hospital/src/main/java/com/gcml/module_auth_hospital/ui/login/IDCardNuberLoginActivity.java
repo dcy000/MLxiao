@@ -40,8 +40,9 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     private UserRepository userRepository = new UserRepository();
     private TranslucentToolBar translucentToolBar;
     private String idCardNumber;
-    private String passWord="";
+    private String passWord = "";
     private TextView findPsw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +117,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
             return;
         }
 
-        if (passWord.length()!=6) {
+        if (passWord.length() != 6) {
             speak("请输入6位数字密码");
             return;
         }
@@ -168,6 +169,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
                     }
 
                     @Override
