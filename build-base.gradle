@@ -221,5 +221,7 @@ dependencies {
     implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
     //webview缓存框架
     implementation 'ren.yale.android:cachewebviewlib:2.1.8'
+
+    implementation 'org.raphets:roundimageview:1.2.0'
 }
 
