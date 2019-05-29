@@ -42,6 +42,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+import tech.linjiang.pandora.Pandora;
 
 @Route(path = "/module/control/setting/activity")
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
