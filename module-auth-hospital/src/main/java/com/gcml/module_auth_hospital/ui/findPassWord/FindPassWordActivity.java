@@ -20,7 +20,6 @@ import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.ui.register.SetPassWordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -148,28 +147,28 @@ public class FindPassWordActivity extends ToolbarBaseActivity {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        code.setEnabled(false);
+                        sendCode.setEnabled(false);
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
-                        code.setText("获取验证码");
-                        code.setEnabled(true);
+                        sendCode.setText("获取验证码");
+                        sendCode.setEnabled(true);
                     }
                 })
                 .doOnDispose(new Action() {
                     @Override
                     public void run() throws Exception {
-                        code.setText("获取验证码");
-                        code.setEnabled(true);
+                        sendCode.setText("获取验证码");
+                        sendCode.setEnabled(true);
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribeWith(new DefaultObserver<Integer>() {
                     @Override
                     public void onNext(Integer integer) {
-                        code.setText(
+                        sendCode.setText(
                                 String.format(Locale.getDefault(), "已发送（%d）", integer));
                     }
                 });

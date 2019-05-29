@@ -26,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.gcml.module_yzn.constant.Global.APP_ID;
 import static com.gcml.module_yzn.constant.Global.APP_KEY;
 
-@Route(path = "/module/yzn/zenduan/activity")
+//@Route(path = "/module/yzn/zenduan/activity")
 public class ApiTestActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvRegister, tvBingli, tvWenJuan, tvZinXunFenLei;

@@ -33,6 +33,7 @@ import com.gcml.module_yzn.ui.fragment.ZenDuanItemsFragment;
 import com.gcml.module_yzn.util.BASE64Encoder;
 import com.gcml.module_yzn.util.MD5Util;
 import com.google.gson.Gson;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-//@Route(path = "/module/yzn/zenduan/activity")
+@Route(path = "/module/yzn/zenduan/activity")
 public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private List<Fragment> fragments;

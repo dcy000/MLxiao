@@ -110,15 +110,15 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             return;
         }
 
-       /* if (!this.codeNumer.equals(code.getText().toString())) {
-            ToastUtils.showShort("验证码错误");
-            return;
-        }*/
-
-        if (!"123456".equals(code.getText().toString())) {
+        if (!this.codeNumer.equals(code.getText().toString())) {
             ToastUtils.showShort("验证码错误");
             return;
         }
+
+      /*  if (!"123456".equals(code.getText().toString())) {
+            ToastUtils.showShort("验证码错误");
+            return;
+        }*/
 
         Intent data = getIntent();
         if (data != null) {
@@ -144,6 +144,7 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                         @Override
                         public void onError(Throwable throwable) {
                             super.onError(throwable);
+                            ToastUtils.showShort(throwable.getMessage());
                         }
 
                         @Override
