@@ -107,9 +107,9 @@ public class CheckUserInfoProviderImp implements ICheckUserInfoProvider {
                             checkUserInfo.complete(entity);
                         } else {
                             if (builder.length() == 1) {
-                                checkUserInfo.incomplete(entity,inCompleteConditions, "");
+                                checkUserInfo.incomplete(entity, inCompleteConditions, "");
                             } else {
-                                checkUserInfo.incomplete(entity,inCompleteConditions, builder.substring(1, builder.length() - 1));
+                                checkUserInfo.incomplete(entity, inCompleteConditions, builder.substring(1, builder.length() - 1));
                             }
                         }
                     }
@@ -131,7 +131,7 @@ public class CheckUserInfoProviderImp implements ICheckUserInfoProvider {
     public interface CheckUserInfo {
         void complete(UserEntity userEntity);
 
-        void incomplete(UserEntity entity,List<EUserInfo> args, String s);
+        void incomplete(UserEntity entity, List<EUserInfo> args, String s);
 
         void onError(Throwable e);
     }

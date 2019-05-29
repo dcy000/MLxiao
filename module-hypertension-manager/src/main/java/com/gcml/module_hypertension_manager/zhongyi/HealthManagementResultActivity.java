@@ -27,7 +27,7 @@ public class HealthManagementResultActivity extends ToolbarBaseActivity {
 
     private void initView() {
         data = (List<HealthManagementResultBean.DataBean>) getIntent().getSerializableExtra("result_data");
-        if (data != null & data.size() != 0) {
+        if (data != null && data.size() != 0) {
             for (int i = 0; i < data.size(); i++) {
                 HealthManagementResultBean.DataBean itemBean = data.get(i);
                 if (!"否".equals(itemBean.result)) {
