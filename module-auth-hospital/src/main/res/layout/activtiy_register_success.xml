@@ -35,7 +35,7 @@
     <TextView
         android:id="@+id/tv_auth_register_success_complete"
         android:layout_width="320pt"
-        android:layout_height="100pt"
+        android:layout_height="132pt"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="200pt"
         android:background="@drawable/shape_rectangle_next_btn"

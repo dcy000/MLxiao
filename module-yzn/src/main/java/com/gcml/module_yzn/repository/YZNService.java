@@ -14,16 +14,60 @@ import retrofit2.http.POST;
  */
 
 public interface YZNService {
+
     /**
-     * 三方的诊断
+     * 病例入口
      */
     @Headers({"Domain-Name:zenduan"})
     @FormUrlEncoded
-    @POST("api/chat")
-    public Observable<ApiResult<OutBean>> chat(
+    @POST("api/ShortUrl")
+    Observable<ApiResult<Object>> bingLi(
             @Field("AppId") String appId,
             @Field("CurTime") String currentTime,
             @Field("Param") String param,
             @Field("Token") String token
     );
+
+    /**
+     * 注册接口
+     */
+    @Headers({"Domain-Name:zenduan"})
+    @FormUrlEncoded
+    @POST("api/reg")
+    Observable<ApiResult<Object>> register(
+            @Field("AppId") String appId,
+            @Field("CurTime") String currentTime,
+            @Field("Param") String param,
+            @Field("Token") String token
+    );
+
+
+    /**
+     * 资讯
+     */
+    @Headers({"Domain-Name:zenduan"})
+    @FormUrlEncoded
+    @POST("api/chat")
+    Observable<ApiResult<OutBean>> chat(
+            @Field("AppId") String appId,
+            @Field("CurTime") String currentTime,
+            @Field("Param") String param,
+            @Field("Token") String token
+    );
+
+    /**
+     * 问卷 api/wenjuan
+     */
+
+    @Headers({"Domain-Name:zenduan"})
+    @FormUrlEncoded
+    @POST("api/wenjuan")
+    Observable<ApiResult<OutBean>> wenJuan(
+            @Field("AppId") String appId,
+            @Field("CurTime") String currentTime,
+            @Field("Param") String param,
+            @Field("Token") String token
+    );
+
+
 }

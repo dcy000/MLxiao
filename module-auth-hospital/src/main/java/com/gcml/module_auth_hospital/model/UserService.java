@@ -50,6 +50,7 @@ public interface UserService {
     Observable<ApiResult<UserEntity>> getUserInfoByToken();
 
     @PUT("/open/common/api/user/info/{patientId}/")
+<<<<<<< HEAD
     Observable<ApiResult<Object>> updateUserInfo(@Path("patientId") String path, @Body PostUserEntity entity);
 
     /**
@@ -60,4 +61,7 @@ public interface UserService {
             @Query("account") String account,
             @Query("type") int type
     );
+=======
+    Observable<ApiResult<UserEntity>> updateUserInfo(@Path("patientId") String path,@Body PostUserEntity entity);
+>>>>>>> bc7bd8631690c9e6b8bbb4fb649eee87254f554c
 }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,7 +50,7 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                 new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-
+                        finish();
                     }
 
                     @Override
@@ -102,12 +101,8 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                     public void onActivityResult(int result, Object data) {
                         if (result == Activity.RESULT_OK) {
                             String sResult = data.toString();
-                            if (!TextUtils.isEmpty(sResult)) {
-                                Routerfit.register(AppRouter.class).skipMainActivity();
-                                return;
-                            }
                             if (sResult.equals("success") || sResult.equals("skip")) {
-
+                                Routerfit.register(AppRouter.class).skipMainActivity();
                             } else if (sResult.equals("failed")) {
 
                             }

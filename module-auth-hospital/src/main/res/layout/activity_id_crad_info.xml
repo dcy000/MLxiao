@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shadow="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_card_cl_root"
     android:layout_width="match_parent"
@@ -222,18 +223,33 @@
         app:layout_constraintLeft_toRightOf="@+id/id_card_tv_number"
         tools:text="3 3 0 3 8 2 1 9 9 5 0 2 2 0 5 7 1" />
 
-    <TextView
-        android:id="@+id/id_card_tv_action"
-        android:layout_width="360pt"
-        android:layout_height="120pt"
+    <com.gcml.common.widget.ShadowLayout
+        android:id="@+id/slShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="70pt"
-        android:background="@drawable/id_card_tv_action"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="确认是本人"
-        android:textColor="#ffffff"
-        android:textSize="48pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_card_iv_bg" />
+        app:layout_constraintTop_toBottomOf="@+id/id_card_iv_bg"
+        shadow:shadow_layout_cornerRadius="40pt"
+        shadow:shadow_layout_dx="0pt"
+        shadow:shadow_layout_dy="16pt"
+        shadow:shadow_layout_shadowRadius="24pt">
+
+        <TextView
+            android:id="@+id/id_card_tv_action"
+            android:layout_width="360pt"
+            android:layout_height="132pt"
+            android:background="@drawable/id_card_tv_action"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="确认是本人"
+            android:textColor="#ffffff"
+            android:textSize="48pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_card_iv_bg" />
+
+    </com.gcml.common.widget.ShadowLayout>
+
 </android.support.constraint.ConstraintLayout>

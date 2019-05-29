@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/btn_click"
         android:layout_width="match_parent"
-        android:layout_height="160pt"
+        android:layout_height="140pt"
         android:text="确定"
         android:textSize="34sp"
         android:textColor="@color/config_color_primary"

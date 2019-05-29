@@ -14,16 +14,16 @@ import com.gcml.common.utils.network.NetUitls;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
-
 @Route(path = "/app/welcome/activity")
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
-//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.200:5555/");//左
+
+//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
+//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.222:5555/");//左
+
         initContentView();
     }
 
@@ -60,7 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });

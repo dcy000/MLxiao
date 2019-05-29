@@ -11,9 +11,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.borsam.ble.BorsamConfig;
 import com.borsam.borsamnetwork.bean.AddRecordResult;
@@ -31,10 +33,12 @@ import com.clj.fastble.callback.BleGattCallback;
 import com.clj.fastble.callback.BleNotifyCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
+import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
@@ -45,6 +49,10 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
@@ -71,7 +79,6 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String address;
 
     private BleDevice lockedDevice;
-    private List<Integer> points;
     private TimeCount timeCount;
     private boolean isMeasureEnd = false;
     private List<byte[]> bytesResult;
@@ -150,10 +157,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
         this.activity.getLifecycle().addObserver(this);
 
         initParam();
-        initNet();
         getUser();
-        connect();
-
     }
 
     private void connect() {
@@ -250,7 +254,6 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
     private void initParam() {
         bytesResult = new ArrayList<>();
-        points = new ArrayList<>();
         weakHandler = new WeakHandler(weakRunnable);
         timeCount = new TimeCount(30000, 1000, baseView, weakHandler);
 
@@ -260,44 +263,66 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private void getUser() {
 
         Routerfit.register(AppRouter.class)
-                .getUserProvider()
-                .getUserEntity()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UserEntity>() {
+                .getCheckUserInfoProvider()
+                .check(new CheckUserInfoProviderImp.CheckUserInfo() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable = d;
+                    public void complete(UserEntity userEntity) {
+                        phone = userEntity.phone;
+                        birth = userEntity.birthday;
+                        sex = userEntity.sex;
+                        userName = userEntity.name;
+                        connect();
+                        initNet();
+                        getNetConfig();
                     }
 
                     @Override
-                    public void onNext(UserEntity userEntity) {
-                        if (userEntity != null) {
-                            phone = userEntity.phone;
-                            birth = userEntity.birthday;
-                            sex = userEntity.sex;
-                            userName = userEntity.name;
-
-                            if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(userEntity.name) || TextUtils.isEmpty(sex)) {
-                                ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                                return;
-                            }
-                            getNetConfig(phone, birth, userEntity.name, sex);
-                        }
+                    public void incomplete(UserEntity entity, List<EUserInfo> args, String s) {
+                        showNotMsgDiaglog(s);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
 
                     }
-                });
+                }, EUserInfo.NAME, EUserInfo.PHONE, EUserInfo.BIRTHDAY, EUserInfo.GENDER);
     }
 
-    private void getNetConfig(final String phone, final String birth, final String name, final String sex) {
+    private void showNotMsgDiaglog(String s) {
+        if (!isDestroyed) {
+            BaseNiceDialog dialog = NiceDialog.init()
+                    .setLayoutId(R.layout.dialog_not_person_msg)
+                    .setConvertListener(new ViewConvertListener() {
+                        @Override
+                        protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                            holder.setText(R.id.txt_msg, "心电测量必须先完善" + s + "等信息，方便我们为您生成心电报告。");
+                            holder.setOnClickListener(R.id.btn_neg, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    activity.finish();
+                                }
+                            });
+                            holder.setOnClickListener(R.id.btn_pos, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+                                }
+                            });
+                        }
+                    })
+                    .setWidth(700)
+                    .setHeight(350);
+            if (baseView instanceof Fragment) {
+                dialog.show(((Fragment) baseView).getFragmentManager());
+            } else if (baseView instanceof FragmentActivity) {
+                dialog.show(((FragmentActivity) baseView).getSupportFragmentManager());
+            }
+        }
+    }
+
+    private void getNetConfig() {
         BorsamHttpUtil.getInstance().add("BoShengECGPresenter", PatientApi.getConfig())
                 .enqueue(new HttpCallback<BorsamResponse<Config>>() {
                     @Override

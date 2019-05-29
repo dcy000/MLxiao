@@ -282,6 +282,7 @@ public class FaceBdRepository {
                                 UserSpHelper.setToken(Global.TOKEN_PREFIX + userToken.getToken());
                             }
                         })
+                        .compose(RxUtils.io2Main())
                         .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
                             @Override
                             public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {

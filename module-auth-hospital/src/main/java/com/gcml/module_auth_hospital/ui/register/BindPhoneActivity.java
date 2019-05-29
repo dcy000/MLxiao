@@ -110,15 +110,15 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             return;
         }
 
-       /* if (!this.codeNumer.equals(code.getText().toString())) {
-            ToastUtils.showShort("验证码错误");
-            return;
-        }*/
-
-        if (!"123456".equals(code.getText().toString())) {
+        if (!this.codeNumer.equals(code.getText().toString())) {
             ToastUtils.showShort("验证码错误");
             return;
         }
+
+      /*  if (!"123456".equals(code.getText().toString())) {
+            ToastUtils.showShort("验证码错误");
+            return;
+        }*/
 
         Intent data = getIntent();
         if (data != null) {
@@ -144,6 +144,7 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                         @Override
                         public void onError(Throwable throwable) {
                             super.onError(throwable);
+                            ToastUtils.showShort(throwable.getMessage());
                         }
 
                         @Override
@@ -208,8 +209,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("获取验证码失败");
                         countDownDisposable.dispose();
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
 
@@ -245,28 +246,28 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        code.setEnabled(false);
+                        sendCode.setEnabled(false);
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
-                        code.setText("获取验证码");
-                        code.setEnabled(true);
+                        sendCode.setText("获取验证码");
+                        sendCode.setEnabled(true);
                     }
                 })
                 .doOnDispose(new Action() {
                     @Override
                     public void run() throws Exception {
-                        code.setText("获取验证码");
-                        code.setEnabled(true);
+                        sendCode.setText("获取验证码");
+                        sendCode.setEnabled(true);
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribeWith(new DefaultObserver<Integer>() {
                     @Override
                     public void onNext(Integer integer) {
-                        code.setText(
+                        sendCode.setText(
                                 String.format(Locale.getDefault(), "已发送（%d）", integer));
                     }
                 });

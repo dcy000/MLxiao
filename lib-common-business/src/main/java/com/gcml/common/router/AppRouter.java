@@ -13,6 +13,7 @@ import com.gcml.common.service.IBaiduAKProvider;
 import com.gcml.common.service.IBloodsugarTimeFragmentProvider;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.ICallProvider;
+import com.gcml.common.service.ICheckUserInfoProvider;
 import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
@@ -513,4 +514,8 @@ public interface AppRouter {
 
     @Go("/common/web/activity")
     boolean skipWebActivity(@Extra("url") String url);
+
+    @Go("/common/business/check/user/info/provider")
+    ICheckUserInfoProvider getCheckUserInfoProvider();
+
 }

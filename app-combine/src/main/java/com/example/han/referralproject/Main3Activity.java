@@ -240,7 +240,7 @@ public class Main3Activity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     //健康测量
-                    siginIn();
+                    Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
                     break;
                 case 1:
                     //自诊导诊
@@ -276,7 +276,6 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 9:
                     //个人资料
-                    Routerfit.register(AppRouter.class).skipUserInfoActivity();
                     break;
                 case 10:
                     //设置
@@ -293,42 +292,6 @@ public class Main3Activity extends AppCompatActivity {
             }
         }
     };
-
-    private void siginIn() {
-        IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
-        UserPostBody body = new UserPostBody();
-        body.username = "15181438908";
-        body.password = "123456";
-        iUserService.signIn(body)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<Object, ObservableSource<UserEntity>>() {
-                    @Override
-                    public ObservableSource<UserEntity> apply(Object o) throws Exception {
-                        return iUserService
-                                .getUserEntity()
-                                .subscribeOn(Schedulers.io());
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserEntity>() {
-                    @Override
-                    public void onNext(UserEntity s) {
-                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 
     private ArrayList<MenuEntity> menuEntities = new ArrayList<>();
     private MenuAdapter menuAdapter = new MenuAdapter();

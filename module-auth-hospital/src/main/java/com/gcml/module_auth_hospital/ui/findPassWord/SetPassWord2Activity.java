@@ -114,7 +114,7 @@ public class SetPassWord2Activity extends ToolbarBaseActivity implements View.On
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("设置密码失败");
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
 

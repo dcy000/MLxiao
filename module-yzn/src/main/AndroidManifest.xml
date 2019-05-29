@@ -3,9 +3,11 @@
     package="com.gcml.module_yzn">
 
     <application>
-        <activity android:name=".ui.YiZhiTangDetailActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".ui.ZenDuanActivity"></activity>
+        <activity android:name=".ui.ApiTestActivity"></activity>
+        <activity
+            android:name=".ui.YiZhiTangDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ui.ZenDuanActivity" />
     </application>
 
 </manifest>

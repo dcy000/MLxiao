@@ -11,7 +11,7 @@ public class ApiResult<T> {
     private boolean successful;
     @SerializedName("code")
     private int code;
-    @SerializedName("message")
+    @SerializedName(value="message",alternate = "msg")
     private String message;
     @SerializedName("data")
     private T data;

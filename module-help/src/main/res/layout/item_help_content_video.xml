@@ -24,9 +24,9 @@
     <TextView
         android:id="@+id/tvLabel"
         android:layout_width="520pt"
-        android:layout_height="340pt"
+        android:layout_height="180pt"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="6pt"
+        android:layout_marginBottom="7pt"
         android:background="@drawable/help_bg_label"
         android:gravity="left|bottom"
         android:paddingLeft="28pt"

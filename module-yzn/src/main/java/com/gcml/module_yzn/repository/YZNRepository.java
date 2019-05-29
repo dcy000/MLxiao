@@ -28,6 +28,18 @@ public class YZNRepository {
         return yznService.chat(appId, currentTime, param, token).compose(apiResultTransformer());
     }
 
+    public Observable<Object> regiter(String appId, String currentTime, String param, String token) {
+        return yznService.register(appId, currentTime, param, token).compose(apiResultTransformer());
+    }
+
+    public Observable<Object> bingLi(String appId, String currentTime, String param, String token) {
+        return yznService.bingLi(appId, currentTime, param, token).compose(apiResultTransformer());
+    }
+
+    public Observable<Object> wenJuan(String appId, String currentTime, String param, String token) {
+        return yznService.wenJuan(appId, currentTime, param, token).compose(apiResultTransformer());
+    }
+
     public static <T> ObservableTransformer<ApiResult<T>, T> apiResultTransformer() {
         return upstream -> upstream
                 .onErrorResumeNext(httpErrorProcessor())

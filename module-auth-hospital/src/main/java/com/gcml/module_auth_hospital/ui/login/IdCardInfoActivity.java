@@ -22,13 +22,8 @@ import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.register.SetPassWordActivity;
 import com.sjtu.yifei.route.Routerfit;
 
-import org.w3c.dom.Text;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
@@ -168,6 +163,7 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
                     }
 
                     @Override
