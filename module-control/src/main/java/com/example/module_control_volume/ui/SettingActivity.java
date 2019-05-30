@@ -42,12 +42,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+import tech.linjiang.pandora.Pandora;
 
 @Route(path = "/module/control/setting/activity")
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
-    TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache, mChangeIp;
+    TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache, mChangeIp, mDebugTool;
     // 外存sdcard存放路径
     private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
     // 下载应用存放全路径
@@ -80,10 +81,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         mReset = findViewById(R.id.tv_setting_reset);
         mClearcache = findViewById(R.id.tv_setting_clearcache);
         mChangeIp = findViewById(R.id.tv_setting_ip);
+        mDebugTool = findViewById(R.id.tv_setting_debug_tool);
         if (BuildConfig.DEBUG) {
             mChangeIp.setVisibility(View.VISIBLE);
+            mDebugTool.setVisibility(View.VISIBLE);
         } else {
             mChangeIp.setVisibility(View.GONE);
+            mDebugTool.setVisibility(View.GONE);
         }
 
         mVoice.setOnClickListener(this);
@@ -96,6 +100,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         mReset.setOnClickListener(this);
         mClearcache.setOnClickListener(this);
         mChangeIp.setOnClickListener(this);
+        mDebugTool.setOnClickListener(this);
     }
 
     private void bindData() {
@@ -147,6 +152,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         } else if (i == R.id.tv_setting_ip) {
             //IP更换
             showIPList();
+        } else if (i == R.id.tv_setting_debug_tool) {
+            Pandora.get().open();
         }
     }
 
