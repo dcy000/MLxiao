@@ -25,7 +25,7 @@ ext {
     developUrl = api.JGYSProduce
 
     //线上正式运行的IP地址
-    produceUrl = api.JGYSProduce
+    produceUrl = api.heguiXunfei
 
 
     android = [
