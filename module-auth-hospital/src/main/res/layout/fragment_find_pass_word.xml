@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shadow="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_find_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="100pt"
+        android:text="手机号码验证"
+        android:textColor="#ff3a3a3a"
+        android:textSize="64pt" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="880pt"
+        android:layout_height="132pt"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="56pt"
+        android:background="@drawable/text_input_bg"
+        android:gravity="center_vertical"
+        android:hint="请输入您的手机号码"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:paddingLeft="32pt"
+        android:textColor="#ff3a3a3a"
+        android:textColorHint="#ffbbbbbb"
+        android:textSize="56pt" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_send_number"
+        android:layout_width="880pt"
+        android:layout_height="132pt"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="37pt"
+        android:background="@drawable/text_input_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17">
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="880pt"
+            android:layout_height="132pt"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="6"
+            android:paddingLeft="32pt"
+            android:textColor="#ff333333"
+            android:textColorHint="#ffbbbbbb"
+            android:textSize="56pt" />
+
+
+        <TextView
+            android:id="@+id/tv_send_code"
+            android:layout_width="260pt"
+            android:layout_height="100pt"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_bg_btn_86b2ff"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="发送验证码"
+            android:textColor="#ffffffff"
+            android:textSize="40pt" />
+    </RelativeLayout>
+
+    <com.gcml.common.widget.ShadowLayout
+        android:id="@+id/slShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="59pt"
+        android:layout_marginTop="351pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rl_send_number"
+        shadow:shadow_layout_cornerRadius="40pt"
+        shadow:shadow_layout_dx="0pt"
+        shadow:shadow_layout_dy="16pt"
+        shadow:shadow_layout_shadowRadius="24pt">
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="320pt"
+            android:layout_height="132pt"
+            android:background="@drawable/shape_rectangle_next_btn"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="#fff"
+            android:textSize="56pt" />
+
+    </com.gcml.common.widget.ShadowLayout>
+</LinearLayout>

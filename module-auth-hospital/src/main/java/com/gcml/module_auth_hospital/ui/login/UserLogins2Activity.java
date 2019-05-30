@@ -45,7 +45,8 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
 
         tb = findViewById(R.id.tb_logins);
         tb.setData("登 陆 注 册",
-                R.drawable.common_btn_back, "返回",
+//                R.drawable.common_btn_back, "返回",
+               0, null,
                 R.drawable.common_ic_wifi_state, null,
                 new ToolBarClickListener() {
                     @Override
@@ -85,7 +86,8 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                                     bundle.putParcelable("profile", cardItem.picBitmap);
                                     bundle.putString("idCard", cardItem.certNumber);
                                     startActivity(new Intent(UserLogins2Activity.this, IdCardInfoActivity.class)
-                                            .putExtra("flag", "login"));
+                                            .putExtra("flag", "login")
+                                            .putExtras(bundle));
                                 }
                             }
                         }));
