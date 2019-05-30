@@ -14,7 +14,6 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.login.IdCardInfoActivity;
-import com.gcml.module_auth_hospital.ui.login.UserLogins2Activity;
 import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
@@ -75,7 +74,8 @@ public class UserRegisters2Activity extends ToolbarBaseActivity {
                                 bundle.putParcelable("profile", cardItem.picBitmap);
                                 bundle.putString("idCard", cardItem.certNumber);
                                 startActivity(new Intent(UserRegisters2Activity.this, IdCardInfoActivity.class)
-                                        .putExtra("flag", "register"));
+                                        .putExtra("flag", "register")
+                                        .putExtras(bundle));
                             }
                         }
                     }
