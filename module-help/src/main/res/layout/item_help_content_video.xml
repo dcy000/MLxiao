@@ -24,13 +24,12 @@
     <TextView
         android:id="@+id/tvLabel"
         android:layout_width="520pt"
-        android:layout_height="180pt"
+        android:layout_height="98pt"
         android:layout_gravity="bottom"
         android:layout_marginBottom="7pt"
         android:background="@drawable/help_bg_label"
-        android:gravity="left|bottom"
+        android:gravity="left|center_vertical"
         android:paddingLeft="28pt"
-        android:paddingBottom="25pt"
         android:text="血压检测教程"
         android:textColor="#FFFFFF"
         android:textSize="48pt" />
