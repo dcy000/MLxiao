@@ -24,7 +24,7 @@ public class UserEntity implements Parcelable {
     public String name;
     @SerializedName("sex")
     public String sex;
-    @SerializedName("dz")
+    @SerializedName(value = "dz", alternate = {"address"})
     public String address;
     @SerializedName("age")
     public String age;

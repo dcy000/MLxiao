@@ -12,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
-
 import com.gcml.common.data.City;
 import com.gcml.common.data.Province;
 import com.gcml.common.data.UserEntity;
@@ -41,7 +40,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-@Deprecated
 public class AlertAddressActivity extends AppCompatActivity {
 
     TextView tvGoBack;
@@ -62,11 +60,13 @@ public class AlertAddressActivity extends AppCompatActivity {
     private ConstraintLayout clRoot;
 
     private BdLocationHelper mLocationHelper = new BdLocationHelper();
+    private UserEntity user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_n_activity_alert_address);
+        user = getIntent().getParcelableExtra("data");
         clRoot = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_address);
         tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
@@ -178,7 +178,7 @@ public class AlertAddressActivity extends AppCompatActivity {
                     break;
             }
         }
-        if ("暂未填写".equals(data.deseaseHistory)) {
+        if ("暂未填写".equals(data.deseaseHistory) || TextUtils.isEmpty(data.deseaseHistory)) {
             buffer = null;
         } else {
             String[] mhs = data.deseaseHistory.split("\\s+");
@@ -296,6 +296,10 @@ public class AlertAddressActivity extends AppCompatActivity {
     }
 
     public void onTvGoForwardClicked() {
+        if (user == null) {
+            ToastUtils.showLong("请重新登录");
+            return;
+        }
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             ToastUtils.showShort(R.string.common_sign_up3_address_tip);
@@ -303,7 +307,6 @@ public class AlertAddressActivity extends AppCompatActivity {
             return;
         }
 
-        UserEntity user = new UserEntity();
         user.address = getAddress();
 
         Routerfit.register(AppRouter.class)

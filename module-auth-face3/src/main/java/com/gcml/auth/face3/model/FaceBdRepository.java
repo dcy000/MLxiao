@@ -15,7 +15,6 @@ import com.gcml.auth.face3.model.entity.FaceUser;
 import com.gcml.auth.face3.model.exception.FaceBdError;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.constant.Global;
-import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
@@ -206,9 +205,9 @@ public class FaceBdRepository {
                 .flatMap(new Function<String, ObservableSource<Object>>() {
                     @Override
                     public ObservableSource<Object> apply(String photo) throws Exception {
-                        PostUserEntity user = new PostUserEntity();
-                        user.setPatientId(Integer.parseInt(UserSpHelper.getUserId()));
-                        user.setUserPhoto(photo);
+                        UserEntity user = new UserEntity();
+                        user.id = UserSpHelper.getUserId();
+                        user.avatar = photo;
                         return Routerfit.register(AppRouter.class)
                                 .getUserProvider()
                                 .updateUserEntity(user)

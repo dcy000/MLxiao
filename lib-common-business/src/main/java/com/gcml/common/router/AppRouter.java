@@ -508,6 +508,14 @@ public interface AppRouter {
     @Go("/app/health/life/activity")
     boolean skipHealthLifeActivity();
 
+    String URL_DIAGNOSIS = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cc197e8b60c48171066f0e7";
+
+    String URL_MEDICAL = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cd3d5cbb60c48343fafe493";
+
+    @Go("/common/web/activity")
+    boolean skipWebActivity(@Extra("url") String url);
+
     @Go("/common/business/check/user/info/provider")
     ICheckUserInfoProvider getCheckUserInfoProvider();
+
 }

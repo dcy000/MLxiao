@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -51,11 +52,16 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
     private String passWord;
     private String idCardNumber;
 
+    private String fromWhere;
+    private UserEntity user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isShowToolbar = false;
         setContentView(R.layout.activity_bind_phone);
+        fromWhere = getIntent().getStringExtra("fromWhere");
+        user = getIntent().getParcelableExtra("data");
         initView();
     }
 
@@ -81,7 +87,11 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
         }));
         sendCode = findViewById(R.id.tv_send_code);
         data = getIntent();
-        tb.setData("绑 定 手 机",
+        if ("updatePhone".equals(fromWhere)) {
+            next.setText("确 定");
+        }
+        String title = "updatePhone".equals(fromWhere) ? "修 改 手 机 号" : "绑 定 手 机";
+        tb.setData(title,
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_ic_wifi_state, null,
                 new ToolBarClickListener() {
@@ -112,6 +122,11 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
 
         if (!this.codeNumer.equals(code.getText().toString())) {
             ToastUtils.showShort("验证码错误");
+            return;
+        }
+
+        if ("updatePhone".equals(fromWhere)) {
+            updatePhone(phoneNumber);
             return;
         }
 
@@ -154,6 +169,36 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     });
         }
 
+    }
+
+    private void updatePhone(String phone) {
+        if (user == null) {
+            ToastUtils.showShort("请重新登陆！");
+            return;
+        }
+
+        user.phone = phone;
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .updateUserEntity(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity o) {
+                        speak("修改成功");
+                        ToastUtils.showShort("修改成功");
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort("修改失败");
+                        speak("修改失败");
+                    }
+                });
     }
 
     private void vertifyFace() {
@@ -271,5 +316,9 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                                 String.format(Locale.getDefault(), "已发送（%d）", integer));
                     }
                 });
+    }
+
+    private void speak(String text) {
+        MLVoiceSynthetize.startSynthesize(this, text, false);
     }
 }

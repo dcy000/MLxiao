@@ -12,12 +12,11 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.web.R;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
@@ -39,9 +38,32 @@ public class X5WebView extends WebView {
 
     ProgressBar progressBar;
     private TextView tvTitle;
-    public ImageView imageView;
+    //    public ImageView imageView;
     private List<String> newList;
 
+    private LoadingDialog mLoadingDialog;
+
+    private void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(getContext())
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    private void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+
+    }
 
     public X5WebView(Context context) {
         super(context);
@@ -82,13 +104,13 @@ public class X5WebView extends WebView {
         progressBar.setProgressDrawable(this.getResources().getDrawable(R.drawable.color_progressbar));
 
         addView(progressBar, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 6));
-        imageView = new ImageView(getContext());
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//      加载图 根据自己的需求去集成使用
-        imageView.setImageResource(R.mipmap.ic_launcher);
-        imageView.setVisibility(VISIBLE);
-        addView(imageView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+//        imageView = new ImageView(getContext());
+//        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+////      加载图 根据自己的需求去集成使用
+//        imageView.setImageResource(R.mipmap.ic_launcher);
+//        imageView.setVisibility(VISIBLE);
+//        addView(imageView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        showLoading("加载中");
         initWebViewSettings();
     }
 
@@ -161,10 +183,17 @@ public class X5WebView extends WebView {
                 progressBar.setVisibility(VISIBLE);
             } else if (progressBar != null) {
                 progressBar.setVisibility(GONE);
-                imageView.setVisibility(GONE);
+//                imageView.setVisibility(GONE);
+                dismissLoading();
             }
         }
     };
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        dismissLoading();
+    }
 
     private WebViewClient client = new WebViewClient() {
 

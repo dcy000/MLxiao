@@ -15,11 +15,18 @@
         app:shadow_layout_dy="16pt"
         app:shadow_layout_shadowRadius="24pt">
 
-        <com.yinglan.shadowimageview.RoundImageView
+        <!--<com.yinglan.shadowimageview.RoundImageView-->
+        <!--android:id="@+id/ivBanner"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="fitXY" />-->
+
+        <org.raphets.roundimageview.RoundImageView
             android:id="@+id/ivBanner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY" />
+            app:corner_radius="40pt"
+            app:type="round" />
 
     </com.gcml.common.widget.ShadowLayout>
 

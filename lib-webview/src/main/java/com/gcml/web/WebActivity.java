@@ -2,19 +2,21 @@ package com.gcml.web;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.gcml.web.widget.X5WebView;
+import com.sjtu.yifei.annotation.Route;
 
+@Route(path = "/common/web/activity")
 public class WebActivity extends AppCompatActivity {
 
     private X5WebView webView;
-    private Button btnBack;
+    private LinearLayout btnBack;
 
     public static final String URL_DIAGNOSIS = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cc197e8b60c48171066f0e7";
     public static final String URL_MEDICAL = "https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5cd3d5cbb60c48343fafe493";
@@ -43,6 +45,7 @@ public class WebActivity extends AppCompatActivity {
         TbsInitHelper.setListener(new TbsInitHelper.Listener() {
             @Override
             public void onInitComplete() {
+
             }
 
             @Override
@@ -59,7 +62,7 @@ public class WebActivity extends AppCompatActivity {
         }
         webView = findViewById(R.id.x5WebView);
 
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.ll_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

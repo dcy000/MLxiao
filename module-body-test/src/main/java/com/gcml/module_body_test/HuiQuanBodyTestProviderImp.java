@@ -3,11 +3,14 @@ package com.gcml.module_body_test;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.bean.get.DiseaseUser;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
+import com.gcml.common.utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -26,9 +29,16 @@ public class HuiQuanBodyTestProviderImp implements IHuiQuanBodyTestProvider {
                 .subscribe(new io.reactivex.observers.DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
+                        if (TextUtils.isEmpty(userEntity.sex)) {
+                            ToastUtils.showShort("请先完善用户信息");
+                            return;
+                        }
+                        int gender = userEntity.sex.equals("男") ? 1 : 2;
+//                        int gender = 1;
+
                         DiseaseUser diseaseUser = new DiseaseUser(
                                 userEntity.name,
-                                userEntity.sex.equals("男") ? 1 : 2,
+                                gender,
                                 Integer.parseInt(userEntity.age) * 12,
                                 userEntity.avatar
                         );

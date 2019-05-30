@@ -1,6 +1,5 @@
 package com.gcml.module_auth_hospital.model;
 
-import com.gcml.common.data.PostUserEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserPostBody;
@@ -9,6 +8,8 @@ import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -49,5 +50,14 @@ public interface UserService {
     Observable<ApiResult<UserEntity>> getUserInfoByToken();
 
     @PUT("/open/common/api/user/info/{patientId}/")
-    Observable<ApiResult<UserEntity>> updateUserInfo(@Path("patientId") String path,@Body PostUserEntity entity);
+    Observable<ApiResult<Object>> updateUserInfo(@Path("patientId") String path, @Body PostUserEntity entity);
+
+    /**
+     * @param type: 1.账号 2.手机号 3.身份证 4.百度人脸id
+     */
+    @POST("/open/common/acc/sel_account")
+    Observable<ApiResult<Object>> isAccountExist(
+            @Query("account") String account,
+            @Query("type") int type
+    );
 }

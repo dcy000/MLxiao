@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -44,11 +44,13 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
      */
     private TextView mTvSignUpGoForward;
     private ConstraintLayout mClSignUpRootIdCard;
+    private UserEntity user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_n_activity_alert_idcard);
+        user = getIntent().getParcelableExtra("data");
         initView();
     }
 
@@ -105,27 +107,36 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
 
     private void checkIdCard(final String idCard) {
         Routerfit.register(AppRouter.class)
-                .getBusinessControllerProvider()
-                .isIdCardNotExit(idCard)
+                .getUserProvider()
+                .isAccountExist(idCard, 3)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        putUserInfo(idCard);
+                        ToastUtils.showShort("身份证已存在");
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        if (throwable instanceof ApiException) {
+                            if (((ApiException) throwable).code() == 1002) {
+                                putUserInfo(idCard);
+                                return;
+                            }
+                        }
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });
     }
 
     private void putUserInfo(String idCard) {
-        UserEntity user = new UserEntity();
+        if (user == null) {
+            ToastUtils.showLong("请重新登录");
+            return;
+        }
         user.idCard = idCard;
         Routerfit.register(AppRouter.class)
                 .getUserProvider()

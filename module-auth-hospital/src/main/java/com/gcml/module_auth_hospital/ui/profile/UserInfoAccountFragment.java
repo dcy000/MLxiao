@@ -55,13 +55,16 @@ public class UserInfoAccountFragment extends LazyFragment {
     @Override
     protected void onPageResume() {
         super.onPageResume();
-        showUser(user);
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            showUser(((UserInfoActivity) activity).getUser());
+        }
     }
 
     void showUser(UserEntity user) {
         this.user = user;
         if (!isPageResume() || user == null) {
-           return;
+            return;
         }
         tvPhone.setText(TextUtils.isEmpty(user.phone) ? "暂未填写" : user.phone);
     }

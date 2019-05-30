@@ -1,6 +1,7 @@
 package com.gcml.module_auth_hospital.ui.profile.update;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -33,11 +34,13 @@ public class AlertNameActivity extends AppCompatActivity implements View.OnClick
      * 下一步
      */
     private TextView mTvSignUpGoForward;
+    private UserEntity user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_n_activity_alert_name);
+        user = getIntent().getParcelableExtra("data");
         initView();
     }
 
@@ -78,13 +81,17 @@ public class AlertNameActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void nextStep() {
+        if (user == null) {
+            ToastUtils.showLong("请重新登录");
+            return;
+        }
+
         String name = mEtSignUpName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
             speak("请输入您的姓名");
             return;
         }
 
-        UserEntity user = new UserEntity();
         user.name = name;
         Routerfit.register(AppRouter.class)
                 .getUserProvider()

@@ -25,6 +25,7 @@ import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.SMSVerificationDialog;
@@ -36,6 +37,7 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.ui.profile.update.AlertAddressActivity;
 import com.gcml.module_auth_hospital.ui.profile.update.AlertIDCardActivity;
 import com.gcml.module_auth_hospital.ui.profile.update.AlertNameActivity;
+import com.gcml.module_auth_hospital.ui.register.BindPhoneActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
@@ -137,7 +139,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
 
     private void modifyHead() {
         Routerfit.register(AppRouter.class)
-                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
+                .skipFaceBd3SignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
                     @Override
                     public void onActivityResult(int result, Object data) {
                         if (result == Activity.RESULT_OK) {
@@ -154,7 +156,55 @@ public class UserInfoActivity extends ToolbarBaseActivity {
     }
 
     public void updateName() {
-        startActivity(new Intent(this, AlertNameActivity.class));
+        if (mUser == null) {
+            ToastUtils.showShort("请重新登陆");
+            return;
+        }
+        startActivity(new Intent(this, AlertNameActivity.class)
+                .putExtra("data", mUser));
+    }
+
+    public void selectAge() {
+        Calendar selectedDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        startDate.set(1900, 0, 1);
+
+        OnTimeSelectListener listener = new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                SimpleDateFormat birth = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+                String birthString = birth.format(date);
+//                UserEntity user = new UserEntity();
+                if (mUser != null) {
+                    mUser.age = String.valueOf(Utils.ageByBirthday(birthString));
+                }
+                updateUser(mUser);
+            }
+        };
+        TimePickerView pvTime = new TimePickerBuilder(this, listener)
+                .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setSubmitText("确认")
+                .setOutSideCancelable(false)
+                .setDividerColor(Color.WHITE)
+                .isCyclic(true)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTitleBgColor(Color.parseColor("#F5F5F5"))
+                .setBgColor(Color.WHITE)
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+                .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                .isCenterLabel(false)
+                .build();
+        pvTime.show();
     }
 
     public void selectBirthday() {
@@ -169,9 +219,11 @@ public class UserInfoActivity extends ToolbarBaseActivity {
             public void onTimeSelect(Date date, View v) {
                 SimpleDateFormat birth = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
                 String birthString = birth.format(date);
-                UserEntity user = new UserEntity();
-                user.birthday = birthString;
-                updateUser(user);
+//                UserEntity user = new UserEntity();
+                if (mUser != null) {
+                    mUser.birthday = birthString;
+                }
+                updateUser(mUser);
             }
         };
         TimePickerView pvTime = new TimePickerBuilder(this, listener)
@@ -204,9 +256,11 @@ public class UserInfoActivity extends ToolbarBaseActivity {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 Timber.i("options1=%s, options2=%s, options3=%s, view =%s", options1, options2, options3, v);
-                UserEntity user = new UserEntity();
-                user.sex = getSexes().get(options1);
-                updateUser(user);
+//                UserEntity user = new UserEntity();
+                if (mUser != null) {
+                    mUser.sex = getSexes().get(options1);
+                }
+                updateUser(mUser);
             }
 
         };
@@ -218,10 +272,12 @@ public class UserInfoActivity extends ToolbarBaseActivity {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 Timber.i("options1=%s, options2=%s, options3=%s, view =%s", options1, options2, options3, v);
-                UserEntity user = new UserEntity();
+//                UserEntity user = new UserEntity();
                 String item = getHeights().get(options1);
-                user.height = item.replace("cm", "");
-                updateUser(user);
+                if (mUser != null) {
+                    mUser.height = item.replace("cm", "");
+                }
+                updateUser(mUser);
             }
 
         };
@@ -254,10 +310,12 @@ public class UserInfoActivity extends ToolbarBaseActivity {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 Timber.i("options1=%s, options2=%s, options3=%s, view =%s", options1, options2, options3, v);
-                UserEntity user = new UserEntity();
+//                UserEntity user = new UserEntity();
                 String item = getWeights().get(options1);
-                user.weight = item.replace("kg", "");
-                updateUser(user);
+                if (mUser != null) {
+                    mUser.weight = item.replace("kg", "");
+                }
+                updateUser(mUser);
             }
 
         };
@@ -269,9 +327,13 @@ public class UserInfoActivity extends ToolbarBaseActivity {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 Timber.i("options1=%s, options2=%s, options3=%s, view =%s", options1, options2, options3, v);
-                UserEntity user = new UserEntity();
-                user.bloodType = getBloodTypes().get(options1);
-                updateUser(user);
+//                UserEntity user = new UserEntity();
+
+                if (mUser != null) {
+                    mUser.bloodType = getBloodTypes().get(options1);
+                }
+
+                updateUser(mUser);
             }
 
         };
@@ -279,16 +341,28 @@ public class UserInfoActivity extends ToolbarBaseActivity {
     }
 
     public void updateIdCard() {
-        startActivity(new Intent(this, AlertIDCardActivity.class));
+        if (mUser == null) {
+            ToastUtils.showShort("请重新登陆");
+            return;
+        }
+        startActivity(new Intent(this, AlertIDCardActivity.class)
+                .putExtra("data", mUser));
     }
 
     public void updateAddress() {
+        if (mUser == null) {
+            ToastUtils.showShort("请重新登陆");
+            return;
+        }
         startActivity(new Intent(this, AlertAddressActivity.class)
                 .putExtra("data", mUser));
     }
 
     public void updatePhone() {
-//        startActivity(new Intent(this, AlertIDCardActivity.class));
+        startActivity(new Intent(this, BindPhoneActivity.class)
+                .putExtra("fromWhere", "updatePhone")
+                .putExtra("data", mUser)
+        );
     }
 
     private RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
@@ -356,6 +430,10 @@ public class UserInfoActivity extends ToolbarBaseActivity {
 
     private UserEntity mUser;
 
+    public UserEntity getUser() {
+        return mUser;
+    }
+
     public void showUser(UserEntity user) {
         mUser = user;
         if (user != null) {
@@ -366,8 +444,13 @@ public class UserInfoActivity extends ToolbarBaseActivity {
                     .error(R.drawable.avatar_placeholder)
                     .into(ivAvatar);
         }
-        ((UserInfoAccountFragment) userInfoAccountFragment).showUser(user);
-        ((UserInfoBaseFragment) userInfoBaseFragment).showUser(user);
+        if (userInfoAccountFragment != null) {
+            ((UserInfoAccountFragment) userInfoAccountFragment).showUser(user);
+        }
+
+        if (userInfoBaseFragment != null) {
+            ((UserInfoBaseFragment) userInfoBaseFragment).showUser(user);
+        }
     }
 
     @Override
@@ -409,6 +492,10 @@ public class UserInfoActivity extends ToolbarBaseActivity {
     }
 
     private void updateUser(UserEntity user) {
+        if (mUser == null) {
+            ToastUtils.showShort("请重新登陆");
+            return;
+        }
         Routerfit.register(AppRouter.class)
                 .getUserProvider()
                 .updateUserEntity(user)
@@ -491,4 +578,6 @@ public class UserInfoActivity extends ToolbarBaseActivity {
         }
         return mSexes;
     }
+
+
 }

@@ -20,8 +20,10 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 //        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
 //        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.222:5555/");//左
+
         initContentView();
     }
 

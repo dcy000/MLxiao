@@ -114,9 +114,17 @@ dependencies {
             && "lib-common-core" != project.name
             && "lib-voice" != project.name
             && "lib-widget" != project.name
-            && "lib-webview" != project.name
     ) {
         api project(":lib-common-business")
+    }
+
+    if ("lib-common-business" != project.name
+            && "lib-common-core" != project.name
+            && "lib-voice" != project.name
+            && "lib-widget" != project.name
+            && "lib-webview" != project.name
+    ) {
+        api project(":lib-webview")
     }
 
     implementation rootProject.ext.dependencies["multidex"]
@@ -213,5 +221,7 @@ dependencies {
     implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
     //webview缓存框架
     implementation 'ren.yale.android:cachewebviewlib:2.1.8'
+
+    implementation 'org.raphets:roundimageview:1.2.0'
 }
 
