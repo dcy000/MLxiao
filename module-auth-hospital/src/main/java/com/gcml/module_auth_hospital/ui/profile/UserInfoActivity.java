@@ -37,6 +37,7 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.ui.profile.update.AlertAddressActivity;
 import com.gcml.module_auth_hospital.ui.profile.update.AlertIDCardActivity;
 import com.gcml.module_auth_hospital.ui.profile.update.AlertNameActivity;
+import com.gcml.module_auth_hospital.ui.register.BindPhoneActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
@@ -138,7 +139,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
 
     private void modifyHead() {
         Routerfit.register(AppRouter.class)
-                .skipFaceBdSignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
+                .skipFaceBd3SignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
                     @Override
                     public void onActivityResult(int result, Object data) {
                         if (result == Activity.RESULT_OK) {
@@ -358,7 +359,10 @@ public class UserInfoActivity extends ToolbarBaseActivity {
     }
 
     public void updatePhone() {
-//        startActivity(new Intent(this, AlertIDCardActivity.class));
+        startActivity(new Intent(this, BindPhoneActivity.class)
+                .putExtra("fromWhere", "updatePhone")
+                .putExtra("data", mUser)
+        );
     }
 
     private RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {

@@ -14,9 +14,6 @@ import android.widget.TextView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.user.IUserService;
-import com.gcml.common.user.UserPostBody;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.ShadowLayout;
@@ -28,12 +25,9 @@ import com.yinglan.shadowimageview.ShadowImageView;
 
 import java.util.ArrayList;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 
 @Route(path = "/app/homepage/main/activity")
@@ -134,16 +128,26 @@ public class Main3Activity extends AppCompatActivity {
         public void onClick(View v) {
             int position = rvBanner.getChildAdapterPosition(v);
             int realPosition = position % bannerItems.size();
+            switch (realPosition) {
+                case 0:
+                    ToastUtils.showShort("开发中");
+                    break;
+                case 1:
+                    Routerfit.register(AppRouter.class).skipOlderHealthManagementSerciveActivity();
+                    break;
+                case 2:
+                    ToastUtils.showShort("开发中");
+                    break;
+            }
         }
     };
 
     private ArrayList<Integer> bannerItems = new ArrayList<>();
 
     {
-        bannerItems.add(R.drawable.main_ic_mask);
-        bannerItems.add(R.drawable.main_ic_mask);
-        bannerItems.add(R.drawable.main_ic_mask);
-        bannerItems.add(R.drawable.main_ic_mask);
+        bannerItems.add(R.drawable.main_ic_banner_0);
+        bannerItems.add(R.drawable.main_ic_banner_1);
+        bannerItems.add(R.drawable.main_ic_banner_2);
     }
 
     private BannerScaleHelper bannerScaleHelper = new BannerScaleHelper();
@@ -276,6 +280,7 @@ public class Main3Activity extends AppCompatActivity {
                     break;
                 case 9:
                     //个人资料
+                    Routerfit.register(AppRouter.class).skipUserInfoActivity();
                     break;
                 case 10:
                     //设置
