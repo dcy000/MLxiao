@@ -377,7 +377,7 @@ public class PostUserEntity {
         post.faceUserId = user.xfUserId;
         post.allergy = user.allergy;
         post.fetation = user.fetation;
-        post.height = TextUtils.isEmpty(user.height) ? 0 : Integer.parseInt(user.height);
+        post.height = TextUtils.isEmpty(user.height) ? 0 : (int) Float.parseFloat(user.height);
         post.hypertensionHand = user.hypertensionHand;
         post.hypertensionLevel = user.hypertensionLevel;
         post.hypertensionPrimaryState = user.hypertensionPrimaryState;
@@ -390,8 +390,8 @@ public class PostUserEntity {
         post.state = TextUtils.isEmpty(user.state) ? 0 : Integer.parseInt(user.state);
         post.tel = user.phone;
         post.userPhoto = user.avatar;
-        post.waist = TextUtils.isEmpty(user.waist) ? 0 : Integer.parseInt(user.waist);
-        post.weight = TextUtils.isEmpty(user.weight) ? 0 : Integer.parseInt(user.weight);
+        post.waist = TextUtils.isEmpty(user.waist) ? 0 : (int) Float.parseFloat(user.waist);
+        post.weight = TextUtils.isEmpty(user.weight) ? 0 : (int) Float.parseFloat(user.weight);
         post.wyyxId = user.wyyxId;
         post.wyyxPwd = user.wyyxPwd;
 
