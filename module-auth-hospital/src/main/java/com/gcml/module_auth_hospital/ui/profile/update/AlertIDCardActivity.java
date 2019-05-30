@@ -122,10 +122,12 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         if (throwable instanceof ApiException) {
-                            if (((ApiException) throwable).code() == 500) {
+                            if (((ApiException) throwable).code() == 1002) {
                                 putUserInfo(idCard);
+                                return;
                             }
                         }
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
     }
