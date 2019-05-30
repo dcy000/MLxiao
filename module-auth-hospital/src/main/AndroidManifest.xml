@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application>
-        <activity android:name=".ui.profile.UserInfoActivity"></activity>
+        <activity android:name=".ui.findPassWord.ForgetPassWordActivity"></activity>
+        <activity android:name=".ui.profile.UserInfoActivity" />
         <activity android:name=".ui.register.BindPhoneActivity" />
         <activity android:name=".ui.register.RegisterSuccessActivity" />
         <activity
