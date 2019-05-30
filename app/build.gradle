@@ -34,11 +34,11 @@ android {
     }
 
     buildTypes {
-        debug {
+//        debug {
 //            signingConfig signingConfigs.debug
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
         release {
             signingConfig signingConfigs.release
             minifyEnabled false

@@ -1,9 +1,7 @@
 include ':app',
-        ':app-component',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc',
         ':lib-common-core',
         ':lib-bluetooth'
 
