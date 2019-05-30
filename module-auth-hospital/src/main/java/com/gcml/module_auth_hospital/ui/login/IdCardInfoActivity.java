@@ -46,9 +46,7 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
         setContentView(R.layout.activity_id_crad_info);
         initView();
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("身  份  证  确  认");
-        mRightView.setVisibility(View.GONE);
-        mTitleText.setVisibility(View.GONE);
+        mTitleText.setText("身 份 证 验 证");
         Intent intent = getIntent();
         if (intent != null) {
             String name = intent.getStringExtra("name");
