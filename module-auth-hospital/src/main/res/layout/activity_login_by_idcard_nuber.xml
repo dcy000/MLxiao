@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
         android:id="@+id/auth_idcard_numer_tb"
@@ -64,10 +66,10 @@
         android:layout_marginTop="267pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/ccet_phone"
-        shadow:shadow_layout_shadowRadius="24pt"
         shadow:shadow_layout_cornerRadius="40pt"
         shadow:shadow_layout_dx="0pt"
-        shadow:shadow_layout_dy="16pt">
+        shadow:shadow_layout_dy="16pt"
+        shadow:shadow_layout_shadowRadius="24pt">
 
         <TextView
             android:id="@+id/tv_next"
