@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -94,6 +96,7 @@ public class AlarmList2Activity extends BaseActivity {
         speak("请设置吃药提醒");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     private void refresh() {
         List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
         if (models != null) {
@@ -137,6 +140,7 @@ public class AlarmList2Activity extends BaseActivity {
         startActivityForResult(intent, 0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -194,6 +198,7 @@ public class AlarmList2Activity extends BaseActivity {
                 }).create(NDialog.CONFIRM).show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public void cancelAlarm(long alarmId) {
         AlarmHelper.cancelAlarms(this);
         DataSupport.delete(AlarmModel.class, alarmId);

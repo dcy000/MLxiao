@@ -8,7 +8,9 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +19,7 @@ import android.view.WindowManager;
  * 专辑封面
  * Created by wcy on 2015/11/30.
  */
+@RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
 public class AlbumCoverView extends View implements ValueAnimator.AnimatorUpdateListener {
     private static final long TIME_UPDATE = 50L;
     private static final float DISC_ROTATION_INCREASE = 0.5f;

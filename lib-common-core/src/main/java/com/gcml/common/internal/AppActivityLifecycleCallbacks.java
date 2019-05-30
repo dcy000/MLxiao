@@ -2,10 +2,13 @@ package com.gcml.common.internal;
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 
 import com.google.auto.service.AutoService;
 
+@RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 @AutoService(Application.ActivityLifecycleCallbacks.class)
 public class AppActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
     @Override

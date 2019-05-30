@@ -1,6 +1,8 @@
 package com.gcml.auth.ui.profile.update;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -346,6 +348,7 @@ public class AlertAddressActivity extends AppCompatActivity {
     private ArrayAdapter<String> mCityAdapter;
     private ArrayAdapter<String> mCountyAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     private void showCities() {
         provinceAdapter = new ArrayAdapter<>(this, R.layout.common_item_spinner_layout);
         spProvince.setAdapter(provinceAdapter);
@@ -368,6 +371,7 @@ public class AlertAddressActivity extends AppCompatActivity {
 
     private void initData() {
         spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //update relative city | county

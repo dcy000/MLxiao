@@ -2,8 +2,10 @@ package com.medlink.danbogh.alarm;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 
 import com.example.han.referralproject.recyclerview.DoctorAlarmActivity;
 
@@ -14,6 +16,7 @@ import com.example.han.referralproject.recyclerview.DoctorAlarmActivity;
 public class AlarmService extends Service {
     public static final String ACTION_ALARM = "com.medlink.intent.Alarm";
 
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         long id = intent.getLongExtra(AlarmHelper.ID, -1);
