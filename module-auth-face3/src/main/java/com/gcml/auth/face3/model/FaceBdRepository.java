@@ -398,7 +398,7 @@ public class FaceBdRepository {
                                         String[] imgData = image.split(",");
                                         param.setImageType(imgData[0]);
                                         param.setImage(imgData[1]);
-                                        param.setGroupIdList(groups.replaceAll(",", ""));
+                                        param.setGroupIdList(groups);
                                         if (!TextUtils.isEmpty(faceId)) {
                                             param.setUserId(faceId);
                                         }

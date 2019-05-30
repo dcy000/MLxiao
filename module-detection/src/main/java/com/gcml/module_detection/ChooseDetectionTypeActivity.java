@@ -152,7 +152,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .setConvertListener(new ViewConvertListener() {
                     @Override
                     protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
-                        holder.setText(R.id.txt_msg, "测量体重需要先完善" + msg + "等信息，方便我们为您计算BMI。");
+                        holder.setText(R.id.txt_msg, "测量体重需要先完善" + msg + "信息，方便我们为您计算BMI。");
                         holder.setOnClickListener(R.id.btn_neg, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
