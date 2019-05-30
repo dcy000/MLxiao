@@ -58,7 +58,6 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });
