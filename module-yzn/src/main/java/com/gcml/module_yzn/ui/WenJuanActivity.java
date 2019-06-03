@@ -20,7 +20,6 @@ import com.gcml.module_yzn.ui.fragment.WenJuanFragment;
 import com.gcml.module_yzn.util.BASE64Encoder;
 import com.gcml.module_yzn.util.MD5Util;
 import com.google.gson.Gson;
-import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.List;
@@ -31,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.gcml.module_yzn.constant.Global.APP_ID;
 import static com.gcml.module_yzn.constant.Global.APP_KEY;
 
-@Route(path = "/module/yzn/zenduan/activity")
+//@Route(path = "/module/yzn/zenduan/activity")
 public class WenJuanActivity extends AppCompatActivity {
 
     private TranslucentToolBar tbWenjuan;

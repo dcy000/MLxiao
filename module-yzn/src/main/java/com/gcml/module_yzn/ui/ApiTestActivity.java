@@ -114,7 +114,7 @@ public class ApiTestActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * 病例入口
+     * 病例/资讯分类入口
      */
     private void bingLi(CaseInputBean inputBean) {
         dialog = new LoadingDialog.Builder(this)

@@ -1,6 +1,7 @@
 package com.gcml.module_yzn.repository;
 
 import com.gcml.common.http.ApiResult;
+import com.gcml.module_yzn.bean.FenLeiInfoOutBean;
 import com.gcml.module_yzn.bean.OutBean;
 import com.gcml.module_yzn.bean.WenJuanOutBean;
 
@@ -25,6 +26,19 @@ public interface YZNService {
     @FormUrlEncoded
     @POST("api/ShortUrl")
     Observable<ApiResult<Object>> bingLi(
+            @Field("AppId") String appId,
+            @Field("CurTime") String currentTime,
+            @Field("Param") String param,
+            @Field("Token") String token
+    );
+
+    /**
+     *
+     */
+    @Headers({"Domain-Name:zenduan"})
+    @FormUrlEncoded
+    @POST("api/ShortUrl")
+    Observable<ApiResult<List<FenLeiInfoOutBean>>> classificationInfo(
             @Field("AppId") String appId,
             @Field("CurTime") String currentTime,
             @Field("Param") String param,
