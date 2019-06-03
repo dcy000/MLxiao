@@ -1,10 +1,11 @@
 package com.gcml.common.utils;
 
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.MessageQueue;
 
-import com.sjtu.yifei.route.Routerfit;
+import timber.log.Timber;
 
 public class AutoLogoutHelper {
 
@@ -18,21 +19,42 @@ public class AutoLogoutHelper {
         private static final AutoLogoutHelper INSTANCE = new AutoLogoutHelper();
     }
 
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private boolean isLogin = false;
 
-    private boolean isLogout = true;
+    private long delayMillis = 1500L;
 
-    public boolean isLogout() {
-        return isLogout;
+    public void setDelayMillis(long delayMillis) {
+        this.delayMillis = delayMillis;
     }
 
-    public void autoLogout() {
-        if (isLogout) {
-            return;
-        }
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
+
+    private boolean hasInit;
+
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Handler bgHandler;
+
+    private AutoLogoutHelper() {
+        HandlerThread idle = new HandlerThread("idle");
+        idle.start();
+        bgHandler = new Handler(idle.getLooper());
+        init();
+    }
+
+    private void init() {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                if (hasInit) {
+                    return;
+                }
+                hasInit = true;
                 handler.sendEmptyMessage(MSG_TRIGGER_ON_IDLE);
                 Looper.myQueue().addIdleHandler(idleHandler);
             }
@@ -42,8 +64,16 @@ public class AutoLogoutHelper {
     private MessageQueue.IdleHandler idleHandler = new MessageQueue.IdleHandler() {
         @Override
         public boolean queueIdle() {
-            handler.removeCallbacks(idleRunnable);
-            handler.postDelayed(idleRunnable, 1500);
+            Timber.i("idle remove ");
+            bgHandler.removeCallbacks(idleRunnable);
+            if (!isLogin) {
+                return true;
+            }
+            if (delayMillis < 0) {
+                delayMillis = 0;
+            }
+            Timber.i("idle ...");
+            bgHandler.postDelayed(idleRunnable, delayMillis);
             return true;
         }
     };
@@ -51,9 +81,26 @@ public class AutoLogoutHelper {
     private Runnable idleRunnable = new Runnable() {
         @Override
         public void run() {
-//            Routerfit
+            Timber.i("idle dispatch");
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (action != null) {
+                        action.logout();
+                    }
+                }
+            });
         }
     };
 
+    private LogoutAction action;
+
+    public void setAction(LogoutAction action) {
+        this.action = action;
+    }
+
+    public interface LogoutAction {
+        void logout();
+    }
 
 }

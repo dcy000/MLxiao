@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.AutoLogoutHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.ShadowLayout;
@@ -403,5 +404,18 @@ public class Main3Activity extends AppCompatActivity {
         if (statusBarFragment != null) {
             statusBarFragment.showStatusBar(true);
         }
+        AutoLogoutHelper.getInstance().setLogin(true);
+        AutoLogoutHelper.getInstance().setAction(new AutoLogoutHelper.LogoutAction() {
+            @Override
+            public void logout() {
+                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AutoLogoutHelper.getInstance().setAction(null);
     }
 }
