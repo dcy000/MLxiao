@@ -256,6 +256,7 @@ public class FaceBdRepository {
 
 
     public ObservableTransformer<String, UserEntity> ensureSignInByFace(String faceId) {
+        UserSpHelper.setNoNetwork(false);
         return new ObservableTransformer<String, UserEntity>() {
 
             @Override
