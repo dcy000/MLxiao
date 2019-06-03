@@ -1,5 +1,6 @@
 package com.gcml.module_yzn.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.gcml.module_yzn.repository.YZNRepository;
 import com.gcml.module_yzn.util.BASE64Encoder;
 import com.gcml.module_yzn.util.MD5Util;
 import com.google.gson.Gson;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.gcml.module_yzn.constant.Global.APP_ID;
 import static com.gcml.module_yzn.constant.Global.APP_KEY;
 
-//@Route(path = "/module/yzn/zenduan/activity")
+@Route(path = "/module/yzn/zenduan/activity")
 public class ApiTestActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvRegister, tvBingli, tvWenJuan, tvZinXunFenLei;
@@ -58,18 +60,22 @@ public class ApiTestActivity extends AppCompatActivity implements View.OnClickLi
             registerInputBean.userId = UserSpHelper.getUserId();
             regist(registerInputBean);
         } else if (v == tvBingli) {
-            CaseInputBean inputBean = new CaseInputBean();
-            inputBean.userId = UserSpHelper.getUserId();
-            bingLi(inputBean);
+            startActivity(new Intent(this, ZenDuanActivity.class));
+//            startActivity(new Intent(this,WenJuanActivity.class));
+//            CaseInputBean inputBean = new CaseInputBean();
+//            inputBean.userId = UserSpHelper.getUserId();
+//            bingLi(inputBean);
         } else if (v == tvWenJuan) {
-            WenJuanInputBean inputBean = new WenJuanInputBean();
-            inputBean.userId = UserSpHelper.getUserId();
-            wenJuan(inputBean);
+            startActivity(new Intent(this, WenJuanActivity.class));
+//            WenJuanInputBean inputBean = new WenJuanInputBean();
+//            inputBean.userId = UserSpHelper.getUserId();
+//            wenJuan(inputBean);
         } else if (v == tvZinXunFenLei) {
-            CaseInputBean inputBean = new CaseInputBean();
-            inputBean.userId = UserSpHelper.getUserId();
-            inputBean.url = "news";
-            bingLi(inputBean);
+            startActivity(new Intent(this, ClassificationInfoActivity.class));
+//            CaseInputBean inputBean = new CaseInputBean();
+//            inputBean.userId = UserSpHelper.getUserId();
+//            inputBean.url = "news";
+//            bingLi(inputBean);
         }
     }
 
