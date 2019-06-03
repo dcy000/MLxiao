@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -20,7 +19,6 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.register.SetPassWordActivity;
-import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
@@ -155,7 +153,7 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
                     public void onNext(UserEntity userEntity) {
                         super.onNext(userEntity);
                         ToastUtils.showShort("登录成功");
-                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        setResult(RESULT_OK);
                     }
 
                     @Override
