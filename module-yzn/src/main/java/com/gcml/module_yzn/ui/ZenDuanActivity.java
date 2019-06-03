@@ -33,7 +33,6 @@ import com.gcml.module_yzn.ui.fragment.ZenDuanItemsFragment;
 import com.gcml.module_yzn.util.BASE64Encoder;
 import com.gcml.module_yzn.util.MD5Util;
 import com.google.gson.Gson;
-import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,10 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-@Route(path = "/module/yzn/zenduan/activity")
+import static com.gcml.module_yzn.constant.Global.APP_ID;
+import static com.gcml.module_yzn.constant.Global.APP_KEY;
+
+//@Route(path = "/module/yzn/zenduan/activity")
 public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private List<Fragment> fragments;
@@ -106,9 +108,6 @@ public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.O
 
 //    MD5(apiKey + curTime + param)
 
-    private static final String APP_ID = "g5NwRNJknq";
-    private static final String APP_KEY = "05539d97326d4f68aef161fec74d3087";
-
     private void requestData(YZNRepository repository, String input) {
         mRgMenu.setOnCheckedChangeListener(this);
         mVpGoods.setOffscreenPageLimit(1);
@@ -117,7 +116,6 @@ public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.O
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-
 
         NewsInputBean newsInputBean = new NewsInputBean();
         newsInputBean.input = input;
@@ -226,24 +224,6 @@ public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.O
         }
         mRgMenu.check(mRgMenu.getChildAt(0).getId());
     }
-
-    private void initFirstRadioButton() {
-        RadioButton button = new RadioButton(this);
-        button.setTextSize(28);
-        button.setText("小E推荐");
-        button.setButtonDrawable(android.R.color.transparent);
-        ViewCompat.setBackground(button, ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rb_history_record, getTheme()));
-        button.setTextColor(getResources().getColorStateList(R.color.good_menu_text_color));
-
-        Drawable drawableLeft = getResources().getDrawable(
-                R.drawable.bg_rb_history_record_shape);
-        button.setCompoundDrawablesWithIntrinsicBounds(drawableLeft,
-                null, null, null);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UiUtils.pt(160f));
-        button.setGravity(Gravity.CENTER);
-        mRgMenu.addView(button, lp);
-    }
-
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

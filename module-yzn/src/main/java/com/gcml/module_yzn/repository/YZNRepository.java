@@ -7,10 +7,12 @@ import com.gcml.common.http.ApiException;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.utils.Serializer;
 import com.gcml.module_yzn.bean.OutBean;
+import com.gcml.module_yzn.bean.WenJuanOutBean;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -36,7 +38,7 @@ public class YZNRepository {
         return yznService.bingLi(appId, currentTime, param, token).compose(apiResultTransformer());
     }
 
-    public Observable<Object> wenJuan(String appId, String currentTime, String param, String token) {
+    public Observable<List<WenJuanOutBean.ItemBean>> wenJuan(String appId, String currentTime, String param, String token) {
         return yznService.wenJuan(appId, currentTime, param, token).compose(apiResultTransformer());
     }
 

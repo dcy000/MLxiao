@@ -14,11 +14,13 @@ import com.gcml.module_yzn.R;
 import com.gcml.module_yzn.bean.CaseInputBean;
 import com.gcml.module_yzn.bean.RegisterInputBean;
 import com.gcml.module_yzn.bean.WenJuanInputBean;
+import com.gcml.module_yzn.bean.WenJuanOutBean;
 import com.gcml.module_yzn.repository.YZNRepository;
 import com.gcml.module_yzn.util.BASE64Encoder;
 import com.gcml.module_yzn.util.MD5Util;
 import com.google.gson.Gson;
-import com.sjtu.yifei.annotation.Route;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -90,9 +92,9 @@ public class ApiTestActivity extends AppCompatActivity implements View.OnClickLi
                 .doOnSubscribe(disposable -> dialog.show())
                 .doOnTerminate(() -> dialog.dismiss())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<WenJuanOutBean.ItemBean>>() {
                     @Override
-                    public void onNext(Object data) {
+                    public void onNext(List<WenJuanOutBean.ItemBean> data) {
                         super.onNext(data);
                     }
 

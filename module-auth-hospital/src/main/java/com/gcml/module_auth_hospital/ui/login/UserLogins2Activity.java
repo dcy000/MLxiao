@@ -4,20 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.fdialog.BaseNiceDialog;
-import com.gcml.common.widget.fdialog.NiceDialog;
-import com.gcml.common.widget.fdialog.ViewConvertListener;
-import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -27,8 +20,6 @@ import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
-
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 /**
  * Created by lenovo on 2019/1/17.

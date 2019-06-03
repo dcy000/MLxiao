@@ -2,6 +2,9 @@ package com.gcml.module_yzn.repository;
 
 import com.gcml.common.http.ApiResult;
 import com.gcml.module_yzn.bean.OutBean;
+import com.gcml.module_yzn.bean.WenJuanOutBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -62,7 +65,7 @@ public interface YZNService {
     @Headers({"Domain-Name:zenduan"})
     @FormUrlEncoded
     @POST("api/wenjuan")
-    Observable<ApiResult<OutBean>> wenJuan(
+    Observable<ApiResult<List<WenJuanOutBean.ItemBean>>> wenJuan(
             @Field("AppId") String appId,
             @Field("CurTime") String currentTime,
             @Field("Param") String param,

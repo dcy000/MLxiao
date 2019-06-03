@@ -36,17 +36,19 @@ public class YiZhiTangDetailActivity extends ToolbarBaseActivity {
 
         mToolbar.setVisibility(View.GONE);
         tb = findViewById(R.id.tb_yizhitang);
-        tb.setData("医智囊", R.drawable.common_icon_back, "  返回", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
-            @Override
-            public void onLeftClick() {
-                finish();
-            }
+        tb.setData("医智囊", R.drawable.common_icon_back, "  返回",
+                R.drawable.auth_hospital_ic_setting, null,
+                new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
 
-            @Override
-            public void onRightClick() {
-                Routerfit.register(AppRouter.class).skipSettingActivity();
-            }
-        });
+                    @Override
+                    public void onRightClick() {
+                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                    }
+                });
         initView();
     }
 
