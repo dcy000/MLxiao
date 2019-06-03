@@ -39,7 +39,18 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.SettingActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <!--gcml://gcmlrt.com:8080/module/control/setting/activity-->
+                <data
+                    android:host="gcmlrt.com"
+                    android:path="/module/control/setting/activity"
+                    android:port="8080"
+                    android:scheme="gcml" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.VoicerSettingDemoActivity"
             android:screenOrientation="landscape" />

@@ -18,6 +18,7 @@ import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
+import com.gcml.common.service.IMenuHelperProvider;
 import com.gcml.common.service.IMusicPlayProvider;
 import com.gcml.common.service.ISystemSettingProvider;
 import com.gcml.common.service.ITaskProvider;
@@ -443,6 +444,9 @@ public interface AppRouter {
     @Go("/auth/hospital/user/logins2/activity")
     boolean skipUserLogins2Activity();
 
+    @Go("/auth/hospital/user/logins2/activity")
+    boolean skipUserLogins2Activity(@Extra("isInterceptor") boolean isInterceptor, @Extra ActivityCallback callback);
+
     @Go("/auth/hospital/user/register2/activity")
     boolean skipUserRegistersActivity();
 
@@ -517,5 +521,10 @@ public interface AppRouter {
 
     @Go("/common/business/check/user/info/provider")
     ICheckUserInfoProvider getCheckUserInfoProvider();
+
+    boolean goSettingActivity(@com.sjtu.yifei.annotation.Uri String path);
+
+    @Go("/common/business/menu/helper/provider")
+    IMenuHelperProvider getMenuHelperProvider();
 
 }

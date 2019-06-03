@@ -96,7 +96,10 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                                     bundle.putString("idCard", cardItem.certNumber);
                                     startActivity(new Intent(UserLogins2Activity.this, IdCardInfoActivity.class)
                                             .putExtra("flag", "login")
-                                            .putExtras(bundle));
+                                            .putExtras(bundle));]
+                                    startActivityForResult(new Intent(UserLogins2Activity.this, IdCardInfoActivity.class)
+                                            .putExtra("flag", "login")
+                                            .putExtras(bundle),1);
                                 }
                             }
                         }));
@@ -125,4 +128,13 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (true){
+            Routerfit.setResult(Activity.RESULT_OK,true);
+        }else {
+            Routerfit.setResult(Activity.RESULT_OK,false);
+        }
+    }
 }

@@ -469,7 +469,7 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                                 Routerfit.register(AppRouter.class).skipAuthActivity();
                             }
                             if (ChannelUtils.isAppCombine()) {
-                                touristLogin();
+                                Routerfit.register(AppRouter.class).skipMainActivity();
                             }
                             finish();
                         }
@@ -486,30 +486,5 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
         AutoNetworkUtils.showWifiDisconnectedPage = true;
         super.onDestroy();
         unregisterReceiver(mNetworkReceiver);
-    }
-
-    private void touristLogin() {
-        IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
-        UserPostBody body = new UserPostBody();
-        body.password = "123";
-        body.username = "superman";
-        iUserService.signIn(body)
-                .compose(RxUtils.io2Main())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new com.gcml.common.utils.DefaultObserver<UserToken>() {
-                    @Override
-                    public void onNext(UserToken userToken) {
-                        super.onNext(userToken);
-                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-                        ToastUtils.showShort(throwable.getMessage());
-                    }
-                });
     }
 }

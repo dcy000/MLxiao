@@ -2,9 +2,11 @@ package com.example.han.referralproject;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,13 @@ import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.menu.AppMenuBean;
+import com.gcml.common.menu.EMenu;
+import com.gcml.common.menu.MenuEntity;
+import com.gcml.common.menu.MenuHelperProviderImp;
+import com.gcml.common.menu.MenuRepository;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.ShadowLayout;
@@ -24,6 +32,8 @@ import com.sjtu.yifei.route.Routerfit;
 import com.yinglan.shadowimageview.ShadowImageView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -39,15 +49,82 @@ public class Main3Activity extends AppCompatActivity {
     private ImageView ivAvatar;
     private TextView tvUserName;
     private StatusBarFragment statusBarFragment;
+    private ConstraintLayout clUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         initView();
-
+        getMenus();
     }
 
+    private void getMenus() {
+        Routerfit.register(AppRouter.class)
+                .getMenuHelperProvider()
+                .menu(EMenu.MAIN, new MenuHelperProviderImp.MenuResult() {
+                    @Override
+                    public void onSuccess(List<MenuEntity> menus) {
+                        dealMenu(menus);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        ToastUtils.showShort(msg);
+                    }
+                });
+    }
+
+    private void dealMenu(List<MenuEntity> menus) {
+        for (MenuEntity entity : menus) {
+            String name = entity.getMenuLabel();
+            if (TextUtils.isEmpty(name)) continue;
+            switch (name) {
+                case "健康测量":
+                    entity.setMenuImage(R.drawable.main_ic_health_detection);
+                    break;
+                case "自诊导诊":
+                    entity.setMenuImage(R.drawable.main_ic_self_check);
+                    break;
+                case "自测用药":
+                    entity.setMenuImage(R.drawable.main_ic_self_check_medical);
+                    break;
+                case "健康自测":
+                    entity.setMenuImage(R.drawable.main_ic_health_self_check);
+                    break;
+                case "医疗百科":
+                    entity.setMenuImage(R.drawable.main_ic_health_wiki);
+                    break;
+                case "家庭医生":
+                    entity.setMenuImage(R.drawable.main_ic_family_doctor);
+                    break;
+                case "健康生活":
+                    entity.setMenuImage(R.drawable.main_ic_health_life);
+                    break;
+                case "帮助中心":
+                    entity.setMenuImage(R.drawable.main_ic_help);
+                    break;
+                case "健康数据":
+                    entity.setMenuImage(R.drawable.main_ic_health_data);
+                    break;
+                case "个人资料":
+                    entity.setMenuImage(R.drawable.main_ic_user_info);
+                    break;
+                case "设置":
+                    entity.setMenuImage(R.drawable.main_ic_settings);
+                    break;
+                case "护士上门":
+                    entity.setMenuImage(R.drawable.main_ic_family_nurse);
+                    break;
+                case "视频医生":
+                    entity.setMenuImage(R.drawable.main_ic_call_doctor_disabled);
+                    break;
+            }
+        }
+        menuEntities.addAll(menus);
+        Collections.sort(menuEntities);
+        menuAdapter.notifyDataSetChanged();
+    }
 
     private void initView() {
         statusBarFragment = StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
@@ -58,14 +135,9 @@ public class Main3Activity extends AppCompatActivity {
         tvLogout = (TextView) findViewById(R.id.tvLogout);
         rvBanner = (BannerRecyclerView) findViewById(R.id.rvBanner);
         rvMenuItems = (RecyclerView) findViewById(R.id.rvMenuItems);
-
-        tvLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-            }
-        });
-
+        clUser = findViewById(R.id.clUser);
+        tvLogout.setOnClickListener(v -> Routerfit.register(AppRouter.class).skipUserLogins2Activity());
+        clUser.setOnClickListener(v -> Routerfit.register(AppRouter.class).skipUserInfoActivity());
         initBanner();
 
         initMenuItems();
@@ -241,91 +313,54 @@ public class Main3Activity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int position = rvMenuItems.getChildAdapterPosition(v);
-            switch (position) {
-                case 0:
-                    //健康测量
+            String label = menuEntities.get(position).getMenuLabel();
+            switch (label) {
+                case "健康测量":
                     Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
                     break;
-                case 1:
-                    //自诊导诊
+                case "自诊导诊":
                     Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(Main3Activity.this);
                     break;
-                case 2:
-                    //自测用药 智能问药（左手）
+                case "自测用药":
                     Routerfit.register(AppRouter.class).skipWebActivity(AppRouter.URL_MEDICAL);
                     break;
-                case 3:
-                    //健康自测 智能诊断（左手）
+                case "健康自测":
                     Routerfit.register(AppRouter.class).skipWebActivity(AppRouter.URL_DIAGNOSIS);
                     break;
-                case 4:
-                    //医疗百科 医智囊
+                case "医疗百科":
                     Routerfit.register(AppRouter.class).skipZenDuanActivity();
                     break;
-                case 5:
-                    //家庭医生
+                case "家庭医生":
                     Routerfit.register(AppRouter.class).skipHealthProfileActivity();
                     break;
-                case 6:
-                    //健康生活
+                case "健康生活":
                     Routerfit.register(AppRouter.class).skipHealthLifeActivity();
                     break;
-                case 7:
-                    //帮助中心
+                case "帮助中心":
                     Routerfit.register(AppRouter.class).skipHelpActivity();
                     break;
-                case 8:
-                    //健康数据
+                case "健康数据":
                     Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
                     break;
-                case 9:
-                    //个人资料
+                case "个人资料":
                     Routerfit.register(AppRouter.class).skipUserInfoActivity();
                     break;
-                case 10:
-                    //设置
+                case "设置":
+//                    Routerfit.register(AppRouter.class).goSettingActivity("gcml://gcmlrt.com:8080/module/control/setting/activity");
                     Routerfit.register(AppRouter.class).skipSettingActivity();
                     break;
-                case 11:
-                    //护士上门
+                case "护士上门":
                     ToastUtils.showShort("开发中");
                     break;
-                case 12:
-                    //家庭医生
+                case "视频医生":
                     ToastUtils.showShort("开发中");
                     break;
             }
         }
     };
-
     private ArrayList<MenuEntity> menuEntities = new ArrayList<>();
     private MenuAdapter menuAdapter = new MenuAdapter();
 
-    {
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_detection, "健康测量")); // 0
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check, "自诊导诊")); // 1
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_self_check_medical, "自测用药")); // 2
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_self_check, "健康自测")); // 3
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_wiki, "医疗百科"));// 4
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_doctor, "家庭医生")); // 5
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_life, "健康生活")); // 6
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_help, "帮助中心")); // 7
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_health_data, "健康数据")); // 8
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_user_info, "个人资料")); // 9
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_settings, "设置")); // 10
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_family_nurse, "护士上门")); // 11
-        menuEntities.add(new MenuEntity(R.drawable.main_ic_call_doctor_disabled, "视频医生")); // 12
-    }
-
-    private class MenuEntity {
-        public int menuImage;
-        public String menuLabel;
-
-        public MenuEntity(int menuImage, String menuLabel) {
-            this.menuImage = menuImage;
-            this.menuLabel = menuLabel;
-        }
-    }
 
     private class MenuVH extends RecyclerView.ViewHolder {
 
