@@ -41,7 +41,7 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
     public void refreshData(List<ECGHistory> response, String temp) {
         List<ECGHistory> ecgs=new ArrayList<>();
         for (ECGHistory data : response) {
-            if (!TextUtils.isEmpty(data.result) && !data.result.contains("重新测试")) {
+            if (!TextUtils.isEmpty(data.ecg) && !data.ecg.contains("重新测试")) {
                ecgs.add(data);
             }
         }

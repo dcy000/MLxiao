@@ -96,6 +96,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
     private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
+    private String[] measureResult;
 
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
@@ -122,6 +123,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         setContentView(R.layout.health_measure_activity_all_measure);
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+        measureResult = getResources().getStringArray(R.array.ecg_measureres);
         dealLogic();
     }
 
@@ -598,7 +600,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                         DetectionData ecgData = new DetectionData();
                         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
                         ecgData.setDetectionType("2");
-                        ecgData.setEcg(TextUtils.equals(flag, "2") ? "1" : flag);
+                        ecgData.setEcg(TextUtils.equals(flag, "2") ? measureResult[0] : measureResult[1]);
                         ecgData.setResult(result);
                         ecgData.setHeartRate(Integer.parseInt(heartRate));
                         ecgData.setResultUrl(fileAddress);

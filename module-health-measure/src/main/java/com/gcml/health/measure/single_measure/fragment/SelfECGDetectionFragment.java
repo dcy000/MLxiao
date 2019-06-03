@@ -382,7 +382,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         DetectionData ecgData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         ecgData.setDetectionType("2");
-        ecgData.setEcg(String.valueOf(ecg));
+        ecgData.setEcg(measureResult[ecg]);
         ecgData.setHeartRate(heartRate);
         String s = UtilsManager.getApplication().getResources().getStringArray(R.array.ecg_measureres)[ecg];
         ecgData.setResult(s);
