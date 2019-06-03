@@ -42,9 +42,9 @@ public class WelcomeActivity extends AppCompatActivity {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
             finish();
         } else {
-//          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
+          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
 //            Routerfit.register(AppRouter.class).skipUserRegistersActivity();//身份证注册
-            showIpInputDialog();
+//            showIpInputDialog();
         }
 
     }

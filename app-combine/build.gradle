@@ -39,7 +39,21 @@ android {
             keyPassword RELEASE_KEY_PASSWORD
         }
     }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                    // output -> outputFileName = new File(variant.name, defaultConfig.versionName + "." + releaseTime() +buildType.name + "."+ ".apk")
+                output -> outputFileName = new File(defaultConfig.versionName + /*"." + releaseTime() + */".apk")
+            }
+
+    }
 }
+
+def releaseTime() {
+    return new Date().format("yyyy.MM.dd.HH.mm", TimeZone.getTimeZone("GMT+8"))//中国时间
+}
+
 
 combuild {
     applicationName = 'com.gcml.common.App'

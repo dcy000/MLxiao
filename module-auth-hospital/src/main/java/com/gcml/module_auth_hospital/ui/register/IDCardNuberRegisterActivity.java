@@ -10,9 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
@@ -22,6 +26,9 @@ import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/auth/hospital/user/register2/activity")
 public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
@@ -101,8 +108,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
             speak("请输入正确的身份证号码");
             return;
         }
-        onCheckRegistered(idCardNumber);
-        toSetPassWord(idCardNumber);
+        checkIdCard(idCardNumber);
     }
 
     private void toSetPassWord(String idCardNumber) {
@@ -115,28 +121,31 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
         MLVoiceSynthetize.startSynthesize(this, content);
     }
 
-    private void onCheckRegistered(String idCardNumber) {
-      /*  userRepository
-                .isIdCardNotExit(idCardNumber)
+    private void checkIdCard(final String idCard) {
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .isAccountExist(idCard, 3)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        super.onNext(o);
-                        //身份证未被绑定后其他异常情况
-//                        toFilllRegisterInfo(idCardNumber);
-                        startActivity(new Intent(IDCardNuberRegisterActivity.this, SetPassWordActivity.class));
+                        ToastUtils.showShort("身份证已存在");
                     }
-
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        if (throwable instanceof ApiException) {
+                            if (((ApiException) throwable).code() == 1002) {
+                                toSetPassWord(idCard);
+                                return;
+                            }
+                        }
                         ToastUtils.showShort(throwable.getMessage());
                     }
-                });*/
+                });
     }
 
 

@@ -176,7 +176,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     public void onNext(UserEntity UserEntity) {
                         super.onNext(UserEntity);
                         ToastUtils.showShort("登录成功");
-                        Routerfit.register(AppRouter.class).skipMainActivity();
+                        setResult(RESULT_OK);
 
                     }
 
