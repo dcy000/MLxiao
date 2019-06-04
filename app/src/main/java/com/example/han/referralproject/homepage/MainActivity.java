@@ -143,8 +143,8 @@ public class MainActivity extends ToolbarBaseActivity implements View.OnClickLis
         mIndicatorLeft = findViewById(R.id.indicator_left);
 //        mIndicatorRight = findViewById(R.id.indicator_right);
         mIndicatorMiddle = findViewById(R.id.indicator_middle);
-        gotoNext = findViewById(R.id.iv_goto_next_page);
-        gotoNext.setOnClickListener(this);
+//        gotoNext = findViewById(R.id.iv_goto_next_page);
+//        gotoNext.setOnClickListener(this);
 
     }
 

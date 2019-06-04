@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         if (project.ext.runAsApp) {
-            applicationId "com.gcml.health.measure"
+            applicationId "com.gcml.health.hypertension"
             versionCode = rootProject.ext.android["versionCode"]
             versionName rootProject.ext.android["versionName"]
         }

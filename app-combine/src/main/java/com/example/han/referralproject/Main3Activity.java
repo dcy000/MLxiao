@@ -18,13 +18,12 @@ import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
-import com.gcml.common.menu.AppMenuBean;
 import com.gcml.common.menu.EMenu;
 import com.gcml.common.menu.MenuEntity;
 import com.gcml.common.menu.MenuHelperProviderImp;
 import com.gcml.common.menu.MenuRepository;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.AutoLogoutHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.ShadowLayout;
@@ -452,5 +451,18 @@ public class Main3Activity extends AppCompatActivity {
             tvLogout.setVisibility(View.VISIBLE);
             getPersonInfo();
         }
+        AutoLogoutHelper.getInstance().setLogin(true);
+        AutoLogoutHelper.getInstance().setAction(new AutoLogoutHelper.LogoutAction() {
+            @Override
+            public void logout() {
+                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AutoLogoutHelper.getInstance().setAction(null);
     }
 }
