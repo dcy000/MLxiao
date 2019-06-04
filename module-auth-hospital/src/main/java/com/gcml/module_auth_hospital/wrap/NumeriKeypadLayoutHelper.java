@@ -14,16 +14,12 @@ public class NumeriKeypadLayoutHelper {
         this.layout = builder.layout;
 
         this.showX = builder.showX;
-        this.layout.showX(builder.showX);
 
         this.clearAll = builder.clearAll;
-        this.layout.clearAll(builder.clearAll);
 
         this.onTextChageListener = builder.onTextChageListener;
-        this.layout.setOnTextChageListener(builder.onTextChageListener);
 
         this.length = builder.length;
-        this.layout.setLength(builder.length);
     }
 
     public static class Builder {
@@ -40,22 +36,27 @@ public class NumeriKeypadLayoutHelper {
 
         public Builder length(int length) {
             this.length = length;
+            this.layout.setLength(length);
             return this;
         }
 
         public Builder showX(boolean showX) {
             this.showX = showX;
+
+            this.layout.showX(showX);
             return this;
         }
 
 
         public Builder clearAll(boolean clearAll) {
             this.clearAll = clearAll;
+            this.layout.clearAll(clearAll);
             return this;
         }
 
         public Builder textChageListener(NumeriKeypadLayout.OnTextChageListener onTextChageListener) {
             this.onTextChageListener = onTextChageListener;
+            this.layout.setOnTextChageListener(onTextChageListener);
             return this;
         }
 

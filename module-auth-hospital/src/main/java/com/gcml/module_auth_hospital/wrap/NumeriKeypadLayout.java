@@ -134,6 +134,10 @@ public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListe
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public interface OnTextChageListener {
         void onTextChange(String text);
     }
