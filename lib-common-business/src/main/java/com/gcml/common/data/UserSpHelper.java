@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.gcml.common.GsonHelper;
+import com.gcml.common.constant.Global;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.data.SPUtil;
 
@@ -356,6 +357,18 @@ public class UserSpHelper {
 
     public static String getKTAddress() {
         return (String) SPUtil.get(KEY_KT_ADDRESS, "");
+    }
+
+    /**
+     * 是否是游客
+     *
+     * @return
+     */
+    public static boolean isTourist() {
+        if (TextUtils.equals(UserSpHelper.getToken(), Global.TOURIST_TOKEN)) {
+            return true;
+        }
+        return false;
     }
 
 }

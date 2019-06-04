@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.data.AppManager;
+import com.gcml.common.menu.EMenu;
+import com.gcml.common.menu.MenuEntity;
+import com.gcml.common.menu.MenuHelperProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -20,6 +25,8 @@ import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
+
+import java.util.List;
 
 /**
  * Created by lenovo on 2019/1/17.
@@ -60,6 +67,40 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                 });
         setWifiLevel(tb);
         AppManager.getAppManager().addActivity(this);
+        getMenu();
+    }
+
+    private void getMenu() {
+        Routerfit.register(AppRouter.class).getMenuHelperProvider()
+                .menu(EMenu.LOGIN, new MenuHelperProviderImp.MenuResult() {
+                    @Override
+                    public void onSuccess(List<MenuEntity> menus) {
+                        dealMenu(menus);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        ToastUtils.showShort(msg);
+                    }
+                });
+    }
+
+    private void dealMenu(List<MenuEntity> menus) {
+        for (MenuEntity entity : menus) {
+            String name = entity.getMenuLabel();
+            if (TextUtils.isEmpty(name)) continue;
+            switch (name) {
+                case "身份证扫描":
+                    lllogins.getChildAt(0).setVisibility(View.VISIBLE);
+                    break;
+                case "身份证号输入":
+                    lllogins.getChildAt(1).setVisibility(View.VISIBLE);
+                    break;
+                case "人脸识别":
+                    lllogins.getChildAt(2).setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -70,7 +111,6 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
     }
 
     private void updatePage2() {
-        lllogins.getChildAt(0).setVisibility(View.VISIBLE);
         lllogins.getChildAt(0).setOnClickListener(
                 v ->
                         Routerfit.register(AppRouter.class).skipConnectActivity(36, (result, data) -> {
@@ -84,20 +124,25 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                                     bundle.putString("address", cardItem.certAddress);
                                     bundle.putParcelable("profile", cardItem.picBitmap);
                                     bundle.putString("idCard", cardItem.certNumber);
-                                    startActivityForResult(new Intent(UserLogins2Activity.this, IdCardInfoActivity.class)
-                                                    .putExtra("flag", "login")
-                                                    .putExtras(bundle)
-                                                    .putExtras(getIntent())
-                                            , 200);
+                                    goIdCardInfo(bundle);
                                 }
                             }
                         }));
 
-        lllogins.getChildAt(1).setVisibility(View.VISIBLE);
-        lllogins.getChildAt(1).setOnClickListener(v ->
-                startActivityForResult(new Intent(UserLogins2Activity.this, IDCardNuberLoginActivity.class).putExtras(getIntent()), 201));
 
-        lllogins.getChildAt(2).setVisibility(View.VISIBLE);
+        lllogins.getChildAt(1).setOnClickListener(v ->
+                Routerfit.register(AppRouter.class).skipIDCardNuberLoginActivity(new ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int result, Object data) {
+                        if (result == Activity.RESULT_OK) {
+                            dealVertifySuccess();
+                        } else {
+                            Routerfit.setResult(Activity.RESULT_CANCELED, false);
+                        }
+                    }
+                }))
+        ;
+
         lllogins.getChildAt(2).setOnClickListener(new FilterClickListener(v ->
                 Routerfit.register(AppRouter.class).skipFaceBd3SignInActivity(false, false, "", false, new ActivityCallback() {
                     @Override
@@ -105,15 +150,7 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                         if (result == Activity.RESULT_OK) {
                             String sResult = data.toString();
                             if (sResult.equals("success") || sResult.equals("skip")) {
-                                Intent extra = getIntent();
-                                if (extra != null) {
-                                    if (!extra.getBooleanExtra("isInterceptor", false)) {
-                                        Routerfit.register(AppRouter.class).skipMainActivity();
-                                        Routerfit.setResult(Activity.RESULT_OK, true);
-                                    }
-                                } else {
-                                    Routerfit.register(AppRouter.class).skipMainActivity();
-                                }
+                                dealVertifySuccess();
                             } else if (sResult.equals("failed")) {
                                 Routerfit.setResult(Activity.RESULT_CANCELED, false);
                             }
@@ -123,23 +160,30 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                 })));
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            Routerfit.setResult(Activity.RESULT_OK, true);
-            Intent extra = getIntent();
-            if (extra != null) {
-                if (!extra.getBooleanExtra("isInterceptor", false)) {
-                    Routerfit.register(AppRouter.class).skipMainActivity();
-                    Routerfit.setResult(Activity.RESULT_OK, true);
+    private void goIdCardInfo(Bundle bundle) {
+        Routerfit.register(AppRouter.class).skipIdCardInfoActivity("login", bundle, new ActivityCallback() {
+            @Override
+            public void onActivityResult(int result, Object data) {
+                if (result == Activity.RESULT_OK) {
+                    dealVertifySuccess();
+                } else {
+                    Routerfit.setResult(Activity.RESULT_CANCELED, false);
                 }
-            } else {
+            }
+        });
+    }
+
+    private void dealVertifySuccess() {
+        Intent extra = getIntent();
+        if (extra != null) {
+            if (!extra.getBooleanExtra("isInterceptor", false)) {
                 Routerfit.register(AppRouter.class).skipMainActivity();
+            } else {
+                Routerfit.setResult(Activity.RESULT_OK, true);
             }
         } else {
-            Routerfit.setResult(Activity.RESULT_CANCELED, false);
+            Routerfit.register(AppRouter.class).skipMainActivity();
         }
-
     }
+
 }
