@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
             case R.id.eiv_off:
-                Routerfit.register(AppRouter.class).skipAuthActivity();
+                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                 break;
         }
     }

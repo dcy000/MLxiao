@@ -1,4 +1,5 @@
 package com.gcml.common.menu;
+
 import com.gcml.common.service.IMenuHelperProvider;
 import com.gcml.common.utils.RxUtils;
 import com.sjtu.yifei.annotation.Route;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.observers.DefaultObserver;
+
 @Route(path = "/common/business/menu/helper/provider")
 public class MenuHelperProviderImp implements IMenuHelperProvider {
     List<MenuEntity> menuEntities = new ArrayList<>();
@@ -19,23 +21,15 @@ public class MenuHelperProviderImp implements IMenuHelperProvider {
                 .subscribe(new DefaultObserver<AppMenuBean>() {
                     @Override
                     public void onNext(AppMenuBean appMenuBean) {
-                        AppMenuBean.MenuListBean menuListBean = appMenuBean.getMenuList().get(0);//主界面
-                        if (menuListBean == null) {
-                            callback.onError("获取菜单失败，请联系管理员");
-                            return;
-                        }
-                        List<AppMenuBean.MenuListBean> list = menuListBean.getList();
-                        if (list == null) {
-                            callback.onError("获取菜单失败，请联系管理员");
-                            return;
-                        }
                         switch (menu) {
                             case MAIN:
-                                dealMainMenu(list, callback);
+                                dealMenu(appMenuBean.getMenuList().get(0), callback);
                                 break;
                             case DETECTION:
+                                dealMenu(appMenuBean.getMenuList().get(2), callback);
                                 break;
-                            case PERSON_DETAIL:
+                            case LOGIN:
+                                dealMenu(appMenuBean.getMenuList().get(1), callback);
                                 break;
                         }
                     }
@@ -52,17 +46,27 @@ public class MenuHelperProviderImp implements IMenuHelperProvider {
                 });
     }
 
-    private void dealMainMenu(List<AppMenuBean.MenuListBean> list, MenuResult callback) {
+
+    private void dealMenu(AppMenuBean.MenuListBean menuListBean, MenuResult callback) {
+        if (menuListBean == null) {
+            callback.onError("获取菜单失败，请联系管理员");
+            return;
+        }
+        List<AppMenuBean.MenuListBean> list = menuListBean.getList();
+        if (list == null) {
+            callback.onError("获取菜单失败，请联系管理员");
+            return;
+        }
         for (AppMenuBean.MenuListBean menu : list) {
             MenuEntity entity = new MenuEntity();
-            String name = menu.getName();
-            entity.setMenuLabel(name);
+            entity.setMenuLabel(menu.getName());
             entity.setOrderNum(menu.getOrderNum());
             entity.setRouterPath(menu.getUrl());
             menuEntities.add(entity);
         }
         callback.onSuccess(menuEntities);
     }
+
 
     public interface MenuResult {
         void onSuccess(List<MenuEntity> menus);

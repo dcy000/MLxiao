@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.constant.Global;
+import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.menu.AppMenuBean;
 import com.gcml.common.menu.EMenu;
@@ -56,7 +59,6 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         initView();
-        getMenus();
     }
 
     private void getMenus() {
@@ -121,6 +123,7 @@ public class Main3Activity extends AppCompatActivity {
                     break;
             }
         }
+        menuEntities.clear();
         menuEntities.addAll(menus);
         Collections.sort(menuEntities);
         menuAdapter.notifyDataSetChanged();
@@ -136,7 +139,11 @@ public class Main3Activity extends AppCompatActivity {
         rvBanner = (BannerRecyclerView) findViewById(R.id.rvBanner);
         rvMenuItems = (RecyclerView) findViewById(R.id.rvMenuItems);
         clUser = findViewById(R.id.clUser);
-        tvLogout.setOnClickListener(v -> Routerfit.register(AppRouter.class).skipUserLogins2Activity());
+        tvLogout.setOnClickListener(v -> {
+            UserSpHelper.setToken(Global.TOURIST_TOKEN);
+            UserSpHelper.setUserId("");
+            Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+        });
         clUser.setOnClickListener(v -> Routerfit.register(AppRouter.class).skipUserInfoActivity());
         initBanner();
 
@@ -434,9 +441,16 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getPersonInfo();
+        getMenus();
         if (statusBarFragment != null) {
             statusBarFragment.showStatusBar(true);
+        }
+        if (UserSpHelper.isTourist()) {
+            tvLogout.setVisibility(View.GONE);
+            tvUserName.setText("游客");
+        } else {
+            tvLogout.setVisibility(View.VISIBLE);
+            getPersonInfo();
         }
     }
 }

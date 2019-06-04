@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,11 +27,13 @@ import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.findPassWord.FindPassWordActivity;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+@Route(path = "/auth/hospital/id/card/number/login/activity")
 public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements View.OnClickListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
@@ -176,8 +179,8 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     public void onNext(UserEntity UserEntity) {
                         super.onNext(UserEntity);
                         ToastUtils.showShort("登录成功");
-                        Routerfit.register(AppRouter.class).skipMainActivity();
-
+                        Routerfit.setResult(Activity.RESULT_OK, true);
+                        finish();
                     }
 
                     @Override

@@ -3,7 +3,9 @@ package com.gcml.common.router;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
+import android.os.Bundle;
 
+import com.gcml.common.constant.Global;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.recommend.bean.get.Music;
@@ -450,7 +452,7 @@ public interface AppRouter {
     @Go("/auth/hospital/user/register2/activity")
     boolean skipUserRegistersActivity();
 
-    @Go("/auth/hospital/user/info/activity")
+    @Go(Global.PERSON_DETAIL)
     boolean skipUserInfoActivity();
 
     @Go("module/control/voice/setting/activity")
@@ -526,5 +528,11 @@ public interface AppRouter {
 
     @Go("/common/business/menu/helper/provider")
     IMenuHelperProvider getMenuHelperProvider();
+
+    @Go("/auth/hospital/id/card/number/login/activity")
+    boolean skipIDCardNuberLoginActivity(@Extra ActivityCallback callback);
+
+    @Go("/auth/hospital/idcard/info/activity")
+    boolean skipIdCardInfoActivity(@Extra("flag") String flag, @Extra Bundle bundle, @Extra ActivityCallback callback);
 
 }

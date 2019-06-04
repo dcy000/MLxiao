@@ -7,6 +7,10 @@ public class ChooseDetectionTypeBean {
     private String result;
     private String unit;
     private boolean isNormal;
+
+    public ChooseDetectionTypeBean() {
+    }
+
     public ChooseDetectionTypeBean(int icon, String title, String date, String result, String unit) {
         this.icon = icon;
         this.title = title;
