@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.AutoLogoutHelper;
+import com.gcml.common.utils.IdleHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.ShadowLayout;
@@ -46,7 +46,6 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         initView();
-
     }
 
 
@@ -404,11 +403,13 @@ public class Main3Activity extends AppCompatActivity {
         if (statusBarFragment != null) {
             statusBarFragment.showStatusBar(true);
         }
-        AutoLogoutHelper.getInstance().setLogin(true);
-        AutoLogoutHelper.getInstance().setAction(new AutoLogoutHelper.LogoutAction() {
+        IdleHelper.getInstance().setEnable(true);
+        IdleHelper.getInstance().setCallback(new IdleHelper.Callback() {
             @Override
-            public void logout() {
-                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+            public void onIdle(boolean idle) {
+                if (idle) {
+                    Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+                }
             }
         });
     }
@@ -416,6 +417,6 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AutoLogoutHelper.getInstance().setAction(null);
+        IdleHelper.getInstance().setCallback(null);
     }
 }

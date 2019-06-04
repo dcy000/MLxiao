@@ -287,7 +287,7 @@ public interface AppRouter {
             @Extra ActivityCallback callback
     );
 
-    //    @Go("/auth/auth/activity")
+//    @Go("/auth/auth/activity")
     @Go("/auth/hospital/user/logins2/activity")
     boolean skipAuthActivity();
 

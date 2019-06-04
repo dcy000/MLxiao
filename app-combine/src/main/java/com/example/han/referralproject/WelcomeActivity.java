@@ -10,6 +10,7 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.IUserService;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.user.UserToken;
+import com.gcml.common.utils.IdleHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -29,7 +30,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        IdleHelper.getInstance();
 //        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
 //        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.222:5555/");//左
 

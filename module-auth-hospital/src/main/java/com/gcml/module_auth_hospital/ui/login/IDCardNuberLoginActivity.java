@@ -177,7 +177,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                         super.onNext(UserEntity);
                         ToastUtils.showShort("登录成功");
                         setResult(RESULT_OK);
-
+                        finish();
                     }
 
                     @Override

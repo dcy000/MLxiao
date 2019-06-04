@@ -154,4 +154,9 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
                 });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissLoading();
+    }
 }
