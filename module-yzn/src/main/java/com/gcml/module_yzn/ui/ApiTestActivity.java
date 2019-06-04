@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_yzn.R;
 import com.gcml.module_yzn.bean.CaseInputBean;
 import com.gcml.module_yzn.bean.RegisterInputBean;
@@ -21,6 +24,7 @@ import com.gcml.module_yzn.util.BASE64Encoder;
 import com.gcml.module_yzn.util.MD5Util;
 import com.google.gson.Gson;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.List;
 
@@ -32,10 +36,10 @@ import static com.gcml.module_yzn.constant.Global.APP_KEY;
 
 @Route(path = "/module/yzn/zenduan/activity")
 public class ApiTestActivity extends AppCompatActivity implements View.OnClickListener {
-
     private TextView tvRegister, tvBingli, tvWenJuan, tvZinXunFenLei;
     private LoadingDialog dialog;
     private YZNRepository repository = new YZNRepository();
+    private TranslucentToolBar tbYznEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +49,28 @@ public class ApiTestActivity extends AppCompatActivity implements View.OnClickLi
         tvBingli = findViewById(R.id.tv_bingli);
         tvWenJuan = findViewById(R.id.tv_wenjuan);
         tvZinXunFenLei = findViewById(R.id.tv_zixun_fenlei);
+        tbYznEntry = findViewById(R.id.tv_yzn_enter);
 
         tvRegister.setOnClickListener(this);
         tvBingli.setOnClickListener(this);
         tvWenJuan.setOnClickListener(this);
         tvZinXunFenLei.setOnClickListener(this);
+
+        tbYznEntry.setData("医 疗 百 科", R.drawable.common_icon_back, "返回",
+                R.drawable.auth_hospital_ic_setting, null,
+                new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                    }
+                });
+
+
     }
 
     @Override

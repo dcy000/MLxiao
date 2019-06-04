@@ -8,6 +8,11 @@
     tools:context=".ui.ApiTestActivity"
     tools:ignore="MissingDefaultResource">
 
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tv_yzn_enter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="match_parent"
@@ -26,7 +31,7 @@
         android:layout_marginTop="60pt"
         android:background="#999"
         android:gravity="center"
-        android:text="病历本入口"
+        android:text="关键词搜索"
         android:textColor="@color/white"
         android:textSize="30dp" />
 
