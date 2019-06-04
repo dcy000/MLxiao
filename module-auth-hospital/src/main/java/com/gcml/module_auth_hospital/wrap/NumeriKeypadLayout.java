@@ -76,6 +76,11 @@ public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListe
 
     private String text = "";
     private boolean clearAll;
+    private int length=18;
+
+    public void setLength(int length) {
+        this.length = length;
+    }
 
     @Override
 
@@ -87,7 +92,7 @@ public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListe
         ) {
             if (onTextChageListener != null) {
                 String clickNmber = ((TextView) v).getText().toString();
-                if (this.text.length() < 18) {
+                if (this.text.length() < length) {
                     this.text = this.text + clickNmber;
                 }
                 onTextChageListener.onTextChange(text);

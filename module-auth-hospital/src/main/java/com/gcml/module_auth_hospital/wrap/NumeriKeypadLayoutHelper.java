@@ -5,6 +5,7 @@ public class NumeriKeypadLayoutHelper {
     private NumeriKeypadLayout layout;
     private boolean showX;
     private boolean clearAll;
+    private int length;//输入的长度
 
     private NumeriKeypadLayoutHelper() {
     }
@@ -20,6 +21,9 @@ public class NumeriKeypadLayoutHelper {
 
         this.onTextChageListener = builder.onTextChageListener;
         this.layout.setOnTextChageListener(builder.onTextChageListener);
+
+        this.length = builder.length;
+        this.layout.setLength(builder.length);
     }
 
     public static class Builder {
@@ -27,9 +31,15 @@ public class NumeriKeypadLayoutHelper {
         private NumeriKeypadLayout layout;
         private boolean showX;
         private boolean clearAll;
+        private int length;
 
         public Builder layout(NumeriKeypadLayout layout) {
             this.layout = layout;
+            return this;
+        }
+
+        public Builder length(int length) {
+            this.length = length;
             return this;
         }
 
