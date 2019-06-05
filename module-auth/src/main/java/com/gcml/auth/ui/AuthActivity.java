@@ -14,7 +14,7 @@ import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.IdleHelper;
+import com.gcml.common.idle.IdleHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.app.AppUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -144,7 +144,6 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     @Override
     protected void onResume() {
         super.onResume();
-        IdleHelper.getInstance().setEnable(false);
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
                 "欢迎使用健康管家，如果您已经有账号，请选择手机或人脸登录。如果还没有账号，请点击立即注册。");
     }

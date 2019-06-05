@@ -36,4 +36,5 @@ dependencies {
     }
 
     implementation 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

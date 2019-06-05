@@ -1,4 +1,4 @@
-package com.gcml.common.utils;
+package com.gcml.common.idle;
 
 import android.app.Activity;
 import android.app.Application;
@@ -19,6 +19,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
+import com.gcml.common.utils.UM;
+
 import timber.log.Timber;
 
 public class IdleHelper {
@@ -35,7 +37,7 @@ public class IdleHelper {
 
     private boolean enable = false;
 
-    private long delayMillis = 5000L;
+    private long delayMillis = 45000L;
 
     public void setDelayMillis(long delayMillis) {
         this.delayMillis = delayMillis;
@@ -85,7 +87,18 @@ public class IdleHelper {
 
             @Override
             public void onActivityResumed(Activity activity) {
+                String simpleName = activity.getClass().getSimpleName();
 
+                if ("Main3Activity".equals(simpleName)
+                        || "MainActivity".equals(simpleName)) {
+                    IdleHelper.getInstance().setEnable(true);
+                }
+
+                if ("AuthActivity".equals(simpleName)
+                        || "UserLogins2Activity".equals(simpleName)
+                        || "WelcomeActivity".equals(simpleName)) {
+                    IdleHelper.getInstance().setEnable(false);
+                }
             }
 
             @Override
@@ -348,6 +361,9 @@ public class IdleHelper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    if (actionOnIdle != null) {
+                        actionOnIdle.run();
+                    }
                     if (callback != null) {
                         callback.onIdle(true);
                     }
@@ -356,11 +372,18 @@ public class IdleHelper {
         }
     };
 
+    private Runnable actionOnIdle;
+
+    public void doOnIdle(Runnable actionOnIdle) {
+        this.actionOnIdle = actionOnIdle;
+    }
+
     private Callback callback;
 
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
+
 
     public interface Callback {
         void onIdle(boolean idle);

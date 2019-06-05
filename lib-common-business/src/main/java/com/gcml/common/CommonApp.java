@@ -1,16 +1,14 @@
 package com.gcml.common;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
 
 import com.gcml.common.api.AppLifecycleCallbacks;
+import com.gcml.common.idle.IdleHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.JPushMessageHelper;
 import com.gcml.common.utils.UM;
-
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.wifi.AutoNetworkUtils;
 import com.google.auto.service.AutoService;
@@ -83,10 +81,18 @@ public class CommonApp implements AppLifecycleCallbacks {
                             }
                         }
                     });
+            IdleHelper.getInstance().doOnIdle(new Runnable() {
+                @Override
+                public void run() {
+                    Routerfit.register(AppRouter.class).skipIdleActivity();
+                }
+            });
         }
 
         //webview缓存框架
         WebViewCacheInterceptorInst.getInstance().init(new WebViewCacheInterceptor.Builder(app));
+
+
     }
 
     @Override
