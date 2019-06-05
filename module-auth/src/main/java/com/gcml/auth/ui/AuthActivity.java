@@ -14,6 +14,7 @@ import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.idle.IdleHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.app.AppUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -64,7 +65,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
                                     ToastUtils.showShort("输入的IP不正确和端口");
                                     return;
                                 }
-                                RetrofitUrlManager.getInstance().setGlobalDomain("http://" + trim + ":" + portTrim+"/");
+                                RetrofitUrlManager.getInstance().setGlobalDomain("http://" + trim + ":" + portTrim + "/");
                                 dialog.dismiss();
                             }
                         });

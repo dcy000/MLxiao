@@ -15,6 +15,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.menu.EMenu;
+import com.gcml.common.menu.MenuEntity;
+import com.gcml.common.menu.MenuHelperProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.utils.Handlers;
@@ -47,24 +50,18 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     private BaseQuickAdapter<ChooseDetectionTypeBean, BaseViewHolder> adapter;
     private ArrayList<ChooseDetectionTypeBean> types = new ArrayList<>();
 
-    {
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_bloodpressure, "血压", "", "", "(mmHg)"));
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_bloodsugar, "血糖", "", "", "(mmol/L)"));
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_temper, "体温", "", "", "(℃)"));
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_weight, "体重", "", "", "(kg)"));
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_ecg, "心电", "", "", ""));
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_bloodoxygen, "血氧", "", "", "(%)"));
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_chrol, "胆固醇", "", "", "(mmol/L)"));
-        types.add(new ChooseDetectionTypeBean(R.drawable.type_uac, "血尿酸", "", "", "(mmol/L)"));
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_detection_type);
         mTitleText.setText("健 康 测 量");
         mRv = findViewById(R.id.rv);
+        setAdapter();
 
+    }
+
+
+    private void setAdapter() {
         mRv.setLayoutManager(new GridLayoutManager(this, 4));
         mRv.setAdapter(adapter = new BaseQuickAdapter<ChooseDetectionTypeBean, BaseViewHolder>(R.layout.layout_item_detection_type, types) {
             @Override
@@ -176,7 +173,69 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getData();
+        getMenu();
+    }
+
+    private void getMenu() {
+        Routerfit.register(AppRouter.class)
+                .getMenuHelperProvider()
+                .menu(EMenu.DETECTION, new MenuHelperProviderImp.MenuResult() {
+                    @Override
+                    public void onSuccess(List<MenuEntity> menus) {
+                        getData();
+                        dealMenu(menus);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+
+                    }
+                });
+    }
+
+    private void dealMenu(List<MenuEntity> menus) {
+        for (MenuEntity entity : menus) {
+            String name = entity.getMenuLabel();
+            if (TextUtils.isEmpty(name)) continue;
+            ChooseDetectionTypeBean bean = new ChooseDetectionTypeBean();
+            bean.setTitle(entity.getMenuLabel());
+            switch (name) {
+                case "血压":
+                    bean.setIcon(R.drawable.type_bloodpressure);
+                    bean.setUnit("(mmHg)");
+                    break;
+                case "血糖":
+                    bean.setIcon(R.drawable.type_bloodsugar);
+                    bean.setUnit("(mmol/L)");
+                    break;
+                case "体温":
+                    bean.setIcon(R.drawable.type_temper);
+                    bean.setUnit("(℃)");
+                    break;
+                case "体重":
+                    bean.setIcon(R.drawable.type_weight);
+                    bean.setUnit("(kg)");
+                    break;
+                case "心电":
+                    bean.setIcon(R.drawable.type_ecg);
+                    bean.setUnit("");
+                    break;
+                case "血氧":
+                    bean.setIcon(R.drawable.type_bloodoxygen);
+                    bean.setUnit("(%)");
+                    break;
+                case "胆固醇":
+                    bean.setIcon(R.drawable.type_chrol);
+                    bean.setUnit("(mmol/L)");
+                    break;
+                case "血尿酸":
+                    bean.setIcon(R.drawable.type_uac);
+                    bean.setUnit("(mmol/L)");
+                    break;
+            }
+            types.add(bean);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void getData() {

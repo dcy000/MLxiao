@@ -6,12 +6,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.gcml.common.constant.Global;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.user.IUserService;
-import com.gcml.common.user.UserPostBody;
-import com.gcml.common.user.UserToken;
-import com.gcml.common.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
+import com.gcml.common.idle.IdleHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
@@ -29,9 +27,11 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 //        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
 //        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.222:5555/");//左
+
+        //刚启动应用的时候就存一下游客的token
+        UserSpHelper.setToken(Global.TOURIST_TOKEN);
 
         initContentView();
     }
@@ -42,12 +42,13 @@ public class WelcomeActivity extends AppCompatActivity {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
             finish();
         } else {
-          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
+//          Routerfit.register(AppRouter.class).skipAuthActivity();//登录
 //            Routerfit.register(AppRouter.class).skipUserRegistersActivity();//身份证注册
-//            showIpInputDialog();
+            showIpInputDialog();
         }
 
     }
+
     private void showIpInputDialog() {
         NiceDialog.init()
                 .setLayoutId(R.layout.dialog_ip_input)
@@ -65,7 +66,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                     ToastUtils.showShort("输入的IP不正确和端口");
                                     return;
                                 }
-                                RetrofitUrlManager.getInstance().setGlobalDomain("http://" + trim + ":" + portTrim+"/");
+                                RetrofitUrlManager.getInstance().setGlobalDomain("http://" + trim + ":" + portTrim + "/");
                                 dialog.dismiss();
                                 touristLogin();
                             }
@@ -74,6 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
+                                touristLogin();
                             }
                         });
                     }
@@ -83,37 +85,31 @@ public class WelcomeActivity extends AppCompatActivity {
                 .setOutCancel(false)
                 .show(getSupportFragmentManager());
     }
+
     private void touristLogin() {
-        IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
-        UserPostBody body = new UserPostBody();
-        body.password = "123";
-        body.username = "superman";
-        iUserService.signIn(body)
-                .compose(RxUtils.io2Main())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserToken>() {
-                    @Override
-                    public void onNext(UserToken userToken) {
-                        super.onNext(userToken);
-                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+        Routerfit.register(AppRouter.class).skipMainActivity();
+//        IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
+//        UserPostBody body = new UserPostBody();
+//        body.password = "123";
+//        body.username = "superman";
+//        iUserService.signIn(body)
+//                .compose(RxUtils.io2Main())
+//                .as(RxUtils.autoDisposeConverter(this))
+//                .subscribe(new DefaultObserver<UserToken>() {
+//                    @Override
+//                    public void onNext(UserToken userToken) {
+//                        super.onNext(userToken);
+////                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
 //                        Routerfit.register(AppRouter.class).skipMainActivity();
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        ToastUtils.showShort(throwable.getMessage());
-                        showIpInputDialog();
-                    }
-                });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-      /*  if (NetUitls.isWifiConnected()) {
-            touristLogin();
-        }*/
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable throwable) {
+//                        super.onError(throwable);
+//                        ToastUtils.showShort(throwable.getMessage());
+//                        showIpInputDialog();
+//                    }
+//                });
     }
 }

@@ -25,9 +25,9 @@ public class HealthLifeActivity extends ToolbarBaseActivity {
     private List<HealthLifeBean> menus = new ArrayList<>();
 
     {
-        menus.add(new HealthLifeBean("中医体质辨识", "测测你是什么体质？", R.drawable.ic_health_life_1));
-        menus.add(new HealthLifeBean("寿命计算器", "算算你能活多久？", R.drawable.ic_health_life_1));
-        menus.add(new HealthLifeBean("色盲测试图", "你看看能认出几张测试图？", R.drawable.ic_health_life_1));
+        menus.add(new HealthLifeBean("中医体质辨识", "测测你是什么体质？", R.drawable.life_zhongyitizhi));
+        menus.add(new HealthLifeBean("寿命计算器", "算算你能活多久？", R.drawable.life_shouming));
+        menus.add(new HealthLifeBean("色盲测试图", "你看看能认出几张测试图？", R.drawable.life_semang));
     }
 
     @Override

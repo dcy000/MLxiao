@@ -3,7 +3,9 @@ package com.gcml.common.router;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
+import android.os.Bundle;
 
+import com.gcml.common.constant.Global;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.get.GoodsBean;
 import com.gcml.common.recommend.bean.get.Music;
@@ -18,6 +20,7 @@ import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
+import com.gcml.common.service.IMenuHelperProvider;
 import com.gcml.common.service.IMusicPlayProvider;
 import com.gcml.common.service.ISystemSettingProvider;
 import com.gcml.common.service.ITaskProvider;
@@ -287,8 +290,7 @@ public interface AppRouter {
             @Extra ActivityCallback callback
     );
 
-    //    @Go("/auth/auth/activity")
-    @Go("/auth/hospital/user/logins2/activity")
+    @Go("/auth/auth/activity")
     boolean skipAuthActivity();
 
     @Go("/auth/simple/profile/activity")
@@ -444,10 +446,13 @@ public interface AppRouter {
     @Go("/auth/hospital/user/logins2/activity")
     boolean skipUserLogins2Activity();
 
+    @Go("/auth/hospital/user/logins2/activity")
+    boolean skipUserLogins2Activity(@Extra("isInterceptor") boolean isInterceptor, @Extra ActivityCallback callback);
+
     @Go("/auth/hospital/user/register2/activity")
     boolean skipUserRegistersActivity();
 
-    @Go("/auth/hospital/user/info/activity")
+    @Go(Global.PERSON_DETAIL)
     boolean skipUserInfoActivity();
 
     @Go("module/control/voice/setting/activity")
@@ -516,7 +521,21 @@ public interface AppRouter {
     @Go("/common/web/activity")
     boolean skipWebActivity(@Extra("url") String url);
 
+    @Go("/idle/activity/idle")
+    boolean skipIdleActivity();
+
     @Go("/common/business/check/user/info/provider")
     ICheckUserInfoProvider getCheckUserInfoProvider();
+
+    boolean goSettingActivity(@com.sjtu.yifei.annotation.Uri String path);
+
+    @Go("/common/business/menu/helper/provider")
+    IMenuHelperProvider getMenuHelperProvider();
+
+    @Go("/auth/hospital/id/card/number/login/activity")
+    boolean skipIDCardNuberLoginActivity(@Extra ActivityCallback callback);
+
+    @Go("/auth/hospital/idcard/info/activity")
+    boolean skipIdCardInfoActivity(@Extra("flag") String flag, @Extra Bundle bundle, @Extra ActivityCallback callback);
 
 }

@@ -155,6 +155,12 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
                 });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissLoading();
+    }
+
     /**
      * 设置不谈出键盘
      */
@@ -162,6 +168,5 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
         view.setKeyListener(null);
         view.setFocusable(true);
     }
-
 
 }

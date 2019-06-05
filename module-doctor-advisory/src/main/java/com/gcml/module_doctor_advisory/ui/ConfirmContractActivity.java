@@ -171,7 +171,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ToastUtils.showShort(e.getMessage());
                     }
 
                     @Override
