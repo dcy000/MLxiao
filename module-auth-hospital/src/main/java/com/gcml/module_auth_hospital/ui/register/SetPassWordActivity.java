@@ -10,11 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayout;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayoutHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -31,6 +32,7 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
         isShowToolbar = false;
         setContentView(R.layout.activity_set_pass_word);
         initView();
+        useNumberKeyPad();
     }
 
     private void initView() {
@@ -88,6 +90,10 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
             speak("请输入6位数字密码");
             return;
         }
+        if (passWord.length() < 6) {
+            speak("请输入6位数字密码");
+            return;
+        }
         startActivity(new Intent(this, BindPhoneActivity.class)
                 .putExtra("passWord", passWord)
                 .putExtras(getIntent()));
@@ -98,11 +104,36 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
     }
 
     public void onTextChange(Editable phone) {
-        if (TextUtils.isEmpty(phone.toString()) && Utils.checkIdCard1(phone.toString())) {
+        if (TextUtils.isEmpty(etPsw.getText().toString())) {
             tvNext.setEnabled(false);
         } else {
             tvNext.setEnabled(true);
         }
+    }
+
+
+    private NumeriKeypadLayoutHelper layoutHelper;
+    private NumeriKeypadLayoutHelper.Builder builder;
+
+    private void useNumberKeyPad() {
+        hideKeyboard(etPsw);
+
+        NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.imageView2);
+        builder = new NumeriKeypadLayoutHelper.Builder()
+                .layout(numeriKeypadLayout)
+                .showX(false)
+                .textChageListener(text -> {
+                    if (etPsw.isFocused()) {
+                        etPsw.setText(text);
+                    }
+                });
+        layoutHelper = builder.build();
+        etPsw.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(etPsw.getText().toString());
+                layoutHelper.setLayoutinputLength(6);
+            }
+        });
     }
 
 }

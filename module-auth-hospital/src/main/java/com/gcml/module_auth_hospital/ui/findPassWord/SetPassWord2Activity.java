@@ -98,6 +98,11 @@ public class SetPassWord2Activity extends ToolbarBaseActivity implements View.On
             return;
         }
 
+        if (passWord.length()<6) {
+            speak("请输入6位数字密码");
+            return;
+        }
+
         Intent data = getIntent();
         if (data == null) {
             return;
