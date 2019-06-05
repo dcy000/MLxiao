@@ -272,7 +272,10 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (!TextUtils.isEmpty(ccetPhone.getText().toString()) && (!Utils.checkIdCard1(etPsw.getText().toString()))) {
+            if (!TextUtils.isEmpty(ccetPhone.getText().toString())
+                    && (!Utils.checkIdCard1(ccetPhone.getText().toString()))
+                    && !TextUtils.isEmpty(etPsw.getText().toString())
+            ) {
                 tvNext.setEnabled(true);
             } else {
                 tvNext.setEnabled(false);
