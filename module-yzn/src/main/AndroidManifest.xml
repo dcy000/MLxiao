@@ -3,7 +3,8 @@
     package="com.gcml.module_yzn">
 
     <application>
-        <activity android:name=".ui.ClassificationInfoActivity"></activity>
+        <activity android:name=".ui.MedicalEncyclopediaActivity"></activity>
+        <activity android:name=".ui.ClassificationInfoActivity" />
         <activity android:name=".ui.WenJuanActivity" />
         <activity android:name=".ui.ApiTestActivity" />
         <activity

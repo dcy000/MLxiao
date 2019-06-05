@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".ui.MedicalEncyclopediaActivity">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_medical_encyclopedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/tv_search"
+        android:layout_width="match_parent"
+        android:layout_height="120pt"
+        android:layout_marginStart="60pt"
+        android:layout_marginTop="40pt"
+        android:layout_marginEnd="60pt"
+        android:background="@drawable/main_bg_search"
+        android:drawableLeft="@drawable/main_ic_search"
+        android:drawablePadding="8pt"
+        android:gravity="left|center"
+        android:hint="请输入搜索内容"
+        android:imeOptions="actionSearch"
+        android:paddingLeft="44pt"
+        android:singleLine="true"
+        android:textColor="#303133"
+        android:textColorHint="#ffbbbbbb"
+        android:textSize="48pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_medical_encyclopedia" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="60pt"
+        android:layout_marginTop="60pt"
+        android:layout_marginEnd="60pt"
+        android:layout_marginBottom="68pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search" />
+
+</android.support.constraint.ConstraintLayout>
