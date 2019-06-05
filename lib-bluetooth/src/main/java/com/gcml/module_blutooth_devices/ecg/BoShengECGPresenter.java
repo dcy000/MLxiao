@@ -155,8 +155,8 @@ public class BoShengECGPresenter implements LifecycleObserver {
         this.name = name;
         this.address = address;
         this.activity.getLifecycle().addObserver(this);
-
         initParam();
+        connect();
         getUser();
     }
 
@@ -256,7 +256,6 @@ public class BoShengECGPresenter implements LifecycleObserver {
         bytesResult = new ArrayList<>();
         weakHandler = new WeakHandler(weakRunnable);
         timeCount = new TimeCount(30000, 1000, baseView, weakHandler);
-
         BleManager.getInstance().init(activity.getApplication());
     }
 
@@ -271,7 +270,6 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         birth = userEntity.birthday;
                         sex = userEntity.sex;
                         userName = userEntity.name;
-                        connect();
                         initNet();
                         getNetConfig();
                     }

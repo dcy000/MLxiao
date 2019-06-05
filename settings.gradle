@@ -1,4 +1,4 @@
-include ':module-doctor-advisory', ':module-detection',
+include ':module-doctor-advisory', ':module-detection', ':lib_bosheng_bluetooth',
         ':app',
         ':app-combine',
         ':module-alarm',
