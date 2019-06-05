@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -26,6 +25,8 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 import com.gcml.module_auth_hospital.ui.findPassWord.CodeRepository;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayout;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayoutHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
@@ -63,6 +64,44 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
         fromWhere = getIntent().getStringExtra("fromWhere");
         user = getIntent().getParcelableExtra("data");
         initView();
+        useNumberKeyPad();
+    }
+
+    private NumeriKeypadLayoutHelper layoutHelper;
+    private NumeriKeypadLayoutHelper.Builder builder;
+
+    private void useNumberKeyPad() {
+        hideKeyboard(phone);
+        hideKeyboard(code);
+
+        NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.nk_numberkey_pad);
+        builder = new NumeriKeypadLayoutHelper.Builder()
+                .layout(numeriKeypadLayout)
+                .showX(true)
+                .textChageListener(text -> {
+                    if (phone.isFocused()) {
+                        phone.setText(text);
+                    } else if (code.isFocused()) {
+                        code.setText(text);
+                    }
+                    layoutHelper = builder.newBuilder(builder.clearAll(false)).build();
+                });
+        layoutHelper = builder.build();
+
+        phone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(phone.getText().toString());
+                layoutHelper.setLayoutinputLength(11);
+                layoutHelper.showX(false);
+            }
+        });
+        code.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(code.getText().toString());
+                layoutHelper.setLayoutinputLength(6);
+                layoutHelper.showX(false);
+            }
+        });
     }
 
     public static void startMe(Context context, String passWord, String from) {
@@ -122,6 +161,7 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
 
         if (!this.codeNumer.equals(code.getText().toString())) {
             ToastUtils.showShort("验证码错误");
+            layoutHelper = builder.newBuilder(builder.clearAll(true)).build();
             return;
         }
 

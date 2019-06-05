@@ -95,38 +95,28 @@ public class YiZhiTangDetailActivity extends ToolbarBaseActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                view.loadUrl(url);
+                view.loadUrl(url);
                 return true;
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//                Log.d("WebViewClient", "------------------onPageStarted------------------");
-//                Log.d("WebViewClient", "onPageStarted url>>>" + url);
-//                Log.d("WebViewClient", "onPageStarted time>>>" + System.currentTimeMillis());
                 super.onPageStarted(view, url, favicon);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
-//                Log.d("WebViewClient", "------------------onPageFinished------------------");
-//                Log.d("WebViewClient", "onPageFinished rul>>>" + url);
-//                Log.d("WebViewClient", "onPageFinished time>>>" + System.currentTimeMillis());
-//                webView.loadUrl("javascript:receiveMsgFromParent()");
-
                 super.onPageFinished(view, url);
                 dismissLoading();
             }
 
             @Override
             public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
-//                Log.d("WebViewClient", "-----------------onReceivedHttpError------------------");
                 super.onReceivedHttpError(view, request, errorResponse);
             }
 
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-//                Log.d("WebViewClient", "-----------------onReceivedError-------------------");
                 super.onReceivedError(view, request, error);
                 finish();
             }

@@ -60,7 +60,7 @@ public class ClassificationInfoActivity extends AppCompatActivity implements Rad
 
     private void initView() {
         tbFeileiInfo = findViewById(R.id.tv_fenlei_info);
-        tbFeileiInfo.setData("问卷", R.drawable.common_icon_back, "返回",
+        tbFeileiInfo.setData("资 讯 分 类 ", R.drawable.common_icon_back, "返回",
                 R.drawable.auth_hospital_ic_setting, null,
                 new ToolBarClickListener() {
                     @Override

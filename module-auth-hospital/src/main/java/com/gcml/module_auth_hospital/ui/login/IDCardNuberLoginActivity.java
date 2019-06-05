@@ -26,6 +26,8 @@ import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.findPassWord.FindPassWordActivity;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayout;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayoutHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -84,6 +86,44 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     }
                 });
         setWifiLevel(translucentToolBar);
+        useNumberKeyPad();
+    }
+
+    private NumeriKeypadLayoutHelper layoutHelper;
+    private NumeriKeypadLayoutHelper.Builder builder;
+
+    private void useNumberKeyPad() {
+        hideKeyboard(ccetPhone);
+        hideKeyboard(etPsw);
+
+        NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.imageView2);
+        builder = new NumeriKeypadLayoutHelper.Builder()
+                .layout(numeriKeypadLayout)
+                .showX(true)
+                .textChageListener(text -> {
+                    if (ccetPhone.isFocused()) {
+                        ccetPhone.setText(text);
+                    } else if (etPsw.isFocused()) {
+                        etPsw.setText(text);
+                    }
+                    layoutHelper = builder.newBuilder(builder.clearAll(false)).build();
+                });
+        layoutHelper = builder.build();
+
+        ccetPhone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(ccetPhone.getText().toString());
+                layoutHelper.setLayoutinputLength(18);
+                layoutHelper.showX(true);
+            }
+        });
+        etPsw.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(etPsw.getText().toString());
+                layoutHelper.setLayoutinputLength(6);
+                layoutHelper.showX(false);
+            }
+        });
     }
 
     @Override
@@ -173,6 +213,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort(throwable.getMessage());
+                        layoutHelper = builder.newBuilder(builder.clearAll(true)).build();
                     }
 
                     @Override

@@ -23,6 +23,8 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayout;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayoutHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -45,6 +47,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
         isShowToolbar = false;
         setContentView(R.layout.activity_register_by_idcard_nuber);
         initView();
+        useNumberKeyPad();
         AppManager.getAppManager().addActivity(this);
     }
 
@@ -183,5 +186,32 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     public void onConfirm() {
         startActivity(new Intent(this, ScanIdCardLoginActivity.class));
     }
+
+    private NumeriKeypadLayoutHelper layoutHelper;
+    private NumeriKeypadLayoutHelper.Builder builder;
+
+    private void useNumberKeyPad() {
+        hideKeyboard(ccetPhone);
+
+        NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.imageView2);
+        builder = new NumeriKeypadLayoutHelper.Builder()
+                .layout(numeriKeypadLayout)
+                .showX(true)
+                .textChageListener(text -> {
+                    if (ccetPhone.isFocused()) {
+                        ccetPhone.setText(text);
+                    }
+                    layoutHelper = builder.newBuilder(builder.clearAll(false)).build();
+                });
+        layoutHelper = builder.build();
+
+        ccetPhone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(ccetPhone.getText().toString());
+                layoutHelper.setLayoutinputLength(18);
+            }
+        });
+    }
+
 
 }

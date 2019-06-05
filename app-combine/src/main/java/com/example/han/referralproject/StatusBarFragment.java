@@ -201,7 +201,7 @@ public class StatusBarFragment extends Fragment implements
         int colorId = mPowerConnectedCache ? R.color.status_bar_battery_charging
                 : R.color.status_bar_battery_normal;
         DrawableCompat.setTint(mDrawableTint, getResources().getColor(colorId));
-        animateOrNot();
+//        animateOrNot();
     }
 
     private void animateOrNot() {

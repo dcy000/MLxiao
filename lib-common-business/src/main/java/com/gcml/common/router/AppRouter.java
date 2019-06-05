@@ -521,6 +521,9 @@ public interface AppRouter {
     @Go("/common/web/activity")
     boolean skipWebActivity(@Extra("url") String url);
 
+    @Go("/idle/activity/idle")
+    boolean skipIdleActivity();
+
     @Go("/common/business/check/user/info/provider")
     ICheckUserInfoProvider getCheckUserInfoProvider();
 
