@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="426pt"
+        android:layout_height="340pt"
+        android:background="@drawable/bg_child_item">
+
+        <ImageView
+            android:id="@+id/iv_child_icon"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20pt"
+            android:background="#999"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/tv_child_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40pt"
+            android:gravity="center"
+            android:text="健美"
+            android:textColor="#ff303133"
+            android:textSize="56pt" />
+
+    </RelativeLayout>
+
+</FrameLayout>

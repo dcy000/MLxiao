@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="1800pt"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="1800pt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88pt"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:text="常用模块"
+            android:textColor="#ff909399"
+            android:textSize="24sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_child_items"
+            android:layout_width="1800pt"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</FrameLayout>

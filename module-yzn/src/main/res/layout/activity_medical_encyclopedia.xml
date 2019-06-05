@@ -39,6 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tb_medical_encyclopedia" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_fenlei_items"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="60pt"
