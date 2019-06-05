@@ -22,6 +22,24 @@ public class NumeriKeypadLayoutHelper {
         this.length = builder.length;
     }
 
+    /**
+     * 设置numberKeyPadlayout中的text值
+     */
+    public void setLayoutText(String text) {
+        this.layout.setText(text);
+    }
+
+    /**
+     * 设置inumberKeyPadlayout中的length值
+     */
+    public void setLayoutinputLength(int length) {
+        this.layout.setLength(length);
+    }
+
+    public void showX(boolean showX) {
+        this.layout.showX(showX);
+    }
+
     public static class Builder {
         private NumeriKeypadLayout.OnTextChageListener onTextChageListener;
         private NumeriKeypadLayout layout;
@@ -63,10 +81,24 @@ public class NumeriKeypadLayoutHelper {
         public NumeriKeypadLayoutHelper build() {
             return new NumeriKeypadLayoutHelper(this);
         }
+
+        public Builder newBuilder(Builder builder) {
+            this.layout = builder.layout;
+
+            this.showX = builder.showX;
+
+            this.clearAll = builder.clearAll;
+
+            this.onTextChageListener = builder.onTextChageListener;
+
+            this.length = builder.length;
+            return this;
+        }
     }
 
     public String text() {
         return layout.getText();
     }
+
 
 }

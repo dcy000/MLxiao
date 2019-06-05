@@ -12,9 +12,10 @@ import android.widget.TextView;
 
 import com.gcml.module_auth_hospital.R;
 
-public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListener {
+public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListener, View.OnLongClickListener {
 
-    private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv0, tvx, tvxx;
+    private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv0, tvx;
+    private FrameLayout tvxx;
 
     public NumeriKeypadLayout(@NonNull Context context) {
         super(context);
@@ -57,7 +58,6 @@ public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListe
         tv9.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/DIN-Bold.otf"));
         tv0.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/DIN-Bold.otf"));
         tvx.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/DIN-Bold.otf"));
-        tvxx.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/DIN-Bold.otf"));
 
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
@@ -71,12 +71,13 @@ public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListe
         tv0.setOnClickListener(this);
         tvx.setOnClickListener(this);
         tvxx.setOnClickListener(this);
+        tvxx.setOnLongClickListener(this);
         addView(view);
     }
 
     private String text = "";
     private boolean clearAll;
-    private int length=18;
+    private int length = 18;
 
     public void setLength(int length) {
         this.length = length;
@@ -121,8 +122,10 @@ public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListe
     public void showX(boolean showX) {
         if (showX) {
             tvx.setText("X");
+            tvx.setEnabled(true);
         } else {
             tvx.setText("");
+            tvx.setEnabled(false);
         }
     }
 
@@ -136,6 +139,21 @@ public class NumeriKeypadLayout extends FrameLayout implements View.OnClickListe
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    /**
+     * 长按删除全部
+     */
+    @Override
+    public boolean onLongClick(View v) {
+        if (v == tvxx) {
+            if (onTextChageListener != null) {
+                text = "";
+                onTextChageListener.onTextChange("");
+
+            }
+        }
+        return true;
     }
 
     public interface OnTextChageListener {
