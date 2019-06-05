@@ -44,8 +44,6 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     private String idCardNumber;
     private String passWord = "";
     private TextView findPsw;
-    private NumeriKeypadLayoutHelper layoutHelper;
-    private NumeriKeypadLayoutHelper.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +83,13 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                     }
                 });
         setWifiLevel(translucentToolBar);
+        useNumberKeyPad();
+    }
 
+    private NumeriKeypadLayoutHelper layoutHelper;
+    private NumeriKeypadLayoutHelper.Builder builder;
+
+    private void useNumberKeyPad() {
         hideKeyboard(ccetPhone);
         hideKeyboard(etPsw);
 
@@ -117,15 +121,6 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                 layoutHelper.showX(false);
             }
         });
-
-    }
-
-    /**
-     * 设置不谈出键盘
-     */
-    private void hideKeyboard(EditText view) {
-        view.setKeyListener(null);
-        view.setFocusable(true);
     }
 
     @Override

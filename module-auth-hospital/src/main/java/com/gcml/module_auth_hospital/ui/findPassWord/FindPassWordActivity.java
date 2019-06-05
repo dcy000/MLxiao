@@ -20,6 +20,8 @@ import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayout;
+import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayoutHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -87,6 +89,43 @@ public class FindPassWordActivity extends ToolbarBaseActivity {
 
         phone.addTextChangedListener(watcher);
         sendCode.setOnClickListener(new FilterClickListener(v -> sendCode()));
+        useNumberKeyPad();
+    }
+
+    private NumeriKeypadLayoutHelper layoutHelper;
+    private NumeriKeypadLayoutHelper.Builder builder;
+    private void useNumberKeyPad() {
+        hideKeyboard(phone);
+        hideKeyboard(code);
+
+        NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.nk_numberkey_pad);
+        builder = new NumeriKeypadLayoutHelper.Builder()
+                .layout(numeriKeypadLayout)
+                .showX(true)
+                .textChageListener(text -> {
+                    if (phone.isFocused()) {
+                        phone.setText(text);
+                    } else if (code.isFocused()) {
+                        code.setText(text);
+                    }
+                    layoutHelper = builder.newBuilder(builder.clearAll(false)).build();
+                });
+        layoutHelper = builder.build();
+
+        phone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(phone.getText().toString());
+                layoutHelper.setLayoutinputLength(11);
+                layoutHelper.showX(false);
+            }
+        });
+        code.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                layoutHelper.setLayoutText(code.getText().toString());
+                layoutHelper.setLayoutinputLength(6);
+                layoutHelper.showX(false);
+            }
+        });
     }
 
     private void toSetPassWord() {
@@ -96,6 +135,7 @@ public class FindPassWordActivity extends ToolbarBaseActivity {
         }
         if (!this.codeNumer.equals(code.getText().toString())) {
             ToastUtils.showShort("验证码错误");
+            layoutHelper = builder.newBuilder(builder.clearAll(true)).build();
             return;
         }
         startActivity(new Intent(this, SetPassWord2Activity.class)
