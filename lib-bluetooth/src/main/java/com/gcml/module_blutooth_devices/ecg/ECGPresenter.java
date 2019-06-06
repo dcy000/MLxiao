@@ -19,8 +19,6 @@ import java.util.UUID;
 
 public class ECGPresenter extends BaseBluetooth {
     public MutableLiveData<String> ecgBrand = new MutableLiveData<>();
-    private List<byte[]> bytesResult = new ArrayList<>();
-    DetectionData detectionData = new DetectionData();
 
     public ECGPresenter(IBluetoothView owner) {
         this(owner, true);
@@ -37,26 +35,16 @@ public class ECGPresenter extends BaseBluetooth {
     protected void connectSuccessed(String name, String address) {
         if (name.startsWith("A12-B")) {
             ecgBrand.postValue("A12-B");
-            new ChaosiECGPresenter(getActivity(), baseView, name, address);
+            new ChaosiECGPresenter(getActivity(), baseView, address);
             return;
         }
         if (name.startsWith("WeCardio")) {
             ecgBrand.postValue("WeCardio");
-            new BoShengECGPresenter(getActivity(), baseView, name, address);
+            new BoShengECGPresenter(getActivity(), baseView, address);
             return;
         }
         baseView.updateState("未兼容该设备:" + name + ":::" + address);
     }
-
-//    @Override
-//    protected boolean isSelfConnect(String name, String address) {
-//        if (name.startsWith("WeCardio")) {
-//            ecgBrand.postValue("WeCardio");
-//            new BoShengECGPresenter(getActivity(), baseView, name, address);
-//            return true;
-//        }
-//        return super.isSelfConnect(name, address);
-//    }
 
     @Override
     protected void connectFailed() {

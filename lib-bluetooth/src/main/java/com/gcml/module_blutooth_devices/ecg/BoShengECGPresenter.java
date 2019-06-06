@@ -61,8 +61,6 @@ import io.reactivex.disposables.Disposable;
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
     private IBluetoothView baseView;
-    private String name;
-    private String address;
 
     private TimeCount timeCount;
     private boolean isMeasureEnd = false;
@@ -133,11 +131,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private Disposable disposable;
 
     @SuppressLint("RestrictedApi")
-    public BoShengECGPresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
+    public BoShengECGPresenter(SupportActivity activity, IBluetoothView baseView, String address) {
         this.activity = activity;
         this.baseView = baseView;
-        this.name = name;
-        this.address = address;
         this.activity.getLifecycle().addObserver(this);
         initParam();
         handleBosheng(address);
