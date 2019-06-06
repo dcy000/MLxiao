@@ -1,4 +1,4 @@
-include ':module-doctor-advisory', ':module-detection', ':lib_bosheng_bluetooth',
+include ':module-doctor-advisory',
         ':app',
         ':app-combine',
         ':module-alarm',
@@ -47,5 +47,6 @@ include ':module-video',
         ':module-auth-face2',
         ':module-auth-face3',
         ':module-help',
-        ':module-factory-test'
+        ':module-factory-test',
+        ':module-detection'
 

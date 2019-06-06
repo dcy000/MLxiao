@@ -194,6 +194,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     }
 
     private void dealMenu(List<MenuEntity> menus) {
+        types.clear();
         for (MenuEntity entity : menus) {
             String name = entity.getMenuLabel();
             if (TextUtils.isEmpty(name)) continue;

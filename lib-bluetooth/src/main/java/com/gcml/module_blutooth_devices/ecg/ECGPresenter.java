@@ -41,7 +41,8 @@ public class ECGPresenter extends BaseBluetooth {
             return;
         }
         if (name.startsWith("WeCardio")) {
-            handleBosheng(address);
+            ecgBrand.postValue("WeCardio");
+            new BoShengECGPresenter(getActivity(), baseView, name, address);
             return;
         }
         baseView.updateState("未兼容该设备:" + name + ":::" + address);
@@ -82,22 +83,4 @@ public class ECGPresenter extends BaseBluetooth {
         return DeviceBrand.ECG;
     }
 
-    private void handleBosheng(String address) {
-        BluetoothStore.getClient().notify(address, BorsamConfig.COMMON_RECEIVE_ECG_SUUID,
-                BorsamConfig.COMMON_RECEIVE_ECG_CUUID, new BleNotifyResponse() {
-                    @Override
-                    public void onNotify(UUID service, UUID character, byte[] value) {
-                        bytesResult.add(value);
-                        detectionData.setInit(false);
-                        detectionData.setEcgData(value);
-                        baseView.updateData(detectionData);
-                        BluetoothStore.instance.detection.postValue(detectionData);
-                    }
-
-                    @Override
-                    public void onResponse(int code) {
-
-                    }
-                });
-    }
 }
