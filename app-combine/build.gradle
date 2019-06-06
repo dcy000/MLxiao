@@ -1,6 +1,7 @@
 ext.mainApp = true
 apply from: rootProject.file("build-base.gradle")
 
+println("app-combine mainmodulename = $rootProject.mainmodulename")
 rootProject.mainmodulename = "app-combine"
 apply plugin: 'com.dd.comgradle'
 android {
