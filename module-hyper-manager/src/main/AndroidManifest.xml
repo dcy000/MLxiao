@@ -1,0 +1,69 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.mod_hyper_manager">
+
+    <application>
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.plan.FoodMaterialDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.plan.SportPlanDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.plan.TreatmentPlanActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.BasicInformationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.DetecteTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.HasDiseaseOrNotActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.HypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.HypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.IsEmptyStomachOrNotActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.NormalHightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.NormalHighTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.OriginHypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.PressureFlatTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.PressureNornalTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.PrimaryHypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.SlowDiseaseManagementActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.ui.SlowDiseaseManagementTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.zhongyi.ChineseMedicineMonitorActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.zhongyi.MonitorResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.zhongyi.HealthManagementResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.mod_hyper_manager.zhongyi.OlderHealthManagementSerciveActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

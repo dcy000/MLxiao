@@ -1,37 +1,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gcml.module_doctor_advisory">
+    package="com.gcml.mod_doc_advisory">
 
     <application>
         <activity
-            android:name=".ui.CheckContractActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.CheckContractActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.ConfirmContractActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.DiseaseDetailsActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.DoctorappoActivity2"
+            android:name="com.gcml.mod_doc_advisory.ui.DoctorappoActivity2"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.DoctorAskGuideActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.DoctorAskGuideActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.DoctorMesActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.DoctorMesActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.MessageActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.MessageActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.OfflineActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.OfflineActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.OnlineDoctorListActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.OnlineDoctorListActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.RecoDocActivity"
+            android:name="com.gcml.mod_doc_advisory.ui.RecoDocActivity"
             android:screenOrientation="landscape" />
     </application>
 </manifest>
