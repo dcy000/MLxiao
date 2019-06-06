@@ -9,7 +9,6 @@ import android.widget.EditText;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.idle.IdleHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
@@ -87,29 +86,6 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void touristLogin() {
-        Routerfit.register(AppRouter.class).skipMainActivity();
-//        IUserService iUserService = Routerfit.register(AppRouter.class).touristSignInProvider();
-//        UserPostBody body = new UserPostBody();
-//        body.password = "123";
-//        body.username = "superman";
-//        iUserService.signIn(body)
-//                .compose(RxUtils.io2Main())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<UserToken>() {
-//                    @Override
-//                    public void onNext(UserToken userToken) {
-//                        super.onNext(userToken);
-////                        Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-//                        Routerfit.register(AppRouter.class).skipMainActivity();
-//                        finish();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                        ToastUtils.showShort(throwable.getMessage());
-//                        showIpInputDialog();
-//                    }
-//                });
+        Routerfit.register(AppRouter.class).skipUserLogins2Activity();//
     }
 }

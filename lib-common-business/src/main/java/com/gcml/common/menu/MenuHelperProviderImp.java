@@ -14,9 +14,9 @@ public class MenuHelperProviderImp implements IMenuHelperProvider {
     List<MenuEntity> menuEntities = new ArrayList<>();
 
     @Override
-    public void menu(EMenu menu, MenuResult callback) {
+    public void menu(boolean is, EMenu menu, MenuResult callback) {
         new MenuRepository()
-                .getAllMenus()
+                .getAllMenus(is)
                 .compose(RxUtils.io2Main())
                 .subscribe(new DefaultObserver<AppMenuBean>() {
                     @Override
@@ -45,7 +45,6 @@ public class MenuHelperProviderImp implements IMenuHelperProvider {
                     }
                 });
     }
-
 
     private void dealMenu(AppMenuBean.MenuListBean menuListBean, MenuResult callback) {
         if (menuListBean == null) {

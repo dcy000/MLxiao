@@ -4,5 +4,5 @@ import com.gcml.common.menu.EMenu;
 import com.gcml.common.menu.MenuHelperProviderImp;
 
 public interface IMenuHelperProvider {
-    void menu(EMenu menu, MenuHelperProviderImp.MenuResult callback);
+    void menu(boolean isLocal, EMenu menu, MenuHelperProviderImp.MenuResult callback);
 }

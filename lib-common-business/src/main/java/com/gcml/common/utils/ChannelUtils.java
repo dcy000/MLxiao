@@ -4,8 +4,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
-import com.gcml.common.utils.UM;
-
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version: V1.3.0
@@ -17,9 +15,11 @@ public class ChannelUtils {
     public static final String CHANNEL_BASE = "gcml_version_normal";
     public static final String CHANNEL_APP_COMBINE = "gcml_version_combine";
     public static final String CHANNEL_JGYS = "gcml_version_jgys";
+    public static final String CHANNEL_XA = "gcml_version_xa";
 
     /**
      * 基础版本
+     *
      * @return
      */
     public static boolean isBase() {
@@ -29,6 +29,7 @@ public class ChannelUtils {
 
     /**
      * 健管演示
+     *
      * @return
      */
     public static boolean isJGYS() {
@@ -38,10 +39,16 @@ public class ChannelUtils {
 
     /**
      * 合版
+     *
      * @return
      */
     public static boolean isAppCombine() {
         if (TextUtils.equals(getChannelMeta(), CHANNEL_APP_COMBINE)) return true;
+        return false;
+    }
+
+    public static boolean isXiongAn() {
+        if (TextUtils.equals(getChannelMeta(), CHANNEL_XA)) return true;
         return false;
     }
 
