@@ -2,44 +2,48 @@ package com.gcml.module_blutooth_devices.ecg;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.borsam.ble.BorsamConfig;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.DeviceBrand;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
+import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class ECGPresenter extends BaseBluetooth {
     public MutableLiveData<String> ecgBrand = new MutableLiveData<>();
+
     public ECGPresenter(IBluetoothView owner) {
-        this(owner,true);
+        this(owner, true);
     }
-    public ECGPresenter(IBluetoothView owner,boolean isAutoDiscovery) {
+
+    public ECGPresenter(IBluetoothView owner, boolean isAutoDiscovery) {
         super(owner);
-        if (isAutoDiscovery){
+        if (isAutoDiscovery) {
             startDiscovery(targetAddress);
         }
     }
 
     @Override
     protected void connectSuccessed(String name, String address) {
-        if (name.startsWith("A12-B")){
+        if (name.startsWith("A12-B")) {
             ecgBrand.postValue("A12-B");
-            new ChaosiECGPresenter(getActivity(), baseView, name, address);
+            new ChaosiECGPresenter(getActivity(), baseView, address);
+            return;
+        }
+        if (name.startsWith("WeCardio")) {
+            ecgBrand.postValue("WeCardio");
+            new BoShengECGPresenter(getActivity(), baseView, address);
             return;
         }
         baseView.updateState("未兼容该设备:" + name + ":::" + address);
-    }
-
-    @Override
-    protected boolean isSelfConnect(String name, String address) {
-        if (name.startsWith("WeCardio")) {
-            ecgBrand.postValue("WeCardio");
-            new BoShengECGPresenter(getActivity(), baseView, name, address);
-            return true;
-        }
-        return super.isSelfConnect(name, address);
     }
 
     @Override
@@ -66,4 +70,5 @@ public class ECGPresenter extends BaseBluetooth {
     protected HashMap<String, String> obtainBrands() {
         return DeviceBrand.ECG;
     }
+
 }

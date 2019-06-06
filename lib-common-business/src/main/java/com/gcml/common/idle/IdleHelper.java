@@ -37,7 +37,7 @@ public class IdleHelper {
 
     private boolean enable = false;
 
-    private long delayMillis = 45000L;
+    private long delayMillis = 1145000L;
 
     public void setDelayMillis(long delayMillis) {
         this.delayMillis = delayMillis;

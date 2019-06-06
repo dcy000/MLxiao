@@ -19,7 +19,6 @@ import timber.log.Timber;
 public class ChaosiECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
     private IBluetoothView baseView;
-    private String name;
     private String address;
 
     private static final UUID Service_UUID = UUID.fromString("0000fee9-0000-1000-8000-00805f9b34fb");
@@ -48,10 +47,9 @@ public class ChaosiECGPresenter implements LifecycleObserver {
     private static boolean isMeasureEnd = false;
     DetectionData detectionData = new DetectionData();
 
-    public ChaosiECGPresenter(SupportActivity activity, IBluetoothView baseView, String name, String address) {
+    public ChaosiECGPresenter(SupportActivity activity, IBluetoothView baseView,String address) {
         this.activity = activity;
         this.baseView = baseView;
-        this.name = name;
         this.address = address;
         timeCount = new TimeCount(30000, 1000, baseView, detectionData);
         bluetoothNotify();
