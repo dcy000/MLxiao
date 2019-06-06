@@ -54,14 +54,8 @@ public class MedicalEncyclopediaActivity extends ToolbarBaseActivity {
         isShowToolbar = false;
         setContentView(R.layout.activity_medical_encyclopedia);
         initView();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         initData();
     }
-
     private void initView() {
         tvSearch = findViewById(R.id.tv_search);
         tvSearch.setOnEditorActionListener((v, actionId, event) -> {
