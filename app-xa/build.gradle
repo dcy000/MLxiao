@@ -1,0 +1,89 @@
+ext.mainApp = true
+apply from: rootProject.file("build-base.gradle")
+rootProject.mainmodulename = "app-xa"
+apply plugin: 'com.dd.comgradle'
+android {
+    defaultConfig {
+        if (project.ext.runAsApp) {
+            applicationId "com.example.han.referralproject"
+            versionCode 1
+            versionName "Robot-Combine.1.0.0.1.beta"
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "81695cca09ae6e2afffe15f4", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs += ['libs']
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                    // output -> outputFileName = new File(variant.name, defaultConfig.versionName + "." + releaseTime() +buildType.name + "."+ ".apk")
+                output -> outputFileName = new File(defaultConfig.versionName + /*"." + releaseTime() + */".apk")
+            }
+
+    }
+}
+
+def releaseTime() {
+    return new Date().format("yyyy.MM.dd.HH.mm", TimeZone.getTimeZone("GMT+8"))//中国时间
+}
+
+
+combuild {
+    applicationName = 'com.gcml.common.App'
+    isRegisterCompoAuto = true
+}
+
+
+dependencies {
+    //component
+//    addComponent 'module-recreation'
+    addComponent 'module-health-measure'
+    addComponent 'module-auth'
+    addComponent 'module-auth-face3'
+//    addComponent 'module-task'
+//    addComponent 'module-mall'
+    addComponent 'module-video'
+//    addComponent 'lib-bluetooth'
+    addComponent 'module-factory-test'
+    addComponent 'module-hypertension-manager'
+//    addComponent 'module-edu-child'
+    addComponent 'module-control'
+//    addComponent 'module-edu'
+    addComponent 'module-health-record'
+//    addComponent 'module-doctor-advisory'
+    addComponent 'module-body-test'
+//    addComponent 'module-alarm'
+//    addComponent 'lib-call'
+    addComponent 'module-yzn'
+    addComponent 'module-detection'
+    addComponent 'module-auth-hospital'
+    addComponent 'module-health-profile'
+    addComponent 'module-help'
+}

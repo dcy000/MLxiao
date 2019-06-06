@@ -145,6 +145,10 @@ public class ZenDuanActivity extends ToolbarBaseActivity implements RadioGroup.O
                                 if (data.links == null) {
                                     links = data.maps;
                                 }
+                                if (links == null) {
+                                    ToastUtils.showShort("暂无相关内容");
+                                    return;
+                                }
                                 initFragments(links);
                                 initRadioGroup(links);
                             }

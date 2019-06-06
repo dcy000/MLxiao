@@ -156,7 +156,8 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     }
 
     public void onTextChange(Editable phone) {
-        if (TextUtils.isEmpty(phone.toString()) && Utils.checkIdCard1(phone.toString())) {
+        if (TextUtils.isEmpty(ccetPhone.getText().toString())
+                && !Utils.checkIdCard1(ccetPhone.getText().toString())) {
             tvNext.setEnabled(false);
         } else {
             tvNext.setEnabled(true);

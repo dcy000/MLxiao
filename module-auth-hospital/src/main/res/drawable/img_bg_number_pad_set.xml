@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:width="240pt" android:height="180pt" android:drawable="@drawable/img_bg_number_pad" android:state_pressed="false" />
+    <item android:width="120dp" android:height="90dp" android:drawable="@drawable/img_bg_number_pad_pressed" android:state_pressed="true" />
+</selector>
