@@ -14,16 +14,15 @@
             android:layout_height="200pt"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20pt"
-            android:background="#999"
             android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/tv_child_name"
             android:layout_width="match_parent"
-            android:layout_height="120pt"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40pt"
+            android:layout_marginBottom="25pt"
             android:gravity="center"
             android:text="健美"
             android:textColor="#ff303133"
