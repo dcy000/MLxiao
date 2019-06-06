@@ -8,15 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -107,6 +110,13 @@ public class MedicalEncyclopediaActivity extends ToolbarBaseActivity {
                     @Override
                     protected void convert(BaseViewHolder helper, FenLeiInfoOutBean.ItemBean item) {
                         helper.setText(R.id.tv_child_name, item.name);
+
+                        ImageView icon = helper.getView(R.id.iv_child_icon);
+                        ImageLoader.with(mContext)
+                                .load(item.pic)
+                                .placeholder(R.drawable.placeholder)
+                                .error(R.drawable.placeholder)
+                                .into(icon);
                     }
                 };
                 childItems.setAdapter(adapter);
@@ -117,6 +127,7 @@ public class MedicalEncyclopediaActivity extends ToolbarBaseActivity {
                     startActivity(intent);
                 });
                 childItems.setLayoutManager(new GridLayoutManager(MedicalEncyclopediaActivity.this, 4));
+                childItems.addItemDecoration(new GridViewDividerItemDecoration(0, 26));
             }
         });
 
