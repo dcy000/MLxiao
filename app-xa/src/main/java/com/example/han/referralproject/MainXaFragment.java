@@ -249,6 +249,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                         }
                         UserSpHelper.setToken(Global.TOURIST_TOKEN);
                         UserSpHelper.setEqId("");
+                        appRouter.skipUserLogins2Activity();
 //                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
                         activity.finish();
                     }
