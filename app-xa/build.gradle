@@ -83,7 +83,7 @@ dependencies {
 //    addComponent 'module-doctor-advisory'
     addComponent 'module-body-test'
 //    addComponent 'module-alarm'
-//    addComponent 'lib-call'
+    addComponent 'lib-call'
     addComponent 'module-yzn'
     addComponent 'module-detection'
     addComponent 'module-health-profile'
