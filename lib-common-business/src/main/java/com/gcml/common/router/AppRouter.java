@@ -124,6 +124,9 @@ public interface AppRouter {
     @Go("/app/homepage/main/activity")
     boolean skipMainActivity();
 
+    @Go("/app/homepage/mainorqianyue/activity")
+    boolean skipMainOrQianyueActivity();
+
     @Go("/app/homepage/main3/activity")
     boolean skipMain3Activity();
 

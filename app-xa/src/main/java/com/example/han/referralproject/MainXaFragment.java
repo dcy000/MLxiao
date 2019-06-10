@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gcml.common.LazyFragment;
+import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
@@ -227,7 +228,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                         if (callProvider != null) {
                             callProvider.logout();
                         }
-                        UserSpHelper.setToken("");
+                        UserSpHelper.setToken(Global.TOURIST_TOKEN);
                         UserSpHelper.setEqId("");
 //                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
                         getActivity().finish();

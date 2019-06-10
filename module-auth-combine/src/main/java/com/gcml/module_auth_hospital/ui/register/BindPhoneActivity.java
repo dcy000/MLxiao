@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.user.UserPostBody;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -28,7 +29,6 @@ import com.gcml.module_auth_hospital.ui.findPassWord.CodeRepository;
 import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayout;
 import com.gcml.module_auth_hospital.wrap.NumeriKeypadLayoutHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
@@ -193,8 +193,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                         @Override
                         public void onNext(UserEntity userEntity) {
                             UserSpHelper.setUserId(userEntity.id);
+                            login();
                             super.onNext(userEntity);
-                            vertifyFace();
                         }
 
                         @Override
@@ -242,24 +242,38 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                 });
     }
 
-    private void vertifyFace() {
-        Routerfit.register(AppRouter.class)
-                .skipFaceBd3SignUpActivity(UserSpHelper.getUserId(), new ActivityCallback() {
+    private void login() {
+        UserPostBody body = new UserPostBody();
+        body.password = passWord;
+        body.sfz = idCardNumber;
+        repository
+                .signInByIdCard(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onActivityResult(int result, Object data) {
-                        if (result == Activity.RESULT_OK) {
-                            String sResult = data.toString();
-                            if (TextUtils.isEmpty(sResult)) return;
-                            if (sResult.equals("success")) {
-                                startActivity(new Intent(BindPhoneActivity.this
-                                        , RegisterSuccessActivity.class)
-                                        .putExtra("passWord", passWord)
-                                        .putExtra("idCardNumber", idCardNumber)
-                                );
-                            } else if (sResult.equals("failed")) {
-                                ToastUtils.showShort("录入人脸失败");
-                            }
-                        }
+                    public void accept(Disposable disposable) throws Exception {
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        startActivity(new Intent(BindPhoneActivity.this
+                                , RegisterSuccessActivity.class)
+                                .putExtra("passWord", passWord)
+                                .putExtra("idCardNumber", idCardNumber));
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
     }

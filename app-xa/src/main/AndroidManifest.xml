@@ -97,5 +97,8 @@
         <activity
             android:name=".HealthLifeActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".HomeAndQianYueActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

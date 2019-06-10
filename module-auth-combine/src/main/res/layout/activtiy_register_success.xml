@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40pt"
-        android:text="注册成功"
+        android:text="完善人脸"
         android:textColor="#FF3F86FC"
         android:textSize="64pt" />
 
