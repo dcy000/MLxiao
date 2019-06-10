@@ -3,9 +3,7 @@ package com.example.han.referralproject;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -13,11 +11,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
-import com.gcml.web.WebActivity;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -26,8 +22,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-//@Route(path = "/app/homepage/main/activity")
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+@Route(path = "/app/homepage/main/activity")
+public class MainActivity extends AppCompatActivity {
     ArrayList<MainMenuBean> mainMenuBeans = new ArrayList<>();
     private StatusBarFragment statusBarFragment;
 
@@ -57,9 +53,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         statusBarFragment = StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
-        initView();
-        setAdapter();
+        initMainPage();
         getPersonInfo();
+    }
+
+    private void initMainPage() {
+        MainXaFragment mainXaFragment = new MainXaFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flContent, mainXaFragment)
+                .commitAllowingStateLoss();
     }
 
     @Override
@@ -98,88 +101,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    private void setAdapter() {
-        mRvMenu.setLayoutManager(new GridLayoutManager(this, 5));
-        mRvMenu.addItemDecoration(new GridViewDividerItemDecoration(0, 32));
-        mRvMenu.setAdapter(adapter = new BaseQuickAdapter<MainMenuBean, BaseViewHolder>(R.layout.layout_item_main_menu, mainMenuBeans) {
-            @Override
-            protected void convert(BaseViewHolder helper, MainMenuBean item) {
-                helper.getView(R.id.menu_image).setBackgroundResource(item.getMenuImage());
-                helper.setText(R.id.menu_title, item.getMenuTitle());
-            }
-        });
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (position) {
-                    case 0:
-                        //健康测量
-//                        Routerfit.register(AppRouter.class).skipMeasureChooseDeviceActivity(false, "", "");
-                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
-                        break;
-                    case 1:
-                        //自诊导诊
-                        Routerfit.register(AppRouter.class).getBodyTestProvider().gotoPage(MainActivity.this);
-                        break;
-                    case 2:
-                        //自测用药
-                        ToastUtils.showLong("正在努力开发中");
-                        break;
-                    case 3:
-                        //健康自测
-                        ToastUtils.showLong("正在努力开发中");
-                        break;
-                    case 4:
-                        //医智囊
-                        Routerfit.register(AppRouter.class).skipZenDuanActivity();
-                        break;
-                    case 5:
-                        //视频医生
-                        ToastUtils.showLong("正在努力开发中");
-                        break;
-                    case 6:
-                        //电话医生
-                        ToastUtils.showLong("正在努力开发中");
-                        break;
-                    case 7:
-                        //家庭医生服务
-                        ToastUtils.showLong("正在努力开发中");
-                        break;
-                    case 8:
-                        //护士上门
-//                        ToastUtils.showLong("正在努力开发中");
-                        Routerfit.register(AppRouter.class).getSystemSettingProvider().skipSettingDisplay(MainActivity.this);
-                        break;
-                    case 9:
-                        //智能诊断
-                        WebActivity.start(MainActivity.this, WebActivity.URL_DIAGNOSIS);
-                        break;
-                    case 10:
-                        //智能问药
-                        WebActivity.start(MainActivity.this, WebActivity.URL_MEDICAL);
-                        break;
-                }
-            }
-        });
-    }
-
-    private void initView() {
-        mCivHead = (CircleImageView) findViewById(R.id.civ_head);
-        mUserName = (TextView) findViewById(R.id.user_name);
-        mEivOff = (EclipseImageView) findViewById(R.id.eiv_off);
-        mEivOff.setOnClickListener(this);
-        mRvMenu = (RecyclerView) findViewById(R.id.rv_menu);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.eiv_off:
-                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
-                break;
-        }
-    }
 }
