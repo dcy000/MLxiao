@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 @Entity(tableName = "UserOld")
 public class UserEntity implements Parcelable {
     @NonNull
@@ -86,8 +88,33 @@ public class UserEntity implements Parcelable {
     private String source;
     private String uuid;
 
-    //手环信息
-    public String watchCode;
+
+    private Integer serverId;
+
+    private String watchCode;
+
+    private Date watchBindTime;
+
+    /**
+     * 手环定位纬度
+     */
+    private String watchLocationLat;
+
+    /**
+     * 手环定位经度
+     */
+    private String watchLocationLon;
+
+    /**
+     * 手环定位时间
+     */
+    private Date watchLocationTime;
+
+    /**
+     * 用户类型标签
+     */
+    private String userType;
+
 
     public UserEntity() {
 
@@ -130,7 +157,15 @@ public class UserEntity implements Parcelable {
         medicalHistory = in.readString();
         source = in.readString();
         uuid = in.readString();
+        if (in.readByte() == 0) {
+            serverId = null;
+        } else {
+            serverId = in.readInt();
+        }
         watchCode = in.readString();
+        watchLocationLat = in.readString();
+        watchLocationLon = in.readString();
+        userType = in.readString();
     }
 
     public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {
@@ -188,6 +223,15 @@ public class UserEntity implements Parcelable {
         dest.writeString(medicalHistory);
         dest.writeString(source);
         dest.writeString(uuid);
+        if (serverId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(serverId);
+        }
         dest.writeString(watchCode);
+        dest.writeString(watchLocationLat);
+        dest.writeString(watchLocationLon);
+        dest.writeString(userType);
     }
 }

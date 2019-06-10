@@ -2,6 +2,7 @@ package com.gcml.module_auth_hospital.postinputbean;
 
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.Utils;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
@@ -47,6 +48,7 @@ public class SignUpBean implements Serializable {
      * wyyxPwd : 123456
      */
 
+    private Integer serverId=0;
     private String address;
     private int age;
     private String allergy;
@@ -56,6 +58,7 @@ public class SignUpBean implements Serializable {
     private int doctorId;
     private String drink;
     private String eatingHabits;
+    @SerializedName("eqid")
     private String equipmentId= Utils.getDeviceId(UM.getApp().getContentResolver());
     private String exerciseHabits;
     private String faceId;
@@ -66,9 +69,11 @@ public class SignUpBean implements Serializable {
     private String hypertensionLevel;
     private String hypertensionPrimaryState;
     private String hypertensionTarget;
+    @SerializedName("sfz    ")
     private String idNo;
     private String medicalHistory;
     private int patientId;
+    @SerializedName("bname")
     private String patientName;
     private String sex;
     private String smoke;

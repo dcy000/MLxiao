@@ -9,6 +9,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.user.UserToken;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 
@@ -111,6 +112,10 @@ public class UserRepository {
     }
 
     public Observable<Object> isAccountExist(String account, int type) {
+        if (ChannelUtils.isXiongAn()) {
+            return mUserService.isAccountExist(account, type, 3)
+                    .compose(RxUtils.apiResultTransformer());
+        }
         return mUserService.isAccountExist(account, type)
                 .compose(RxUtils.apiResultTransformer());
     }

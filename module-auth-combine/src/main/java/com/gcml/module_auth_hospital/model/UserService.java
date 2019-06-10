@@ -8,8 +8,6 @@ import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -59,5 +57,20 @@ public interface UserService {
     Observable<ApiResult<Object>> isAccountExist(
             @Query("account") String account,
             @Query("type") int type
+    );
+
+    /**
+     * 雄安项目专用
+     *
+     * @param account
+     * @param type    1.账号 2.手机号 3.身份证 4.百度人脸id
+     * @param cate    1.运营人员,2:医生,3:患者,4:财务
+     * @return
+     */
+    @POST("/open/common/acc/sel_account")
+    Observable<ApiResult<Object>> isAccountExist(
+            @Query("account") String account,
+            @Query("type") int type,
+            @Query("cate") int cate
     );
 }
