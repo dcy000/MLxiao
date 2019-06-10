@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.picker.SelectAdapter;
 import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.module_inquiry.R;

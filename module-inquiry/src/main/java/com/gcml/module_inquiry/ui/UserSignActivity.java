@@ -8,15 +8,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
-import com.gcml.common.AppHelper;
-import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.app.ActivityHelper;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -34,13 +29,11 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.gcml.common.IConstant.KEY_HEALTH_FILE_ENTRY;
-
 /**
  * Created by lenovo on 2019/1/17.
  */
 
-public class UserSignActivity extends BaseActivity implements AffirmSignatureDialog.ClickListener {
+public class UserSignActivity extends ToolbarBaseActivity implements AffirmSignatureDialog.ClickListener {
     private TextView tvSignatrueConfirm;
     private PainterView signature;
     private AffirmSignatureDialog signatureDialog;
@@ -53,9 +46,10 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sign);
+        mToolbar.setVisibility(View.GONE);
         initTitle();
         initView();
-        ActivityHelper.addActivity(this);
+//        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {
@@ -70,12 +64,12 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
 
                     @Override
                     public void onRightClick() {
-                        onRightClickWithPermission(new IAction() {
-                            @Override
-                            public void action() {
-                                CC.obtainBuilder("com.gcml.old.setting").build().call();
-                            }
-                        });
+//                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+//                        onRightClickWithPermission(new IAction() {
+//                            @Override
+//                            public void action() {
+//                            }
+//                        });
                     }
 
                 });
@@ -194,20 +188,20 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
     }
 
     private void verifyFace(String doid, String url) {
-        CC.obtainBuilder("com.gcml.auth.face2.signin")
-                .addParam("currentUser", false)
-                .build()
-                .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-                        boolean skip = "skip".equals(result.getErrorMessage());
-                        if (result.isSuccess() || skip) {
-                            bindDoctor(doid, url);
-                        } else {
-                            ToastUtils.showShort(result.getErrorMessage());
-                        }
-                    }
-                });
+//        CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                .addParam("currentUser", false)
+//                .build()
+//                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        boolean skip = "skip".equals(result.getErrorMessage());
+//                        if (result.isSuccess() || skip) {
+//                            bindDoctor(doid, url);
+//                        } else {
+//                            ToastUtils.showShort(result.getErrorMessage());
+//                        }
+//                    }
+//                });
     }
 
     public void bindDoctor(String doid, String headUrl) {
@@ -219,10 +213,10 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        ActivityHelper.finishAll();
+//                        ActivityHelper.finishAll();
                         ToastUtils.showShort("申请成功");
                         dialog.dismiss();
-                        CC.obtainBuilder("health.profile.file").build().callAsync();
+//                        CC.obtainBuilder("health.profile.file").build().callAsync();
                     }
 
                     @Override

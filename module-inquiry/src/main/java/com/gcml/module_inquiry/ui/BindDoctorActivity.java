@@ -7,14 +7,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.gcml.common.base.BaseActivity;
-
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.app.ActivityHelper;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.common.widget.recyclerview.AutoLoadMoreHelper;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
@@ -32,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/16.
  */
 
-public class BindDoctorActivity extends BaseActivity {
+public class BindDoctorActivity extends ToolbarBaseActivity {
 
     private TranslucentToolBar tb;
     private RecyclerView rvDoctors;
@@ -44,7 +42,8 @@ public class BindDoctorActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bind_doctor);
-        ActivityHelper.addActivity(this);
+        mToolbar.setVisibility(View.GONE);
+//        ActivityHelper.addActivity(this);
         initTitle();
         initRV();
         getData();
@@ -97,12 +96,12 @@ public class BindDoctorActivity extends BaseActivity {
 
                     @Override
                     public void onRightClick() {
-                        onRightClickWithPermission(new IAction() {
-                            @Override
-                            public void action() {
-                                CC.obtainBuilder("com.gcml.old.setting").build().call();
-                            }
-                        });
+//                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+//                        onRightClickWithPermission(new IAction() {
+//                            @Override
+//                            public void action() {
+//                            }
+//                        });
                     }
                 });
         setWifiLevel(tb);

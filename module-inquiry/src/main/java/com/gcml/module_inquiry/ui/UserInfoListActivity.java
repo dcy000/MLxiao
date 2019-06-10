@@ -1,18 +1,13 @@
 package com.gcml.module_inquiry.ui;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 
-import com.billy.cc.core.component.CC;
-import com.gcml.common.base.BaseActivity;
-import com.gcml.common.utils.app.ActivityHelper;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.module_inquiry.R;
 
-public class UserInfoListActivity extends BaseActivity implements View.OnClickListener {
+public class UserInfoListActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
     private com.gcml.common.widget.toolbar.TranslucentToolBar tb_inquiry_home;
 
@@ -20,7 +15,8 @@ public class UserInfoListActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-        ActivityHelper.addActivity(this);
+        mToolbar.setVisibility(View.GONE);
+//        ActivityHelper.addActivity(this);
         bindViews();
     }
 
@@ -36,12 +32,12 @@ public class UserInfoListActivity extends BaseActivity implements View.OnClickLi
 
                     @Override
                     public void onRightClick() {
-                        onRightClickWithPermission(new IAction() {
-                            @Override
-                            public void action() {
-                                CC.obtainBuilder("com.gcml.old.setting").build().call();
-                            }
-                        });
+//                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+//                        onRightClickWithPermission(new IAction() {
+//                            @Override
+//                            public void action() {
+//                            }
+//                        });
 //                        startActivity(new Intent(UserInfoListActivity.this, BindDoctorActivity.class));
                     }
                 });
@@ -52,6 +48,7 @@ public class UserInfoListActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         int id = v.getId();
     }
 }

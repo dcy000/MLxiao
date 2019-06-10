@@ -15,7 +15,7 @@ include ':app-xa',
         ':module-auth-combine',
         ':lib-idcard-reader',
         ':lib-printer-8003dd',
-//        ':module-inquiry',
+        ':module-inquiry',
         ':module-health-profile'
 
 include ':lib-baidu-unit',

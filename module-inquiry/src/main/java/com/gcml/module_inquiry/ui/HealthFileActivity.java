@@ -1,15 +1,12 @@
 package com.gcml.module_inquiry.ui;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.gcml.common.base.BaseActivity;
-import com.gcml.common.utils.app.ActivityHelper;
+import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
@@ -18,7 +15,7 @@ import com.gcml.module_inquiry.R;
  * Created by lenovo on 2019/1/16.
  */
 
-public class HealthFileActivity extends BaseActivity {
+public class HealthFileActivity extends ToolbarBaseActivity {
 
     private TranslucentToolBar tb;
     private TextView confirm;
@@ -27,8 +24,9 @@ public class HealthFileActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_file);
+        mToolbar.setVisibility(View.GONE);
         initView();
-        ActivityHelper.addActivity(this);
+//        ActivityHelper.addActivity(this);
     }
 
     private void initView() {
@@ -43,17 +41,8 @@ public class HealthFileActivity extends BaseActivity {
 
                     @Override
                     public void onRightClick() {
-                        onRightClickWithPermission(new BaseActivity.IAction() {
-                            @Override
-                            public void action() {
-                                onRightClickWithPermission(new IAction() {
-                                    @Override
-                                    public void action() {
-                                        CC.obtainBuilder("com.gcml.old.setting").build().call();
-                                    }
-                                });
-                            }
-                        });
+//                                        CC.obtainBuilder("com.gcml.old.setting").build().call();
+
                     }
 
                 });

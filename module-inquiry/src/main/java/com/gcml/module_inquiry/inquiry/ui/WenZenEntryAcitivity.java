@@ -58,6 +58,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
 
     @Override
     protected void initView() {
+        mToolbar.setVisibility(View.GONE);
         initTitle();
         initFragments();
     }
@@ -197,12 +198,12 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
 
                     @Override
                     public void onRightClick() {
-                        onRightClickWithPermission(new IAction() {
-                            @Override
-                            public void action() {
-                                CC.obtainBuilder("com.gcml.old.setting").build().call();
-                            }
-                        });
+//                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+//                        onRightClickWithPermission(new IAction() {
+//                            @Override
+//                            public void action() {
+//                            }
+//                        });
 
                     }
                 });
