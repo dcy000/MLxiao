@@ -1,7 +1,6 @@
 package com.gcml.module_detection.fragment;
 
 import android.arch.lifecycle.Observer;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,16 +10,14 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
-import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
-import com.gcml.module_blutooth_devices.base.IBleConstants;
-import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarPresenter;
+import com.gcml.module_detection.R;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -28,25 +25,57 @@ import io.reactivex.observers.DefaultObserver;
 import timber.log.Timber;
 
 public class BloodSugarFragment extends BluetoothBaseFragment implements View.OnClickListener {
-    protected TextView mBtnHealthHistory;
-    protected TextView mBtnVideoDemo;
-    private TextView mTvResult;
     private Bundle bundle;
+    /**
+     * --:--
+     */
+    private TextView mTvDetectionTime;
+    /**
+     * 测量中
+     */
+    private TextView mTvDetectionState;
+    /**
+     * --
+     */
+    private TextView mTvResultMiddle;
+    /**
+     * --
+     */
+    private TextView mTvUnitMiddle;
+    /**
+     * --
+     */
+    private TextView mReference1;
+    /**
+     * --
+     */
+    private TextView mReference2;
+    /**
+     *
+     */
+    private TextView mTvSuggest;
 
     @Override
     protected int initLayout() {
-        return R.layout.bluetooth_fragment_bloodsugar;
+        return R.layout.fragment_detection;
     }
 
     @Override
     protected void initView(View view, Bundle bundle) {
         this.bundle = bundle;
-        mBtnHealthHistory = view.findViewById(R.id.btn_health_history);
-        mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
-        mBtnVideoDemo.setOnClickListener(this);
-        mTvResult = view.findViewById(R.id.tv_result);
-        mTvResult.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
+        mTvDetectionState = (TextView) view.findViewById(R.id.tv_detection_state);
+        mTvResultMiddle = (TextView) view.findViewById(R.id.tv_result_middle);
+        mTvUnitMiddle = (TextView) view.findViewById(R.id.tv_unit_middle);
+        mReference1 = (TextView) view.findViewById(R.id.reference1);
+        mReference2 = (TextView) view.findViewById(R.id.reference2);
+        mTvSuggest = (TextView) view.findViewById(R.id.tv_suggest);
+        mTvResultMiddle.setVisibility(View.VISIBLE);
+        mTvUnitMiddle.setVisibility(View.VISIBLE);
+        mTvUnitMiddle.setText("mmol/L");
+        mReference1.setVisibility(View.VISIBLE);
+        mReference1.setText("正常范围：3.9mmol/L~11.1mmol/L");
+
         obserData();
     }
 
@@ -56,11 +85,12 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
                 if (detectionData.isInit()) {
-                    mTvResult.setText("0.00");
+                    mTvResultMiddle.setText("--");
                     isMeasureFinishedOfThisTime = false;
                 } else {
                     Float bloodSugar = detectionData.getBloodSugar();
-                    mTvResult.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
+                    mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                    mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
                     if (!isMeasureFinishedOfThisTime && bloodSugar != null && bloodSugar != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
@@ -115,4 +145,5 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
     public void onClick(View v) {
 
     }
+
 }

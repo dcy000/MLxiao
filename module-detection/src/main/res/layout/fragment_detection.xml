@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <com.gcml.common.widget.ShadowLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        app:shadow_layout_dx="0pt"
+        app:shadow_layout_dy="14pt"
+        app:shadow_layout_shadowRadius="16pt">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="760pt"
+            android:layout_height="992pt"
+            android:background="@drawable/common_shadow_line">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="636pt"
+                android:layout_height="636pt"
+                android:layout_marginTop="52pt"
+                android:background="@drawable/detection_normal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_detection_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="136pt"
+                    android:text="--:--"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="40pt"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_detection_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="测量中"
+                    android:textColor="@color/white"
+                    android:textSize="80pt"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_detection_time"
+                    app:layout_constraintRight_toRightOf="@id/tv_detection_time"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detection_time" />
+
+                <TextView
+                    android:id="@+id/tv_result_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80pt"
+                    android:text="--/--"
+                    android:textColor="@color/white"
+                    android:textSize="88pt"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detection_state" />
+
+                <TextView
+                    android:id="@+id/tv_result_middle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="@color/white"
+                    android:textSize="88pt"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_detection_state"
+                    app:layout_constraintRight_toRightOf="@id/tv_detection_state"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detection_state" />
+
+                <TextView
+                    android:id="@+id/tv_result_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100pt"
+                    android:text="--"
+                    android:textColor="@color/white"
+                    android:textSize="88pt"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detection_state" />
+
+                <TextView
+                    android:id="@+id/tv_unit_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="40pt"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_result_left"
+                    app:layout_constraintRight_toRightOf="@id/tv_result_left"
+                    app:layout_constraintTop_toBottomOf="@id/tv_result_left" />
+
+                <TextView
+                    android:id="@+id/tv_unit_middle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="40pt"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_result_middle"
+                    app:layout_constraintRight_toRightOf="@id/tv_result_middle"
+                    app:layout_constraintTop_toBottomOf="@id/tv_result_middle" />
+
+                <TextView
+                    android:id="@+id/tv_unit_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="40pt"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_result_right"
+                    app:layout_constraintRight_toRightOf="@id/tv_result_right"
+                    app:layout_constraintTop_toBottomOf="@id/tv_result_right" />
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="48pt"
+                android:layout_marginBottom="48pt"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="48pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参考标准:"
+                    android:textColor="#909399"
+                    android:textSize="48pt" />
+
+                <TextView
+                    android:id="@+id/reference1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#909399"
+                    android:textSize="48pt"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/reference2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#909399"
+                    android:textSize="48pt"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </com.gcml.common.widget.ShadowLayout>
+
+    <com.gcml.common.widget.ShadowLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:shadow_layout_dx="0pt"
+        app:shadow_layout_dy="14pt"
+        app:shadow_layout_shadowRadius="16pt">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="1000pt"
+            android:layout_height="992pt"
+            android:background="@drawable/common_shadow_line">
+
+            <TextView
+                android:id="@+id/tv_suggest_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="48pt"
+                android:layout_marginTop="48pt"
+                android:text="健康建议"
+                android:textColor="#303133"
+                android:textSize="64pt"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_suggest"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="48pt"
+                android:layout_marginRight="48pt"
+                android:layout_marginBottom="48pt"
+                android:text=""
+                android:textColor="#606266"
+                android:textSize="56pt"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_suggest_title" />
+        </android.support.constraint.ConstraintLayout>
+    </com.gcml.common.widget.ShadowLayout>
+</LinearLayout>

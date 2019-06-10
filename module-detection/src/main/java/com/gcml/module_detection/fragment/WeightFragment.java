@@ -12,6 +12,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_detection.R;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -22,26 +23,40 @@ import io.reactivex.observers.DefaultObserver;
 import timber.log.Timber;
 
 public class WeightFragment extends BluetoothBaseFragment implements View.OnClickListener {
-    protected TextView mBtnHealthHistory;
-    protected TextView mBtnVideoDemo;
-    private TextView mTvTizhong;
-    protected TextView mTvTizhi;
+    private TextView mTvDetectionTime;
+    private TextView mTvDetectionState;
+    private TextView mTvResultLeft;
+    private TextView mTvResultRight;
+    private TextView mTvUnitLeft;
+    private TextView mTvUnitRight;
+    private TextView mReference1;
+    private TextView mReference2;
+    private TextView mTvSuggest;
 
     @Override
     protected int initLayout() {
-        return com.gcml.module_blutooth_devices.R.layout.bluetooth_fragment_weight;
+        return R.layout.fragment_detection;
     }
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        mBtnHealthHistory = view.findViewById(com.gcml.module_blutooth_devices.R.id.btn_health_history);
-        mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = view.findViewById(com.gcml.module_blutooth_devices.R.id.btn_video_demo);
-        mBtnVideoDemo.setOnClickListener(this);
-        mTvTizhong = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_tizhong);
-        mTvTizhi = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_tizhi);
-        mTvTizhong.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
-        mTvTizhi.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
+        mTvDetectionState = (TextView) view.findViewById(R.id.tv_detection_state);
+        mTvResultLeft = (TextView) view.findViewById(R.id.tv_result_left);
+        mTvResultRight = (TextView) view.findViewById(R.id.tv_result_right);
+        mTvUnitLeft = (TextView) view.findViewById(R.id.tv_unit_left);
+        mTvUnitRight = (TextView) view.findViewById(R.id.tv_unit_right);
+        mReference1 = (TextView) view.findViewById(R.id.reference1);
+        mReference2 = (TextView) view.findViewById(R.id.reference2);
+        mTvSuggest = (TextView) view.findViewById(R.id.tv_suggest);
+        mTvResultLeft.setVisibility(View.VISIBLE);
+        mTvResultRight.setVisibility(View.VISIBLE);
+        mTvUnitLeft.setVisibility(View.VISIBLE);
+        mTvUnitLeft.setText("Kg");
+        mTvUnitRight.setVisibility(View.VISIBLE);
+        mTvUnitRight.setText("Kg/m²");
+        mReference1.setVisibility(View.VISIBLE);
+        mReference1.setText("BMI正常范围：18.5~23.9");
         obserData();
     }
 
@@ -51,9 +66,8 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
                 if (detectionData.isInit()) {
-                    if (mTvTizhong != null) {
-                        mTvTizhong.setText("0.00");
-                    }
+                    mTvResultLeft.setText("--");
+                    mTvResultRight.setText("--");
                     isMeasureFinishedOfThisTime = false;
                 } else {
                     Float weight = detectionData.getWeight();
@@ -64,13 +78,10 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                             robotSpeak(detectionData);
                             postData(detectionData);
                         }
-                        if (mTvTizhong != null) {
-                            mTvTizhong.setText(String.format(Locale.getDefault(), "%.2f", weight));
-                        }
+                        mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
+                        mTvResultRight.setText(String.format(Locale.getDefault(), "%.1f", weight / 1.60 * 1.60));
                     } else {
-                        if (mTvTizhong != null) {
-                            mTvTizhong.setText(String.format(Locale.getDefault(), "%.2f", weight));
-                        }
+                        mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
                     }
                 }
             }

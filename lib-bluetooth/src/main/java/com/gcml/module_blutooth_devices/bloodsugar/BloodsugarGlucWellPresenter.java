@@ -10,12 +10,14 @@ import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
+import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.vivachek.ble.sdk.outer.BleManager;
 import com.vivachek.ble.sdk.outer.constant.BleActionType;
 import com.vivachek.ble.sdk.outer.constant.BleConnectState;
@@ -81,6 +83,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
             case BleConnectState.CONNECT_SUCCESS:
                 // 蓝牙连接设备成功
                 baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
+                baseView.connectSuccess(BluetoothUtils.getRemoteDevice(address), name);
                 detectionData.setInit(true);
                 detectionData.setBloodSugar(0.0f);
                 baseView.updateData(detectionData);
@@ -91,18 +94,32 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
 
             case BleConnectState.DISCONNECTED:
                 // 已断开设备的蓝牙连接
-                if (((Fragment) baseView).isAdded()) {
-                    baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
-                }
+                updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
+                baseView.disConnected();
                 break;
 
             case BleConnectState.CONNECT_FAILURE:
                 // 蓝牙连接设备失败
-
+                updateState(UM.getApp().getString(R.string.bluetooth_device_connect_fail));
+                baseView.connectFailed();
                 break;
             default:
                 break;
         }
+    }
+
+    protected void updateState(String msg) {
+        Handlers.ui().post(new Runnable() {
+            @Override
+            public void run() {
+                if (baseView != null && baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
+                    baseView.updateState(msg);
+                }
+                if (baseView != null && baseView instanceof SupportActivity) {
+                    baseView.updateState(msg);
+                }
+            }
+        });
     }
 
     @Override
