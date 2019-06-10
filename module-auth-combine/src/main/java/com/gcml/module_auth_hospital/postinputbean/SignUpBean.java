@@ -48,14 +48,14 @@ public class SignUpBean implements Serializable {
      * wyyxPwd : 123456
      */
 
-    private Integer serverId=0;
+    private Integer serverId=1;
     private String address;
-    private int age;
+    private Integer age;
     private String allergy;
     private String birthday;
     private String bloodType;
-    private int categoryId;
-    private int doctorId;
+    private Integer categoryId;
+    private Integer doctorId;
     private String drink;
     private String eatingHabits;
     @SerializedName("eqid")
@@ -64,26 +64,26 @@ public class SignUpBean implements Serializable {
     private String faceId;
     private String faceUserId;
     private String fetation;
-    private int height;
+    private Integer height;
     private String hypertensionHand;
     private String hypertensionLevel;
     private String hypertensionPrimaryState;
     private String hypertensionTarget;
-    @SerializedName("sfz    ")
+    @SerializedName("sfz")
     private String idNo;
     private String medicalHistory;
-    private int patientId;
+    private Integer patientId;
     @SerializedName("bname")
     private String patientName;
     private String sex;
     private String smoke;
     private String source;
-    private int state;
+    private Integer state;
     private String tel;
     private String userPhoto;
     private String uuid;
-    private int waist;
-    private int weight;
+    private Integer waist;
+    private Integer weight;
     private String wyyxId;
     private String wyyxPwd;
 

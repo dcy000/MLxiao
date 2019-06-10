@@ -27,6 +27,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+import static com.gcml.common.constant.Global.URI;
+
 
 public interface FaceBdService {
 
@@ -34,11 +36,11 @@ public interface FaceBdService {
     String API_KEY = "HVVhGHwxMbOQetB2wzcqaV53";
     String SECRET_KEY = "o1zeFFQAKfyQ81HECVbATrDolWdyYLhj";
 
-    @POST("/open/common/br/seltoken")
+    @POST(URI + "/br/seltoken")
     Observable<ApiResult<String>> getQiniuToken();
 
     @FormUrlEncoded
-    @POST("/open/common/br/upUser_photo")
+    @POST(URI + "/br/upUser_photo")
     Observable<ApiResult<Object>> uploadAvatarUrl(
             @Query("patientId") String patientId,
             @Query("userPhoto") String userPhoto,
@@ -46,18 +48,18 @@ public interface FaceBdService {
             @Query("bdUserId") String bdUserId
     );
 
-    @GET("/open/common/api/user/face/groups/")
+    @GET(URI + "/api/user/face/groups/")
     Observable<ApiResult<List<String>>> getGroups();
 
     @FormUrlEncoded
-    @POST("/open/common/api/user/face/patientId/{patientId}/")
+    @POST(URI + "/api/user/face/patientId/{patientId}/")
     Observable<ApiResult<FaceUser>> addFace(
             @Path("patientId") String userId,
             @Field("image") String image,
             @Field("imageType") String imageType
     );
 
-    @PUT("/open/common/api/user/face/patientId/{patientId}/")
+    @PUT(URI + "/api/user/face/patientId/{patientId}/")
     Observable<ApiResult<FaceUser>> updateFace(
             @Path("patientId") String userId,
             @Query("groupId") String groupId,
@@ -65,16 +67,16 @@ public interface FaceBdService {
             @Query("imageType") String imageType
     );
 
-   /* @POST("/open/common/sys/login/faceLogin")
+   /* @POST(URI + "/sys/login/faceLogin")
     Observable<ApiResult<UserToken>> signInByFace(
             @Field("faceId") String faceId,
             @Field("groupId") String groupId
     );*/
 
-    @POST("/open/common/sys/login/faceLogin")
+    @POST(URI + "/sys/login/faceLogin")
     Observable<ApiResult<UserToken>> signInByFace(@Body PostFaceSignInBean signInBean);
 
-    @GET("/open/common/api/user/face/{patientId}/")
+    @GET(URI + "/api/user/face/{patientId}/")
     Observable<ApiResult<List<FaceUser>>> getFace(
             @Path("patientId") String userId
     );

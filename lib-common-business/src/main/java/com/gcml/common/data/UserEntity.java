@@ -10,8 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-@Entity(tableName = "UserOld")
-public class UserEntity implements Parcelable {
+@Entity(tableName = "UserOld")public class UserEntity implements Parcelable {
     @NonNull
     @PrimaryKey
     @SerializedName(value = "bid", alternate = {"patientId"})
@@ -84,36 +83,36 @@ public class UserEntity implements Parcelable {
     public String wyyxPwd;
     @SerializedName("vipState")
     public String vipState;
-    private String medicalHistory;
-    private String source;
-    private String uuid;
+    public String medicalHistory;
+    public String source;
+    public String uuid;
 
 
-    private Integer serverId;
+    public Integer serverId;
 
-    private String watchCode;
+    public String watchCode;
 
-    private Date watchBindTime;
+    public Date watchBindTime;
 
     /**
      * 手环定位纬度
      */
-    private String watchLocationLat;
+    public String watchLocationLat;
 
     /**
      * 手环定位经度
      */
-    private String watchLocationLon;
+    public String watchLocationLon;
 
     /**
      * 手环定位时间
      */
-    private Date watchLocationTime;
+    public Date watchLocationTime;
 
     /**
      * 用户类型标签
      */
-    private String userType;
+    public String userType;
 
 
     public UserEntity() {
