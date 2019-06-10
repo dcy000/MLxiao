@@ -3,16 +3,9 @@ package com.example.han.referralproject;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
-import com.gcml.lib_widget.CircleImageView;
-import com.gcml.lib_widget.EclipseImageView;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -42,11 +35,6 @@ public class MainActivity extends AppCompatActivity {
         mainMenuBeans.add(new MainMenuBean(R.drawable.main_self_check_and_medical, "智能问药"));
     }
 
-    private CircleImageView mCivHead;
-    private TextView mUserName;
-    private EclipseImageView mEivOff;
-    private RecyclerView mRvMenu;
-    private BaseQuickAdapter<MainMenuBean, BaseViewHolder> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,19 +62,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getPersonInfo() {
-        Routerfit.register(AppRouter.class).getUserProvider().getUserEntity()
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        if (userEntity == null) return;
-                        if (!isDestroyed()) {
-                            ImageLoader.with(MainActivity.this)
-                                    .load(userEntity.avatar)
-                                    .into(mCivHead);
-                            mUserName.setText(userEntity.name);
-                        }
+//                        if (!isDestroyed()) {
+//                            ImageLoader.with(MainActivity.this)
+//                                    .load(userEntity.avatar)
+//                                    .into(mCivHead);
+//                            mUserName.setText(userEntity.name);
+//                        }
                     }
 
                     @Override

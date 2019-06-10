@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/activity_home_or_qianyue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.gcml.common.widget.toolbar.TranslucentToolBar>
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/iv_home"
+        android:layout_width="380pt"
+        android:layout_height="380pt"
+        android:layout_marginStart="499pt"
+        android:layout_marginTop="258pt"
+        android:background="@drawable/ic_qianyue_jiandang"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_home_or_qianyue" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/iv_qianyue"
+        android:layout_width="380pt"
+        android:layout_height="380pt"
+        android:layout_marginStart="162pt"
+
+        android:background="@drawable/ic_home_or_qianyue"
+        android:clickable="true"
+        app:layout_constraintStart_toEndOf="@+id/iv_home"
+        app:layout_constraintTop_toTopOf="@+id/iv_home" />
+
+
+    <TextView
+        android:id="@+id/tv_qianyue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15pt"
+        android:gravity="center"
+        android:text="签约建档"
+        android:textColor="#ff333333"
+        android:textSize="32pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_home"
+        app:layout_constraintStart_toStartOf="@+id/iv_home"
+        app:layout_constraintTop_toBottomOf="@+id/iv_home" />
+
+    <TextView
+        android:id="@+id/tv_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15pt"
+        android:gravity="center"
+        android:text="主页"
+        android:textColor="#ff333333"
+        android:textSize="32pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_qianyue"
+        app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
+        app:layout_constraintTop_toBottomOf="@+id/iv_qianyue" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_sign_up_root_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_sign_up_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84pt"
+        android:gravity="center"
+        android:text="您的现住址"
+        android:textColor="#8C8C8C"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sp_province"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/selector_bg_spinner"
+        android:gravity="center"
+        android:textSize="32sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_province"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_address" />
+
+
+    <TextView
+        android:id="@+id/tv_sign_up_province"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="省"
+        android:textColor="#939393"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_province"
+        app:layout_constraintLeft_toRightOf="@+id/sp_province"
+        app:layout_constraintRight_toLeftOf="@+id/sp_city" />
+
+    <TextView
+        android:id="@+id/sp_city"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/selector_bg_spinner"
+        android:gravity="center"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_province"
+        app:layout_constraintLeft_toRightOf="@+id/tv_sign_up_province"
+        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_city" />
+
+
+    <TextView
+        android:id="@+id/tv_sign_up_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="市"
+        android:textColor="#939393"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_province"
+        app:layout_constraintLeft_toRightOf="@+id/sp_city"
+        app:layout_constraintRight_toLeftOf="@+id/sp_county" />
+
+    <TextView
+        android:id="@+id/sp_county"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/selector_bg_spinner"
+        android:gravity="center"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_province"
+        app:layout_constraintLeft_toRightOf="@+id/tv_sign_up_city"
+        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_county" />
+
+
+    <TextView
+        android:id="@+id/tv_sign_up_county"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="县/区"
+        android:textColor="#939393"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@id/sp_province"
+        app:layout_constraintLeft_toRightOf="@+id/sp_county"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/et_sign_up_address"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_rect_gray"
+        android:hint="请输入详细地址"
+        android:maxLength="50"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:textColor="#939393"
+        android:textColorHint="#cccccc"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="@+id/sp_province"
+        app:layout_constraintRight_toRightOf="@+id/tv_sign_up_county"
+        app:layout_constraintTop_toBottomOf="@+id/sp_province" />
+
+    <TextView
+        android:id="@+id/tv_address_tip"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="90dp"
+        android:gravity="center_vertical"
+        android:maxLength="50"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:text="*您已经有90天没有更新地址啦，是否要修改地址"
+        android:textColor="#f5f53030"
+        android:textSize="22sp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/sp_province"
+        app:layout_constraintRight_toRightOf="@+id/tv_sign_up_county"
+        app:layout_constraintTop_toBottomOf="@+id/sp_province" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="0pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_back"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/common_bg_selector_btn_go_back"
+            android:gravity="center"
+            android:text="上一步"
+            android:textColor="#3F85FC"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_forward"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/common_bg_selector_btn_go_forward"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@android:color/white"
+            android:textSize="35sp" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

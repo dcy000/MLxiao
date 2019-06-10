@@ -51,7 +51,7 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
         tvRegister.setOnClickListener(
                 v -> startActivity(new Intent(UserLogins2Activity.this, UserRegisters2Activity.class)));
         tb = findViewById(R.id.tb_logins);
-        tb.setData("登 陆 注 册",
+        tb.setData("登 录 注 册",
 //                R.drawable.common_btn_back, "返回",
                 0, null,
                 R.drawable.common_ic_wifi_state, null,

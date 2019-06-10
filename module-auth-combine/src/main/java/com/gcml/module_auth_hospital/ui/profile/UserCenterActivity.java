@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.module_auth_hospital.R;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 @Route(path = "/auth/hospital/user/center/activity")
 public class UserCenterActivity extends ToolbarBaseActivity implements View.OnClickListener {
@@ -35,9 +37,8 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.common_ic_wifi_state);
-        setWifiLevel(mRightView);
-
+        mRightView.setImageResource(R.drawable.common_ic_settings);
+//        setWifiLevel(mRightView);
     }
 
     @Override
@@ -45,17 +46,17 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
         super.onClick(v);
         int i = v.getId();
         if (i == R.id.iv_person_center) {
-            //                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
+            Routerfit.register(AppRouter.class).skipUserInfoActivity();
         } else if (i == R.id.iv_health_record) {
-            //                startActivity(new Intent(this, HealthRecordActivity.class));
+            Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
         } else if (i == R.id.iv_health_bracelet) {
-            //                CC.obtainBuilder("com.gcml.bracelet").build().callAsync();
+            Routerfit.register(AppRouter.class).skipBraceletActivtity();
         }
     }
 
     @Override
     protected void backMainActivity() {
-//                CC.obtainBuilder("com.gcml.old.setting").build().call();
+        Routerfit.register(AppRouter.class).skipSettingActivity();
 //        onRightClickWithPermission(new IAction() {
 //            @Override
 //            public void action() {

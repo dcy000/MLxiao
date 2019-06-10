@@ -16,6 +16,6 @@ public interface VideoService {
             @Query("tag2")String tag2,
             @Query("flag")String flag,
             @Query("page")int page,
-            @Query("pagesize")int pagesize
+            @Query("limit")int pagesize
     );
 }

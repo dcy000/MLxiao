@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_inquiry">
+
+    <application>
+        <activity android:name=".ui.HealthFileActivity" />
+        <activity android:name=".ui.UserInfoListActivity" />
+        <activity android:name=".ui.BindDoctorActivity" />
+        <activity android:name=".ui.UserSignActivity" />
+        <activity android:name=".inquiry.ui.WenZenEntryAcitivity"/>
+    </application>
+</manifest>

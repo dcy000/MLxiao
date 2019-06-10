@@ -21,7 +21,8 @@ public class VideoRepository {
     private static VideoService videoService = RetrofitHelper.service(VideoService.class);
 
    public Observable<List<VideoEntity>> getVideoList(int tag1,String tag2,String flag,int page,int pagesize){
-       return videoService.getVideoList(tag1,tag2,flag,page,pagesize).compose(RxUtils.apiResultTransformer());
+       return videoService.getVideoList(tag1,tag2,flag,page,pagesize)
+               .compose(RxUtils.apiResultTransformer());
    }
 
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/tv_sign_up_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="86dp"
+        android:gravity="center"
+        android:text="您的体重"
+        android:textColor="#8C8C8C"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_sign_up_content"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_height"/>
+
+
+    <TextView
+        android:id="@+id/tv_sign_up_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="kg"
+        android:textColor="#FFC107"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_sign_up_content"
+        app:layout_constraintLeft_toRightOf="@+id/rv_sign_up_content"
+        app:layout_constraintTop_toTopOf="@+id/rv_sign_up_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="0pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_back"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/common_bg_selector_btn_go_back"
+            android:gravity="center"
+            android:text="上一步"
+            android:textColor="#3F85FC"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_forward"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/common_bg_selector_btn_go_forward"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@android:color/white"
+            android:textSize="35sp" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

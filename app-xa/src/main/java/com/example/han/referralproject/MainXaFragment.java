@@ -3,6 +3,7 @@ package com.example.han.referralproject;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,22 +13,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gcml.common.LazyFragment;
+import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.ICallProvider;
+import com.gcml.common.service.IHuiQuanBodyTestProvider;
+import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
-import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -38,7 +41,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     private EclipseImageView mEiInfomationCollection;
     private EclipseImageView mEiDoctorService;
     private EclipseImageView mEiQuit;
-    private EclipseImageView mWenZen;
+    private EclipseImageView ivDoctorCall;
+    private EclipseImageView ivDoctorFamily;
+    private EclipseImageView eiHealthEdu;
     private View view;
     private CircleImageView mCvHead;
     private TextView mTvUserName;
@@ -65,20 +70,18 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
         mEiHealthCheckup.setOnClickListener(this);
         mEiInfomationCollection = (EclipseImageView) view.findViewById(R.id.ei_infomation_collection);
         mEiInfomationCollection.setOnClickListener(this);
-        mEiDoctorService = (EclipseImageView) view.findViewById(R.id.ei_doctor_service);
+        mEiDoctorService = (EclipseImageView) view.findViewById(R.id.iv_self_check);
         mEiDoctorService.setOnClickListener(this);
         mEiQuit = (EclipseImageView) view.findViewById(R.id.ei_quit);
         mEiQuit.setOnClickListener(this);
         mCvHead = (CircleImageView) view.findViewById(R.id.cv_head);
-        mWenZen = view.findViewById(R.id.ei_doctor_wenzen);
-        mWenZen.setOnClickListener(this);
+        ivDoctorCall = view.findViewById(R.id.iv_doctor_call);
+        ivDoctorCall.setOnClickListener(this);
+        ivDoctorFamily = view.findViewById(R.id.iv_doctor_family);
+        ivDoctorFamily.setOnClickListener(this);
+        eiHealthEdu = view.findViewById(R.id.ei_health_edu);
+        eiHealthEdu.setOnClickListener(this);
         mTvUserName = (TextView) view.findViewById(R.id.tv_user_name);
-        view.findViewById(R.id.ei_health_edu).setOnClickListener(new FilterClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                startActivity(new Intent(getActivity(), ZenDuanActivity.class));
-            }
-        }));
 //        getPersonInfo();
     }
 
@@ -87,7 +90,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-//        getPersonInfo();
+        getPersonInfo();
     }
 
     //获取个人信息，得到网易账号登录所需的账号和密码
@@ -95,12 +98,13 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
         if ("123456".equals(UserSpHelper.getUserId())) {
             return;
         }
-        Observable<UserEntity> rxUsers = null;
-//        rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
-//                .build()
-//                .call()
-//                .getDataItem("data");
-        rxUsers.subscribeOn(Schedulers.io())
+        final AppRouter appRouter = Routerfit.register(AppRouter.class);
+        IUserEntityProvider userProvider = appRouter.getUserProvider();
+        if (userProvider == null) {
+            return;
+        }
+        userProvider.getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
@@ -123,20 +127,24 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                             Timber.e("获取网易账号信息出错");
                             return;
                         }
-//                        NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
+
+                        ICallProvider callProvider = appRouter.getCallProvider();
+                        if (callProvider != null) {
+                            callProvider.login(wyyxId, wyyxPwd);
+                        }
+
 //                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
 //                                .addParam("userId", user.id)
 //                                .build()
 //                                .callAsync();
-                        if (user != null) {
-                            if (!TextUtils.isEmpty(user.avatar)) {
-                                Glide.with(UM.getApp())
-                                        .load(user.avatar)
-                                        .into(mCvHead);
-                            }
-                            if (!TextUtils.isEmpty(user.name)) {
-                                mTvUserName.setText(user.name);
-                            }
+
+                        if (!TextUtils.isEmpty(user.avatar)) {
+                            Glide.with(UM.getApp())
+                                    .load(user.avatar)
+                                    .into(mCvHead);
+                        }
+                        if (!TextUtils.isEmpty(user.name)) {
+                            mTvUserName.setText(user.name);
                         }
                     }
                 });
@@ -160,30 +168,68 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
 //                        .build()
 //                        .call();
                 if (bindWacher) {
+                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
 //                    startActivity(new Intent(getActivity(), HealthManageActivity.class));
                 } else {
+                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
 //                    startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
                 }
                 break;
-            case R.id.ei_doctor_service:
-//                CC.obtainBuilder("health.profile").build().call();
+            case R.id.iv_self_check:
+                IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
+                if (bodyTestProvider != null && getActivity() != null) {
+                    bodyTestProvider.gotoPage(getActivity());
+                }
                 break;
             case R.id.ei_quit:
                 quitApp();
                 break;
-            case R.id.ei_doctor_wenzen:
-//                CC.obtainBuilder(KEY_INQUIRY).build().callAsync();
+            case R.id.iv_doctor_call:
+                ICallProvider callProvider = Routerfit.register(AppRouter.class).getCallProvider();
+                if (callProvider != null && getActivity() != null) {
+                    callProvider.call(getActivity(), "");
+                }
+                break;
+            case R.id.iv_doctor_family:
+                Routerfit.register(AppRouter.class).skipHealthProfileActivity();
+                break;
+            case R.id.ei_health_edu:
+                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
                 break;
 
         }
     }
 
     private void gotoHealthMeasure() {
-        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+        final AppRouter appRouter = Routerfit.register(AppRouter.class);
+        IUserEntityProvider userProvider = appRouter.getUserProvider();
+        if (userProvider == null) {
+            return;
+        }
+        userProvider.getUserEntity()
+                .subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                            MLVoiceSynthetize.startSynthesize(
+                                    getActivity().getApplicationContext(),
+                                    "请先去个人中心完善性别和年龄信息");
+                        } else {
+                            appRouter.skipMeasureChooseDeviceActivity(false);
+                        }
+                    }
+                });
     }
 
     private void quitApp() {
-        new AlertDialog(getActivity())
+        final FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        new AlertDialog(activity)
                 .builder()
                 .setMsg("确定退出当前账号吗？")
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -196,11 +242,15 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                     @Override
                     public void onClick(View v) {
                         MobclickAgent.onProfileSignOff();
-//                        NimAccountHelper.getInstance().logout();//退出网易IM
-                        UserSpHelper.setToken("");
+                        final AppRouter appRouter = Routerfit.register(AppRouter.class);
+                        ICallProvider callProvider = appRouter.getCallProvider();
+                        if (callProvider != null) {
+                            callProvider.logout();
+                        }
+                        UserSpHelper.setToken(Global.TOURIST_TOKEN);
                         UserSpHelper.setEqId("");
 //                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
-                        getActivity().finish();
+                        activity.finish();
                     }
                 }).show();
 

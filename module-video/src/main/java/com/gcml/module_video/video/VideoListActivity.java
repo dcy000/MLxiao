@@ -104,7 +104,7 @@ public class VideoListActivity extends ToolbarBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "欢迎观看健康课堂");
+//        MLVoiceSynthetize.startSynthesize(UM.getApp(), "欢迎观看健康课堂");
         findViewById(R.id.view_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
