@@ -37,9 +37,8 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.common_ic_wifi_state);
-        setWifiLevel(mRightView);
-
+        mRightView.setImageResource(R.drawable.common_ic_settings);
+//        setWifiLevel(mRightView);
     }
 
     @Override
@@ -51,13 +50,13 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
         } else if (i == R.id.iv_health_record) {
             Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
         } else if (i == R.id.iv_health_bracelet) {
-            //                CC.obtainBuilder("com.gcml.bracelet").build().callAsync();
+            Routerfit.register(AppRouter.class).skipBraceletActivtity();
         }
     }
 
     @Override
     protected void backMainActivity() {
-//                CC.obtainBuilder("com.gcml.old.setting").build().call();
+        Routerfit.register(AppRouter.class).skipSettingActivity();
 //        onRightClickWithPermission(new IAction() {
 //            @Override
 //            public void action() {
