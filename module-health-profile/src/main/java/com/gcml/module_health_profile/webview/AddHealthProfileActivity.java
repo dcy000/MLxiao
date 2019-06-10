@@ -5,6 +5,7 @@ import android.webkit.JavascriptInterface;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.Handlers;
 import com.gcml.module_health_profile.R;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -85,7 +86,12 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
         if ("22d594369d8246ad9542f462d6f0f4ce".equals(rdRecordId) || "76e9139bf448430bbcb98d5998db05c4".equals(rdRecordId)) {
             finish();
         } else {
-            Routerfit.register(AppRouter.class).skipAddFollowupActivity(healthRecordId, rdRecordId, type + "二维码扫描");
+            Handlers.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Routerfit.register(AppRouter.class).skipAddFollowupActivity(healthRecordId, rdRecordId, type + "二维码扫描");
+                }
+            });
             finish();
         }
     }
