@@ -15,6 +15,8 @@ import com.gcml.common.LazyFragment;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.ICallProvider;
+import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -27,7 +29,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -87,7 +88,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
-//        getPersonInfo();
+        getPersonInfo();
     }
 
     //获取个人信息，得到网易账号登录所需的账号和密码
@@ -95,12 +96,13 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
         if ("123456".equals(UserSpHelper.getUserId())) {
             return;
         }
-        Observable<UserEntity> rxUsers = null;
-//        rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
-//                .build()
-//                .call()
-//                .getDataItem("data");
-        rxUsers.subscribeOn(Schedulers.io())
+        final AppRouter appRouter = Routerfit.register(AppRouter.class);
+        IUserEntityProvider userProvider = appRouter.getUserProvider();
+        if (userProvider == null) {
+            return;
+        }
+        userProvider.getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
@@ -123,20 +125,24 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                             Timber.e("获取网易账号信息出错");
                             return;
                         }
-//                        NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
+
+                        ICallProvider callProvider = appRouter.getCallProvider();
+                        if (callProvider != null) {
+                            callProvider.login(wyyxId, wyyxPwd);
+                        }
+
 //                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
 //                                .addParam("userId", user.id)
 //                                .build()
 //                                .callAsync();
-                        if (user != null) {
-                            if (!TextUtils.isEmpty(user.avatar)) {
-                                Glide.with(UM.getApp())
-                                        .load(user.avatar)
-                                        .into(mCvHead);
-                            }
-                            if (!TextUtils.isEmpty(user.name)) {
-                                mTvUserName.setText(user.name);
-                            }
+
+                        if (!TextUtils.isEmpty(user.avatar)) {
+                            Glide.with(UM.getApp())
+                                    .load(user.avatar)
+                                    .into(mCvHead);
+                        }
+                        if (!TextUtils.isEmpty(user.name)) {
+                            mTvUserName.setText(user.name);
                         }
                     }
                 });
@@ -179,10 +185,13 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     }
 
     private void gotoHealthMeasure() {
-        Observable<UserEntity> rxUser = null;
-//        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-//        rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
+        final AppRouter appRouter = Routerfit.register(AppRouter.class);
+        IUserEntityProvider userProvider = appRouter.getUserProvider();
+        if (userProvider == null) {
+            return;
+        }
+        userProvider.getUserEntity()
+                .subscribeOn(Schedulers.io())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
@@ -193,7 +202,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                                     getActivity().getApplicationContext(),
                                     "请先去个人中心完善性别和年龄信息");
                         } else {
-//                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
+                            appRouter.skipMeasureChooseDeviceActivity(false);
                         }
                     }
                 });
@@ -213,7 +222,11 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                     @Override
                     public void onClick(View v) {
                         MobclickAgent.onProfileSignOff();
-//                        NimAccountHelper.getInstance().logout();//退出网易IM
+                        final AppRouter appRouter = Routerfit.register(AppRouter.class);
+                        ICallProvider callProvider = appRouter.getCallProvider();
+                        if (callProvider != null) {
+                            callProvider.logout();
+                        }
                         UserSpHelper.setToken("");
                         UserSpHelper.setEqId("");
 //                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
