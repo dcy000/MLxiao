@@ -55,27 +55,39 @@
         android:background="@drawable/main_ic_health_mgr"
         android:clickable="true"
         android:tag="健康管理"
-        app:layout_constraintStart_toEndOf="@+id/ei_doctor_wenzen"
+        app:layout_constraintStart_toEndOf="@+id/iv_doctor_call"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.gcml.lib_widget.EclipseImageView
-        android:id="@+id/ei_doctor_service"
+        android:id="@+id/iv_doctor_family"
         android:layout_width="636pt"
-        android:layout_height="552pt"
-        android:background="@drawable/main_ic_family_docter_service"
+        android:layout_height="342pt"
+        android:background="@drawable/main_ic_doctor_family"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/iv_self_check"
+        app:layout_constraintEnd_toEndOf="@+id/iv_doctor_call"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ei_health_checkup"
+        app:layout_constraintTop_toBottomOf="@+id/iv_doctor_call" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/iv_self_check"
+        android:layout_width="636pt"
+        android:layout_height="342pt"
+        android:background="@drawable/main_ic_self_check2"
         android:clickable="true"
         android:tag="健康检测"
         app:layout_constraintBottom_toBottomOf="@+id/ei_health_checkup"
-        app:layout_constraintEnd_toEndOf="@+id/ei_doctor_wenzen"
+        app:layout_constraintEnd_toEndOf="@+id/iv_doctor_call"
         app:layout_constraintStart_toEndOf="@+id/ei_health_checkup"
-        app:layout_constraintTop_toBottomOf="@+id/ei_doctor_wenzen" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_doctor_family" />
 
     <com.gcml.lib_widget.EclipseImageView
-        android:id="@+id/ei_doctor_wenzen"
+        android:id="@+id/iv_doctor_call"
         android:layout_width="636pt"
-        android:layout_height="552pt"
+        android:layout_height="376pt"
         android:layout_marginTop="4pt"
-        android:background="@drawable/main_ic_wenzen"
+        android:background="@drawable/main_ic_doctor_call"
         android:clickable="true"
         android:tag="健康检测"
         app:layout_constraintStart_toEndOf="@+id/ll_pernal"
@@ -91,7 +103,7 @@
         app:layout_constraintBottom_toTopOf="@+id/ei_quit"
         app:layout_constraintEnd_toEndOf="@+id/ei_infomation_collection"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ei_doctor_service"
+        app:layout_constraintStart_toEndOf="@+id/iv_self_check"
         app:layout_constraintTop_toBottomOf="@+id/ei_infomation_collection" />
 
     <com.gcml.lib_widget.EclipseImageView
@@ -100,7 +112,7 @@
         android:layout_height="342pt"
         android:background="@drawable/main_ic_quit"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/ei_doctor_service"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_self_check"
         app:layout_constraintEnd_toEndOf="@+id/ei_health_edu"
-        app:layout_constraintStart_toEndOf="@+id/ei_doctor_service" />
+        app:layout_constraintStart_toEndOf="@+id/iv_self_check" />
 </android.support.constraint.ConstraintLayout>
