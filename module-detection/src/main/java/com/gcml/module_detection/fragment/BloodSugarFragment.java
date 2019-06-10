@@ -14,11 +14,13 @@ import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
@@ -102,6 +104,8 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
         });
     }
 
+    int selectMeasureSugarTime = 0;
+
     private void robotSpeak(DetectionData detectionData) {
         String roundUp = DataUtils.getRoundUp(detectionData.getBloodSugar(), 1);
         MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + roundUp, false);
@@ -113,20 +117,73 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         DetectionData bloodSugarData = new DetectionData();
         bloodSugarData.setDetectionType("1");
+
         if (bundle != null) {
-            bloodSugarData.setSugarTime(bundle.getInt("selectMeasureSugarTime"));
+            selectMeasureSugarTime = bundle.getInt("selectMeasureSugarTime");
+            bloodSugarData.setSugarTime(selectMeasureSugarTime);
         } else {
             bloodSugarData.setSugarTime(0);
         }
-        bloodSugarData.setBloodSugar(detectionData.getBloodSugar());
+        Float bloodSugar = detectionData.getBloodSugar();
+        bloodSugarData.setBloodSugar(bloodSugar);
         datas.add(bloodSugarData);
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
-                    public void onNext(Object o) {
-                        Timber.i(">>>>" + o.toString());
+                    public void onNext(List<PostDataCallBackBean> o) {
+                        if (o == null) return;
+                        PostDataCallBackBean postDataCallBackBean = o.get(0);
+                        PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
+                        if (result2 == null) return;
+                        mTvSuggest.setText(result2.getResult());
+
+                        PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
+                        if (result1 == null) {
+                            switch (selectMeasureSugarTime) {
+                                case 0:
+                                    if (bloodSugar <= 3.9) {
+                                        mTvDetectionState.setText("偏低");
+                                        return;
+                                    }
+                                    if (bloodSugar < 6.1) {
+                                        mTvDetectionState.setText("正常");
+                                        return;
+                                    }
+                                    mTvDetectionState.setText("偏高");
+                                    break;
+                                case 2:
+                                    if (bloodSugar <= 3.9) {
+                                        mTvDetectionState.setText("偏低");
+                                        return;
+                                    }
+                                    if (bloodSugar < 7.8) {
+                                        mTvDetectionState.setText("正常");
+                                        return;
+                                    }
+                                    mTvDetectionState.setText("偏高");
+                                    break;
+                                case 3:
+                                    if (bloodSugar <= 3.9) {
+                                        mTvDetectionState.setText("偏低");
+                                        return;
+                                    }
+                                    if (bloodSugar < 11.1) {
+                                        mTvDetectionState.setText("正常");
+                                        return;
+                                    }
+                                    mTvDetectionState.setText("偏高");
+                                    break;
+                            }
+                            if (bloodSugar <= 94) {
+                                mTvDetectionState.setText("异常");
+                                return;
+                            }
+                            mTvDetectionState.setText("正常");
+                        } else {
+                            mTvDetectionState.setText(result1.getDiagnose());
+                        }
                     }
 
                     @Override

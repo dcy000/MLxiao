@@ -8,6 +8,7 @@
     <application>
         <activity android:name=".ui.findPassWord.ForgetPassWordActivity"></activity>
         <activity android:name=".ui.profile.UserInfoActivity" />
+        <activity android:name=".ui.profile.UserCenterActivity" />
         <activity android:name=".ui.register.BindPhoneActivity" />
         <activity android:name=".ui.register.RegisterSuccessActivity" />
         <activity

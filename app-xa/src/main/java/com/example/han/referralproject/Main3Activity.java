@@ -21,7 +21,6 @@ import com.gcml.common.menu.EMenu;
 import com.gcml.common.menu.MenuEntity;
 import com.gcml.common.menu.MenuHelperProviderImp;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.idle.IdleHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.ShadowLayout;
@@ -39,8 +38,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-
-@Route(path = "/app/homepage/main/activity")
+/**
+ * 合版首页 @see app-combine
+ */
+//@Route(path = "/app/homepage/main/activity")
 public class Main3Activity extends AppCompatActivity {
 
     private TextView tvLogout;
@@ -61,7 +62,7 @@ public class Main3Activity extends AppCompatActivity {
     private void getMenus() {
         Routerfit.register(AppRouter.class)
                 .getMenuHelperProvider()
-                .menu(EMenu.MAIN, new MenuHelperProviderImp.MenuResult() {
+                .menu(false,EMenu.MAIN, new MenuHelperProviderImp.MenuResult() {
                     @Override
                     public void onSuccess(List<MenuEntity> menus) {
                         dealMenu(menus);

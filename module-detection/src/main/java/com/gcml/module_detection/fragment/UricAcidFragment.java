@@ -14,11 +14,13 @@ import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
@@ -32,6 +34,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
     private TextView mReference2;
     private TextView mTvSuggest;
     private boolean isMeasureBUAFinished;
+    private TextView mTvDetectionState;
 
     @Override
     protected int initLayout() {
@@ -41,6 +44,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
     @Override
     protected void initView(View view, Bundle bundle) {
         mTvDetectionTime = (TextView) view.findViewById(com.gcml.module_detection.R.id.tv_detection_time);
+        mTvDetectionState = view.findViewById(R.id.tv_detection_state);
         mTvResultMiddle = (TextView) view.findViewById(com.gcml.module_detection.R.id.tv_result_middle);
         mTvUnitMiddle = (TextView) view.findViewById(com.gcml.module_detection.R.id.tv_unit_middle);
         mReference1 = (TextView) view.findViewById(com.gcml.module_detection.R.id.reference1);
@@ -87,15 +91,31 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData lithicAcidData = new DetectionData();
         lithicAcidData.setDetectionType("8");
-        lithicAcidData.setUricAcid(detectionData.getUricAcid());
+        Float uricAcid = detectionData.getUricAcid();
+        lithicAcidData.setUricAcid(uricAcid);
         datas.add(lithicAcidData);
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
-                    public void onNext(Object o) {
-                        Timber.i(">>>>" + o.toString());
+                    public void onNext(List<PostDataCallBackBean> o) {
+                        if (o == null) return;
+                        PostDataCallBackBean postDataCallBackBean = o.get(0);
+                        PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
+                        if (result2 == null) return;
+                        mTvSuggest.setText(result2.getResult());
+
+                        PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
+                        if (result1 == null) {
+                            if (uricAcid <=4.2) {
+                                mTvDetectionState.setText("正常");
+                                return;
+                            }
+                            mTvDetectionState.setText("异常");
+                        } else {
+                            mTvDetectionState.setText(result1.getDiagnose());
+                        }
                     }
 
                     @Override

@@ -1,6 +1,7 @@
 ext.mainApp = true
 apply from: rootProject.file("build-base.gradle")
 
+println("app-jgys mainmodulename = $mainmodulename")
 rootProject.mainmodulename = "app-jgys"
 apply plugin: 'com.dd.comgradle'
 

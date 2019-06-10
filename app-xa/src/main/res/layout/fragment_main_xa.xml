@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="40dp">
+
+    <com.gcml.common.widget.EclipseLinearLayout
+        android:id="@+id/ll_pernal"
+        android:layout_width="636pt"
+        android:layout_height="552pt"
+        android:layout_marginStart="14pt"
+        android:layout_marginTop="4pt"
+        android:background="@drawable/bg_personal"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.gcml.lib_widget.CircleImageView
+            android:id="@+id/cv_head"
+            android:layout_width="300pt"
+            android:layout_height="300pt"
+            android:src="@drawable/common_ic_avatar_placeholder" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:text=""
+            android:textColor="#333"
+            android:textSize="64pt"
+            android:textStyle="bold" />
+    </com.gcml.common.widget.EclipseLinearLayout>
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_health_checkup"
+        android:layout_width="636pt"
+        android:layout_height="552pt"
+        android:background="@drawable/main_ic_health_detect"
+        android:clickable="true"
+        android:tag="家庭医生服务"
+        app:layout_constraintStart_toStartOf="@+id/ll_pernal"
+        app:layout_constraintTop_toBottomOf="@+id/ll_pernal" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_infomation_collection"
+        android:layout_width="636pt"
+        android:layout_height="376pt"
+        android:layout_marginStart="-24pt"
+        android:layout_marginTop="4pt"
+        android:background="@drawable/main_ic_health_mgr"
+        android:clickable="true"
+        android:tag="健康管理"
+        app:layout_constraintStart_toEndOf="@+id/ei_doctor_wenzen"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_doctor_service"
+        android:layout_width="636pt"
+        android:layout_height="552pt"
+        android:background="@drawable/main_ic_family_docter_service"
+        android:clickable="true"
+        android:tag="健康检测"
+        app:layout_constraintBottom_toBottomOf="@+id/ei_health_checkup"
+        app:layout_constraintEnd_toEndOf="@+id/ei_doctor_wenzen"
+        app:layout_constraintStart_toEndOf="@+id/ei_health_checkup"
+        app:layout_constraintTop_toBottomOf="@+id/ei_doctor_wenzen" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_doctor_wenzen"
+        android:layout_width="636pt"
+        android:layout_height="552pt"
+        android:layout_marginTop="4pt"
+        android:background="@drawable/main_ic_wenzen"
+        android:clickable="true"
+        android:tag="健康检测"
+        app:layout_constraintStart_toEndOf="@+id/ll_pernal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_health_edu"
+        android:layout_width="636pt"
+        android:layout_height="342pt"
+        android:background="@drawable/main_ic_health_edu"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/ei_quit"
+        app:layout_constraintEnd_toEndOf="@+id/ei_infomation_collection"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ei_doctor_service"
+        app:layout_constraintTop_toBottomOf="@+id/ei_infomation_collection" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_quit"
+        android:layout_width="636pt"
+        android:layout_height="342pt"
+        android:background="@drawable/main_ic_quit"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/ei_doctor_service"
+        app:layout_constraintEnd_toEndOf="@+id/ei_health_edu"
+        app:layout_constraintStart_toEndOf="@+id/ei_doctor_service" />
+</android.support.constraint.ConstraintLayout>

@@ -15,11 +15,13 @@ import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.observers.DefaultObserver;
 import timber.log.Timber;
@@ -109,10 +111,18 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
-                    public void onNext(Object o) {
-                        Timber.i(">>>>" + o.toString());
+                    public void onNext(List<PostDataCallBackBean> o) {
+                        if (o == null) return;
+                        PostDataCallBackBean postDataCallBackBean = o.get(0);
+                        if (postDataCallBackBean == null) return;
+                        PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
+                        if (result1 == null) return;
+                        PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
+                        if (result2 == null) return;
+                        mTvDetectionState.setText(result1.getDiagnose());
+                        mTvSuggest.setText(result2.getResult());
                     }
 
                     @Override

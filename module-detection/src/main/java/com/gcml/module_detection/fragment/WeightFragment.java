@@ -13,10 +13,12 @@ import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
@@ -78,6 +80,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                             robotSpeak(detectionData);
                             postData(detectionData);
                         }
+                        //TODO:体重
                         mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
                         mTvResultRight.setText(String.format(Locale.getDefault(), "%.1f", weight / 1.60 * 1.60));
                     } else {
@@ -97,15 +100,40 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         DetectionData weightData = new DetectionData();
         weightData.setDetectionType("3");
-        weightData.setWeight(detectionData.getWeight());
+        Float weight = detectionData.getWeight();
+        weightData.setWeight(weight);
         datas.add(weightData);
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
-                    public void onNext(Object o) {
-                        Timber.i(">>>>" + o.toString());
+                    public void onNext(List<PostDataCallBackBean> o) {
+                        if (o == null) return;
+                        PostDataCallBackBean postDataCallBackBean = o.get(0);
+                        PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
+                        if (result2 == null) return;
+                        mTvSuggest.setText(result2.getResult());
+                        PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
+                        if (result1 == null) {
+                            //TODO:体重
+                            double tizhi = weight / 1.6 * 1.6;
+                            if (tizhi < 18.5) {
+                                mTvDetectionState.setText("偏瘦");
+                                return;
+                            }
+                            if (tizhi < 23.9) {
+                                mTvDetectionState.setText("正常");
+                                return;
+                            }
+                            if (tizhi < 27.9) {
+                                mTvDetectionState.setText("偏胖");
+                                return;
+                            }
+                            mTvDetectionState.setText("肥胖");
+                        } else {
+                            mTvDetectionState.setText(result1.getDiagnose());
+                        }
                     }
 
                     @Override

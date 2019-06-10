@@ -8,13 +8,14 @@ import com.gcml.module_auth_hospital.postinputbean.SignUpBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+
+import static com.gcml.common.constant.Global.URI;
+
 
 public interface UserService {
 
@@ -25,7 +26,7 @@ public interface UserService {
      * "username"
      * "password"
      */
-    @POST("/open/common/sys/login/appLogin")
+    @POST(URI + "/sys/login/appLogin")
     Observable<ApiResult<UserToken>> signIn(@Body UserPostBody body);
 
     /**
@@ -34,30 +35,45 @@ public interface UserService {
      * "category"
      * "sfz"
      */
-    @POST("/open/common/sys/login/sfzLogin")
+    @POST(URI + "/sys/login/sfzLogin")
     Observable<ApiResult<UserToken>> signInByIdCard(@Body UserPostBody body);
 
     /**
      * 注册
      */
-    @POST("/open/common/br/appadd")
+    @POST(URI + "/br/appadd")
     Observable<ApiResult<UserEntity>> signUp(@Body SignUpBean bean, @Query("pwd") String pwd);
 
     /**
      * 根据token获取 用户信息
      */
-    @GET("/open/common/api/user/info/byToken/")
+    @GET(URI + "/api/user/info/byToken/")
     Observable<ApiResult<UserEntity>> getUserInfoByToken();
 
-    @PUT("/open/common/api/user/info/{patientId}/")
+    @PUT(URI + "/api/user/info/{patientId}/")
     Observable<ApiResult<Object>> updateUserInfo(@Path("patientId") String path, @Body PostUserEntity entity);
 
     /**
      * @param type: 1.账号 2.手机号 3.身份证 4.百度人脸id
      */
-    @POST("/open/common/acc/sel_account")
+    @POST(URI + "/acc/sel_account")
     Observable<ApiResult<Object>> isAccountExist(
             @Query("account") String account,
             @Query("type") int type
+    );
+
+    /**
+     * 雄安项目专用
+     *
+     * @param account
+     * @param type    1.账号 2.手机号 3.身份证 4.百度人脸id
+     * @param cate    1.运营人员,2:医生,3:患者,4:财务
+     * @return
+     */
+    @POST(URI + "/acc/sel_account")
+    Observable<ApiResult<Object>> isAccountExist(
+            @Query("account") String account,
+            @Query("type") int type,
+            @Query("cate") int cate
     );
 }

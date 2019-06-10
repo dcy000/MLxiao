@@ -3,6 +3,7 @@ package com.gcml.module_detection.net;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.module_detection.bean.LatestDetecBean;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +13,15 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
+
+import static com.gcml.common.constant.Global.URI;
 
 public interface DetectionService {
-    @POST("/open/common/api/healthMonitor/detection/{patientId}/")
-    Observable<ApiResult<Object>> postMeasureData(
+    @POST(URI + "/api/healthMonitor/detection/{patientId}/")
+    Observable<ApiResult<List<PostDataCallBackBean>>> postMeasureData(
             @Path("patientId") String userId,
             @Body ArrayList<DetectionData> datas);
 
-    @GET("/open/common/bl/getPatientHealthData")
+    @GET(URI + "/bl/getPatientHealthData")
     Observable<ApiResult<List<LatestDetecBean>>> getLatestDetectionData();
 }

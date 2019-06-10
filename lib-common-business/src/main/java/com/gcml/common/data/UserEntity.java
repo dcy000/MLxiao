@@ -8,8 +8,9 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "UserOld")
-public class UserEntity implements Parcelable {
+import java.util.Date;
+
+@Entity(tableName = "UserOld")public class UserEntity implements Parcelable {
     @NonNull
     @PrimaryKey
     @SerializedName(value = "bid", alternate = {"patientId"})
@@ -82,12 +83,37 @@ public class UserEntity implements Parcelable {
     public String wyyxPwd;
     @SerializedName("vipState")
     public String vipState;
-    private String medicalHistory;
-    private String source;
-    private String uuid;
+    public String medicalHistory;
+    public String source;
+    public String uuid;
 
-    //手环信息
+
+    public Integer serverId;
+
     public String watchCode;
+
+    public Date watchBindTime;
+
+    /**
+     * 手环定位纬度
+     */
+    public String watchLocationLat;
+
+    /**
+     * 手环定位经度
+     */
+    public String watchLocationLon;
+
+    /**
+     * 手环定位时间
+     */
+    public Date watchLocationTime;
+
+    /**
+     * 用户类型标签
+     */
+    public String userType;
+
 
     public UserEntity() {
 
@@ -130,7 +156,15 @@ public class UserEntity implements Parcelable {
         medicalHistory = in.readString();
         source = in.readString();
         uuid = in.readString();
+        if (in.readByte() == 0) {
+            serverId = null;
+        } else {
+            serverId = in.readInt();
+        }
         watchCode = in.readString();
+        watchLocationLat = in.readString();
+        watchLocationLon = in.readString();
+        userType = in.readString();
     }
 
     public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {
@@ -188,6 +222,15 @@ public class UserEntity implements Parcelable {
         dest.writeString(medicalHistory);
         dest.writeString(source);
         dest.writeString(uuid);
+        if (serverId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(serverId);
+        }
         dest.writeString(watchCode);
+        dest.writeString(watchLocationLat);
+        dest.writeString(watchLocationLon);
+        dest.writeString(userType);
     }
 }

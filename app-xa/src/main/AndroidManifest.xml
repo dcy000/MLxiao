@@ -68,7 +68,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_combine" />
+            android:value="gcml_version_xa" />
 
         <activity
             android:name=".WelcomeActivity"

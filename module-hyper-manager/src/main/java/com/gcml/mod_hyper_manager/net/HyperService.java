@@ -24,6 +24,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+import static com.gcml.common.constant.Global.URI;
+
 public interface HyperService {
     @GET("ZZB/api/healthMonitor/hypertension/diagnose/{userId}/")
     Observable<ApiResult<DiagnoseInfoBean.DataBean>> getDiagnoseInfo(@Path("userId") String userId);
@@ -86,7 +88,7 @@ public interface HyperService {
      *
      * @return
      */
-    @GET("/open/common/api/health/inquiry/constitution/questionnaire/")
+    @GET(URI + "/api/health/inquiry/constitution/questionnaire/")
     Observable<ApiResult<OlderHealthManagementBean.DataBean>> getQuestionnaireForOlder();
 
     /**
@@ -103,6 +105,6 @@ public interface HyperService {
      *
      * @return
      */
-    @POST("/open/common/api/health/inquiry/constitution/questionnaire/")
+    @POST(URI + "/api/health/inquiry/constitution/questionnaire/")
     Observable<ApiResult<List<HealthManagementResultBean.DataBean>>> postQuestionnaireForOlder(@Body HealthManagementAnwserBean bean);
 }

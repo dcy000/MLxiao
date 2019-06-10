@@ -3,8 +3,6 @@ package com.gcml.module_detection;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -20,7 +18,7 @@ import com.gcml.common.menu.MenuEntity;
 import com.gcml.common.menu.MenuHelperProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.CheckUserInfoProviderImp;
-import com.gcml.common.utils.Handlers;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
@@ -32,7 +30,6 @@ import com.gcml.module_detection.bean.LatestDetecBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.gcml.module_detection.utils.Time2Utils;
 import com.sjtu.yifei.annotation.Route;
-import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -42,7 +39,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 @Route(path = "/module/detection/choose/dection/type")
 public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
@@ -179,7 +175,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     private void getMenu() {
         Routerfit.register(AppRouter.class)
                 .getMenuHelperProvider()
-                .menu(EMenu.DETECTION, new MenuHelperProviderImp.MenuResult() {
+                .menu(ChannelUtils.isXiongAn(), EMenu.DETECTION, new MenuHelperProviderImp.MenuResult() {
                     @Override
                     public void onSuccess(List<MenuEntity> menus) {
                         getData();
