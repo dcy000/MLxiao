@@ -48,12 +48,12 @@ public class PostUserEntity {
      */
 
     private String address;
-    private int age;
+    private Integer age;
     private String allergy;
     private String birthday;
     private String bloodType;
-    private int categoryId;
-    private int doctorId;
+    private Integer categoryId;
+    private Integer doctorId;
     private String drink;
     private String eatingHabits;
     private String equipmentId;
@@ -61,24 +61,24 @@ public class PostUserEntity {
     private String faceId;
     private String faceUserId;
     private String fetation;
-    private int height;
+    private Integer height;
     private String hypertensionHand;
     private String hypertensionLevel;
     private String hypertensionPrimaryState;
     private String hypertensionTarget;
     private String idNo;
     private String medicalHistory;
-    private int patientId;
+    private Integer patientId;
     private String patientName;
     private String sex;
     private String smoke;
     private String source;
-    private int state;
+    private Integer state;
     private String tel;
     private String userPhoto;
     private String uuid;
-    private int waist;
-    private int weight;
+    private Integer waist;
+    private Integer weight;
     private String wyyxId;
     private String wyyxPwd;
 
@@ -362,11 +362,11 @@ public class PostUserEntity {
         }
 
         post.address = user.address;
-        post.age = TextUtils.isEmpty(user.age) ? 0 : Integer.parseInt(user.age);
+        post.age = TextUtils.isEmpty(user.age) ? null : Integer.parseInt(user.age);
         post.birthday = user.birthday;
         post.bloodType = user.bloodType;
-        post.categoryId = TextUtils.isEmpty(user.categoryId) ? 0 : Integer.parseInt(user.categoryId);
-        post.doctorId = TextUtils.isEmpty(user.doctorId) ? 0 : Integer.parseInt(user.doctorId);
+        post.categoryId = TextUtils.isEmpty(user.categoryId) ? null : Integer.parseInt(user.categoryId);
+        post.doctorId = TextUtils.isEmpty(user.doctorId) ? null : Integer.parseInt(user.doctorId);
         post.drink = user.drinkHabits;
         post.smoke = user.smokeHabits;
         post.eatingHabits = user.eatingHabits;
@@ -377,21 +377,21 @@ public class PostUserEntity {
         post.faceUserId = user.xfUserId;
         post.allergy = user.allergy;
         post.fetation = user.fetation;
-        post.height = TextUtils.isEmpty(user.height) ? 0 : (int) Float.parseFloat(user.height);
+        post.height = TextUtils.isEmpty(user.height) ? null : (int) Float.parseFloat(user.height);
         post.hypertensionHand = user.hypertensionHand;
         post.hypertensionLevel = user.hypertensionLevel;
         post.hypertensionPrimaryState = user.hypertensionPrimaryState;
         post.hypertensionTarget = user.hypertensionTarget;
         post.idNo = user.idCard;
         String userId = UserSpHelper.getUserId();
-        post.patientId = TextUtils.isEmpty(userId) ? 0 : Integer.parseInt(userId);
+        post.patientId = TextUtils.isEmpty(userId) ? null : Integer.parseInt(userId);
         post.patientName = user.name;
         post.sex = user.sex;
-        post.state = TextUtils.isEmpty(user.state) ? 0 : Integer.parseInt(user.state);
+        post.state = TextUtils.isEmpty(user.state) ? null : Integer.parseInt(user.state);
         post.tel = user.phone;
         post.userPhoto = user.avatar;
-        post.waist = TextUtils.isEmpty(user.waist) ? 0 : (int) Float.parseFloat(user.waist);
-        post.weight = TextUtils.isEmpty(user.weight) ? 0 : (int) Float.parseFloat(user.weight);
+        post.waist = TextUtils.isEmpty(user.waist) ? null : (int) Float.parseFloat(user.waist);
+        post.weight = TextUtils.isEmpty(user.weight) ? null : (int) Float.parseFloat(user.weight);
         post.wyyxId = user.wyyxId;
         post.wyyxPwd = user.wyyxPwd;
 
