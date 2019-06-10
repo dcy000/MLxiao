@@ -30,6 +30,7 @@ import com.gcml.module_inquiry.inquiry.ui.fragment.YueJingTimeFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.base.ChildActionListenerAdapter;
 import com.gcml.module_inquiry.model.HealthFileRepostory;
 import com.gcml.module_inquiry.model.WenZhenBean;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by lenovo on 2019/3/21.
  */
-
+@Route(path = "/inquiry/wenzhen/entry/activity")
 public class WenZenEntryAcitivity extends InquiryBaseActivity {
 
     private TranslucentToolBar tb;

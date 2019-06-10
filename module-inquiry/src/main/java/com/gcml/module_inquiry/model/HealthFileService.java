@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -29,7 +28,7 @@ public interface HealthFileService {
 
     @GET("ZZB/docter/seldoctors/")
     Observable<ApiResult<List<Docter>>> getDoctors(
-            @Query("start") Integer index,
+            @Query("page") Integer index,
             @Query("limit") Integer limit);
 
     @FormUrlEncoded

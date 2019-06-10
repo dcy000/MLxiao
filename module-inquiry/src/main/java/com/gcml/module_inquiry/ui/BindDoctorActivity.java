@@ -19,6 +19,7 @@ import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.adapter.BindDoctorAdapter;
 import com.gcml.module_inquiry.model.Docter;
 import com.gcml.module_inquiry.model.HealthFileRepostory;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by lenovo on 2019/1/16.
  */
-
+@Route(path = "/inquiry/bin/doctor/activity")
 public class BindDoctorActivity extends ToolbarBaseActivity {
 
     private TranslucentToolBar tb;

@@ -10,11 +10,12 @@ import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
+import com.sjtu.yifei.annotation.Route;
 
 /**
  * Created by lenovo on 2019/1/16.
  */
-
+@Route(path = "/inquiry/health/file/activity")
 public class HealthFileActivity extends ToolbarBaseActivity {
 
     private TranslucentToolBar tb;

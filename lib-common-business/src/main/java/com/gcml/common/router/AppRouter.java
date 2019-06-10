@@ -541,7 +541,17 @@ public interface AppRouter {
     @Go("/auth/hospital/id/card/number/login/activity")
     boolean skipIDCardNuberLoginActivity(@Extra ActivityCallback callback);
 
+
     @Go("/auth/hospital/idcard/info/activity")
     boolean skipIdCardInfoActivity(@Extra("flag") String flag, @Extra Bundle bundle, @Extra ActivityCallback callback);
+
+    @Go("/inquiry/wenzhen/entry/activity")
+    boolean skipWenZenEntryAcitivity();
+
+    @Go("/inquiry/bin/doctor/activity")
+    boolean skipBindDoctorActivity();
+
+    @Go("/inquiry/health/file/activity")
+    boolean skipHealthFileActivity();
 
 }
