@@ -167,7 +167,7 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
         if (times.size() != 0) {
 
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-            if (isAdded()){
+            if (isAdded()) {
                 MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
                 mv.setChartView(mChart);
                 mChart.setMarker(mv);
@@ -258,7 +258,8 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
         int i = v.getId();
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
-            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
+//            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
         } else {
         }
     }

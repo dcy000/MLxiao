@@ -383,7 +383,8 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
 
         } else if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
-            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
+//            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
         }
     }
 

@@ -3,6 +3,7 @@ package com.gcml.module_detection.fragment;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
     private TextView mReference1;
     private TextView mTvSuggest;
     private TextView mTvDetectionState;
+    private ConstraintLayout mClBg;
 
     @Override
     protected int initLayout() {
@@ -47,6 +49,7 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
     protected void initView(View view, Bundle bundle) {
         mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
         mTvDetectionState = view.findViewById(R.id.tv_detection_state);
+        mClBg = view.findViewById(R.id.cl_bg);
         mTvResultMiddle = (TextView) view.findViewById(R.id.tv_result_middle);
         mTvUnitMiddle = (TextView) view.findViewById(R.id.tv_unit_middle);
         mReference1 = (TextView) view.findViewById(R.id.reference1);
@@ -114,8 +117,10 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                         if (result1 == null) {
                             if (bloodOxygen <= 94) {
                                 mTvDetectionState.setText("异常");
+                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
                                 return;
                             }
+                            mClBg.setBackgroundResource(R.drawable.detection_normal);
                             mTvDetectionState.setText("正常");
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());

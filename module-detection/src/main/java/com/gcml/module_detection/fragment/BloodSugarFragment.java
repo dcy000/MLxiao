@@ -3,6 +3,7 @@ package com.gcml.module_detection.fragment;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,6 +57,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
      *
      */
     private TextView mTvSuggest;
+    private ConstraintLayout mClBg;
 
     @Override
     protected int initLayout() {
@@ -65,6 +67,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
     @Override
     protected void initView(View view, Bundle bundle) {
         this.bundle = bundle;
+        mClBg = view.findViewById(R.id.cl_bg);
         mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
         mTvDetectionState = (TextView) view.findViewById(R.id.tv_detection_state);
         mTvResultMiddle = (TextView) view.findViewById(R.id.tv_result_middle);
@@ -145,42 +148,46 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
                                 case 0:
                                     if (bloodSugar <= 3.9) {
                                         mTvDetectionState.setText("偏低");
+                                        mClBg.setBackgroundResource(R.drawable.detection_less_high);
                                         return;
                                     }
                                     if (bloodSugar < 6.1) {
                                         mTvDetectionState.setText("正常");
+                                        mClBg.setBackgroundResource(R.drawable.detection_normal);
                                         return;
                                     }
                                     mTvDetectionState.setText("偏高");
+                                    mClBg.setBackgroundResource(R.drawable.detection_more_high);
                                     break;
                                 case 2:
                                     if (bloodSugar <= 3.9) {
                                         mTvDetectionState.setText("偏低");
+                                        mClBg.setBackgroundResource(R.drawable.detection_less_high);
                                         return;
                                     }
                                     if (bloodSugar < 7.8) {
                                         mTvDetectionState.setText("正常");
+                                        mClBg.setBackgroundResource(R.drawable.detection_normal);
                                         return;
                                     }
                                     mTvDetectionState.setText("偏高");
+                                    mClBg.setBackgroundResource(R.drawable.detection_more_high);
                                     break;
                                 case 3:
                                     if (bloodSugar <= 3.9) {
                                         mTvDetectionState.setText("偏低");
+                                        mClBg.setBackgroundResource(R.drawable.detection_less_high);
                                         return;
                                     }
                                     if (bloodSugar < 11.1) {
                                         mTvDetectionState.setText("正常");
+                                        mClBg.setBackgroundResource(R.drawable.detection_normal);
                                         return;
                                     }
                                     mTvDetectionState.setText("偏高");
+                                    mClBg.setBackgroundResource(R.drawable.detection_more_high);
                                     break;
                             }
-                            if (bloodSugar <= 94) {
-                                mTvDetectionState.setText("异常");
-                                return;
-                            }
-                            mTvDetectionState.setText("正常");
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());
                         }

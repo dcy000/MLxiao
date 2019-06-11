@@ -45,8 +45,13 @@ public class BloodSugarPresenter extends BaseBluetooth {
             handleSelf(address);
             return;
         }
+        if (name.startsWith("BeneCheck")) {
+            handleThreeInOne(address);
+            return;
+        }
         baseView.updateState("未兼容该设备:" + name + ":::" + address);
     }
+
 
     @Override
     protected boolean isSelfConnect(String name, String address) {
@@ -111,5 +116,53 @@ public class BloodSugarPresenter extends BaseBluetooth {
 
                     }
                 });
+    }
+
+    private void handleThreeInOne(String address) {
+        BluetoothStore.getClient().notify(address, UUID.fromString(SELF_SERVICE),
+                UUID.fromString(SELF_NOTIFY), new BleNotifyResponse() {
+                    @Override
+                    public void onNotify(UUID service, UUID character, byte[] value) {
+                        parseData(value);
+                    }
+
+                    @Override
+                    public void onResponse(int code) {
+
+                    }
+                });
+    }
+
+    protected void parseData(byte[] bytes) {
+        if (bytes.length < 13) {
+            return;
+        }
+        int temp = ((bytes[11] & 0xff) << 8) + (bytes[10] & 0xff);
+        int basic = (int) Math.pow(16, 3);
+        int flag = temp / basic;
+        int number = temp % basic;
+        float result = (float) (number / Math.pow(10, 13 - flag));
+        if (bytes[1] == 65) {//血糖
+            detectionData.setInit(false);
+            detectionData.setBloodSugar(result);
+            detectionData.setUricAcid(0.0f);
+            detectionData.setCholesterol(0.0f);
+            baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
+        } else if (bytes[1] == 81) {//尿酸
+            detectionData.setInit(false);
+            detectionData.setBloodSugar(0.0f);
+            detectionData.setUricAcid(result);
+            detectionData.setCholesterol(0.0f);
+            baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
+        } else if (bytes[1] == 97) {//胆固醇
+            detectionData.setInit(false);
+            detectionData.setBloodSugar(0.0f);
+            detectionData.setUricAcid(0.0f);
+            detectionData.setCholesterol(result);
+            baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.postValue(detectionData);
+        }
     }
 }

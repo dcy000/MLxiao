@@ -20,6 +20,7 @@
             android:background="@drawable/common_shadow_line">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_bg"
                 android:layout_width="636pt"
                 android:layout_height="636pt"
                 android:layout_marginTop="52pt"

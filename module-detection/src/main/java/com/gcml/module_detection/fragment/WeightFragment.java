@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
     private TextView mReference1;
     private TextView mReference2;
     private TextView mTvSuggest;
+    private ConstraintLayout mClBg;
 
     @Override
     protected int initLayout() {
@@ -42,6 +44,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
 
     @Override
     protected void initView(View view, Bundle bundle) {
+        mClBg = view.findViewById(R.id.cl_bg);
         mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
         mTvDetectionState = (TextView) view.findViewById(R.id.tv_detection_state);
         mTvResultLeft = (TextView) view.findViewById(R.id.tv_result_left);
@@ -120,17 +123,21 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                             double tizhi = weight / 1.6 * 1.6;
                             if (tizhi < 18.5) {
                                 mTvDetectionState.setText("偏瘦");
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
                                 return;
                             }
                             if (tizhi < 23.9) {
                                 mTvDetectionState.setText("正常");
+                                mClBg.setBackgroundResource(R.drawable.detection_normal);
                                 return;
                             }
                             if (tizhi < 27.9) {
                                 mTvDetectionState.setText("偏胖");
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
                                 return;
                             }
                             mTvDetectionState.setText("肥胖");
+                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());
                         }

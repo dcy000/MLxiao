@@ -27,6 +27,7 @@ public class DeviceBrand {
             put("BLE-Glucowell", "血糖仪·好糖");
             put("BLE-BDE_WEIXIN_TTM", "血糖仪·三诺");
             put("Bioland-BGM", "血糖仪·自家");
+            put("BeneCheck", "三合一·自家");
         }
     };
     public static final HashMap<String, String> ECG = new HashMap<String, String>() {

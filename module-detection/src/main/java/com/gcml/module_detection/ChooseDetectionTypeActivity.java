@@ -248,10 +248,13 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                 case "-1":
                                     types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(Time2Utils.getFriendlyTimeSpanByNow(latest.getDate()));
+                                    types.get(0).setNormal(TextUtils.equals(latest.getStatus(), "0"));
                                     break;
                                 case "0":
                                     types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, String.format("%.0f", latest.getValue())).toString());
-                                    types.get(0).setNormal(TextUtils.equals(latest.getStatus(), "0"));
+                                    if (!types.get(0).isNormal()) {
+                                        types.get(0).setNormal(TextUtils.equals(latest.getStatus(), "0"));
+                                    }
                                     break;
                                 case "1":
                                     types.get(1).setResult(latest.getValue() + "");
@@ -259,9 +262,10 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     types.get(1).setNormal(TextUtils.equals(latest.getStatus(), "0"));
                                     break;
                                 case "2":
-                                    types.get(4).setResult(TextUtils.equals(latest.getStatus(), "0") ? "正常" : "异常");
+                                    //todo:后台逻辑应该写反了，临时前端解决一下（北京、雄安垃圾时刻，懒的和后台交涉，辛苦后面维护的兄弟了）
+                                    types.get(4).setResult(TextUtils.equals(latest.getStatus(), "0") ? "异常" : "正常");
                                     types.get(4).setDate(Time2Utils.getFriendlyTimeSpanByNow(latest.getDate()));
-                                    types.get(4).setNormal(TextUtils.equals(latest.getStatus(), "0"));
+                                    types.get(4).setNormal(!TextUtils.equals(latest.getStatus(), "0"));
                                     break;
                                 case "3":
                                     types.get(3).setResult(latest.getValue() + "");

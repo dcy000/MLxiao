@@ -310,7 +310,8 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         int i = v.getId();
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE);
-            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE);
+//            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE);
         } else {
 
         }

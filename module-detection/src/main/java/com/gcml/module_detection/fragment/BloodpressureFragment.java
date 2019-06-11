@@ -3,6 +3,7 @@ package com.gcml.module_detection.fragment;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
     private TextView mReference1;
     private TextView mReference2;
     private TextView mTvSuggest;
+    private ConstraintLayout mClBg;
 
     @Override
     protected int initLayout() {
@@ -44,6 +46,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
 
     @Override
     protected void initView(View view, Bundle bundle) {
+        mClBg = view.findViewById(R.id.cl_bg);
         mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
         mTvDetectionState = (TextView) view.findViewById(R.id.tv_detection_state);
         mTvResultLeft = (TextView) view.findViewById(R.id.tv_result_left);
@@ -121,7 +124,26 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                         if (result1 == null) return;
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
                         if (result2 == null) return;
-                        mTvDetectionState.setText(result1.getDiagnose());
+                        String diagnose = result1.getDiagnose();
+                        mTvDetectionState.setText(diagnose);
+                        switch (diagnose) {
+                            case "正常":
+                                mClBg.setBackgroundResource(R.drawable.detection_normal);
+                                break;
+                                //TODO:新标准是"正常高值"，后期会改动，注意（北京、雄安垃圾时刻）
+                            case "正常增高":
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+                                break;
+                            case "偏高":
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+                                break;
+                            case "严重偏高":
+                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                                break;
+                            case "偏低":
+                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                                break;
+                        }
                         mTvSuggest.setText(result2.getResult());
                     }
 
