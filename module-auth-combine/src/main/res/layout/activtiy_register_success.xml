@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30pt"
-        android:text="3秒后自动跳转到预诊建档界面"
+        android:text="请完善您的人脸信息"
         android:textColor="#FFBBBBBB"
         android:textSize="48pt" />
 

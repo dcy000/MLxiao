@@ -115,8 +115,10 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     }
 
     private void toSetPassWord(String idCardNumber) {
-        startActivity(new Intent(this, SetPassWordActivity.class)
+        startActivity(new Intent(this, InputNameActivity.class)
                 .putExtra("idCardNumber", idCardNumber));
+
+        //输入姓名-->设置密码
     }
 
 

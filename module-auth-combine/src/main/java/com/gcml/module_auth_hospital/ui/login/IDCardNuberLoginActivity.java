@@ -58,7 +58,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     }
 
     private void initView() {
-        translucentToolBar = findViewById(R.id.auth_idcard_numer_tb);
+        translucentToolBar = findViewById(R.id.tb_input_name);
         ccetPhone = findViewById(R.id.ccet_phone);
         tvNext = (TextView) findViewById(R.id.tv_next);
         etPsw = findViewById(R.id.et_psw);
@@ -93,8 +93,9 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
     private NumeriKeypadLayoutHelper.Builder builder;
 
     private void useNumberKeyPad() {
-        hideKeyboard(ccetPhone);
         hideKeyboard(etPsw);
+        hideKeyboard(ccetPhone);
+        ccetPhone.requestFocus();
 
         NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.imageView2);
         builder = new NumeriKeypadLayoutHelper.Builder()
