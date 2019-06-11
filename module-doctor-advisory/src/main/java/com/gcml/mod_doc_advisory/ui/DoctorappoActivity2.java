@@ -121,7 +121,7 @@ public class DoctorappoActivity2 extends ToolbarBaseActivity implements View.OnC
         if (i == R.id.circleImageView1) {
         } else if (i == R.id.ll_phone_family) {
             if (TextUtils.isEmpty(doctorId)) {
-                ToastUtils.showShort("呼叫健康顾问失败");
+                ToastUtils.showShort("呼叫失败");
                 return;
             }
             new QianYueRepository().getCallId(doctorId)

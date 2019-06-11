@@ -26,6 +26,7 @@ import com.gcml.lib_printer_8003dd.IPrinterView;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
@@ -41,6 +42,7 @@ import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+@Route(path = "/health/profile/output/result")
 public class OutputResultActivity extends ToolbarBaseActivity implements View.OnClickListener, IPrinterView {
     private ImageView mIvQr;
     /**

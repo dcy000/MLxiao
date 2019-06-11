@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -31,6 +32,7 @@ import com.gcml.module_inquiry.inquiry.ui.fragment.base.ChildActionListenerAdapt
 import com.gcml.module_inquiry.model.HealthFileRepostory;
 import com.gcml.module_inquiry.model.WenZhenBean;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,6 +201,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
 
                     @Override
                     public void onRightClick() {
+                        Routerfit.register(AppRouter.class).skipSettingActivity();
 //                                CC.obtainBuilder("com.gcml.old.setting").build().call();
 //                        onRightClickWithPermission(new IAction() {
 //                            @Override

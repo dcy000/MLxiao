@@ -46,13 +46,15 @@ public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.
         super.onClick(v);
         int i = v.getId();
         if (i == R.id.doctor_yuyue) {
-            Routerfit.register(AppRouter.class).getUserProvider().getUserEntity()
+            Routerfit.register(AppRouter.class)
+                    .getUserProvider()
+                    .getUserEntity()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
                         public void onNext(UserEntity user) {
-                            if (TextUtils.isEmpty(user.doctorId)) {
+                            if (TextUtils.isEmpty(user.doctorId) || user.doctorId.equals("0")) {
                                 Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract","签 约 医 生","DoctorAskGuideActivity");
                             } else {
                                 if ("0".equals(user.state)) {

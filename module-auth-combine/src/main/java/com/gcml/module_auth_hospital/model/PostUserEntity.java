@@ -366,7 +366,7 @@ public class PostUserEntity {
         post.birthday = user.birthday;
         post.bloodType = user.bloodType;
         post.categoryId = TextUtils.isEmpty(user.categoryId) ? null : Integer.parseInt(user.categoryId);
-        post.doctorId = TextUtils.isEmpty(user.doctorId) ? null : Integer.parseInt(user.doctorId);
+        post.doctorId = TextUtils.isEmpty(user.doctorId) || user.doctorId.equals("0") ? null : Integer.parseInt(user.doctorId);
         post.drink = user.drinkHabits;
         post.smoke = user.smokeHabits;
         post.eatingHabits = user.eatingHabits;

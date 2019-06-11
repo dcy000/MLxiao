@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 /**
  * Created by lenovo on 2019/1/16.
@@ -42,6 +44,7 @@ public class HealthFileActivity extends ToolbarBaseActivity {
 
                     @Override
                     public void onRightClick() {
+                        Routerfit.register(AppRouter.class).skipSettingActivity();
 //                                        CC.obtainBuilder("com.gcml.old.setting").build().call();
 
                     }

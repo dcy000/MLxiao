@@ -188,10 +188,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 quitApp();
                 break;
             case R.id.iv_doctor_call:
-                ICallProvider callProvider = Routerfit.register(AppRouter.class).getCallProvider();
-                if (callProvider != null && getActivity() != null) {
-                    callProvider.call(getActivity(), "");
-                }
+                Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
                 break;
             case R.id.iv_doctor_family:
                 Routerfit.register(AppRouter.class).skipHealthProfileActivity();
@@ -221,7 +218,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                                     getActivity().getApplicationContext(),
                                     "请先去个人中心完善性别和年龄信息");
                         } else {
-                            appRouter.skipMeasureChooseDeviceActivity(false);
+                            appRouter.skipChooseDetectionTypeActivity();
                         }
                     }
                 });

@@ -703,7 +703,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 ToastUtils.showShort("请使用有网模式登录");
                 return;
             }
-            String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + RetrofitUrlManager.getInstance().getBaseUrl().url().toString();
+            String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + BuildConfig.SERVER_ADDRESS;
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
             dialogImage.setDescription("扫一扫，下载详细报告");

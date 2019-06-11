@@ -16,6 +16,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -26,70 +27,70 @@ import retrofit2.http.Query;
  * description:TODO
  */
 public interface HealthRecordServer {
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<TemperatureHistory>>> getTemperatureHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<BloodPressureHistory>>> getBloodpressureHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<BloodSugarHistory>>> getBloodSugarHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<BloodOxygenHistory>>> getBloodOxygenHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<HeartRateHistory>>> getHeartRateHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<PulseHistory>>> getPulseHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<CholesterolHistory>>> getCholesterolHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<BUA>>> getBUAHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<ECGHistory>>> getECGHistory(
             @Query("bid") String userID,
             @Query("starttime") String start,
             @Query("endtime") String end,
             @Query("temp") String temp);
 
-    @GET("ZZB/br/cl_data")
+    @POST("ZZB/br/cl_data")
     Observable<ApiResult<List<WeightHistory>>> getWeight(
             @Query("bid") String userID,
             @Query("starttime") String start,
