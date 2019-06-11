@@ -1097,7 +1097,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
                     public void run() {
                         Doctor doctor = UserSpHelper.getDoctor();
                         if (doctor != null && !TextUtils.isEmpty(doctor.doctername)) {
-                            ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
+                            ToastUtils.showShort("请先查看是否与绑定签约医生绑定成功");
                         } else {
                             Routerfit.register(AppRouter.class).skipDoctorappoActivity2();
                         }
@@ -1426,7 +1426,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             }
         }
 
-        //健康顾问建议
+        //签约医生建议
         List<KeyWordDefinevBean> doctorJianyi = getDefineData("yishengjianyi");
         for (int i = 0; i < doctorJianyi.size(); i++) {
             pinyin = doctorJianyi.get(i).pinyin;
@@ -1510,7 +1510,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
         }
 
 
-        //健康顾问咨询
+        //签约医生咨询
         List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
         for (int i = 0; i < zixunyisheng.size(); i++) {
             if (yuyin.contains(zixunyisheng.get(i).pinyin)) {
@@ -1519,7 +1519,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             }
         }
 
-        //在线健康顾问
+        //在线签约医生
         List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
         for (int i = 0; i < zaixianyisheng.size(); i++) {
             if (yuyin.contains(zaixianyisheng.get(i).pinyin)) {
@@ -1528,7 +1528,7 @@ public class SpeechSynthesisActivity extends ToolbarBaseActivity implements View
             }
         }
 
-        //绑定健康顾问
+        //绑定签约医生
         List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueyisheng");
         for (int i = 0; i < qianyueyisheng.size(); i++) {
             if (yuyin.contains(qianyueyisheng.get(i).pinyin)) {

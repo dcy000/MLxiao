@@ -101,7 +101,7 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
         mLlDisease = (LinearLayout) view.findViewById(R.id.ll_disease);
         mLlSignDoctor = (LinearLayout) view.findViewById(R.id.ll_sign_doctor);
         mTvEdit = (TextView) view.findViewById(R.id.tv_edit_health_file);
-        mTvEdit.setVisibility(View.GONE); // 暂时隐藏
+//        mTvEdit.setVisibility(View.GONE); // 暂时隐藏
         mTvEdit.setOnClickListener(this);
         mTvName = (TextView) view.findViewById(R.id.tv_name);
         mTvSex = (TextView) view.findViewById(R.id.tv_sex);

@@ -56,7 +56,7 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity {
         } else {
             String title = getIntent().getStringExtra("title");
             if (TextUtils.isEmpty(title))
-                mTitleText.setText("在线健康顾问");
+                mTitleText.setText("在线签约医生");
             else
                 mTitleText.setText(title);
         }
@@ -278,7 +278,7 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity {
     protected void onResume() {
         super.onResume();
         if ("contract".equals(mFlag)) {
-            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请选择您最信任的健康顾问绑定");
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "请选择您最信任的签约医生绑定");
         }
     }
 

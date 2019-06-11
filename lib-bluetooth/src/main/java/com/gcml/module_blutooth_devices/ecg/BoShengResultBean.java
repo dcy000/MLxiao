@@ -11,7 +11,7 @@ public class BoShengResultBean {
      2.心律失常(也可能是由于信号干扰导致误判).
      3.QRS宽度正常.
      4.QTC正常.
-     (以上诊断为自动分析结果,请联系健康顾问)
+     (以上诊断为自动分析结果,请联系签约医生)
 
      * qrs : [{"RR":155,"flag":1,"offset":113},{"RR":167,"flag":1,"offset":280},{"RR":148,"flag":1,"offset":428},{"RR":138,"flag":1,"offset":566},{"RR":139,"flag":1,"offset":705},{"RR":145,"flag":1,"offset":850},{"RR":180,"flag":1,"offset":1030},{"RR":167,"flag":1,"offset":1197},{"RR":175,"flag":1,"offset":1372},{"RR":164,"flag":1,"offset":1536},{"RR":152,"flag":1,"offset":1688},{"RR":141,"flag":1,"offset":1829},{"RR":145,"flag":1,"offset":1974},{"RR":154,"flag":1,"offset":2128},{"RR":165,"flag":1,"offset":2293},{"RR":174,"flag":1,"offset":2467},{"RR":176,"flag":1,"offset":2643},{"RR":173,"flag":1,"offset":2816},{"RR":169,"flag":1,"offset":2985},{"RR":178,"flag":1,"offset":3163},{"RR":164,"flag":1,"offset":3327},{"RR":150,"flag":1,"offset":3477},{"RR":134,"flag":1,"offset":3611},{"RR":128,"flag":1,"offset":3739},{"RR":130,"flag":1,"offset":3869},{"RR":142,"flag":1,"offset":4011},{"RR":225,"flag":1,"offset":4236},{"RR":191,"flag":1,"offset":4427},{"RR":164,"flag":1,"offset":4591},{"RR":164,"flag":1,"offset":4755},{"RR":149,"flag":1,"offset":4904},{"RR":148,"flag":1,"offset":5052},{"RR":141,"flag":1,"offset":5193},{"RR":133,"flag":1,"offset":5326},{"RR":135,"flag":1,"offset":5461},{"RR":158,"flag":1,"offset":5619},{"RR":170,"flag":1,"offset":5789}]
      * stop_light : 1

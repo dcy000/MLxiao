@@ -3,6 +3,7 @@ package com.gcml.module_video.net;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_video.video.VideoEntity;
+import com.gcml.module_video.video.VideoType;
 
 import java.util.List;
 
@@ -22,6 +23,11 @@ public class VideoRepository {
 
    public Observable<List<VideoEntity>> getVideoList(int tag1,String tag2,String flag,int page,int pagesize){
        return videoService.getVideoList(tag1,tag2,flag,page,pagesize)
+               .compose(RxUtils.apiResultTransformer());
+   }
+
+   public Observable<List<VideoType>> getVideoType(){
+       return videoService.getVideoType("video_type")
                .compose(RxUtils.apiResultTransformer());
    }
 

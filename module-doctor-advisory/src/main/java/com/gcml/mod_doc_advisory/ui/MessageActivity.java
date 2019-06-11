@@ -62,7 +62,7 @@ public class MessageActivity extends ToolbarBaseActivity implements View.OnClick
                             MLVoiceSynthetize.startSynthesize(UM.getApp(), getString(R.string.no_yz));
                             findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
                             mBtnGo.setVisibility(View.GONE);
-                            mTvEmptyDataTips.setText("啊哦!你还没有健康顾问建议");
+                            mTvEmptyDataTips.setText("啊哦!你还没有签约医生建议");
                             return;
                         }
                         mDataList.addAll(yzInfoBeans);

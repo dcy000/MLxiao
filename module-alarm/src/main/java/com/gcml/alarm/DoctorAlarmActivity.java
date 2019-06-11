@@ -68,7 +68,7 @@ public class DoctorAlarmActivity extends ToolbarBaseActivity {
 
         mTitleText.setText("预 约 视 频");
 
-        String tips = "主人您的预约时间到了，请及时和健康顾问进行视频通话";
+        String tips = "主人您的预约时间到了，请及时和签约医生进行视频通话";
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), tips);
 
         mButton1.setOnClickListener(new View.OnClickListener() {

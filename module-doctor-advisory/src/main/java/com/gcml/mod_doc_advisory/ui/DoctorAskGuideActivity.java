@@ -22,11 +22,11 @@ import io.reactivex.schedulers.Schedulers;
 @Route(path = "/doctor/advisory/doctor/ask/guide/activity")
 public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.OnClickListener {
     /**
-     * 预约健康顾问
+     * 预约签约医生
      */
     private ImageView mDoctorYuyue;
     /**
-     * 在线健康顾问
+     * 在线签约医生
      */
     private ImageView mDoctorZaixian;
 
@@ -36,7 +36,7 @@ public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.
         setContentView(R.layout.activity_doctor_ask_guide);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("视  频  咨  询");
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请点击选择我的健康顾问或在线健康顾问");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请点击选择我的签约医生或在线签约医生");
         initView();
     }
 

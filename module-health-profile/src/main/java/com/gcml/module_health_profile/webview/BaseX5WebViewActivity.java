@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -95,6 +96,7 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
 
 
         addJavascriptInterface(mX5Webview);
+        mX5Webview.addJavascriptInterface(new JsEventBus(), "JsEventBus");
         mX5Webview.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView webView, String s) {
@@ -128,7 +130,7 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                dismissLoading();
+//                dismissLoading();
                 Timber.i("X5WebView loading end:::::cost time>>" + (System.currentTimeMillis() - time) + ">>>" + url);
                 time = System.currentTimeMillis();
                 if (!isPageFinished) {
@@ -185,11 +187,13 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
     protected void onStop() {
         super.onStop();
         removeJavascriptInterface(mX5Webview);
+        mX5Webview.addJavascriptInterface(this, "JsEventBus");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        dismissLoading();
         if (mX5Webview != null) {
 //            mX5Webview.clearCache(true);
 //            mX5Webview.clearHistory();
@@ -209,6 +213,16 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
             mX5Webview.goBack();
         } else {
             finish();
+        }
+    }
+
+
+    public class JsEventBus {
+        @JavascriptInterface
+        public void onJsEvent(String event) {
+            if ("PageReady".equals(event)) {
+                dismissLoading();
+            }
         }
     }
 
