@@ -178,7 +178,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                         if ("1".equals(user.state)) {
                             isSignDoctor.setText("已绑定");
                         } else if ("0".equals(user.state)
-                                && (TextUtils.isEmpty(user.doctorId))) {
+                                && (TextUtils.isEmpty(user.doctorId) || user.doctorId.equals("0"))) {
                             isSignDoctor.setText("未绑定");
                         } else {
                             isSignDoctor.setText("待审核");

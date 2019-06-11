@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -20,6 +21,7 @@ import com.gcml.module_inquiry.adapter.BindDoctorAdapter;
 import com.gcml.module_inquiry.model.Docter;
 import com.gcml.module_inquiry.model.HealthFileRepostory;
 import com.sjtu.yifei.annotation.Route;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +99,7 @@ public class BindDoctorActivity extends ToolbarBaseActivity {
 
                     @Override
                     public void onRightClick() {
+                        Routerfit.register(AppRouter.class).skipSettingActivity();
 //                                CC.obtainBuilder("com.gcml.old.setting").build().call();
 //                        onRightClickWithPermission(new IAction() {
 //                            @Override

@@ -25,6 +25,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/doctor/advisory/check/contract/activity")
 public class CheckContractActivity extends ToolbarBaseActivity {
 
@@ -105,7 +106,8 @@ public class CheckContractActivity extends ToolbarBaseActivity {
                 .flatMap(new Function<UserEntity, ObservableSource<DoctorInfoBean>>() {
                     @Override
                     public ObservableSource<DoctorInfoBean> apply(UserEntity userEntity) throws Exception {
-                        return qianYueRepository.getDoctorInfo(userEntity.doctorId);
+                        return qianYueRepository.getDoctorInfo(userEntity.doctorId)
+                                .subscribeOn(Schedulers.io());
                     }
                 })
                 .subscribeOn(Schedulers.io())

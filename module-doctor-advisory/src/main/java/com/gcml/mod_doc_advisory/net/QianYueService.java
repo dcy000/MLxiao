@@ -51,7 +51,7 @@ public interface QianYueService {
     Observable<ApiResult<DiseaseResult>> getJibing(@Query("bname") String bname);
 
     @GET("ZZB/docter/seldoctors")
-    Observable<ApiResult<List<Docter>>> doctor_list(@Query("start") int start, @Query("limit") int limit);
+    Observable<ApiResult<List<Docter>>> doctor_list(@Query("page") int start, @Query("limit") int limit);
 
     @GET("ZZB/docter/search_online_status")
     Observable<ApiResult<ArrayList<Docter>>> onlinedoctor_list(

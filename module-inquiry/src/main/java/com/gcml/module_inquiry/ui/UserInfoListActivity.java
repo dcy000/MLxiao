@@ -3,9 +3,11 @@ package com.gcml.module_inquiry.ui;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.module_inquiry.R;
+import com.sjtu.yifei.route.Routerfit;
 
 public class UserInfoListActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
@@ -32,6 +34,7 @@ public class UserInfoListActivity extends ToolbarBaseActivity implements View.On
 
                     @Override
                     public void onRightClick() {
+                        Routerfit.register(AppRouter.class).skipSettingActivity();
 //                                CC.obtainBuilder("com.gcml.old.setting").build().call();
 //                        onRightClickWithPermission(new IAction() {
 //                            @Override
