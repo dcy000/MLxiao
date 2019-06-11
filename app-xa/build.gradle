@@ -70,7 +70,7 @@ dependencies {
     addComponent 'module-health-measure'
     addComponent 'module-auth-combine'
     addComponent 'module-auth-face-combine'
-//    addComponent 'module-task'
+    addComponent 'module-task'
 //    addComponent 'module-mall'
     addComponent 'module-video'
 //    addComponent 'lib-bluetooth'

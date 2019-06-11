@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.menu.EMenu;
 import com.gcml.common.menu.MenuEntity;
 import com.gcml.common.menu.MenuHelperProviderImp;
@@ -124,11 +125,13 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .check(new CheckUserInfoProviderImp.CheckUserInfo() {
                     @Override
                     public void complete(UserEntity userEntity) {
+                        UserSpHelper.setUserHeight(Integer.parseInt(userEntity.height));
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT);
                     }
 
                     @Override
                     public void incomplete(UserEntity entity, List<EUserInfo> args, String s) {
+
                         showNotMsgDiaglog(s);
                     }
 

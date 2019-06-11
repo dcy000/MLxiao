@@ -271,8 +271,12 @@ public class UserSpHelper {
      *
      * @return
      */
-    public static String getUserHeight() {
-        return (String) SPUtil.get(KEY_USER_HEIGHT, "");
+    public static int getUserHeight() {
+        return (int) SPUtil.get(KEY_USER_HEIGHT, 0);
+    }
+
+    public static void setUserHeight(int height) {
+        SPUtil.put(KEY_USER_HEIGHT, height);
     }
 
     public static void setUserName(String name) {
@@ -370,5 +374,4 @@ public class UserSpHelper {
         }
         return false;
     }
-
 }
