@@ -471,6 +471,9 @@ public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnC
                             if (ChannelUtils.isAppCombine()) {
                                 Routerfit.register(AppRouter.class).skipMainActivity();
                             }
+                            if (ChannelUtils.isXiongAn()) {
+                                Routerfit.register(AppRouter.class).skipUserLogins2Activity();
+                            }
                             finish();
                         }
                     }

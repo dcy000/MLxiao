@@ -43,11 +43,13 @@ public class UserSignActivity extends ToolbarBaseActivity implements AffirmSigna
     private TextView cancel;
     TranslucentToolBar tb;
     private LoadingDialog dialog;
+    private String flag;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sign);
+        flag = getIntent().getStringExtra("flag");
         mToolbar.setVisibility(View.GONE);
         initTitle();
         initView();
@@ -219,7 +221,12 @@ public class UserSignActivity extends ToolbarBaseActivity implements AffirmSigna
 //                        ActivityHelper.finishAll();
                         ToastUtils.showShort("申请成功");
                         dialog.dismiss();
+                        if ("contractOnly".equals(flag)) {
+                            finish();
+                            return;
+                        }
                         Routerfit.register(AppRouter.class).skipAddHealthProfileActivity("");
+                        finish();
                     }
 
                     @Override

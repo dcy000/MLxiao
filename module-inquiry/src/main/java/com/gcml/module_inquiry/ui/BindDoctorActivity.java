@@ -40,11 +40,14 @@ public class BindDoctorActivity extends ToolbarBaseActivity {
     ArrayList<Docter> doctors = new ArrayList();
     private BindDoctorAdapter adapter;
 
+    private String flag;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bind_doctor);
+        flag = getIntent().getStringExtra("flag");
         mToolbar.setVisibility(View.GONE);
 //        ActivityHelper.addActivity(this);
         initTitle();
@@ -76,7 +79,11 @@ public class BindDoctorActivity extends ToolbarBaseActivity {
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(BindDoctorActivity.this, UserSignActivity.class).putExtra("doid", docter.docterid));
+                        startActivity(new Intent(BindDoctorActivity.this, UserSignActivity.class)
+                                .putExtra("doid", docter.docterid)
+                                .putExtra("flag", flag)
+                        );
+                        finish();
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {

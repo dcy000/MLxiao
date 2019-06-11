@@ -56,7 +56,7 @@ public class HomeAndQianYueActivity extends ToolbarBaseActivity implements View.
         super.onClick(v);
         if (v == qianyue) {
             //签约
-            Routerfit.register(AppRouter.class).skipBindDoctorActivity();
+            Routerfit.register(AppRouter.class).skipBindDoctorActivity("");
         } else if (v == home) {
             Routerfit.register(AppRouter.class).skipMainActivity();
         }

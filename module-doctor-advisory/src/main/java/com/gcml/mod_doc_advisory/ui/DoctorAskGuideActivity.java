@@ -57,7 +57,7 @@ public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.
                             if (TextUtils.isEmpty(user.doctorId) || user.doctorId.equals("0")) {
                                 // 未签约
 //                                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract","签 约 医 生","DoctorAskGuideActivity");
-                                Routerfit.register(AppRouter.class).skipBindDoctorActivity();
+                                Routerfit.register(AppRouter.class).skipBindDoctorActivity("contractOnly");
                             } else {
                                 if ("0".equals(user.state)) {
                                     // 签约待审核
