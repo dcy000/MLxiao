@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -315,100 +316,105 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     @Override
     public void discoveryNewDevice(BluetoothDevice device) {
         if (dialog != null) {
-            //根据不同的类型过滤，只保留当前测量项的蓝牙
-            //TODO:此处有严重的性能问题，后期需要优化 2019.06.11(北京、雄安项目的垃圾时刻)
-            switch (detectionType) {
-                case IBleConstants.MEASURE_BLOOD_PRESSURE:
-                    //血压
-                    for (Map.Entry<String, String> entry : DeviceBrand.BLOODPRESSURE.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.MEASURE_BLOOD_OXYGEN:
-                    //血氧
-                    for (Map.Entry<String, String> entry : DeviceBrand.BLOODOXYGEN.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.MEASURE_WEIGHT:
-                    //体重
-                    for (Map.Entry<String, String> entry : DeviceBrand.WEIGHT.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.MEASURE_TEMPERATURE:
-                    //耳温
-                    for (Map.Entry<String, String> entry : DeviceBrand.TEMPERATURE.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.MEASURE_ECG:
-                    //心电
-                    for (Map.Entry<String, String> entry : DeviceBrand.ECG.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.MEASURE_CHOLESTEROL:
-                    //胆固醇
-                    for (Map.Entry<String, String> entry : DeviceBrand.THREE_IN_ONE.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.MEASURE_URIC_ACID:
-                    //血尿酸
-                    for (Map.Entry<String, String> entry : DeviceBrand.THREE_IN_ONE.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.MEASURE_BLOOD_SUGAR:
-                    //血糖
-                    for (Map.Entry<String, String> entry : DeviceBrand.BLOODSUGAR.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-                case IBleConstants.SCAN_ID_CARD:
-                    //身份证
-                    for (Map.Entry<String, String> entry : DeviceBrand.ID_CARD.entrySet()) {
-                        if (device == null || TextUtils.isEmpty(device.getName())) break;
-                        if (device.getName().contains(entry.getKey())) {
-                            dialog.addNewDevice(device);
-                            break;
-                        }
-                    }
-                    break;
-            }
+//            Handlers.bg().post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    //根据不同的类型过滤，只保留当前测量项的蓝牙
+//                    //TODO:此处有严重的性能问题，后期需要优化 2019.06.11(北京、雄安项目的垃圾时刻)
+//                    switch (detectionType) {
+//                        case IBleConstants.MEASURE_BLOOD_PRESSURE:
+//                            //血压
+//                            for (Map.Entry<String, String> entry : DeviceBrand.BLOODPRESSURE.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.MEASURE_BLOOD_OXYGEN:
+//                            //血氧
+//                            for (Map.Entry<String, String> entry : DeviceBrand.BLOODOXYGEN.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.MEASURE_WEIGHT:
+//                            //体重
+//                            for (Map.Entry<String, String> entry : DeviceBrand.WEIGHT.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.MEASURE_TEMPERATURE:
+//                            //耳温
+//                            for (Map.Entry<String, String> entry : DeviceBrand.TEMPERATURE.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.MEASURE_ECG:
+//                            //心电
+//                            for (Map.Entry<String, String> entry : DeviceBrand.ECG.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.MEASURE_CHOLESTEROL:
+//                            //胆固醇
+//                            for (Map.Entry<String, String> entry : DeviceBrand.THREE_IN_ONE.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.MEASURE_URIC_ACID:
+//                            //血尿酸
+//                            for (Map.Entry<String, String> entry : DeviceBrand.THREE_IN_ONE.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.MEASURE_BLOOD_SUGAR:
+//                            //血糖
+//                            for (Map.Entry<String, String> entry : DeviceBrand.BLOODSUGAR.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                        case IBleConstants.SCAN_ID_CARD:
+//                            //身份证
+//                            for (Map.Entry<String, String> entry : DeviceBrand.ID_CARD.entrySet()) {
+//                                if (device == null || TextUtils.isEmpty(device.getName())) break;
+//                                if (device.getName().contains(entry.getKey())) {
+//                                    dialog.addNewDevice(device);
+//                                    break;
+//                                }
+//                            }
+//                            break;
+//                    }
+//                }
+//            });
             dialog.addNewDevice(device);
         }
     }

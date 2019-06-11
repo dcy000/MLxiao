@@ -248,10 +248,13 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                 case "-1":
                                     types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(Time2Utils.getFriendlyTimeSpanByNow(latest.getDate()));
+                                    types.get(0).setNormal(TextUtils.equals(latest.getStatus(), "0"));
                                     break;
                                 case "0":
                                     types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, String.format("%.0f", latest.getValue())).toString());
-                                    types.get(0).setNormal(TextUtils.equals(latest.getStatus(), "0"));
+                                    if (!types.get(0).isNormal()) {
+                                        types.get(0).setNormal(TextUtils.equals(latest.getStatus(), "0"));
+                                    }
                                     break;
                                 case "1":
                                     types.get(1).setResult(latest.getValue() + "");
