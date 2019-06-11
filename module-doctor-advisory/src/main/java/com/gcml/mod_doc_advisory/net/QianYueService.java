@@ -58,7 +58,7 @@ public interface QianYueService {
             @Query("online_status") int online_status,
             @Query("doctername") String doctername,
             @Query("page") int page,
-            @Query("pagesize") int pagesize
+            @Query("limit") int pagesize
     );
 
     @GET("ZZB/br/selOneUser_con")
