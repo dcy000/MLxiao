@@ -74,7 +74,8 @@ public class SetPassWord2Activity extends ToolbarBaseActivity implements View.On
 
                     @Override
                     public void onRightClick() {
-                        Routerfit.register(AppRouter.class).skipSettingActivity();
+//                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
                     }
                 });
         setWifiLevel(translucentToolBar);
@@ -98,7 +99,7 @@ public class SetPassWord2Activity extends ToolbarBaseActivity implements View.On
             return;
         }
 
-        if (passWord.length()<6) {
+        if (passWord.length() < 6) {
             speak("请输入6位数字密码");
             return;
         }

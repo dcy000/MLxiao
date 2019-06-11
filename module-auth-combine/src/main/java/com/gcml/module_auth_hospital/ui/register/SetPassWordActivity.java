@@ -68,7 +68,8 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
 
                     @Override
                     public void onRightClick() {
-                        Routerfit.register(AppRouter.class).skipSettingActivity();
+//                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
                     }
                 });
         setWifiLevel(translucentToolBar);
