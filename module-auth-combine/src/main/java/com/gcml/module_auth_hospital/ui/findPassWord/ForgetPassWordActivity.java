@@ -72,7 +72,8 @@ public class ForgetPassWordActivity extends ToolbarBaseActivity {
 
                     @Override
                     public void onRightClick() {
-                        Routerfit.register(AppRouter.class).skipSettingActivity();
+//                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
                     }
                 });
         setWifiLevel(tbForgetPsw);

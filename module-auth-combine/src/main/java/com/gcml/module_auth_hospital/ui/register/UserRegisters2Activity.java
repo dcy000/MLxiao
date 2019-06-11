@@ -40,12 +40,12 @@ public class UserRegisters2Activity extends ToolbarBaseActivity {
                 new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-                        finish();
                     }
 
                     @Override
                     public void onRightClick() {
-                        Routerfit.register(AppRouter.class).skipSettingActivity();
+//                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
                     }
                 });
 
