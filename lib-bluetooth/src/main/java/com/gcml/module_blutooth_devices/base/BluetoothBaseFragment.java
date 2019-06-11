@@ -22,7 +22,7 @@ import com.gcml.module_blutooth_devices.R;
 
 public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView {
     protected View view = null;
-    protected boolean isMeasureFinishedOfThisTime = false;
+    protected volatile boolean isMeasureFinishedOfThisTime = false;
     protected Context mContext;
     protected Activity mActivity;
     protected BaseBluetooth basePresenter;

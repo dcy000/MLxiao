@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -36,6 +37,8 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
     private TextView mReference2;
     private TextView mTvSuggest;
     private ConstraintLayout mClBg;
+    private boolean isPostDataTrue;
+    private int height;
 
     @Override
     protected int initLayout() {
@@ -62,6 +65,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
         mTvUnitRight.setText("Kg/m²");
         mReference1.setVisibility(View.VISIBLE);
         mReference1.setText("BMI正常范围：18.5~23.9");
+        height = UserSpHelper.getUserHeight();
         obserData();
     }
 
@@ -73,7 +77,6 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                 if (detectionData.isInit()) {
                     mTvResultLeft.setText("--");
                     mTvResultRight.setText("--");
-                    isMeasureFinishedOfThisTime = false;
                 } else {
                     Float weight = detectionData.getWeight();
                     if (detectionData.isWeightOver()) {
@@ -83,11 +86,13 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                             robotSpeak(detectionData);
                             postData(detectionData);
                         }
-                        //TODO:体重
+                        //TODO:体重需要从个人信息总去获取
                         mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
-                        mTvResultRight.setText(String.format(Locale.getDefault(), "%.1f", weight / 1.60 * 1.60));
+                        mTvResultRight.setText(String.format(Locale.getDefault(), "%.1f", weight / (height * height / 10000)));
                     } else {
-                        mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
+                        if (!isMeasureFinishedOfThisTime && weight != null && weight != 0) {
+                            mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
+                        }
                     }
                 }
             }
@@ -112,6 +117,11 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
+                        //解决数据多次上传，页面混乱，不知道有没有效果，（好像有效果）
+                        if (isPostDataTrue) {
+                            return;
+                        }
+                        isPostDataTrue = true;
                         if (o == null) return;
                         PostDataCallBackBean postDataCallBackBean = o.get(0);
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
@@ -119,25 +129,25 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                         mTvSuggest.setText(result2.getResult());
                         PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
                         if (result1 == null) {
-                            //TODO:体重
-                            double tizhi = weight / 1.6 * 1.6;
-                            if (tizhi < 18.5) {
-                                mTvDetectionState.setText("偏瘦");
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            if (tizhi < 23.9) {
-                                mTvDetectionState.setText("正常");
-                                mClBg.setBackgroundResource(R.drawable.detection_normal);
-                                return;
-                            }
-                            if (tizhi < 27.9) {
-                                mTvDetectionState.setText("偏胖");
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            mTvDetectionState.setText("肥胖");
-                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                            //TODO:体重需要从个人信息总去获取
+                            double tizhi = weight / (height * height / 10000);
+//                            if (tizhi < 18.5) {
+//                                mTvDetectionState.setText("偏瘦");
+//                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+//                                return;
+//                            }
+//                            if (tizhi < 23.9) {
+//                                mTvDetectionState.setText("正常");
+//                                mClBg.setBackgroundResource(R.drawable.detection_normal);
+//                                return;
+//                            }
+//                            if (tizhi < 27.9) {
+//                                mTvDetectionState.setText("偏胖");
+//                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+//                                return;
+//                            }
+//                            mTvDetectionState.setText("肥胖");
+//                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());
                         }

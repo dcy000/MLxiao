@@ -18,6 +18,9 @@ public class BloodSugarPresenter extends BaseBluetooth {
     private static final String SELF_NOTIFY = "00001002-0000-1000-8000-00805f9b34fb";
     private static final String SELF_WRITE = "00001001-0000-1000-8000-00805f9b34fb";
     private static final byte[] SELF_DATA_SUGAR_TO_WRITE = {0x5A, 0x0A, 0x03, 0x10, 0x05, 0x02, 0x0F, 0x21, 0x3B, (byte) 0xEB};
+
+    private static final String THREE_SELF_SERVICE = "00001808-0000-1000-8000-00805f9b34fb";//主服务
+    private static final String THREE_SELF_NOTIFY = "00002a18-0000-1000-8000-00805f9b34fb";
     DetectionData detectionData = new DetectionData();
 
     public BloodSugarPresenter(IBluetoothView owner) {
@@ -60,6 +63,9 @@ public class BloodSugarPresenter extends BaseBluetooth {
             return true;
         }
         if (name.startsWith("Bioland-BGM")) {
+            return false;
+        }
+        if (name.startsWith("BeneCheck")) {
             return false;
         }
         return super.isSelfConnect(name, address);
@@ -119,8 +125,8 @@ public class BloodSugarPresenter extends BaseBluetooth {
     }
 
     private void handleThreeInOne(String address) {
-        BluetoothStore.getClient().notify(address, UUID.fromString(SELF_SERVICE),
-                UUID.fromString(SELF_NOTIFY), new BleNotifyResponse() {
+        BluetoothStore.getClient().notify(address, UUID.fromString(THREE_SELF_SERVICE),
+                UUID.fromString(THREE_SELF_NOTIFY), new BleNotifyResponse() {
                     @Override
                     public void onNotify(UUID service, UUID character, byte[] value) {
                         parseData(value);
@@ -145,8 +151,6 @@ public class BloodSugarPresenter extends BaseBluetooth {
         if (bytes[1] == 65) {//血糖
             detectionData.setInit(false);
             detectionData.setBloodSugar(result);
-            detectionData.setUricAcid(0.0f);
-            detectionData.setCholesterol(0.0f);
             baseView.updateData(detectionData);
             BluetoothStore.instance.detection.postValue(detectionData);
         } else if (bytes[1] == 81) {//尿酸
