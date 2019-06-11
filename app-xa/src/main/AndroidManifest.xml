@@ -100,5 +100,12 @@
         <activity
             android:name=".HomeAndQianYueActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.han.healthmanage.HealthManageTipActivity"
+
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.han.healthmanage.HealthManageActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_health_manage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_risk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="200pt"
+        android:paddingRight="200pt">
+
+        <LinearLayout
+            android:layout_width="380pt"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="258pt"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.gcml.lib_widget.EclipseImageView
+                android:layout_width="380pt"
+                android:layout_height="380pt"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/img_health_manage_risk" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30pt"
+                android:gravity="center"
+                android:text="风险评估"
+                android:textColor="#f333"
+                android:textSize="64pt" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_health_blood_manager"
+            android:layout_width="380pt"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="258pt"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.gcml.lib_widget.EclipseImageView
+                android:layout_width="380pt"
+                android:layout_height="380pt"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ic_bloodpressure_manager" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30pt"
+                android:gravity="center"
+                android:text="高血压方案"
+                android:textColor="#f333"
+                android:textSize="64pt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_health_task"
+            android:layout_width="380pt"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="258pt"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.gcml.lib_widget.EclipseImageView
+                android:layout_width="380pt"
+                android:layout_height="380pt"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/img_health_manage_task" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30pt"
+                android:gravity="center"
+                android:text="健康任务"
+                android:textColor="#f333"
+                android:textSize="64pt" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.han.healthmanage.HealthManageActivity;
+import com.example.han.healthmanage.HealthManageTipActivity;
 import com.gcml.common.LazyFragment;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
@@ -168,11 +171,11 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
 //                        .build()
 //                        .call();
                 if (bindWacher) {
-                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
-//                    startActivity(new Intent(getActivity(), HealthManageActivity.class));
+//                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
+                    startActivity(new Intent(getActivity(), HealthManageActivity.class));
                 } else {
-                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
-//                    startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
+//                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
+                    startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
                 }
                 break;
             case R.id.iv_self_check:

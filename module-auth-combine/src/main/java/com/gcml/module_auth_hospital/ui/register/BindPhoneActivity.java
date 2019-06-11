@@ -183,7 +183,11 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             SignUpBean bean = new SignUpBean();
             bean.setIdNo(idCardNumber);
             bean.setTel(phoneNumber);
-            bean.setPatientName("zuo");
+            String userName = data.getStringExtra("userName");
+            if (TextUtils.isEmpty(userName)) {
+                userName = "";
+            }
+            bean.setPatientName(userName);
 
             repository.signUp(bean, passWord)
                     .subscribeOn(Schedulers.io())
