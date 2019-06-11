@@ -11,37 +11,52 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
+import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
 import timber.log.Timber;
 
 public class CholesterolFragment extends BluetoothBaseFragment implements View.OnClickListener {
-    protected TextView mBtnHealthHistory;
-    protected TextView mBtnVideoDemo;
-    private TextView mTvResult;
+    private TextView mTvDetectionTime;
+    private TextView mTvResultMiddle;
+    private TextView mTvUnitMiddle;
+    private TextView mReference1;
+    private TextView mReference2;
+    private TextView mTvSuggest;
     private boolean isMeasureCholesterolFinished;
+    private TextView mTvDetectionState;
 
     @Override
     protected int initLayout() {
-        return R.layout.bluetooth_fragment_cholesterol;
+        return R.layout.fragment_detection;
     }
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        mBtnHealthHistory = view.findViewById(com.gcml.module_blutooth_devices.R.id.btn_health_history);
-        mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = view.findViewById(com.gcml.module_blutooth_devices.R.id.btn_video_demo);
-        mBtnVideoDemo.setOnClickListener(this);
-        mTvResult = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_result);
-        mTvResult.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
+        mTvDetectionState = view.findViewById(R.id.tv_detection_state);
+        mTvResultMiddle = (TextView) view.findViewById(R.id.tv_result_middle);
+        mTvUnitMiddle = (TextView) view.findViewById(R.id.tv_unit_middle);
+        mReference1 = (TextView) view.findViewById(R.id.reference1);
+        mReference2 = (TextView) view.findViewById(R.id.reference2);
+        mTvSuggest = (TextView) view.findViewById(R.id.tv_suggest);
+        mTvResultMiddle.setVisibility(View.VISIBLE);
+        mTvResultMiddle.setText("--");
+        mTvUnitMiddle.setVisibility(View.VISIBLE);
+        mTvUnitMiddle.setText("mmol/L");
+        mReference1.setVisibility(View.VISIBLE);
+        mReference1.setText("正常范围:<5.2mmol/L");
         obserData();
     }
 
@@ -51,12 +66,14 @@ public class CholesterolFragment extends BluetoothBaseFragment implements View.O
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
                 if (detectionData.isInit()) {
+                    mTvResultMiddle.setText("--");
                     isMeasureCholesterolFinished = false;
                 } else {
                     Float cholesterol = detectionData.getCholesterol();
                     if (cholesterol != null && cholesterol != 0 && !isMeasureCholesterolFinished) {
                         isMeasureCholesterolFinished = true;
-                        mTvResult.setText(String.format(Locale.getDefault(), "%.2f", cholesterol));
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", cholesterol));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);
@@ -74,15 +91,35 @@ public class CholesterolFragment extends BluetoothBaseFragment implements View.O
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData cholesterolData = new DetectionData();
         cholesterolData.setDetectionType("7");
-        cholesterolData.setCholesterol(detectionData.getCholesterol());
+        Float cholesterol = detectionData.getCholesterol();
+        cholesterolData.setCholesterol(cholesterol);
         datas.add(cholesterolData);
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
-                    public void onNext(Object o) {
-                        Timber.i(">>>>" + o.toString());
+                    public void onNext(List<PostDataCallBackBean> o) {
+                        if (o == null) return;
+                        PostDataCallBackBean postDataCallBackBean = o.get(0);
+                        PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
+                        if (result2 == null) return;
+                        mTvSuggest.setText(result2.getResult());
+
+                        PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
+                        if (result1 == null) {
+                            if (cholesterol < 5.2) {
+                                mTvDetectionState.setText("正常");
+                                return;
+                            }
+                            if (cholesterol < 6.2) {
+                                mTvDetectionState.setText("边缘升高");
+                                return;
+                            }
+                            mTvDetectionState.setText("偏高");
+                        } else {
+                            mTvDetectionState.setText(result1.getDiagnose());
+                        }
                     }
 
                     @Override

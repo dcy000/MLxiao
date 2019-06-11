@@ -1,50 +1,68 @@
 package com.gcml.module_detection.fragment;
 
 import android.arch.lifecycle.Observer;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
+import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.observers.DefaultObserver;
 import timber.log.Timber;
 
 public class BloodpressureFragment extends BluetoothBaseFragment implements View.OnClickListener {
-    protected TextView mBtnHealthHistory;
-    protected TextView mBtnVideoDemo;
-    private TextView mTvGaoya;
-    private TextView mTvDiya;
-    private TextView mTvMaibo;
+    private TextView mTvDetectionTime;
+    private TextView mTvDetectionState;
+    private TextView mTvResultLeft;
+    private TextView mTvResultRight;
+    private TextView mTvUnitLeft;
+    private TextView mTvUnitRight;
+    private TextView mReference1;
+    private TextView mReference2;
+    private TextView mTvSuggest;
 
     @Override
     protected int initLayout() {
-        return R.layout.bluetooth_fragment_bloodpressure;
+        return R.layout.fragment_detection;
     }
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        mBtnHealthHistory = view.findViewById(com.gcml.module_blutooth_devices.R.id.btn_health_history);
-        mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = view.findViewById(com.gcml.module_blutooth_devices.R.id.btn_video_demo);
-        mBtnVideoDemo.setOnClickListener(this);
-        mTvGaoya = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_gaoya);
-        mTvDiya = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_diya);
-        mTvMaibo = view.findViewById(com.gcml.module_blutooth_devices.R.id.tv_maibo);
-        mTvGaoya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
-        mTvDiya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
-        mTvMaibo.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvDetectionTime = (TextView) view.findViewById(R.id.tv_detection_time);
+        mTvDetectionState = (TextView) view.findViewById(R.id.tv_detection_state);
+        mTvResultLeft = (TextView) view.findViewById(R.id.tv_result_left);
+        mTvResultRight = (TextView) view.findViewById(R.id.tv_result_right);
+        mTvUnitLeft = (TextView) view.findViewById(R.id.tv_unit_left);
+        mTvUnitRight = (TextView) view.findViewById(R.id.tv_unit_right);
+        mReference1 = (TextView) view.findViewById(R.id.reference1);
+        mReference2 = (TextView) view.findViewById(R.id.reference2);
+        mTvSuggest = (TextView) view.findViewById(R.id.tv_suggest);
+        mTvResultLeft.setVisibility(View.VISIBLE);
+        mTvResultRight.setVisibility(View.VISIBLE);
+        mTvUnitLeft.setVisibility(View.VISIBLE);
+        mTvUnitLeft.setText("mmHg");
+        mTvUnitRight.setVisibility(View.VISIBLE);
+        mTvUnitRight.setText("次/min");
+        mReference1.setVisibility(View.VISIBLE);
+        mReference2.setVisibility(View.VISIBLE);
+        mReference1.setText("收缩压：90mmHg~140mmHg");
+        mReference2.setText("舒张压：60mmHg~90mmHg");
         obserData();
     }
 
@@ -55,14 +73,13 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                 if (detectionData == null) return;
                 Integer highPressure = detectionData.getHighPressure();
                 if (detectionData.isInit()) {
-                    mTvGaoya.setText(String.valueOf(highPressure));
-                    mTvDiya.setText("0");
-                    mTvMaibo.setText("0");
+                    mTvResultLeft.setText(highPressure + "/--");
+                    mTvResultRight.setText("--");
                     isMeasureFinishedOfThisTime = false;
                 } else {
-                    mTvGaoya.setText(String.valueOf(highPressure));
-                    mTvDiya.setText(String.valueOf(detectionData.getLowPressure()));
-                    mTvMaibo.setText(String.valueOf(detectionData.getPulse()));
+                    mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                    mTvResultLeft.setText(highPressure + "/" + detectionData.getLowPressure());
+                    mTvResultRight.setText(String.valueOf(detectionData.getPulse()));
                     if (!isMeasureFinishedOfThisTime && highPressure != null && highPressure != 0) {
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
@@ -94,10 +111,18 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
-                    public void onNext(Object o) {
-                        Timber.i(">>>>" + o.toString());
+                    public void onNext(List<PostDataCallBackBean> o) {
+                        if (o == null) return;
+                        PostDataCallBackBean postDataCallBackBean = o.get(0);
+                        if (postDataCallBackBean == null) return;
+                        PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
+                        if (result1 == null) return;
+                        PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
+                        if (result2 == null) return;
+                        mTvDetectionState.setText(result1.getDiagnose());
+                        mTvSuggest.setText(result2.getResult());
                     }
 
                     @Override
@@ -116,4 +141,5 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
     public void onClick(View v) {
 
     }
+
 }

@@ -3,6 +3,7 @@ package com.gcml.module_detection.net;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.module_detection.bean.LatestDetecBean;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import static com.gcml.common.constant.Global.URI;
 
 public interface DetectionService {
     @POST(URI + "/api/healthMonitor/detection/{patientId}/")
-    Observable<ApiResult<Object>> postMeasureData(
+    Observable<ApiResult<List<PostDataCallBackBean>>> postMeasureData(
             @Path("patientId") String userId,
             @Body ArrayList<DetectionData> datas);
 

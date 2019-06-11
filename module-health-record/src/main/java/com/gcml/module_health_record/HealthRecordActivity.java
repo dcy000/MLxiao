@@ -43,7 +43,6 @@ import com.gcml.module_health_record.fragments.HealthRecordECGFragment;
 import com.gcml.module_health_record.fragments.HealthRecordHeartrateFragment;
 import com.gcml.module_health_record.fragments.HealthRecordTemperatureFragment;
 import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
-import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.gcml.module_health_record.network.HealthRecordRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
@@ -57,6 +56,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 @Route(path = "/health/record/health/record/activity")
 public class HealthRecordActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, HealthRecordBloodsugarFragment.BloodsugarSelectTime {
@@ -703,7 +703,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 ToastUtils.showShort("请使用有网模式登录");
                 return;
             }
-            String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + HealthRecordNetworkApi.BasicUrl;
+            String text = "http://47.96.98.60:8640/?bid=" + UserSpHelper.getUserId() + "&api_host=" + RetrofitUrlManager.getInstance().getBaseUrl().url().toString();
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
             dialogImage.setDescription("扫一扫，下载详细报告");

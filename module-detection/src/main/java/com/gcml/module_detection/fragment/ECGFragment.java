@@ -19,6 +19,7 @@ import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGSingleGuideView;
 import com.gcml.module_detection.ConnectActivity;
+import com.gcml.module_detection.bean.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
@@ -129,9 +130,9 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(List<PostDataCallBackBean> o) {
                         Timber.i(">>>>" + o.toString());
                     }
 

@@ -8,8 +8,5 @@
         <activity
             android:name=".HealthRecordActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".HealthRecordActivity2"
-            android:screenOrientation="landscape" />
     </application>
 </manifest>

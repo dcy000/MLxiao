@@ -67,6 +67,7 @@ dependencies {
     //component
 //    addComponent 'module-recreation'
     addComponent 'module-health-measure'
+    addComponent 'module-auth-jgys'
 //    addComponent 'module-auth'
     addComponent 'module-auth-face-combine'
 //    addComponent 'module-task'
