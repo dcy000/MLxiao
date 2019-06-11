@@ -7,6 +7,7 @@ import android.webkit.JavascriptInterface;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.Handlers;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.R;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -88,7 +89,13 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
     public void move2Next(String healthRecordId) {
         //个人健康档案、个人基本信息
         if ("22d594369d8246ad9542f462d6f0f4ce".equals(rdRecordId) || "76e9139bf448430bbcb98d5998db05c4".equals(rdRecordId)) {
-            finish();
+            Handlers.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Routerfit.register(AppRouter.class).skipMainActivity();
+                    finish();
+                }
+            });
         } else {
             Handlers.runOnUiThread(new Runnable() {
                 @Override

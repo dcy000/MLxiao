@@ -68,7 +68,7 @@ public class HealthManageActivity extends ToolbarBaseActivity implements View.On
                                 CC.obtainBuilder("com.gcml.old.setting").build().call();
                             }
                         });*/
-                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
 
                     }
                 });

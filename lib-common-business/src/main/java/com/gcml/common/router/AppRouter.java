@@ -549,7 +549,7 @@ public interface AppRouter {
     boolean skipWenZenEntryAcitivity();
 
     @Go("/inquiry/bind/doctor/activity")
-    boolean skipBindDoctorActivity();
+    boolean skipBindDoctorActivity(@Extra("flag") String flag);
 
     @Go("/inquiry/health/file/activity")
     boolean skipHealthFileActivity();
