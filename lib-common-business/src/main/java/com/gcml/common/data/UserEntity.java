@@ -10,7 +10,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-@Entity(tableName = "UserOld")public class UserEntity implements Parcelable {
+@Entity(tableName = "UserOld")
+public class UserEntity implements Parcelable {
     @NonNull
     @PrimaryKey
     @SerializedName(value = "bid", alternate = {"patientId"})
@@ -92,7 +93,7 @@ import java.util.Date;
 
     public String watchCode;
 
-    public Date watchBindTime;
+    public String watchBindTime;
 
     /**
      * 手环定位纬度
@@ -107,7 +108,7 @@ import java.util.Date;
     /**
      * 手环定位时间
      */
-    public Date watchLocationTime;
+    public String watchLocationTime;
 
     /**
      * 用户类型标签
@@ -118,6 +119,7 @@ import java.util.Date;
     public UserEntity() {
 
     }
+
 
     protected UserEntity(Parcel in) {
         id = in.readString();
@@ -162,8 +164,10 @@ import java.util.Date;
             serverId = in.readInt();
         }
         watchCode = in.readString();
+        watchBindTime = in.readString();
         watchLocationLat = in.readString();
         watchLocationLon = in.readString();
+        watchLocationTime = in.readString();
         userType = in.readString();
     }
 
@@ -229,8 +233,10 @@ import java.util.Date;
             dest.writeInt(serverId);
         }
         dest.writeString(watchCode);
+        dest.writeString(watchBindTime);
         dest.writeString(watchLocationLat);
         dest.writeString(watchLocationLon);
+        dest.writeString(watchLocationTime);
         dest.writeString(userType);
     }
 }

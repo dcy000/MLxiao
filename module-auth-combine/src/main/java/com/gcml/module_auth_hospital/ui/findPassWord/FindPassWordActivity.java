@@ -127,6 +127,8 @@ public class FindPassWordActivity extends ToolbarBaseActivity {
                 layoutHelper.showX(false);
             }
         });
+
+        layoutHelper.showX(false);
     }
 
     private void toSetPassWord() {

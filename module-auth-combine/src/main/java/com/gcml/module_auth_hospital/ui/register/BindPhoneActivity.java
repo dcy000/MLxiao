@@ -102,6 +102,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                 layoutHelper.showX(false);
             }
         });
+
+        layoutHelper.showX(false);
     }
 
     public static void startMe(Context context, String passWord, String from) {
@@ -183,7 +185,7 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             SignUpBean bean = new SignUpBean();
             bean.setIdNo(idCardNumber);
             bean.setTel(phoneNumber);
-            String userName = data.getStringExtra("userName");
+            String userName = data.getStringExtra("registerName");
             if (TextUtils.isEmpty(userName)) {
                 userName = "";
             }
