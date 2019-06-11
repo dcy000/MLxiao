@@ -235,7 +235,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                                 @Override
                                 public void onClick(View v) {
                                     dialog.dismiss();
-                                    Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+                                    Routerfit.register(AppRouter.class).skipUserInfoActivity();
                                 }
                             });
                         }
