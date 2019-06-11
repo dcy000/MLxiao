@@ -2,6 +2,7 @@ package com.example.han.healthmanage;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -27,6 +28,7 @@ public class HealthManageTipActivity extends ToolbarBaseActivity {
     private void initView() {
         tbHealthTip = findViewById(R.id.tb_health_tip);
         tvHealthTipConfirm = findViewById(R.id.tv_health_tip_confirm);
+
         tbHealthTip.setData("健 康 管 理",
                 com.gcml.module_auth_hospital.R.drawable.common_btn_back, "返回",
                 com.gcml.module_auth_hospital.R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
@@ -48,6 +50,10 @@ public class HealthManageTipActivity extends ToolbarBaseActivity {
                 });
 
         setWifiLevel(tbHealthTip);
+
+        tvHealthTipConfirm.setOnClickListener(v -> {
+            finish();
+        });
 
     }
 
