@@ -28,10 +28,10 @@ public class BindDoctorAdapter extends BaseQuickAdapter<Docter, BaseViewHolder> 
         helper.setText(R.id.doctor_name, item.doctername);
         helper.setText(R.id.doctor_class, item.duty);
 
-        ImageLoader.Options options = ImageLoader.newOptionsBuilder((ImageView) helper.getView(R.id.doctor_head_url),
-                com.gcml.common.business.R.drawable.common_ic_robot)
-                .build();
-        ImageLoader.instance().load(options);
+        ImageView ivAvatar = (ImageView) helper.getView(R.id.doctor_head_url);
+        ImageLoader.with(ivAvatar.getContext())
+                .load(com.gcml.common.business.R.drawable.common_ic_robot)
+                .into(ivAvatar);
 
         FilterClickListener filterClickListener = new FilterClickListener();
         filterClickListener.setClickListener(new View.OnClickListener() {
