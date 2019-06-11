@@ -218,7 +218,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                                     getActivity().getApplicationContext(),
                                     "请先去个人中心完善性别和年龄信息");
                         } else {
-                            appRouter.skipMeasureChooseDeviceActivity(false);
+                            appRouter.skipChooseDetectionTypeActivity();
                         }
                     }
                 });
