@@ -188,10 +188,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 quitApp();
                 break;
             case R.id.iv_doctor_call:
-                ICallProvider callProvider = Routerfit.register(AppRouter.class).getCallProvider();
-                if (callProvider != null && getActivity() != null) {
-                    callProvider.call(getActivity(), "");
-                }
+                Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
                 break;
             case R.id.iv_doctor_family:
                 Routerfit.register(AppRouter.class).skipHealthProfileActivity();

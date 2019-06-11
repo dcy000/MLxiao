@@ -87,7 +87,9 @@ public class RxUtils {
                 if (throwable instanceof HttpException) {
                     code = ((HttpException) throwable).code();
                 }
-                return Observable.error(new ApiException("服务器繁忙", code));
+                ApiException apiException = new ApiException("服务器繁忙", code);
+                apiException.initCause(throwable);
+                return Observable.error(apiException);
             }
         };
     }

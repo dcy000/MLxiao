@@ -43,7 +43,7 @@
         android:gravity="center"
         android:text="签约建档"
         android:textColor="#ff333333"
-        android:textSize="32pt"
+        android:textSize="64pt"
         app:layout_constraintEnd_toEndOf="@+id/iv_home"
         app:layout_constraintStart_toStartOf="@+id/iv_home"
         app:layout_constraintTop_toBottomOf="@+id/iv_home" />
@@ -56,7 +56,7 @@
         android:gravity="center"
         android:text="主页"
         android:textColor="#ff333333"
-        android:textSize="32pt"
+        android:textSize="64pt"
         app:layout_constraintEnd_toEndOf="@+id/iv_qianyue"
         app:layout_constraintStart_toStartOf="@+id/iv_qianyue"
         app:layout_constraintTop_toBottomOf="@+id/iv_qianyue" />

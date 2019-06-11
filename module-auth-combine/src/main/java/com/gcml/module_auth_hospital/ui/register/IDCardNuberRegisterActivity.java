@@ -195,6 +195,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
 
     private void useNumberKeyPad() {
         hideKeyboard(ccetPhone);
+        ccetPhone.requestFocus();
 
         NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.imageView2);
         builder = new NumeriKeypadLayoutHelper.Builder()

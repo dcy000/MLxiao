@@ -10,7 +10,7 @@ android {
         if (project.ext.runAsApp) {
             applicationId "com.example.han.referralproject"
             versionCode 1
-            versionName "Robot-Combine.1.0.0.1.beta"
+            versionName "Robot-XA.1.0.0.2.beta"
         }
 
         manifestPlaceholders = [
@@ -80,7 +80,7 @@ dependencies {
     addComponent 'module-control'
 //    addComponent 'module-edu'
     addComponent 'module-health-record'
-//    addComponent 'module-doctor-advisory'
+    addComponent 'module-doctor-advisory'
     addComponent 'module-body-test'
 //    addComponent 'module-alarm'
     addComponent 'lib-call'
