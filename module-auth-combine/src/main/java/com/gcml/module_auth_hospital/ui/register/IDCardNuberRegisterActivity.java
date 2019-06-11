@@ -115,8 +115,10 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     }
 
     private void toSetPassWord(String idCardNumber) {
-        startActivity(new Intent(this, SetPassWordActivity.class)
+        startActivity(new Intent(this, InputNameActivity.class)
                 .putExtra("idCardNumber", idCardNumber));
+
+        //输入姓名-->设置密码
     }
 
 
@@ -193,6 +195,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
 
     private void useNumberKeyPad() {
         hideKeyboard(ccetPhone);
+        ccetPhone.requestFocus();
 
         NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.imageView2);
         builder = new NumeriKeypadLayoutHelper.Builder()

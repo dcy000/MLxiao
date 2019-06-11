@@ -117,7 +117,7 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
 
     private void useNumberKeyPad() {
         hideKeyboard(etPsw);
-
+        etPsw.requestFocus();
         NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.imageView2);
         builder = new NumeriKeypadLayoutHelper.Builder()
                 .layout(numeriKeypadLayout)

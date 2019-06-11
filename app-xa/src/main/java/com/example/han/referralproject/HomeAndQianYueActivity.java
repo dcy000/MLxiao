@@ -27,7 +27,7 @@ public class HomeAndQianYueActivity extends AppCompatActivity implements View.On
 
     private void initView() {
         TranslucentToolBar title = findViewById(R.id.activity_home_or_qianyue);
-        title.setData("手 环 设 备",
+        title.setData("签 约 建 档",
                 0, null,
                 R.drawable.common_ic_wifi_state, null,
                 new ToolBarClickListener() {

@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
         android:id="@+id/tb_input_name"
@@ -21,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59pt"
         android:layout_marginTop="100pt"
-        android:text="身份证号码登录"
+        android:text="实名认证"
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,22 +37,23 @@
         android:text="(身份证号将与您的居民健康档案绑定，请确认是否填写正确)"
         android:textColor="#ff999999"
         android:textSize="48pt"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <EditText
-        android:id="@+id/ccet_phone"
+        android:id="@+id/et_name"
         android:layout_width="880pt"
         android:layout_height="132pt"
         android:layout_marginStart="59pt"
         android:layout_marginTop="37pt"
         android:background="@drawable/text_input_bg"
         android:gravity="center_vertical"
-        android:hint="请输入您的身份证号"
-        android:inputType="number"
-        android:maxLength="18"
+        android:hint="请输入您的真实姓名"
+        android:inputType="text"
+        android:maxLength="10"
+        android:maxLines="1"
         android:paddingLeft="32pt"
+        android:singleLine="true"
         android:textColor="#ff303133"
         android:textColorHint="#ffbbbbbb"
         android:textSize="64pt"
@@ -77,7 +80,7 @@
             android:background="@drawable/shape_rectangle_next_btn"
             android:enabled="false"
             android:gravity="center"
-            android:text="登录"
+            android:text="下一步"
             android:textColor="#fff"
             android:textSize="56pt"
             app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -85,55 +88,14 @@
     </com.gcml.common.widget.ShadowLayout>
 
 
-    <EditText
-        android:id="@+id/et_psw"
-        android:layout_width="880pt"
-        android:layout_height="132pt"
-        android:layout_marginTop="60pt"
-        android:background="@drawable/text_input_bg"
-        android:gravity="center_vertical"
-        android:hint="请输入6位数字密码"
-        android:inputType="numberPassword"
-        android:maxLength="6"
-        android:paddingLeft="32pt"
-        android:textColorHint="#ffbbbbbb"
-        android:textSize="64pt"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
-
-    <View
-        android:layout_width="880pt"
-        android:layout_height="1pt"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="192pt"
-        android:background="#ff333333"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
-
-
-    <com.gcml.module_auth_hospital.wrap.NumeriKeypadLayout
+    <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100pt"
-        android:layout_marginEnd="60pt"
+        android:layout_width="770pt"
+        android:background="@drawable/ic_pages_right_bg"
+        android:layout_height="841pt"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_input_name"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/tv_foget_psw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64pt"
-        android:gravity="center_vertical"
-        android:text="忘记密码"
-        android:textColor="#ff909399"
-        android:textSize="48pt"
-        app:layout_constraintBottom_toBottomOf="@+id/slShadow"
-        app:layout_constraintStart_toEndOf="@+id/slShadow"
-        app:layout_constraintTop_toTopOf="@+id/slShadow" />
 
 
 </android.support.constraint.ConstraintLayout>

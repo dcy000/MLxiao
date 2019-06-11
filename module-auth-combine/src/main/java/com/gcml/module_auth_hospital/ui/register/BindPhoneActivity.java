@@ -73,7 +73,7 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
     private void useNumberKeyPad() {
         hideKeyboard(phone);
         hideKeyboard(code);
-
+        phone.requestFocus();
         NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.nk_numberkey_pad);
         builder = new NumeriKeypadLayoutHelper.Builder()
                 .layout(numeriKeypadLayout)
@@ -183,7 +183,11 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             SignUpBean bean = new SignUpBean();
             bean.setIdNo(idCardNumber);
             bean.setTel(phoneNumber);
-            bean.setPatientName("zuo");
+            String userName = data.getStringExtra("userName");
+            if (TextUtils.isEmpty(userName)) {
+                userName = "";
+            }
+            bean.setPatientName(userName);
 
             repository.signUp(bean, passWord)
                     .subscribeOn(Schedulers.io())

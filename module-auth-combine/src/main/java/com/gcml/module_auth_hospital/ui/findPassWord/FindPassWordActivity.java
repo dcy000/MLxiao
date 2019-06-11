@@ -97,6 +97,7 @@ public class FindPassWordActivity extends ToolbarBaseActivity {
     private void useNumberKeyPad() {
         hideKeyboard(phone);
         hideKeyboard(code);
+        phone.requestFocus();
 
         NumeriKeypadLayout numeriKeypadLayout = findViewById(R.id.nk_numberkey_pad);
         builder = new NumeriKeypadLayoutHelper.Builder()
