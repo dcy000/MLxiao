@@ -283,6 +283,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
             }
         } else if (i == R.id.tv_gohome) {
             startActivity(new Intent(this, HealthProfileActivity.class));
+            finish();
         } else {
         }
     }

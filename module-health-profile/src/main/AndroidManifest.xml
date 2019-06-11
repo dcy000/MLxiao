@@ -4,6 +4,7 @@
     <application>
         <activity
             android:name=".HealthProfileActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".OutputResultActivity"
