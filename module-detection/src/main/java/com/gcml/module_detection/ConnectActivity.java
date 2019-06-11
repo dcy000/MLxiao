@@ -26,6 +26,7 @@ import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.DeviceBrand;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
@@ -54,6 +55,7 @@ import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -136,13 +138,13 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 //胆固醇
                 mTitleText.setText("胆 固 醇 测 量");
                 baseBluetooth = new ThreeInOnePresenter(this);
-                initSearchFragment("给三合一插上检测试纸", "测上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
+                initSearchFragment("给三合一插上检测试纸", "插上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
                 break;
             case IBleConstants.MEASURE_URIC_ACID:
                 //血尿酸
                 mTitleText.setText("血 尿 酸 测 量");
                 baseBluetooth = new ThreeInOnePresenter(this);
-                initSearchFragment("给三合一插上检测试纸", "测上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
+                initSearchFragment("给三合一插上检测试纸", "插上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
                 break;
             case IBleConstants.MEASURE_BLOOD_SUGAR:
                 //测量血糖
@@ -313,6 +315,100 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     @Override
     public void discoveryNewDevice(BluetoothDevice device) {
         if (dialog != null) {
+            //根据不同的类型过滤，只保留当前测量项的蓝牙
+            //TODO:此处有严重的性能问题，后期需要优化 2019.06.11(北京、雄安项目的垃圾时刻)
+            switch (detectionType) {
+                case IBleConstants.MEASURE_BLOOD_PRESSURE:
+                    //血压
+                    for (Map.Entry<String, String> entry : DeviceBrand.BLOODPRESSURE.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.MEASURE_BLOOD_OXYGEN:
+                    //血氧
+                    for (Map.Entry<String, String> entry : DeviceBrand.BLOODOXYGEN.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.MEASURE_WEIGHT:
+                    //体重
+                    for (Map.Entry<String, String> entry : DeviceBrand.WEIGHT.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.MEASURE_TEMPERATURE:
+                    //耳温
+                    for (Map.Entry<String, String> entry : DeviceBrand.TEMPERATURE.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.MEASURE_ECG:
+                    //心电
+                    for (Map.Entry<String, String> entry : DeviceBrand.ECG.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.MEASURE_CHOLESTEROL:
+                    //胆固醇
+                    for (Map.Entry<String, String> entry : DeviceBrand.THREE_IN_ONE.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.MEASURE_URIC_ACID:
+                    //血尿酸
+                    for (Map.Entry<String, String> entry : DeviceBrand.THREE_IN_ONE.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.MEASURE_BLOOD_SUGAR:
+                    //血糖
+                    for (Map.Entry<String, String> entry : DeviceBrand.BLOODSUGAR.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+                case IBleConstants.SCAN_ID_CARD:
+                    //身份证
+                    for (Map.Entry<String, String> entry : DeviceBrand.ID_CARD.entrySet()) {
+                        if (device == null || TextUtils.isEmpty(device.getName())) break;
+                        if (device.getName().contains(entry.getKey())) {
+                            dialog.addNewDevice(device);
+                            break;
+                        }
+                    }
+                    break;
+            }
             dialog.addNewDevice(device);
         }
     }
@@ -344,8 +440,10 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     @Override
     public void disConnected() {
-        mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
-        showRetryConnectDialog();
+        if (!(baseFragment instanceof ECG_PDF_Fragment)) {
+            mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
+            showRetryConnectDialog();
+        }
         if (dialog != null) {
             dialog.hideConnectedUI();
         }
@@ -499,14 +597,14 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     public void onSuccess(String fileAddress, int flag, String result, int heartRate) {
         pdfUrl = fileAddress;
         //心电测量结束后展示分析报告
-        ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
+        baseFragment = new ECG_PDF_Fragment();
         Bundle pdfBundle = new Bundle();
         pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, fileAddress);
-        pdf_fragment.setArguments(pdfBundle);
+        baseFragment.setArguments(pdfBundle);
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
-                .replace(R.id.fl_container, pdf_fragment).commitAllowingStateLoss();
+                .replace(R.id.fl_container, baseFragment).commitAllowingStateLoss();
         //右上角的图标换成二维码的，支持扫描下载报告
         onShowingEcgPDF = true;
         mRightView.setImageResource(R.drawable.health_measure_icon_qrcode);

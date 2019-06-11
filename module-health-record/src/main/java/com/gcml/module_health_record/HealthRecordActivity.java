@@ -130,6 +130,19 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
          * 测量心电
          */
         int MEASURE_ECG = 27;
+
+        /**
+         * 测量身高
+         */
+        int MEASURE_HEIGHT=33;
+        /**
+         * 测量胆固醇
+         */
+        int MEASURE_CHOLESTEROL=34;
+        /**
+         * 测量血尿酸
+         */
+        int MEASURE_URIC_ACID=35;
     }
 
     @Override

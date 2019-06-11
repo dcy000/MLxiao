@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
     private TextView mTvSuggest;
     private boolean isMeasureBUAFinished;
     private TextView mTvDetectionState;
+    private ConstraintLayout mClBg;
 
     @Override
     protected int initLayout() {
@@ -43,6 +45,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
 
     @Override
     protected void initView(View view, Bundle bundle) {
+        mClBg = view.findViewById(R.id.cl_bg);
         mTvDetectionTime = (TextView) view.findViewById(com.gcml.module_detection.R.id.tv_detection_time);
         mTvDetectionState = view.findViewById(R.id.tv_detection_state);
         mTvResultMiddle = (TextView) view.findViewById(com.gcml.module_detection.R.id.tv_result_middle);
@@ -108,10 +111,12 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
 
                         PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
                         if (result1 == null) {
-                            if (uricAcid <=4.2) {
+                            if (uricAcid <= 4.2) {
                                 mTvDetectionState.setText("正常");
+                                mClBg.setBackgroundResource(R.drawable.detection_normal);
                                 return;
                             }
+                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
                             mTvDetectionState.setText("异常");
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());
