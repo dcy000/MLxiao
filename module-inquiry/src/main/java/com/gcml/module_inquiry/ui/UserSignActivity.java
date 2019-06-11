@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -20,6 +21,7 @@ import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.dialog.AffirmSignatureDialog;
 import com.gcml.module_inquiry.model.HealthFileRepostory;
 import com.gcml.module_inquiry.wrap.PainterView;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.io.ByteArrayOutputStream;
 
@@ -64,7 +66,7 @@ public class UserSignActivity extends ToolbarBaseActivity implements AffirmSigna
 
                     @Override
                     public void onRightClick() {
-//                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                        Routerfit.register(AppRouter.class).skipMainActivity();
 //                        onRightClickWithPermission(new IAction() {
 //                            @Override
 //                            public void action() {
@@ -181,7 +183,8 @@ public class UserSignActivity extends ToolbarBaseActivity implements AffirmSigna
                     @Override
                     public void onNext(String url) {
                         super.onNext(url);
-                        verifyFace(doid, url);
+//                        verifyFace(doid, url);
+                        bindDoctor(doid, url);
                         dialog.dismiss();
                     }
                 });
@@ -216,7 +219,7 @@ public class UserSignActivity extends ToolbarBaseActivity implements AffirmSigna
 //                        ActivityHelper.finishAll();
                         ToastUtils.showShort("申请成功");
                         dialog.dismiss();
-//                        CC.obtainBuilder("health.profile.file").build().callAsync();
+                        Routerfit.register(AppRouter.class).skipAddHealthProfileActivity("");
                     }
 
                     @Override
