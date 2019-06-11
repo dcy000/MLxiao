@@ -76,6 +76,7 @@ public class DeviceBrand {
 
 
             put("Bioland-BGM", "血糖仪·自家");
+            put("BLE-Glucowell", "血糖仪·好糖");
 
             put("WeCardio", "心电仪·博声");
             put("PC80B-BLE", "心电仪·自家");
