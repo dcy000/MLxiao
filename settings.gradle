@@ -5,7 +5,7 @@ include ':app-xa',
         ':module-body-test',
         ':module-hyper-manager',
         ':module-edu-child',
-        ':module-doctor-advisory',
+        ':module-doctor-advisory', //签约
         ':module-detection',
         ':lib-common-business',
         ':lib-common-core',
@@ -15,7 +15,7 @@ include ':app-xa',
         ':module-auth-combine',
         ':lib-idcard-reader',
         ':lib-printer-8003dd',
-        ':module-inquiry',
+        ':module-inquiry', //建档
         ':module-health-profile'
 
 include ':lib-baidu-unit',

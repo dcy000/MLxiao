@@ -548,7 +548,7 @@ public interface AppRouter {
     @Go("/inquiry/wenzhen/entry/activity")
     boolean skipWenZenEntryAcitivity();
 
-    @Go("/inquiry/bin/doctor/activity")
+    @Go("/inquiry/bind/doctor/activity")
     boolean skipBindDoctorActivity();
 
     @Go("/inquiry/health/file/activity")

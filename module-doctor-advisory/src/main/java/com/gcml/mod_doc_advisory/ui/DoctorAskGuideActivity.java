@@ -55,12 +55,16 @@ public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.
                         @Override
                         public void onNext(UserEntity user) {
                             if (TextUtils.isEmpty(user.doctorId) || user.doctorId.equals("0")) {
-                                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract","签 约 医 生","DoctorAskGuideActivity");
+                                // 未签约
+//                                Routerfit.register(AppRouter.class).skipOnlineDoctorListActivity("contract","签 约 医 生","DoctorAskGuideActivity");
+                                Routerfit.register(AppRouter.class).skipBindDoctorActivity();
                             } else {
                                 if ("0".equals(user.state)) {
+                                    // 签约待审核
                                     Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
                                     startActivity(intent);
                                 } else {
+                                    // 已签约
                                     startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity2.class));
                                 }
                             }

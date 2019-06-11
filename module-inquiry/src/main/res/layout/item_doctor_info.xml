@@ -22,7 +22,6 @@
             android:layout_width="338pt"
             android:layout_height="360pt"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="32pt"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 

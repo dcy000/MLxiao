@@ -32,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by lenovo on 2019/1/16.
  */
-@Route(path = "/inquiry/bin/doctor/activity")
+@Route(path = "/inquiry/bind/doctor/activity")
 public class BindDoctorActivity extends ToolbarBaseActivity {
 
     private TranslucentToolBar tb;
@@ -91,7 +91,7 @@ public class BindDoctorActivity extends ToolbarBaseActivity {
         tb = findViewById(R.id.tb_bind_doctor);
         tb.setData("签 约 医 生",
                 R.drawable.common_btn_back, "返回",
-                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
+                R.drawable.common_ic_settings, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();

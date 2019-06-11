@@ -81,6 +81,7 @@ dependencies {
 //    addComponent 'module-edu'
     addComponent 'module-health-record'
     addComponent 'module-doctor-advisory'
+    addComponent 'module-inquiry'
     addComponent 'module-body-test'
 //    addComponent 'module-alarm'
     addComponent 'lib-call'
