@@ -125,6 +125,8 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
                 layoutHelper.showX(false);
             }
         });
+
+        ccetPhone.requestFocus();
     }
 
     @Override

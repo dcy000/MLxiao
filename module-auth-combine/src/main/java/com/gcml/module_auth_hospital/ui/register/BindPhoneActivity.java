@@ -102,6 +102,8 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                 layoutHelper.showX(false);
             }
         });
+
+        layoutHelper.showX(false);
     }
 
     public static void startMe(Context context, String passWord, String from) {

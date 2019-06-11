@@ -134,6 +134,8 @@ public class SetPassWordActivity extends ToolbarBaseActivity implements View.OnC
                 layoutHelper.setLayoutinputLength(6);
             }
         });
+
+        layoutHelper.showX(false);
     }
 
 }
