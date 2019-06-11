@@ -130,7 +130,7 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
 
             @Override
             public void onPageFinished(WebView view, String url) {
-//                dismissLoading();
+                dismissLoading();
                 Timber.i("X5WebView loading end:::::cost time>>" + (System.currentTimeMillis() - time) + ">>>" + url);
                 time = System.currentTimeMillis();
                 if (!isPageFinished) {
