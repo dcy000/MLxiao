@@ -58,7 +58,7 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
                 new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-                        finish();
+//                        finish();
                     }
 
                     @Override

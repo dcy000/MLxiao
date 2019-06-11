@@ -24,17 +24,18 @@ ext {
             zuobowen      : "\"http://192.168.200.222:5555/\"",//左博文
             zuobowen8080  : "\"http://192.168.200.222:8080/\"",//左博文
             JGYSLocal     : "\"http://gcml.vaiwan.com/\"",//演示（本地）
+            XaTest        : "\"http://47.96.98.60:8020/\"",//演示（本地）
             Local         : "\"http://127.0.0.1:5555/\"",//演示（本地）
             WJG           : "\"http://192.168.200.77:8080/\"",//演示（本地）
     ]
+
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
     //开发使用的IP地址
-    developUrl = api.WJG
+    developUrl = api.XaTest
 
     //线上正式运行的IP地址
-    produceUrl = api.WJG
-
+    produceUrl = api.XaTest
 
     android = [
             compileSdkVersion: 27,
