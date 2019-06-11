@@ -76,7 +76,6 @@ public class RegisterSuccessActivity extends ToolbarBaseActivity implements View
                 0, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-                        finish();
                     }
 
                     @Override

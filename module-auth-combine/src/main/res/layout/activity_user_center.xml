@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:text="检测记录"
+            android:text="健康数据"
             android:textColor="#ff333333"
             android:textSize="64pt" />
 
