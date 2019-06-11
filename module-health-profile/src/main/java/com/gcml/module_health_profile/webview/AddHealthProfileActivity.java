@@ -1,6 +1,7 @@
 package com.gcml.module_health_profile.webview;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 
 import com.gcml.common.data.UserSpHelper;
@@ -31,6 +32,9 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
     @Override
     protected void getIntentParam(Intent intent) {
         rdRecordId = intent.getStringExtra("RdCordId");
+        if (TextUtils.isEmpty(rdRecordId)) {
+            rdRecordId = "22d594369d8246ad9542f462d6f0f4ce";
+        }
         type = intent.getStringExtra("type");
         title = intent.getStringExtra("title");
         rdRecordIdString = "'" + rdRecordId + "'";

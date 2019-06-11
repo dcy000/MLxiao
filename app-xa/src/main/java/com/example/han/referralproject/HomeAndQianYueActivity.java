@@ -53,6 +53,7 @@ public class HomeAndQianYueActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         if (v == qianyue) {
             //签约
+            Routerfit.register(AppRouter.class).skipBindDoctorActivity();
         } else if (v == home) {
             Routerfit.register(AppRouter.class).skipMainActivity();
         }

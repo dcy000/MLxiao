@@ -80,8 +80,8 @@ public class BloodPressureFragment extends BloodpressureFragment {
         mBtnVideoDemo.setText("下一步");
         mBtnVideoDemo.setVisibility(View.GONE);
 
-//        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
-//        activity. setBlueTitle(R.drawable.common_icon_bluetooth_break, bloodPressurePresenter);
+        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
+        activity.setBlueTitle(R.drawable.common_icon_bluetooth_break, bloodPressurePresenter);
     }
 
     @Override
