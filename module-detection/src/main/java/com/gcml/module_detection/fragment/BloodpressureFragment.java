@@ -75,19 +75,20 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
                 Integer highPressure = detectionData.getHighPressure();
-                if (detectionData.isInit()) {
-                    mTvResultLeft.setText(highPressure + "/--");
-                    mTvResultRight.setText("--");
-                    isMeasureFinishedOfThisTime = false;
-                } else {
-                    mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
-                    mTvResultLeft.setText(highPressure + "/" + detectionData.getLowPressure());
-                    mTvResultRight.setText(String.valueOf(detectionData.getPulse()));
-                    if (!isMeasureFinishedOfThisTime && highPressure != null && highPressure != 0) {
+                if (!isMeasureFinishedOfThisTime && highPressure != null && highPressure != 0) {
+                    if (detectionData.isInit()) {
+                        mTvResultLeft.setText(highPressure + "/--");
+                        mTvResultRight.setText("--");
+                        isMeasureFinishedOfThisTime = false;
+                    } else {
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                        mTvResultLeft.setText(highPressure + "/" + detectionData.getLowPressure());
+                        mTvResultRight.setText(String.valueOf(detectionData.getPulse()));
                         isMeasureFinishedOfThisTime = true;
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);
+
                     }
                 }
             }
@@ -130,7 +131,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                             case "正常":
                                 mClBg.setBackgroundResource(R.drawable.detection_normal);
                                 break;
-                                //TODO:新标准是"正常高值"，后期会改动，注意（北京、雄安垃圾时刻）
+                            //TODO:新标准是"正常高值"，后期会改动，注意（北京、雄安垃圾时刻）
                             case "正常增高":
                                 mClBg.setBackgroundResource(R.drawable.detection_less_high);
                                 break;
