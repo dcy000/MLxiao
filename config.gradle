@@ -36,7 +36,7 @@ ext {
     developUrl = api.WJG
 
     //线上正式运行的IP地址
-    produceUrl = api.WJG
+    produceUrl = api.XiongAnTest
 
     android = [
             compileSdkVersion: 27,
