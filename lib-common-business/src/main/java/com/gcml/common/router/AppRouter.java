@@ -548,6 +548,10 @@ public interface AppRouter {
     @Go("/inquiry/wenzhen/entry/activity")
     boolean skipWenZenEntryAcitivity();
 
+    /**
+     * @param flag contractOnly or other
+     * @return
+     */
     @Go("/inquiry/bind/doctor/activity")
     boolean skipBindDoctorActivity(@Extra("flag") String flag);
 

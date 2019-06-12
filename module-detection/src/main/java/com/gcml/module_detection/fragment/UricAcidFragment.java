@@ -69,11 +69,10 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
-                if (detectionData.isInit()) {
-                    isMeasureBUAFinished = false;
-                } else {
-                    Float uricAcid = detectionData.getUricAcid();
-                    if (uricAcid != null && uricAcid != 0 && !isMeasureBUAFinished) {
+                Float uricAcid = detectionData.getUricAcid();
+                if (uricAcid != null && uricAcid != 0 && !isMeasureBUAFinished) {
+                    if (detectionData.isInit()) {
+                    } else {
                         isMeasureBUAFinished = true;
                         mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
                         mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", uricAcid));

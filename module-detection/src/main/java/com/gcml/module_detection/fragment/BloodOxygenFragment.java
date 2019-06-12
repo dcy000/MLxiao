@@ -68,18 +68,18 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
-                if (detectionData.isInit()) {
-                    mTvResultMiddle.setText("--");
-                    isMeasureFinishedOfThisTime = false;
-                } else {
-                    Float bloodOxygen = detectionData.getBloodOxygen();
-                    mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
-                    mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.0f", bloodOxygen));
-                    if (!isMeasureFinishedOfThisTime && bloodOxygen != null && bloodOxygen != 0) {
+                Float bloodOxygen = detectionData.getBloodOxygen();
+                if (!isMeasureFinishedOfThisTime && bloodOxygen != null && bloodOxygen != 0) {
+                    if (detectionData.isInit()) {
+                        mTvResultMiddle.setText("--");
+                    } else {
                         isMeasureFinishedOfThisTime = true;
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.0f", bloodOxygen));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);
+
                     }
                 }
             }

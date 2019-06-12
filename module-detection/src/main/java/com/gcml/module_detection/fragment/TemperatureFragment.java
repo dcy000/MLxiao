@@ -63,18 +63,19 @@ public class TemperatureFragment extends BluetoothBaseFragment implements View.O
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
-                if (detectionData.isInit()) {
-                    mTvResultMiddle.setText("--");
-                    isMeasureFinishedOfThisTime = false;
-                } else {
-                    Float temperAture = detectionData.getTemperAture();
-                    mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
-                    mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.1f", temperAture));
-                    if (!isMeasureFinishedOfThisTime && temperAture != null && temperAture > 30) {
+                Float temperAture = detectionData.getTemperAture();
+                if (!isMeasureFinishedOfThisTime && temperAture != null && temperAture > 30) {
+                    if (detectionData.isInit()) {
+                        mTvResultMiddle.setText("--");
+                        isMeasureFinishedOfThisTime = false;
+                    } else {
                         isMeasureFinishedOfThisTime = true;
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.1f", temperAture));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);
+
                     }
                 }
             }
