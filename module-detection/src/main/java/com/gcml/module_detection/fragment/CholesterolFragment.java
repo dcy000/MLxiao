@@ -68,18 +68,18 @@ public class CholesterolFragment extends BluetoothBaseFragment implements View.O
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
-                if (detectionData.isInit()) {
-                    mTvResultMiddle.setText("--");
-                    isMeasureCholesterolFinished = false;
-                } else {
-                    Float cholesterol = detectionData.getCholesterol();
-                    if (cholesterol != null && cholesterol != 0 && !isMeasureCholesterolFinished) {
+                Float cholesterol = detectionData.getCholesterol();
+                if (cholesterol != null && cholesterol != 0 && !isMeasureCholesterolFinished) {
+                    if (detectionData.isInit()) {
+                        mTvResultMiddle.setText("--");
+                    } else {
                         isMeasureCholesterolFinished = true;
                         mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
                         mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", cholesterol));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);
+
                     }
                 }
             }

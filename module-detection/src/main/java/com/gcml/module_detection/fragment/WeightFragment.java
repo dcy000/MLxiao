@@ -74,23 +74,19 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
-                if (detectionData.isInit()) {
-                    mTvResultLeft.setText("--");
-                    mTvResultRight.setText("--");
-                } else {
-                    Float weight = detectionData.getWeight();
-                    if (detectionData.isWeightOver()) {
-                        if (!isMeasureFinishedOfThisTime && weight != null && weight != 0) {
+                Float weight = detectionData.getWeight();
+                if (!isMeasureFinishedOfThisTime && weight != null && weight != 0) {
+                    if (detectionData.isInit()) {
+                        mTvResultLeft.setText("--");
+                        mTvResultRight.setText("--");
+                    } else {
+                        if (detectionData.isWeightOver()) {
                             isMeasureFinishedOfThisTime = true;
                             onMeasureFinished(detectionData);
                             robotSpeak(detectionData);
                             postData(detectionData);
-                        }
-                        //TODO:体重需要从个人信息总去获取
-                        mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
-                        mTvResultRight.setText(String.format(Locale.getDefault(), "%.1f", weight / (height * height / 10000)));
-                    } else {
-                        if (!isMeasureFinishedOfThisTime && weight != null && weight != 0) {
+                            mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
+                        } else {
                             mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
                         }
                     }
@@ -127,29 +123,28 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
                         if (result2 == null) return;
                         mTvSuggest.setText(result2.getResult());
-                        PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
-                        if (result1 == null) {
-                            //TODO:体重需要从个人信息总去获取
-                            double tizhi = weight / (height * height / 10000);
-//                            if (tizhi < 18.5) {
-//                                mTvDetectionState.setText("偏瘦");
-//                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-//                                return;
-//                            }
-//                            if (tizhi < 23.9) {
-//                                mTvDetectionState.setText("正常");
-//                                mClBg.setBackgroundResource(R.drawable.detection_normal);
-//                                return;
-//                            }
-//                            if (tizhi < 27.9) {
-//                                mTvDetectionState.setText("偏胖");
-//                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-//                                return;
-//                            }
-//                            mTvDetectionState.setText("肥胖");
-//                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
-                        } else {
-                            mTvDetectionState.setText(result1.getDiagnose());
+                        String dataResult = result2.getDataResult();
+                        String[] strings = dataResult.split("为");
+                        if (strings != null && strings.length == 2) {
+                            mTvResultRight.setText(strings[1]);
+                            float aFloat = Float.parseFloat(strings[1]);
+                            if (aFloat < 18.5) {
+                                mTvDetectionState.setText("偏瘦");
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+                                return;
+                            }
+                            if (aFloat < 23.9) {
+                                mTvDetectionState.setText("正常");
+                                mClBg.setBackgroundResource(R.drawable.detection_normal);
+                                return;
+                            }
+                            if (aFloat < 27.9) {
+                                mTvDetectionState.setText("偏胖");
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+                                return;
+                            }
+                            mTvDetectionState.setText("肥胖");
+                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
                         }
                     }
 

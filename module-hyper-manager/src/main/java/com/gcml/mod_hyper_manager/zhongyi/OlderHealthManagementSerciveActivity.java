@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -158,8 +157,7 @@ public class OlderHealthManagementSerciveActivity extends ToolbarBaseActivity {
         HealthManagementAnwserBean anwserBean = new HealthManagementAnwserBean();
         anwserBean.equipmentId = DeviceUtils.getIMEI();
         String userId = UserSpHelper.getUserId();
-        anwserBean.userId = userId;
-        anwserBean.patientId = TextUtils.isEmpty(userId) ? 0 : Integer.parseInt(userId);
+        anwserBean.patientId = Integer.parseInt(userId);
         anwserBean.hmQuestionnaireId = this.hmQuestionnaireId;
         anwserBean.answerList = new ArrayList<>();
 

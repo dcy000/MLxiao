@@ -89,15 +89,14 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
-                if (detectionData.isInit()) {
-                    mTvResultMiddle.setText("--");
-                    isMeasureFinishedOfThisTime = false;
-                } else {
-                    Float bloodSugar = detectionData.getBloodSugar();
-                    mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
-                    mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
-                    if (!isMeasureFinishedOfThisTime && bloodSugar != null && bloodSugar != 0) {
+                Float bloodSugar = detectionData.getBloodSugar();
+                if (!isMeasureFinishedOfThisTime && bloodSugar != null && bloodSugar != 0) {
+                    if (detectionData.isInit()) {
+                        mTvResultMiddle.setText("--");
+                    } else {
                         isMeasureFinishedOfThisTime = true;
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);
