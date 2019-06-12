@@ -14,7 +14,7 @@ public class MedicineBean {
     /**
      * level : 33
      * drugs : ["阿替洛尔","尼群地平","卡托普利","氢氯噻嗪等"]
-     * advice : 通常2-3种降压药联用。具体用药方案请咨询健康顾问。
+     * advice : 通常2-3种降压药联用。具体用药方案请咨询签约医生。
      */
 
     private String level;

@@ -93,7 +93,7 @@ public class CustomKeyWordsActivity extends ToolbarBaseActivity implements KeyWo
     private void initDoctorKey() {
         KeyWordBean health = new KeyWordBean();
         health.title = true;
-        health.itemName = "健康顾问咨询";
+        health.itemName = "签约医生咨询";
         data.add(health);
         for (int i = 0; i < this.doctor.length; i++) {
             KeyWordBean bean = new KeyWordBean();
@@ -147,8 +147,8 @@ public class CustomKeyWordsActivity extends ToolbarBaseActivity implements KeyWo
 
     String[] health = {"血压", "血氧", "体温", "血糖", "心电", "体重", "三合一"};
     String[] jiben = {"调大声音", "调小声音", "回到主界面", "删除", "上一步", "下一步"};
-    String[] person = {"个人中心", "症状自查", "测量历史", "健康顾问建议", "吃药提醒", "账户充值", "我的订单", "健康课堂", "娱乐", "收音机", "音乐"};
-    String[] doctor = {"健康顾问咨询", "绑定健康顾问", "在线健康顾问"};
+    String[] person = {"个人中心", "症状自查", "测量历史", "签约医生建议", "吃药提醒", "账户充值", "我的订单", "健康课堂", "娱乐", "收音机", "音乐"};
+    String[] doctor = {"签约医生咨询", "绑定签约医生", "在线签约医生"};
     String[] shop = {"健康商城"};
 
     private void initTitle() {

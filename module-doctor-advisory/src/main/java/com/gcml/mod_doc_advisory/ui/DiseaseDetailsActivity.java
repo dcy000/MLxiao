@@ -29,7 +29,7 @@ public class DiseaseDetailsActivity extends ToolbarBaseActivity implements View.
      */
     private RadioButton mRbReason;
     /**
-     * 健康顾问建议
+     * 签约医生建议
      */
     private RadioButton mRbSuggest;
     /**

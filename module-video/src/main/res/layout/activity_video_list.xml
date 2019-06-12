@@ -31,92 +31,23 @@
         app:layout_constraintRight_toLeftOf="@id/vp_video"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <RadioButton
-            android:id="@+id/rb_video_hypertension"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/common_tab_bg"
-            android:button="@null"
-            android:gravity="center"
-            android:text="健康宣教"
-            android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#eeeeee" />
-
-        <RadioButton
-            android:id="@+id/rb_video_stroke"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/common_tab_bg"
-            android:button="@null"
-            android:gravity="center"
-            android:text="曲艺天地"
-            android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"
-            android:visibility="gone" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#eeeeee" />
-
-        <RadioButton
-            android:id="@+id/rb_video_psychosis"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/common_tab_bg"
-            android:button="@null"
-            android:gravity="center"
-            android:text="生活助手"
-            android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"
-            android:visibility="gone" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#eeeeee" />
-
-        <RadioButton
-            android:id="@+id/rb_video_palsy"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/common_tab_bg"
-            android:button="@null"
-            android:gravity="center"
-            android:text="动画片"
-            android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"
-            android:visibility="gone" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#eeeeee" />
-
-        <RadioButton
-            android:id="@+id/rb_video_device_show"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/common_tab_bg"
-            android:button="@null"
-            android:gravity="center"
-            android:text="设备简介"
-            android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"
-            android:visibility="gone" />
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_video_hypertension"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:background="@drawable/common_tab_bg"-->
+            <!--android:button="@null"-->
+            <!--android:gravity="center"-->
+            <!--android:text="健康宣教"-->
+            <!--android:textColor="@color/common_tab_txt_color"-->
+            <!--android:textSize="28sp" />-->
     </RadioGroup>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/video_demo_bg"
-        android:visibility="gone" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/video_demo_bg"-->
+        <!--android:visibility="gone" />-->
 
     <View
         android:id="@+id/view_back"

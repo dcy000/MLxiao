@@ -9,6 +9,6 @@ import com.sjtu.yifei.annotation.Route;
 public class VideoListFragmentProvider implements IVideoListFragmentProvider {
     @Override
     public Fragment getVideoListFragment(int position) {
-        return VideoListFragment.newInstance(position);
+        return VideoListFragment.newInstance(position, null);
     }
 }

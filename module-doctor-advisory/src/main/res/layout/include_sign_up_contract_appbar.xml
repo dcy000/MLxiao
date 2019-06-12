@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="绑定健康顾问"
+        android:text="绑定签约医生"
         android:textColor="#ffffffff"
         android:textSize="35sp"/>
 </LinearLayout>

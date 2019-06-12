@@ -526,7 +526,7 @@ public enum CallHelper {
                 mChatting = false;
             }
         }, 2200);
-        if (callingState.getValue() >= CallState.OUTGOING_VIDEO_CALLING.getValue() || callingState == CallState.VIDEO) {
+        if (callingState != null && callingState.getValue() >= CallState.OUTGOING_VIDEO_CALLING.getValue() || callingState == CallState.VIDEO) {
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
         }

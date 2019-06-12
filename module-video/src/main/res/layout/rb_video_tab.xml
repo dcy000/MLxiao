@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rb_video_tab"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@drawable/common_tab_bg"
+    android:button="@null"
+    android:gravity="center"
+    android:text="健康宣教"
+    android:textColor="@color/common_tab_txt_color"
+    android:textSize="28sp" />

@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="我的健康顾问"
+            android:text="签约医生"
             android:textColor="#333333"
             android:textSize="36sp" />
     </LinearLayout>
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:text="我的在线顾问"
+            android:text="在线医生"
             android:textColor="#333333"
             android:textSize="36sp" />
     </LinearLayout>

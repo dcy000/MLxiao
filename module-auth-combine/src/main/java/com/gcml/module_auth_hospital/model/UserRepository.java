@@ -46,6 +46,15 @@ public class UserRepository {
     }
 
     /**
+     * 验证密码
+     * 登录-->返回用户信息
+     */
+    public Observable<UserEntity> signInByIdCardPSw(UserPostBody body) {
+        return signInByIdCardPswtrGetToken(body)
+                .compose(token2UserInfoTransformer());
+    }
+
+    /**
      * token转化成用户信息
      */
     private ObservableTransformer<UserToken, UserEntity> token2UserInfoTransformer() {
@@ -54,6 +63,20 @@ public class UserRepository {
                         .flatMap((Function<UserToken, ObservableSource<UserEntity>>) userToken -> {
                             return getUserInfoByToken();
                         });
+    }
+
+
+    /**
+     * 验证密码
+     * 登录获取token
+     */
+    public Observable<UserToken> signInByIdCardPswtrGetToken(UserPostBody body) {
+        return mUserService
+                .signInByIdCardPsw(body)
+                .compose(RxUtils.apiResultTransformer())
+                .doOnNext(userToken -> {
+                    UserSpHelper.setToken(Global.TOKEN_PREFIX + userToken.getToken());
+                });
     }
 
     /**

@@ -51,7 +51,7 @@
             <!--android:drawableLeft="@drawable/img_search"-->
             <!--android:drawablePadding="4dp"-->
             <!--android:gravity="center_vertical"-->
-            <!--android:hint="请输入健康顾问名、医院名、城市、分类"-->
+            <!--android:hint="请输入签约医生名、医院名、城市、分类"-->
             <!--android:paddingLeft="8dp"-->
             <!--android:textColorHint="#d4d4d4"-->
             <!--android:textSize="26sp" />-->

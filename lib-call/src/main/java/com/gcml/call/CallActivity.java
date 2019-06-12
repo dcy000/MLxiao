@@ -114,8 +114,8 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void showBottomPanel(boolean show) {
-        ivSwitchCamera.setVisibility(show ? View.VISIBLE : View.GONE);
-        ivToggleCamera.setVisibility(show ? View.VISIBLE : View.GONE);
+//        ivSwitchCamera.setVisibility(show ? View.VISIBLE : View.GONE);
+//        ivToggleCamera.setVisibility(show ? View.VISIBLE : View.GONE);
         ivToggleMute.setVisibility(show ? View.VISIBLE : View.GONE);
         ivHangUp.setVisibility(show ? View.VISIBLE : View.GONE);
     }
@@ -198,7 +198,7 @@ public class CallActivity extends AppCompatActivity {
         ivToggleCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onIvToggleCameraClicked();
+//                onIvToggleCameraClicked();
             }
         });
         ivToggleMute = (ImageView) findViewById(R.id.call_iv_toggle_mute);

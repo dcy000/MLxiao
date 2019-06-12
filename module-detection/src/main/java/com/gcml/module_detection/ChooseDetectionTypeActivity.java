@@ -125,7 +125,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .check(new CheckUserInfoProviderImp.CheckUserInfo() {
                     @Override
                     public void complete(UserEntity userEntity) {
-                        UserSpHelper.setUserHeight(Integer.parseInt(userEntity.height));
+                        UserSpHelper.setUserHeight((int) Float.parseFloat(userEntity.height));
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT);
                     }
 

@@ -39,6 +39,15 @@ public interface UserService {
     Observable<ApiResult<UserToken>> signInByIdCard(@Body UserPostBody body);
 
     /**
+     * 校验密码
+     *
+     * @param body
+     * @return
+     */
+    @POST(URI + "/sys/login/sfzLogin/pwd")
+    Observable<ApiResult<UserToken>> signInByIdCardPsw(@Body UserPostBody body);
+
+    /**
      * 注册
      */
     @POST(URI + "/br/appadd")

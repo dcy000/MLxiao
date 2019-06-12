@@ -22,7 +22,6 @@ public class HealthManagementAnwserBean implements Serializable {
     public String hmQuestionnaireAssessId;
     public String hmQuestionnaireId;
     public int score;
-    public String userId;
     public Integer patientId;
     public List<AnswerListBean> answerList;
 

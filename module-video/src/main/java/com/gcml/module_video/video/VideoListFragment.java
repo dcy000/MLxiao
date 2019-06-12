@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
@@ -45,7 +46,7 @@ public class VideoListFragment extends Fragment {
         if (fragment == null) {
             transaction.add(
                     id,
-                    VideoListFragment.newInstance(position),
+                    VideoListFragment.newInstance(position, null),
                     VideoListFragment.class.getSimpleName()
             );
         } else {
@@ -55,17 +56,20 @@ public class VideoListFragment extends Fragment {
     }
 
     private static final String ARG_POSITION = "position";
+    private static final String VIDEO_TYPE = "videoType";
 
     private int position;
+    private VideoType type;
 
     public VideoListFragment() {
 
     }
 
-    public static VideoListFragment newInstance(int position) {
+    public static VideoListFragment newInstance(int position, VideoType type) {
         VideoListFragment fragment = new VideoListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_POSITION, position);
+        args.putParcelable(VIDEO_TYPE, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +79,7 @@ public class VideoListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
+            type = getArguments().getParcelable(VIDEO_TYPE);
         }
     }
 
@@ -150,7 +155,7 @@ public class VideoListFragment extends Fragment {
 
     private void getVideos() {
         new VideoRepository()
-                .getVideoList(position+1,"0","1",page,pageSize)
+                .getVideoList(Integer.parseInt(type.getValue()), "1", "1", page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<List<VideoEntity>>() {
