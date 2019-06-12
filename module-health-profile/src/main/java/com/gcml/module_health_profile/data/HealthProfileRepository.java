@@ -1,6 +1,7 @@
 package com.gcml.module_health_profile.data;
 
 import com.gcml.common.RetrofitHelper;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_health_profile.bean.GuardianInfo;
@@ -17,7 +18,7 @@ import io.reactivex.Observable;
 public class HealthProfileRepository {
     HealthProfileAPI healthProfile = RetrofitHelper.service(HealthProfileAPI.class);
     //TODO:目前直接使用的是医疗演示版的功能，后期如果需要做这个模块，还需要再梳理
-    String userId = "130442";
+    String userId = UserSpHelper.getUserId();
 
     /**
      * 获取导航栏

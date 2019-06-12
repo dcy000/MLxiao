@@ -38,6 +38,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_to_mall"
         android:layout_width="340pt"
         android:layout_height="wrap_content"
