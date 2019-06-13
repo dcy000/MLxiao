@@ -43,6 +43,7 @@ import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -165,7 +166,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
     }
 
     public void selectAge() {
-        Calendar selectedDate = Calendar.getInstance();
+        Calendar birthDate = getBirtHCalendar(mUser);
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
         startDate.set(1900, 0, 1);
@@ -199,7 +200,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
                 .setCancelColor(Color.parseColor("#FF999999"))
                 .setTitleBgColor(Color.parseColor("#F5F5F5"))
                 .setBgColor(Color.WHITE)
-                .setDate(selectedDate)
+                .setDate(birthDate)
                 .setRangDate(startDate, endDate)
                 .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
                 .isCenterLabel(false)
@@ -207,8 +208,30 @@ public class UserInfoActivity extends ToolbarBaseActivity {
         pvTime.show();
     }
 
+    private Calendar getBirtHCalendar(UserEntity birth) {
+        if (birth == null) {
+            return Calendar.getInstance();
+        }
+
+        if (TextUtils.isEmpty(birth.birthday)) {
+            return Calendar.getInstance();
+        }
+
+        String pattern = "yyyyMMdd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        try {
+            Date date = dateFormat.parse(birth.birthday);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            return calendar;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return Calendar.getInstance();
+        }
+    }
+
     public void selectBirthday() {
-        Calendar selectedDate = Calendar.getInstance();
+        Calendar selectedDate = getBirtHCalendar(mUser);
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
         startDate.set(1900, 0, 1);
@@ -281,7 +304,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
             }
 
         };
-        selectItems(getHeights(), listener);
+        selectItemsWithDefIndex(getHeights(), listener, 110);
     }
 
     private void selectItems(List<String> items, OnOptionsSelectListener listener) {
@@ -305,6 +328,36 @@ public class UserInfoActivity extends ToolbarBaseActivity {
         pickerView.show();
     }
 
+    /**
+     * 默认选项
+     *
+     * @param items
+     * @param listener
+     * @param defIndex
+     */
+    private void selectItemsWithDefIndex(List<String> items, OnOptionsSelectListener listener, int defIndex) {
+        OptionsPickerView<String> pickerView = new OptionsPickerBuilder(this, listener)
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.parseColor("#F5F5F5"))
+                .setDividerColor(Color.TRANSPARENT)
+                .isCenterLabel(false)
+                .setOutSideCancelable(false)
+                .build();
+        pickerView.setPicker(items);
+        pickerView.setSelectOptions(defIndex);//设置默认选中
+        pickerView.show();
+    }
+
+
     public void selectWeight() {
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
@@ -319,7 +372,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
             }
 
         };
-        selectItems(getWeights(), listener);
+        selectItemsWithDefIndex(getWeights(), listener, 20);
     }
 
     public void selectBloodType() {

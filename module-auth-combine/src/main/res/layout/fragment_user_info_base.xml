@@ -451,6 +451,7 @@
                     tools:text="570************865" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/iv_action_ic_card"
                     android:layout_width="200pt"
                     android:layout_height="100pt"
