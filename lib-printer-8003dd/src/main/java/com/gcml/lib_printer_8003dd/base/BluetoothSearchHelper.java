@@ -3,6 +3,7 @@ package com.gcml.lib_printer_8003dd.base;
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
+import com.inuker.bluetooth.library.BluetoothClient;
 import com.inuker.bluetooth.library.search.SearchRequest;
 import com.inuker.bluetooth.library.search.SearchResult;
 import com.inuker.bluetooth.library.search.response.SearchResponse;
@@ -35,6 +36,7 @@ public class BluetoothSearchHelper {
         }
         isOnSearching = true;
         BluetoothC.getClient().search(request, search);
+
     }
 
     public void searchBle(int periodMill, int times, SearchListener listener, String... names) {

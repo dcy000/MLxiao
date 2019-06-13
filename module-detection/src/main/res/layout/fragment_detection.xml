@@ -24,7 +24,6 @@
                 android:layout_width="636pt"
                 android:layout_height="636pt"
                 android:layout_marginTop="52pt"
-                android:background="@drawable/detection_normal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
