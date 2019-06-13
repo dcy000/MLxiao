@@ -158,6 +158,7 @@ public class HealthManageActivity extends ToolbarBaseActivity implements View.On
                 .setActionName("To_HealthInquiryActivity")
                 .build()
                 .call();*/
-        Routerfit.register(AppRouter.class).skipFirstDiagnosisActivity();
+//        Routerfit.register(AppRouter.class).skipFirstDiagnosisActivity();
+        Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
     }
 }

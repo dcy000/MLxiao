@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.han.healthmanage.HealthManageActivity;
-import com.example.han.healthmanage.HealthManageTipActivity;
 import com.gcml.common.LazyFragment;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
@@ -165,18 +164,14 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 gotoHealthMeasure();
                 break;
             case R.id.ei_infomation_collection:
-//                startActivity(new Intent(getActivity(), InquiryActivity.class));
-//                CC.obtainBuilder("health_measure")
-//                        .setActionName("To_HealthInquiryActivity")
-//                        .build()
-//                        .call();
-                if (bindWacher) {
+                startActivity(new Intent(getActivity(), HealthManageActivity.class));
+              /*  if (bindWacher) {
 //                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
                     startActivity(new Intent(getActivity(), HealthManageActivity.class));
                 } else {
 //                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
                     startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
-                }
+                }*/
                 break;
             case R.id.iv_self_check:
                 IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();

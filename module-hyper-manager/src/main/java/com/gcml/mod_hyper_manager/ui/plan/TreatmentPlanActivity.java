@@ -119,9 +119,9 @@ public class TreatmentPlanActivity extends ToolbarBaseActivity implements IChang
         fragments.add(treatmentProgramFragment6);
         treatmentProgramFragment6.setOnChangToolbar(this);
 
-//        treatmentProgramFragment7 = new RencommendForUserFragment();
-//        fragments.add(treatmentProgramFragment7);
-//        treatmentProgramFragment7.setOnChangToolbar(this);
+        treatmentProgramFragment7 = new RencommendForUserFragment();
+        fragments.add(treatmentProgramFragment7);
+        treatmentProgramFragment7.setOnChangToolbar(this);
     }
 
     @Override
