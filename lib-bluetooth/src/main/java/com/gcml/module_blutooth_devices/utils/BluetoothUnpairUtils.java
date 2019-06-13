@@ -1,9 +1,11 @@
-package com.gcml.module_blutooth_devices.base;
+package com.gcml.module_blutooth_devices.utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 
 import java.lang.reflect.Method;
 import java.util.List;

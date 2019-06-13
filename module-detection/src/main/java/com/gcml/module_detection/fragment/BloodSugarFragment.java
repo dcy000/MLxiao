@@ -140,53 +140,22 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
                         if (result2 == null) return;
                         mTvSuggest.setText(result2.getResult());
+                        mTvDetectionState.setText(result2.getResultConclusion());
+                        int resultType = result2.getResultType();
+                        switch (resultType) {
+                            case 0:
+                                mClBg.setBackgroundResource(R.drawable.detection_normal);
+                                break;
+                            case 1:
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+                                break;
+                            case 2:
+                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                                break;
+                        }
 
                         PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
                         if (result1 == null) {
-                            switch (selectMeasureSugarTime) {
-                                case 0:
-                                    if (bloodSugar <= 3.9) {
-                                        mTvDetectionState.setText("偏低");
-                                        mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                        return;
-                                    }
-                                    if (bloodSugar < 6.1) {
-                                        mTvDetectionState.setText("正常");
-                                        mClBg.setBackgroundResource(R.drawable.detection_normal);
-                                        return;
-                                    }
-                                    mTvDetectionState.setText("偏高");
-                                    mClBg.setBackgroundResource(R.drawable.detection_more_high);
-                                    break;
-                                case 2:
-                                    if (bloodSugar <= 3.9) {
-                                        mTvDetectionState.setText("偏低");
-                                        mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                        return;
-                                    }
-                                    if (bloodSugar < 7.8) {
-                                        mTvDetectionState.setText("正常");
-                                        mClBg.setBackgroundResource(R.drawable.detection_normal);
-                                        return;
-                                    }
-                                    mTvDetectionState.setText("偏高");
-                                    mClBg.setBackgroundResource(R.drawable.detection_more_high);
-                                    break;
-                                case 3:
-                                    if (bloodSugar <= 3.9) {
-                                        mTvDetectionState.setText("偏低");
-                                        mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                        return;
-                                    }
-                                    if (bloodSugar < 11.1) {
-                                        mTvDetectionState.setText("正常");
-                                        mClBg.setBackgroundResource(R.drawable.detection_normal);
-                                        return;
-                                    }
-                                    mTvDetectionState.setText("偏高");
-                                    mClBg.setBackgroundResource(R.drawable.detection_more_high);
-                                    break;
-                            }
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());
                         }

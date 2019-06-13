@@ -103,7 +103,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     private void dealSearchFragment() {
-        detectionType = getIntent().getIntExtra("detectionType", 22);
+        detectionType = getIntent().getIntExtra("detectionType", 0);
         switch (detectionType) {
             case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 //血压

@@ -108,21 +108,21 @@ public class CholesterolFragment extends BluetoothBaseFragment implements View.O
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
                         if (result2 == null) return;
                         mTvSuggest.setText(result2.getResult());
-
+                        mTvDetectionState.setText(result2.getResultConclusion());
+                        int resultType = result2.getResultType();
+                        switch (resultType) {
+                            case 0:
+                                mClBg.setBackgroundResource(R.drawable.detection_normal);
+                                break;
+                            case 1:
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+                                break;
+                            case 2:
+                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                                break;
+                        }
                         PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
                         if (result1 == null) {
-                            if (cholesterol < 5.2) {
-                                mTvDetectionState.setText("正常");
-                                mClBg.setBackgroundResource(R.drawable.detection_normal);
-                                return;
-                            }
-                            if (cholesterol < 6.2) {
-                                mTvDetectionState.setText("边缘升高");
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            mTvDetectionState.setText("偏高");
-                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());
                         }
