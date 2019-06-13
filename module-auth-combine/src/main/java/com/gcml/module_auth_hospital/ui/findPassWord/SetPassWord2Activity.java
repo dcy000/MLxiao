@@ -116,6 +116,7 @@ public class SetPassWord2Activity extends ToolbarBaseActivity implements View.On
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
+                        ToastUtils.showShort("修改成功");
                         Routerfit.register(AppRouter.class).skipUserLogins2Activity();
                     }
 

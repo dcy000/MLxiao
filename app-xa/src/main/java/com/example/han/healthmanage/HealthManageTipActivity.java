@@ -2,7 +2,6 @@ package com.example.han.healthmanage;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -10,9 +9,11 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.sjtu.yifei.annotation.Go;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-
+@Route(path = "/health/HealthManageTipActivity/tip")
 public class HealthManageTipActivity extends ToolbarBaseActivity {
     TranslucentToolBar tbHealthTip;
     TextView tvHealthTipConfirm;

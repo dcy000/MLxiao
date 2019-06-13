@@ -560,4 +560,7 @@ public interface AppRouter {
 
     @Go("/health/profile/health/HealthCheckListActivity/activity")
     boolean skipHealthCheckListActivity();
+
+    @Go("/health/HealthManageTipActivity/tip")
+    boolean skipHealthManageTipActivity();
 }

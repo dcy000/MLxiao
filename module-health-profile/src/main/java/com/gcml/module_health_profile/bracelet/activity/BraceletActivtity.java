@@ -15,14 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.gcml.common.recommend.fragment.RencommendForMarketFragment;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.MLViewPager;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bracelet.fragment.CorrelationNumber2Fragment;
-import com.gcml.module_health_profile.bracelet.fragment.CorrelationNumberFragment;
 import com.gcml.module_health_profile.bracelet.fragment.DeviceInfoFragment;
 import com.gcml.module_health_profile.bracelet.fragment.ServiceHistoryFragment;
 import com.sjtu.yifei.annotation.Route;
@@ -50,7 +48,7 @@ public class BraceletActivtity extends AppCompatActivity implements RadioGroup.O
 
     private void initView() {
         TranslucentToolBar title = findViewById(R.id.tb_bracelet);
-        title.setData("手 环 设 备",
+        title.setData("我 的 设 备",
                 R.drawable.common_btn_back, "返回",
                 0, null, new ToolBarClickListener() {
                     @Override
