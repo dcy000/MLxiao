@@ -27,6 +27,8 @@ public class PostDataCallBackBean {
         private int dataZid;
         private String dataResult;
         private String result;
+        private int resultType;
+        private String resultConclusion;
 
         public String getDeletionState() {
             return deletionState;
@@ -66,6 +68,22 @@ public class PostDataCallBackBean {
 
         public void setResult(String result) {
             this.result = result;
+        }
+
+        public int getResultType() {
+            return resultType;
+        }
+
+        public void setResultType(int resultType) {
+            this.resultType = resultType;
+        }
+
+        public String getResultConclusion() {
+            return resultConclusion;
+        }
+
+        public void setResultConclusion(String resultConclusion) {
+            this.resultConclusion = resultConclusion;
         }
     }
 

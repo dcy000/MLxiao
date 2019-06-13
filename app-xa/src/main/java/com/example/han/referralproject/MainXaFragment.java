@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.han.healthmanage.HealthManageActivity;
+import com.example.han.healthmanage.HealthManageTipActivity;
 import com.gcml.common.LazyFragment;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
@@ -46,6 +48,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     private EclipseImageView ivDoctorCall;
     private EclipseImageView ivDoctorFamily;
     private EclipseImageView eiHealthEdu;
+    private EclipseImageView mEiEntertainment;
     private View view;
     private CircleImageView mCvHead;
     private TextView mTvUserName;
@@ -74,8 +77,8 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
         mEiInfomationCollection.setOnClickListener(this);
         mEiDoctorService = (EclipseImageView) view.findViewById(R.id.iv_self_check);
         mEiDoctorService.setOnClickListener(this);
-        mEiQuit = (EclipseImageView) view.findViewById(R.id.ei_quit);
-        mEiQuit.setOnClickListener(this);
+        mEiEntertainment = (EclipseImageView) view.findViewById(R.id.ei_entertainment);
+        mEiEntertainment.setOnClickListener(this);
         mCvHead = (CircleImageView) view.findViewById(R.id.cv_head);
         ivDoctorCall = view.findViewById(R.id.iv_doctor_call);
         ivDoctorCall.setOnClickListener(this);
@@ -164,14 +167,18 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 gotoHealthMeasure();
                 break;
             case R.id.ei_infomation_collection:
-                startActivity(new Intent(getActivity(), HealthManageActivity.class));
-              /*  if (bindWacher) {
+//                startActivity(new Intent(getActivity(), InquiryActivity.class));
+//                CC.obtainBuilder("health_measure")
+//                        .setActionName("To_HealthInquiryActivity")
+//                        .build()
+//                        .call();
+                if (bindWacher) {
 //                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
                     startActivity(new Intent(getActivity(), HealthManageActivity.class));
                 } else {
 //                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
                     startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
-                }*/
+                }
                 break;
             case R.id.iv_self_check:
                 IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
@@ -179,9 +186,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                     bodyTestProvider.gotoPage(getActivity());
                 }
                 break;
-            case R.id.ei_quit:
-                quitApp();
-//                Routerfit.register(AppRouter.class).skipHealthCheckListActivity();
+            case R.id.ei_entertainment:
+                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+//                quitApp();
                 break;
             case R.id.iv_doctor_call:
                 Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
@@ -198,25 +205,17 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     }
 
     private void gotoHealthMeasure() {
-        final AppRouter appRouter = Routerfit.register(AppRouter.class);
-        IUserEntityProvider userProvider = appRouter.getUserProvider();
-        if (userProvider == null) {
-            return;
-        }
-        userProvider.getUserEntity()
-                .subscribeOn(Schedulers.io())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserEntity>() {
+        Routerfit.register(AppRouter.class)
+                .getVertifyFaceProvider3()
+                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
-                    public void onNext(UserEntity userEntity) {
-                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
-                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                            MLVoiceSynthetize.startSynthesize(
-                                    getActivity().getApplicationContext(),
-                                    "请先去个人中心完善性别和年龄信息");
-                        } else {
-                            appRouter.skipChooseDetectionTypeActivity();
-                        }
+                    public void success() {
+                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+                    }
+
+                    @Override
+                    public void failed(String msg) {
+                        ToastUtils.showShort(msg);
                     }
                 });
     }

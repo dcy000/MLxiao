@@ -1,4 +1,4 @@
-include ':app-xa',
+include ':app-xa', ':printer',
         ':app-jgys',
         ':app-combine',
         ':module-alarm',
@@ -6,7 +6,7 @@ include ':app-xa',
         ':module-hyper-manager',
         ':module-edu-child',
         ':module-doctor-advisory', //签约
-        ':module-detection',
+        ':module-detection',  // 娱乐
         ':lib-common-business',
         ':lib-common-core',
         ':lib-bluetooth',
@@ -36,20 +36,19 @@ include ':lib-baidu-unit',
 // 支持模块
 
 // 业务模块
-include ':module-video',
-        ':module-family',
-        ':module-mall',
-        ':module-task',
-        ':module-auth-jgys',
-        ':module-health-measure',
-        ':module-control',
-        ':module-health-record',
-        ':module-edu',
-        ':module-recreation',
-        ':module-family',
-        ':module-auth-face-jgys',
-        ':module-auth-face-combine',
-        ':module-help',
-        ':module-factory-test',
-        ':module-detection'
+include ':module-video', // 视频播放
+        ':module-family', // 家人
+        ':module-mall',  // 商城
+        ':module-task',  // 任务
+        ':module-auth-jgys', // 用户（健管演示）
+        ':module-health-measure', // 健康检测
+        ':module-control',  // 设置
+        ':module-health-record', // 健康数据
+        ':module-edu', // 娱教
+        ':module-recreation', // 娱乐
+        ':module-auth-face-jgys', // 人脸（健管演示）
+        ':module-auth-face-combine', // 人脸（合版）
+        ':module-help', // 帮助中心
+        ':module-factory-test', // 工厂模式
+        ':module-detection' // 健康检测 （新）
 

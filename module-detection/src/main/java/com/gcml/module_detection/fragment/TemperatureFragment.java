@@ -107,36 +107,21 @@ public class TemperatureFragment extends BluetoothBaseFragment implements View.O
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
                         if (result2 == null) return;
                         mTvSuggest.setText(result2.getResult());
-
+                        mTvDetectionState.setText(result2.getResultConclusion());
+                        int resultType = result2.getResultType();
+                        switch (resultType) {
+                            case 0:
+                                mClBg.setBackgroundResource(R.drawable.detection_normal);
+                                break;
+                            case 1:
+                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
+                                break;
+                            case 2:
+                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                                break;
+                        }
                         PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
                         if (result1 == null) {
-                            if (temperAture < 36.4) {
-                                mTvDetectionState.setText("偏低");
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            if (temperAture < 37.4) {
-                                mTvDetectionState.setText("正常");
-                                mClBg.setBackgroundResource(R.drawable.detection_normal);
-                                return;
-                            }
-                            if (temperAture < 38.0) {
-                                mTvDetectionState.setText("低热");
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            if (temperAture < 39.0) {
-                                mTvDetectionState.setText("中等度热");
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            if (temperAture < 41) {
-                                mTvDetectionState.setText("高热");
-                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
-                                return;
-                            }
-                            mTvDetectionState.setText("超高热");
-                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
                         } else {
                             mTvDetectionState.setText(result1.getDiagnose());
                         }

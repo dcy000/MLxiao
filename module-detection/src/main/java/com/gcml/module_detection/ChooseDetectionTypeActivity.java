@@ -230,7 +230,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     break;
                 case "血尿酸":
                     bean.setIcon(R.drawable.type_uac);
-                    bean.setUnit("(mmol/L)");
+                    bean.setUnit("(μmol/L)");
                     break;
             }
             types.add(bean);
