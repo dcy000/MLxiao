@@ -30,12 +30,12 @@ public class UiUtils {
         ((Application) context.getApplicationContext()).registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                UiUtils.compat(activity, designWidth);
+
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
-
+                UiUtils.compat(activity, designWidth);
             }
 
             @Override
