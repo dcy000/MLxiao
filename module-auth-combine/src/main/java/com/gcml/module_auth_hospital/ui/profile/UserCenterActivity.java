@@ -2,21 +2,29 @@ package com.gcml.module_auth_hospital.ui.profile;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.TextView;
 
 
+import com.gcml.common.constant.Global;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.ICallProvider;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.module_auth_hospital.R;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
+import com.umeng.analytics.MobclickAgent;
 
 @Route(path = "/auth/hospital/user/center/activity")
 public class UserCenterActivity extends ToolbarBaseActivity implements View.OnClickListener {
     private EclipseImageView mIvPersonCenter;
     private EclipseImageView mIvHealthRecord;
     private EclipseImageView mIvHealthBracelet;
+    private TextView btnLogout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +42,8 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
         mIvHealthRecord.setOnClickListener(this);
         mIvHealthBracelet = (EclipseImageView) findViewById(R.id.iv_health_bracelet);
         mIvHealthBracelet.setOnClickListener(this);
+        btnLogout = (TextView) findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(this);
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
@@ -51,7 +61,11 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
             Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
         } else if (i == R.id.iv_health_bracelet) {
             Routerfit.register(AppRouter.class).skipBraceletActivtity();
+        } else if (i == R.id.btnLogout) {
+            quitApp();
         }
+
+
     }
 
     @Override
@@ -62,5 +76,34 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
 //            public void action() {
 //            }
 //        });
+    }
+
+    private void quitApp() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("确定退出当前账号吗？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+//                .setNegativeButtonColor(R.color.toolbar_bg)
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MobclickAgent.onProfileSignOff();
+                        final AppRouter appRouter = Routerfit.register(AppRouter.class);
+                        ICallProvider callProvider = appRouter.getCallProvider();
+                        if (callProvider != null) {
+                            callProvider.logout();
+                        }
+                        UserSpHelper.setToken(Global.TOURIST_TOKEN);
+                        UserSpHelper.setEqId("");
+                        appRouter.skipUserLogins2Activity();
+//                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                        finish();
+                    }
+                }).show();
+
     }
 }

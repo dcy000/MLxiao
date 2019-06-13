@@ -100,17 +100,17 @@
         android:layout_height="342pt"
         android:background="@drawable/main_ic_health_edu"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/ei_quit"
+        app:layout_constraintBottom_toTopOf="@+id/ei_entertainment"
         app:layout_constraintEnd_toEndOf="@+id/ei_infomation_collection"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/iv_self_check"
         app:layout_constraintTop_toBottomOf="@+id/ei_infomation_collection" />
 
     <com.gcml.lib_widget.EclipseImageView
-        android:id="@+id/ei_quit"
+        android:id="@+id/ei_entertainment"
         android:layout_width="636pt"
         android:layout_height="342pt"
-        android:background="@drawable/main_ic_quit"
+        android:background="@drawable/main_ic_entertainment_center"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/iv_self_check"
         app:layout_constraintEnd_toEndOf="@+id/ei_health_edu"

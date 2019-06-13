@@ -1,5 +1,6 @@
 package com.ml.edu.data;
 
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.utils.RxUtils;
 import com.ml.edu.data.entity.SheetEntity;
 import com.ml.edu.data.entity.SongEntity;
@@ -28,11 +29,12 @@ public class ApiHelper {
         return sInstance;
     }
 
-    private Retrofit retrofit;
+//    private Retrofit retrofit;
 
     public ApiHelper() {
-        this.retrofit = RetrofitFactory.getInstance().retrofit();
-        musicService = retrofit.create(MusicService.class);
+        musicService = RetrofitHelper.service(MusicService.class);
+//        this.retrofit = RetrofitFactory.getInstance().retrofit();
+//        musicService = retrofit.create(MusicService.class);
     }
 
     private MusicService musicService;

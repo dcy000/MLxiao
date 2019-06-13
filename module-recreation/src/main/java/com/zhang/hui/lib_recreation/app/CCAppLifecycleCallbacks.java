@@ -6,7 +6,7 @@ import android.content.Context;
 import com.gcml.common.api.AppLifecycleCallbacks;
 import com.google.auto.service.AutoService;
 
-@AutoService(AppLifecycleCallbacks.class)
+//@AutoService(AppLifecycleCallbacks.class)
 public class CCAppLifecycleCallbacks implements AppLifecycleCallbacks {
     @Override
     public void attachBaseContext(Application app, Context base) {
