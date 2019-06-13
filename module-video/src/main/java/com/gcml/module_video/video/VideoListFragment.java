@@ -155,7 +155,7 @@ public class VideoListFragment extends Fragment {
 
     private void getVideos() {
         new VideoRepository()
-                .getVideoList(Integer.parseInt(type.getValue()), "1", "1", page, pageSize)
+                .getVideoList(type == null ? position : Integer.parseInt(type.getValue()), "1", "1", page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<List<VideoEntity>>() {
