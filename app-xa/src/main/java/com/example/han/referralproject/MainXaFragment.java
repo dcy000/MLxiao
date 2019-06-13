@@ -186,6 +186,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 break;
             case R.id.ei_quit:
                 quitApp();
+//                Routerfit.register(AppRouter.class).skipHealthCheckListActivity();
                 break;
             case R.id.iv_doctor_call:
                 Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();

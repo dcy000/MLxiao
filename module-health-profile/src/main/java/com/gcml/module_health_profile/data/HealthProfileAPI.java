@@ -8,11 +8,14 @@ import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
 import com.gcml.module_health_profile.bean.TiZhiBean;
 import com.gcml.module_health_profile.bean.WarnBean;
+import com.gcml.module_health_profile.checklist.bean.CheckListInfoBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -50,18 +53,18 @@ public interface HealthProfileAPI {
     @GET("ZZB/docter/sel_one_doctor_con")
     Observable<ApiResult<Doctor>> queryDoctorInfo(@Query("docterid") String doctorId);
 
-//    @Headers({"Domain-Name:ylservice"})
+    //    @Headers({"Domain-Name:ylservice"})
     @GET("ZZB/api/health/record/{rdRecordId}/detection/{userRecordId}/")
     Observable<ApiResult<List<OutputMeasureBean>>> getHealthRecordMeasureResult(
             @Path("rdRecordId") String rdRecordId,
             @Path("userRecordId") String userRecordId
     );
 
-//    @Headers({"Domain-Name:ylservice"})
+    //    @Headers({"Domain-Name:ylservice"})
     @GET("ZZB/api/guardian/user/{userId}/guardians/")
     Observable<ApiResult<List<GuardianInfo>>> getGuardians(@Path("userId") String userId);
 
-//    @Headers({"Domain-Name:ylservice"})
+    //    @Headers({"Domain-Name:ylservice"})
     @GET("ZZB/api/user/warning/warnings/")
     Observable<ApiResult<List<WarnBean>>> getWanings(@Query("userId") String userId);
 
@@ -69,5 +72,26 @@ public interface HealthProfileAPI {
 //    @Headers({"Domain-Name:ylservice"})
     @GET("ZZB/api/health/inquiry/constitution/history/")
     Observable<ApiResult<List<TiZhiBean>>> getConstitution(@Query("userId") String userId);
+
+
+    /**
+     * /**
+     * 健康体检表
+     */
+    // 体质检测 记录
+    @GET("ZZB/api/health/record/{rdRecordId}/")
+    Observable<ApiResult<CheckListInfoBean>> getHealthCheckList(@Path("rdRecordId") String rdRecordId);
+
+    /**
+     * 提交健康检测表
+     *
+     * @param rdRecordId
+     * @param userId
+     * @param answerList
+     */
+    @POST("ZZB/api/health/record/{rdRecordId}/user/{userId}/")
+    Observable<ApiResult<CheckListInfoBean>> postHealthCheckList(@Path("rdRecordId") String rdRecordId,
+                                                                 @Path("userId") String userId,
+                                                                 @Body List<CheckListInfoBean.TRdUserAnswer> answerList);
 
 }

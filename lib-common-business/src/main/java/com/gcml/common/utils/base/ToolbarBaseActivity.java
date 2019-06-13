@@ -108,7 +108,7 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
         Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
     }
 
-    protected void showLoading(String tips) {
+    public void showLoading(String tips) {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;
@@ -121,7 +121,7 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
         mLoadingDialog.show();
     }
 
-    protected void dismissLoading() {
+    public void dismissLoading() {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;

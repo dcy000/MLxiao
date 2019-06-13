@@ -558,4 +558,6 @@ public interface AppRouter {
     @Go("/inquiry/health/file/activity")
     boolean skipHealthFileActivity();
 
+    @Go("/health/profile/health/HealthCheckListActivity/activity")
+    boolean skipHealthCheckListActivity();
 }
