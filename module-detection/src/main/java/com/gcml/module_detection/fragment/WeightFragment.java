@@ -123,28 +123,18 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
                         if (result2 == null) return;
                         mTvSuggest.setText(result2.getResult());
-                        String dataResult = result2.getDataResult();
-                        String[] strings = dataResult.split("为");
-                        if (strings != null && strings.length == 2) {
-                            mTvResultRight.setText(strings[1]);
-                            float aFloat = Float.parseFloat(strings[1]);
-                            if (aFloat < 18.5) {
-                                mTvDetectionState.setText("偏瘦");
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            if (aFloat < 23.9) {
-                                mTvDetectionState.setText("正常");
+                        mTvDetectionState.setText(result2.getResultConclusion());
+                        int resultType = result2.getResultType();
+                        switch (resultType) {
+                            case 0:
                                 mClBg.setBackgroundResource(R.drawable.detection_normal);
-                                return;
-                            }
-                            if (aFloat < 27.9) {
-                                mTvDetectionState.setText("偏胖");
+                                break;
+                            case 1:
                                 mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                return;
-                            }
-                            mTvDetectionState.setText("肥胖");
-                            mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                                break;
+                            case 2:
+                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
+                                break;
                         }
                     }
 

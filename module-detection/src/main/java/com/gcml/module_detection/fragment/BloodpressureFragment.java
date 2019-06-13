@@ -127,25 +127,19 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                         if (result2 == null) return;
                         String diagnose = result1.getDiagnose();
                         mTvDetectionState.setText(diagnose);
-                        switch (diagnose) {
-                            case "正常":
+                        mTvSuggest.setText(result2.getResult());
+                        int resultType = result2.getResultType();
+                        switch (resultType) {
+                            case 0:
                                 mClBg.setBackgroundResource(R.drawable.detection_normal);
                                 break;
-                            //TODO:新标准是"正常高值"，后期会改动，注意（北京、雄安垃圾时刻）
-                            case "正常增高":
+                            case 1:
                                 mClBg.setBackgroundResource(R.drawable.detection_less_high);
                                 break;
-                            case "偏高":
-                                mClBg.setBackgroundResource(R.drawable.detection_less_high);
-                                break;
-                            case "严重偏高":
-                                mClBg.setBackgroundResource(R.drawable.detection_more_high);
-                                break;
-                            case "偏低":
+                            case 2:
                                 mClBg.setBackgroundResource(R.drawable.detection_more_high);
                                 break;
                         }
-                        mTvSuggest.setText(result2.getResult());
                     }
 
                     @Override
