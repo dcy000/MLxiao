@@ -234,8 +234,7 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
                         .putExtra("RdCordId", selfRecordId)
                         .putExtra("title", "添 加 健 康 档 案"));
             } else {
-                //TODO:去绑定医生
-//                CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
+                Routerfit.register(AppRouter.class).skipBindDoctorActivity("");
             }
         }
     }
