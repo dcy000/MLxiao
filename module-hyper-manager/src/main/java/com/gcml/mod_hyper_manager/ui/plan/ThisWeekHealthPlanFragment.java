@@ -143,6 +143,7 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
         mTvXuetangOne = view.findViewById(R.id.tv_xuetang_one);
         mTvXuetangTwo = view.findViewById(R.id.tv_xuetang_two);
         mTvSetAlarm = view.findViewById(R.id.tv_set_alarm);
+        mTvSetAlarm.setVisibility(View.GONE);
         mTvSetAlarm.setOnClickListener(this);
 
         mWeight.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
