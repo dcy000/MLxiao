@@ -143,7 +143,6 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
                     showOriginHypertensionDialog();
                 }
             } else {
-
                 new AlertDialog(this)
                         .builder()
                         .setCancelable(false)

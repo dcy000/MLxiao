@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import com.gcml.common.constant.Global;
 import com.gcml.common.recommend.bean.get.GoodBean;
@@ -579,4 +578,19 @@ public interface AppRouter {
 
     @Go("/health/measure/health/report/activity")
     boolean skipHealthReportFormActivity();
+
+
+    /**
+     * 雄安个人信息 机器修改
+     * /auth/hospital/user/info/activity
+     */
+    @Go("/auth/hospital/user/info/activity")
+    boolean skipUserInfoActivit();
+
+    /**
+     * 健康管理
+     */
+    @Go("app/healthMannage/activity")
+    boolean skipHealthMannageActivity();
+
 }

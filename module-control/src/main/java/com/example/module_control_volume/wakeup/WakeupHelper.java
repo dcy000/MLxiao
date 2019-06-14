@@ -3,6 +3,7 @@ package com.example.module_control_volume.wakeup;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
@@ -139,13 +140,20 @@ public class WakeupHelper {
                     try {
                         JSONObject jsonObj = new JSONObject(json);
                         int score = jsonObj.optInt("score");
-                        if (score >= 1650) {
-//                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            sContext.startActivity(intent);
+                        if (score >= 1500) {
+                            //点亮屏幕
+                            PowerManager pm = (PowerManager) sContext.getSystemService(Context.POWER_SERVICE);
+                            boolean screenOn = pm.isScreenOn();
+                            if (!screenOn) {
+                                @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl = pm.newWakeLock(
+                                        PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
+                                wl.acquire(10000);
+                                wl.release();
+                                return;
+                            }
+
                             String userId = UserSpHelper.getUserId();
                             if (TextUtils.isEmpty(userId)) {
-//                                MLVoiceSynthetize.startSynthesize(sContext, "如需使用唤醒功能,请先登录");
                                 ToastUtils.showShort("如需使用唤醒功能,请先登录");
                                 return;
                             }
