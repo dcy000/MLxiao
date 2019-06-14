@@ -791,7 +791,7 @@ public class XADataDealHelper {
             return;
         }
         //音量设置
-        if (inSpell.matches(".*(tiaodashengyin|tiaoxiaoshengyin|yinliang|shengyintaiqing|shengyintaixiang).*")) {
+        if (inSpell.matches(".*(diaodashengyin|tiaodashengyin|diaoxiaoshengyin|tiaoxiaoshengyin|yinliang|shengyintaiqing|shengyintaixiang).*")) {
             Routerfit.register(AppRouter.class).skipVoiceSettingActivity();
             if (listener != null) {
                 listener.onEnd();
