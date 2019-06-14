@@ -206,7 +206,7 @@ public class IDCardNuberLoginActivity extends ToolbarBaseActivity implements Vie
         body.password = passWord;
         body.sfz = idCardNumber;
         userRepository
-                .signInByIdCard(body)
+                .signInByIdCardPSw(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> showLoading("正在登录..."))

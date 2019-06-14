@@ -1,7 +1,6 @@
 package com.gcml.module_detection.fragment;
 
 import android.arch.lifecycle.Observer;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -25,7 +24,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
-import timber.log.Timber;
 
 public class UricAcidFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private TextView mTvDetectionTime;
@@ -86,7 +84,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
     }
 
     private void robotSpeak(DetectionData detectionData) {
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量耳温" + detectionData.getTemperAture() + "摄氏度", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血尿酸" + detectionData.getUricAcid(), false);
     }
 
     private void postData(DetectionData detectionData) {

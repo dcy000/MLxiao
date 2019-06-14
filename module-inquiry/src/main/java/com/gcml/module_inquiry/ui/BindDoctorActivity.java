@@ -141,7 +141,8 @@ public class BindDoctorActivity extends ToolbarBaseActivity {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort(throwable.getMessage());
+//                        ToastUtils.showShort(throwable.getMessage());
+//                        ToastUtils.showShort("");
                     }
                 });
 

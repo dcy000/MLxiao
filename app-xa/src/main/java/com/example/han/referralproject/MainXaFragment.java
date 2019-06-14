@@ -31,6 +31,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
@@ -43,10 +44,11 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     private EclipseImageView mEiHealthCheckup;
     private EclipseImageView mEiInfomationCollection;
     private EclipseImageView mEiDoctorService;
-    private EclipseImageView mEiEntertainment;
+    private EclipseImageView mEiQuit;
     private EclipseImageView ivDoctorCall;
     private EclipseImageView ivDoctorFamily;
     private EclipseImageView eiHealthEdu;
+    private EclipseImageView mEiEntertainment;
     private View view;
     private CircleImageView mCvHead;
     private TextView mTvUserName;
