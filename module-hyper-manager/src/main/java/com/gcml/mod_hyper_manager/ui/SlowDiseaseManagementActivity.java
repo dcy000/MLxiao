@@ -108,8 +108,8 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
                 clickWithoutContinueJudge();
                 return;
             }
-
-            if (diagnoseInfo.primary != null
+            getDiagnoseInfoNew();
+         /*   if (diagnoseInfo.primary != null
                     && !(diagnoseInfo.risk == null
                     && diagnoseInfo.lowPressure == null
                     && diagnoseInfo.hypertensionLevel == null
@@ -121,7 +121,7 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
 //                ContinueOrNotDialog();
             } else {
                 clickWithoutContinueJudge();
-            }
+            }*/
         }
 
 //        clickWithoutJudge();
@@ -143,7 +143,6 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
                     showOriginHypertensionDialog();
                 }
             } else {
-
                 new AlertDialog(this)
                         .builder()
                         .setCancelable(false)
