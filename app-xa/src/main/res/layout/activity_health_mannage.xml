@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30pt"
                 android:gravity="center"
-                android:text="高血压方案"
+                android:text="健康方案"
                 android:textColor="#f333"
                 android:textSize="64pt" />
 
