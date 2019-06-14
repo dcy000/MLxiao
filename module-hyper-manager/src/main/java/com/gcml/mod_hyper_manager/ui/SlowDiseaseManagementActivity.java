@@ -108,20 +108,20 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
                 clickWithoutContinueJudge();
                 return;
             }
-
-            if (diagnoseInfo.primary != null
-                    && !(diagnoseInfo.risk == null
-                    && diagnoseInfo.lowPressure == null
-                    && diagnoseInfo.hypertensionLevel == null
-                    && (diagnoseInfo.hypertensionPrimaryState == null || diagnoseInfo.hypertensionPrimaryState.equals("0"))
-                    && diagnoseInfo.heart == null
-                    && diagnoseInfo.hypertensionTarget == null
-            )) {
-//                getDiagnoseInfoNew();
-                ContinueOrNotDialog();
-            } else {
-                clickWithoutContinueJudge();
-            }
+            getDiagnoseInfoNew();
+//            if (diagnoseInfo.primary != null
+//                    && !(diagnoseInfo.risk == null
+//                    && diagnoseInfo.lowPressure == null
+//                    && diagnoseInfo.hypertensionLevel == null
+//                    && (diagnoseInfo.hypertensionPrimaryState == null || diagnoseInfo.hypertensionPrimaryState.equals("0"))
+//                    && diagnoseInfo.heart == null
+//                    && diagnoseInfo.hypertensionTarget == null
+//            )) {
+////                getDiagnoseInfoNew();
+//                ContinueOrNotDialog();
+//            } else {
+//                clickWithoutContinueJudge();
+//            }
         }
 
 //        clickWithoutJudge();
@@ -151,7 +151,7 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
                         .setNegativeButton("重新测量", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Routerfit.register(AppRouter.class).skipAllMeasureActivity(22);
+                                getDiagnoseInfoNew();
                             }
                         })
                         .setPositiveButton("健康方案", new View.OnClickListener() {
