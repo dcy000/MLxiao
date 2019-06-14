@@ -128,15 +128,20 @@ public abstract class BaseBluetooth implements LifecycleObserver {
      * 直接连接
      *
      * @param device
+     * @param isFirstDisConne 是否先断开原来的连接
      */
-    public void startConnect(BluetoothDevice device) {
+    public void startConnect(BluetoothDevice device, boolean isFirstDisConne) {
         if (isOnSearching()) {
             stopSearch();
         }
         if (isConnected && !TextUtils.isEmpty(targetAddress)) {
-            //如果是已经和其他设备连接，则先断开已有连接，1秒以后再和该设备连接
-            BluetoothStore.getClient().disconnect(targetAddress);
-            Handlers.bg().postDelayed(() -> startDiscovery(device.getAddress()), 1000);
+            if (isFirstDisConne) {
+                //如果是已经和其他设备连接，则先断开已有连接，1秒以后再和该设备连接
+                BluetoothStore.getClient().disconnect(targetAddress);
+                Handlers.bg().postDelayed(() -> startDiscovery(device.getAddress()), 1000);
+            } else {
+                connect(device.getAddress());
+            }
         } else {
             startDiscovery(device.getAddress());
         }
@@ -165,7 +170,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
                         @Override
                         public void onNext(Boolean aBoolean) {
                             if (aBoolean) {
-                                doAccept(type, mac, names);
+                                Handlers.bg().post(() -> doAccept(type, mac, names));
                             } else {
                                 doRefuse();
                             }
@@ -182,7 +187,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
                         }
                     });
         } else {
-            doAccept(type, mac, names);
+            Handlers.bg().post(() -> doAccept(type, mac, names));
         }
 
     }

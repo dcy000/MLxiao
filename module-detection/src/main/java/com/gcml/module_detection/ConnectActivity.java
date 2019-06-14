@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
@@ -80,6 +81,8 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     private boolean onShowingEcgPDF;
     private String pdfUrl;
     private Bundle bundle;
+    private boolean isSingleDetection;
+    private TextView mTvNext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,6 +107,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     private void dealSearchFragment() {
         detectionType = getIntent().getIntExtra("detectionType", 0);
+
         switch (detectionType) {
             case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 //血压
@@ -265,7 +269,24 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     private void initView() {
+        mTvNext = findViewById(R.id.tv_next);
+        mTvNext.setOnClickListener(this);
         mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
+        isSingleDetection = getIntent().getBooleanExtra("isSingleDetection", false);
+        if (!isSingleDetection) {
+            mTvNext.setVisibility(View.VISIBLE);
+            setBtnClickableState(false);
+        } else {
+            mTvNext.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if (v.getId() == R.id.tv_next) {
+            Routerfit.setResult(Activity.RESULT_OK, true);
+        }
     }
 
     @Override
@@ -388,7 +409,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     @Override
     public void connect(BluetoothDevice device) {
         if (baseBluetooth != null) {
-            baseBluetooth.startConnect(device);
+            baseBluetooth.startConnect(device, false);
         }
     }
 
@@ -539,5 +560,15 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     protected void onStop() {
         super.onStop();
         baseFragment = null;
+    }
+
+    private void setBtnClickableState(boolean enableClick) {
+        if (enableClick) {
+            mTvNext.setClickable(true);
+            mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+        } else {
+            mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mTvNext.setClickable(false);
+        }
     }
 }

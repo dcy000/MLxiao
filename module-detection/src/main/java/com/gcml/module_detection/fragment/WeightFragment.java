@@ -136,6 +136,11 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                                 mClBg.setBackgroundResource(R.drawable.detection_more_high);
                                 break;
                         }
+                        String dataResult = result2.getDataResult();
+                        String[] split = dataResult.split("为");
+                        if (split != null && split.length == 2) {
+                            mTvResultRight.setText(split[1]);
+                        }
                     }
 
                     @Override

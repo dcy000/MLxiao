@@ -435,10 +435,10 @@ public interface AppRouter {
     boolean skipZenDuanActivity();
 
     @Go("/module/detection/connect/activity")
-    boolean skipConnectActivity(@Extra("detectionType") int type);
+    boolean skipConnectActivity(@Extra("detectionType") int type, @Extra("isSingleDetection") boolean isSingle);
 
     @Go("/module/detection/connect/activity")
-    boolean skipConnectActivity(@Extra("detectionType") int type, @Extra ActivityCallback callback);
+    boolean skipConnectActivity(@Extra("detectionType") int type, @Extra("isSingleDetection") boolean isSingle, @Extra ActivityCallback callback);
 
     @Go("/module/detection/choose/dection/type")
     boolean skipChooseDetectionTypeActivity();
