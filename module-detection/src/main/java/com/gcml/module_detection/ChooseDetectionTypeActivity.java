@@ -76,6 +76,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     helper.getView(R.id.ll_1).setVisibility(View.VISIBLE);
                     helper.getView(R.id.ll_2).setVisibility(View.GONE);
                     if (item.getResult().contains("color")) {
+                        Timber.i("血压结果：" + item.getResult());
                         ((TextView) helper.getView(R.id.tv_last_data)).setText(Html.fromHtml(item.getResult()));
                         return;
                     }
@@ -97,30 +98,30 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_PRESSURE,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_PRESSURE, true);
                         break;
                     case 1:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_SUGAR,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_SUGAR, true);
                         break;
                     case 2:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_TEMPERATURE,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_TEMPERATURE, true);
                         break;
                     case 3:
                         //测量体重需要完善身高信息，后台需要计算BMI
                         checkHeight();
                         break;
                     case 4:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_ECG,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_ECG, true);
                         break;
                     case 5:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_OXYGEN,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_OXYGEN, true);
 
                         break;
                     case 6:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_CHOLESTEROL,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_CHOLESTEROL, true);
                         break;
                     case 7:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_URIC_ACID,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_URIC_ACID, true);
                         break;
                 }
             }
@@ -133,7 +134,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     @Override
                     public void complete(UserEntity userEntity) {
                         UserSpHelper.setUserHeight((int) Float.parseFloat(userEntity.height));
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT,true);
+                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT, true);
                     }
 
                     @Override
@@ -260,9 +261,9 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                 case "-1":
                                     if (status) {
                                         //正常范围
-                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f",latest.getValue()) + "</font>");
+                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     } else {
-                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f",latest.getValue()) + "</font>");
+                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     }
 //                                    types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
@@ -271,10 +272,10 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     if (status) {
                                         //正常范围
 //                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#303133\">" + String.format("%.0f",latest.getValue()) + "</font>").toString());
+                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>").toString());
                                     } else {
 //                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#E53B3B\">" + String.format("%.0f",latest.getValue()) + "</font>").toString());
+                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>").toString());
                                     }
                                     break;
                                 case "1":
