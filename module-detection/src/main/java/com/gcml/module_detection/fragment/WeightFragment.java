@@ -1,7 +1,6 @@
 package com.gcml.module_detection.fragment;
 
 import android.arch.lifecycle.Observer;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -15,7 +14,7 @@ import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
-import com.gcml.module_detection.bean.PostDataCallBackBean;
+import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -24,7 +23,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
-import timber.log.Timber;
 
 public class WeightFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private TextView mTvDetectionTime;
@@ -113,6 +111,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
+                        notifyActivity(datas, true);
                         //解决数据多次上传，页面混乱，不知道有没有效果，（好像有效果）
                         if (isPostDataTrue) {
                             return;
@@ -145,7 +144,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
 
                     @Override
                     public void onError(Throwable e) {
-
+                        notifyActivity(datas, false);
                     }
 
                     @Override

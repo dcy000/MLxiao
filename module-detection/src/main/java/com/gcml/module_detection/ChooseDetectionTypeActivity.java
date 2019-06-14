@@ -260,9 +260,9 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                 case "-1":
                                     if (status) {
                                         //正常范围
-                                        types.get(0).setResult("/<font color=\"#303133\">" + latest.getValue() + "</font>");
+                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f",latest.getValue()) + "</font>");
                                     } else {
-                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + latest.getValue() + "</font>");
+                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f",latest.getValue()) + "</font>");
                                     }
 //                                    types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
@@ -271,10 +271,10 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     if (status) {
                                         //正常范围
 //                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#303133\">" + latest.getValue() + "</font>").toString());
+                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#303133\">" + String.format("%.0f",latest.getValue()) + "</font>").toString());
                                     } else {
 //                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#E53B3B\">" + latest.getValue() + "</font>").toString());
+                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#E53B3B\">" + String.format("%.0f",latest.getValue()) + "</font>").toString());
                                     }
                                     break;
                                 case "1":

@@ -170,7 +170,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
                         @Override
                         public void onNext(Boolean aBoolean) {
                             if (aBoolean) {
-                                Handlers.bg().post(() -> doAccept(type, mac, names));
+                                doAccept(type, mac, names);
                             } else {
                                 doRefuse();
                             }
@@ -187,7 +187,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
                         }
                     });
         } else {
-            Handlers.bg().post(() -> doAccept(type, mac, names));
+            doAccept(type, mac, names);
         }
 
     }

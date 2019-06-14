@@ -259,7 +259,7 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT, true);
         } else {
         }
     }

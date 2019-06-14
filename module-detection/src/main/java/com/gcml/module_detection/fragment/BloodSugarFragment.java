@@ -15,7 +15,7 @@ import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_detection.R;
-import com.gcml.module_detection.bean.PostDataCallBackBean;
+import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
-import timber.log.Timber;
 
 public class BloodSugarFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private Bundle bundle;
@@ -135,6 +134,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
+                        notifyActivity(datas,true);
                         if (o == null) return;
                         PostDataCallBackBean postDataCallBackBean = o.get(0);
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
@@ -163,7 +163,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
 
                     @Override
                     public void onError(Throwable e) {
-
+                        notifyActivity(datas,false);
                     }
 
                     @Override

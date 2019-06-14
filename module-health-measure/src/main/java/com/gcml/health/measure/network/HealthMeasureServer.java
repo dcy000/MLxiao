@@ -1,5 +1,6 @@
 package com.gcml.health.measure.network;
 
+import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
@@ -51,7 +52,13 @@ public interface HealthMeasureServer {
     @POST("ZZB/api/healthMonitor/detection/{userId}/")
     Observable<ApiResult<List<DetectionResult>>> postMeasureData(
             @Path("userId") String userId,
-            @Query("vname")String vname,
+            @Query("vname") String vname,
+            @Body ArrayList<DetectionData> datas);
+
+    @POST("ZZB/api/healthMonitor/detection/{userId}/")
+    Observable<ApiResult<List<PostDataCallBackBean>>> postMeasureDataWithXiongan(
+            @Path("userId") String userId,
+            @Query("vname") String vname,
             @Body ArrayList<DetectionData> datas);
 
     @POST("ZZB/api/healthMonitor/detection/hypertension/hand/{userId}/")
@@ -71,7 +78,7 @@ public interface HealthMeasureServer {
      */
     @PUT("ZZB/order/end_set_meal")
     Observable<Object> cancelServicePackage(
-         @Query("orderId") String setmealId
+            @Query("orderId") String setmealId
     );
 
 

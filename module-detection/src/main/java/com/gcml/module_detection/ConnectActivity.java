@@ -32,6 +32,7 @@ import com.gcml.module_blutooth_devices.base.DeviceBrand;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.base.IUploadData;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodPressurePresenter;
 import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarPresenter;
@@ -57,6 +58,7 @@ import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -69,7 +71,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 @Route(path = "/module/detection/connect/activity")
-public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothView, DialogControlBluetooth, IDCardPresenter.IDCardRead, IDCardReadFragment.ClickPage, ECGFragment.AnalysisData, FragmentChanged {
+public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothView, DialogControlBluetooth, IDCardPresenter.IDCardRead, IDCardReadFragment.ClickPage, ECGFragment.AnalysisData, FragmentChanged, IUploadData {
 
     private BaseBluetooth baseBluetooth;
     private BluetoothListDialog dialog;
@@ -246,6 +248,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 break;
         }
         if (baseFragment != null) {
+            baseFragment.setOnUploadStateListener(this);
             getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
@@ -569,6 +572,20 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         } else {
             mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
             mTvNext.setClickable(false);
+        }
+    }
+
+    @Override
+    public void onSuccess(ArrayList<DetectionData> data) {
+        if (!isSingleDetection) {
+            Routerfit.setResult(Activity.RESULT_OK, data);
+        }
+    }
+
+    @Override
+    public void onError(ArrayList<DetectionData> data) {
+        if (!isSingleDetection) {
+            Routerfit.setResult(Activity.RESULT_OK, data);
         }
     }
 }

@@ -3,7 +3,7 @@ package com.gcml.module_detection.net;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.module_detection.bean.LatestDetecBean;
-import com.gcml.module_detection.bean.PostDataCallBackBean;
+import com.gcml.common.data.PostDataCallBackBean;
 
 import java.util.ArrayList;
 import java.util.List;

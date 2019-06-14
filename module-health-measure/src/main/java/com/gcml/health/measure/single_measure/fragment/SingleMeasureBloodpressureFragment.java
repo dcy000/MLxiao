@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
@@ -51,6 +53,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     private boolean hasHypertensionHand = false;
     private boolean isOnPause = false;
     private DetectionData results;
+
     public SingleMeasureBloodpressureFragment() {
     }
 
@@ -63,7 +66,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(DetectionData detectionData) {
-        this.results=detectionData;
+        this.results = detectionData;
         MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量高压" + detectionData.getHighPressure() + ",低压" + detectionData.getLowPressure() + ",脉搏" + detectionData.getPulse(), false);
         datas = new ArrayList<>();
         DetectionData pressureData = new DetectionData();
@@ -118,51 +121,101 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-        HealthMeasureRepository.postMeasureData(datas)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        dialog.show();
-                    }
-                })
-                .doOnTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        dialog.dismiss();
-                    }
-                })
-                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-                    @Override
-                    public void onNext(List<DetectionResult> o) {
-                        if (UserSpHelper.isNoNetwork()) {
-                            return;
+        if (ChannelUtils.isXiongAn()) {
+            HealthMeasureRepository.postMeasureDataWithXiongan(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            dialog.show();
                         }
-                        Timber.e("单测返回来的数据：" + o);
-                        ToastUtils.showLong("上传数据成功");
-                        DetectionResult result = o.get(0);
-                        if (isMeasureTask) {
-                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                    result.getScore(), highPressure, lowPressure, result.getResult(), true, datas);
-                            mActivity.finish();
-                        } else {
-                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                    result.getScore(), highPressure, lowPressure, result.getResult(), datas);
+                    })
+                    .doOnTerminate(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            dialog.dismiss();
                         }
-                    }
+                    })
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                    .subscribeWith(new DefaultObserver<List<PostDataCallBackBean>>() {
+                        @Override
+                        public void onNext(List<PostDataCallBackBean> o) {
+                            if (UserSpHelper.isNoNetwork()) {
+                                return;
+                            }
+                            ToastUtils.showLong("上传数据成功");
+                            PostDataCallBackBean postDataCallBackBean = o.get(0);
+                            if (postDataCallBackBean == null) return;
+                            PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
+                            if (result1 == null) return;
+                            if (isMeasureTask) {
+                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result1.getDiagnose(),
+                                        result1.getScore(), highPressure, lowPressure, result1.getResult(), true, datas);
+                                mActivity.finish();
+                            } else {
+                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result1.getDiagnose(),
+                                        result1.getScore(), highPressure, lowPressure, result1.getResult(), datas);
+                            }
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        showUploadDataFailedDialog(results, R.string.xml_dialog_upload_failed_single);
-                    }
+                        @Override
+                        public void onError(Throwable e) {
+                            showUploadDataFailedDialog(results, R.string.xml_dialog_upload_failed_single);
+                        }
 
-                    @Override
-                    public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                    }
-                });
+                        }
+                    });
+        } else {
+            HealthMeasureRepository.postMeasureData(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            dialog.show();
+                        }
+                    })
+                    .doOnTerminate(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            dialog.dismiss();
+                        }
+                    })
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                        @Override
+                        public void onNext(List<DetectionResult> o) {
+                            if (UserSpHelper.isNoNetwork()) {
+                                return;
+                            }
+                            Timber.e("单测返回来的数据：" + o);
+                            ToastUtils.showLong("上传数据成功");
+                            DetectionResult result = o.get(0);
+                            if (isMeasureTask) {
+                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+                                        result.getScore(), highPressure, lowPressure, result.getResult(), true, datas);
+                                mActivity.finish();
+                            } else {
+                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+                                        result.getScore(), highPressure, lowPressure, result.getResult(), datas);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            showUploadDataFailedDialog(results, R.string.xml_dialog_upload_failed_single);
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+        }
 
     }
 

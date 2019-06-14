@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,11 +17,13 @@ import com.bumptech.glide.Glide;
 import com.example.han.healthmanage.HealthManageActivity;
 import com.example.han.healthmanage.HealthManageTipActivity;
 import com.gcml.common.LazyFragment;
+import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IUserEntityProvider;
@@ -29,11 +32,17 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.common.widget.fdialog.BaseNiceDialog;
+import com.gcml.common.widget.fdialog.NiceDialog;
+import com.gcml.common.widget.fdialog.ViewConvertListener;
+import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -167,18 +176,33 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 gotoHealthMeasure();
                 break;
             case R.id.ei_infomation_collection:
-//                startActivity(new Intent(getActivity(), InquiryActivity.class));
-//                CC.obtainBuilder("health_measure")
-//                        .setActionName("To_HealthInquiryActivity")
-//                        .build()
-//                        .call();
-                if (bindWacher) {
+                //进入这个模块需要先完善性别信息
+                Routerfit.register(AppRouter.class)
+                        .getCheckUserInfoProvider()
+                        .check(new CheckUserInfoProviderImp.CheckUserInfo() {
+                            @Override
+                            public void complete(UserEntity userEntity) {
+                                startActivity(new Intent(getActivity(), HealthManageActivity.class));
+                            }
+
+                            @Override
+                            public void incomplete(UserEntity entity, List<EUserInfo> args, String s) {
+                                showNotMsgDiaglog(s);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }, EUserInfo.GENDER);
+
+//                if (bindWacher) {
 //                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
-                    startActivity(new Intent(getActivity(), HealthManageActivity.class));
-                } else {
+//                    startActivity(new Intent(getActivity(), HealthManageActivity.class));
+//                } else {
 //                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
-                    startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
-                }
+//                    startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
+//                }
                 break;
             case R.id.iv_self_check:
                 IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
@@ -202,6 +226,33 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 break;
 
         }
+    }
+
+    private void showNotMsgDiaglog(String msg) {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_not_person_msg)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.setText(R.id.txt_msg, "完成每日任务需要先完善" + msg + "信息，方便我们为您生成详细报告。");
+                        holder.setOnClickListener(R.id.btn_neg, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.setOnClickListener(R.id.btn_pos, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                Routerfit.register(AppRouter.class).skipUserInfoActivity();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(350)
+                .show(getFragmentManager());
     }
 
     private void gotoHealthMeasure() {

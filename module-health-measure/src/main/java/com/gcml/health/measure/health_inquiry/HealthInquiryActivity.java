@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -252,6 +253,11 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                                 //问题回答结束就算是做过风险评估了 下次再进入就不需要引导页了 为了保证唯一性，需要和userId进行绑定
                                 UserSpHelper.setRiskAssessmentState(true);
                                 ToastUtils.showShort("上传数据成功");
+//                                if (ChannelUtils.isXiongAn()) {
+//                                    Routerfit.register(AppRouter.class).skipChooseDevicesActivity();
+//                                } else {
+//                                    Routerfit.register(AppRouter.class).skipFirstDiagnosisActivity();
+//                                }
                                 Routerfit.register(AppRouter.class).skipFirstDiagnosisActivity();
                                 finish();
                             }
