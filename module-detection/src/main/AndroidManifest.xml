@@ -9,5 +9,11 @@
         <activity
             android:name=".ChooseDetectionTypeActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".risk_assessment.ChooseDevicesActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".risk_assessment.RiskActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

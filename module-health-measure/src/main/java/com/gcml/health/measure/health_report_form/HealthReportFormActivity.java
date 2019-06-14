@@ -24,6 +24,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:TODO
  */
+@Route(path = "/health/measure/health/report/activity")
 public class HealthReportFormActivity extends ToolbarBaseActivity {
 
     private ViewPager mViewpage;
@@ -193,8 +195,8 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                         nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     case 5:
-                        mTitleText.setText("智 能 推 荐");
-                        nextIndicator.setVisibility(View.VISIBLE);
+//                        mTitleText.setText("智 能 推 荐");
+//                        nextIndicator.setVisibility(View.VISIBLE);
                         break;
                     default:
                         break;
@@ -244,10 +246,11 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                         mViewpage.setCurrentItem(4);
                         break;
                     case 4:
-                        mViewpage.setCurrentItem(5);
+//                        mViewpage.setCurrentItem(5);
+                        showEndDialog();
                         break;
                     case 5:
-                        showEndDialog();
+//                        showEndDialog();
                         break;
                 }
             }

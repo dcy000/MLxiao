@@ -260,7 +260,7 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE,true);
         } else {
         }
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.gcml.common.constant.Global;
 import com.gcml.common.recommend.bean.get.GoodBean;
@@ -16,6 +17,7 @@ import com.gcml.common.service.IBloodsugarTimeFragmentProvider;
 import com.gcml.common.service.IBusinessControllerProvider;
 import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.ICheckUserInfoProvider;
+import com.gcml.common.service.IChooseDevicesFragmentProvider;
 import com.gcml.common.service.IECG_PDF_FragmentProvider;
 import com.gcml.common.service.IFaceProvider;
 import com.gcml.common.service.IHealthRecordBloodpressureFragmentProvider;
@@ -34,6 +36,8 @@ import com.sjtu.yifei.annotation.Extra;
 import com.sjtu.yifei.annotation.Flags;
 import com.sjtu.yifei.annotation.Go;
 import com.sjtu.yifei.route.ActivityCallback;
+
+import java.util.ArrayList;
 
 public interface AppRouter {
 
@@ -435,10 +439,10 @@ public interface AppRouter {
     boolean skipZenDuanActivity();
 
     @Go("/module/detection/connect/activity")
-    boolean skipConnectActivity(@Extra("detectionType") int type);
+    boolean skipConnectActivity(@Extra("detectionType") int type, @Extra("isSingleDetection") boolean isSingle);
 
     @Go("/module/detection/connect/activity")
-    boolean skipConnectActivity(@Extra("detectionType") int type, @Extra ActivityCallback callback);
+    boolean skipConnectActivity(@Extra("detectionType") int type, @Extra("isSingleDetection") boolean isSingle, @Extra ActivityCallback callback);
 
     @Go("/module/detection/choose/dection/type")
     boolean skipChooseDetectionTypeActivity();
@@ -563,4 +567,16 @@ public interface AppRouter {
 
     @Go("/health/HealthManageTipActivity/tip")
     boolean skipHealthManageTipActivity();
+
+    @Go("/health/measure/choose/devices/provider")
+    IChooseDevicesFragmentProvider getChooseDevicesFragmentProvider();
+
+    @Go("/module/detection/choose/devices")
+    boolean skipChooseDevicesActivity();
+
+    @Go("/module/detection/risk/activity")
+    boolean skipRiskActivity(@Extra("data") ArrayList<Integer> data);
+
+    @Go("/health/measure/health/report/activity")
+    boolean skipHealthReportFormActivity();
 }

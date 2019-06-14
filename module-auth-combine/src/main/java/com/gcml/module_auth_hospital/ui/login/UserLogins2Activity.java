@@ -115,7 +115,7 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
     private void updatePage2() {
         lllogins.getChildAt(0).setOnClickListener(
                 v ->
-                        Routerfit.register(AppRouter.class).skipConnectActivity(36, (result, data) -> {
+                        Routerfit.register(AppRouter.class).skipConnectActivity(36,true, (result, data) -> {
                             if (data instanceof IDCardItem) {
                                 IDCardItem cardItem = ((IDCardItem) data);
                                 if (cardItem != null) {

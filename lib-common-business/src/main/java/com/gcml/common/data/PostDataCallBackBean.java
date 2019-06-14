@@ -1,4 +1,4 @@
-package com.gcml.module_detection.bean;
+package com.gcml.common.data;
 
 public class PostDataCallBackBean {
 

@@ -2,6 +2,7 @@ package com.gcml.health.measure.network;
 
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.RxCacheHelper;
+import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.common.data.UserSpHelper;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -152,7 +153,56 @@ public class HealthMeasureRepository {
             }
         });
     }
+    public static Observable<List<PostDataCallBackBean>> postMeasureDataWithXiongan(ArrayList<DetectionData> datas) {
+        String userId = UserSpHelper.getUserId();
+        boolean noNetwork = UserSpHelper.isNoNetwork();
 
+        Timber.i("上传测量数据： userID=" + userId + " noNetwork = " + noNetwork);
+
+        if (!noNetwork) {
+            //hasNetwork
+            return healthMeasureServer.postMeasureDataWithXiongan(userId, ChannelUtils.getChannelMeta(), datas).compose(RxUtils.apiResultTransformer());
+        }
+
+        // noNetwork
+        Observable<List<DetectionData>> rxDetectionDataLocal =
+                detectionDataProvider.detectionDataLocal(
+                        Observable.empty(),
+                        new DynamicKey(userId),
+                        new EvictDynamicKey(false))
+                        .toObservable()
+                        .onErrorResumeNext(Observable.just(Collections.emptyList()));
+        return rxDetectionDataLocal.map(new Function<List<DetectionData>, List<DetectionData>>() {
+            @Override
+            public List<DetectionData> apply(List<DetectionData> oldData) throws Exception {
+                ArrayList<DetectionData> newData = new ArrayList<>();
+                for (DetectionData old : oldData) {
+                    if (old != null) {
+                        newData.add(old);
+                    }
+                }
+                for (DetectionData added : datas) {
+                    if (added != null) {
+                        newData.add(added);
+                    }
+                }
+                return newData;
+            }
+        }).compose(new ObservableTransformer<List<DetectionData>, List<PostDataCallBackBean>>() {
+            @Override
+            public ObservableSource<List<PostDataCallBackBean>> apply(Observable<List<DetectionData>> upstream) {
+                return detectionDataProvider.detectionDataLocal(upstream, new DynamicKey(userId), new EvictDynamicKey(true))
+                        .toObservable()
+                        .onErrorResumeNext(Observable.just(Collections.emptyList()))
+                        .map(new Function<List<DetectionData>, List<PostDataCallBackBean>>() {
+                            @Override
+                            public List<PostDataCallBackBean> apply(List<DetectionData> detectionData) throws Exception {
+                                return Collections.emptyList();
+                            }
+                        });
+            }
+        });
+    }
     /**
      * 上传惯用手
      *
