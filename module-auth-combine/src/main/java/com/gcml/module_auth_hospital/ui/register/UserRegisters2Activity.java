@@ -61,7 +61,7 @@ public class UserRegisters2Activity extends ToolbarBaseActivity {
         registers.getChildAt(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Routerfit.register(AppRouter.class).skipConnectActivity(36, new ActivityCallback() {
+                Routerfit.register(AppRouter.class).skipConnectActivity(36, true,new ActivityCallback() {
                     @Override
                     public void onActivityResult(int result, Object data) {
                         if (data instanceof IDCardItem) {

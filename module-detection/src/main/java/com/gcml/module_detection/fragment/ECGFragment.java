@@ -10,25 +10,21 @@ import android.widget.TextView;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.data.DataUtils;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
-import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGSingleGuideView;
 import com.gcml.module_detection.ConnectActivity;
-import com.gcml.module_detection.bean.PostDataCallBackBean;
+import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ECGFragment extends BluetoothBaseFragment implements View.OnClickListener {
@@ -134,11 +130,12 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
                         Timber.i(">>>>" + o.toString());
+                        notifyActivity(datas,true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        notifyActivity(datas,false);
                     }
 
                     @Override

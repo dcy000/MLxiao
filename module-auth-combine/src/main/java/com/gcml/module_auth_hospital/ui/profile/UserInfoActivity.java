@@ -83,7 +83,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
                         || !TextUtils.isDigitsOnly(user.phone)
                         || user.phone.length() != 11) {
                     //身份证注册的，是没有手机号码的，所以只能验证身份证号码
-                    if (!TextUtils.isEmpty(user.idCard)) {
+                    if (user != null && !TextUtils.isEmpty(user.idCard)) {
                         showVertifyIdCardDialog(user);
                         return;
                     }

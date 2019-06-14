@@ -248,7 +248,7 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN,true);
         } else {
         }
     }

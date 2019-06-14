@@ -272,7 +272,7 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_OTHERS);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_OTHERS);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_CHOLESTEROL);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_CHOLESTEROL,true);
         } else {
         }
     }

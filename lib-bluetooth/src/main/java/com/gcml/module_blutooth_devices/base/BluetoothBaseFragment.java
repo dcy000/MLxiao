@@ -20,6 +20,8 @@ import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.R;
 
+import java.util.ArrayList;
+
 public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView {
     protected View view = null;
     protected volatile boolean isMeasureFinishedOfThisTime = false;
@@ -157,6 +159,12 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
         this.fragmentDatas = fragmentDatas;
     }
 
+    protected IUploadData uploadData;
+
+    public void setOnUploadStateListener(IUploadData uploadData) {
+        this.uploadData = uploadData;
+    }
+
     protected void clickHealthHistory(View view) {
     }
 
@@ -187,13 +195,13 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
         }
     }
 
-    protected void showUploadDataFailedDialog(DetectionData detection,int msg) {
+    protected void showUploadDataFailedDialog(DetectionData detection, int msg) {
         NiceDialog.init()
                 .setLayoutId(R.layout.dialog_first_diagnosis_upload_failed)
                 .setConvertListener(new ViewConvertListener() {
                     @Override
                     protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
-                        holder.setText(R.id.tv_msg,msg);
+                        holder.setText(R.id.tv_msg, msg);
                         holder.getView(R.id.btn_neg).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -213,5 +221,15 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
                 .setWidth(700)
                 .setHeight(350)
                 .show(getFragmentManager());
+    }
+
+    protected void notifyActivity(ArrayList<DetectionData> datas, boolean isSuccess) {
+        if (uploadData != null) {
+            if (isSuccess) {
+                uploadData.onSuccess(datas);
+            } else {
+                uploadData.onError(datas);
+            }
+        }
     }
 }
