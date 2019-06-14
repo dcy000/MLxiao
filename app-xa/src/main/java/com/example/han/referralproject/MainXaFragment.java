@@ -248,19 +248,20 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     }
 
     private void gotoHealthMeasure() {
-        Routerfit.register(AppRouter.class)
-                .getVertifyFaceProvider3()
-                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
-                    @Override
-                    public void success() {
-                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
-                    }
-
-                    @Override
-                    public void failed(String msg) {
-                        ToastUtils.showShort(msg);
-                    }
-                });
+        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+//        Routerfit.register(AppRouter.class)
+//                .getVertifyFaceProvider3()
+//                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
+//                    @Override
+//                    public void success() {
+//                        Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
+//                    }
+//
+//                    @Override
+//                    public void failed(String msg) {
+//                        ToastUtils.showShort(msg);
+//                    }
+//                });
     }
 
     private void quitApp() {

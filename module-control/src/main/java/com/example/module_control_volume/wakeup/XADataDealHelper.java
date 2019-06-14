@@ -1268,19 +1268,20 @@ public class XADataDealHelper {
     }
 
     private void vertifyFaceThenHealthRecordActivity() {
-        Routerfit.register(AppRouter.class)
-                .getVertifyFaceProvider3()
-                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
-                    @Override
-                    public void success() {
-                        Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
-                    }
-
-                    @Override
-                    public void failed(String msg) {
-                        ToastUtils.showShort(msg);
-                    }
-                });
+        Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+//        Routerfit.register(AppRouter.class)
+//                .getVertifyFaceProvider3()
+//                .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
+//                    @Override
+//                    public void success() {
+//                        Routerfit.register(AppRouter.class).skipHealthRecordActivity(0);
+//                    }
+//
+//                    @Override
+//                    public void failed(String msg) {
+//                        ToastUtils.showShort(msg);
+//                    }
+//                });
     }
 
     private void toShouHuan() {
