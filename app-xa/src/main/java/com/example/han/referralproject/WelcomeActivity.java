@@ -31,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         //刚启动应用的时候就存一下游客的token
         UserSpHelper.setToken(Global.TOURIST_TOKEN);
-
+        Routerfit.register(AppRouter.class).getWakeControlProvider().enableWakeuperListening(true);
         initContentView();
     }
 
