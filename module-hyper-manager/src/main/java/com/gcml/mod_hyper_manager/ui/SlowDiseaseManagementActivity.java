@@ -117,7 +117,8 @@ public class SlowDiseaseManagementActivity extends ToolbarBaseActivity implement
                     && diagnoseInfo.heart == null
                     && diagnoseInfo.hypertensionTarget == null
             )) {
-                ContinueOrNotDialog();
+                getDiagnoseInfoNew();
+//                ContinueOrNotDialog();
             } else {
                 clickWithoutContinueJudge();
             }
