@@ -195,14 +195,6 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
 
                             }
                         }, EUserInfo.GENDER);
-
-//                if (bindWacher) {
-//                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
-//                    startActivity(new Intent(getActivity(), HealthManageActivity.class));
-//                } else {
-//                    Routerfit.register(AppRouter.class).skipSlowDiseaseManagementTipActivity();
-//                    startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
-//                }
                 break;
             case R.id.iv_self_check:
                 IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();

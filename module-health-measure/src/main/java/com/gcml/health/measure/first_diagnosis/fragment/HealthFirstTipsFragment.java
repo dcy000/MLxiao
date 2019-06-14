@@ -65,7 +65,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
     public void onResume() {
         super.onResume();
         Observable
-                .timer(12, TimeUnit.SECONDS)
+                .timer(8, TimeUnit.SECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
