@@ -70,7 +70,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("个  人  资  料");
+        mTitleText.setText("个  人  信  息");
 
 
         ivAvatar = findViewById(R.id.ivAvatar);

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.module_control_volume.R;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.data.StringUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.VoiceLineView;
@@ -106,11 +107,20 @@ public class VoiceDialog extends Dialog {
             @Override
             public void onMLResult(String result) {
                 ToastUtils.showShortOnCentet(result);
-                DataDealHelper helper = new DataDealHelper();
-                helper.setListener(() -> {
-                    dismiss();
-                });
-                helper.onDataAction(context, result);
+                //不同版本语音跳转逻辑
+                if (ChannelUtils.isXiongAn()) {
+                    XADataDealHelper helper = new XADataDealHelper();
+                    helper.setListener(() -> {
+                        dismiss();
+                    });
+                    helper.onDataAction(context, result);
+                } else if (ChannelUtils.isJGYS()) {
+                    DataDealHelper helper = new DataDealHelper();
+                    helper.setListener(() -> {
+                        dismiss();
+                    });
+                    helper.onDataAction(context, result);
+                }
             }
 
             @Override

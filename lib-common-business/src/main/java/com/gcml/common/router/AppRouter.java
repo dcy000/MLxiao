@@ -563,4 +563,19 @@ public interface AppRouter {
 
     @Go("/health/HealthManageTipActivity/tip")
     boolean skipHealthManageTipActivity();
+
+
+    /**
+     * 雄安个人信息 机器修改
+     * /auth/hospital/user/info/activity
+     */
+    @Go("/auth/hospital/user/info/activity")
+    boolean skipUserInfoActivit();
+
+    /**
+     * 健康管理
+     */
+    @Go("app/healthMannage/activity")
+    boolean skipHealthMannageActivity();
+
 }
