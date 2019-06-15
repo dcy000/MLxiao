@@ -276,14 +276,14 @@ public class XADataDealHelper {
         }
 
         //健康管理
-        if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
-                "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
-            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
-            if (listener != null) {
-                listener.onEnd();
-            }
-            return;
-        }
+//        if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
+//                "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
+//            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
+//            if (listener != null) {
+//                listener.onEnd();
+//            }
+//            return;
+//        }
 
         //我的设备
         if (inSpell.matches(".*(shouhuanxinxi|chakanshouhuan).*")) {
@@ -357,6 +357,15 @@ public class XADataDealHelper {
             return;
         }
 
+        //家庭医生
+        if (inSpell.matches(".*(jiatingyisheng).*")) {
+            Routerfit.register(AppRouter.class).skipHealthProfileActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
         //风险评估
         if (inSpell.matches(".*(fengxianpinggu|pinggu|shenti).*")) {
             toFengxianPingu();
@@ -367,13 +376,13 @@ public class XADataDealHelper {
         }
 
         //健康方案
-        if (inSpell.matches(".*(jiankangfangan|gaoxueyafangan).*")) {
-            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
-            if (listener != null) {
-                listener.onEnd();
-            }
-            return;
-        }
+//        if (inSpell.matches(".*(jiankangfangan|gaoxueyafangan).*")) {
+//            Routerfit.register(AppRouter.class).skipSlowDiseaseManagementActivity();
+//            if (listener != null) {
+//                listener.onEnd();
+//            }
+//            return;
+//        }
 
         //每日任务
         if (inSpell.matches(".*(jiankangrenwu|zuorenwu|chakanrenwu|jintianderenwu|jintianzuoshenme).*")) {
@@ -799,6 +808,10 @@ public class XADataDealHelper {
             return;
         } else {
             new SpeechTask().execute();
+        }
+
+        if (listener != null) {
+            listener.onEnd();
         }
     }
 

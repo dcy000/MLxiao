@@ -84,7 +84,12 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
     }
 
     private void robotSpeak(DetectionData detectionData) {
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血尿酸" + detectionData.getUricAcid(), false);
+        Float uricAcid = detectionData.getUricAcid();
+        if (uricAcid == null) {
+            uricAcid = 0f;
+        }
+        uricAcid *= 1000;
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血尿酸" + uricAcid, false);
     }
 
     private void postData(DetectionData detectionData) {

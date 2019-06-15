@@ -31,6 +31,17 @@ public class UserInfoBaseFragment extends LazyFragment {
     private TextView tv_birthday;
     private TextView tv_id_card;
     private TextView tv_address;
+
+    private TextView tvActionName;
+    private TextView tvActionAge;
+    private TextView tvActionGender;
+    private TextView tvActionHeight;
+    private TextView tvActionWeight;
+    private TextView tvActionBloodType;
+    private TextView tvActionBirthday;
+    private TextView tvActionIdCard;
+    private TextView tvActionAddress;
+
     private ConstraintLayout clItemName;
     private ConstraintLayout clItemAge;
     private ConstraintLayout clItemGender;
@@ -76,8 +87,18 @@ public class UserInfoBaseFragment extends LazyFragment {
         tv_id_card = view.findViewById(R.id.tv_ic_card);
         tv_address = view.findViewById(R.id.tv_address);
 
+        tvActionName = view.findViewById(R.id.iv_action_name);
+        tvActionAge = view.findViewById(R.id.iv_action_age);
+        tvActionGender = view.findViewById(R.id.iv_action_gender);
+        tvActionHeight = view.findViewById(R.id.iv_action_height);
+        tvActionWeight = view.findViewById(R.id.iv_action_weight);
+        tvActionBloodType = view.findViewById(R.id.iv_action_blood_type);
+        tvActionBirthday = view.findViewById(R.id.iv_action_birthday);
+        tvActionIdCard = view.findViewById(R.id.iv_action_ic_card);
+        tvActionAddress = view.findViewById(R.id.iv_action_address);
+
         clItemName = view.findViewById(R.id.cl_item_name);
-        clItemName.setOnClickListener(new View.OnClickListener() {
+        tvActionName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();
@@ -88,7 +109,7 @@ public class UserInfoBaseFragment extends LazyFragment {
             }
         });
         clItemAge = view.findViewById(R.id.cl_item_age);
-        clItemAge.setOnClickListener(new View.OnClickListener() {
+        tvActionAge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();
@@ -99,7 +120,7 @@ public class UserInfoBaseFragment extends LazyFragment {
             }
         });
         clItemGender = view.findViewById(R.id.cl_item_gender);
-        clItemGender.setOnClickListener(new View.OnClickListener() {
+        tvActionGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();
@@ -110,7 +131,7 @@ public class UserInfoBaseFragment extends LazyFragment {
             }
         });
         clItemHeight = view.findViewById(R.id.cl_item_height);
-        clItemHeight.setOnClickListener(new View.OnClickListener() {
+        tvActionHeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();
@@ -121,7 +142,7 @@ public class UserInfoBaseFragment extends LazyFragment {
             }
         });
         clItemWeight = view.findViewById(R.id.cl_item_weight);
-        clItemWeight.setOnClickListener(new View.OnClickListener() {
+        tvActionWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();
@@ -132,7 +153,7 @@ public class UserInfoBaseFragment extends LazyFragment {
             }
         });
         clItemBloodType = view.findViewById(R.id.cl_item_blood_type);
-        clItemBloodType.setOnClickListener(new View.OnClickListener() {
+        tvActionBloodType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();
@@ -143,7 +164,7 @@ public class UserInfoBaseFragment extends LazyFragment {
             }
         });
         clItemBirthday = view.findViewById(R.id.cl_item_birthday);
-        clItemBirthday.setOnClickListener(new View.OnClickListener() {
+        tvActionBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();
@@ -155,18 +176,18 @@ public class UserInfoBaseFragment extends LazyFragment {
         });
 
         clItemIdCard = view.findViewById(R.id.cl_item_ic_card);
-        clItemIdCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentActivity activity = getActivity();
-                if (activity == null) {
-                    return;
-                }
-                ((UserInfoActivity) activity).updateIdCard();
-            }
-        });
+//        tvActionIdCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentActivity activity = getActivity();
+//                if (activity == null) {
+//                    return;
+//                }
+//                ((UserInfoActivity) activity).updateIdCard();
+//            }
+//        });
         clItemAddress = view.findViewById(R.id.cl_item_address);
-        clItemAddress.setOnClickListener(new View.OnClickListener() {
+        tvActionAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();

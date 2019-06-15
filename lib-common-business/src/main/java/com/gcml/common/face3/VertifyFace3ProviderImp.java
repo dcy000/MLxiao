@@ -17,7 +17,9 @@ import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
 
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/common/business/checkUserEntityAndVertifyFace3/face/provider")
@@ -115,7 +117,34 @@ public class VertifyFace3ProviderImp implements IVertifyFaceProvider {
         this.isShowSkipButton = isShowSkipButton;
         this.isVertify = isVertify;
         this.isHidden = isHidden;
-        vertifyFace(UserSpHelper.getUserId());
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .getUserEntity()
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Function<UserEntity, ObservableSource<String>>() {
+                    @Override
+                    public ObservableSource<String> apply(UserEntity userEntity) throws Exception {
+                        return Routerfit.register(AppRouter.class)
+                                .getFace3Provider()
+                                .getFaceId(userEntity.id)
+                                .subscribeOn(Schedulers.io());
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        super.onNext(s);
+                        vertifyFace(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        if (result != null) result.failed(throwable.getMessage());
+                    }
+                });
+//        vertifyFace(UserSpHelper.getUserId());
     }
 
 }
