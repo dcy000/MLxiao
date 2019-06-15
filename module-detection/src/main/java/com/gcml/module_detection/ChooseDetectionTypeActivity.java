@@ -305,7 +305,15 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     }
                                     break;
                                 case "1":
-                                    types.get(1).setResult(latest.getValue() + "");
+                                    Float value = latest.getValue();
+                                    String sugarValue;
+                                    if (value != null && (value <= 3.90 || value >= 6.1)) {
+                                        sugarValue = "<font color=\"#E53B3B\">"+ String.format("%.2f", value) +"</font>";
+                                    } else {
+                                        sugarValue = "<font color=\"#303133\">"+ String.format("%.2f", value) +"</font>";
+                                    }
+
+                                    types.get(1).setResult(sugarValue);
                                     types.get(1).setDate(friendlyTimeSpanByNow);
                                     types.get(1).setNormal(status);
                                     break;
