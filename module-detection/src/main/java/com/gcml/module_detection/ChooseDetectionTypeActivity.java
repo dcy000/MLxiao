@@ -252,18 +252,37 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .doOnNext(new Consumer<List<LatestDetecBean>>() {
                     @Override
                     public void accept(List<LatestDetecBean> latestDetecBeans) throws Exception {
+                        boolean bloodStatus = true;
+                        for (LatestDetecBean latestDetecBean : latestDetecBeans) {
+                            String type = latestDetecBean.getType();
+                            if (("-1".equals(type) || "0".equals(type))
+                                    && !TextUtils.equals(latestDetecBean.getStatus(), "0")) {
+                                bloodStatus = false;
+                                break;
+                            }
+                        }
+
+                        boolean status;
+
                         for (LatestDetecBean latest : latestDetecBeans) {
                             //检测数据类型 -1低血压 0高血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸
                             String type = latest.getType();
-                            boolean status = TextUtils.equals(latest.getStatus(), "0");
+                            status = TextUtils.equals(latest.getStatus(), "0");
                             String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
                             switch (type) {
                                 case "-1":
+                                    String s;
+                                    if (bloodStatus) {
+                                        s = "<font color=\"#303133\">/</font>";
+                                    } else {
+                                        s = "<font color=\"#E53B3B\">/</font>";
+                                    }
+
                                     if (status) {
                                         //正常范围
-                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
+                                        types.get(0).setResult(s + "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     } else {
-                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
+                                        types.get(0).setResult(s + "<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     }
 //                                    types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
@@ -279,13 +298,13 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     }
                                     break;
                                 case "1":
-                                    types.get(1).setResult(latest.getValue() + "");
+                                    types.get(1).setResult(String.format("%.1f", (latest.getValue() + 0.05)));
                                     types.get(1).setDate(friendlyTimeSpanByNow);
                                     types.get(1).setNormal(status);
                                     break;
                                 case "2":
-                                    //todo:后台逻辑应该写反了，临时前端解决一下（北京、雄安垃圾时刻，懒的和后台交涉，辛苦后面维护的兄弟了）
-                                    types.get(4).setResult(status ? "异常" : "正常");
+                                    //todo:后台逻辑应该写反了，临时前端解决一下
+                                    types.get(4).setResult(status ? "正常" : "异常" );
                                     types.get(4).setDate(friendlyTimeSpanByNow);
                                     types.get(4).setNormal(!status);
                                     break;
