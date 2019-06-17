@@ -223,6 +223,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 break;
 
             case R.id.ei_recommend:
+                ToastUtils.showShort("敬请期待~");
                 break;
             case R.id.ei_reservation:
                 ToastUtils.showShort("啊哦！预约挂号服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
