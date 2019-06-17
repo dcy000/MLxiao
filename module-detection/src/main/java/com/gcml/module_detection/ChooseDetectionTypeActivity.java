@@ -54,7 +54,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_detection_type);
-        mTitleText.setText("健 康 测 量");
+        mTitleText.setText("健 康 检 测");
         mRv = findViewById(R.id.rv);
         setAdapter();
 
@@ -76,7 +76,6 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     helper.getView(R.id.ll_1).setVisibility(View.VISIBLE);
                     helper.getView(R.id.ll_2).setVisibility(View.GONE);
                     if (item.getResult().contains("color")) {
-                        Timber.i("血压结果：" + item.getResult());
                         ((TextView) helper.getView(R.id.tv_last_data)).setText(Html.fromHtml(item.getResult()));
                         return;
                     }
@@ -252,50 +251,24 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .doOnNext(new Consumer<List<LatestDetecBean>>() {
                     @Override
                     public void accept(List<LatestDetecBean> latestDetecBeans) throws Exception {
-//                        boolean bloodStatus = true;
-                        boolean lowBloodStatus = true;
-                        boolean highBloodStatus = true;
-                        for (LatestDetecBean latestDetecBean : latestDetecBeans) {
-                            String type = latestDetecBean.getType();
-                            if ("-1".equals(type)) {
-                                if (latestDetecBean.getValue() > 0 && latestDetecBean.getValue() < 60 || latestDetecBean.getValue() >= 90) {
-                                    lowBloodStatus = false;
-                                }
-                            }
-                            if ("0".equals(type)) {
-                                if (latestDetecBean.getValue() > 0 && latestDetecBean.getValue() < 90 || latestDetecBean.getValue() >= 140) {
-                                    highBloodStatus = false;
-                                }
-                            }
-                        }
-
-                        boolean status;
-
                         for (LatestDetecBean latest : latestDetecBeans) {
                             //检测数据类型 -1低血压 0高血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸
                             String type = latest.getType();
-                            status = TextUtils.equals(latest.getStatus(), "0");
+                            boolean status = TextUtils.equals(latest.getStatus(), "0");
                             String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
                             switch (type) {
                                 case "-1":
-                                    String s;
-                                    if (lowBloodStatus && highBloodStatus) {
-                                        s = "<font color=\"#303133\">/</font>";
-                                    } else {
-                                        s = "<font color=\"#E53B3B\">/</font>";
-                                    }
-
-                                    if (lowBloodStatus) {
+                                    if (status) {
                                         //正常范围
-                                        types.get(0).setResult(s + "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
+                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     } else {
-                                        types.get(0).setResult(s + "<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
+                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     }
 //                                    types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
                                     break;
                                 case "0":
-                                    if (highBloodStatus) {
+                                    if (status) {
                                         //正常范围
 //                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                         types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>").toString());
@@ -305,20 +278,12 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     }
                                     break;
                                 case "1":
-                                    Float value = latest.getValue();
-                                    String sugarValue;
-                                    if (value != null && (value <= 3.90 || value >= 6.1)) {
-                                        sugarValue = "<font color=\"#E53B3B\">"+ String.format("%.2f", value) +"</font>";
-                                    } else {
-                                        sugarValue = "<font color=\"#303133\">"+ String.format("%.2f", value) +"</font>";
-                                    }
-
-                                    types.get(1).setResult(sugarValue);
+                                    types.get(1).setResult(latest.getValue() + "");
                                     types.get(1).setDate(friendlyTimeSpanByNow);
                                     types.get(1).setNormal(status);
                                     break;
                                 case "2":
-                                    //todo:后台逻辑应该写反了，临时前端解决一下
+                                    //todo:后台逻辑应该写反了，临时前端解决一下（北京、雄安垃圾时刻，懒的和后台交涉，辛苦后面维护的兄弟了）
                                     types.get(4).setResult(status ? "异常" : "正常");
                                     types.get(4).setDate(friendlyTimeSpanByNow);
                                     types.get(4).setNormal(!status);
