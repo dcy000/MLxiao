@@ -135,7 +135,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+            isServiceBind = false;
         }
     };
     private BroadcastReceiver connectReceiver = new BroadcastReceiver() {

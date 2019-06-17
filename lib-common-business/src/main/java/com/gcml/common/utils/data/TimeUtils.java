@@ -591,4 +591,10 @@ public class TimeUtils {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(new Date(millis));
     }
+
+    public static String long2StringDateWithTimeZone(long millis, String timeZone) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone(timeZone)); //"GMT+8"
+        return format.format(new Date(millis));
+    }
 }

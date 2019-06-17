@@ -132,7 +132,7 @@ public class UserCenterActivity extends ToolbarBaseActivity implements View.OnCl
                             callProvider.logout();
                         }
                         UserSpHelper.setToken(Global.TOURIST_TOKEN);
-                        UserSpHelper.setEqId("");
+                        UserSpHelper.setUserId("");
                         appRouter.skipUserLogins2Activity();
 //                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
                         finish();

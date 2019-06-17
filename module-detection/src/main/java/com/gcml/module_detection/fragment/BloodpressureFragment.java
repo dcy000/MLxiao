@@ -1,5 +1,6 @@
 package com.gcml.module_detection.fragment;
 
+import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -111,7 +112,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
 
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
-                .as(RxUtils.autoDisposeConverter(this))
+                .as(RxUtils.autoDisposeConverter(this, Lifecycle.Event.ON_STOP))
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
@@ -123,8 +124,8 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                         if (result1 == null) return;
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
                         if (result2 == null) return;
-                        String diagnose = result1.getDiagnose();
-                        mTvDetectionState.setText(diagnose);
+//                        String diagnose = result1.getDiagnose();
+                        mTvDetectionState.setText(result2.getResultConclusion());
                         mTvSuggest.setText(result2.getResult());
                         int resultType = result2.getResultType();
                         switch (resultType) {

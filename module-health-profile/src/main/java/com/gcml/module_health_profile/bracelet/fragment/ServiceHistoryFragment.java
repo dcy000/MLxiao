@@ -81,7 +81,7 @@ public class ServiceHistoryFragment extends Fragment {
 
                 people.setText(item.handlerName);
                 type.setText(item.warningType);
-                time.setText(TimeUtils.long2StringDate(item.warningTime));
+                time.setText(TimeUtils.long2StringDateWithTimeZone(item.warningTime, "GMT+8"));
             }
         };
         recyclerView.setAdapter(adapter);

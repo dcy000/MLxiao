@@ -206,7 +206,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == 0 && checkViewpageState <= 0) {
-                    showEndDialog();
+//                    showEndDialog();
                 }
             }
         });
@@ -247,7 +247,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                         break;
                     case 4:
 //                        mViewpage.setCurrentItem(5);
-                        showEndDialog();
+//                        showEndDialog();
                         break;
                     case 5:
 //                        showEndDialog();

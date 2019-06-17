@@ -1,6 +1,7 @@
 package com.gcml.module_detection.fragment;
 
 import android.arch.lifecycle.Observer;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -95,7 +96,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
                     } else {
                         isMeasureFinishedOfThisTime = true;
                         mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
-                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
+                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", bloodSugar));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);
@@ -108,7 +109,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
     int selectMeasureSugarTime = 0;
 
     private void robotSpeak(DetectionData detectionData) {
-        String roundUp = DataUtils.getRoundUp(detectionData.getBloodSugar(), 1);
+        String roundUp = DataUtils.getRoundUp(detectionData.getBloodSugar(), 2);
         MLVoiceSynthetize.startSynthesize(UM.getApp(), "您本次测量血糖" + roundUp, false);
     }
 
@@ -134,7 +135,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
-                        notifyActivity(datas,true);
+                        notifyActivity(datas, true);
                         if (o == null) return;
                         PostDataCallBackBean postDataCallBackBean = o.get(0);
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
@@ -163,7 +164,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas,false);
+                        notifyActivity(datas, false);
                     }
 
                     @Override

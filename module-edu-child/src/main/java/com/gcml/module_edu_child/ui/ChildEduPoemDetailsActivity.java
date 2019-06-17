@@ -103,6 +103,7 @@ public class ChildEduPoemDetailsActivity extends ToolbarBaseActivity {
             mSentences.addAll(Arrays.asList(sentences));
         }
     }
+
     class MySynthesizerListener extends MLSynthesizerListener {
         @Override
         public void onCompleted(SpeechError speechError) {
@@ -131,7 +132,7 @@ public class ChildEduPoemDetailsActivity extends ToolbarBaseActivity {
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyItemChanged(positionSelected);
         rvPoemSentences.smoothScrollToPosition(positionSelected);
-        MLVoiceSynthetize.startSynthesize(UM.getApp(),mSentences.get(positionSelected),synthesizerListener,false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), mSentences.get(positionSelected), synthesizerListener, false);
     }
 
     private void lastSentence() {
@@ -148,7 +149,7 @@ public class ChildEduPoemDetailsActivity extends ToolbarBaseActivity {
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.smoothScrollToPosition(positionSelected);
-        MLVoiceSynthetize.startSynthesize(UM.getApp(),mSentences.get(positionSelected),synthesizerListener,false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), mSentences.get(positionSelected), synthesizerListener, false);
     }
 
     private void replay() {
@@ -161,7 +162,7 @@ public class ChildEduPoemDetailsActivity extends ToolbarBaseActivity {
 //        mAdapter.notifyDataSetChanged();
         mAdapter.setPositionSelected(0);
         rvPoemSentences.smoothScrollToPosition(0);
-        MLVoiceSynthetize.startSynthesize(UM.getApp(),mPoemModel.getTitle() + "," + mPoemModel.getAuthor() + "," + mPoemModel.getDynasty() + "," + mSentences.get(0),synthesizerListener,false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), mPoemModel.getTitle() + "," + mPoemModel.getAuthor() + "," + mPoemModel.getDynasty() + "," + mSentences.get(0), synthesizerListener, false);
 
     }
 
@@ -249,5 +250,12 @@ public class ChildEduPoemDetailsActivity extends ToolbarBaseActivity {
                 onItemClickListener.onItemClick(getAdapterPosition());
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MLVoiceSynthetize.stop();
+        isPlaying = false;
     }
 }

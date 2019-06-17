@@ -149,14 +149,14 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
                             if (postDataCallBackBean == null) return;
                             PostDataCallBackBean.Result1Bean result1 = postDataCallBackBean.getResult1();
                             if (result1 == null) return;
-                            if (isMeasureTask) {
-                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result1.getDiagnose(),
-                                        result1.getScore(), highPressure, lowPressure, result1.getResult(), true, datas);
-                                mActivity.finish();
-                            } else {
-                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result1.getDiagnose(),
-                                        result1.getScore(), highPressure, lowPressure, result1.getResult(), datas);
-                            }
+//                            if (isMeasureTask) {
+//                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result1.getDiagnose(),
+//                                        result1.getScore(), highPressure, lowPressure, result1.getResult(), true, datas);
+//                                mActivity.finish();
+//                            } else {
+//                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result1.getDiagnose(),
+//                                        result1.getScore(), highPressure, lowPressure, result1.getResult(), datas);
+//                            }
                         }
 
                         @Override
@@ -195,14 +195,14 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
                             Timber.e("单测返回来的数据：" + o);
                             ToastUtils.showLong("上传数据成功");
                             DetectionResult result = o.get(0);
-                            if (isMeasureTask) {
-                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                        result.getScore(), highPressure, lowPressure, result.getResult(), true, datas);
-                                mActivity.finish();
-                            } else {
-                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                        result.getScore(), highPressure, lowPressure, result.getResult(), datas);
-                            }
+//                            if (isMeasureTask) {
+//                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+//                                        result.getScore(), highPressure, lowPressure, result.getResult(), true, datas);
+//                                mActivity.finish();
+//                            } else {
+//                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+//                                        result.getScore(), highPressure, lowPressure, result.getResult(), datas);
+//                            }
                         }
 
                         @Override

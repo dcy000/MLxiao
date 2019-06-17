@@ -24,6 +24,8 @@ public class UserInfoAccountFragment extends LazyFragment {
 
     private TextView tvPhone;
 
+    private TextView tvActionGender;
+
     public UserInfoAccountFragment() {
         // Required empty public constructor
     }
@@ -41,7 +43,7 @@ public class UserInfoAccountFragment extends LazyFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvPhone = view.findViewById(R.id.tv_phone);
-        view.findViewById(R.id.cl_item_phone).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.iv_action_phone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity activity = getActivity();

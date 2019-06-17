@@ -16,6 +16,7 @@ import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by lenovo on 2019/2/27.
  */
-
+@Route(path = "app/healthMannage/activity")
 public class HealthManageActivity extends ToolbarBaseActivity implements View.OnClickListener {
     TranslucentToolBar tbHealthManage;
     LinearLayout llHealthTask;
@@ -169,11 +170,6 @@ public class HealthManageActivity extends ToolbarBaseActivity implements View.On
     }
 
     private void toRisk() {
-      /*  CC.obtainBuilder("health_measure")
-                .setActionName("To_HealthInquiryActivity")
-                .build()
-                .call();*/
-//        Routerfit.register(AppRouter.class).skipFirstDiagnosisActivity();
         Routerfit.register(AppRouter.class).skipHealthInquiryActivity();
     }
 }
