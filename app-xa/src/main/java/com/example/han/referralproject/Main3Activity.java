@@ -320,7 +320,7 @@ public class Main3Activity extends AppCompatActivity {
             int position = rvMenuItems.getChildAdapterPosition(v);
             String label = menuEntities.get(position).getMenuLabel();
             switch (label) {
-                case "健康测量":
+                case "健康检测":
                     Routerfit.register(AppRouter.class).skipChooseDetectionTypeActivity();
                     break;
                 case "自诊导诊":

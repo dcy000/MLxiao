@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private StatusBarFragment statusBarFragment;
 
     {
-        mainMenuBeans.add(new MainMenuBean(R.drawable.main_health_measure, "健康测量"));
+        mainMenuBeans.add(new MainMenuBean(R.drawable.main_health_measure, "健康检测"));
         mainMenuBeans.add(new MainMenuBean(R.drawable.main_self_check_and_guide, "自诊导诊"));
         mainMenuBeans.add(new MainMenuBean(R.drawable.main_self_check_and_medical, "自测用药"));
         mainMenuBeans.add(new MainMenuBean(R.drawable.main_health_self_check, "健康自测"));

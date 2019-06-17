@@ -54,7 +54,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_detection_type);
-        mTitleText.setText("健 康 测 量");
+        mTitleText.setText("健 康 检 测");
         mRv = findViewById(R.id.rv);
         setAdapter();
 
