@@ -7,7 +7,6 @@ import android.webkit.JavascriptInterface;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.Handlers;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.R;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -92,7 +91,7 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
             Handlers.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Routerfit.register(AppRouter.class).skipMainActivity();
+//                    Routerfit.register(AppRouter.class).skipMainActivity();
                     finish();
                 }
             });

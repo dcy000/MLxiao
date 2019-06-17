@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,13 +14,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.han.healthmanage.HealthManageActivity;
-import com.example.han.healthmanage.HealthManageTipActivity;
 import com.gcml.common.LazyFragment;
 import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.service.ICallProvider;
@@ -30,7 +27,6 @@ import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
@@ -38,7 +34,6 @@ import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
@@ -52,7 +47,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     private LinearLayout mLlPernal;
     private EclipseImageView mEiHealthCheckup;
     private EclipseImageView mEiInfomationCollection;
-    private EclipseImageView mEiDoctorService;
+    private EclipseImageView mEiDoctorService, eiRecommend, eiReservation, eiMedicalHome;
     private EclipseImageView mEiQuit;
     private EclipseImageView ivDoctorCall;
     private EclipseImageView ivDoctorFamily;
@@ -96,6 +91,15 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
         eiHealthEdu = view.findViewById(R.id.ei_health_edu);
         eiHealthEdu.setOnClickListener(this);
         mTvUserName = (TextView) view.findViewById(R.id.tv_user_name);
+
+        eiRecommend = (EclipseImageView) view.findViewById(R.id.ei_recommend);
+        eiRecommend.setOnClickListener(this);
+
+        eiReservation = (EclipseImageView) view.findViewById(R.id.ei_reservation);
+        eiReservation.setOnClickListener(this);
+
+        eiMedicalHome = (EclipseImageView) view.findViewById(R.id.ei_medical_home);
+        eiMedicalHome.setOnClickListener(this);
 //        getPersonInfo();
     }
 
@@ -215,6 +219,13 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
             case R.id.ei_health_edu:
 //                Routerfit.register(AppRouter.class).skipAddHealthProfileActivity("");
                 Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+                break;
+
+            case R.id.ei_recommend:
+                break;
+            case R.id.ei_reservation:
+                break;
+            case R.id.ei_medical_home:
                 break;
 
         }

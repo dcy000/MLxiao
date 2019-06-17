@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30pt"
-        android:text="请完善您的人脸信息"
+        android:text=""
         android:textColor="#FFBBBBBB"
         android:textSize="48pt" />
 
@@ -40,7 +40,7 @@
         android:layout_marginTop="200pt"
         android:background="@drawable/shape_rectangle_next_btn"
         android:gravity="center"
-        android:text="完善人脸"
+        android:text="完善信息"
         android:textColor="#ffffffff"
         android:textSize="48pt" />
 
