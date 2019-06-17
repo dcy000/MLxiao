@@ -113,49 +113,49 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         switch (detectionType) {
             case IBleConstants.MEASURE_BLOOD_PRESSURE:
                 //血压
-                mTitleText.setText("血 压 测 量");
+                mTitleText.setText("血 压 检 测");
                 baseBluetooth = new BloodPressurePresenter(this);
                 initSearchFragment("将血压仪佩戴好后按下测量键", "测量的同时机器人会自动连接蓝牙", R.drawable.searching_bloodpressure);
                 break;
             case IBleConstants.MEASURE_BLOOD_OXYGEN:
                 //血氧
-                mTitleText.setText("血 氧 测 量");
+                mTitleText.setText("血 氧 检 测");
                 baseBluetooth = new BloodOxygenPresenter(this);
                 initSearchFragment("将血氧仪夹在手指上", "将血氧仪器夹在手指上，机器人会自动连接蓝牙", R.drawable.searching_bloodoxygen);
                 break;
             case IBleConstants.MEASURE_WEIGHT:
                 //体重
-                mTitleText.setText("体 重 测 量");
+                mTitleText.setText("体 重 检 测");
                 baseBluetooth = new WeightPresenter(this);
                 initSearchFragment("站在体重秤上", "站上体重秤后，机器人会自动连接蓝牙", R.drawable.searching_weight);
                 break;
             case IBleConstants.MEASURE_TEMPERATURE:
                 //耳温
-                mTitleText.setText("耳 温 测 量");
+                mTitleText.setText("耳 温 检 测");
                 baseBluetooth = new TemperaturePresenter(this);
                 initSearchFragment("按下耳温枪START键开机，连接蓝牙", "连接成功后，将探头尽可能的伸入耳道内，按下START扫描键开始测量", R.drawable.searching_temperature);
                 break;
             case IBleConstants.MEASURE_ECG:
                 //心电
-                mTitleText.setText("心 电 测 量");
+                mTitleText.setText("心 电 检 测");
                 baseBluetooth = new ECGPresenter(this);
                 initSearchFragment("将心电仪夹在两只手指中间", "将心电仪夹在两只手指中间，机器人会自动连接蓝牙", R.drawable.searching_ecg_bosheng);
                 break;
             case IBleConstants.MEASURE_CHOLESTEROL:
                 //胆固醇
-                mTitleText.setText("胆 固 醇 测 量");
+                mTitleText.setText("胆 固 醇 检 测");
                 baseBluetooth = new ThreeInOnePresenter(this);
                 initSearchFragment("给三合一插上检测试纸", "插上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
                 break;
             case IBleConstants.MEASURE_URIC_ACID:
                 //血尿酸
-                mTitleText.setText("血 尿 酸 测 量");
+                mTitleText.setText("血 尿 酸 检 测");
                 baseBluetooth = new ThreeInOnePresenter(this);
                 initSearchFragment("给三合一插上检测试纸", "插上试纸后，机器人会自动连接蓝牙", R.drawable.searching_three);
                 break;
             case IBleConstants.MEASURE_BLOOD_SUGAR:
                 //测量血糖
-                mTitleText.setText("血 糖 测 量");
+                mTitleText.setText("血 糖 检 测");
                 baseFragment = (BluetoothBaseFragment) Routerfit.register(AppRouter.class).getBloodsugarTimeFragmentProvider().getHealthSelectSugarDetectionTimeFragment();
                 baseFragment.setOnFragmentChangedListener(this);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, baseFragment, "BloodsugarTime").commitAllowingStateLoss();
