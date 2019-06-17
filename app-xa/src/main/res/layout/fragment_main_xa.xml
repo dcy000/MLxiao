@@ -11,7 +11,7 @@
         android:id="@+id/ll_pernal"
         android:layout_width="636pt"
         android:layout_height="552pt"
-        android:layout_marginStart="14pt"
+        android:layout_marginStart="8pt"
         android:layout_marginTop="4pt"
         android:background="@drawable/bg_personal"
         android:clickable="true"
