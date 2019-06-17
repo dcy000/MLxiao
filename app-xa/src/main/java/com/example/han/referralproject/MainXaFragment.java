@@ -27,6 +27,7 @@ import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
@@ -224,8 +225,10 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
             case R.id.ei_recommend:
                 break;
             case R.id.ei_reservation:
+                ToastUtils.showShort("啊哦！预约挂号服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
             case R.id.ei_medical_home:
+                ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
 
         }
