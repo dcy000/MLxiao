@@ -1,4 +1,4 @@
-include ':app-xa', ':printer', ':module_assistent',
+include ':app-xa', ':printer', ':module-assistant',
         ':app-jgys',
         ':app-combine',
         ':module-alarm',
