@@ -27,7 +27,7 @@
           "menuId": 39,
           "parentId": 37,
           "parentName": null,
-          "name": "健康测量",
+          "name": "健康检测",
           "url": "/module/detection/choose/dection/type",
           "menuAgent": "Android",
           "perms": "user:create,user:use",
