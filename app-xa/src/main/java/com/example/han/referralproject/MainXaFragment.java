@@ -48,7 +48,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     private LinearLayout mLlPernal;
     private EclipseImageView mEiHealthCheckup;
     private EclipseImageView mEiInfomationCollection;
-    private EclipseImageView mEiDoctorService, eiRecommend, eiReservation, eiMedicalHome;
+    private EclipseImageView mEiDoctorService, eiRecommend, eiReservation, eiMedicalHome, eiRecommendNew;
     private EclipseImageView mEiQuit;
     private EclipseImageView ivDoctorCall;
     private EclipseImageView ivDoctorFamily;
@@ -101,6 +101,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
 
         eiMedicalHome = (EclipseImageView) view.findViewById(R.id.ei_medical_home);
         eiMedicalHome.setOnClickListener(this);
+        eiRecommendNew = (EclipseImageView) view.findViewById(R.id.ei_entertainment_new);
+        eiRecommendNew.setOnClickListener(this);
+
 //        getPersonInfo();
     }
 
@@ -208,7 +211,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 }
                 break;
             case R.id.ei_entertainment:
-                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+                ToastUtils.showShort("敬请期待~");
 //                quitApp();
                 break;
             case R.id.iv_doctor_call:
@@ -222,14 +225,17 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 Routerfit.register(AppRouter.class).skipVideoListActivity(0);
                 break;
 
-            case R.id.ei_recommend:
-                ToastUtils.showShort("敬请期待~");
-                break;
-            case R.id.ei_reservation:
+            case R.id.ei_recommend://预约挂号
                 ToastUtils.showShort("啊哦！预约挂号服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
-            case R.id.ei_medical_home:
+            case R.id.ei_reservation://医护上门
                 ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
+                break;
+            case R.id.ei_medical_home://退出
+                quitApp();
+                break;
+            case R.id.ei_entertainment_new://娱乐
+                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 break;
 
         }
