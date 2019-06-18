@@ -25,6 +25,11 @@ public class UserRepository {
 //    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
 
 
+    public Observable<Object> signOut() {
+        return mUserService.signOut(UserSpHelper.getUserId())
+                .compose(RxUtils.apiResultTransformer());
+    }
+
     /**
      * 账号密码登录 获取token 用于游客登录
      */

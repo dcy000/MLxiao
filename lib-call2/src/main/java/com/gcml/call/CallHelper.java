@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 import com.gcml.call.floatwindow.CallFloatViewHelper;
-import com.gcml.common.AppDelegate;
+
 import com.gcml.common.utils.display.ToastUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -23,19 +24,15 @@ import com.netease.nimlib.sdk.auth.ClientType;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.AVChatStateObserver;
-import com.netease.nimlib.sdk.avchat.constant.AVChatAudioEffectMode;
 import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
 import com.netease.nimlib.sdk.avchat.constant.AVChatEventType;
-import com.netease.nimlib.sdk.avchat.constant.AVChatMediaCodecMode;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
-import com.netease.nimlib.sdk.avchat.constant.AVChatUserRole;
 import com.netease.nimlib.sdk.avchat.constant.AVChatVideoScalingType;
 import com.netease.nimlib.sdk.avchat.model.AVChatCalleeAckEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatCameraCapturer;
 import com.netease.nimlib.sdk.avchat.model.AVChatCommonEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatControlEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
-import com.netease.nimlib.sdk.avchat.model.AVChatImageFormat;
 import com.netease.nimlib.sdk.avchat.model.AVChatNotifyOption;
 import com.netease.nimlib.sdk.avchat.model.AVChatOnlineAckEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
@@ -58,18 +55,18 @@ public enum CallHelper {
     @SuppressLint("StaticFieldLeak")
     INSTANCE;
 
-    public static void launchFromSmall(final Context context) {
+    public static void enterFullScreen(final Context context) {
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setClass(context, CallActivity.class);
         context.startActivity(intent);
     }
 
-    public static void launch(final Context context, final String account) {
-        launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
+    public static void outgoingCall(final Context context, final String account) {
+        outgoingCall(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
     }
 
-    public static void launch(Context context, String account, int callType, int source) {
+    public static void outgoingCall(Context context, String account, int callType, int source) {
         CallHelper.INSTANCE.setChatting(true);
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -81,7 +78,7 @@ public enum CallHelper {
         context.startActivity(intent);
     }
 
-    public static void launch(Context context, AVChatData config, int source) {
+    public static void incomingCall(Context context, AVChatData config, int source) {
         CallHelper.INSTANCE.setChatting(true);
         Intent intent = new Intent();
         intent.setClass(context, CallActivity.class);
@@ -92,21 +89,18 @@ public enum CallHelper {
         context.startActivity(intent);
     }
 
-
-    private static final String TAG = "CallHelper";
-
+    public static final String EXTRA_SOURCE = "extra_source";
     public static final String EXTRA_INCOMING_CALL = "extra_incoming_call";
+    public static final String EXTRA_CALL_CONFIG = "extra_call_config";
     public static final String EXTRA_CALL_TYPE = "extra_call_type";
     public static final String EXTRA_REMOTE_ACCOUNT = "extra_peer_account";
-    public static final String EXTRA_CALL_CONFIG = "extra_call_config";
-    public static final String EXTRA_SOURCE = "extra_source";
     public static final int SOURCE_UNKNOWN = -1;
     public static final int SOURCE_BROADCAST = 0;
     public static final int SOURCE_INTERNAL = 1;
 
 
     CallHelper() {
-        context = AppDelegate.INSTANCE.app();
+        context = CallApp.INSTANCE.getApp();
     }
 
 
@@ -131,6 +125,9 @@ public enum CallHelper {
 
     public void addOnCallStateChangeListener(OnCallStateChangeListener listener) {
         mOnCallStateChangeListeners.add(listener);
+        if (callingState != null) {
+            notifyCallStateChanged(callingState);
+        }
     }
 
     public void removeOnCallStateChangeListener(OnCallStateChangeListener listener) {
@@ -138,7 +135,7 @@ public enum CallHelper {
     }
 
     public void notifyCallStateChanged(CallState state) {
-        Timber.tag(TAG).d("notifyCallStateChanged state=%s", state);
+        Timber.i("notifyCallStateChanged state=%s", state);
         callingState = state;
         for (OnCallStateChangeListener listener : mOnCallStateChangeListeners) {
             if (listener != null) {
@@ -160,20 +157,20 @@ public enum CallHelper {
     private Context context;
 
     private boolean mChatting;
-
+    private boolean isIncomingCall;
     private CallState callingState;
     private AVChatData avChatData;
-    private boolean isIncomingCall;
     private int callType;
     private String remoteAccount;
-    private AVChatCameraCapturer videoCapturer;
-
     private AtomicBoolean mCallEstablished = new AtomicBoolean(false);
+
+    private AVChatCameraCapturer videoCapturer;
 
     private volatile FrameLayout flSmallContainer;
     private volatile FrameLayout flLargeContainer;
 
     private String largeAccount;
+    private String smallAccount;
 
     private AVChatSurfaceViewRenderer smallRenderer;
     private AVChatSurfaceViewRenderer largeRenderer;
@@ -188,14 +185,17 @@ public enum CallHelper {
 
     public synchronized void setSmallContainer(FrameLayout flSmallContainer) {
         this.flSmallContainer = flSmallContainer;
-        if (flSmallContainer == null && mCallEstablished.get() && smallRenderer != null) {
+        if (flSmallContainer == null
+                && mCallEstablished.get()
+                && smallRenderer != null) {
             ViewParent parent = smallRenderer.getParent();
             if (parent != null && parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(smallRenderer);
             }
             return;
         }
-        initSmallSurface();
+        smallRenderer = null;
+        initSmallRenderer(smallAccount);
     }
 
     public FrameLayout getFlLargeContainer() {
@@ -208,13 +208,13 @@ public enum CallHelper {
                 && mCallEstablished.get()
                 && largeRenderer != null) {
             ViewParent parent = largeRenderer.getParent();
-            if (parent != null
-                    && parent instanceof ViewGroup) {
+            if (parent != null && parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(largeRenderer);
             }
             return;
         }
-        initLargeSurface();
+        largeRenderer = null;
+        initLargeRenderer(largeAccount);
     }
 
     public void setIncomingCall(boolean incomingCall) {
@@ -229,62 +229,66 @@ public enum CallHelper {
         return remoteAccount;
     }
 
-    public boolean checkSource(Bundle bundle) {
+    public void parse(Bundle bundle) {
+        isIncomingCall = bundle.getBoolean(EXTRA_INCOMING_CALL, false);
         int source = bundle.getInt(EXTRA_SOURCE, SOURCE_UNKNOWN);
         switch (source) {
             case SOURCE_BROADCAST: // incoming call
-                isIncomingCall = bundle.getBoolean(EXTRA_INCOMING_CALL, false);
                 avChatData = (AVChatData) bundle.getSerializable(EXTRA_CALL_CONFIG);
                 if (avChatData != null) {
                     callType = avChatData.getChatType().getValue();
+                    registerCallObserver(false);
                     registerCallObserver(true);
                     uiHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             onInComingCalling(avChatData);
                         }
-                    }, 1000);
+                    }, 200);
                 }
-                return true;
+                break;
             case SOURCE_INTERNAL: // outgoing call
-                isIncomingCall = bundle.getBoolean(EXTRA_INCOMING_CALL, false);
                 remoteAccount = bundle.getString(EXTRA_REMOTE_ACCOUNT);
                 callType = bundle.getInt(EXTRA_CALL_TYPE, -1);
                 final AVChatType chatType = callType == AVChatType.VIDEO.getValue()
                         ? AVChatType.VIDEO
                         : AVChatType.AUDIO;
+                registerCallObserver(false);
                 registerCallObserver(true);
                 uiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         call(remoteAccount, chatType);
                     }
-                }, 1000);
-                return true;
+                }, 200);
+                break;
             default:
                 notifyCallStateChanged(callingState);
-                return true;
+                break;
         }
     }
 
+//    public void registerCallObserver(boolean register) {
+//
+//    }
+
     public void registerCallObserver(boolean register) {
         AVChatManager.getInstance().observeAVChatState(callStateObserver, register);
-        AVChatManager.getInstance().observeCalleeAckNotification(callAckObserver, register);
+//        AVChatManager.getInstance().observeCalleeAckNotification(callAckObserver, register);
         AVChatManager.getInstance().observeControlNotification(callControlObserver, register);
         AVChatManager.getInstance().observeHangUpNotification(callHangupObserver, register);
         AVChatManager.getInstance().observeOnlineAckNotification(onlineAckObserver, register);
-        CallTimeoutObserver.getInstance().observeTimeoutNotification(timeoutObserver, register, isIncomingCall);
-        CallPhoneStateObserver.getInstance().observeAutoHangUpForLocalPhone(autoHangUpForLocalPhoneObserver, register);
+        CallTimeoutObserver.INSTANCE.observeTimeoutNotification(timeoutObserver, register, isIncomingCall);
+        CallPhoneStateObserver.INSTANCE.observeAutoHangUpForLocalPhone(autoHangUpForLocalPhoneObserver, register);
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, register);
     }
 
 
-    private AVChatStateObserver callStateObserver = new AbsChatStateObserver() {
+    private AVChatStateObserver callStateObserver = new CallChatStateObserver() {
 
         @Override
         public void onJoinedChannel(int code, String audioFile, String videoFile, int elapsed) {
             if (code == 200) {
-//                Timber.tag(TAG).d("onJoinedChannel %s", "OK");
             } else if (code == 101) { // 连接超时
                 closeSessions(CallExitCode.PEER_NO_RESPONSE);
             } else if (code == 401) { // 验证失败
@@ -298,8 +302,7 @@ public enum CallHelper {
 
         @Override
         public void onUserJoined(String account) {
-            remoteAccount = account;
-            initLargeSurface();
+            initLargeRenderer(account);
         }
 
         @Override
@@ -313,51 +316,96 @@ public enum CallHelper {
         }
     };
 
-    private void initLargeSurface() {
-        if (flLargeContainer == null && !mCallEstablished.get()) {
+    private void initLargeRenderer(String account) {
+        if (flLargeContainer == null || TextUtils.isEmpty(account)) {
             return;
         }
-        largeAccount = remoteAccount;
+        largeAccount = account;
         AVChatManager chatManager = AVChatManager.getInstance();
         if (largeRenderer == null) {
             largeRenderer = new AVChatSurfaceViewRenderer(context);
-        } else {
-            ViewParent parent = largeRenderer.getParent();
-            if (parent != null && parent instanceof ViewGroup) {
-                ((ViewGroup) parent).removeView(largeRenderer);
-            }
         }
+        if (TextUtils.equals(account, CallAccountHelper.INSTANCE.getAccount())) {
+            chatManager.setupLocalVideoRender(
+                    null,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+            chatManager.setupLocalVideoRender(
+                    largeRenderer,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+        } else {
+            chatManager.setupRemoteVideoRender(
+                    remoteAccount,
+                    null,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+            chatManager.setupRemoteVideoRender(
+                    remoteAccount,
+                    largeRenderer,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+        }
+
+        ViewParent parent = largeRenderer.getParent();
+        if (parent != null && parent instanceof ViewGroup) {
+            ((ViewGroup) parent).removeView(largeRenderer);
+        }
+        flLargeContainer.removeAllViews();
         flLargeContainer.addView(largeRenderer);
         largeRenderer.setZOrderMediaOverlay(false);
-        chatManager.setupRemoteVideoRender(
-                remoteAccount,
-                largeRenderer,
-                false,
-                AVChatVideoScalingType.SCALE_ASPECT_BALANCED
-        );
+        flLargeContainer.setVisibility(View.VISIBLE);
+//        largeCover.setVisibility(View.GONE);
     }
 
-    private void previewInLargeSurface() {
-        if (flLargeContainer == null) {
+    private void initSmallRenderer(String account) {
+        if (flSmallContainer == null || TextUtils.isEmpty(account)) {
             return;
         }
-        largeAccount = CallAuthHelper.getInstance().getAccount();
-        AVChatManager chatManager = AVChatManager.getInstance();
-        if (largeRenderer == null) {
-            largeRenderer = new AVChatSurfaceViewRenderer(context);
-        } else {
-            ViewParent parent = largeRenderer.getParent();
-            if (parent != null && parent instanceof ViewGroup) {
-                ((ViewGroup) parent).removeView(largeRenderer);
-            }
+        smallAccount = account;
+        if (smallRenderer == null) {
+            smallRenderer = new AVChatSurfaceViewRenderer(context);
         }
-        flLargeContainer.addView(largeRenderer);
-        largeRenderer.setZOrderMediaOverlay(false);
-        chatManager.setupLocalVideoRender(
-                largeRenderer,
-                false,
-                AVChatVideoScalingType.SCALE_ASPECT_BALANCED
-        );
+        AVChatManager chatManager = AVChatManager.getInstance();
+        if (TextUtils.equals(account, CallAccountHelper.INSTANCE.getAccount())) {
+            chatManager.setupLocalVideoRender(
+                    null,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+            chatManager.setupLocalVideoRender(
+                    smallRenderer,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+        } else {
+            chatManager.setupRemoteVideoRender(
+                    remoteAccount,
+                    null,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+            chatManager.setupRemoteVideoRender(
+                    remoteAccount,
+                    smallRenderer,
+                    false,
+                    AVChatVideoScalingType.SCALE_ASPECT_BALANCED
+            );
+        }
+
+        ViewParent parent = smallRenderer.getParent();
+        if (parent != null && parent instanceof ViewGroup) {
+            ((ViewGroup) parent).removeView(smallRenderer);
+        }
+        flSmallContainer.removeAllViews();
+        flSmallContainer.addView(smallRenderer);
+        smallRenderer.setZOrderMediaOverlay(true);
+        flSmallContainer.setVisibility(View.VISIBLE);
+//        smallCover.setVisibility(View.GONE);
     }
 
     /**
@@ -370,16 +418,16 @@ public enum CallHelper {
             if (info != null && info.getChatId() == ackInfo.getChatId()) {
                 CallSoundPlayer.instance().stop();
                 if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_BUSY) {
-                    Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_BUSY");
+                    Timber.i("callAckEvent %s", "CALLEE_ACK_BUSY");
                     CallSoundPlayer.instance().play(CallSoundPlayer.RingerType.PEER_BUSY);
                     hangUp(CallExitCode.PEER_BUSY);
 //                    closeSessions(CallExitCode.PEER_BUSY);
                 } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_REJECT) {
-                    Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_REJECT");
+                    Timber.i("callAckEvent %s", "CALLEE_ACK_REJECT");
                     hangUp(CallExitCode.REJECT);
 //                    closeSessions(CallExitCode.REJECT);
                 } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_AGREE) {
-                    Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_AGREE");
+                    Timber.i("callAckEvent %s", "CALLEE_ACK_AGREE");
                     mCallEstablished.set(true);
                 }
             }
@@ -418,7 +466,7 @@ public enum CallHelper {
                     notifyCallStateChanged(CallState.VIDEO_ON);
                     break;
                 default:
-                    Timber.tag(TAG).d("对方发来指令值：" + notification.getControlCommand());
+                    Timber.i("对方发来指令值：" + notification.getControlCommand());
                     break;
             }
         }
@@ -503,12 +551,29 @@ public enum CallHelper {
         }
     };
 
+    private boolean destroyRTC;
+
+    private void closeRtc(CallState state) {
+        if (destroyRTC) {
+            return;
+        }
+        if (state == CallState.OUTGOING_VIDEO_CALLING || state == CallState.VIDEO) {
+            AVChatManager.getInstance().stopVideoPreview();
+            AVChatManager.getInstance().disableVideo();
+        }
+        AVChatManager.getInstance().disableRtc();
+        destroyRTC = true;
+        CallSoundPlayer.instance().stop();
+    }
+
+    private volatile boolean closing;
+
     public void closeSessions(int exitCode) {
         if (closing) {
             return;
         }
         closing = true;
-        Timber.tag(TAG).d("closeSession: code=%s", CallExitCode.getExitString(exitCode));
+        Timber.i("closeSession: code=%s", CallExitCode.getExitString(exitCode));
         CallSoundPlayer.instance().stop();
         registerCallObserver(false);
         setLargeContainer(null);
@@ -526,8 +591,13 @@ public enum CallHelper {
                 }
                 closing = false;
                 mChatting = false;
+                avChatData = null;
             }
-        }, 2200);
+        }, 1000);
+        if (destroyRTC) {
+            destroyRTC = false;
+            return;
+        }
         if (callingState != null && callingState.getValue() >= CallState.OUTGOING_VIDEO_CALLING.getValue() || callingState == CallState.VIDEO) {
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
@@ -574,13 +644,12 @@ public enum CallHelper {
     }
 
     public void onCallEstablished() {
-        mCallEstablished.set(true);
-        CallTimeoutObserver.getInstance().observeTimeoutNotification(
+        CallTimeoutObserver.INSTANCE.observeTimeoutNotification(
                 timeoutObserver, false, isIncomingCall);
         startTimer();
         if (callType == AVChatType.VIDEO.getValue()) {
+            initSmallRenderer(CallAccountHelper.INSTANCE.getAccount());
             notifyCallStateChanged(CallState.VIDEO);
-            initSmallSurface();
         } else {
             notifyCallStateChanged(CallState.AUDIO);
         }
@@ -627,51 +696,23 @@ public enum CallHelper {
         mCallTimeCallback = callTimeCallback;
     }
 
-    private void initSmallSurface() {
-        if (flSmallContainer == null && !mCallEstablished.get()) {
-            return;
-        }
-        largeAccount = remoteAccount;
-        AVChatManager chatManager = AVChatManager.getInstance();
-        if (smallRenderer == null) {
-            smallRenderer = new AVChatSurfaceViewRenderer(context);
-        } else {
-            ViewParent parent = smallRenderer.getParent();
-            if (parent != null && parent instanceof ViewGroup) {
-                ((ViewGroup) parent).removeView(smallRenderer);
-            }
-        }
-        flSmallContainer.addView(smallRenderer);
-        chatManager.setupLocalVideoRender(
-                smallRenderer,
-                false,
-                AVChatVideoScalingType.SCALE_ASPECT_BALANCED
-        );
-        smallRenderer.setZOrderOnTop(true);
-//        smallRenderer.setZOrderMediaOverlay(true);
-    }
-
-    public void call(
-            String remoteAccount,
-            final AVChatType chatType) {
+    public void call(String remoteAccount, final AVChatType chatType) {
         CallSoundPlayer.instance().play(CallSoundPlayer.RingerType.CONNECTING);
-//        mOuterCallback = callback;
         this.remoteAccount = remoteAccount;
         AVChatManager chatManager = AVChatManager.getInstance();
         closing = false;
         chatManager.enableRtc();
+        if (parameters == null) {
+            parameters = CallParameters.INSTANCE.provideParameter();
+        }
+        chatManager.setParameters(parameters);
+//        chatManager.setParameter(AVChatParameters.KEY_VIDEO_FRAME_FILTER, true);
+        if (videoCapturer == null) {
+            videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
+        }
+        chatManager.setupVideoCapturer(videoCapturer);
         if (chatType == AVChatType.VIDEO) {
             chatManager.enableVideo();
-            previewInLargeSurface();
-            videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
-            chatManager.setupVideoCapturer(videoCapturer);
-//            chatManager.setupLocalVideoRender() onCallEstablished
-        }
-
-        // setParameter
-        initCallParams();
-        chatManager.setParameters(avChatParameters);
-        if (chatType == AVChatType.VIDEO) {
             chatManager.startVideoPreview();
         }
 
@@ -682,32 +723,35 @@ public enum CallHelper {
         }
         AVChatNotifyOption notifyOption = new AVChatNotifyOption();
         notifyOption.extendMessage = "extra_data";
-        notifyOption.webRTCCompat = webrtcCompat;
-        Timber.tag(TAG).d("call2: remoteAccount=%s chatType=%s notifyOption=%s", remoteAccount, chatType, notifyOption);
+        Timber.i("call2: remoteAccount=%s chatType=%s notifyOption=%s", remoteAccount, chatType, notifyOption);
         chatManager.call2(remoteAccount, chatType, notifyOption, new AVChatCallback<AVChatData>() {
             @Override
             public void onSuccess(AVChatData data) {
-                Timber.tag(TAG).d("call2 -> onSuccess: data=%s", data);
+                Timber.i("call2 -> onSuccess: data=%s", data);
                 avChatData = data;
+                // checkPermission @link Manifest.permission.CAMERA
+                initLargeRenderer(CallAccountHelper.INSTANCE.getAccount());
                 notifyCallStateChanged(CallState.CONNECT_SUCCESS);
             }
 
             @Override
             public void onFailed(int code) {
-                Timber.tag(TAG).d("call2 -> onFailed: code=%s", code);
+                Timber.w("call2 -> onFailed: code=%s", code);
                 if (code == ResponseCode.RES_FORBIDDEN) {
                     ToastUtils.showShort(R.string.call_no_permission);
                 } else {
                     ToastUtils.showShort(R.string.call_call_failed);
                 }
+                closeRtc(chatType == AVChatType.VIDEO ? CallState.VIDEO : CallState.AUDIO);
 //                notifyCallStateChanged(CallState.CONNECT_FAILED);
                 closeSessions(-1);
             }
 
             @Override
             public void onException(Throwable exception) {
-                Timber.tag(TAG).d("call2 -> onException: exception=%s", exception);
+                Timber.w(exception, "call2 -> onException: ");
                 ToastUtils.showShort(R.string.call_call_failed);
+                closeRtc(chatType == AVChatType.VIDEO ? CallState.VIDEO : CallState.AUDIO);
 //                notifyCallStateChanged(CallState.CONNECT_FAILED);
                 closeSessions(-1);
             }
@@ -751,23 +795,23 @@ public enum CallHelper {
         CallSoundPlayer.instance().stop();
         notifyCallStateChanged(CallState.INCOMING_VIDEO_REFUSING);
         long chatId = avChatData.getChatId();
-        Timber.tag(TAG).d("hangUp2: chatId=%s", chatId);
+        Timber.i("hangUp2: chatId=%s", chatId);
         AVChatManager.getInstance().hangUp2(chatId, new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Timber.tag(TAG).d("hangUp2 -> onSuccess:");
+                Timber.i("hangUp2 -> onSuccess:");
                 closeSessions(-1);
             }
 
             @Override
             public void onFailed(int code) {
-                Timber.tag(TAG).d("hangUp2 -> onFailed: code=%s", code);
+                Timber.w("hangUp2 -> onFailed: code=%s", code);
                 closeSessions(-1);
             }
 
             @Override
             public void onException(Throwable exception) {
-                Timber.tag(TAG).d("hangUp2 -> onException: exception=%s", exception);
+                Timber.w(exception, "hangUp2 -> onException: ");
                 closeSessions(-1);
             }
         });
@@ -776,12 +820,12 @@ public enum CallHelper {
     public void receive() {
         switch (callingState) {
             case INCOMING_AUDIO_CALLING:
-                receiveInComingCall();
+                receive(AVChatType.AUDIO);
                 break;
             case AUDIO_CONNECTING: // 连接中，继续点击开启 无反应
                 break;
             case INCOMING_VIDEO_CALLING:
-                receiveInComingCall();
+                receive(AVChatType.VIDEO);
                 break;
             case VIDEO_CONNECTING: // 连接中，继续点击开启 无反应
                 break;
@@ -792,52 +836,68 @@ public enum CallHelper {
         }
     }
 
-    private void receiveInComingCall() {
-        CallSoundPlayer.instance().stop();
-        if (callingState == CallState.INCOMING_AUDIO_CALLING) {
-            notifyCallStateChanged(CallState.AUDIO_CONNECTING);
-        } else {
-            notifyCallStateChanged(CallState.VIDEO_CONNECTING);
-        }
-        AVChatManager chatManager = AVChatManager.getInstance();
+    private AVChatParameters parameters;
+
+    private void receive(final AVChatType chatType) {
         closing = false;
+        CallSoundPlayer.instance().stop();
+        AVChatManager chatManager = AVChatManager.getInstance();
         chatManager.enableRtc();
-        videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
+        if (parameters == null) {
+            parameters = CallParameters.INSTANCE.provideParameter();
+        }
+        chatManager.setParameters(parameters);
+//        chatManager.setParameter(AVChatParameters.KEY_VIDEO_FRAME_FILTER, true);
+        if (videoCapturer == null) {
+            videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
+        }
         chatManager.setupVideoCapturer(videoCapturer);
-        initCallParams();
-        chatManager.setParameters(avChatParameters);
-        if (callingState.getValue() >= CallState.VIDEO_CONNECTING.getValue()) {
+        if (chatType == AVChatType.VIDEO) {
             chatManager.enableVideo();
             chatManager.startVideoPreview();
         }
-        notifyCallStateChanged(CallState.INCOMING_VIDEO_RECEIVING);
         long chatId = avChatData.getChatId();
-        Timber.tag(TAG).d("accept2: chatId=%s", chatId);
+        Timber.i("accept2: chatId = %s", chatId);
+        if (chatType == AVChatType.VIDEO) {
+            notifyCallStateChanged(CallState.VIDEO_CONNECTING);
+        } else {
+            notifyCallStateChanged(CallState.AUDIO_CONNECTING);
+        }
         chatManager.accept2(chatId, new AVChatCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Timber.tag(TAG).d("accept2 -> onSuccess:");
+                Timber.i("accept2 -> onSuccess:");
                 mCallEstablished.set(true);
                 notifyCallStateChanged(CallState.INCOMING_VIDEO_RECEIVE_SUCCESS);
             }
 
             @Override
             public void onFailed(int code) {
-                Timber.tag(TAG).d("accept2 -> onFailed: code=%s", code);
+                Timber.w("accept2 -> onFailed: code = %s", code);
                 if (code == -1) {
                     ToastUtils.showShort("本地音视频启动失败");
                 } else {
                     ToastUtils.showShort("建立连接失败");
                 }
-                closeSessions(-1);
+                handleAcceptFailed(chatType == AVChatType.VIDEO ?
+                        CallState.VIDEO_CONNECTING : CallState.AUDIO);
             }
 
             @Override
             public void onException(Throwable exception) {
-                Timber.tag(TAG).d("accept2 -> onException: exception=%s", exception);
-                closeSessions(-1);
+                Timber.w(exception, "accept2 -> onException: ");
+                handleAcceptFailed(chatType == AVChatType.VIDEO ?
+                        CallState.VIDEO_CONNECTING : CallState.AUDIO);
             }
         });
+    }
+
+    private void handleAcceptFailed(CallState state) {
+        if (state == CallState.VIDEO_CONNECTING) {
+            AVChatManager.getInstance().stopVideoPreview();
+            AVChatManager.getInstance().disableVideo();
+        }
+        hangUp(CallExitCode.CANCEL);
     }
 
     public void hangUp() {
@@ -848,39 +908,33 @@ public enum CallHelper {
         }
     }
 
-    private volatile boolean closing;
-
-    private void hangUp(final int code) {
-//        if (!(code == CallExitCode.HANGUP
-//                || code == CallExitCode.PEER_NO_RESPONSE
-//                || code == CallExitCode.CANCEL)) {
-//            return;
-//        }
-
-        if (avChatData == null) {
-            closeSessions(code);
+    public void hangUp(final int code) {
+        if (destroyRTC) {
             return;
         }
-
-        if (avChatData != null) {
+        if (avChatData != null && (code == CallExitCode.HANGUP
+                || code == CallExitCode.PEER_NO_RESPONSE
+                || code == CallExitCode.PEER_BUSY
+                || code == CallExitCode.REJECT
+                || code == CallExitCode.CANCEL)) {
             long chatId = avChatData.getChatId();
-            Timber.tag(TAG).d("hangUp2: chatId=%s", chatId);
+            Timber.i("hangUp2: chatId=%s", chatId);
             AVChatManager.getInstance().hangUp2(chatId, new AVChatCallback<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Timber.tag(TAG).d("hangUp2 -> onSuccess: ");
+                    Timber.i("hangUp2 -> onSuccess: ");
                     closeSessions(code);
                 }
 
                 @Override
                 public void onFailed(int errorCode) {
-                    Timber.tag(TAG).d("hangUp2 -> onFailed: errorCode=%s", errorCode);
+                    Timber.w("hangUp2 -> onFailed: errorCode=%s", errorCode);
                     closeSessions(code);
                 }
 
                 @Override
                 public void onException(Throwable exception) {
-                    Timber.tag(TAG).d("hangUp2 -> onException: exception=%s", exception);
+                    Timber.w(exception, "hangUp2 -> onException");
                     closeSessions(code);
                 }
             });
@@ -923,50 +977,36 @@ public enum CallHelper {
         }
     }
 
+
     private CallFloatViewHelper callFloatViewHelper;
 
     public void enterFloatWindow() {
-        if (callFloatViewHelper == null) {
-            callFloatViewHelper = new CallFloatViewHelper(
-                    context,
-                    onSurfaceContainerPreparedListener
-            );
-        }
-        callFloatViewHelper.setFullScreenOnClickListener(new View.OnClickListener() {
+        uiHandler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                exitFloatWindow();
-                CallHelper.launchFromSmall(context);
+            public void run() {
+                if (callFloatViewHelper == null) {
+                    callFloatViewHelper = new CallFloatViewHelper(context);
+                }
+                callFloatViewHelper.setFullScreenOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        exitFloatWindow();
+                        CallHelper.enterFullScreen(context);
+                    }
+                });
+                callFloatViewHelper.setCloseOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        hangUp();
+                    }
+                });
+                callFloatViewHelper.show();
             }
-        });
-        callFloatViewHelper.setCloseOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        addOnCallStateChangeListener(callFloatViewHelper);
-        setCallTimeCallback(callFloatViewHelper);
-        setOnCloseSessionListener(callFloatViewHelper);
-        callFloatViewHelper.show();
+        }, 300);
     }
-
-    private CallFloatViewHelper.OnSurfaceContainerPreparedListener onSurfaceContainerPreparedListener
-            = new CallFloatViewHelper.OnSurfaceContainerPreparedListener() {
-        @Override
-        public void onSurfaceContainerPrepared(FrameLayout smallContainer, FrameLayout largeContainer) {
-            setSmallContainer(smallContainer);
-            setLargeContainer(largeContainer);
-        }
-    };
 
     public void exitFloatWindow() {
         if (callFloatViewHelper != null) {
-            removeOnCallStateChangeListener(callFloatViewHelper);
-            setCallTimeCallback(null);
-            setOnCloseSessionListener(null);
-            setSmallContainer(null);
-            setLargeContainer(null);
             callFloatViewHelper.dismiss();
             callFloatViewHelper = null;
         }
@@ -975,118 +1015,7 @@ public enum CallHelper {
     public void dispatchIncomingCallFromBroadCast(Context context, AVChatData avChatData) {
         this.avChatData = avChatData;
         isIncomingCall = true;
-        CallHelper.launch(context, avChatData, CallHelper.SOURCE_BROADCAST);
+        CallHelper.incomingCall(context, avChatData, CallHelper.SOURCE_BROADCAST);
     }
 
-    /**
-     * 1, autoCallProximity: 语音通话时使用, 距离感应自动黑屏
-     * 2, videoCropRatio: 制定固定的画面裁剪比例，发送端有效
-     * 3, videoAutoRotate: 结合自己设备角度和对方设备角度自动旋转画面
-     * 4, serverRecordAudio: 需要服务器录制语音, 同时需要 APP KEY 下面开通了服务器录制功能
-     * 5, serverRecordVideo: 需要服务器录制视频, 同时需要 APP KEY 下面开通了服务器录制功能
-     * 6, defaultFrontCamera: 默认是否使用前置摄像头
-     * 7, videoQuality: 视频质量调整, 最高建议使用480P
-     * 8, videoFpsReported: 是否开启视频绘制帧率汇报
-     * 9, deviceDefaultRotation: 99.99%情况下你不需要设置这个参数, 当设备固定在水平方向时,并且设备不会移动, 这时是无法确定设备角度的,可以设置一个默认角度
-     * 10, deviceRotationOffset: 99.99%情况下你不需要设置这个参数, 当你的设备传感器获取的角度永远偏移固定值时设置,用于修正旋转角度
-     * 11, videoMaxBitrate: 视频最大码率设置, 100K ~ 5M. 如果没有特殊需求不要去设置,会影响SDK内部的调节机制
-     * 12, audioEffectAecMode: 语音处理选择, 默认使用平台内置,当你发现平台内置不好用时可以设置到SDK内置
-     * 13, audioEffectNsMode: 语音处理选择, 默认使用平台内置,当你发现平台内置不好用时可以设置到SDK内置
-     * 14, videoHwEncoderMode: 视频编码类型, 默认情况下不用设置.
-     * 15, videoHwDecoderMode: 视频解码类型, 默认情况下不用设置.
-     * 16, audioHighQuality: 高清语音，采用更高的采样率来传输语音
-     * 17, audioDtx: 非连续发送，当监测到人声非活跃状态时减少数据包的发送
-     */
-    public void initCallParams() {
-        if (avChatParameters == null) {
-            avChatParameters = new AVChatParameters();
-        }
-        avChatParameters.setBoolean(AVChatParameters.KEY_AUDIO_CALL_PROXIMITY, autoCallProximity);
-        avChatParameters.setInteger(AVChatParameters.KEY_VIDEO_FIXED_CROP_RATIO, videoCropRatio);
-        avChatParameters.setBoolean(AVChatParameters.KEY_VIDEO_ROTATE_IN_RENDING, videoAutoRotate);
-        avChatParameters.setBoolean(AVChatParameters.KEY_SERVER_AUDIO_RECORD, serverRecordAudio);
-        avChatParameters.setBoolean(AVChatParameters.KEY_SERVER_VIDEO_RECORD, serverRecordVideo);
-        avChatParameters.setBoolean(AVChatParameters.KEY_VIDEO_DEFAULT_FRONT_CAMERA, defaultFrontCamera);
-        avChatParameters.setInteger(AVChatParameters.KEY_VIDEO_QUALITY, videoQuality);
-        avChatParameters.setBoolean(AVChatParameters.KEY_VIDEO_FPS_REPORTED, videoFpsReported);
-        avChatParameters.setInteger(AVChatParameters.KEY_DEVICE_DEFAULT_ROTATION, deviceDefaultRotation);
-        avChatParameters.setInteger(AVChatParameters.KEY_DEVICE_ROTATION_FIXED_OFFSET, deviceRotationOffset);
-
-        if (videoMaxBitrate > 0) {
-            avChatParameters.setInteger(AVChatParameters.KEY_VIDEO_MAX_BITRATE, videoMaxBitrate * 1024);
-        }
-        switch (audioEffectAecMode) {
-            case 0:
-                avChatParameters.setString(AVChatParameters.KEY_AUDIO_EFFECT_ACOUSTIC_ECHO_CANCELER, AVChatAudioEffectMode.DISABLE);
-                break;
-            case 1:
-                avChatParameters.setString(AVChatParameters.KEY_AUDIO_EFFECT_ACOUSTIC_ECHO_CANCELER, AVChatAudioEffectMode.SDK_BUILTIN);
-                break;
-            case 2:
-                avChatParameters.setString(AVChatParameters.KEY_AUDIO_EFFECT_ACOUSTIC_ECHO_CANCELER, AVChatAudioEffectMode.PLATFORM_BUILTIN);
-                break;
-        }
-        switch (audioEffectNsMode) {
-            case 0:
-                avChatParameters.setString(AVChatParameters.KEY_AUDIO_EFFECT_NOISE_SUPPRESSOR, AVChatAudioEffectMode.DISABLE);
-                break;
-            case 1:
-                avChatParameters.setString(AVChatParameters.KEY_AUDIO_EFFECT_NOISE_SUPPRESSOR, AVChatAudioEffectMode.SDK_BUILTIN);
-                break;
-            case 2:
-                avChatParameters.setString(AVChatParameters.KEY_AUDIO_EFFECT_NOISE_SUPPRESSOR, AVChatAudioEffectMode.PLATFORM_BUILTIN);
-                break;
-        }
-        switch (videoHwEncoderMode) {
-            case 0:
-                avChatParameters.setString(AVChatParameters.KEY_VIDEO_ENCODER_MODE, AVChatMediaCodecMode.MEDIA_CODEC_AUTO);
-                break;
-            case 1:
-                avChatParameters.setString(AVChatParameters.KEY_VIDEO_ENCODER_MODE, AVChatMediaCodecMode.MEDIA_CODEC_SOFTWARE);
-                break;
-            case 2:
-                avChatParameters.setString(AVChatParameters.KEY_VIDEO_ENCODER_MODE, AVChatMediaCodecMode.MEDIA_CODEC_HARDWARE);
-                break;
-        }
-        switch (videoHwDecoderMode) {
-            case 0:
-                avChatParameters.setString(AVChatParameters.KEY_VIDEO_DECODER_MODE, AVChatMediaCodecMode.MEDIA_CODEC_AUTO);
-                break;
-            case 1:
-                avChatParameters.setString(AVChatParameters.KEY_VIDEO_DECODER_MODE, AVChatMediaCodecMode.MEDIA_CODEC_SOFTWARE);
-                break;
-            case 2:
-                avChatParameters.setString(AVChatParameters.KEY_VIDEO_DECODER_MODE, AVChatMediaCodecMode.MEDIA_CODEC_HARDWARE);
-                break;
-        }
-        avChatParameters.setBoolean(AVChatParameters.KEY_AUDIO_HIGH_QUALITY, audioHighQuality);
-        avChatParameters.setBoolean(AVChatParameters.KEY_AUDIO_DTX_ENABLE, audioDtx);
-
-        //观众角色,多人模式下使用. IM Demo没有多人通话, 全部设置为AVChatUserRole.NORMAL.
-        avChatParameters.setInteger(AVChatParameters.KEY_SESSION_MULTI_MODE_USER_ROLE, AVChatUserRole.NORMAL);
-
-        //采用I420图像格式
-        avChatParameters.setInteger(AVChatParameters.KEY_VIDEO_FRAME_FILTER_FORMAT, AVChatImageFormat.I420);
-    }
-
-    private AVChatParameters avChatParameters;
-
-    private int videoCropRatio = 0;
-    private boolean videoAutoRotate = true;
-    private int videoQuality = 0;
-    private boolean serverRecordAudio = false;
-    private boolean serverRecordVideo = false;
-    private boolean defaultFrontCamera = true;
-    private boolean autoCallProximity = true;
-    private int videoHwEncoderMode = 0;
-    private int videoHwDecoderMode = 0;
-    private boolean videoFpsReported = true;
-    private int audioEffectAecMode = 2;
-    private int audioEffectNsMode = 2;
-    private int videoMaxBitrate = 0;
-    private int deviceDefaultRotation = 0;
-    private int deviceRotationOffset = 0;
-    private boolean audioHighQuality = false;
-    private boolean audioDtx = true;
-    private boolean webrtcCompat = true;
 }
