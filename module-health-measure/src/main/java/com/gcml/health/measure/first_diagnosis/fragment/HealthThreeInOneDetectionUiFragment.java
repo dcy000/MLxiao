@@ -2,6 +2,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -27,6 +28,12 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
     private DetectionData cholesterolData;
     private DetectionData lithicAcidData;
     private int selectMeasureSugarTime;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请将试纸插入仪器，开始测量", false);
+    }
 
     @Override
     public void onStart() {
@@ -73,7 +80,6 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UM.getApp(), "请将试纸插入仪器，开始测量", false);
     }
 
     @Override
