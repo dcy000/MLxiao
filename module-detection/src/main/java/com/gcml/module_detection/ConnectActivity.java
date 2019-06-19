@@ -380,7 +380,9 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     @Override
     public void connectFailed() {
-        mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
+        if (!(baseFragment instanceof ECG_PDF_Fragment)) {
+            mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
+        }
         //连接失败后，提示他主动连接
         if (baseFragment instanceof BloodsugarSearchFragment && isTimeCountDownOver) {
             connectedFailedTips();
