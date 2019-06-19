@@ -1,6 +1,8 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -37,6 +39,12 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
         setBtnClickableState(false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+//        MLVoiceSynthetize.startSynthesize(getContext(), "请测量血压", false);
     }
 
     @SuppressLint("CheckResult")

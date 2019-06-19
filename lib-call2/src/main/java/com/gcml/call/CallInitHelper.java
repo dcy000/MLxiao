@@ -77,7 +77,7 @@ public class CallInitHelper {
                 public void onEvent(StatusCode code) {
                     String name = code.name();
                     Log.w("AccountStatus", name);
-                    Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
                     if (code.wontAutoLogin()) {
                         kickOut(code);
                     } else {

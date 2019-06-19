@@ -45,7 +45,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/health_measure_decorate_left"
+            android:src="@drawable/common_ic_decorate_left"
             app:layout_constraintRight_toLeftOf="@id/tv_headline_influencing_factors"
             app:layout_constraintTop_toTopOf="@id/tv_headline_influencing_factors"
             app:layout_constraintBottom_toBottomOf="@id/tv_headline_influencing_factors"
@@ -53,7 +53,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/health_measure_decorate_right"
+            android:src="@drawable/common_ic_decorate_right"
             app:layout_constraintLeft_toRightOf="@id/tv_headline_influencing_factors"
             app:layout_constraintTop_toTopOf="@id/tv_headline_influencing_factors"
             app:layout_constraintBottom_toBottomOf="@id/tv_headline_influencing_factors"
@@ -62,7 +62,7 @@
             android:id="@+id/view_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/health_measure_blue_dotted_line"
+            android:background="@drawable/common_ic_blue_dotted_line"
             android:layerType="software"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
