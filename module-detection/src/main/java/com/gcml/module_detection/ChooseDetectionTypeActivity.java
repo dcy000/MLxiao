@@ -226,7 +226,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     break;
                 case "BMI":
                     bean.setIcon(R.drawable.type_weight);
-                    bean.setUnit("(kg/m²)");
+                    bean.setUnit("");
                     break;
                 case "心电":
                     bean.setIcon(R.drawable.type_ecg);
