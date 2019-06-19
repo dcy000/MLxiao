@@ -73,7 +73,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
                     } else {
                         isMeasureBUAFinished = true;
                         mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
-                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.0f", uricAcid * 1000));
+                        mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", uricAcid * 1000));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
                         postData(detectionData);

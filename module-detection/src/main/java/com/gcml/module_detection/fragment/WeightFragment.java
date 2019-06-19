@@ -83,9 +83,9 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                             onMeasureFinished(detectionData);
                             robotSpeak(detectionData);
                             postData(detectionData);
-                            mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
+                            mTvResultLeft.setText(String.format(Locale.getDefault(), "%.2f", weight));
                         } else {
-                            mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
+                            mTvResultLeft.setText(String.format(Locale.getDefault(), "%.2f", weight));
                         }
                     }
                 }
