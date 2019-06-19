@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
@@ -25,6 +26,7 @@ import com.gcml.lib_printer_8003dd.ConnectPrinterHelper;
 import com.gcml.lib_printer_8003dd.IPrinterView;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
+import com.gcml.module_health_profile.utils.BluetoothUnpairUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
@@ -182,12 +184,12 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     @Override
     protected void onResume() {
         super.onResume();
-        getData();
-        initPrinter();
+        loadData();
     }
 
-    private void getData() {
+    private void loadData() {
 
+        showLoading("正在加载");
         Routerfit.register(AppRouter.class).getUserProvider()
                 .getUserEntity()
                 .subscribeOn(Schedulers.io())
@@ -200,6 +202,12 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                         userSex = user.sex;
                     }
                 });
+        //三秒之后去获取数据，解决前一个页面测量数据上传服务器有一定延时的问题
+        Handlers.bg().postDelayed(() -> getData(), 3000);
+        initPrinter();
+    }
+
+    private void getData() {
         HealthProfileRepository repository = new HealthProfileRepository();
         repository.getHealthRecordMeasureResult(rdRecordId, userRecordId)
                 .subscribeOn(Schedulers.io())
@@ -207,12 +215,13 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                 .subscribe(new DefaultObserver<List<OutputMeasureBean>>() {
                     @Override
                     public void onNext(List<OutputMeasureBean> outputMeasureBeans) {
+                        dismissLoading();
                         dealResult(outputMeasureBeans);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        dismissLoading();
                     }
 
                     @Override
@@ -256,7 +265,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
 
     private void initPrinter() {
         printerHelper = new ConnectPrinterHelper(this);
-        printerHelper.start();
+        Handlers.bg().postDelayed(() -> printerHelper.start(), 4000);
     }
 
 
@@ -328,6 +337,9 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     protected void onStop() {
         super.onStop();
         mX5Webview.removeJavascriptInterface("addSubmit");
+        if (printerHelper != null) {
+            printerHelper.onStop();
+        }
     }
 
     @Override
@@ -351,6 +363,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                     @Override
                     public void onClick(View v) {
                         mRightView.setImageResource(R.drawable.health_profile_ic_bluetooth_disconnected);
+                        BluetoothUnpairUtils.unpairDevice();
                         initPrinter();
                     }
                 }).show();

@@ -3,6 +3,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.annotation.SuppressLint;
 import android.view.View;
 
+import com.gcml.common.mvp.IPresenter;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -11,6 +12,8 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -55,7 +58,9 @@ public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
         dataPulse.setPulse(detectionData.getPulse());
         datas.add(pressureData);
         datas.add(dataPulse);
-
+        if (fragmentDatas != null) {
+            fragmentDatas.data(new DetectionDataBean(IBleConstants.MEASURE_BLOOD_PRESSURE, datas));
+        }
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

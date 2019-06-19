@@ -205,7 +205,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
             String name = entity.getMenuLabel();
             if (TextUtils.isEmpty(name)) continue;
             ChooseDetectionTypeBean bean = new ChooseDetectionTypeBean();
-            bean.setTitle(entity.getMenuLabel());
+            bean.setTitle(name);
             switch (name) {
                 case "血压":
                     bean.setIcon(R.drawable.type_bloodpressure);
@@ -219,9 +219,9 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     bean.setIcon(R.drawable.type_temper);
                     bean.setUnit("(℃)");
                     break;
-                case "体重":
+                case "BMI":
                     bean.setIcon(R.drawable.type_weight);
-                    bean.setUnit("(kg)");
+                    bean.setUnit("(kg/m²)");
                     break;
                 case "心电":
                     bean.setIcon(R.drawable.type_ecg);

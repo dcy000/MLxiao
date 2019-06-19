@@ -1,4 +1,4 @@
-ext.alwaysLib=true
+ext.alwaysLib = true
 apply from: rootProject.file("build-base.gradle")
 
 android {
@@ -23,4 +23,5 @@ android {
 dependencies {
     implementation project(':lib-voice')
     implementation project(':lib-printer-8003dd')
+    implementation 'com.inuker.bluetooth:library:1.4.0'
 }

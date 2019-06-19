@@ -5,8 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.UM;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.lib_printer_8003dd.ConnectPrinterHelper;
 import com.gcml.lib_printer_8003dd.IPrinterView;
+import com.sjtu.yifei.route.Routerfit;
 
 import java.io.UnsupportedEncodingException;
 
@@ -19,12 +23,16 @@ public class MainActivity extends AppCompatActivity implements IPrinterView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UM.init(getApplication());
+        Routerfit.init(getApplication());
+        UiUtils.init(this,1920,1200);
         initView();
         printerHelper = new ConnectPrinterHelper(this);
     }
 
     public void onConnect(View view) {
-        printerHelper.start();
+//        printerHelper.start();
+        Routerfit.register(AppRouter.class).skipChooseDevicesActivity();
     }
 
     @Override
@@ -51,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements IPrinterView {
     }
 
     public void unbind(View view) {
-        BluetoothUnpairUtils.unpairDevice();
+//        BluetoothUnpairUtils.unpairDevice();
     }
 
     public void onFinish(View view) {
