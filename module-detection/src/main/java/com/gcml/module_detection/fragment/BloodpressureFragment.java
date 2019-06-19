@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.observers.DefaultObserver;
+import timber.log.Timber;
 
 public class BloodpressureFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private TextView mTvDetectionTime;
@@ -116,6 +117,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
+                        Timber.i(">>>>>血压<<<<<<<");
                         notifyActivity(datas,true);
                         if (o == null) return;
                         PostDataCallBackBean postDataCallBackBean = o.get(0);

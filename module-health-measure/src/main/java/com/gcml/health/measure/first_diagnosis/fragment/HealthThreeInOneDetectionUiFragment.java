@@ -12,6 +12,8 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -111,7 +113,9 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
 
     @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
-
+        if (fragmentDatas!=null){
+            fragmentDatas.data(new DetectionDataBean(IBleConstants.MEASURE_THREE,datas));
+        }
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

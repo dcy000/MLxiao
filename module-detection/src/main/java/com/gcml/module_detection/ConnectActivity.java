@@ -273,7 +273,6 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     private void initView() {
         mTvNext = findViewById(R.id.tv_next);
-        mTvNext.setOnClickListener(this);
         mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
         isSingleDetection = getIntent().getBooleanExtra("isSingleDetection", false);
         if (!isSingleDetection) {
@@ -281,14 +280,6 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
             setBtnClickableState(false);
         } else {
             mTvNext.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        if (v.getId() == R.id.tv_next) {
-            Routerfit.setResult(Activity.RESULT_OK, true);
         }
     }
 
@@ -389,7 +380,9 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     @Override
     public void connectFailed() {
-        mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
+        if (!(baseFragment instanceof ECG_PDF_Fragment)) {
+            mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
+        }
         //连接失败后，提示他主动连接
         if (baseFragment instanceof BloodsugarSearchFragment && isTimeCountDownOver) {
             connectedFailedTips();
@@ -569,6 +562,13 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         if (enableClick) {
             mTvNext.setClickable(true);
             mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+            mTvNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Routerfit.setResult(Activity.RESULT_OK, true);
+                    finish();
+                }
+            });
         } else {
             mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
             mTvNext.setClickable(false);
@@ -577,15 +577,17 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     @Override
     public void onSuccess(ArrayList<DetectionData> data) {
+        //流程化测量数据上传成功
         if (!isSingleDetection) {
-            Routerfit.setResult(Activity.RESULT_OK, data);
+            setBtnClickableState(true);
         }
     }
 
     @Override
     public void onError(ArrayList<DetectionData> data) {
+        //流程化测量数据上传失败
         if (!isSingleDetection) {
-            Routerfit.setResult(Activity.RESULT_OK, data);
+            setBtnClickableState(true);
         }
     }
 }

@@ -428,7 +428,7 @@
           "menuId": 64,
           "parentId": 60,
           "parentName": null,
-          "name": "体重",
+          "name": "BMI",
           "url": "/module/detection/connect/activity",
           "menuAgent": "Android",
           "perms": "",

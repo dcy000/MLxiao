@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
@@ -42,6 +43,7 @@ public class ChooseDevicesActivity extends ToolbarBaseActivity {
         initView();
         iniDevices();
         initRecycleview();
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {
@@ -57,9 +59,6 @@ public class ChooseDevicesActivity extends ToolbarBaseActivity {
         mRvDevices.setAdapter(adapter = new BaseQuickAdapter<RiskChooseDeviceBean, BaseViewHolder>(R.layout.item_choose_device, deviceBeans) {
             @Override
             protected void convert(BaseViewHolder helper, RiskChooseDeviceBean item) {
-                if (helper.getAdapterPosition() == 7) {
-                    helper.getView(R.id.device_is_selected).setVisibility(View.GONE);
-                }
                 helper.getView(R.id.device_is_selected).setSelected(item.getChoosed());
                 helper.setImageResource(R.id.device_image, item.getImageNormal());
                 helper.setText(R.id.device_name, item.getDeviceName());
@@ -78,8 +77,6 @@ public class ChooseDevicesActivity extends ToolbarBaseActivity {
                     chooseDeviceBean.setChoosed(true);
                     view.findViewById(R.id.device_is_selected).setSelected(true);
                 }
-
-                Timber.e(new Gson().toJson(deviceBeans));
             }
         });
 
