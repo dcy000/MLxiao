@@ -222,7 +222,8 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 break;
             case R.id.ei_health_edu:
 //                Routerfit.register(AppRouter.class).skipAddHealthProfileActivity("");
-                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+//                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+                Routerfit.register(AppRouter.class).skipAbnormalAssistantActivity();
                 break;
 
             case R.id.ei_recommend://预约挂号

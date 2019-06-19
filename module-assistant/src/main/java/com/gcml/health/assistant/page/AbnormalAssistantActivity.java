@@ -2,11 +2,11 @@ package com.gcml.health.assistant.page;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +17,11 @@ import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.health.assistant.R;
 import com.gcml.health.assistant.model.AssistantRepository;
 import com.gcml.health.assistant.model.entity.AbnormalEntity;
+import com.sjtu.yifei.annotation.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,8 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class AssistantActivity extends ToolbarBaseActivity {
+@Route(path = "/abnormal/assistant/activity")
+public class AbnormalAssistantActivity extends ToolbarBaseActivity {
 
     private TextView tvAbnormalLabel;
     private TextView tvAbnormalTips;
@@ -39,7 +42,7 @@ public class AssistantActivity extends ToolbarBaseActivity {
     private RecyclerView rvAbnormal;
     private AbnormalAdapter adapter;
     private ArrayList<AbnormalEntity> abnormalEntities = new ArrayList<>();
-    private ArrayList<RecommendFragment> recommendFragments = new ArrayList<>();
+    private ArrayList<AbnormalRecommendFragment> abnormalRecommendFragments = new ArrayList<>();
 
     private AssistantRepository repository = new AssistantRepository();
 
@@ -49,7 +52,7 @@ public class AssistantActivity extends ToolbarBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.assistant_activity_assistant);
+        setContentView(R.layout.abnormal_activity_assistant);
         mTitleText.setText("智 能 辅 助 诊 疗");
 
         tvAbnormalLabel = (TextView) findViewById(R.id.tvAbnormalLabel);
@@ -98,17 +101,21 @@ public class AssistantActivity extends ToolbarBaseActivity {
     }
 
     private void show(List<AbnormalEntity> abnormals) {
+        tvAbnormalLabel.setText("异常指标");
+        tvAbnormalTips.setText("(" + abnormals.get(0).getDetectionTime() + ")");
+        tvRecommendLabel.setText("智能建议");
+        tvRecommendTips.setText("(点击建议可查看任务)");
         abnormalEntities.clear();
         abnormalEntities.addAll(abnormals);
         adapter.notifyDataSetChanged();
         int size = abnormalEntities.size();
 
-        int fSize = recommendFragments.size();
+        int fSize = abnormalRecommendFragments.size();
         if (fSize > 0) {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
             for (int i = 0; i < fSize; i++) {
-                RecommendFragment fragment = recommendFragments.get(i);
+                AbnormalRecommendFragment fragment = abnormalRecommendFragments.get(i);
                 if (fragment.isAdded()) {
                     transaction.remove(fragment);
                 }
@@ -116,33 +123,33 @@ public class AssistantActivity extends ToolbarBaseActivity {
             transaction.commitNowAllowingStateLoss();
         }
 
-        recommendFragments.clear();
+        abnormalRecommendFragments.clear();
 
         for (int i = 0; i < size; i++) {
-            recommendFragments.add(RecommendFragment.newInstance(i));
+            abnormalRecommendFragments.add(AbnormalRecommendFragment.newInstance(i, abnormalEntities.get(i)));
         }
         showRecommendFragment(selected, -1);
     }
 
     private void showRecommendFragment(int selected, int last) {
-        if (recommendFragments.size() == 0) {
+        if (abnormalRecommendFragments.size() == 0) {
             return;
         }
-        if (selected < 0 || selected >= recommendFragments.size()) {
+        if (selected < 0 || selected >= abnormalRecommendFragments.size()) {
             selected = 0;
         }
 
-        String tag = RecommendFragment.class.getName() + selected;
-        RecommendFragment fragment = null;
+        String tag = AbnormalRecommendFragment.class.getName() + selected;
+        AbnormalRecommendFragment fragment = null;
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        fragment = (RecommendFragment) fm.findFragmentByTag(tag);
+        fragment = (AbnormalRecommendFragment) fm.findFragmentByTag(tag);
         if (fragment == null) {
-            fragment = recommendFragments.get(selected);
+            fragment = abnormalRecommendFragments.get(selected);
         }
 
-        if (last >= 0 && last < recommendFragments.size()) {
-            RecommendFragment lastF = recommendFragments.get(last);
+        if (last >= 0 && last < abnormalRecommendFragments.size()) {
+            AbnormalRecommendFragment lastF = abnormalRecommendFragments.get(last);
             if (lastF.isAdded()) {
                 transaction.hide(lastF);
             }
@@ -194,12 +201,37 @@ public class AssistantActivity extends ToolbarBaseActivity {
             if (selected < 0 || selected >= abnormalEntities.size()) {
                 selected = 0;
             }
+            setMarginIfNeed(position);
             AbnormalEntity entity = abnormalEntities.get(position);
             ivCheckBox.setSelected(selected == position);
             tvItemLabel.setText(entity.getLabel());
-            tvItemValue.setText(entity.getValue());
+            String value = entity.getValue();
+            tvItemValue.setText(value != null && value.contains("color") ? Html.fromHtml(value) : value);
             tvItemUnit.setText(entity.getUnit());
         }
+
+        private int smallMargin = UiUtils.pt(8);
+        private int largeMargin = UiUtils.pt(48);
+
+        private void setMarginIfNeed(int position) {
+            RecyclerView.LayoutParams layoutParams =
+                    (RecyclerView.LayoutParams) itemView.getLayoutParams();
+            int leftMargin = position == 0 ? largeMargin : smallMargin;
+            int rightMargin = position == adapter.getItemCount() - 1 ? largeMargin : smallMargin;
+            boolean changed = false;
+            if (layoutParams.leftMargin != leftMargin) {
+                layoutParams.leftMargin = leftMargin;
+                changed = true;
+            }
+            if (layoutParams.rightMargin != rightMargin) {
+                layoutParams.rightMargin = rightMargin;
+                changed = true;
+            }
+            if (changed) {
+                itemView.setLayoutParams(layoutParams);
+            }
+        }
+
     }
 
     private class AbnormalAdapter extends RecyclerView.Adapter<AbnormalHolder> {

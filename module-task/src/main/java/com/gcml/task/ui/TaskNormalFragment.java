@@ -15,16 +15,6 @@ import com.gcml.task.adapter.TaskMenuAdapter;
 import com.gcml.task.bean.get.TaskBean;
 import com.gcml.task.widget.GridDividerItemDecoration;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * desc: 待完成任务 .
- * author: wecent .
- * date: 2018/8/20 .
- */
-
 public class TaskNormalFragment extends Fragment {
 
     // 数据

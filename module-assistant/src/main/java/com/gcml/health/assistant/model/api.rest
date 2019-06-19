@@ -1,0 +1,90 @@
+###
+POST http://192.168.200.222:8080/ZZB/api/healthMonitor/detection/130434/
+version: 1.0
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+token: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+serverId: 1
+source: gcml
+agent: Android
+equipmentId: 652c1ec4cfbcc990
+eqid: 652c1ec4cfbcc990
+Content-Type: application/json; charset=UTF-8
+Host: 192.168.200.222:8080
+Accept-Encoding: gzip
+
+[{"detectionType":"0","highPressure":141,"lowPressure":59},{"detectionType":"9","pulse":67}]
+
+# 智能建议
+###
+POST http://192.168.200.222:8080/ZZB/api/app/user/get/target/anomaly?userId=130434
+version: 1.0
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+token: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+serverId: 1
+source: gcml
+agent: Android
+equipmentId: 652c1ec4cfbcc990
+eqid: 652c1ec4cfbcc990
+Content-Type: application/json; charset=UTF-8
+Host: 192.168.200.222:8080
+Accept-Encoding: gzip
+
+# 任务列表
+###
+POST http://192.168.200.222:8080/ZZB/api/app/user/get/target/task/list?userId=130434&anomalyTargetId=130434&adviceId=130434
+version: 1.0
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+token: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+serverId: 1
+source: gcml
+agent: Android
+equipmentId: 652c1ec4cfbcc990
+eqid: 652c1ec4cfbcc990
+Content-Type: application/json; charset=UTF-8
+Host: 192.168.200.222:8080
+Accept-Encoding: gzip
+
+# 全部任务
+###
+POST http://192.168.200.222:8080/ZZB/api/app/user/get/target/user/task/list?taskId=130434
+version: 1.0
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+token: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+serverId: 1
+source: gcml
+agent: Android
+equipmentId: 652c1ec4cfbcc990
+eqid: 652c1ec4cfbcc990
+Content-Type: application/json; charset=UTF-8
+Host: 192.168.200.222:8080
+Accept-Encoding: gzip
+
+# 用户单个任务确认
+###
+POST http://192.168.200.222:8080/ZZB/api/app/user/target/one/task/confirm?userTaskId=130434
+version: 1.0
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+token: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+serverId: 1
+source: gcml
+agent: Android
+equipmentId: 652c1ec4cfbcc990
+eqid: 652c1ec4cfbcc990
+Content-Type: application/json; charset=UTF-8
+Host: 192.168.200.222:8080
+Accept-Encoding: gzip
+
+# 确认并执行任务
+###
+POST http://192.168.200.222:8080/ZZB/api/app/user/target/task/confirm?userTaskId=130434
+version: 1.0
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+token: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyQWdlbnQiOiJhbmRyb2lkIiwic291cmNlIjoiZ2NtbCIsInVpZCI6MTMwNDM0LCJjYXRlZ29yeSI6IiIsInN1YiI6IjEzMDQzNCIsImlhdCI6MTU2MDkwODA4OSwiZXhwIjoxNTYxNTEyODg5fQ.mTfIh2AhoFRD8k3Ok_oIa9t7KAKXmgCcw4FPnI8UABjTLOiQr4eD9UD1ifM_wNh-HgdN6YEcLZZwfKb1FJuY7w
+serverId: 1
+source: gcml
+agent: Android
+equipmentId: 652c1ec4cfbcc990
+eqid: 652c1ec4cfbcc990
+Content-Type: application/json; charset=UTF-8
+Host: 192.168.200.222:8080
+Accept-Encoding: gzip

@@ -89,5 +89,5 @@ dependencies {
     addComponent 'module-detection' //健康检测
     addComponent 'module-health-profile'  //公卫 建档
     addComponent 'module-help'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    addComponent 'module-assistant' // 智能建议
 }

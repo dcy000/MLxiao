@@ -251,6 +251,16 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .doOnNext(new Consumer<List<LatestDetecBean>>() {
                     @Override
                     public void accept(List<LatestDetecBean> latestDetecBeans) throws Exception {
+                        boolean bloodRed = false;
+                        for (LatestDetecBean latestDetecBean : latestDetecBeans) {
+                            String type = latestDetecBean.getType();
+                            if (("-1".equals(type) && !"0".equals(latestDetecBean.getStatus()))
+                                    || ("0".equals(type) && !"0".equals(latestDetecBean.getStatus())) ) {
+                                bloodRed = true;
+                                break;
+                            }
+                        }
+
                         for (LatestDetecBean latest : latestDetecBeans) {
                             //检测数据类型 -1低血压 0高血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸
                             String type = latest.getType();
@@ -258,11 +268,12 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                             String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
                             switch (type) {
                                 case "-1":
+                                    String s = bloodRed ? "<font color=\"#E53B3B\">/</font>" : "<font color=\"#303133\">/</font>";
                                     if (status) {
                                         //正常范围
-                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
+                                        types.get(0).setResult(s + "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     } else {
-                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
+                                        types.get(0).setResult(s + "<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
                                     }
 //                                    types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
