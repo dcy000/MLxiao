@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gcml.common.widget.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slItemAbnormal"
+    android:layout_width="504pt"
+    android:layout_height="268pt"
+    android:layout_marginRight="10pt"
+    app:shadow_layout_cornerRadius="24pt"
+    app:shadow_layout_dx="0pt"
+    app:shadow_layout_dy="8pt"
+    app:shadow_layout_shadowRadius="12pt">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clItemAbnormal"
+        android:layout_width="480pt"
+        android:layout_height="248pt"
+        android:background="@drawable/assistant_bg_write">
+
+        <ImageView
+            android:id="@+id/ivCheckBox"
+            android:layout_width="56pt"
+            android:layout_height="56pt"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="48pt"
+            android:background="@drawable/assistant_chk_abnormal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvItemLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120pt"
+            android:layout_marginTop="48pt"
+            android:textColor="#303133"
+            android:textSize="56pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="血压" />
+
+        <TextView
+            android:id="@+id/tvItemValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40pt"
+            android:layout_marginTop="128pt"
+            android:textColor="#303133"
+            android:textSize="56pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="155/102" />
+
+        <TextView
+            android:id="@+id/tvItemUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8pt"
+            android:layout_marginTop="128pt"
+            android:textColor="#BFC2CC"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="@+id/tvItemValue"
+            app:layout_constraintLeft_toRightOf="@+id/tvItemValue"
+            tools:text="(mmHg)" />
+
+    </android.support.constraint.ConstraintLayout>
+</com.gcml.common.widget.ShadowLayout>

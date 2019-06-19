@@ -2,6 +2,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -30,6 +31,12 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
     private boolean isJump2Next = false;
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        MLVoiceSynthetize.startSynthesize(getContext(), "请将试纸插入仪器，开始测量", false);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         isJump2Next = false;
@@ -46,7 +53,6 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(), "请将试纸插入仪器，开始测量", false);
     }
 
     @Override
@@ -83,7 +89,7 @@ public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        showUploadDataFailedDialog(detectionData,R.string.xml_dialog_upload_failed);
+                        showUploadDataFailedDialog(detectionData, R.string.xml_dialog_upload_failed);
                     }
 
                     @Override

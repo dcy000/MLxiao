@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gcml.common.widget.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slItemAbnormal"
+    android:layout_width="700pt"
+    android:layout_height="496pt"
+    android:layout_marginRight="10pt"
+    app:shadow_layout_cornerRadius="24pt"
+    app:shadow_layout_dx="0pt"
+    app:shadow_layout_dy="8pt"
+    app:shadow_layout_shadowRadius="12pt">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clItemAbnormal"
+        android:layout_width="700pt"
+        android:layout_height="496pt"
+        android:background="@drawable/assistant_bg_write">
+
+        <TextView
+            android:id="@+id/tvItemTag"
+            android:layout_width="wrap_content"
+            android:layout_height="56pt"
+            android:layout_marginLeft="37pt"
+            android:layout_marginTop="60pt"
+            android:background="@drawable/assistant_bg_tag_0cc489"
+            android:gravity="center"
+            android:paddingLeft="20pt"
+            android:paddingRight="20pt"
+            android:textColor="#0CC489"
+            android:textSize="40pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="上次选择" />
+
+        <TextView
+            android:id="@+id/tvItemLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24pt"
+            android:layout_marginTop="48pt"
+            android:textColor="#303133"
+            android:textSize="56pt"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/tvItemTag"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="系统智能建议" />
+
+        <TextView
+            android:id="@+id/tvItemContent"
+            android:layout_width="626pt"
+            android:layout_height="208pt"
+            android:layout_marginTop="152pt"
+            android:ellipsize="none"
+            android:textColor="#909399"
+            android:textSize="48pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="您的血压为150/76mmHg，按照标准属于偏高。请您保持良好的生活方式如低盐低脂..." />
+
+        <TextView
+            android:id="@+id/tvItemCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36pt"
+            android:textColor="#BFC2CC"
+            android:textSize="48pt"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemContent"
+            app:layout_constraintLeft_toLeftOf="@+id/tvItemContent"
+            tools:text="5667人执行" />
+
+    </android.support.constraint.ConstraintLayout>
+</com.gcml.common.widget.ShadowLayout>

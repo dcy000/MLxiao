@@ -1,4 +1,4 @@
-include ':app-xa', ':printer',
+include ':app-xa', ':printer', ':module-assistant',
         ':app-jgys',
         ':app-combine',
         ':module-alarm',
@@ -16,12 +16,13 @@ include ':app-xa', ':printer',
         ':lib-idcard-reader',
         ':lib-printer-8003dd',
         ':module-inquiry', //建档
-        ':module-health-profile'
+        ':module-health-profile',
+        ':lib-call2'
 
 include ':lib-baidu-unit',
 //        ':lib-auth-face',
 //        ':lib-mlvoice',
-        ':lib-call',
+//        ':lib-call',
         ':lib-pay-beecloud',
         ':lib-music-player',
         ':lib-progress-orb',

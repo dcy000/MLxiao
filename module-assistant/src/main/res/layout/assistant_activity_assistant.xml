@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="#ffffff"
+    tools:context=".page.AssistantActivity">
+
+    <TextView
+        android:id="@+id/tvAbnormalLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="40pt"
+        android:textColor="#303133"
+        android:textSize="64pt"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="异常指标" />
+
+    <TextView
+        android:id="@+id/tvAbnormalTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16pt"
+        android:textColor="#909399"
+        android:textSize="48pt"
+        app:layout_constraintTop_toTopOf="@+id/tvAbnormalLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAbnormalLabel"
+        app:layout_constraintLeft_toRightOf="@+id/tvAbnormalLabel"
+        tools:text="(2019-06-06)" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvAbnormal"
+        android:layout_width="0dp"
+        android:layout_height="288pt"
+        android:layout_marginTop="20pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAbnormalLabel">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tvRecommendLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="20pt"
+        android:textColor="#303133"
+        android:textSize="64pt"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvAbnormal"
+        tools:text="智能建议" />
+
+    <TextView
+        android:id="@+id/tvRecommendTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16pt"
+        android:textColor="#909399"
+        android:textSize="48pt"
+        app:layout_constraintTop_toTopOf="@+id/tvRecommendLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRecommendLabel"
+        app:layout_constraintLeft_toRightOf="@+id/tvRecommendLabel"
+        tools:text="(点击建议可查看任务)" />
+
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRecommendLabel">
+
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

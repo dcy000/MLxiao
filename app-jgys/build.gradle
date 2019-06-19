@@ -71,6 +71,6 @@ dependencies {
     addComponent 'module-doctor-advisory'
     addComponent 'module-body-test'
     addComponent 'module-alarm'
-    addComponent 'lib-call'
+    addComponent 'lib-call2'
 }
 

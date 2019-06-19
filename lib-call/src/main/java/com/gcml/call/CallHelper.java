@@ -372,10 +372,12 @@ public enum CallHelper {
                 if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_BUSY) {
                     Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_BUSY");
                     CallSoundPlayer.instance().play(CallSoundPlayer.RingerType.PEER_BUSY);
-                    closeSessions(CallExitCode.PEER_BUSY);
+                    hangUp(CallExitCode.PEER_BUSY);
+//                    closeSessions(CallExitCode.PEER_BUSY);
                 } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_REJECT) {
                     Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_REJECT");
-                    closeSessions(CallExitCode.REJECT);
+                    hangUp(CallExitCode.REJECT);
+//                    closeSessions(CallExitCode.REJECT);
                 } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_AGREE) {
                     Timber.tag(TAG).d("onEvent %s", "CALLEE_ACK_AGREE");
                     mCallEstablished.set(true);
@@ -506,7 +508,7 @@ public enum CallHelper {
             return;
         }
         closing = true;
-        Timber.tag(TAG).d("closeSession: code=%s",CallExitCode.getExitString(exitCode));
+        Timber.tag(TAG).d("closeSession: code=%s", CallExitCode.getExitString(exitCode));
         CallSoundPlayer.instance().stop();
         registerCallObserver(false);
         setLargeContainer(null);
@@ -849,9 +851,18 @@ public enum CallHelper {
     private volatile boolean closing;
 
     private void hangUp(final int code) {
-        if ((code == CallExitCode.HANGUP
-                || code == CallExitCode.PEER_NO_RESPONSE
-                || code == CallExitCode.CANCEL) && avChatData != null) {
+//        if (!(code == CallExitCode.HANGUP
+//                || code == CallExitCode.PEER_NO_RESPONSE
+//                || code == CallExitCode.CANCEL)) {
+//            return;
+//        }
+
+        if (avChatData == null) {
+            closeSessions(code);
+            return;
+        }
+
+        if (avChatData != null) {
             long chatId = avChatData.getChatId();
             Timber.tag(TAG).d("hangUp2: chatId=%s", chatId);
             AVChatManager.getInstance().hangUp2(chatId, new AVChatCallback<Void>() {

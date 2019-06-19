@@ -20,6 +20,14 @@ import static com.gcml.common.constant.Global.URI;
 public interface UserService {
 
     /**
+     * 患者账号退出登录
+     * 必填字段
+     * "bid"
+     */
+    @POST(URI + "/sys/br/off/line")
+    Observable<ApiResult<Object>> signOut(@Query("bid") String userId);
+
+    /**
      * 患者账号登陆
      * 必填字段
      * "category"

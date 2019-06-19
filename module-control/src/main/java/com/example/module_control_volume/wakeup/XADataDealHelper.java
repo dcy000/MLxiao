@@ -22,7 +22,6 @@ import com.example.module_control_volume.R;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.router.AppRouter;
@@ -1059,8 +1058,7 @@ public class XADataDealHelper {
             return str1;
         }
         data = EHSharedPreferences.ReadAccessToken(ACCESSTOKEN_KEY);
-        if (data == null) {
-            return str1;
+        if (data == null) {            return str1;
         }
         UnitModel model = new UnitModel();
         model.getUnit(data.getAccessToken(), SCENE_Id, request, sessionId, new HttpListener<Unit>() {

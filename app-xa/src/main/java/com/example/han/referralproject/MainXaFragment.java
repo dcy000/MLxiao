@@ -1,6 +1,5 @@
 package com.example.han.referralproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,20 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.han.healthmanage.HealthManageActivity;
 import com.gcml.common.LazyFragment;
-import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IUserEntityProvider;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
@@ -37,8 +34,6 @@ import com.gcml.lib_widget.EclipseImageView;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -47,7 +42,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     private LinearLayout mLlPernal;
     private EclipseImageView mEiHealthCheckup;
     private EclipseImageView mEiInfomationCollection;
-    private EclipseImageView mEiDoctorService, eiRecommend, eiReservation, eiMedicalHome;
+    private EclipseImageView mEiDoctorService, eiRecommend, eiReservation, eiMedicalHome, eiRecommendNew;
     private EclipseImageView mEiQuit;
     private EclipseImageView ivDoctorCall;
     private EclipseImageView ivDoctorFamily;
@@ -70,6 +65,11 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view, savedInstanceState);
+        initBdToken();
+    }
+
+    private void initBdToken() {
+        Routerfit.register(AppRouter.class).bdTokenProvider().getBdToken();
     }
 
     protected void initView(View view, Bundle bundle) {
@@ -100,6 +100,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
 
         eiMedicalHome = (EclipseImageView) view.findViewById(R.id.ei_medical_home);
         eiMedicalHome.setOnClickListener(this);
+        eiRecommendNew = (EclipseImageView) view.findViewById(R.id.ei_entertainment_new);
+        eiRecommendNew.setOnClickListener(this);
+
 //        getPersonInfo();
     }
 
@@ -181,7 +184,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 break;
             case R.id.ei_infomation_collection:
                 //进入这个模块需要先完善性别信息
-                Routerfit.register(AppRouter.class)
+               /* Routerfit.register(AppRouter.class)
                         .getCheckUserInfoProvider()
                         .check(new CheckUserInfoProviderImp.CheckUserInfo() {
                             @Override
@@ -198,7 +201,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                             public void onError(Throwable e) {
 
                             }
-                        }, EUserInfo.GENDER);
+                        }, EUserInfo.GENDER);*/
+                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+
                 break;
             case R.id.iv_self_check:
                 IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
@@ -207,8 +212,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 }
                 break;
             case R.id.ei_entertainment:
-                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+//                ToastUtils.showShort("敬请期待~");
 //                quitApp();
+                ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
             case R.id.iv_doctor_call:
                 Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
@@ -218,14 +224,22 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 break;
             case R.id.ei_health_edu:
 //                Routerfit.register(AppRouter.class).skipAddHealthProfileActivity("");
-                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+//                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+                ToastUtils.showShort("敬请期待~");
                 break;
 
-            case R.id.ei_recommend:
+            case R.id.ei_recommend://预约挂号
+                ToastUtils.showShort("啊哦！预约挂号服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
-            case R.id.ei_reservation:
+            case R.id.ei_reservation://医护上门
+                ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
-            case R.id.ei_medical_home:
+            case R.id.ei_medical_home://退出
+                quitApp();
+                break;
+            case R.id.ei_entertainment_new://娱乐
+//                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+                ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
 
         }
