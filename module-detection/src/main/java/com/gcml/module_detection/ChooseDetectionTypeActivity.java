@@ -63,6 +63,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
 
     private void setAdapter() {
         mRv.setLayoutManager(new GridLayoutManager(this, 4));
+        //TODO:item里面的布局写的有点渣，后来需求变更，所以没有整体重写，直接在上面加的
         mRv.setAdapter(adapter = new BaseQuickAdapter<ChooseDetectionTypeBean, BaseViewHolder>(R.layout.layout_item_detection_type, types) {
             @Override
             protected void convert(BaseViewHolder helper, ChooseDetectionTypeBean item) {
@@ -75,9 +76,13 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 if (!TextUtils.isEmpty(item.getResult())) {
                     helper.getView(R.id.ll_1).setVisibility(View.VISIBLE);
                     helper.getView(R.id.ll_2).setVisibility(View.GONE);
-                    if (item.getResult().contains("color")) {
-                        ((TextView) helper.getView(R.id.tv_last_data)).setText(Html.fromHtml(item.getResult()));
-                        return;
+                    if (!TextUtils.isEmpty(item.getResult2())) {
+                        helper.getView(R.id.tv_slash).setVisibility(View.VISIBLE);
+                        helper.getView(R.id.tv_last_low_pressure).setVisibility(View.VISIBLE);
+                        helper.setText(R.id.tv_last_low_pressure, item.getResult2());
+                    } else {
+                        helper.getView(R.id.tv_slash).setVisibility(View.GONE);
+                        helper.getView(R.id.tv_last_low_pressure).setVisibility(View.GONE);
                     }
                     helper.setText(R.id.tv_last_data, item.getResult());
                     if (item.isNormal()) {
@@ -258,24 +263,14 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                             String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
                             switch (type) {
                                 case "-1":
-                                    if (status) {
-                                        //正常范围
-                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                    } else {
-                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                    }
-//                                    types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
+                                    types.get(0).setResult2(String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
+                                    types.get(0).setNormal(status);
                                     break;
                                 case "0":
-                                    if (status) {
-                                        //正常范围
-//                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>").toString());
-                                    } else {
-//                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>").toString());
-                                    }
+                                    types.get(0).setResult(String.format("%.0f", latest.getValue()));
+                                    types.get(0).setDate(friendlyTimeSpanByNow);
+                                    types.get(0).setNormal(status);
                                     break;
                                 case "1":
                                     types.get(1).setResult(latest.getValue() + "");

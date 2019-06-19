@@ -5,6 +5,7 @@ public class ChooseDetectionTypeBean {
     private String title;
     private String date;
     private String result;
+    private String result2;
     private String unit;
     private boolean isNormal;
 
@@ -65,5 +66,13 @@ public class ChooseDetectionTypeBean {
 
     public void setNormal(boolean normal) {
         isNormal = normal;
+    }
+
+    public String getResult2() {
+        return result2;
+    }
+
+    public void setResult2(String result2) {
+        this.result2 = result2;
     }
 }

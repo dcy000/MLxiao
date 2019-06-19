@@ -52,16 +52,35 @@
                 android:text="今天12:30"
                 android:textColor="#909399"
                 android:textSize="40pt" />
-
-            <TextView
-                android:id="@+id/tv_last_data"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="155/102"
-                android:textColor="#E53B3B"
-                android:textSize="100pt"
-                android:textStyle="bold"/>
-
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_last_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="155"
+                    android:textColor="#E53B3B"
+                    android:textSize="100pt"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:textColor="#303133"
+                    android:textSize="100pt"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_last_low_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="70"
+                    android:textColor="#E53B3B"
+                    android:textSize="100pt"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <TextView
                 android:id="@+id/tv_unit"
                 android:layout_width="wrap_content"
