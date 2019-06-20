@@ -47,6 +47,7 @@ Thumbs.db
 *.swp
 *.*~
 ~*.*
+*.hprof
 freeline.py
 freeline_project_description.json
 freeline/
