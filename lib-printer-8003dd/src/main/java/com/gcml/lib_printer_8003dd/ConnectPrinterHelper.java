@@ -37,7 +37,6 @@ public class ConnectPrinterHelper implements LifecycleObserver {
     private MyHandler handler;
     private IPrinterView view;
     private boolean isConnected = false;
-    private HandlerThread sBgThread;
     private Handler sBgHandler;
 
     public boolean isConnected() {
@@ -63,16 +62,7 @@ public class ConnectPrinterHelper implements LifecycleObserver {
         if (activity == null) {
             throw new IllegalArgumentException("activity==null");
         }
-        sBgThread = new HandlerThread(
-                "bluetooth-work", Process.THREAD_PRIORITY_BACKGROUND);
-        sBgThread.start();
-        sBgHandler = new Handler(sBgThread.getLooper());
-        sBgHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                doAccept();
-            }
-        });
+        doAccept();
     }
 
     private void doAccept() {
@@ -238,11 +228,6 @@ public class ConnectPrinterHelper implements LifecycleObserver {
         }
         if (searchHelper != null) {
             searchHelper.clear();
-        }
-        if (sBgThread != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                sBgThread.quitSafely();
-            }
         }
         if (sBgHandler != null) {
             sBgHandler.removeCallbacksAndMessages(null);

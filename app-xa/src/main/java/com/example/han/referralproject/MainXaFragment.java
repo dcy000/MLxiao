@@ -1,6 +1,5 @@
 package com.example.han.referralproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,14 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.han.healthmanage.HealthManageActivity;
 import com.gcml.common.LazyFragment;
-import com.gcml.common.constant.EUserInfo;
 import com.gcml.common.constant.Global;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IUserEntityProvider;
@@ -37,8 +33,6 @@ import com.gcml.lib_widget.CircleImageView;
 import com.gcml.lib_widget.EclipseImageView;
 import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -71,6 +65,11 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view, savedInstanceState);
+        initBdToken();
+    }
+
+    private void initBdToken() {
+        Routerfit.register(AppRouter.class).bdTokenProvider().getBdToken();
     }
 
     protected void initView(View view, Bundle bundle) {
@@ -185,7 +184,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 break;
             case R.id.ei_infomation_collection:
                 //进入这个模块需要先完善性别信息
-                Routerfit.register(AppRouter.class)
+               /* Routerfit.register(AppRouter.class)
                         .getCheckUserInfoProvider()
                         .check(new CheckUserInfoProviderImp.CheckUserInfo() {
                             @Override
@@ -202,7 +201,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                             public void onError(Throwable e) {
 
                             }
-                        }, EUserInfo.GENDER);
+                        }, EUserInfo.GENDER);*/
+                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
+
                 break;
             case R.id.iv_self_check:
                 IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
@@ -211,8 +212,9 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 }
                 break;
             case R.id.ei_entertainment:
-                ToastUtils.showShort("敬请期待~");
+//                ToastUtils.showShort("敬请期待~");
 //                quitApp();
+                ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
             case R.id.iv_doctor_call:
                 Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
@@ -224,6 +226,7 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
 //                Routerfit.register(AppRouter.class).skipAddHealthProfileActivity("");
 //                Routerfit.register(AppRouter.class).skipVideoListActivity(0);
                 Routerfit.register(AppRouter.class).skipAbnormalAssistantActivity();
+
                 break;
 
             case R.id.ei_recommend://预约挂号
@@ -236,7 +239,8 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 quitApp();
                 break;
             case R.id.ei_entertainment_new://娱乐
-                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+//                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+                ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
 
         }

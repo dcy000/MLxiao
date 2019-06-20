@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
 
+import com.gcml.common.bd.BDInterface;
 import com.gcml.common.constant.Global;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.get.GoodsBean;
@@ -595,4 +596,11 @@ public interface AppRouter {
 
     @Go("/abnormal/assistant/activity")
     boolean skipAbnormalAssistantActivity();
+
+    /**
+     * 百度获取token
+     */
+    @Go("bd/token/provider")
+    BDInterface bdTokenProvider();
+
 }

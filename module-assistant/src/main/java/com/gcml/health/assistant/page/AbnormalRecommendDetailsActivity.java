@@ -2,6 +2,7 @@ package com.gcml.health.assistant.page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -216,7 +217,13 @@ public class AbnormalRecommendDetailsActivity extends ToolbarBaseActivity {
             }
             AbnormalTaskEntity task = taskList.get(i);
             TextView tvTask = tvTasks.get(i);
-            tvTask.setText(task.getTaskName());
+            String taskTime = task.getTaskTime();
+            if (TextUtils.isEmpty(taskTime)) {
+                taskTime = "(" + taskTime + ")";
+            } else {
+                taskTime = "";
+            }
+            tvTask.setText(task.getTaskName() + taskTime);
             tvTask.setVisibility(View.VISIBLE);
             ivTasks.get(i).setVisibility(View.VISIBLE);
         }

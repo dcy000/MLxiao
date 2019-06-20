@@ -63,6 +63,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
 
     private void setAdapter() {
         mRv.setLayoutManager(new GridLayoutManager(this, 4));
+        //TODO:item里面的布局写的有点渣，后来需求变更，所以没有整体重写，直接在上面加的
         mRv.setAdapter(adapter = new BaseQuickAdapter<ChooseDetectionTypeBean, BaseViewHolder>(R.layout.layout_item_detection_type, types) {
             @Override
             protected void convert(BaseViewHolder helper, ChooseDetectionTypeBean item) {
@@ -75,9 +76,23 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 if (!TextUtils.isEmpty(item.getResult())) {
                     helper.getView(R.id.ll_1).setVisibility(View.VISIBLE);
                     helper.getView(R.id.ll_2).setVisibility(View.GONE);
-                    if (item.getResult().contains("color")) {
-                        ((TextView) helper.getView(R.id.tv_last_data)).setText(Html.fromHtml(item.getResult()));
-                        return;
+                    if (!TextUtils.isEmpty(item.getResult2())) {
+                        helper.getView(R.id.tv_slash).setVisibility(View.VISIBLE);
+                        helper.getView(R.id.tv_last_low_pressure).setVisibility(View.VISIBLE);
+                        helper.setText(R.id.tv_last_low_pressure, item.getResult2());
+                        if (item.isNormal2()) {
+                            helper.setTextColor(R.id.tv_last_low_pressure, Color.parseColor("#303133"));
+                        } else {
+                            helper.setTextColor(R.id.tv_last_low_pressure, Color.parseColor("#E53B3B"));
+                        }
+                        if (item.isNormal() && item.isNormal2()) {
+                            helper.setTextColor(R.id.tv_slash, Color.parseColor("#303133"));
+                        } else {
+                            helper.setTextColor(R.id.tv_slash, Color.parseColor("#E53B3B"));
+                        }
+                    } else {
+                        helper.getView(R.id.tv_slash).setVisibility(View.GONE);
+                        helper.getView(R.id.tv_last_low_pressure).setVisibility(View.GONE);
                     }
                     helper.setText(R.id.tv_last_data, item.getResult());
                     if (item.isNormal()) {
@@ -205,7 +220,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
             String name = entity.getMenuLabel();
             if (TextUtils.isEmpty(name)) continue;
             ChooseDetectionTypeBean bean = new ChooseDetectionTypeBean();
-            bean.setTitle(entity.getMenuLabel());
+            bean.setTitle(name);
             switch (name) {
                 case "血压":
                     bean.setIcon(R.drawable.type_bloodpressure);
@@ -219,9 +234,9 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     bean.setIcon(R.drawable.type_temper);
                     bean.setUnit("(℃)");
                     break;
-                case "体重":
+                case "BMI":
                     bean.setIcon(R.drawable.type_weight);
-                    bean.setUnit("(kg)");
+                    bean.setUnit("");
                     break;
                 case "心电":
                     bean.setIcon(R.drawable.type_ecg);
@@ -251,16 +266,6 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .doOnNext(new Consumer<List<LatestDetecBean>>() {
                     @Override
                     public void accept(List<LatestDetecBean> latestDetecBeans) throws Exception {
-                        boolean bloodRed = false;
-                        for (LatestDetecBean latestDetecBean : latestDetecBeans) {
-                            String type = latestDetecBean.getType();
-                            if (("-1".equals(type) && !"0".equals(latestDetecBean.getStatus()))
-                                    || ("0".equals(type) && !"0".equals(latestDetecBean.getStatus())) ) {
-                                bloodRed = true;
-                                break;
-                            }
-                        }
-
                         for (LatestDetecBean latest : latestDetecBeans) {
                             //检测数据类型 -1低血压 0高血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸
                             String type = latest.getType();
@@ -268,25 +273,14 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                             String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
                             switch (type) {
                                 case "-1":
-                                    String s = bloodRed ? "<font color=\"#E53B3B\">/</font>" : "<font color=\"#303133\">/</font>";
-                                    if (status) {
-                                        //正常范围
-                                        types.get(0).setResult(s + "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                    } else {
-                                        types.get(0).setResult(s + "<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                    }
-//                                    types.get(0).setResult("/" + String.format("%.0f", latest.getValue()));
+                                    types.get(0).setResult2(String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
+                                    types.get(0).setNormal2(status);
                                     break;
                                 case "0":
-                                    if (status) {
-                                        //正常范围
-//                                        types.get(0).setResult("/<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#303133\">" + String.format("%.0f", latest.getValue()) + "</font>").toString());
-                                    } else {
-//                                        types.get(0).setResult("/<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>");
-                                        types.get(0).setResult(new StringBuffer(types.get(0).getResult()).insert(0, "<font color=\"#E53B3B\">" + String.format("%.0f", latest.getValue()) + "</font>").toString());
-                                    }
+                                    types.get(0).setResult(String.format("%.0f", latest.getValue()));
+                                    types.get(0).setDate(friendlyTimeSpanByNow);
+                                    types.get(0).setNormal(status);
                                     break;
                                 case "1":
                                     types.get(1).setResult(latest.getValue() + "");
@@ -294,10 +288,10 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     types.get(1).setNormal(status);
                                     break;
                                 case "2":
-                                    //todo:后台逻辑应该写反了，临时前端解决一下（北京、雄安垃圾时刻，懒的和后台交涉，辛苦后面维护的兄弟了）
-                                    types.get(4).setResult(status ? "异常" : "正常");
+                                    //todo:后台逻辑应该写反了，临时前端解决一下
+                                    types.get(4).setResult(status ?  "正常" : "异常");
                                     types.get(4).setDate(friendlyTimeSpanByNow);
-                                    types.get(4).setNormal(!status);
+                                    types.get(4).setNormal(status);
                                     break;
                                 case "3":
                                     types.get(3).setResult(latest.getValue() + "");

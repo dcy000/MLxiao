@@ -57,6 +57,10 @@ public class WakeupHelper {
 
     private volatile boolean inited;
 
+    /**
+     * 唤醒
+     * @param listener
+     */
     public synchronized void startWakeuprListening(final WakeuperListener listener) {
         if (VoiceWakeuper.getWakeuper() == null) {
             if (sContext == null) {

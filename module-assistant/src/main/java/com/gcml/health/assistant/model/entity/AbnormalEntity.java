@@ -232,7 +232,7 @@ public class AbnormalEntity implements Parcelable {
             e.printStackTrace();
         }
 
-        String s = "<font color=\"#303133\">" + String.format("%.0f", v) + "</font>";
+        String s = "<font color=\"#303133\">" + String.format("%.1f", v) + "</font>";
         return s;
     }
 

@@ -3,7 +3,9 @@ package com.gcml.module_detection.risk_assessment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
+import com.gcml.common.data.AppManager;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
@@ -20,22 +22,26 @@ public class RiskActivity extends ToolbarBaseActivity {
     private ArrayList<Integer> data;
     private int index = 0;
     private MyActivityCallback callback = new MyActivityCallback();
+    private TextView mTvTips;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_risk);
+        initView();
+        AppManager.getAppManager().addActivity(this);
+        data = getIntent().getIntegerArrayListExtra("data");
         dealData();
-
     }
 
     private void dealData() {
-        data = getIntent().getIntegerArrayListExtra("data");
+
         if (data != null) {
             if (index == data.size()) {
                 //最后一项
                 Routerfit.register(AppRouter.class).skipHealthReportFormActivity();
-                finish();
+                AppManager.getAppManager().finishActivity(this);
+                AppManager.getAppManager().finishActivity(ChooseDevicesActivity.class);
                 return;
             }
             Integer integer = data.get(index);
@@ -68,13 +74,26 @@ public class RiskActivity extends ToolbarBaseActivity {
         }
     }
 
+    private void initView() {
+        mTvTips = (TextView) findViewById(R.id.tv_tips);
+    }
+
     class MyActivityCallback implements ActivityCallback {
 
         @Override
         public void onActivityResult(int result, Object data) {
             if (result == Activity.RESULT_OK) {
+                mTvTips.setText("正在切换到下一项");
                 index++;
                 dealData();
+            } else if (result == Activity.RESULT_CANCELED) {
+                mTvTips.setText("正在回退到上一项");
+                index--;
+                if (index == -1) {
+                    finish();
+                } else {
+                    dealData();
+                }
             }
         }
     }

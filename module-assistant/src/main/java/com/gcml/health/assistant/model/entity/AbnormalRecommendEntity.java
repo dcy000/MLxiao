@@ -32,8 +32,8 @@ public class AbnormalRecommendEntity implements Parcelable {
 
     protected AbnormalRecommendEntity(Parcel in) {
         adviceId = in.readInt();
-        adviceMsg = in.readString();
         tag = in.readString();
+        adviceMsg = in.readString();
         adviceName = in.readString();
         state = in.readString();
         count = in.readInt();

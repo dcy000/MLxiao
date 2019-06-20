@@ -1,6 +1,7 @@
 package com.gcml.health.measure.single_measure.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -38,10 +39,10 @@ public class ChooseECGDeviceFragment extends BluetoothBaseFragment implements Vi
 
         mLlKeruikang = (LinearLayout) view.findViewById(R.id.ll_keruikang);
         mLlKeruikang.setOnClickListener(this);
+        mLlKeruikang.setVisibility(View.GONE);
         mLlBosheng = (LinearLayout) view.findViewById(R.id.ll_bosheng);
         mLlBosheng.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View v) {

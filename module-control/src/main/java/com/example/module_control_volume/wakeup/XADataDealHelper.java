@@ -22,7 +22,6 @@ import com.example.module_control_volume.R;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.face2.VertifyFace2ProviderImp;
 import com.gcml.common.recommend.bean.get.KeyWordDefinevBean;
 import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.router.AppRouter;
@@ -324,17 +323,17 @@ public class XADataDealHelper {
             return;
         }
 
-        //症状自查
-        if (inSpell.matches(".*(shentibushufu|nanshou|duziteng|ganmaole|zhengzhuangzicha).*")) {
-            IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
-            if (bodyTestProvider != null) {
-                bodyTestProvider.gotoPage(context);
-            }
-            if (listener != null) {
-                listener.onEnd();
-            }
-            return;
-        }
+//        //症状自查
+//        if (inSpell.matches(".*(shentibushufu|nanshou|duziteng|ganmaole|zhengzhuangzicha).*")) {
+//            IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
+//            if (bodyTestProvider != null) {
+//                bodyTestProvider.gotoPage(context);
+//            }
+//            if (listener != null) {
+//                listener.onEnd();
+//            }
+//            return;
+//        }
 
         //症状自查
         if (inSpell.matches(".*(shentibushufu|nanshou|duziteng|ganmaole|zhengzhuangzicha).*")) {
@@ -767,6 +766,15 @@ public class XADataDealHelper {
                 || inSpell.matches(".*tizhongceng.*")
                 || inSpell.matches(".*tizhongcheng.*")) {
             jiance();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        //健康助理
+        if (inSpell.matches("jiankangzhuli")) {
+            Routerfit.register(AppRouter.class).skipAbnormalAssistantActivity();
             if (listener != null) {
                 listener.onEnd();
             }

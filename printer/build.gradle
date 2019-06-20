@@ -1,4 +1,9 @@
-apply plugin: 'com.android.application'
+ext.mainApp = true
+apply from: rootProject.file("build-base.gradle")
+
+println("app-jgys mainmodulename = $mainmodulename")
+rootProject.mainmodulename = "printer"
+apply plugin: 'com.dd.comgradle'
 
 android {
     compileSdkVersion 28
@@ -6,13 +11,18 @@ android {
 
     defaultConfig {
         applicationId "com.gcml.printer"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "81695cca09ae6e2afffe15f4", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
     }
 
     buildTypes {
@@ -22,6 +32,11 @@ android {
         }
     }
 
+}
+combuild {
+//    applicationName = 'com.example.han.referralproject.application.MyApplication'
+    applicationName = 'com.gcml.common.App'
+    isRegisterCompoAuto = true
 }
 
 dependencies {
@@ -33,5 +48,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':lib-printer-8003dd')
-    api 'com.inuker.bluetooth:library:1.4.0'
+    implementation project(':module-detection')
+    addComponent 'module-health-measure'
 }

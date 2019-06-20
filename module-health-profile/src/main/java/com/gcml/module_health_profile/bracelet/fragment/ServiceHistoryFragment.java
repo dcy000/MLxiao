@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +14,18 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.WarnBean;
-import com.gcml.module_health_profile.bracelet.bean.FalseServiceItemBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
-import static android.support.v7.widget.LinearLayoutManager.*;
 
 
 public class ServiceHistoryFragment extends Fragment {
@@ -80,7 +74,12 @@ public class ServiceHistoryFragment extends Fragment {
                 TextView time = helper.getView(R.id.tv_warn_time);
 
                 people.setText(item.handlerName);
-                type.setText(item.warningType);
+                if (TextUtils.equals("1", item.warningType)) {
+                    type.setText("一键SOS");
+                }else {
+                    type.setText("自动报警");
+                }
+
                 time.setText(TimeUtils.long2StringDateWithTimeZone(item.warningTime, "GMT+8"));
             }
         };
