@@ -270,7 +270,8 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                             //检测数据类型 -1低血压 0高血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸
                             String type = latest.getType();
                             boolean status = TextUtils.equals(latest.getStatus(), "0");
-                            String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
+//                            String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
+                            String friendlyTimeSpanByNow = latest.getDate();
                             switch (type) {
                                 case "-1":
                                     types.get(0).setResult2(String.format("%.0f", latest.getValue()));
