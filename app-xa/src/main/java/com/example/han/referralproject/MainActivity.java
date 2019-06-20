@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.JpushAliasUtils;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         initMainPage();
         Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
 //        getPersonInfo();
+        //设置极光别名
+        JpushAliasUtils.setAlias("user_" + UserSpHelper.getUserId());
     }
 
     private void initMainPage() {
