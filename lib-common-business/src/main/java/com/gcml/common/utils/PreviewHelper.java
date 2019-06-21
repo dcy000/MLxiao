@@ -319,9 +319,11 @@ public class PreviewHelper
             int previewHeight = parameters.getPreviewSize().height;
             // 由于预览图片和界面显示大小可能不一样，
             // 计算缩放后的区域
-            Timber.i("Face CropRect");
+            Timber.i("Face Crop: previewView width = %s, height = %s", mPreviewView.getWidth(), mPreviewView.getHeight());
+            Timber.i("Face Crop: previewSize width = %s, height = %s", previewWidth, previewHeight);
+            Timber.i("Face Crop: previewRect %s %s %s ", mCropRect, mCropRect.width(), mCropRect.height());
             Rect rect = getScaledRect(mPreviewView, mCropRect, previewWidth, previewHeight);
-
+            Timber.i("Face Crop: ScaledRect %s %s %s ", rect, rect.width(), rect.height());
 //            int rotationCount = getRotationCount();
 //            if (rotationCount==1 || rotationCount == 3) {
 //                int temp = previewWidth;
@@ -330,16 +332,27 @@ public class PreviewHelper
 //            }
 
             // 旋转裁剪区域
-            // 可用于优化性能
+            // 需优化性能
 //            bytes = rotateData(bytes, mCamera);
 
             // 预览图像数据方向可能有方向问题，
             // 计算旋转后的区域
-            Timber.i("Face RotateRect");
-            rect = getRotatedRect(previewWidth, previewHeight, rect);
 
+            rect = getRotatedRect(previewWidth, previewHeight, rect);
+            Timber.i("Face Crop: RotatedRect %s %s %s ", rect, rect.width(), rect.height());
+
+            boolean front = mCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT;
+            if (front) {
+                Rect newRect = new Rect();
+                newRect.left = previewWidth - rect.left - rect.width();
+                newRect.top = rect.top;
+                newRect.right = newRect.left + rect.width();
+                newRect.bottom = newRect.top + rect.height();
+                rect = newRect;
+            }
+
+            Timber.i("Face Crop: compress image");
             //裁剪区域
-            Timber.i("Face CropImage");
             YuvImage image = new YuvImage(bytes, ImageFormat.NV21, previewWidth, previewHeight, null);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             image.compressToJpeg(rect, 100, baos);
@@ -347,10 +360,10 @@ public class PreviewHelper
             Bitmap croppedBitmap = BitmapFactory.decodeByteArray(cropped, 0, cropped.length);
 
             //旋转图片
-            Timber.i("Face RotateImage");
+            Timber.i("Face Crop: rotate image");
             int rotation = CameraUtils.calculateRotation(mActivity, mCameraId);
             if (rotation == 90 || rotation == 270) {
-                croppedBitmap = rotate(croppedBitmap, rotation, mCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
+                croppedBitmap = rotate(croppedBitmap, rotation, front);
             }
             rxStatus.onNext(Status.of(Status.EVENT_CROPPED, croppedBitmap));
         }

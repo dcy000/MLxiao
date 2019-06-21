@@ -195,6 +195,18 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             repository.signUp(bean, passWord)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            next.setEnabled(false);
+                        }
+                    })
+                    .doFinally(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            next.setEnabled(true);
+                        }
+                    })
                     .as(RxUtils.autoDisposeConverter(this))
                     .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
