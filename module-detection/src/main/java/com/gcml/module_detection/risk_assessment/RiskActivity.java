@@ -16,6 +16,9 @@ import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 
+/**
+ * 风险评估
+ */
 @Route(path = "/module/detection/risk/activity")
 public class RiskActivity extends ToolbarBaseActivity {
 
