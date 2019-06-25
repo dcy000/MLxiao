@@ -15,5 +15,8 @@
         <activity
             android:name=".risk_assessment.RiskActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".followup.FollowupActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

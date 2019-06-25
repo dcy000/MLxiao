@@ -13,6 +13,7 @@ import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_detection.R;
 import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
@@ -99,7 +100,7 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
-                        notifyActivity(datas,true);
+                        notifyActivity(datas,true, IBleConstants.MEASURE_BLOOD_OXYGEN);
                         if (o == null) return;
                         PostDataCallBackBean postDataCallBackBean = o.get(0);
                         if (postDataCallBackBean == null) return;
@@ -129,7 +130,7 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas,false);
+                        notifyActivity(datas,false, IBleConstants.MEASURE_BLOOD_OXYGEN);
                     }
 
                     @Override

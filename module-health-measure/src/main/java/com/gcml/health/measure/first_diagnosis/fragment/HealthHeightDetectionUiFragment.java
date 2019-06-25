@@ -68,11 +68,14 @@ public class HealthHeightDetectionUiFragment extends BluetoothBaseFragment imple
     @Override
     public void onAction(int what, float selectedValue, int unitPosition, String item) {
         if (what == WHAT_HEIGHT_DETECTION) {
-            List<DetectionData> datas=new ArrayList<>();
-            DetectionData data=new DetectionData();
+            List<DetectionData> datas = new ArrayList<>();
+            DetectionData data = new DetectionData();
+            //todo：这里应该还需要传个类型，但是后台目前没有这个字段
+            //检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏
             data.setHeight(selectedValue);
-            if (fragmentDatas!=null){
-                fragmentDatas.data(new DetectionDataBean(IBleConstants.MEASURE_HEIGHT,datas));
+            datas.add(data);
+            if (fragmentDatas != null) {
+                fragmentDatas.data(new DetectionDataBean(IBleConstants.MEASURE_HEIGHT, datas));
             }
             //todo:上传身高数据
             if (fragmentChanged != null && !isJump2Next) {

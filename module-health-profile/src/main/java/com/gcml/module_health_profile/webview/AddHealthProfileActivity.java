@@ -99,7 +99,8 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
             Handlers.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Routerfit.register(AppRouter.class).skipAddFollowupActivity(healthRecordId, rdRecordId, type + "二维码扫描");
+//                    Routerfit.register(AppRouter.class).skipAddFollowupActivity(healthRecordId, rdRecordId, type + "二维码扫描");
+                    Routerfit.register(AppRouter.class).skipFollowupActivity(healthRecordId,rdRecordId,type + "二维码扫描");
                 }
             });
             finish();
