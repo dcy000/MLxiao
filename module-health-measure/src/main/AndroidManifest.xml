@@ -80,5 +80,8 @@
         <activity
             android:name=".health_profile.InquiryHealthActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.FollowupHeightActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

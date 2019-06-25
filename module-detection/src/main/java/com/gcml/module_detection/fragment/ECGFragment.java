@@ -14,6 +14,7 @@ import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.ecg.ECGPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGSingleGuideView;
 import com.gcml.module_detection.ConnectActivity;
@@ -130,12 +131,12 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
                         Timber.i(">>>>" + o.toString());
-                        notifyActivity(datas,true);
+                        notifyActivity(datas,true, IBleConstants.MEASURE_ECG);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas,false);
+                        notifyActivity(datas,false,IBleConstants.MEASURE_ECG);
                     }
 
                     @Override

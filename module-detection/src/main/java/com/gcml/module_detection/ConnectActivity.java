@@ -28,6 +28,7 @@ import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
 import com.gcml.module_blutooth_devices.base.DeviceBrand;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
@@ -277,7 +278,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         isSingleDetection = getIntent().getBooleanExtra("isSingleDetection", false);
         if (!isSingleDetection) {
             mTvNext.setVisibility(View.VISIBLE);
-            setBtnClickableState(false);
+            setBtnClickableState(false,null);
         } else {
             mTvNext.setVisibility(View.GONE);
         }
@@ -558,14 +559,14 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         baseFragment = null;
     }
 
-    private void setBtnClickableState(boolean enableClick) {
+    private void setBtnClickableState(boolean enableClick, DetectionDataBean dataBean) {
         if (enableClick) {
             mTvNext.setClickable(true);
             mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
             mTvNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Routerfit.setResult(Activity.RESULT_OK, true);
+                    Routerfit.setResult(Activity.RESULT_OK, dataBean);
                     finish();
                 }
             });
@@ -576,18 +577,18 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     @Override
-    public void onSuccess(ArrayList<DetectionData> data) {
+    public void onSuccess(DetectionDataBean dataBean) {
         //流程化测量数据上传成功
         if (!isSingleDetection) {
-            setBtnClickableState(true);
+            setBtnClickableState(true, dataBean);
         }
     }
 
     @Override
-    public void onError(ArrayList<DetectionData> data) {
+    public void onError(DetectionDataBean dataBean) {
         //流程化测量数据上传失败
         if (!isSingleDetection) {
-            setBtnClickableState(true);
+            setBtnClickableState(true, dataBean);
         }
     }
 }

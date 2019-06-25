@@ -13,6 +13,7 @@ import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_detection.R;
 import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
@@ -105,7 +106,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
-                        notifyActivity(datas,true);
+                        notifyActivity(datas,true, IBleConstants.MEASURE_URIC_ACID);
                         if (o == null) return;
                         PostDataCallBackBean postDataCallBackBean = o.get(0);
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
@@ -133,7 +134,7 @@ public class UricAcidFragment extends BluetoothBaseFragment implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas,false);
+                        notifyActivity(datas,false, IBleConstants.MEASURE_URIC_ACID);
                     }
 
                     @Override

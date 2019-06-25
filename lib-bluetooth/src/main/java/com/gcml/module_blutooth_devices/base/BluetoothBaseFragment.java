@@ -223,12 +223,12 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
                 .show(getFragmentManager());
     }
 
-    protected void notifyActivity(ArrayList<DetectionData> datas, boolean isSuccess) {
+    protected void notifyActivity(ArrayList<DetectionData> datas, boolean isSuccess,int type) {
         if (uploadData != null) {
             if (isSuccess) {
-                uploadData.onSuccess(datas);
+                uploadData.onSuccess(new DetectionDataBean(type,datas));
             } else {
-                uploadData.onError(datas);
+                uploadData.onError(new DetectionDataBean(type,datas));
             }
         }
     }

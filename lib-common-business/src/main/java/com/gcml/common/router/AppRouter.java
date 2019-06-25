@@ -601,4 +601,12 @@ public interface AppRouter {
     @Go("bd/token/provider")
     BDInterface bdTokenProvider();
 
+    @Go("/health/measure/followup/height")
+    boolean skipFollowupHeightActivity(@Extra ActivityCallback callback);
+
+    @Go("/module/detection/followup/activity")
+    boolean skipFollowupActivity(
+            @Extra("healthRecordId") String healthRecordId,
+            @Extra("rdRecordId") String rdRecordId,
+            @Extra("typeString") String typeString);
 }

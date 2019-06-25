@@ -24,4 +24,15 @@ public interface DetectionService {
 
     @GET(URI + "/bl/getPatientHealthData")
     Observable<ApiResult<List<LatestDetecBean>>> getLatestDetectionData();
+
+
+    @GET("ZZB/api/health/record/{rdRecordId}/detection/")
+    Observable<ApiResult<List<String>>> getDevices(
+            @Path("rdRecordId") String rdRecordId
+    );
+    @POST("ZZB/api/health/record/healthRecord/{userRecordId}/")
+    Observable<Object> postHealthRecordMeasureData(
+            @Path("userRecordId") String userRecordId,
+            @Body ArrayList<DetectionData> datas
+    );
 }

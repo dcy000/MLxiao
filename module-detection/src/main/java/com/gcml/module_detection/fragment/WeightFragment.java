@@ -13,6 +13,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_detection.R;
 import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
@@ -111,7 +112,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
-                        notifyActivity(datas, true);
+                        notifyActivity(datas, true, IBleConstants.MEASURE_WEIGHT);
                         //解决数据多次上传，页面混乱，不知道有没有效果，（好像有效果）
                         if (isPostDataTrue) {
                             return;
@@ -144,7 +145,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas, false);
+                        notifyActivity(datas, false,IBleConstants.MEASURE_WEIGHT);
                     }
 
                     @Override

@@ -87,7 +87,8 @@ public class EditHealthProfileActivity extends BaseX5WebViewActivity {
         if ("22d594369d8246ad9542f462d6f0f4ce".equals(rdRecordId) || "76e9139bf448430bbcb98d5998db05c4".equals(rdRecordId)) {
             finish();
         } else {
-            Routerfit.register(AppRouter.class).skipAddFollowupActivity(healthRecordId, rdRecordId, null);
+//            Routerfit.register(AppRouter.class).skipAddFollowupActivity(healthRecordId, rdRecordId, null);
+            Routerfit.register(AppRouter.class).skipFollowupActivity(healthRecordId,rdRecordId,null);
             finish();
         }
     }
