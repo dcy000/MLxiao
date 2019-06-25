@@ -109,6 +109,7 @@ public class UserInfoBaseFragment extends LazyFragment {
             }
         });
         clItemAge = view.findViewById(R.id.cl_item_age);
+        tvActionAge.setVisibility(View.GONE);
         tvActionAge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

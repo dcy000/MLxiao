@@ -80,6 +80,16 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                         helper.getView(R.id.tv_slash).setVisibility(View.VISIBLE);
                         helper.getView(R.id.tv_last_low_pressure).setVisibility(View.VISIBLE);
                         helper.setText(R.id.tv_last_low_pressure, item.getResult2());
+                        if (item.isNormal2()) {
+                            helper.setTextColor(R.id.tv_last_low_pressure, Color.parseColor("#303133"));
+                        } else {
+                            helper.setTextColor(R.id.tv_last_low_pressure, Color.parseColor("#E53B3B"));
+                        }
+                        if (item.isNormal() && item.isNormal2()) {
+                            helper.setTextColor(R.id.tv_slash, Color.parseColor("#303133"));
+                        } else {
+                            helper.setTextColor(R.id.tv_slash, Color.parseColor("#E53B3B"));
+                        }
                     } else {
                         helper.getView(R.id.tv_slash).setVisibility(View.GONE);
                         helper.getView(R.id.tv_last_low_pressure).setVisibility(View.GONE);
@@ -260,12 +270,13 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                             //检测数据类型 -1低血压 0高血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸
                             String type = latest.getType();
                             boolean status = TextUtils.equals(latest.getStatus(), "0");
-                            String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
+//                            String friendlyTimeSpanByNow = Time2Utils.getFriendlyTimeSpanByNow(latest.getDate());
+                            String friendlyTimeSpanByNow = latest.getDate();
                             switch (type) {
                                 case "-1":
                                     types.get(0).setResult2(String.format("%.0f", latest.getValue()));
                                     types.get(0).setDate(friendlyTimeSpanByNow);
-                                    types.get(0).setNormal(status);
+                                    types.get(0).setNormal2(status);
                                     break;
                                 case "0":
                                     types.get(0).setResult(String.format("%.0f", latest.getValue()));
@@ -278,10 +289,10 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     types.get(1).setNormal(status);
                                     break;
                                 case "2":
-                                    //todo:后台逻辑应该写反了，临时前端解决一下（北京、雄安垃圾时刻，懒的和后台交涉，辛苦后面维护的兄弟了）
-                                    types.get(4).setResult(status ? "异常" : "正常");
+                                    //todo:后台逻辑应该写反了，临时前端解决一下
+                                    types.get(4).setResult(status ?  "正常" : "异常");
                                     types.get(4).setDate(friendlyTimeSpanByNow);
-                                    types.get(4).setNormal(!status);
+                                    types.get(4).setNormal(status);
                                     break;
                                 case "3":
                                     types.get(3).setResult(latest.getValue() + "");

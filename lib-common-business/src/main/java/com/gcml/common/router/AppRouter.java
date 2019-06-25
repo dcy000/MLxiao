@@ -594,6 +594,8 @@ public interface AppRouter {
     @Go("app/healthMannage/activity")
     boolean skipHealthMannageActivity();
 
+    @Go("/abnormal/assistant/activity")
+    boolean skipAbnormalAssistantActivity();
 
     /**
      * 百度获取token

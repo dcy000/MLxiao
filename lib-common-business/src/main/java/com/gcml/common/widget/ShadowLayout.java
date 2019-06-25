@@ -108,15 +108,29 @@ public final class ShadowLayout extends FrameLayout {
     }
 
     public final void refreshPadding() {
-        int xPadding = (int)(this.shadowRadius + Math.abs(this.dx));
-        int yPadding = (int)(this.shadowRadius + Math.abs(this.dy));
+        int xPadding = (int) (this.shadowRadius + Math.abs(this.dx));
+        int yPadding = (int) (this.shadowRadius + Math.abs(this.dy));
         this.setPadding(xPadding, yPadding, xPadding, yPadding);
     }
 
     private void setBackgroundCompat(int w, int h) {
-        Bitmap bitmap = this.createShadowBitmap(w, h, this.cornerRadius, this.shadowRadius, this.dx, this.dy, this.shadowColor, 0);
-        BitmapDrawable drawable = new BitmapDrawable(this.getResources(), bitmap);
-        this.setBackground((Drawable)drawable);
+        Drawable background = getBackground();
+        if (background instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) background;
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            bitmapDrawable.setCallback(null);
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+        }
+        Bitmap bitmap = null;
+        try {
+            bitmap = this.createShadowBitmap(w, h, this.cornerRadius, this.shadowRadius, this.dx, this.dy, this.shadowColor, 0);
+            BitmapDrawable drawable = new BitmapDrawable(this.getResources(), bitmap);
+            this.setBackground((Drawable) drawable);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     private void initAttributes(Context context, AttributeSet attrs) {
@@ -145,12 +159,12 @@ public final class ShadowLayout extends FrameLayout {
         RectF shadowRect = new RectF(
                 shadowRadius,
                 shadowRadius,
-                (float)shadowWidth - shadowRadius,
-                (float)shadowHeight - shadowRadius);
+                (float) shadowWidth - shadowRadius,
+                (float) shadowHeight - shadowRadius);
         if (dy > 0f) {
             shadowRect.top += dy;
             shadowRect.bottom -= dy;
-        } else if (dy < (float)0) {
+        } else if (dy < (float) 0) {
             shadowRect.top += Math.abs(dy);
             shadowRect.bottom -= Math.abs(dy);
         }
@@ -158,7 +172,7 @@ public final class ShadowLayout extends FrameLayout {
         if (dx > 0f) {
             shadowRect.left += dx;
             shadowRect.right -= dx;
-        } else if (dx < (float)0) {
+        } else if (dx < (float) 0) {
             shadowRect.left += Math.abs(dx);
             shadowRect.right -= Math.abs(dx);
         }
@@ -173,10 +187,10 @@ public final class ShadowLayout extends FrameLayout {
             paint.clearShadowLayer();
             paint.setColor(this.theBackgroundColor);
             RectF backgroundRect = new RectF(
-                    (float)this.getPaddingLeft(),
-                    (float)this.getPaddingTop(),
-                    (float)(this.getWidth() - this.getPaddingRight()),
-                    (float)(this.getHeight() - this.getPaddingBottom())
+                    (float) this.getPaddingLeft(),
+                    (float) this.getPaddingTop(),
+                    (float) (this.getWidth() - this.getPaddingRight()),
+                    (float) (this.getHeight() - this.getPaddingBottom())
             );
             canvas.drawRoundRect(backgroundRect, cornerRadius, cornerRadius, paint);
         }
@@ -187,7 +201,7 @@ public final class ShadowLayout extends FrameLayout {
     public ShadowLayout(Context context) {
         super(context);
         this.invalidateShadowOnSizeChanged = true;
-        this.initView(context, (AttributeSet)null);
+        this.initView(context, (AttributeSet) null);
     }
 
     public ShadowLayout(Context context, AttributeSet attrs) {

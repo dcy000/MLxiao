@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".page.AbnormalAllTaskFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/config_color_white">
+
+        <TextView
+            android:id="@+id/tv_task_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="38dp"
+            android:text=""
+            android:textSize="28sp"
+            android:textColor="@color/config_color_base_3"/>
+
+        <TextView
+            android:id="@+id/tv_task_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_task_msg"
+            android:layout_alignBottom="@+id/tv_task_msg"
+            android:text=""
+            android:textSize="36sp"
+            android:textColor="@color/config_color_base_3"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_task_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/tv_task_msg">
+
+            <ProgressBar
+                android:id="@+id/pb_task"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_toLeftOf="@+id/tv_task_left"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_centerVertical="true"
+                android:layout_height="20dp"
+                android:max="100"
+                android:progressDrawable="@drawable/abnormal_task_unprogress" />
+
+            <TextView
+                android:id="@+id/tv_task_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/tv_task_right"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:textSize="28sp"
+                android:textColor="#F56C6C"/>
+
+            <TextView
+                android:id="@+id/tv_task_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textSize="28sp"
+                android:textColor="#BBBBBB"/>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_task_progress"
+            android:overScrollMode="never"
+            android:layout_marginTop="30dp"
+            android:background="@color/config_color_white"/>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

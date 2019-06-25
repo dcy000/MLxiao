@@ -53,6 +53,7 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
         mBtnVideoDemo.setOnClickListener(this);
         mTvNext = view.findViewById(R.id.tv_next);
         mTvNext.setOnClickListener(this);
+        view.findViewById(R.id.tv_change_device).setVisibility(View.GONE);
         obserData();
     }
 
@@ -131,12 +132,12 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
                     @Override
                     public void onNext(List<PostDataCallBackBean> o) {
                         Timber.i(">>>>" + o.toString());
-                        notifyActivity(datas,true, IBleConstants.MEASURE_ECG);
+                        notifyActivity(datas, true, IBleConstants.MEASURE_ECG);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas,false,IBleConstants.MEASURE_ECG);
+                        notifyActivity(datas, false, IBleConstants.MEASURE_ECG);
                     }
 
                     @Override

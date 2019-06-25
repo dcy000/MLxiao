@@ -8,6 +8,7 @@ public class ChooseDetectionTypeBean {
     private String result2;
     private String unit;
     private boolean isNormal;
+    private boolean isNormal2;
 
     public ChooseDetectionTypeBean() {
     }
@@ -66,6 +67,14 @@ public class ChooseDetectionTypeBean {
 
     public void setNormal(boolean normal) {
         isNormal = normal;
+    }
+
+    public boolean isNormal2() {
+        return isNormal2;
+    }
+
+    public void setNormal2(boolean normal2) {
+        isNormal2 = normal2;
     }
 
     public String getResult2() {

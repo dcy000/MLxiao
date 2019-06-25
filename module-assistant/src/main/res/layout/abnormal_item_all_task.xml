@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="156dp"
     android:background="@drawable/bg_shadow">
 
     <LinearLayout
@@ -10,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/rl_task_action">
 
         <TextView
@@ -19,25 +18,24 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="8dp"
-            android:background="@drawable/shape_task_common"
+            android:background="@drawable/abnormal_bg_task_common"
             android:paddingLeft="8dp"
             android:paddingTop="2dp"
             android:paddingRight="8dp"
             android:paddingBottom="2dp"
-            android:textColor="@color/task_color_pink"
+            android:text="dasda"
+            android:textColor="#F56C6C"
             android:textSize="20sp"
-            android:visibility="gone"
-            tools:text="必做"
-            tools:visibility="visible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_task_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:text=""
             android:textColor="@color/config_color_base_3"
-            android:textSize="28sp"
-            tools:text="测量体重" />
+            android:textSize="28sp" />
 
     </LinearLayout>
 
@@ -46,24 +44,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/rl_task_action"
+        android:text=""
         android:textColor="@color/config_color_base_3"
-        android:textSize="28sp"
-        tools:text="测量体重" />
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/tv_task_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_task_name"
         android:layout_alignLeft="@+id/ll_task_name"
         android:layout_marginTop="18dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/rl_task_action"
+        android:text=""
         android:textColor="@color/config_color_base_9"
-        android:textSize="24sp"
-        tools:text="(测量时段 2019-06-26)" />
+        android:textSize="24sp" />
 
     <RelativeLayout
         android:id="@+id/rl_task_action"
@@ -77,23 +75,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_task_action1"
+            android:background="@drawable/abnormal_btn_task_action1"
             android:paddingLeft="14dp"
             android:paddingTop="8dp"
             android:paddingRight="14dp"
             android:paddingBottom="8dp"
+            android:text=""
             android:textColor="@color/config_color_white"
-            android:textSize="24sp"
-            tools:text="确认" />
+            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/iv_task_action"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/img_task_finish"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:src="@drawable/abnormal_ic_task_finish"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

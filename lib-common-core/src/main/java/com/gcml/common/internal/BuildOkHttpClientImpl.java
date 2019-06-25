@@ -27,7 +27,7 @@ public class BuildOkHttpClientImpl implements BuildOkHttpClient {
         if ((context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
             // debug
             builder.addNetworkInterceptor(new HttpLogInterceptor(null));
-            builder.addInterceptor(getLoggingInterceptor());
+//            builder.addInterceptor(getLoggingInterceptor());
             if (context.getPackageName().equals(getCurProcessName(context))) {
                 builder.addInterceptor(Pandora.get().getInterceptor());
             }

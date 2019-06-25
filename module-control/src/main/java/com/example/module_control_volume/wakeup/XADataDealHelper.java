@@ -323,17 +323,17 @@ public class XADataDealHelper {
             return;
         }
 
-        //症状自查
-        if (inSpell.matches(".*(shentibushufu|nanshou|duziteng|ganmaole|zhengzhuangzicha).*")) {
-            IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
-            if (bodyTestProvider != null) {
-                bodyTestProvider.gotoPage(context);
-            }
-            if (listener != null) {
-                listener.onEnd();
-            }
-            return;
-        }
+//        //症状自查
+//        if (inSpell.matches(".*(shentibushufu|nanshou|duziteng|ganmaole|zhengzhuangzicha).*")) {
+//            IHuiQuanBodyTestProvider bodyTestProvider = Routerfit.register(AppRouter.class).getBodyTestProvider();
+//            if (bodyTestProvider != null) {
+//                bodyTestProvider.gotoPage(context);
+//            }
+//            if (listener != null) {
+//                listener.onEnd();
+//            }
+//            return;
+//        }
 
         //症状自查
         if (inSpell.matches(".*(shentibushufu|nanshou|duziteng|ganmaole|zhengzhuangzicha).*")) {
@@ -772,6 +772,15 @@ public class XADataDealHelper {
             return;
         }
 
+        //健康助理
+        if (inSpell.matches("jiankangzhuli")) {
+            Routerfit.register(AppRouter.class).skipAbnormalAssistantActivity();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
         //签约医生
         if (inSpell.matches("qianyueyisheng|qianyue")) {
             gotoQianyueYiSheng();
@@ -1058,7 +1067,8 @@ public class XADataDealHelper {
             return str1;
         }
         data = EHSharedPreferences.ReadAccessToken(ACCESSTOKEN_KEY);
-        if (data == null) {            return str1;
+        if (data == null) {
+            return str1;
         }
         UnitModel model = new UnitModel();
         model.getUnit(data.getAccessToken(), SCENE_Id, request, sessionId, new HttpListener<Unit>() {
