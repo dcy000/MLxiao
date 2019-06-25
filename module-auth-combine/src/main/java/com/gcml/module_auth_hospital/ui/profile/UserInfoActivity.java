@@ -261,7 +261,7 @@ public class UserInfoActivity extends ToolbarBaseActivity {
                 .setSubmitText("确认")
                 .setOutSideCancelable(false)
                 .setDividerColor(Color.WHITE)
-                .isCyclic(true)
+                .isCyclic(false)
                 .setSubmitColor(Color.parseColor("#FF108EE9"))
                 .setCancelColor(Color.parseColor("#FF999999"))
                 .setTitleBgColor(Color.parseColor("#F5F5F5"))

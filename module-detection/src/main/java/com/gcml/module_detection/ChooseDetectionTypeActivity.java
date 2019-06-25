@@ -112,7 +112,12 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_PRESSURE, true);
+                        checkGender(new Runnable() {
+                            @Override
+                            public void run() {
+                                Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_PRESSURE, true);
+                            }
+                        });
                         break;
                     case 1:
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_BLOOD_SUGAR, true);
@@ -135,7 +140,12 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_CHOLESTEROL, true);
                         break;
                     case 7:
-                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_URIC_ACID, true);
+                        checkGender(new Runnable() {
+                            @Override
+                            public void run() {
+                                Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_URIC_ACID, true);
+                            }
+                        });
                         break;
                 }
             }
@@ -190,6 +200,57 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                 .setHeight(350)
                 .show(getSupportFragmentManager());
     }
+
+    private void checkGender(Runnable action) {
+        Routerfit.register(AppRouter.class).getCheckUserInfoProvider()
+                .check(new CheckUserInfoProviderImp.CheckUserInfo() {
+                    @Override
+                    public void complete(UserEntity userEntity) {
+                        if (action != null) {
+                            action.run();
+                        }
+//                        Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT, true);
+                    }
+
+                    @Override
+                    public void incomplete(UserEntity entity, List<EUserInfo> args, String s) {
+                        showFinishGenderDialog("请先去个人中心完善性别");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                }, EUserInfo.GENDER);
+    }
+
+    private void showFinishGenderDialog(String msg) {
+        NiceDialog.init()
+                .setLayoutId(R.layout.dialog_not_person_msg)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    protected void convertView(ViewHolder holder, BaseNiceDialog dialog) {
+                        holder.setText(R.id.txt_msg, msg);
+                        holder.setOnClickListener(R.id.btn_neg, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        holder.setOnClickListener(R.id.btn_pos, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                Routerfit.register(AppRouter.class).skipPersonDetailActivity();
+                            }
+                        });
+                    }
+                })
+                .setWidth(700)
+                .setHeight(350)
+                .show(getSupportFragmentManager());
+    }
+
 
     @Override
     protected void onResume() {
@@ -290,7 +351,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                                     break;
                                 case "2":
                                     //todo:后台逻辑应该写反了，临时前端解决一下
-                                    types.get(4).setResult(status ?  "正常" : "异常");
+                                    types.get(4).setResult(status ? "正常" : "异常");
                                     types.get(4).setDate(friendlyTimeSpanByNow);
                                     types.get(4).setNormal(status);
                                     break;

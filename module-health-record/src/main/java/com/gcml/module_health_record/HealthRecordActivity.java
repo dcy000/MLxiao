@@ -202,7 +202,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                         ToastUtils.showShort("选择时间错误");
                     } else if (selectorYear == selectStartYear
                             && selectorMonth == selectStartMonth
-                            && selectorDay > selectStartDay) {
+                            && selectorDay > selectEndDay) {
                         ToastUtils.showShort("选择时间错误");
                     } else {
                         selectStartYear = selectorYear;

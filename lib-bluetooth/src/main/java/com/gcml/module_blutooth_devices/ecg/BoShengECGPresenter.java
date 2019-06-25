@@ -57,6 +57,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -412,6 +413,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 .enqueue(new HttpCallback<BorsamResponse<AddRecordResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<AddRecordResult> addRecordResultBorsamResponse) {
+                        Timber.w(addRecordResultBorsamResponse.toString());
                         AddRecordResult entity = addRecordResultBorsamResponse.getEntity();
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
