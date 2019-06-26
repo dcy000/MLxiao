@@ -16,6 +16,7 @@ public class ChannelUtils {
     public static final String CHANNEL_APP_COMBINE = "gcml_version_combine";
     public static final String CHANNEL_JGYS = "gcml_version_jgys";
     public static final String CHANNEL_XA = "gcml_version_xa";
+    public static final String CHANNEL_BJ = "gcml_version_bj";
 
     /**
      * 基础版本
@@ -49,6 +50,10 @@ public class ChannelUtils {
 
     public static boolean isXiongAn() {
         if (TextUtils.equals(getChannelMeta(), CHANNEL_XA)) return true;
+        return false;
+    }
+    public static boolean isBj() {
+        if (TextUtils.equals(getChannelMeta(), CHANNEL_BJ)) return true;
         return false;
     }
 

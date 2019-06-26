@@ -74,7 +74,7 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
 
     private void getMenu() {
         Routerfit.register(AppRouter.class).getMenuHelperProvider()
-                .menu(ChannelUtils.isXiongAn(), EMenu.LOGIN, new MenuHelperProviderImp.MenuResult() {
+                .menu(ChannelUtils.isXiongAn() || ChannelUtils.isBj(), EMenu.LOGIN, new MenuHelperProviderImp.MenuResult() {
                     @Override
                     public void onSuccess(List<MenuEntity> menus) {
                         dealMenu(menus);

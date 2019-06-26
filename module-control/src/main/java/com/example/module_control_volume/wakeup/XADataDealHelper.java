@@ -27,6 +27,7 @@ import com.gcml.common.recommend.bean.get.Music;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.ITaskProvider;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.PinYinUtils;
 import com.gcml.common.utils.SharedPreferencesUtils;
@@ -401,7 +402,7 @@ public class XADataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(yulezhongxin).*")) {
+        if (ChannelUtils.isBj() && inSpell.matches(".*(yulezhongxin).*")) {
             Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
             if (listener != null) {
                 listener.onEnd();

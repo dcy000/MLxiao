@@ -35,9 +35,11 @@ ext {
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
     //开发使用的IP地址
     developUrl = api.XiongAnTest
+//    developUrl = api.XiongAnTest
 
     //线上正式运行的IP地址
     produceUrl = api.XiongAnTest
+//    produceUrl = api.XiongAnTest
 
     android = [
             compileSdkVersion: 27,

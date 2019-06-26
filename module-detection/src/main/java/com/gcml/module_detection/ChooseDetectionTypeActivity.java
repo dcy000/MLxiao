@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -31,7 +29,6 @@ import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_detection.bean.ChooseDetectionTypeBean;
 import com.gcml.module_detection.bean.LatestDetecBean;
 import com.gcml.module_detection.net.DetectionRepository;
-import com.gcml.module_detection.utils.Time2Utils;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -261,7 +258,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     private void getMenu() {
         Routerfit.register(AppRouter.class)
                 .getMenuHelperProvider()
-                .menu(ChannelUtils.isXiongAn(), EMenu.DETECTION, new MenuHelperProviderImp.MenuResult() {
+                .menu(ChannelUtils.isXiongAn() || ChannelUtils.isBj(), EMenu.DETECTION, new MenuHelperProviderImp.MenuResult() {
                     @Override
                     public void onSuccess(List<MenuEntity> menus) {
                         getData();

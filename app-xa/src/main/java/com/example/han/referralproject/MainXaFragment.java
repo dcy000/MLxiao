@@ -20,6 +20,7 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.ICallProvider;
 import com.gcml.common.service.IHuiQuanBodyTestProvider;
 import com.gcml.common.service.IUserEntityProvider;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
@@ -103,6 +104,10 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
         eiRecommendNew = (EclipseImageView) view.findViewById(R.id.ei_entertainment_new);
         eiRecommendNew.setOnClickListener(this);
 
+        if (ChannelUtils.isBj()) {
+            mEiEntertainment.setBackgroundResource(R.drawable.main_ic_entertainment_center);
+            eiRecommend.setVisibility(View.GONE);
+        }
 //        getPersonInfo();
     }
 
@@ -214,7 +219,14 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
             case R.id.ei_entertainment:
 //                ToastUtils.showShort("敬请期待~");
 //                quitApp();
-                ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
+                if (ChannelUtils.isBj()) {
+                    Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
+                    return;
+                }
+                if (ChannelUtils.isXiongAn()) {
+                    ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
+                    return;
+                }
                 break;
             case R.id.iv_doctor_call:
                 Routerfit.register(AppRouter.class).skipDoctorAskGuideActivity();
@@ -239,7 +251,6 @@ public class MainXaFragment extends LazyFragment implements View.OnClickListener
                 quitApp();
                 break;
             case R.id.ei_entertainment_new://娱乐
-//                Routerfit.register(AppRouter.class).skipRecreationEntranceActivity();
                 ToastUtils.showShort("啊哦！医护上门服务暂不可用，与医院信息系统对接开发后方可使用，敬请期待~");
                 break;
 

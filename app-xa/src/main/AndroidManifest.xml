@@ -66,9 +66,13 @@
         tools:replace="icon,label">
 
 
+        <!--<meta-data-->
+        <!--android:name="com.gcml.version"-->
+        <!--android:value="gcml_version_xa" />-->
+
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_xa" />
+            android:value="${VERSION_CHANNEL}" />
 
         <activity
             android:name=".WelcomeActivity"
@@ -78,6 +82,7 @@
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
