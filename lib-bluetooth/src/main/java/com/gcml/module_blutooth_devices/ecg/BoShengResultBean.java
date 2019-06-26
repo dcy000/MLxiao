@@ -18,7 +18,7 @@ public class BoShengResultBean {
      */
 
     private String findings;
-    private int stop_light;
+    private int stop_light; // 红绿灯 0正常 绿色 1异常 红色 2干扰 黄色
     private List<AvgbeatsBean> avgbeats;
     private List<QrsBean> qrs;
 

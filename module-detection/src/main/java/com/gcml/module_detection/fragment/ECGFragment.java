@@ -120,7 +120,7 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         DetectionData ecgData = new DetectionData();
         ecgData.setDetectionType("2");
-        ecgData.setEcg(detectionData.getEcgFlag() == 2 ? "1" : String.valueOf(detectionData.getEcgFlag()));
+        ecgData.setEcg(detectionData.getEcgFlag() == 0 ? "1" : String.valueOf(detectionData.getEcgFlag()));
         ecgData.setResult(detectionData.getResult());
         ecgData.setHeartRate(detectionData.getHeartRate());
         ecgData.setResultUrl(detectionData.getResultUrl());
