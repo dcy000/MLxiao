@@ -96,7 +96,7 @@ public class DoctorappoActivity2 extends ToolbarBaseActivity implements View.OnC
                         }
                         mDocotorName.setText(String.format(getString(R.string.doctor_name), doctor.getDoctername()));
                         mDocotorPosition.setText(String.format(getString(R.string.doctor_zhiji), doctor.getDuty()));
-                        mDocotorFeature.setText(String.format(getString(R.string.doctor_shanchang), doctor.getDepartment()));
+                        mDocotorFeature.setText(String.format(getString(R.string.doctor_shanchang), doctor.getGat()));
                         mServiceAmount.setText(String.format(getString(R.string.doctor_shoufei), doctor.getService_amount()));
                         mTvContent.setText(doctor.getPro());
                         doctorId = doctor.docterid + "";

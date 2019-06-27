@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.ui.login;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,8 +27,12 @@ import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.ActivityCallback;
 import com.sjtu.yifei.route.Routerfit;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
+
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * Created by lenovo on 2019/1/17.
@@ -109,7 +114,41 @@ public class UserLogins2Activity extends ToolbarBaseActivity {
     protected void onResume() {
         super.onResume();
 //        updatePage();
+        requestPermissions();
         updatePage2();
+    }
+
+    private void requestPermissions() {
+        RxPermissions permissions = new RxPermissions(this);
+        permissions.requestEach(
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+                .subscribe(new DisposableObserver<Permission>() {
+                    @Override
+                    public void onNext(Permission permission) {
+                        if (permission.granted) {
+
+                        } else {
+                            ToastUtils.showLong("请同意相关权限");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void updatePage2() {

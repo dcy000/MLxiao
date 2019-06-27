@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +9,17 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.JpushAliasUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 @Route(path = "/app/homepage/main/activity")
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         JpushAliasUtils.setAlias("user_" + UserSpHelper.getUserId());
     }
 
+
     private void initMainPage() {
         MainXaFragment mainXaFragment = new MainXaFragment();
         getSupportFragmentManager()
@@ -64,6 +70,41 @@ public class MainActivity extends AppCompatActivity {
         if (statusBarFragment != null) {
             statusBarFragment.showStatusBar(true);
         }
+
+        requestPermissions();
+    }
+
+    private void requestPermissions() {
+        RxPermissions permissions = new RxPermissions(this);
+        permissions.requestEach(
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+                .subscribe(new DisposableObserver<Permission>() {
+                    @Override
+                    public void onNext(Permission permission) {
+                        if (permission.granted) {
+
+                        } else {
+                            ToastUtils.showLong("请同意相关权限");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void getPersonInfo() {

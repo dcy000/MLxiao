@@ -7,6 +7,7 @@ import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.device.DeviceUtils;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class DetectionData implements Serializable {
     private Float bloodOxygen;
@@ -385,5 +386,52 @@ public class DetectionData implements Serializable {
 
     public void setInit(Boolean init) {
         isInit = init;
+    }
+
+    @Override
+    public String toString() {
+        return "DetectionData{" +
+                "bloodOxygen=" + bloodOxygen +
+                ", bloodSugar=" + bloodSugar +
+                ", cholesterol=" + cholesterol +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdOn='" + createdOn + '\'' +
+                ", deletionState='" + deletionState + '\'' +
+                ", description='" + description + '\'' +
+                ", detectionType='" + detectionType + '\'' +
+                ", ecg='" + ecg + '\'' +
+                ", eqid='" + eqid + '\'' +
+                ", equipmentId='" + equipmentId + '\'' +
+                ", heartRate=" + heartRate +
+                ", highPressure=" + highPressure +
+                ", lowPressure=" + lowPressure +
+                ", id=" + id +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                ", modifiedOn='" + modifiedOn + '\'' +
+                ", offset=" + offset +
+                ", patientId=" + patientId +
+                ", pulse=" + pulse +
+                ", state=" + state +
+                ", seq=" + seq +
+                ", sugarTime=" + sugarTime +
+                ", temperAture=" + temperAture +
+                ", time='" + time + '\'' +
+                ", dataTime='" + dataTime + '\'' +
+                ", uricAcid=" + uricAcid +
+                ", userid=" + userid +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", weightOver=" + weightOver +
+                ", yz='" + yz + '\'' +
+                ", zid=" + zid +
+                ", result='" + result + '\'' +
+                ", resultUrl='" + resultUrl + '\'' +
+                ", breathHome='" + breathHome + '\'' +
+                ", ecgData=" + Arrays.toString(ecgData) +
+                ", ecgDataString='" + ecgDataString + '\'' +
+                ", ecgTips='" + ecgTips + '\'' +
+                ", ecgFlag=" + ecgFlag +
+                ", isInit=" + isInit +
+                '}';
     }
 }

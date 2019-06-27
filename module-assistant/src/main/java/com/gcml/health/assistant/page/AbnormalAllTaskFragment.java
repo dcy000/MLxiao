@@ -221,14 +221,20 @@ public class AbnormalAllTaskFragment extends LazyFragment {
 
         public AllTaskHolder(View itemView) {
             super(itemView);
-
-            itemView.setOnClickListener(onItemClickListener);
             tv_task_tag = (TextView) itemView.findViewById(R.id.tv_task_tag);
             tv_task_name = (TextView) itemView.findViewById(R.id.tv_task_name);
             tv_task_name_other = (TextView) itemView.findViewById(R.id.tv_task_name_other);
             tv_task_time = (TextView) itemView.findViewById(R.id.tv_task_time);
             tv_task_action = (TextView) itemView.findViewById(R.id.tv_task_action);
             iv_task_action = (ImageView) itemView.findViewById(R.id.iv_task_action);
+            tv_task_action.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onClick(itemView);
+                    }
+                }
+            });
         }
 
         public void onBind(int position) {
@@ -241,6 +247,7 @@ public class AbnormalAllTaskFragment extends LazyFragment {
             if ("0".equals(taskStatus)) {
                 iv_task_action.setVisibility(View.GONE);
                 tv_task_action.setText("确认");
+                tv_task_action.setEnabled(true);
                 tv_task_action.setVisibility(View.VISIBLE);
             } else if ("1".equals(taskStatus)) {
                 tv_task_action.setVisibility(View.GONE);
@@ -248,6 +255,7 @@ public class AbnormalAllTaskFragment extends LazyFragment {
             } else if ("2".equals(taskStatus)) {
                 iv_task_action.setVisibility(View.GONE);
                 tv_task_action.setText("未开启");
+                tv_task_action.setEnabled(false);
                 tv_task_action.setTextColor(Color.parseColor("#3F86FC"));
                 tv_task_action.setBackgroundResource(R.drawable.abnormal_btn_task_action2);
                 tv_task_action.setVisibility(View.VISIBLE);

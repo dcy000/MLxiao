@@ -23,9 +23,12 @@ import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.functions.Action;
 import io.reactivex.observers.DefaultObserver;
 import timber.log.Timber;
 
@@ -77,17 +80,15 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
                 if (!TextUtils.isEmpty(detectionData.getEcgTips())) {
                     mMeasureTip.setText(detectionData.getEcgTips());
                 }
-
+//                Timber.w("%s", detectionData);
                 if (!TextUtils.isEmpty(detectionData.getResultUrl())) {
                     onMeasureFinished(detectionData);
+                    Timber.w("analysisData = %s", analysisData);
                     if (analysisData != null) {
                         if (DataUtils.isNullString(detectionData.getResult()) || DataUtils.isNullString(detectionData.getResultUrl())) {
                             analysisData.onError();
                         } else {
                             postData(detectionData);
-                            //pdf地址，异常标识，结论,心率
-                            analysisData.onSuccess(detectionData.getResultUrl(), detectionData.getEcgFlag(),
-                                    detectionData.getResult(), detectionData.getHeartRate());
                         }
                     }
                 }
@@ -129,8 +130,17 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
         ecgData.setHeartRate(detectionData.getHeartRate());
         ecgData.setResultUrl(detectionData.getResultUrl());
         datas.add(ecgData);
+        Timber.w("%s", detectionData);
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        //pdf地址，异常标识，结论,心率
+                        analysisData.onSuccess(detectionData.getResultUrl(), detectionData.getEcgFlag(),
+                                detectionData.getResult(), detectionData.getHeartRate());
+                    }
+                })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<List<PostDataCallBackBean>>() {
                     @Override
