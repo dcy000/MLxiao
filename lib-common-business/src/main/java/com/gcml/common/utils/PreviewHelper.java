@@ -81,6 +81,8 @@ public class PreviewHelper
     private Rect mCropRect;
 
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+//    private int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+
     private Camera mCamera;
     private int previewWidth = PREVIEW_WIDTH;
     private int previewHeight = PREVIEW_HEIGHT;

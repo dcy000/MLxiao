@@ -155,6 +155,18 @@ public enum AppDelegate implements AppLifecycleCallbacks {
 
                 @Override
                 public void onActivityResumed(Activity activity) {
+                    View decorView = activity.getWindow().getDecorView();
+                    if (decorView != null) {
+                        decorView.setSystemUiVisibility(
+                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                                        View.SYSTEM_UI_FLAG_IMMERSIVE |
+                                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        );
+                    }
                     AppDelegate.this.activity = activity;
                     AppDelegate.this.resumed = true;
                     Timber.i("onActivityResumed: %s", activity);
