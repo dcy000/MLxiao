@@ -6,12 +6,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gcml.common.router.AppRouter;
+import com.gcml.common.utils.DisplayHelper;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
@@ -48,6 +51,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
     private RadioButton mRbTwoHour;
     private RadioGroup mRgXuetangTime;
     private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时:2;其他时间：3
+    private RelativeLayout rlEmptyData;
     private TextView mTvEmptyDataTips;
     private TextView mBtnGo;
 
@@ -77,11 +81,17 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         mRgXuetangTime.setVisibility(View.VISIBLE);
         //指示器的颜色
 //        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
-        mColor1.setBackgroundColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_color));
+        mColor1.setBackgroundColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
         mIndicator1.setText("血糖(mmol/L)");
         mLlSecond.setVisibility(View.GONE);
 
         mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
+        rlEmptyData = (RelativeLayout) view.findViewById(R.id.view_empty_data);
+        ViewGroup.LayoutParams layoutParams = rlEmptyData.getLayoutParams();
+        if (layoutParams instanceof ViewGroup.MarginLayoutParams && getContext() != null) {
+            ((ViewGroup.MarginLayoutParams) layoutParams).topMargin = DisplayHelper.dp2px(getContext(), 72);
+            rlEmptyData.setLayoutParams(layoutParams);
+        }
         mBtnGo = (TextView) view.findViewById(R.id.btn_go);
         mBtnGo.setOnClickListener(this);
 
@@ -117,7 +127,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         LimitLine ll1 = new LimitLine(6.1f, "6.1mmol/L");
         ll1.setLineWidth(2f);
 //        ll1.setLineColor(getResources().getColor(R.color.health_record_picket_line));
-        ll1.setLineColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_picket_line));
+        ll1.setLineColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(18f);
@@ -126,7 +136,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         LimitLine ll2 = new LimitLine(3.9f, "3.9mmol/L");
         ll2.setLineWidth(2f);
 //        ll2.setLineColor(getResources().getColor(R.color.health_record_picket_line));
-        ll2.setLineColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_picket_line));
+        ll2.setLineColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll2.setTextSize(18f);
@@ -185,7 +195,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         } else if (eatedTime == 2) {
             leftAxis.addLimitLine(ll5);
             leftAxis.addLimitLine(ll6);
-        }else if (eatedTime==3){
+        } else if (eatedTime == 3) {
             leftAxis.addLimitLine(ll7);
             leftAxis.addLimitLine(ll8);
         }
@@ -207,7 +217,25 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
     }
 
     public void refreshData(List<BloodSugarHistory> response, String temp) {
+        if (response == null || response.isEmpty()) {
+            refreshErrorData("暂无数据");
+            return;
+        }
+
+        boolean hasCurrentData = false;
+        for (BloodSugarHistory sugarHistory : response) {
+            if (sugarHistory.sugar_time == eatedTime) {
+                hasCurrentData = true;
+                break;
+            }
+        }
+        if (!hasCurrentData) {
+            refreshErrorData("暂无数据");
+            return;
+        }
+
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
+
         initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
@@ -225,7 +253,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                         } else {
                             //正常字体的颜色
 //                            colors.add(getResources().getColor(R.color.health_record_node_text_color));
-                            colors.add(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_text_color));
+                            colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));
                         }
                     }
                     break;
@@ -239,7 +267,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                         } else {
                             //正常字体的颜色
 //                            colors.add(getResources().getColor(R.color.health_record_node_text_color));
-                            colors.add(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_text_color));
+                            colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));
                         }
                     }
                     break;
@@ -253,7 +281,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                         } else {
                             //正常字体的颜色
 //                            colors.add(getResources().getColor(R.color.health_record_node_text_color));
-                            colors.add(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_text_color));
+                            colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));
                         }
                     }
                     break;
@@ -266,7 +294,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                         } else {
                             //正常字体的颜色
 //                            colors.add(getResources().getColor(R.color.health_record_node_text_color));
-                            colors.add(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_text_color));
+                            colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));
                         }
                     }
                     break;
@@ -279,7 +307,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
 
         if (value.size() != 0) {
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-            if (isAdded()){
+            if (isAdded()) {
                 MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
                 mv.setChartView(mChart);
                 mChart.setMarker(mv);
@@ -303,9 +331,9 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                 set1.setHighLightColor(Color.rgb(244, 117, 117));
                 //走势线的样式
 //                set1.setColor(getResources().getColor(R.color.health_record_line_color));
-                set1.setColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_line_color));
 //                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
-                set1.setCircleColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
                 set1.setValueTextColors(colors);
                 //走势线的粗细
                 set1.setLineWidth(6f);
@@ -384,7 +412,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         } else if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR,true);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR, true);
         }
     }
 

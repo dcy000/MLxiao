@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
+    tools:visibility="visible"
     android:visibility="gone">
 
     <ImageView
@@ -10,7 +12,7 @@
         android:layout_width="360pt"
         android:layout_height="279pt"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="118pt"
+        android:layout_marginTop="50pt"
         android:src="@drawable/icon_empty_data_illustration" />
 
     <TextView
@@ -19,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_empty_data_illustration"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100pt"
+        android:layout_marginTop="50pt"
         android:text="啊哦!还没有数据"
         android:textColor="#666666"
         android:textSize="44pt" />
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100pt"
+        android:layout_marginBottom="80pt"
         android:background="@drawable/selector_empty_data_btn"
         android:clickable="true"
         android:text="马上去测量"
