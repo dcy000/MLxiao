@@ -164,7 +164,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
         FragmentActivity activity = getActivity();
         if (activity instanceof ConnectActivity) {
             ConnectActivity connectActivity = (ConnectActivity) activity;
-            connectActivity.setBtnNextVisible(true);
+            connectActivity.setBtnNextVisible(!connectActivity.isSingleDetection());
 //            mBtnHealthHistory.setVisibility(connectActivity.isSingleDetection() ? View.VISIBLE : View.GONE);
         }
     }

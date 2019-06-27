@@ -61,7 +61,7 @@ public class AbnormalRecommendDetailsActivity extends ToolbarBaseActivity {
         taskId = getIntent().getIntExtra("taskId", 0);
 
         mTitleText.setText("智 能 建 议");
-        mRightView.setImageResource(R.drawable.common_icon_home);
+//        mRightView.setImageResource(R.drawable.common_icon_home);
 
         tvTips = (TextView) findViewById(R.id.tvTips);
         tvTask1 = (TextView) findViewById(R.id.tvTask1);
@@ -234,8 +234,8 @@ public class AbnormalRecommendDetailsActivity extends ToolbarBaseActivity {
         tvAllTask.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    protected void backMainActivity() {
-        Routerfit.register(AppRouter.class).skipMainActivity();
-    }
+//    @Override
+//    protected void backMainActivity() {
+//        Routerfit.register(AppRouter.class).skipMainActivity();
+//    }
 }

@@ -167,7 +167,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas, false,IBleConstants.MEASURE_BLOOD_SUGAR);
+                        notifyActivity(datas, false, IBleConstants.MEASURE_BLOOD_SUGAR);
                     }
 
                     @Override
@@ -183,7 +183,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
         FragmentActivity activity = getActivity();
         if (activity instanceof ConnectActivity) {
             ConnectActivity connectActivity = (ConnectActivity) activity;
-            connectActivity.setBtnNextVisible(true);
+            connectActivity.setBtnNextVisible(!connectActivity.isSingleDetection());
 //            mBtnHealthHistory.setVisibility(connectActivity.isSingleDetection() ? View.VISIBLE : View.GONE);
         }
     }

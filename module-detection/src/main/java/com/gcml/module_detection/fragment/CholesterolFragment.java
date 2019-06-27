@@ -147,7 +147,7 @@ public class CholesterolFragment extends BluetoothBaseFragment implements View.O
         FragmentActivity activity = getActivity();
         if (activity instanceof ConnectActivity) {
             ConnectActivity connectActivity = (ConnectActivity) activity;
-            connectActivity.setBtnNextVisible(true);
+            connectActivity.setBtnNextVisible(!connectActivity.isSingleDetection());
 //            mBtnHealthHistory.setVisibility(connectActivity.isSingleDetection() ? View.VISIBLE : View.GONE);
         }
     }

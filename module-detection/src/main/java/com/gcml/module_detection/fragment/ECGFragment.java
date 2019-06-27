@@ -157,7 +157,7 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
         FragmentActivity activity = getActivity();
         if (activity instanceof ConnectActivity) {
             ConnectActivity connectActivity = (ConnectActivity) activity;
-            connectActivity.setBtnNextVisible(true);
+            connectActivity.setBtnNextVisible(!connectActivity.isSingleDetection());
             mBtnHealthHistory.setVisibility(View.GONE);
         }
     }
