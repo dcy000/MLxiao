@@ -86,6 +86,7 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     private Bundle bundle;
     private boolean isSingleDetection;
     private TextView mTvNext;
+    private DetectionDataBean dataBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -274,14 +275,27 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     private void initView() {
         mTvNext = findViewById(R.id.tv_next);
+        mTvNext.setEnabled(false);
+        mTvNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Routerfit.setResult(Activity.RESULT_OK, dataBean);
+                finish();
+            }
+        });
         mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
-        isSingleDetection = getIntent().getBooleanExtra("isSingleDetection", false);
-        if (!isSingleDetection) {
-            mTvNext.setVisibility(View.VISIBLE);
-            setBtnClickableState(false,null);
-        } else {
-            mTvNext.setVisibility(View.GONE);
-        }
+        isSingleDetection = isSingleDetection();
+
+//        if (!isSingleDetection) {
+//            mTvNext.setVisibility(View.VISIBLE);
+//            setBtnClickableState(false, null);
+//        } else {
+//            mTvNext.setVisibility(View.GONE);
+//        }
+    }
+
+    public boolean isSingleDetection() {
+        return getIntent().getBooleanExtra("isSingleDetection", false);
     }
 
     @Override
@@ -520,6 +534,9 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     @Override
     public void onSuccess(String fileAddress, int flag, String result, int heartRate) {
+        if (!isSingleDetection()) {
+            return;
+        }
         pdfUrl = fileAddress;
         //心电测量结束后展示分析报告
         baseFragment = new ECG_PDF_Fragment();
@@ -559,6 +576,10 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         baseFragment = null;
     }
 
+    public void setBtnNextVisible(boolean visible) {
+        mTvNext.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
     private void setBtnClickableState(boolean enableClick, DetectionDataBean dataBean) {
         if (enableClick) {
             mTvNext.setClickable(true);
@@ -578,9 +599,11 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
 
     @Override
     public void onSuccess(DetectionDataBean dataBean) {
+        this.dataBean = dataBean;
         //流程化测量数据上传成功
         if (!isSingleDetection) {
-            setBtnClickableState(true, dataBean);
+            mTvNext.setEnabled(true);
+//            setBtnClickableState(true, dataBean);
         }
     }
 
@@ -588,7 +611,8 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     public void onError(DetectionDataBean dataBean) {
         //流程化测量数据上传失败
         if (!isSingleDetection) {
-            setBtnClickableState(true, dataBean);
+            mTvNext.setEnabled(false);
+//            setBtnClickableState(true, dataBean);
         }
     }
 }

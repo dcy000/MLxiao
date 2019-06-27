@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
+import com.gcml.module_detection.ConnectActivity;
 import com.gcml.module_detection.R;
 import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
@@ -154,6 +156,26 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
 
                     }
                 });
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        FragmentActivity activity = getActivity();
+        if (activity instanceof ConnectActivity) {
+            ConnectActivity connectActivity = (ConnectActivity) activity;
+            connectActivity.setBtnNextVisible(true);
+//            mBtnHealthHistory.setVisibility(connectActivity.isSingleDetection() ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        FragmentActivity activity = getActivity();
+        if (activity instanceof ConnectActivity) {
+            ((ConnectActivity) activity).setBtnNextVisible(false);
+        }
     }
 
     @Override

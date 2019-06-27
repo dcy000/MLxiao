@@ -3,6 +3,7 @@ package com.gcml.module_detection.fragment;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -148,6 +149,26 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
 
                     }
                 });
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        FragmentActivity activity = getActivity();
+        if (activity instanceof ConnectActivity) {
+            ConnectActivity connectActivity = (ConnectActivity) activity;
+            connectActivity.setBtnNextVisible(true);
+            mBtnHealthHistory.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        FragmentActivity activity = getActivity();
+        if (activity instanceof ConnectActivity) {
+            ((ConnectActivity) activity).setBtnNextVisible(false);
+        }
     }
 
     @Override
