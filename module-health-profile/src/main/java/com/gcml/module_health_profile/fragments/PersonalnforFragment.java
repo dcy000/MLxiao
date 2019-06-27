@@ -47,6 +47,12 @@ public class PersonalnforFragment extends RecycleBaseFragment {
         rdRecordIdString = "'" + recordId + "'";
         userIdString = "'" + UserSpHelper.getUserId() + "'";
         mX5Webview = view.findViewById(R.id.web_person_info);
+        mX5Webview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
         typeString = "'公卫表格添加'";
         initWebView();
     }

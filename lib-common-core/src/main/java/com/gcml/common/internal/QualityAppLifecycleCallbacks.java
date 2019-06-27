@@ -46,8 +46,8 @@ public class QualityAppLifecycleCallbacks implements AppLifecycleCallbacks {
             Timber.i("初始化渠道名：失败");
         }
         Bugly.init(application, application.getString(R.string.app_id_bugly), isDebug(), userStrategy);
-        LeakCanaryHelper.INSTANCE.install(application);
-        BlockCanary.install(application, new AppBlockCanaryContext()).start();
+//        LeakCanaryHelper.INSTANCE.install(application);
+//        BlockCanary.install(application, new AppBlockCanaryContext()).start();
     }
 
     @Override

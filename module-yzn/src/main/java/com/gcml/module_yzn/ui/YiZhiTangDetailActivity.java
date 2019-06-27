@@ -54,6 +54,12 @@ public class YiZhiTangDetailActivity extends ToolbarBaseActivity {
 
     private void initView() {
         webView = findViewById(R.id.webview);
+        webView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
 
 //        webView.loadUrl("http://m.yuandaoshop.com/");
 //        webView.loadUrl("http://www.baidu.com/");

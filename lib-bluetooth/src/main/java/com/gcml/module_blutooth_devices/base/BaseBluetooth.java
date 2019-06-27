@@ -137,12 +137,16 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         if (isConnected && !TextUtils.isEmpty(targetAddress)) {
             if (isFirstDisConne) {
                 //如果是已经和其他设备连接，则先断开已有连接，1秒以后再和该设备连接
+                Timber.w("bt ---> disconnect: address = %s", targetAddress);
                 BluetoothStore.getClient().disconnect(targetAddress);
+                Timber.w("bt ---> startScan: address = %s delay 1000ms", device.getAddress());
                 Handlers.bg().postDelayed(() -> startDiscovery(device.getAddress()), 1000);
             } else {
+                Timber.w("bt ---> connect directly: address = %s", device.getAddress());
                 connect(device.getAddress());
             }
         } else {
+            Timber.w("bt ---> startScan: address = %s", device.getAddress());
             startDiscovery(device.getAddress());
         }
     }
@@ -226,6 +230,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             if (isSelfConnect(targetName, mac)) {
                 return;
             }
+            Timber.w("bt ---> connect directly: address = %s", mac);
             connect(mac);
             return;
         }
@@ -254,6 +259,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     }
 
     protected void stopSearch() {
+        Timber.w("bt ---> stopScan");
         if (searchHelper != null) {
             searchHelper.stop();
         }
@@ -287,6 +293,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
                 return;
             }
             if (isAutoConnect) {
+                Timber.w("bt ---> start connect: address = %s", this.device.getAddress());
                 connect(this.device.getAddress());
             }
         }
@@ -330,16 +337,16 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             baseView.disConnected();
             disConnected(address);
             //3秒之后尝试重连
-            Timber.i(">>>准备重试");
+            Timber.w("bt ---> start reconnect: address = %s delay 3000ms", address);
             Handlers.bg().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Timber.i(">>>重试中");
-                    if (!isOnDestroy && targetAddress != null) {
-                        Timber.i(">>>>BaseBluetooth进行重连");
-                        if (!isConnected && !isOnDestroy) {
-                            connect(targetAddress);
-                        }
+                    Timber.w("bt ---> start reconnect: address = %s", address);
+                    if (!isConnected && !isOnDestroy && targetAddress != null) {
+                        Timber.w("bt ---> start reconnect: address = %s", address);
+                        connect(targetAddress);
+                    } else {
+                        Timber.w("bt ---> start reconnect cancel: address = %s", address);
                     }
                 }
             }, 3000);

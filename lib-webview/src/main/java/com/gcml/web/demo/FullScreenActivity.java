@@ -28,6 +28,12 @@ public class FullScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filechooser_layout);
         webView = (X5WebView) findViewById(R.id.web_filechooser);
+        webView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
         webView.loadUrl("file:///android_asset/webpage/fullscreenVideo.html");
 //        webView.loadUrl(url0);
 

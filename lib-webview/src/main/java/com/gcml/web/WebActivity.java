@@ -61,6 +61,12 @@ public class WebActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         webView = findViewById(R.id.x5WebView);
+        webView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
 
         btnBack = findViewById(R.id.ll_back);
         btnBack.setOnClickListener(new View.OnClickListener() {

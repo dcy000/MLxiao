@@ -238,6 +238,10 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
+                                if (ChannelUtils.isXiongAn() || ChannelUtils.isBj()) {
+                                    Routerfit.register(AppRouter.class).skipUserInfoActivity();
+                                    return;
+                                }
                                 Routerfit.register(AppRouter.class).skipPersonDetailActivity();
                             }
                         });

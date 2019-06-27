@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.google.auto.service.AutoService;
 
-@AutoService(FragmentManager.FragmentLifecycleCallbacks.class)
+//@AutoService(FragmentManager.FragmentLifecycleCallbacks.class)
 public class AppFragmentLifecycleCallbacks extends FragmentManager.FragmentLifecycleCallbacks {
     @Override
     public void onFragmentDestroyed(FragmentManager fm, Fragment f) {

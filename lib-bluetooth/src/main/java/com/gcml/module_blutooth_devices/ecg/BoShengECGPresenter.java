@@ -141,6 +141,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
     }
 
     private void handleBosheng(String address) {
+        Timber.w("bt ---> startNotify: address = %s", address);
         BluetoothStore.getClient().notify(address, BorsamConfig.COMMON_RECEIVE_ECG_SUUID,
                 BorsamConfig.COMMON_RECEIVE_ECG_CUUID, new BleNotifyResponse() {
                     @Override

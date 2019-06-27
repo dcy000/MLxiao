@@ -10,8 +10,10 @@ android {
         if (project.ext.runAsApp) {
             applicationId "com.example.han.referralproject"
             versionCode 1
-            versionName "Robot-XA.1.0.0.36.beta"
-//            versionName "Robot-BJ.1.0.0.36.beta"
+//            versionName "Robot-XA.1.0.0.38.alpha"
+            versionName "Robot-XA.1.0.0.38.beta"
+//            versionName "Robot-BJ.1.0.0.38.alpha"
+//            versionName "Robot-BJ.1.0.0.38.beta"
         }
 
         manifestPlaceholders = [

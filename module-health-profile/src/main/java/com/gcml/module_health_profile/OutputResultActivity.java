@@ -159,6 +159,12 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         mTvGohome = (TextView) findViewById(R.id.tv_gohome);
         mTvGohome.setOnClickListener(this);
         mX5Webview = (WebView) findViewById(R.id.x5_webview);
+        mX5Webview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
         rdRecordId = getIntent().getStringExtra("rdRecordId");
         userRecordId = getIntent().getStringExtra("userRecordId");
         typeString = "'" + getIntent().getStringExtra("typeString") + "'";

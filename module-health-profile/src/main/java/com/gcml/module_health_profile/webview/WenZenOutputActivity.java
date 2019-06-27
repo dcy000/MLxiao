@@ -41,6 +41,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
+
 @Route(path = "/health/profile/wenzen/output")
 public class WenZenOutputActivity extends ToolbarBaseActivity implements View.OnClickListener, IPrinterView {
     private ImageView mIvQr;
@@ -156,6 +157,12 @@ public class WenZenOutputActivity extends ToolbarBaseActivity implements View.On
         mTvGohome = (TextView) findViewById(R.id.tv_gohome);
         mTvGohome.setOnClickListener(this);
         mX5Webview = (WebView) findViewById(R.id.x5_webview);
+        mX5Webview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
         rdRecordId = getIntent().getStringExtra("rdRecordId");
         userRecordId = getIntent().getStringExtra("userRecordId");
         typeString = "'" + getIntent().getStringExtra("typeString") + "'";

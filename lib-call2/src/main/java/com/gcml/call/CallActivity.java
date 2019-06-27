@@ -110,7 +110,7 @@ public class CallActivity extends AppCompatActivity {
                         showTime(true);
                         showFloatWindow(false);
                         showSwitchCamera(false);
-                        showMuteAudio(true);
+                        showMuteAudio(false);
                         showMuteVideo(false);
                         showReceive(false);
                         showHangUp(true);

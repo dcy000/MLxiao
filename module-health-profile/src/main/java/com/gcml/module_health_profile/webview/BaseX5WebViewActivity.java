@@ -48,6 +48,12 @@ public abstract class BaseX5WebViewActivity extends ToolbarBaseActivity implemen
 
     protected void initView() {
         mX5Webview = (WebView) findViewById(R.id.x5_webview);
+        mX5Webview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
         mTitleText.setText(setTitle());
     }
 

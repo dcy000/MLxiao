@@ -145,6 +145,13 @@ public class BrowserActivity extends Activity {
 
 		mWebView = new X5WebView(this, null);
 
+		mWebView.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				return true;
+			}
+		});
+
 		mViewParent.addView(mWebView, new FrameLayout.LayoutParams(
 				FrameLayout.LayoutParams.FILL_PARENT,
 				FrameLayout.LayoutParams.FILL_PARENT));

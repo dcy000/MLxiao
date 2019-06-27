@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.gcml.web.R;
 import com.gcml.web.demo.utils.X5WebView;
@@ -28,6 +29,13 @@ public class FilechooserActivity extends Activity {
         setContentView(R.layout.filechooser_layout);
 
         webView = (X5WebView) findViewById(R.id.web_filechooser);
+
+        webView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
 
         webView.setWebChromeClient(new WebChromeClient() {
             // For Android 3.0+

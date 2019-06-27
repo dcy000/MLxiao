@@ -22,6 +22,7 @@ public class BluetoothConnectHelper {
     private boolean isConnected = false;
 
     public void connect(String macAddress, ConnectListener listener) {
+        Timber.w("bt ---> start connect: address = %s", macAddress);
         connectListener = listener;
         if (TextUtils.isEmpty(macAddress)) {
             if (connectListener != null) {
@@ -46,10 +47,10 @@ public class BluetoothConnectHelper {
 
         @Override
         public void onResponse(int code, BleGattProfile data) {
-            Timber.i("BluetoothConnectHelper>>>thread:" + Thread.currentThread().getName());
+            Timber.w("bt ---> onConnectResponse: thread = %s", Thread.currentThread().getName());
             if (connectListener != null && !isClear) {
                 if (code != 0) {
-                    Timber.tag(TAG).e("bluetooth connected failed");
+                    Timber.w("bt ---> onConnectResponse: failed");
                     connectListener.failed();
                 }
             } else {
@@ -62,13 +63,14 @@ public class BluetoothConnectHelper {
 
         @Override
         public void onConnectStatusChanged(String mac, int status) {
+            Timber.w("bt ---> onConnectStatusChanged: address = %s, status = %s", mac, status);
             if (connectListener != null && !isClear) {
                 if (status == 16) {
-                    Timber.tag(TAG).i("bluetooth is connected");
                     isConnected = true;
+                    Timber.w("bt ---> onConnectStatusChanged: success");
                     connectListener.success(BluetoothUtils.getRemoteDevice(mac));
                 } else if (status == 32) {
-                    Timber.i("BleConnectStatusListener>>>>>>=====>>>>>is disconnected");
+                    Timber.w("bt ---> onConnectStatusChanged: failed");
                     isConnected = false;
                     connectListener.disConnect(mac);
                 }
@@ -98,8 +100,10 @@ public class BluetoothConnectHelper {
         if (isConnected) {
             isConnected = false;
             BluetoothStore.getClient().disconnect(address);
+            Timber.w("bt ---> clear: disconnect address = %s", address);
         }
         //清除队列中缓存
+        Timber.w("bt ---> clear: clearRequest address = %s", address);
         BluetoothStore.getClient().clearRequest(address, 0);
     }
 }
