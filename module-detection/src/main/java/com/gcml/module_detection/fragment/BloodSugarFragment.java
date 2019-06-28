@@ -84,6 +84,21 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
         mReference1.setVisibility(View.VISIBLE);
         mReference1.setText("正常范围：3.9mmol/L~11.1mmol/L");
 
+        if (bundle != null) {
+            selectMeasureSugarTime = bundle.getInt("selectMeasureSugarTime");
+        }
+
+        if (selectMeasureSugarTime == 0) {
+            //空腹
+            mReference1.setText("正常范围：3.9mmol/L~6.1mmol/L");
+        } else if (selectMeasureSugarTime == 1 || selectMeasureSugarTime == 2) {
+            //饭后两小时 饭后一小时
+            mReference1.setText("正常范围：3.9mmol/L~7.8mmol/L");
+        } else if (selectMeasureSugarTime == 3) {
+            //其他时间
+            mReference1.setText("正常范围：3.9mmol/L~11.1mmol/L");
+        }
+
         obserData();
     }
 

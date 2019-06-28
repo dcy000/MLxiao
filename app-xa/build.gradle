@@ -10,7 +10,7 @@ android {
         if (project.ext.runAsApp) {
             applicationId "com.example.han.referralproject"
             versionCode 1
-            versionName "Robot-XA.1.0.0.41.hwbeta"
+            versionName "Robot-XA.1.0.0.41.beta"
 //            versionName "Robot-BJ.1.0.0.40.beta"
         }
 
