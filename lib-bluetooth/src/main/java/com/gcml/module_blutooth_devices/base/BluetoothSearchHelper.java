@@ -27,7 +27,8 @@ public class BluetoothSearchHelper {
 
     @SuppressLint("CheckResult")
     public void searchClassic(int periodMill, int times, SearchListener listener, String... names) {
-        Timber.w("bt ---> startScan: type = classic names = %s", names);
+        String[] strings = names;
+        Timber.w("bt ---> startScan: type = classic names = %s", strings);
         searchListener = listener;
         final SearchRequest request = new SearchRequest
                 .Builder()
@@ -41,7 +42,8 @@ public class BluetoothSearchHelper {
     }
 
     public void searchBle(int periodMill, int times, SearchListener listener, String... names) {
-        Timber.w("bt ---> startScan: type = ble names = %s", names);
+        String[] strings = names;
+        Timber.w("bt ---> startScan: type = ble names = %s", strings);
         searchListener = listener;
         SearchRequest request = new SearchRequest
                 .Builder()

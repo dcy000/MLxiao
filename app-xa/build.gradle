@@ -10,16 +10,16 @@ android {
         if (project.ext.runAsApp) {
             applicationId "com.example.han.referralproject"
             versionCode 1
-            versionName "Robot-XA.1.0.0.41.beta"
-//            versionName "Robot-BJ.1.0.0.40.beta"
+//            versionName "Robot-XA.1.0.0.42.beta"
+            versionName "Robot-BJ.1.0.0.42.beta"
         }
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME  : applicationId,
                 JPUSH_APPKEY   : "81695cca09ae6e2afffe15f4", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL  : "developer-default", //暂时填写默认值即可.
-                VERSION_CHANNEL: "gcml_version_xa", //暂时填写默认值即可.
-//                VERSION_CHANNEL: "gcml_version_bj", //暂时填写默认值即可.
+//                VERSION_CHANNEL: "gcml_version_xa", //暂时填写默认值即可.
+                VERSION_CHANNEL: "gcml_version_bj", //暂时填写默认值即可.
         ]
     }
 

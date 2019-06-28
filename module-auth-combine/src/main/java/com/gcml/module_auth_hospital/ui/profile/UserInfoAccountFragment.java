@@ -1,6 +1,8 @@
 package com.gcml.module_auth_hospital.ui.profile;
 
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 import com.gcml.common.LazyFragment;
 import com.gcml.common.data.UserEntity;
 import com.gcml.module_auth_hospital.R;
+
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,5 +73,15 @@ public class UserInfoAccountFragment extends LazyFragment {
             return;
         }
         tvPhone.setText(TextUtils.isEmpty(user.phone) ? "暂未填写" : user.phone);
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void onPauseEvent() {
+        Timber.w("@OnLifecycleEvent(Lifecycle.Event.ON_PAUSE) isVisible = %s", isVisible());
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResumeEvent() {
+        Timber.w("@OnLifecycleEvent(Lifecycle.Event.ON_RESUME) isVisible = %s", isVisible());
     }
 }
