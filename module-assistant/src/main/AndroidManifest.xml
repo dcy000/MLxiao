@@ -3,9 +3,9 @@
     package="com.gcml.health.assistant">
 
     <application>
-        <activity android:name=".page.AbnormalAllTaskActivity"></activity>
-        <activity android:name=".page.AbnormalRecommendDetailsActivity" />
-        <activity android:name=".page.AbnormalAssistantActivity" />
+        <activity android:name=".ui.AbnormalAllTaskActivity"></activity>
+        <activity android:name=".ui.AbnormalRecommendDetailsActivity" />
+        <activity android:name=".ui.AbnormalAssistantActivity" />
     </application>
 
 </manifest>

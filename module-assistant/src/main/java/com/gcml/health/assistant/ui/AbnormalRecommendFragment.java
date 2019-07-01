@@ -1,4 +1,4 @@
-package com.gcml.health.assistant.page;
+package com.gcml.health.assistant.ui;
 
 
 import android.content.Intent;
@@ -24,7 +24,6 @@ import com.gcml.health.assistant.R;
 import com.gcml.health.assistant.model.AssistantRepository;
 import com.gcml.health.assistant.model.entity.AbnormalEntity;
 import com.gcml.health.assistant.model.entity.AbnormalRecommendEntity;
-import com.gcml.health.assistant.model.entity.AbnormalTaskList;
 
 import java.util.ArrayList;
 import java.util.List;

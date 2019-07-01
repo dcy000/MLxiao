@@ -1,4 +1,4 @@
-package com.gcml.health.assistant.page;
+package com.gcml.health.assistant.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

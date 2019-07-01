@@ -1,4 +1,4 @@
-package com.gcml.health.assistant.page;
+package com.gcml.health.assistant.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -18,7 +17,6 @@ import com.gcml.health.assistant.model.entity.AbnormalEntity;
 import com.gcml.health.assistant.model.entity.AbnormalRecommendEntity;
 import com.gcml.health.assistant.model.entity.AbnormalTaskEntity;
 import com.gcml.health.assistant.model.entity.AbnormalTaskList;
-import com.sjtu.yifei.route.Routerfit;
 
 import java.util.ArrayList;
 import java.util.List;
