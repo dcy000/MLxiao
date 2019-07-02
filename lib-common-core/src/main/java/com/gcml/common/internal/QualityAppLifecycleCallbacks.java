@@ -59,8 +59,8 @@ public class QualityAppLifecycleCallbacks implements AppLifecycleCallbacks {
         if (isDebug()) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new Timber.DebugTree());
-//            Timber.plant(new CrashReportingTree());
+//            Timber.plant(new Timber.DebugTree());
+            Timber.plant(new CrashReportingTree());
         }
     }
 
