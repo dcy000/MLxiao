@@ -47,7 +47,6 @@ public class ImproveInformationActivity extends ToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isShowToolbar = false;
-        getIntent().getFlags()
         setContentView(R.layout.activity_improve_information);
         initView();
         initEvent();
