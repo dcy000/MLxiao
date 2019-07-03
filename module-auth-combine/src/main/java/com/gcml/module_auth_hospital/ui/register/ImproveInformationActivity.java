@@ -47,6 +47,7 @@ public class ImproveInformationActivity extends ToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isShowToolbar = false;
+        getIntent().getFlags()
         setContentView(R.layout.activity_improve_information);
         initView();
         initEvent();
@@ -299,6 +300,7 @@ public class ImproveInformationActivity extends ToolbarBaseActivity {
                                 //签约或者首页界面
                                 toHome();
                             } else if (sResult.equals("failed")) {
+                                toHome();
                                 ToastUtils.showShort("录入人脸失败");
                             }
                         }
