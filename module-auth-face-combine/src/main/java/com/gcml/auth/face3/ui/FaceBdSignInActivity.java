@@ -78,7 +78,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
             binding.tvSkip.setBackground(null);
         }
 
-        if (UiUtils.sDesignWidth != 1920) {
+        if (UiUtils.sDesignWidth != 1920f) {
             ViewGroup.MarginLayoutParams params = ((ViewGroup.MarginLayoutParams) binding.ivAnimation.getLayoutParams());
             if (params != null) {
                 int size = UiUtils.pt((int) (UiUtils.sDesignWidth / 1920 * 1000 + 0.5));
@@ -136,7 +136,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
                 int height = binding.clRoot.getHeight();
                 int width = binding.clRoot.getWidth();
                 Timber.w("face preview: width = %s, height = %s", width, height);
-                int extra = height - width * 16 / 9;
+                int extra = height - width * 9 / 16;
                 ViewGroup.LayoutParams params = binding.extraBottom.getLayoutParams();
                 if (params != null) {
                     if (extra > 0) {
@@ -145,6 +145,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
                         params.height = 1;
                     }
                     binding.extraBottom.setLayoutParams(params);
+                    binding.clRoot.requestLayout();
                 }
             }
         });
