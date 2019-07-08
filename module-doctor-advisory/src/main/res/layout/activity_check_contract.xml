@@ -31,9 +31,9 @@
                 android:id="@+id/iv_doctor_avatar"
                 android:layout_width="300pt"
                 android:layout_height="300pt"
-                android:layout_marginEnd="8pt"
                 android:layout_marginStart="8pt"
                 android:layout_marginTop="56pt"
+                android:layout_marginEnd="8pt"
                 android:src="@drawable/avatar_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,6 +104,7 @@
                 android:text="收费标准："
                 android:textColor="#999999"
                 android:textSize="56pt"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/tv_good"
                 app:layout_constraintTop_toBottomOf="@+id/tv_good_at" />
 
@@ -114,6 +115,7 @@
                 android:layout_marginTop="32pt"
                 android:textColor="#3F86FC"
                 android:textSize="56pt"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/tv_service"
                 app:layout_constraintTop_toBottomOf="@+id/tv_good_at"
                 tools:text="10元/分钟" />

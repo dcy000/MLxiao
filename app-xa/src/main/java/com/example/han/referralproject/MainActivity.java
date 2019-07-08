@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         statusBarFragment = StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
         initMainPage();
-        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
+//        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
 //        getPersonInfo();
         //设置极光别名
         JpushAliasUtils.setAlias("user_" + UserSpHelper.getUserId());

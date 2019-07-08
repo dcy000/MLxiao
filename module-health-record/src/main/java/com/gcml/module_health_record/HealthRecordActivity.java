@@ -198,10 +198,10 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     if (selectorYear > selectEndYear) {
                         ToastUtils.showShort("选择时间错误");
-                    } else if (selectorYear == selectStartYear && selectorMonth > selectEndMonth) {
+                    } else if (selectorYear == selectEndYear && selectorMonth > selectEndMonth) {
                         ToastUtils.showShort("选择时间错误");
-                    } else if (selectorYear == selectStartYear
-                            && selectorMonth == selectStartMonth
+                    } else if (selectorYear == selectEndYear
+                            && selectorMonth == selectEndMonth
                             && selectorDay > selectEndDay) {
                         ToastUtils.showShort("选择时间错误");
                     } else {

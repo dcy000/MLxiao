@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -23,6 +24,7 @@ import com.gcml.common.utils.PreviewHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.IconDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -69,6 +71,19 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
         userId = getIntent().getStringExtra("userId");
         binding.setPresenter(this);
         binding.setViewModel(viewModel);
+
+        if (UiUtils.sDesignWidth != 1920) {
+            ViewGroup.MarginLayoutParams params = ((ViewGroup.MarginLayoutParams) binding.ivAnimation.getLayoutParams());
+            if (params != null) {
+                int size = UiUtils.pt((int) (UiUtils.sDesignWidth / 1920 * 1000 + 0.5));
+                int marginTop = UiUtils.pt((int) (UiUtils.sDesignWidth / 1920 * 40 + 0.5));
+                params.width = size;
+                params.height = size;
+                params.topMargin = marginTop;
+                binding.ivAnimation.setLayoutParams(params);
+            }
+        }
+
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);
@@ -97,6 +112,34 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
             public void onClick(View v) {
 //                start();
 //                takeFrames("");
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        compactScreenHeight();
+        super.onResume();
+    }
+
+    private void compactScreenHeight() {
+        binding.previewMask.post(new Runnable() {
+            @Override
+            public void run() {
+                // 适配屏幕
+                int height = binding.clRoot.getHeight();
+                int width = binding.clRoot.getWidth();
+                Timber.w("face preview: width = %s, height = %s", width, height);
+                int extra = height - width * 16 / 9;
+                ViewGroup.LayoutParams params = binding.extraBottom.getLayoutParams();
+                if (params != null) {
+                    if (extra > 0) {
+                        params.height = extra;
+                    } else {
+                        params.height = 1;
+                    }
+                    binding.extraBottom.setLayoutParams(params);
+                }
             }
         });
     }

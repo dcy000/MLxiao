@@ -18,9 +18,9 @@ public class UiUtils {
     @SuppressLint("StaticFieldLeak")
     private static Context sContext;
 
-    private static float sDesignWidth = 1920;
+    public static float sDesignWidth = 1920;
 
-    private static float sDesignHeight = 1200;
+    public static float sDesignHeight = 1200;
 
     public static void init(Context context, float designWidth, float designHeight) {
         sContext = context.getApplicationContext();

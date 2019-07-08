@@ -15,6 +15,7 @@ import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.ValidateIDCard;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -108,7 +109,7 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
             speak("请输入您的身份证号码");
             return;
         }
-        if (!Utils.checkIdCard1(idCardNumber)) {
+        if (!ValidateIDCard.validateCard(idCardNumber)) {
             speak("请输入正确的身份证号码");
             return;
         }

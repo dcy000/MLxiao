@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.gcml.common.utils.ui.UiUtils;
+
 import timber.log.Timber;
 
 /**
@@ -61,7 +63,7 @@ public class BannerIndicatorView extends View implements ViewPager.OnPageChangeL
         mPaint2.setTextSize(16);
         mPaint2.setStyle(Paint.Style.FILL);
 
-        r = 28;
+        r = UiUtils.pt(28);
     }
 
 

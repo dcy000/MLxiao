@@ -1,6 +1,7 @@
 package com.gcml.module_health_profile;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class HealthManagementResultActivity extends ToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tizhi_result);
+        mToolbar.setVisibility(View.GONE);
         initTitle();
         initView();
     }

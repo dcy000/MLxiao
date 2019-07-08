@@ -204,6 +204,10 @@ public class AbnormalEntity implements Parcelable {
     }
 
     public String getValue() {
+        if ("2".equals(type)) {
+            return "1".equals(value1) ? "正常" : "异常";
+        }
+
         float v;
         if ("0".equals(type)) {
             try {

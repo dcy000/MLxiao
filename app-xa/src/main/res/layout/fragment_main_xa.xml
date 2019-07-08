@@ -17,7 +17,9 @@
         android:clickable="true"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/svContainer"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.gcml.lib_widget.CircleImageView
@@ -49,9 +51,11 @@
 
 
     <ScrollView
+        android:id="@+id/svContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/ei_health_checkup"
+        app:layout_constraintLeft_toRightOf="@id/ll_pernal"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ll_pernal"
         tools:ignore="MissingConstraints">
 

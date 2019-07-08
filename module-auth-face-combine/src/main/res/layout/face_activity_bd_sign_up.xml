@@ -15,9 +15,9 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/clRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/clRoot"
         tools:context=".ui.FaceBdSignUpActivity">
 
         <SurfaceView
@@ -35,17 +35,26 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/face_fg_mask"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/extra_bottom"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/extra_bottom"
+            android:layout_width="0dp"
+            android:layout_height="1pt"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
             android:id="@+id/iv_animation"
             android:layout_width="1000pt"
             android:layout_height="1000pt"
+            android:layout_marginTop="40pt"
             android:src="@drawable/face_fg_animation"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

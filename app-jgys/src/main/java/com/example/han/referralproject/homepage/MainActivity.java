@@ -65,7 +65,7 @@ public class MainActivity extends ToolbarBaseActivity implements View.OnClickLis
         //初始化百度语音
         Routerfit.register(AppRouter.class).getBaiduAKProvider().initAK();
         //启动音量控制悬浮按钮
-        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
+//        Routerfit.register(AppRouter.class).getVolumeControlProvider().init(getApplication());
         //检查版本更新
         Routerfit.register(AppRouter.class).getAppUpdateProvider().checkAppVersion(this, false);
     }

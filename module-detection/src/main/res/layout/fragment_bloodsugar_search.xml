@@ -19,36 +19,32 @@
 
     <com.gcml.module_detection.wrap.AViewPager
         android:id="@+id/viewpage"
-        android:layout_width="0dp"
+        android:layout_width="1648pt"
         android:layout_height="0dp"
-        android:layout_marginLeft="100pt"
-        android:layout_marginRight="100pt"
         android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="@+id/clMask"
+        app:layout_constraintLeft_toLeftOf="@+id/clMask"
+        app:layout_constraintRight_toRightOf="@+id/clMask"
+        app:layout_constraintTop_toTopOf="@+id/clMask">
+
+    </com.gcml.module_detection.wrap.AViewPager>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clMask"
+        android:layout_width="1848pt"
+        android:layout_height="824pt"
+        android:layout_marginTop="118pt"
+        android:background="@drawable/bg_bloodsugar_searching"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.gcml.module_detection.wrap.AViewPager>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="36pt"
-        android:layout_marginTop="30pt"
-        android:layout_marginRight="36pt"
-        android:layout_marginBottom="10pt"
-        android:background="@drawable/bg_bloodsugar_searching"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tip">
-
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="192pt"
+            android:layout_marginBottom="134pt"
             android:text="打开采血笔，安装采血针"
             android:textColor="#333"
             android:textSize="56pt"
@@ -63,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="60pt"
         android:layout_marginBottom="48pt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/clMask"
+        app:layout_constraintLeft_toLeftOf="@+id/clMask"
+        app:layout_constraintRight_toRightOf="@+id/clMask" />
 </android.support.constraint.ConstraintLayout>
