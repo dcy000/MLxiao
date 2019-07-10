@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements IPrinterView {
         setContentView(R.layout.activity_main);
         UM.init(getApplication());
         Routerfit.init(getApplication());
-        UiUtils.init(this,1920,1200);
+        UiUtils.init(this,2130,1200);
         initView();
         printerHelper = new ConnectPrinterHelper(this);
     }

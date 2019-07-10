@@ -10,8 +10,8 @@ android {
         if (project.ext.runAsApp) {
             applicationId "com.example.han.referralproject"
             versionCode 1
-            versionName "Robot-XA.1.0.0.48"
-//            versionName "Robot-BJ.1.0.0.48"
+            versionName "Robot-XA.1.0.0.50"
+//            versionName "Robot-BJ.1.0.0.50"
         }
 
         manifestPlaceholders = [
@@ -43,6 +43,7 @@ android {
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
+//            v2SigningEnabled false
         }
     }
 

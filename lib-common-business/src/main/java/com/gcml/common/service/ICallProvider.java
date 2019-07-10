@@ -1,9 +1,9 @@
 package com.gcml.common.service;
 
-import android.content.Context;
+import android.app.Activity;
 
 public interface ICallProvider {
     void login(String callId,String callPwd);
     void logout();
-    void call(Context context,String callId);
+    void call(Activity context, String callId);
 }

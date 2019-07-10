@@ -4,11 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.gcml.common.api.AppLifecycleCallbacks;
 
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.ServiceLoader;
 
 import timber.log.Timber;
+
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 /**
  * Created by afirez on 2018/6/15.
@@ -138,6 +143,23 @@ public enum AppDelegate implements AppLifecycleCallbacks {
             appActivityLifecycleCallbacks = new Application.ActivityLifecycleCallbacks() {
                 @Override
                 public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                    if (Build.VERSION.SDK_INT >= LOLLIPOP) {
+                        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                        activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+                    }
+                    View decorView = activity.getWindow().getDecorView();
+                    if (decorView != null) {
+                        decorView.setSystemUiVisibility(
+                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                                        View.SYSTEM_UI_FLAG_IMMERSIVE |
+                        );
+                    }
                     Timber.i("onActivityCreated: %s %s", activity, savedInstanceState);
                     if (activity instanceof FragmentActivity) {
                         FragmentManager fm = ((FragmentActivity) activity).getSupportFragmentManager();
@@ -155,16 +177,21 @@ public enum AppDelegate implements AppLifecycleCallbacks {
 
                 @Override
                 public void onActivityResumed(Activity activity) {
+                    if (Build.VERSION.SDK_INT >= LOLLIPOP) {
+                        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                        activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+                    }
                     View decorView = activity.getWindow().getDecorView();
                     if (decorView != null) {
                         decorView.setSystemUiVisibility(
                                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                                        View.SYSTEM_UI_FLAG_FULLSCREEN |
                                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                                        View.SYSTEM_UI_FLAG_FULLSCREEN |
                                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                                        View.SYSTEM_UI_FLAG_IMMERSIVE |
                                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                                        View.SYSTEM_UI_FLAG_IMMERSIVE |
                         );
                     }
                     AppDelegate.this.activity = activity;

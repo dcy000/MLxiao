@@ -36,7 +36,7 @@ public class CommonApp implements AppLifecycleCallbacks {
         // end 工具类
 
         // UI 适配
-        UiUtils.init(app, 1920, 1200);
+        UiUtils.init(app, 2130, 1200);
 
         // end UI 适配
 
