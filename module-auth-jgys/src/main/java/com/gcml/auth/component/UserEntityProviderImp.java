@@ -26,6 +26,11 @@ public class UserEntityProviderImp implements IUserEntityProvider {
     }
 
     @Override
+    public Observable<Object> isIdCardNotExist(String idCard) {
+        return new UserRepository().isIdCardNotExit(idCard);
+    }
+
+    @Override
     public Observable<UserEntity> fetchUser() {
         return new UserRepository().fetchUser(UserSpHelper.getUserId());
     }

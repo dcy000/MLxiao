@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.http.ApiException;
+import com.gcml.common.router.AppRouter;
 import com.gcml.common.user.UserPostBody;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -23,8 +25,11 @@ import com.gcml.module_auth_hospital.ui.register.SetPassWordActivity;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 @Route(path = "/auth/hospital/idcard/info/activity")
 public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
@@ -127,6 +132,30 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
     }
 
     private void signUp() {
+        Routerfit.register(AppRouter.class)
+                .getUserProvider()
+                .isIdCardNotExist(idCard)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        navToNext();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+
+                });
+
+
+    }
+
+    private void navToNext() {
         startActivity(new Intent(this, SetPassWordActivity.class)
                 .putExtra("idCardNumber", idCard));
     }
@@ -156,7 +185,7 @@ public class IdCardInfoActivity extends ToolbarBaseActivity implements View.OnCl
                     public void onNext(UserEntity userEntity) {
                         super.onNext(userEntity);
                         ToastUtils.showShort("登录成功");
-                        Routerfit.setResult(Activity.RESULT_OK,true);
+                        Routerfit.setResult(Activity.RESULT_OK, true);
                         finish();
                     }
 

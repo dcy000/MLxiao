@@ -71,7 +71,7 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
 
         mRgXuetangTime.setVisibility(View.GONE);
 //        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
-        mColor1.setBackgroundColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_color));
+        mColor1.setBackgroundColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
         mIndicator1.setText("体温(℃)");
         mLlSecond.setVisibility(View.GONE);
 
@@ -113,7 +113,7 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
         LimitLine ll1 = new LimitLine(37.2f, "37.2℃");
         ll1.setLineWidth(2f);
 //        ll1.setLineColor(getResources().getColor(R.color.health_record_picket_line));
-        ll1.setLineColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_picket_line));
+        ll1.setLineColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(18f);
@@ -122,7 +122,7 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
         LimitLine ll2 = new LimitLine(36f, "36.0℃");
         ll2.setLineWidth(2f);
 //        ll2.setLineColor(getResources().getColor(R.color.health_record_picket_line));
-        ll2.setLineColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_picket_line));
+        ll2.setLineColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll2.setTextSize(18f);
@@ -152,7 +152,7 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
         mChart.animateX(2500);
     }
 
-    public void refreshData(List<TemperatureHistory> response, String temp){
+    public void refreshData(List<TemperatureHistory> response, String temp) {
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> values = new ArrayList<Entry>();
@@ -164,14 +164,14 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
                 colors.add(Color.RED);
             } else {
 //                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
-                colors.add(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_text_color));//正常字体的颜色
+                colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));//正常字体的颜色
             }
             values.add(new Entry(i, response.get(i).temper_ature));
             times.add(response.get(i).time);
         }
         if (times.size() != 0) {
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-            if (isAdded()){
+            if (isAdded()) {
                 MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
                 mv.setChartView(mChart);
                 mChart.setMarker(mv);
@@ -204,10 +204,10 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
 //            set1.enableDashedLine(10f, 0f, 0f);
                 //走势线的颜色
 //                set1.setColor(getResources().getColor(R.color.health_record_line_color));
-                set1.setColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_line_color));
                 //节点圆圈的颜色
 //                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
-                set1.setCircleColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
 
                 //走势线的粗细
                 set1.setLineWidth(6f);
@@ -230,8 +230,10 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
                     set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
                 if (Utils.getSDKInt() >= 18) {
                     // fill drawable only supported on api level 18 and above
-                    Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_tiwen);
-                    set1.setFillDrawable(drawable);
+                    if (getContext() != null) {
+                        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_tiwen);
+                        set1.setFillDrawable(drawable);
+                    }
                 } else {
                     set1.setFillColor(Color.parseColor("#B3DCE2F3"));
                 }
@@ -243,6 +245,7 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
             }
         }
     }
+
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
         if (mChart != null && isAdded()) {
@@ -260,7 +263,7 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE,true);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE, true);
         } else {
         }
     }

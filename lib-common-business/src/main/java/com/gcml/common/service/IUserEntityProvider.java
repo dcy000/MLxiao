@@ -14,6 +14,8 @@ public interface IUserEntityProvider {
      */
     Observable<Object> isAccountExist(String account, int type);
 
+    Observable<Object> isIdCardNotExist(String idCard);
+
     /**
      * 老版本需要的接口, 合版暂时没用
      */

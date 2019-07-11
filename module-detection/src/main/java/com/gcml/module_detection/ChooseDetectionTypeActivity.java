@@ -20,6 +20,7 @@ import com.gcml.common.menu.MenuHelperProviderImp;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.utils.ChannelUtils;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
@@ -36,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -386,6 +389,19 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("加载中");
+                    }
+                })
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<List<LatestDetecBean>>() {
                     @Override
                     public void onNext(List<LatestDetecBean> latestDetecBeans) {

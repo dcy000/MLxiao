@@ -93,4 +93,10 @@ public interface UserService {
             @Query("type") int type,
             @Query("cate") int cate
     );
+
+    @GET(URI + "/api/user/info/idCard/{idCard}/")
+    Observable<ApiResult<Object>> isIdCardNotExit(
+            @Path("idCard") String idCard
+    );
+
 }

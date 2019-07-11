@@ -353,8 +353,10 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                 set1.setDrawFilled(false);
                 if (Utils.getSDKInt() >= 18) {
                     // fill drawable only supported on api level 18 and above
-                    Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_red);
-                    set1.setFillDrawable(drawable);
+                    if (getContext() != null) {
+                        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_red);
+                        set1.setFillDrawable(drawable);
+                    }
                 } else {
                     set1.setFillColor(Color.BLACK);
                 }

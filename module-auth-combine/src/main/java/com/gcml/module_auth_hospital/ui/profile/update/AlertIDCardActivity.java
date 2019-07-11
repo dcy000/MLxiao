@@ -108,25 +108,19 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
     private void checkIdCard(final String idCard) {
         Routerfit.register(AppRouter.class)
                 .getUserProvider()
-                .isAccountExist(idCard, 3)
+                .isIdCardNotExist(idCard)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        ToastUtils.showShort("身份证已存在");
+                        putUserInfo(idCard);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        if (throwable instanceof ApiException) {
-                            if (((ApiException) throwable).code() == 1002) {
-                                putUserInfo(idCard);
-                                return;
-                            }
-                        }
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });

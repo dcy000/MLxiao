@@ -172,14 +172,14 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
                 colors.add(Color.RED);
             } else {
 //                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
-                colors.add(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_text_color));//正常字体的颜色
+                colors.add(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_text_color));//正常字体的颜色
             }
             value.add(new Entry(i, response.get(i).uric_acid));
             times.add(response.get(i).time);
         }
         if (times.size() != 0) {
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-            if (isAdded()){
+            if (isAdded()) {
                 MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
                 mv.setChartView(mChart);
                 mChart.setMarker(mv);
@@ -205,9 +205,9 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
 
                 //走势线的样式
 //                set1.setColor(getResources().getColor(R.color.health_record_line_color));
-                set1.setColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_line_color));
 //                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
-                set1.setCircleColor(ContextCompat.getColor(UM.getApp(),R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UM.getApp(), R.color.health_record_node_color));
                 set1.setValueTextColors(colors);
 
 
@@ -230,8 +230,10 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
                 set1.setDrawFilled(false);
                 if (Utils.getSDKInt() >= 18) {
                     // fill drawable only supported on api level 18 and above
-                    Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_tiwen);
-                    set1.setFillDrawable(drawable);
+                    if (getContext() != null) {
+                        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_tiwen);
+                        set1.setFillDrawable(drawable);
+                    }
                 } else {
                     set1.setFillColor(Color.parseColor("#B3DCE2F3"));
                 }
@@ -248,6 +250,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
             }
         }
     }
+
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
         if (mChart != null && isAdded()) {
@@ -265,7 +268,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_OTHERS);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_OTHERS);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_URIC_ACID,true);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_URIC_ACID, true);
         } else {
         }
     }

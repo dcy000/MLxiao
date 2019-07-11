@@ -192,7 +192,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         if (times.size() != 0) {
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
             Context context = getContext();
-            if (response == null||context==null) {
+            if (response == null || context == null) {
                 return;
             }
             MyMarkerView mv = new MyMarkerView(context, R.layout.custom_marker_view, temp, times, response);
@@ -273,8 +273,10 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
                 set2.setDrawFilled(false);
                 if (Utils.getSDKInt() >= 18) {
                     // fill drawable only supported on api level 18 and above
-                    Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_xueya_diya);
-                    set2.setFillDrawable(drawable);
+                    if (getContext() != null) {
+                        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_xueya_diya);
+                        set2.setFillDrawable(drawable);
+                    }
                 } else {
                     set2.setFillColor(Color.parseColor("#B3DCE2F3"));
                 }
@@ -311,7 +313,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE,true);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE, true);
         } else {
 
         }

@@ -19,7 +19,16 @@ public class BloodsugarSearchFragment extends BluetoothBaseFragment {
     private TextView mMessage;
     private BannerIndicatorView indicator;
     private ArrayList<Fragment> fragments = new ArrayList<>();
-    int[] images = {R.drawable.ic_bloodsugar1, R.drawable.ic_bloodsugar2, R.drawable.ic_bloodsugar3, R.drawable.ic_bloodsugar4, R.drawable.ic_bloodsugar5, R.drawable.ic_bloodsugar6, R.drawable.ic_bloodsugar7};
+    int[] images = {
+            R.drawable.ic_bloodsugar1,
+            R.drawable.ic_bloodsugar2,
+            R.drawable.ic_bloodsugar3,
+            R.drawable.ic_bloodsugar4,
+            R.drawable.ic_bloodsugar5,
+            R.drawable.ic_bloodsugar6,
+            R.drawable.ic_bloodsugar7,
+            R.drawable.ic_bloodsugar8,
+            R.drawable.ic_bloodsugar9};
 
     String[] tips = {
             "打开采血笔，安装采血针",
@@ -27,6 +36,8 @@ public class BloodsugarSearchFragment extends BluetoothBaseFragment {
             "装上笔帽和连接筒，并旋转调整针的深度",
             "拉开采血笔，握住笔盖及笔杆滑动以至听到咔嚓的声音",
             "插入试纸，将试纸的电机感应区对着仪器的插入测试端口",
+            "用酒精棉消毒取血部位，干燥后取血",
+            "选择针刺位置并按采血按钮",
             "擦去第一滴血，取第二滴血进行检测",
             "测量完成后等待5秒，仪器显示结果后，机器人会自动连接蓝牙"
 

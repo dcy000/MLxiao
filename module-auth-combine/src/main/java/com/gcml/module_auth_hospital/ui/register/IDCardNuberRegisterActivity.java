@@ -131,25 +131,19 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
     private void checkIdCard(final String idCard) {
         Routerfit.register(AppRouter.class)
                 .getUserProvider()
-                .isAccountExist(idCard, 3)
+                .isIdCardNotExist(idCard)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        ToastUtils.showShort("身份证已存在");
+                        toSetPassWord(idCard);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        if (throwable instanceof ApiException) {
-                            if (((ApiException) throwable).code() == 1002) {
-                                toSetPassWord(idCard);
-                                return;
-                            }
-                        }
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });

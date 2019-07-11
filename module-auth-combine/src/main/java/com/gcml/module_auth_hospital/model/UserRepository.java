@@ -147,4 +147,9 @@ public class UserRepository {
         return mUserService.isAccountExist(account, type)
                 .compose(RxUtils.apiResultTransformer());
     }
+
+    public Observable<Object> isIdCardNotExit(String idCard) {
+        return mUserService.isIdCardNotExit(idCard)
+                .compose(RxUtils.apiResultTransformer());
+    }
 }

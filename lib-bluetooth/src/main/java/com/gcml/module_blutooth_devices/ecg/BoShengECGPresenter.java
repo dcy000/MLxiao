@@ -538,6 +538,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
         isDestroyed = true;
+        if (timeCount != null) {
+            timeCount.cancel();
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

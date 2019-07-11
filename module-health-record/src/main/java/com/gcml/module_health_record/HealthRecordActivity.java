@@ -181,12 +181,15 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 if (isSelectEndTime) {
                     if (selectorYear < selectStartYear) {
                         ToastUtils.showShort("选择时间错误");
+                        return;
                     } else if (selectorYear == selectStartYear && selectorMonth < selectStartMonth) {
                         ToastUtils.showShort("选择时间错误");
+                        return;
                     } else if (selectorYear == selectStartYear
                             && selectorMonth == selectStartMonth
                             && selectorDay < selectStartDay) {
                         ToastUtils.showShort("选择时间错误");
+                        return;
                     } else {
                         selectEndYear = selectorYear;
                         selectEndMonth = selectorMonth;
@@ -198,12 +201,15 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     if (selectorYear > selectEndYear) {
                         ToastUtils.showShort("选择时间错误");
+                        return;
                     } else if (selectorYear == selectEndYear && selectorMonth > selectEndMonth) {
                         ToastUtils.showShort("选择时间错误");
+                        return;
                     } else if (selectorYear == selectEndYear
                             && selectorMonth == selectEndMonth
                             && selectorDay > selectEndDay) {
                         ToastUtils.showShort("选择时间错误");
+                        return;
                     } else {
                         selectStartYear = selectorYear;
                         selectStartMonth = selectorMonth;

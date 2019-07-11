@@ -30,8 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -79,12 +81,17 @@ public class ImproveInformationActivity extends ToolbarBaseActivity {
         String item = this.wc.getText().toString().replace("尺", "");
         String waist = String.valueOf(Math.floor(Float.valueOf(item) * 33.33f + 0.5f));
 
-        UserEntity user = new UserEntity();
-        user.height = height;
-        user.waist = waist;
-        user.weight = weight;
-
-        repository.updateUserInfo(user)
+        repository.getUserInfoByToken()
+                .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(UserEntity userEntity) throws Exception {
+                        userEntity.height = height;
+                        userEntity.waist = waist;
+                        userEntity.weight = weight;
+                        return repository.updateUserInfo(userEntity)
+                                .subscribeOn(Schedulers.io());
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> showLoading("正在加载..."))

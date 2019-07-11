@@ -28,7 +28,9 @@ import org.checkerframework.checker.units.qual.A;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import timber.log.Timber;
 
@@ -133,12 +135,25 @@ public class ECGFragment extends BluetoothBaseFragment implements View.OnClickLi
         Timber.w("%s", detectionData);
         DetectionRepository.postMeasureData(datas)
                 .compose(RxUtils.io2Main())
-                .doFinally(new Action() {
+                .doAfterTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
                         //pdf地址，异常标识，结论,心率
                         analysisData.onSuccess(detectionData.getResultUrl(), detectionData.getEcgFlag(),
                                 detectionData.getResult(), detectionData.getHeartRate());
+
+                    }
+                })
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("上传数据...");
+                    }
+                })
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
