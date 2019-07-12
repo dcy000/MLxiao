@@ -22,6 +22,7 @@ import com.gcml.common.service.CheckUserInfoProviderImp;
 import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.NiceDialog;
 import com.gcml.common.widget.fdialog.ViewConvertListener;
@@ -158,6 +159,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     @Override
                     public void complete(UserEntity userEntity) {
                         UserSpHelper.setUserHeight((int) Float.parseFloat(userEntity.height));
+                        UserSpHelper.setGender(userEntity.sex);
                         Routerfit.register(AppRouter.class).skipConnectActivity(IBleConstants.MEASURE_WEIGHT, true);
                     }
 
@@ -411,6 +413,7 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         Timber.e(e.getMessage());
+                        ToastUtils.showShort(e.getMessage());
                     }
 
                     @Override

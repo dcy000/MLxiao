@@ -19,6 +19,7 @@ import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
@@ -129,7 +130,18 @@ public class ImproveInformationActivity extends ToolbarBaseActivity {
                 "完 善 信 息",
                 0, null,
                 R.drawable.common_ic_wifi_state, null,
-                null);
+                new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+//                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+//                        Routerfit.register(AppRouter.class).skipSettingActivity();
+                        Routerfit.register(AppRouter.class).skipWifiConnectActivity(false);
+                    }
+                });
 
         setWifiLevel(tbProfile);
 
@@ -182,7 +194,7 @@ public class ImproveInformationActivity extends ToolbarBaseActivity {
             }
 
         };
-        selectItems(getHeights(), listener, 110);
+        selectItems(getHeights(), listener, getHeights().indexOf("170cm"));
     }
 
     private void selectWeight() {
@@ -195,7 +207,7 @@ public class ImproveInformationActivity extends ToolbarBaseActivity {
             }
 
         };
-        selectItems(getWeights(), listener, 70);
+        selectItems(getWeights(), listener, getWeights().indexOf("50kg"));
     }
 
     private void selectItems(List<String> items, OnOptionsSelectListener listener) {

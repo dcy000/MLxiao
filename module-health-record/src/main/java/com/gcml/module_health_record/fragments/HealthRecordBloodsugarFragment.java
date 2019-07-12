@@ -201,7 +201,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         }
 
         leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum(10f);
+//        leftAxis.setAxisMaximum(10f);
         //网格线
         leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);

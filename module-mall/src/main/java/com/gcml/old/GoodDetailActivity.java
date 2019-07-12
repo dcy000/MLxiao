@@ -229,7 +229,7 @@ public class GoodDetailActivity extends ToolbarBaseActivity implements View.OnCl
     private void checkUser(String orderid) {
         Routerfit.register(AppRouter.class)
                 .getVertifyFaceProvider()
-                .onlyVertifyFace(false, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
+                .checkUserEntityAndVertifyFace(false, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
                     public void success() {
                         showPaySuccessDialog(GoodDetailActivity.this);

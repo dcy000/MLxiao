@@ -31,10 +31,11 @@ public class Utils {
     }
 
     public static boolean isValidPhone(String phone) {
-        if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(phone) && phone.length() != 11) {
             return false;
         }
-        return phone.matches("[1][34578]\\d{9}");
+//        return phone.matches("[1][345678]\\d{9}");
+        return true;
     }
 
     @SuppressLint("MissingPermission")

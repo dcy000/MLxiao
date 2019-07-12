@@ -25,7 +25,6 @@ import io.reactivex.schedulers.Schedulers;
 @Route(path = "/common/business/checkUserEntityAndVertifyFace3/face/provider")
 public class VertifyFace3ProviderImp implements IVertifyFaceProvider {
 
-
     private boolean isShowSkipButton;
     private boolean isVertify;
     private boolean isHidden;
@@ -65,6 +64,10 @@ public class VertifyFace3ProviderImp implements IVertifyFaceProvider {
                 .subscribe(new io.reactivex.observers.DefaultObserver<String>() {
                     @Override
                     public void onNext(String faceId) {
+                        if (faceId.isEmpty()) {
+                            if (result != null) result.failed("请先注册人脸！");
+                            return;
+                        }
                         vertifyFace(faceId);
                     }
 
@@ -135,6 +138,10 @@ public class VertifyFace3ProviderImp implements IVertifyFaceProvider {
                     @Override
                     public void onNext(String s) {
                         super.onNext(s);
+                        if (s.isEmpty()) {
+                            if (result != null) result.failed("请先注册人脸!");
+                            return;
+                        }
                         vertifyFace(s);
                     }
 

@@ -119,6 +119,7 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer())
                 .doOnNext(userEntity -> {
                     UserSpHelper.setUserId(userEntity.id + "");
+                    UserSpHelper.setGender(userEntity.sex);
                 });
     }
 

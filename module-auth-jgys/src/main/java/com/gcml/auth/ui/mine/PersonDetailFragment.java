@@ -165,6 +165,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onNext(UserEntity user) {
                         UserSpHelper.setFaceId(user.xfid);
+                        UserSpHelper.setGender(user.sex);
                         tvUserName.setText(user.name);
                         ImageLoader.with(activity)
                                 .load(user.avatar)

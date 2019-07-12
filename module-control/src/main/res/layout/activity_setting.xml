@@ -107,14 +107,16 @@
                 android:padding="24dp"
                 android:text="聊天模式设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_setting_update"
@@ -127,6 +129,7 @@
                 android:text="检查更新"
                 android:textColor="#333333"
                 android:textSize="28sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -145,6 +148,7 @@
                 android:text="IP更换"
                 android:textColor="#333333"
                 android:textSize="28sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

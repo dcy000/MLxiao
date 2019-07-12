@@ -23,7 +23,7 @@ public class TimeFormatter implements IAxisValueFormatter {
         if (v == -1) {
             return "";
         }
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         if (times.size() == 1) {
 
             return TimeUtils.milliseconds2String(times.get(0),

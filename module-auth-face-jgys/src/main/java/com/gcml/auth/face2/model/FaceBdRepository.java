@@ -290,6 +290,7 @@ public class FaceBdRepository {
                                 UserSpHelper.setFaceId(user.xfid);
                                 UserSpHelper.setEqId(user.deviceId);
                                 UserSpHelper.setUserName(user.name);
+                                UserSpHelper.setGender(user.sex);
                             }
                         });
             }

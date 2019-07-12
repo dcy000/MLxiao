@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -27,17 +28,21 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
-//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.222:5555/");//左
-
-        //刚启动应用的时候就存一下游客的token
-        UserSpHelper.setToken(Global.TOURIST_TOKEN);
-
-        initContentView();
+        setContentView(R.layout.activity_welcome);
+        init();
     }
 
-    private void initContentView() {
-        setContentView(R.layout.activity_welcome);
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        init();
+    }
+
+    private void init() {
+//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.210:5555/");//娄
+//        RetrofitUrlManager.getInstance().setGlobalDomain("http://192.168.200.222:5555/");//左
+        //刚启动应用的时候就存一下游客的token
+        UserSpHelper.setToken(Global.TOURIST_TOKEN);
         if (!NetUitls.isWifiConnected()) {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
             finish();

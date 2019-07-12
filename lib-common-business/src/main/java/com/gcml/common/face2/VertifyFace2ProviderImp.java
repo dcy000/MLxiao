@@ -34,13 +34,15 @@ public class VertifyFace2ProviderImp implements IVertifyFaceProvider {
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
-                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                            MLVoiceSynthetize.startSynthesize(UM.getApp(),
-                                    "请先去个人中心完善性别和年龄信息");
-                        } else {
-                            getFaceId(userEntity.id);
-                        }
+                        getFaceId(userEntity.id);
+
+//                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+//                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+//                            MLVoiceSynthetize.startSynthesize(UM.getApp(),
+//                                    "请先去个人中心完善性别和年龄信息");
+//                        } else {
+//                            getFaceId(userEntity.id);
+//                        }
                     }
 
                     @Override

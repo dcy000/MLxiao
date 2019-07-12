@@ -83,7 +83,7 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                         mTvResultRight.setText("--");
                         isMeasureFinishedOfThisTime = false;
                     } else {
-                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd")));
                         mTvResultLeft.setText(highPressure + "/" + detectionData.getLowPressure());
                         mTvResultRight.setText(String.valueOf(detectionData.getPulse()));
                         isMeasureFinishedOfThisTime = true;

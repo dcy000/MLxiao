@@ -72,7 +72,7 @@ public class MeasureXuetangWarningFragment extends HealthMeasureAbnormalBaseFrag
                     return;
                 }
                 switch (position) {
-                    case 0://选择时间错误
+                    case 0://选择日期错误
                         chooseReason.hasReason(0);
                         break;
                     case 1://未擦掉第一滴血

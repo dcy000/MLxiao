@@ -245,7 +245,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     private void checkUser(String orderid) {
         Routerfit.register(AppRouter.class)
                 .getVertifyFaceProvider()
-                .onlyVertifyFace(false, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
+                .checkUserEntityAndVertifyFace(false, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                     @Override
                     public void success() {
                         showPaySuccessDialog(GoodsDetailActivity.this);
@@ -254,7 +254,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void failed(String msg) {
-                        Timber.e("支付失败>>>"+msg);
+                        Timber.e("支付失败>>>" + msg);
                         ToastUtils.showShort("支付失败");
                         cancelOrder(orderid);
                     }

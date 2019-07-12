@@ -107,10 +107,12 @@ public class IDCardNuberRegisterActivity extends ToolbarBaseActivity implements 
         String idCardNumber = ccetPhone.getText().toString().replaceAll(" ", "");
         if (TextUtils.isEmpty(idCardNumber)) {
             speak("请输入您的身份证号码");
+            ToastUtils.showShort("请输入您的身份证号码");
             return;
         }
         if (!ValidateIDCard.validateCard(idCardNumber)) {
             speak("请输入正确的身份证号码");
+            ToastUtils.showShort("请输入您的身份证号码");
             return;
         }
         checkIdCard(idCardNumber);

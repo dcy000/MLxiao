@@ -58,6 +58,7 @@ public class UserSpHelper {
      * 用户名字
      */
     private static final String KEY_USER_NAME = "user_name";
+    private static final String KEY_USER_GENDER = "user_gender";
     /**
      * 用户血压测量惯用手 0：左手 1：右手
      */
@@ -290,6 +291,14 @@ public class UserSpHelper {
      */
     public static String getUserName() {
         return (String) SPUtil.get(KEY_USER_NAME, "");
+    }
+
+    public static void setGender(String name) {
+        SPUtil.put(KEY_USER_GENDER, name);
+    }
+
+    public static String getGender() {
+        return (String) SPUtil.get(KEY_USER_GENDER, "男");
     }
 
     /**

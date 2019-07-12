@@ -129,7 +129,7 @@ public class MyMarkerView extends MarkerView {
                     text_1.setText(e.getY() + "");
                     break;
             }
-            time.setText(TimeUtils.milliseconds2String(times.get((int) e.getX()), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+            time.setText(TimeUtils.milliseconds2String(times.get((int) e.getX()), new SimpleDateFormat("yyyy-MM-dd")));
 
         }
 

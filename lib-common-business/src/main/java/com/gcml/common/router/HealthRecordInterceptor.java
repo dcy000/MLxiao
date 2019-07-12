@@ -27,7 +27,7 @@ public class HealthRecordInterceptor implements AInterceptor {
                 //先跳转到登录页面，登录成功之后，再跳转到目标页
                 Routerfit.register(AppRouter.class)
                         .getVertifyFaceProvider3()
-                        .onlyVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
+                        .checkUserEntityAndVertifyFace(true, true, true, new VertifyFace2ProviderImp.VertifyFaceResult() {
                             @Override
                             public void success() {
                                 chain.proceed();

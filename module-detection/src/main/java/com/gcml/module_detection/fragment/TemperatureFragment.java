@@ -56,7 +56,7 @@ public class TemperatureFragment extends BluetoothBaseFragment implements View.O
         mTvUnitMiddle.setVisibility(View.VISIBLE);
         mTvUnitMiddle.setText("℃");
         mReference1.setVisibility(View.VISIBLE);
-        mReference1.setText("正常范围：36.1℃~37.1℃");
+        mReference1.setText("正常范围：36.4℃~37.3℃");
         obserData();
     }
 
@@ -72,7 +72,7 @@ public class TemperatureFragment extends BluetoothBaseFragment implements View.O
                         isMeasureFinishedOfThisTime = false;
                     } else {
                         isMeasureFinishedOfThisTime = true;
-                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd HH:mm")));
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd")));
                         mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", temperAture));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);

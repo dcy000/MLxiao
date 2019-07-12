@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.router.AppRouter;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.RecycleBaseFragment;
@@ -147,7 +148,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         leftAxis.addLimitLine(ll4);
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-        leftAxis.setAxisMaximum(10);
+//        leftAxis.setAxisMaximum(10);
         //网格线
         leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -168,7 +169,8 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
         for (int i = 0; i < response.size(); i++) {
-            if (response.get(i).uric_acid < 1.49 || response.get(i).uric_acid > 4.16) {
+            if (("男".equals(UserSpHelper.getGender()) && response.get(i).uric_acid > 420)
+                    || ("男".equals(UserSpHelper.getGender()) && response.get(i).uric_acid > 360)) {
                 colors.add(Color.RED);
             } else {
 //                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色

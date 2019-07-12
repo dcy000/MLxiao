@@ -135,7 +135,7 @@ public class HealthRecordHeartrateFragment extends RecycleBaseFragment implement
         leftAxis.addLimitLine(ll2);
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-        leftAxis.setAxisMinimum(50f);
+        leftAxis.setAxisMinimum(0f);
         leftAxis.setTextSize(20f);
 
 
@@ -263,7 +263,7 @@ public class HealthRecordHeartrateFragment extends RecycleBaseFragment implement
         if (i == R.id.btn_go) {
 //            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN);
 //            Routerfit.register(AppRouter.class).skipAllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN);
-            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_ECG,true);
+            Routerfit.register(AppRouter.class).skipConnectActivity(HealthRecordActivity.MeasureType.MEASURE_ECG, true);
         } else {
         }
     }

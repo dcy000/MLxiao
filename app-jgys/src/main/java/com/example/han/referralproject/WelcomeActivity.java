@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -14,11 +15,17 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initContentView();
+        setContentView(R.layout.activity_welcome);
+        init();
     }
 
-    private void initContentView() {
-        setContentView(R.layout.activity_welcome);
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        init();
+    }
+
+    private void init() {
         if (!NetUitls.isWifiConnected()) {
             Routerfit.register(AppRouter.class).skipWifiConnectActivity(true);
         } else {
@@ -26,4 +33,5 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         finish();
     }
+
 }
