@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="320pt"
-        android:textColor="#333333"
+        android:layout_marginLeft="228pt"
         android:text="13:24"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#333333"
+        android:textSize="320pt"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="228pt" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_weather"
         android:layout_width="200pt"
         android:layout_height="200pt"
-        app:layout_constraintBottom_toBottomOf="@id/clock"
-        app:layout_constraintLeft_toRightOf="@id/clock"
-        android:src="@drawable/weather_fail_light"
         android:layout_marginLeft="100pt"
         android:layout_marginBottom="80pt"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/weather_fail_light"
+        app:layout_constraintBottom_toBottomOf="@id/clock"
+        app:layout_constraintLeft_toRightOf="@id/clock" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="@id/clock"
-        app:layout_constraintLeft_toRightOf="@id/image_weather"
         android:layout_marginLeft="100pt"
-        android:layout_marginBottom="80pt">
+        android:layout_marginBottom="80pt"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/clock"
+        app:layout_constraintLeft_toRightOf="@id/image_weather">
 
         <TextView
             android:id="@+id/temperature"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="**℃"
             android:textColor="#333333"
-            android:textSize="140pt"/>
+            android:textSize="140pt" />
 
         <TextView
             android:id="@+id/weather"
@@ -58,74 +58,74 @@
         android:id="@+id/ll_date_and_week"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30pt"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clock"
-        android:layout_marginTop="30pt">
+        app:layout_constraintTop_toBottomOf="@id/clock">
 
         <TextView
             android:id="@+id/gregorian_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="80pt"
-            android:textColor="#333"
+            android:layout_marginLeft="228pt"
             android:text="12月18日"
-            android:layout_marginLeft="228pt"/>
+            android:textColor="#333"
+            android:textSize="80pt" />
 
         <TextView
             android:id="@+id/lunar_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="80pt"
-            android:textColor="#333"
+            android:layout_marginLeft="100pt"
             android:text="农历十一月初一"
-            android:layout_marginLeft="100pt"/>
+            android:textColor="#333"
+            android:textSize="80pt" />
 
         <TextView
             android:id="@+id/weekToday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="80pt"
-            android:textColor="#333"
+            android:layout_marginLeft="100pt"
             android:text="星期一"
-            android:layout_marginLeft="100pt"/>
+            android:textColor="#333"
+            android:textSize="80pt" />
 
     </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_date_and_week"
-        android:layout_marginTop="100pt">
+        app:layout_constraintTop_toBottomOf="@id/ll_date_and_week">
 
         <LinearLayout
             android:id="@+id/ll_health_measure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:clickable="true"
             android:gravity="center"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/ll_health_manager"
+            android:orientation="vertical"
             app:layout_constraintHorizontal_chainStyle="packed"
-            android:clickable="true">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/ll_health_manager">
 
             <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_measure"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
                 android:background="@drawable/newmain_health_measure"
-                android:clickable="true"/>
+                android:clickable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40pt"
                 android:text="健康检测"
                 android:textColor="#333"
-                android:textSize="64pt"
-                android:layout_marginTop="40pt"/>
+                android:textSize="64pt" />
 
         </LinearLayout>
 
@@ -133,27 +133,27 @@
             android:id="@+id/ll_health_manager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            app:layout_constraintLeft_toRightOf="@id/ll_health_measure"
-            app:layout_constraintRight_toLeftOf="@+id/ll_health_call_family"
             android:layout_marginLeft="312pt"
-            android:clickable="true">
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@id/ll_health_measure"
+            app:layout_constraintRight_toLeftOf="@+id/ll_health_call_family">
 
             <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_dialy_task"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
                 android:background="@drawable/newmain_health_dialy_task"
-                android:clickable="true"/>
+                android:clickable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40pt"
                 android:text="每日任务"
                 android:textColor="#333"
-                android:textSize="64pt"
-                android:layout_marginTop="40pt"/>
+                android:textSize="64pt" />
 
         </LinearLayout>
 
@@ -161,27 +161,28 @@
             android:id="@+id/ll_health_call_family"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            app:layout_constraintLeft_toRightOf="@id/ll_health_manager"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="312pt"
-            android:clickable="true">
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintLeft_toRightOf="@id/ll_health_manager"
+            app:layout_constraintRight_toRightOf="parent">
 
             <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_call_family"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
                 android:background="@drawable/newmain_health_call_family"
-                android:clickable="true"/>
+                android:clickable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40pt"
                 android:text="呼叫家人"
                 android:textColor="#333"
-                android:textSize="64pt"
-                android:layout_marginTop="40pt"/>
+                android:textSize="64pt" />
 
         </LinearLayout>
 
