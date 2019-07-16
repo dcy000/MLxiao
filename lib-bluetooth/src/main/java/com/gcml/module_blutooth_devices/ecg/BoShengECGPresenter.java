@@ -34,7 +34,7 @@ import com.clj.fastble.callback.BleNotifyCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.data.StreamUtils;
@@ -48,7 +48,6 @@ import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.ByteUtils;
-
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,7 +58,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -160,7 +158,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
             isMeasureEnd = false;
             lockedDevice = bleDevice;
-            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+            baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
 
             BleManager.getInstance().notify(bleDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
@@ -193,10 +191,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
         @Override
         public void onDisConnected(boolean isActiveDisConnected, BleDevice device, BluetoothGatt gatt, int status) {
             if (baseView instanceof Activity) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
             } else if (baseView instanceof Fragment) {
                 if (((Fragment) baseView).isAdded()) {
-                    baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
+                    baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
                 }
             }
             isMeasureEnd = true;

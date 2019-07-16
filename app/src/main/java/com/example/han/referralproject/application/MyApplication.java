@@ -24,7 +24,7 @@ import com.gcml.common.AppDelegate;
 import com.gcml.common.OkHttpClientHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.location.BdLocationHelper;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.ui.UiUtils;
@@ -104,7 +104,7 @@ public class MyApplication extends Application {
         super.onCreate();
         AppDelegate.INSTANCE.onCreate(this);
 //        String curProcessName = ProcessUtils.getCurProcessName(this);
-        UtilsManager.init(this);
+        UM.init(this);
         UiUtils.init(this, 1920, 1200);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

@@ -16,7 +16,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.BuildConfig;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -86,6 +86,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         } else {
             if (!TextUtils.isEmpty(servicePackage) && (servicePackage.equals("1") || servicePackage.equals("2"))) {
                 showQuitDialog(false);
+            } else if (TextUtils.equals("4", servicePackage)) {
+                finish();
             } else {
                 new AlertDialog(MeasureChooseDeviceActivity.this)
                         .builder()
@@ -134,6 +136,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     protected void backMainActivity() {
         if (!TextUtils.isEmpty("servicePackage") && (servicePackage.equals("1") || servicePackage.equals("2"))) {
             showQuitDialog(true);
+        } else if (TextUtils.equals("4", servicePackage)) {
+            CCAppActions.jump2MainActivity();
         } else {
             new AlertDialog(MeasureChooseDeviceActivity.this)
                     .builder()
@@ -222,7 +226,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请选择你需要测量的项目", false);
         AllMeasureActivity.dedectInfoListener = this;
         liveData.setValue(new DetectTimesInfoBean());
         liveData.observe(this, infoBean -> {
@@ -378,7 +382,9 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
-        intent.putExtra("fromWhere", "servicePay");
+        if (!TextUtils.equals("4", servicePackage)) {
+            intent.putExtra("fromWhere", "servicePay");
+        }
         intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
         startActivity(intent);
     }

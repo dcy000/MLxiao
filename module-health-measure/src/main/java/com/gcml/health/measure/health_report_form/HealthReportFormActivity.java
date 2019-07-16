@@ -8,17 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.CustomDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.health.measure.BuildConfig;
@@ -36,7 +33,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -63,7 +59,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_report_form);
         initView();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的疾病风险评估报告，向左滑动查看详情");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请查看您的疾病风险评估报告，向左滑动查看详情");
         getData();
 
     }

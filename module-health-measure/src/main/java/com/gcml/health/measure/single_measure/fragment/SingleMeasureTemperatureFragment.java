@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -31,7 +31,7 @@ public class SingleMeasureTemperatureFragment extends TemperatureFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量耳温" + results[0] + "摄氏度", false);
+            MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量耳温" + results[0] + "摄氏度", false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData temperatureData = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,

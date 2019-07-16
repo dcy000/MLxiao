@@ -10,7 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class NetUitls {
     private static final int NETWORK_TYPE_IWLAN = 18;
 
     private static Application getApplication() {
-        return UtilsManager.getApplication();
+        return UM.getApp();
     }
 
     /**

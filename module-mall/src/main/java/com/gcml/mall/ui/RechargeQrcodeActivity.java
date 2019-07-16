@@ -114,7 +114,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
             }
         });
 
-        billTitle = "杭州国辰迈联机器人科技有限公司";
+        billTitle = "山东合贵网络科技有限公司";
         billDate = new Date();
         getRechargeQrcode();
     }
@@ -255,7 +255,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
         loadingDialog.show();
         Map<String, String> optional = new HashMap<String, String>();
         optional.put("用途", "用户充值");
-        optional.put("testEN", "迈联智慧");
+        optional.put("testEN", "合贵");
 
         //初始化回调入口
         BCCallback alipayCallback = new BCCallback() {

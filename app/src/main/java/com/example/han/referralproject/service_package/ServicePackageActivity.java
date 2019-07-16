@@ -11,11 +11,16 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.network.AppRepository;
+import com.example.han.referralproject.network.heguiserver.HeguiRepository;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ServicePackageActivity extends ToolbarBaseActivity implements View.OnClickListener {
@@ -74,10 +79,58 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
         mCl3.setOnClickListener(this);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
         isClickDetail = false;
+        getProductsInfo();
+    }
+
+    HeguiRepository heguiRepository = new HeguiRepository();
+
+    static final String value = "1";
+
+    private void getProductsInfo() {
+        Map<String, String> param = new HashMap<>();
+        String eqId = UserSpHelper.getEqId();
+        param.put("eqid", eqId);
+        String time = System.currentTimeMillis() + "";
+        param.put("timestamp", time + "");
+        param.put("goodsType", value);
+        String sign = HeGui.getSign(param);
+
+        /*PostBean bean = new PostBean();
+        bean.eqid = eqId;
+        bean.timestamp = time;
+        bean.sign = sign;
+        bean.goodsType = value;*/
+
+        heguiRepository.getProduct(eqId, time, value, sign)
+                .compose(RxUtils.io2Main())
+                .doOnSubscribe(disposable -> {
+
+                })
+                .doOnTerminate(() -> {
+
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -90,7 +143,7 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                 startActivity(new Intent(this, QRCodeWXPayActivity.class)
                         .putExtra("isSkip", isSkip)
                         .putExtra("ServicePackage", "1")
-                        .putExtra("number", "500")
+                        .putExtra("number", "1")
                         .putExtra("description", "套餐一"));
                 break;
             case R.id.cl2:

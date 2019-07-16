@@ -18,6 +18,8 @@ import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DetectTimesBean;
+import com.example.han.referralproject.bean.ServicePackageBean;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.gcml.common.data.UserEntity;
@@ -34,7 +36,6 @@ import com.medlink.danbogh.call2.NimCallActivity;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -77,6 +78,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     private EclipseImageView mIvHealthMeasure;
     private EclipseImageView mIvHealthDialyTask;
     private EclipseImageView mIvHealthCallFamily;
+    private String type;
+    private String serviceUUID;
 
     @Override
     protected int initLayout() {
@@ -282,6 +285,25 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
+                if (TextUtils.equals("4", type)) {
+                    rxUser.subscribeOn(Schedulers.io())
+                            .as(RxUtils.autoDisposeConverter(this))
+                            .subscribe(new DefaultObserver<UserEntity>() {
+                                @Override
+                                public void onNext(UserEntity userEntity) {
+                                    if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                                        ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                                        MLVoiceSynthetize.startSynthesize(getActivity().getApplicationContext(), "请先去个人中心完善性别和年龄信息");
+                                    } else {
+                                        if (type != null && serviceUUID != null) {
+                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false, type, serviceUUID);
+                                        }
+                                    }
+                                }
+                            });
+
+                    return;
+                }
                 if (todayDetecTimes >= 1) {
                     new ConfirmDialog(getActivity())
                             .builder()
@@ -387,5 +409,41 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         getTodayDetectTimes();
+        getServicePackageInfo();
+    }
+
+    private void getServicePackageInfo() {
+        AppRepository.queryServicePackage()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<ServicePackageBean>() {
+                    @Override
+                    public void onNext(ServicePackageBean servicePackageBean) {
+                        type = servicePackageBean.getType();
+                        serviceUUID = servicePackageBean.orderid + "";
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

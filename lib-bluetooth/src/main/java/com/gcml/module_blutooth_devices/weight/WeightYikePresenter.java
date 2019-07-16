@@ -8,7 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
@@ -76,7 +76,7 @@ public class WeightYikePresenter implements LifecycleObserver {
         @SuppressLint("MissingPermission")
         @Override
         public void BleConnectSuccess(BluetoothDevice bluetoothDevice) {
-            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+            baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_connected));
             baseView.updateData("initialization", "0.00");
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, bluetoothDevice.getName() + "," + bluetoothDevice.getAddress());
         }
@@ -88,7 +88,7 @@ public class WeightYikePresenter implements LifecycleObserver {
         @Override
         public void BleConnectLost() {
             if (((Fragment) baseView).isAdded()) {
-                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
+                baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
             }
         }
 

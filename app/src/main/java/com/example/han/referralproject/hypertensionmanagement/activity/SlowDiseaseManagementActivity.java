@@ -441,7 +441,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     @Override
     public void onClickConfirm() {
         //-->人脸-->测量血压
-        CC.obtainBuilder("com.gcml.auth.face2.signin")
+        toBloodPressure();
+      /*  CC.obtainBuilder("com.gcml.auth.face2.signin")
                 .addParam("skip", true)
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
@@ -456,7 +457,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                             ToastUtils.showShort(result.getErrorMessage());
                         }
                     }
-                });
+                });*/
     }
 
     private void toBloodPressure() {

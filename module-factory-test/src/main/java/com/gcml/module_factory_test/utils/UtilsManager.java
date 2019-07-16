@@ -30,7 +30,7 @@ public class UtilsManager {
         try {
             Class<?> activityThread = Class.forName("android.app.ActivityThread");
             Object at = activityThread.getMethod("currentActivityThread").invoke(null);
-            Object app = activityThread.getMethod("getApplication").invoke(at);
+            Object app = activityThread.getMethod("getApp").invoke(at);
             if (app == null) {
                 throw new NullPointerException("u should init first");
             }

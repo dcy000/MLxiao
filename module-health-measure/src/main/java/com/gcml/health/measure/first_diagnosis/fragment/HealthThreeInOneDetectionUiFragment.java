@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -75,7 +75,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
     public void onResume() {
         super.onResume();
         isPause = false;
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请将试纸插入仪器，开始测量", false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，请将试纸插入仪器，开始测量", false);
     }
 
 
@@ -89,7 +89,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
-//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
+//                MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
                 uploadData(datas);
             }
             if (results[0].equals("cholesterol")) {
@@ -98,7 +98,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
                 datas.add(cholesterolData);
 
-//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
+//                MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
                 uploadData(datas);
             }
 
@@ -108,7 +108,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
 
                 datas.add(lithicAcidData);
-//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
+//                MLVoiceSynthetize.startSynthesize(UM.getApp(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
             }
         }

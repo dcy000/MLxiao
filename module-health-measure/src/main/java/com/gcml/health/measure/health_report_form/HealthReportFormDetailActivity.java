@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
-import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
@@ -56,7 +56,7 @@ public class HealthReportFormDetailActivity extends ToolbarBaseActivity {
         String advice = getIntent().getStringExtra(KEY_ADVICE);
         mTvTitle.setText(result);
         mTvAdvice.setText(advice);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),result+"。指导建议，"+advice,false);
+        MLVoiceSynthetize.startSynthesize(UM.getApp(),result+"。指导建议，"+advice,false);
     }
 
     @Override

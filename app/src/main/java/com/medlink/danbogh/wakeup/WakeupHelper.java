@@ -3,17 +3,14 @@ package com.medlink.danbogh.wakeup;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.hypertensionmanagement.activity.DetecteTipActivity;
-import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
@@ -145,10 +142,18 @@ public class WakeupHelper {
                     try {
                         JSONObject jsonObj = new JSONObject(json);
                         int score = jsonObj.optInt("score");
-                        if (score >= 1650) {
-//                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            sContext.startActivity(intent);
+                        if (score >= 1500) {
+                            //点亮屏幕
+                            PowerManager pm = (PowerManager) sContext.getSystemService(Context.POWER_SERVICE);
+                            boolean screenOn = pm.isScreenOn();
+                            if (!screenOn) {
+                                @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl = pm.newWakeLock(
+                                        PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
+                                wl.acquire(10000);
+                                wl.release();
+                                return;
+                            }
+
                             String userId = UserSpHelper.getUserId();
                             if (TextUtils.isEmpty(userId)) {
                                 MLVoiceSynthetize.startSynthesize(sContext, "如需使用唤醒功能,请先登录");
@@ -159,7 +164,7 @@ public class WakeupHelper {
                                 if (AppDelegate.INSTANCE.activity().getClass().getName().contains("TaskComplyActivity")
                                         || AppDelegate.INSTANCE.activity().getClass().getName().contains("TaskComplyChoiceActivity")
                                         || AppDelegate.INSTANCE.activity() instanceof NimCallActivity
-                                        )
+                                )
 
                                     return;
                             }
@@ -180,5 +185,20 @@ public class WakeupHelper {
             };
         }
         return listener;
+    }
+
+    /**
+     * 唤醒手机屏幕并解锁
+     */
+    public static void wakeUpAndUnlock(Context context) {
+        // 获取电源管理器对象
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        boolean screenOn = pm.isScreenOn();
+        if (!screenOn) {
+            @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl = pm.newWakeLock(
+                    PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
+            wl.acquire(10000);
+            wl.release();
+        }
     }
 }
