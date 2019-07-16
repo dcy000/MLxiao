@@ -274,7 +274,7 @@ public enum CallHelper {
 
     public void registerCallObserver(boolean register) {
         AVChatManager.getInstance().observeAVChatState(callStateObserver, register);
-//        AVChatManager.getInstance().observeCalleeAckNotification(callAckObserver, register);
+        AVChatManager.getInstance().observeCalleeAckNotification(callAckObserver, register);
         AVChatManager.getInstance().observeControlNotification(callControlObserver, register);
         AVChatManager.getInstance().observeHangUpNotification(callHangupObserver, register);
         AVChatManager.getInstance().observeOnlineAckNotification(onlineAckObserver, register);

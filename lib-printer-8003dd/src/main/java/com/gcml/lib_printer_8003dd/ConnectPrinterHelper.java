@@ -60,7 +60,8 @@ public class ConnectPrinterHelper implements LifecycleObserver {
 
     public void start() {
         if (activity == null) {
-            throw new IllegalArgumentException("activity==null");
+            return;
+//            throw new IllegalArgumentException("activity==null");
         }
         doAccept();
     }
