@@ -10,8 +10,8 @@ android {
         if (project.ext.runAsApp) {
 //            applicationId "com.example.han.referralproject.jgys"
             applicationId "com.example.han.referralproject"
-            versionCode = rootProject.ext.android["versionCode"]
-            versionName rootProject.ext.android["versionName"]
+            versionCode = 30
+            versionName "Robot-JGYS.1.0.2.11"
         }
 
         manifestPlaceholders = [
@@ -64,11 +64,12 @@ dependencies {
     addComponent 'lib-bluetooth'
     addComponent 'module-factory-test'
     addComponent 'module-hyper-manager'
+    addComponent 'module-inquiry'   //医生签约（部分）
     addComponent 'module-edu-child'
     addComponent 'module-control'
     addComponent 'module-edu'
     addComponent 'module-health-record'
-    addComponent 'module-doctor-advisory'
+    addComponent 'module-doctor-advisory' //医生签约（部分）
     addComponent 'module-body-test'
     addComponent 'module-alarm'
     addComponent 'lib-call2'

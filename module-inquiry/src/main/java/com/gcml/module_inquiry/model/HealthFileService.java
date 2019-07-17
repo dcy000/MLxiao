@@ -31,6 +31,18 @@ public interface HealthFileService {
             @Query("page") Integer index,
             @Query("limit") Integer limit);
 
+    /**
+     * 老版 api 接口
+     *  （app-combine）健管演示版本会用到
+     * @param start
+     * @param limit
+     * @return
+     */
+    @GET("ZZB/docter/seldoctors/")
+    Observable<ApiResult<List<Docter>>> getDoctorsOld(
+            @Query("start") Integer start,
+            @Query("limit") Integer limit);
+
     @FormUrlEncoded
     @POST("ZZB/br/qianyue/")
     Observable<ApiResult<Object>> bindDoctor(

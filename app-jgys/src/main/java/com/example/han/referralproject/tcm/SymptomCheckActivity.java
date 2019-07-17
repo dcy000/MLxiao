@@ -72,7 +72,9 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
         if (i == R.id.iv_symptom_check) {
             Routerfit.register(AppRouter.class)
                     .getUserProvider()
-                    .getUserEntity().subscribeOn(Schedulers.io())
+                    .getUserEntity()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
                     .subscribe(new DefaultObserver<UserEntity>() {
                         @Override
@@ -107,6 +109,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                 .getUserProvider()
                 .getUserEntity()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
@@ -141,6 +144,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                 .getUserProvider()
                 .getUserEntity()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override

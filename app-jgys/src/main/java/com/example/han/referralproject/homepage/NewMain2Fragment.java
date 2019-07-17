@@ -18,6 +18,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import com.sjtu.yifei.route.Routerfit;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -82,6 +83,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                     .getUserProvider()
                     .getUserEntity()
                     .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
                     .subscribe(new DefaultObserver<UserEntity>() {
                         @Override

@@ -31,6 +31,7 @@ public class VertifyFace2ProviderImp implements IVertifyFaceProvider {
                 .getUserProvider()
                 .getUserEntity()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {

@@ -50,6 +50,7 @@ public class MeasureXuetangWarningFragment extends HealthMeasureAbnormalBaseFrag
         mOtherReason = (TextView) view.findViewById(R.id.other_reason);
         mOtherReason.setOnClickListener(this);
         mMeasureNormal = (TextView) view.findViewById(R.id.measure_normal);
+        mMeasureNormal.setOnClickListener(this);
         initData();
         initAdapter();
 

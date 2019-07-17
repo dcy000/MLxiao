@@ -3,6 +3,7 @@ package com.gcml.mod_doc_advisory.net;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.recommend.bean.get.RobotAmount;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.mod_doc_advisory.bean.ContractInfo;
 import com.gcml.mod_doc_advisory.bean.DiseaseResult;
@@ -54,7 +55,13 @@ public class QianYueRepository {
     }
 
     public Observable<ArrayList<Docter>> onlinedoctor_list(int status, String doctorName, int page, int pageSize) {
-        return qianYueService.onlinedoctor_list(status, doctorName, page, pageSize).compose(RxUtils.apiResultTransformer());
+        if (ChannelUtils.isJGYS()) {
+            return qianYueService.onlineDoctorListOld(status, doctorName, page, pageSize)
+                    .compose(RxUtils.apiResultTransformer());
+        }
+
+        return qianYueService.onlinedoctor_list(status, doctorName, page, pageSize)
+                .compose(RxUtils.apiResultTransformer());
     }
 
     public Observable<UserEntity> PersonInfo(String userId) {

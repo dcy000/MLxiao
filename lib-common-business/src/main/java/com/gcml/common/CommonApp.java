@@ -18,6 +18,7 @@ import com.sjtu.yifei.route.Routerfit;
 import com.umeng.analytics.MobclickAgent;
 
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ren.yale.android.cachewebviewlib.WebViewCacheInterceptor;
 import ren.yale.android.cachewebviewlib.WebViewCacheInterceptorInst;
@@ -73,6 +74,7 @@ public class CommonApp implements AppLifecycleCallbacks {
         if (AutoNetworkUtils.inMainProcess(app)) {
             AutoNetworkUtils.rxNetworkConnectionState(app)
                     .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new DefaultObserver<String>() {
                         @Override
                         public void onNext(String s) {

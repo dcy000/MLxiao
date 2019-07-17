@@ -5,6 +5,7 @@ import com.gcml.common.data.DetectionResult;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.ChannelUtils;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UploadHelper;
 
@@ -31,6 +32,11 @@ public class HealthFileRepostory {
     UploadHelper uploadHelper = new UploadHelper();
 
     public Observable<List<Docter>> getDoctors(Integer index, Integer limit) {
+        if (ChannelUtils.isJGYS()) {
+            return service.getDoctorsOld(index, limit)
+                    .compose(RxUtils.apiResultTransformer());
+        }
+
         return service.getDoctors(index, limit)
                 .compose(RxUtils.apiResultTransformer());
     }
@@ -67,7 +73,8 @@ public class HealthFileRepostory {
     public Observable<List<DetectionResult>> postMeasureData(ArrayList<DetectionData> datas) {
         String userId = UserSpHelper.getUserId();
         Timber.i("上传测量数据：userID=" + userId);
-        return service.postMeasureData(userId, datas).compose(RxUtils.apiResultTransformer());
+        return service.postMeasureData(userId, datas)
+                .compose(RxUtils.apiResultTransformer());
     }
 
     /**

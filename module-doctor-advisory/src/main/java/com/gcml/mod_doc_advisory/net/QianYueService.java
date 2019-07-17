@@ -61,6 +61,21 @@ public interface QianYueService {
             @Query("limit") int pagesize
     );
 
+
+    /**
+     * 老版 api 接口
+     *  （app-jgys）健管演示版本会用到
+     * @return
+     */
+    @GET("ZZB/docter/search_online_status")
+    Observable<ApiResult<ArrayList<Docter>>> onlineDoctorListOld(
+            @Query("online_status") int online_status,
+            @Query("doctername") String doctername,
+            @Query("page") int page,
+            @Query("pagesize") int pagesize
+    );
+
+
     @GET("ZZB/br/selOneUser_con")
     Observable<ApiResult<UserEntity>> PersonInfo(@Query("bid") String userId);
 
