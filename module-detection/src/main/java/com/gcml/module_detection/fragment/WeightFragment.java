@@ -12,6 +12,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
+import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
@@ -21,11 +22,13 @@ import com.gcml.common.data.PostDataCallBackBean;
 import com.gcml.module_detection.net.DetectionRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
+import timber.log.Timber;
 
 public class WeightFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private TextView mTvDetectionTime;
@@ -75,7 +78,11 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
+                Timber.w("bt ---> data: detectionData = %s", detectionData.getWeight());
                 Float weight = detectionData.getWeight();
+                if (weight == null || weight == 0f) {
+                    isMeasureFinishedOfThisTime = false;
+                }
                 if (!isMeasureFinishedOfThisTime && weight != null && weight != 0) {
                     if (detectionData.isInit()) {
                         mTvResultLeft.setText("--");
@@ -86,6 +93,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                             onMeasureFinished(detectionData);
                             robotSpeak(detectionData);
                             postData(detectionData);
+                            mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd hh:mm")));
                             mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
                         } else {
                             mTvResultLeft.setText(String.format(Locale.getDefault(), "%.1f", weight));
@@ -116,10 +124,10 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
                     public void onNext(List<PostDataCallBackBean> o) {
                         notifyActivity(datas, true, IBleConstants.MEASURE_WEIGHT);
                         //解决数据多次上传，页面混乱，不知道有没有效果，（好像有效果）
-                        if (isPostDataTrue) {
-                            return;
-                        }
-                        isPostDataTrue = true;
+//                        if (isPostDataTrue) {
+//                            return;
+//                        }
+//                        isPostDataTrue = true;
                         if (o == null) return;
                         PostDataCallBackBean postDataCallBackBean = o.get(0);
                         PostDataCallBackBean.Result2Bean result2 = postDataCallBackBean.getResult2();
@@ -147,7 +155,7 @@ public class WeightFragment extends BluetoothBaseFragment implements View.OnClic
 
                     @Override
                     public void onError(Throwable e) {
-                        notifyActivity(datas, false,IBleConstants.MEASURE_WEIGHT);
+                        notifyActivity(datas, false, IBleConstants.MEASURE_WEIGHT);
                     }
 
                     @Override

@@ -8,7 +8,8 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.bluetooth.BluetoothDevice;
-import android.os.SystemClock;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.CallSuper;
 import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
@@ -208,18 +209,28 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     @WorkerThread
     private void doAccept(BluetoothType type, String mac, String[] names) {
         if (!BluetoothUtils.isBluetoothEnabled()) {
+            Timber.w("bt ---> isBluetoothEnabled:  %s", false);
+            Timber.w("bt ---> openBluetooth...");
             BluetoothUtils.openBluetooth();
-            SystemClock.sleep(2000);
         }
-        if (!BluetoothUtils.isBluetoothEnabled()) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Timber.w("bt ---> isBluetoothEnabled 2:  %s", BluetoothUtils.isBluetoothEnabled());
+                if (!BluetoothUtils.isBluetoothEnabled()) {
                     ToastUtils.showLong("蓝牙未打开或者不支持蓝牙");
+                    return;
                 }
-            });
-            return;
-        }
+                connectDirectlyOrScan(type, mac, names);
+            }
+        }, 1800);
+
+    }
+
+    private Handler handler = new Handler(Looper.getMainLooper());
+
+    private void connectDirectlyOrScan(BluetoothType type, String mac, String[] names) {
         if (TextUtils.isEmpty(mac) && (names == null || names.length == 0)) {
             throw new IllegalArgumentException("params is abnormal");
         }
@@ -228,6 +239,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         }
         if (!TextUtils.isEmpty(mac)) {
             if (isSelfConnect(targetName, mac)) {
+                Timber.w("bt ---> connect directly: isSelfConnect = %s address = %s", true, mac);
                 return;
             }
             Timber.w("bt ---> connect directly: address = %s", mac);
@@ -250,6 +262,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     }
 
     protected void connect(String mac) {
+        Timber.w("bt ---> connect: isOnDestroy = %s, address = %s, connectListener = %s", isOnDestroy, mac, connectListener);
         if (connectListener == null) {
             connectListener = new MyConnectListener();
         }
@@ -290,10 +303,11 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             this.device = device;
             //自己实现连接流程
             if (isSelfConnect(device.getName(), device.getAddress())) {
+                Timber.w("bt ---> connect: isSelfConnect = %s, address = %s", true, this.device.getAddress());
                 return;
             }
             if (isAutoConnect) {
-                Timber.w("bt ---> start connect: address = %s", this.device.getAddress());
+                Timber.w("bt ---> connect: isAutoConnect = %s, address = %s", isAutoConnect, this.device.getAddress());
                 connect(this.device.getAddress());
             }
         }
@@ -337,16 +351,16 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             baseView.disConnected();
             disConnected(address);
             //3秒之后尝试重连
-            Timber.w("bt ---> start reconnect: address = %s delay 3000ms", address);
+            Timber.w("bt ---> connect reconnect: address = %s delay 3000ms", address);
             Handlers.bg().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Timber.w("bt ---> start reconnect: address = %s", address);
+                    Timber.w("bt ---> connect reconnect: address = %s", address);
                     if (!isConnected && !isOnDestroy && targetAddress != null) {
-                        Timber.w("bt ---> start reconnect: address = %s", address);
+                        Timber.w("bt ---> connect reconnect: address = %s", address);
                         connect(targetAddress);
                     } else {
-                        Timber.w("bt ---> start reconnect cancel: address = %s", address);
+                        Timber.w("bt ---> connect reconnect cancel: address = %s", address);
                     }
                 }
             }, 3000);
@@ -362,35 +376,33 @@ public abstract class BaseBluetooth implements LifecycleObserver {
 
     @CallSuper
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    public void onStop(LifecycleOwner owner) {
-        Timber.i("BaseBluetooth>>>>" + BaseBluetooth.this + "======>>>>onStop");
+    public void onStop() {
+        Timber.w("bt ---> onStop: isOnSearching = %s, searchHelper = %s", isOnSearching, searchHelper);
         if (isOnSearching) {
-            Timber.i("BaseBluetooth>>>>====>>>isOnSearching==" + isOnSearching);
             isOnSearching = false;
             if (searchHelper != null) {
-                Timber.i("BaseBluetooth>>>>==searchHelper:" + searchHelper + "==>>>searchHelper.clear();");
                 searchHelper.clear();
             } else {
                 BluetoothStore.getClient().stopSearch();
-                Timber.e("BaseBluetooth>>>>======>>>>searchHelper.clear() has not carry out");
             }
         }
         //Fragment中使用需要提前释放部分资源，因为Fragment走到onDestroy的时机很晚
-        if (owner instanceof Fragment) {
-            if (connectHelper != null) {
-                connectHelper.clear();
-            }
-            connectHelper = null;
-            connectListener = null;
-            searchListener = null;
+        Timber.w("bt ---> onStop: connectHelper = %s", connectHelper);
+
+        if (connectHelper != null) {
+            connectHelper.clear();
         }
+        connectHelper = null;
+        connectListener = null;
+        searchListener = null;
+
     }
 
     @SuppressLint("RestrictedApi")
     @CallSuper
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy(LifecycleOwner owner) {
-        Timber.i("BaseBluetooth" + BaseBluetooth.this + ">>>>======>>>>onDestroy");
+        Timber.w("bt ---> onDestroy: connectHelper = %s", connectHelper);
         isOnDestroy = true;
         BluetoothStore.getClient().stopSearch();
         searchHelper = null;
@@ -405,6 +417,8 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         connectListener = null;
         searchListener = null;
         BluetoothStore.instance.detection.postValue(null);
+        handler.removeCallbacksAndMessages(null);
+        saveSP("");
     }
 
     public boolean isOnSearching() {
@@ -444,6 +458,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     }
 
     protected void updateState(String msg) {
+        Timber.w("bt ---> updateState: msg = %s", msg);
         Handlers.ui().post(new Runnable() {
             @Override
             public void run() {

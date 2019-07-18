@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.router.AppRouter;
-import com.gcml.common.utils.Handlers;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UM;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -29,7 +28,6 @@ import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DetectionDataBean;
-import com.gcml.module_blutooth_devices.base.DeviceBrand;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_blutooth_devices.base.IBluetoothView;
@@ -59,20 +57,19 @@ import com.kaer.sdk.IDCardItem;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
-import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 @Route(path = "/module/detection/connect/activity")
-public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothView, DialogControlBluetooth, IDCardPresenter.IDCardRead, IDCardReadFragment.ClickPage, ECGFragment.AnalysisData, FragmentChanged, IUploadData {
+public class ConnectActivity extends ToolbarBaseActivity
+        implements IBluetoothView,
+        DialogControlBluetooth,
+        IDCardPresenter.IDCardRead,
+        IDCardReadFragment.ClickPage,
+        ECGFragment.AnalysisData,
+        FragmentChanged,
+        IUploadData {
 
     private BaseBluetooth baseBluetooth;
     private BluetoothListDialog dialog;
@@ -370,6 +367,15 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
         if (dialog != null) {
             dialog.showConnectedUI(device);
         }
+
+        if (connectFailedTipsDialog != null) {
+            connectFailedTipsDialog.dismiss();
+        }
+
+        if (deviceNotFoundTipsDialog != null) {
+            deviceNotFoundTipsDialog.dismiss();
+        }
+
         if (retryDialog != null) {
             retryDialog.dismiss();
         }
@@ -432,31 +438,41 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
     }
 
     private void showRetryConnectDialog() {
-        if (retryDialog == null) {
-            retryDialog = new AlertDialog(this)
-                    .builder()
-                    .setMsg("蓝牙设备已断开连接！是否进行重连？")
-                    .setNegativeButton("取消", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+        baseBluetooth.onStop();
 
-                        }
-                    })
-                    .setPositiveButton("重新连接", ContextCompat.getColor(this, R.color.common_toolbar_bg), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //同时回到尝试搜索的页面
-                            popSearchFragment();
-                        }
-                    });
+        if (retryDialog != null) {
+            retryDialog.dismiss();
         }
+
+        retryDialog = new AlertDialog(this)
+                .builder()
+                .setMsg("蓝牙设备已断开连接！是否进行重连？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .setPositiveButton("重新连接", ContextCompat.getColor(this, R.color.common_toolbar_bg), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //同时回到尝试搜索的页面
+                        popSearchFragment();
+                        search();
+                    }
+                });
         if (!isFinishing() && !isDestroyed()) {
             retryDialog.show();
         }
     }
 
+    BaseNiceDialog deviceNotFoundTipsDialog = null;
+
     private void showUnSearchedDeviceDialog() {
-        NiceDialog.init()
+        if (deviceNotFoundTipsDialog != null) {
+            deviceNotFoundTipsDialog.dismiss();
+        }
+        deviceNotFoundTipsDialog = NiceDialog.init()
                 .setLayoutId(R.layout.dialog_bluetooth_unsearched)
                 .setConvertListener(new ViewConvertListener() {
                     @Override
@@ -488,8 +504,13 @@ public class ConnectActivity extends ToolbarBaseActivity implements IBluetoothVi
                 .show(getSupportFragmentManager());
     }
 
+    BaseNiceDialog connectFailedTipsDialog = null;
+
     private void connectedFailedTips() {
-        NiceDialog.init()
+        if (connectFailedTipsDialog != null) {
+            connectFailedTipsDialog.dismiss();
+        }
+        connectFailedTipsDialog = NiceDialog.init()
                 .setLayoutId(R.layout.dialog_bluetooth_unsearched)
                 .setConvertListener(new ViewConvertListener() {
                     @Override

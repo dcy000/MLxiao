@@ -131,7 +131,11 @@ public class WeightYikePresenter implements LifecycleObserver {
             ykScalesManager.disconnectBluetooth();
             ykScalesManager.close();
         }
-        ykScalesManager = null;
+    }
+
+    @SuppressLint("RestrictedApi")
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }

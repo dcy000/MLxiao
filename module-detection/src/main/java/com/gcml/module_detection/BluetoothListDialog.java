@@ -20,6 +20,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.fdialog.BaseNiceDialog;
 import com.gcml.common.widget.fdialog.ViewHolder;
+import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -75,6 +76,7 @@ public class BluetoothListDialog extends BaseNiceDialog {
                 if (adapter != null) adapter.notifyDataSetChanged();
                 deviceContainer.clear();
                 mBtnSearchBluetooth.startAnimation(mDevicesListRefreshAnim);
+                BluetoothUtils.closeBluetooth();
                 startDevicesListAnim();
             }
         });

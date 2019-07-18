@@ -72,7 +72,7 @@ public class TemperatureFragment extends BluetoothBaseFragment implements View.O
                         isMeasureFinishedOfThisTime = false;
                     } else {
                         isMeasureFinishedOfThisTime = true;
-                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd")));
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd hh:mm")));
                         mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", temperAture));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);

@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
+        BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (defaultAdapter != null) {
+            defaultAdapter.disable();
+        }
         super.onResume();
         if (statusBarFragment != null) {
             statusBarFragment.showStatusBar(true);

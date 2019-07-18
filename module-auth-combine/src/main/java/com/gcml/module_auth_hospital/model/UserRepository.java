@@ -149,6 +149,11 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
+    public Observable<Object> isPhoneNotRegistered(String phone) {
+        return mUserService.isPhoneNotRegistered(phone)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
     public Observable<Object> isIdCardNotExit(String idCard) {
         return mUserService.isIdCardNotExit(idCard)
                 .compose(RxUtils.apiResultTransformer());

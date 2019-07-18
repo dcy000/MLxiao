@@ -113,7 +113,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
                         mTvResultMiddle.setText("--");
                     } else {
                         isMeasureFinishedOfThisTime = true;
-                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd")));
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd hh:mm")));
                         mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", bloodSugar));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);

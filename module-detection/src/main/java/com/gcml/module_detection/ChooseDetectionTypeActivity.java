@@ -31,6 +31,7 @@ import com.gcml.module_blutooth_devices.base.IBleConstants;
 import com.gcml.module_detection.bean.ChooseDetectionTypeBean;
 import com.gcml.module_detection.bean.LatestDetecBean;
 import com.gcml.module_detection.net.DetectionRepository;
+import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.sjtu.yifei.annotation.Route;
 import com.sjtu.yifei.route.Routerfit;
 
@@ -261,6 +262,8 @@ public class ChooseDetectionTypeActivity extends ToolbarBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        BluetoothUtils.closeBluetooth();
+        Timber.w("----> closeBluetooth ");
         getMenu();
     }
 

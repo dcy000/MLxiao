@@ -74,7 +74,7 @@ public class CholesterolFragment extends BluetoothBaseFragment implements View.O
                         mTvResultMiddle.setText("--");
                     } else {
                         isMeasureCholesterolFinished = true;
-                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd")));
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd hh:mm")));
                         mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.2f", cholesterol));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);

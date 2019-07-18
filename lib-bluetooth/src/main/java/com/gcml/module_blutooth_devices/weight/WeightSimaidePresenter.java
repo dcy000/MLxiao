@@ -179,7 +179,11 @@ public class WeightSimaidePresenter implements LifecycleObserver {
         if (manager != null) {
             manager.releaseBleManager();
         }
-        manager = null;
+    }
+
+    @SuppressLint("RestrictedApi")
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }

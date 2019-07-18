@@ -13,6 +13,8 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import java.util.HashMap;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 public class WeightPresenter extends BaseBluetooth {
     private static final String TONGFANG_SERVICE = "f433bd80-75b8-11e2-97d9-0002a5d5c51b";//主服务
     private static final String TONGFANG_NOTIFY = "1a2ea400-75b9-11e2-be05-0002a5d5c51b";
@@ -28,6 +30,10 @@ public class WeightPresenter extends BaseBluetooth {
     private static final String SELF_SERVICE = "0000fff0-0000-1000-8000-00805f9b34fb";//主服务
     private static final String SELF_NOTIFY = "0000fff1-0000-1000-8000-00805f9b34fb";
     DetectionData detectionData = new DetectionData();
+
+    private WeightSimaidePresenter weightSimaidePresenter;
+    private WeightYikePresenter weightYikePresenter;
+    private WeightXiangshanPresenter weightXiangshanPresenter;
 
     public WeightPresenter(IBluetoothView owner) {
         this(owner, true);
@@ -65,6 +71,7 @@ public class WeightPresenter extends BaseBluetooth {
 
     @Override
     protected boolean isSelfConnect(String name, String address) {
+
         if (name.startsWith("VScale")) {
             return false;
         }
@@ -75,15 +82,18 @@ public class WeightPresenter extends BaseBluetooth {
             return false;
         }
         if (name.startsWith("dr01")) {
-            new WeightSimaidePresenter(getActivity(), baseView, name, address);
+            Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
+            weightSimaidePresenter = new WeightSimaidePresenter(getActivity(), baseView, name, address);
             return true;
         }
         if (name.startsWith("SHHC-60F1")) {
-            new WeightYikePresenter(getActivity(), baseView, name, address);
+            Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
+            weightYikePresenter = new WeightYikePresenter(getActivity(), baseView, name, address);
             return true;
         }
         if (name.startsWith("SENSSUN") || name.startsWith("IF")) {
-            new WeightXiangshanPresenter(getActivity(), baseView, name, address);
+            Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
+            weightXiangshanPresenter = new WeightXiangshanPresenter(getActivity(), baseView, name, address);
             return true;
         }
         return super.isSelfConnect(name, address);
@@ -264,5 +274,20 @@ public class WeightPresenter extends BaseBluetooth {
 
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (weightSimaidePresenter != null) {
+            weightSimaidePresenter.onStop();
+        }
+        if (weightYikePresenter != null) {
+            weightYikePresenter.onStop();
+        }
+
+        if (weightXiangshanPresenter != null) {
+            weightXiangshanPresenter.onStop();
+        }
     }
 }

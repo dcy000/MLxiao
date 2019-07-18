@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 
 import senssun.blelib.device.scale.cloudblelib.BleCloudProtocolUtils;
 import senssun.blelib.scan.BleScan;
+import timber.log.Timber;
 
 public class WeightXiangshanPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -44,6 +45,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     }
 
     private void connect() {
+        Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
         bleCloudProtocolUtils.setOnConnectState(new BleCloudProtocolUtils.OnConnectState() {
             @Override
             public void OnState(boolean b) {
@@ -54,9 +56,11 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                     detectionData.setWeightOver(false);
                     detectionData.setWeight(0.0f);
                     baseView.updateData(detectionData);
+                    Timber.w("bt ---> connect isSelfConnect data: detectionData = %s", detectionData.getWeight());
                     BluetoothStore.instance.detection.postValue(detectionData);
                     SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, name + "," + address);
                 } else {
+                    Timber.w("bt ---> connect isSelfConnect disconnected");
                     if (baseView instanceof Fragment && ((Fragment) baseView).isAdded()) {
                         baseView.disConnected();
                         baseView.updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
@@ -68,10 +72,10 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
             }
         });
 
-
         bleCloudProtocolUtils.setOnDisplayDATA(new BleCloudProtocolUtils.OnDisplayDATA() {
             @Override
             public void OnDATA(String data) {
+                Timber.w("bt ---> connect isSelfConnect data: data = %s", data);
                 String[] strdata = data.split("-");
                 switch (strdata[5]) {
                     case "03":
@@ -82,6 +86,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                                     detectionData.setInit(false);
                                     detectionData.setWeightOver(false);
                                     detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
+                                    Timber.w("bt ---> connect isSelfConnect data: detectionData = %s", detectionData.getWeight());
                                     baseView.updateData(detectionData);
                                     BluetoothStore.instance.detection.postValue(detectionData);
                                 } else {
@@ -89,6 +94,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                                     detectionData.setInit(false);
                                     detectionData.setWeightOver(true);
                                     detectionData.setWeight(Integer.valueOf(tmpNum, 16) / 10f);
+                                    Timber.w("bt ---> connect isSelfConnect data: detectionData = %s, data[12] = %s", detectionData.getWeight(), strdata[12]);
                                     baseView.updateData(detectionData);
                                     BluetoothStore.instance.detection.postValue(detectionData);
                                 }
@@ -96,6 +102,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                             case "82":
                                 switch (strdata[7]) {
                                     case "00": {
+                                        Timber.w("bt ---> connect isSelfConnect data: no handle");
                                         float eigenvalue = new BigDecimal(Integer.valueOf(strdata[14] + strdata[15], 16)).floatValue();
                                         float weight = new BigDecimal(Integer.valueOf(strdata[10] + strdata[11], 16) / 10f).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
                                         //TODO:请求香山的接口 获取更加详细的健康分析数据
@@ -115,12 +122,18 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
         if (bleCloudProtocolUtils != null) {
+            Timber.w("bt ---> connect isSelfConnect disconnect");
             try {
                 bleCloudProtocolUtils.Disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    @SuppressLint("RestrictedApi")
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }

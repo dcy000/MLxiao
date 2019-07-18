@@ -28,7 +28,7 @@ public class BluetoothSearchHelper {
     @SuppressLint("CheckResult")
     public void searchClassic(int periodMill, int times, SearchListener listener, String... names) {
         String[] strings = names;
-        Timber.w("bt ---> startScan: type = classic names = %s", strings);
+        Timber.w("bt ---> Scan searchClassic: names = %s", strings);
         searchListener = listener;
         final SearchRequest request = new SearchRequest
                 .Builder()
@@ -43,7 +43,7 @@ public class BluetoothSearchHelper {
 
     public void searchBle(int periodMill, int times, SearchListener listener, String... names) {
         String[] strings = names;
-        Timber.w("bt ---> startScan: type = ble names = %s", strings);
+        Timber.w("bt ---> Scan searchBle: names = %s", strings);
         searchListener = listener;
         SearchRequest request = new SearchRequest
                 .Builder()
@@ -66,13 +66,16 @@ public class BluetoothSearchHelper {
         @Override
         public void onSearchStarted() {
             searchTime = System.currentTimeMillis();
+
+            Timber.w("bt ---> Scan onSearchStarted: isClear = %s", isClear);
             synchronized (BluetoothSearchHelper.this) {
                 if (isClear) {
                     BluetoothStore.getClient().stopSearch();
                     return;
                 }
             }
-            Timber.i("BaseBluetooth>>>>>>=====>>>bluetooth start>>>>");
+
+            Timber.w("bt ---> Scan onSearchStarted: onSearching true, isClear = %s, searchListener = %s", isClear, searchListener);
             isOnSearching = true;
             if (searchListener != null && !isClear) {
                 searchListener.onSearching(true);
@@ -84,6 +87,7 @@ public class BluetoothSearchHelper {
             Timber.w("bt ---> Scan onDeviceFounded: name = %s, address = %s", device.getName(), device.getAddress());
             if (!isClear) {
                 if (searchListener != null) {
+                    Timber.w("bt ---> Scan onDeviceFounded: onNewDeviceFinded");
                     searchListener.onNewDeviceFinded(device.device);
                 } else {
                     Timber.w("bt ---> Scan onDeviceFounded: searchListener = null");
@@ -92,39 +96,46 @@ public class BluetoothSearchHelper {
                     for (String name : bleNames) {
                         String deviceName = device.getName();
                         if (TextUtils.isEmpty(deviceName)) {
+                            Timber.w("bt ---> Scan onDeviceFounded: deviceName = null");
                             break;
                         }
                         if (searchListener != null && deviceName.contains(name)) {
                             isFindOne = true;
+                            Timber.w("bt ---> Scan onDeviceFounded: obtainedDevice = %s", deviceName);
+                            Timber.w("bt ---> Scan stop");
+                            BluetoothStore.getClient().stopSearch();
+                            isOnSearching = false;
                             searchListener.obtainDevice(device.device);
                             break;
                         }
                     }
                 }
             } else {
-                Timber.w("bt ---> Scan onDeviceFounded: is Cleard");
+                Timber.w("bt ---> Scan onDeviceFounded: isClear = %s", isClear);
             }
         }
 
         @Override
         public void onSearchStopped() {
-            Timber.w("bt ---> Scanned %s ms", (System.currentTimeMillis() - searchTime));
+            Timber.w("bt ---> Scan onSearchStopped: Scanned %s ms", (System.currentTimeMillis() - searchTime));
             searchTime = 0L;
             isOnSearching = false;
+            Timber.w("bt ---> Scan onSearchStopped: onSearching %s, searchListener = %s", false, searchListener);
             if (searchListener != null && !isClear) {
                 searchListener.onSearching(false);
             }
             if (searchListener != null && !isClear && !isFindOne) {
+                Timber.w("bt ---> Scan onSearchStopped: noneFind");
                 searchListener.noneFind();
             }
         }
 
         @Override
         public void onSearchCanceled() {
-            Timber.w("bt ---> Scan canceled");
-            Timber.w("bt ---> Scanned %s ms", (System.currentTimeMillis() - searchTime));
+            Timber.w("bt ---> Scan onSearchCanceled：Scanned %s ms", (System.currentTimeMillis() - searchTime));
             searchTime = 0L;
             isOnSearching = false;
+            Timber.w("bt ---> Scan onSearchCanceled: onSearching %s, searchListener = %s", false, searchListener);
             if (searchListener != null && !isClear) {
                 searchListener.onSearching(false);
             }
@@ -139,7 +150,7 @@ public class BluetoothSearchHelper {
     }
 
     public synchronized void clear() {
-        Timber.w("bt ---> clear");
+        Timber.w("bt ---> Scan clear");
         isClear = true;
         isOnSearching = false;
         BluetoothStore.getClient().stopSearch();

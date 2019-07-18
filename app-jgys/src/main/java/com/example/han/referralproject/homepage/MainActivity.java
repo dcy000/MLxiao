@@ -1,5 +1,6 @@
 package com.example.han.referralproject.homepage;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -204,4 +205,12 @@ public class MainActivity extends ToolbarBaseActivity implements View.OnClickLis
         mViewpage.setCurrentItem(1, true);
     }
 
+    @Override
+    protected void onResume() {
+        BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (defaultAdapter != null) {
+            defaultAdapter.disable();
+        }
+        super.onResume();
+    }
 }

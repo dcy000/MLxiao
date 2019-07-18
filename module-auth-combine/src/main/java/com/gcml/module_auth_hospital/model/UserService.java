@@ -80,6 +80,15 @@ public interface UserService {
     );
 
     /**
+     * 校验手机是否已注册
+     *
+     */
+    @POST(URI + "/br/check/phone")
+    Observable<ApiResult<Object>> isPhoneNotRegistered(
+            @Query("mobile") String account
+    );
+
+    /**
      * 雄安项目专用
      *
      * @param account

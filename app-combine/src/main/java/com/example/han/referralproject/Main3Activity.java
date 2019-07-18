@@ -1,5 +1,6 @@
 package com.example.han.referralproject;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -436,6 +437,12 @@ public class Main3Activity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+
+        BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (defaultAdapter != null) {
+            defaultAdapter.disable();
+        }
+
         super.onResume();
         getMenus();
         if (statusBarFragment != null) {

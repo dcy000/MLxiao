@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -18,17 +19,21 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.FilterClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.findPassWord.CodeRepository;
 import com.gcml.module_auth_hospital.ui.findPassWord.ForgetPassWordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Locale;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class FindPassWordFragment extends Fragment {
@@ -105,17 +110,40 @@ public class FindPassWordFragment extends Fragment {
     }
 
     private CodeRepository codeRepository = new CodeRepository();
+    private UserRepository userRepository = new UserRepository();
     Disposable countDownDisposable = Disposables.empty();
 
+    String thePhone = "";
+
     private void sendCode() {
-        final String phoneNumer = phone.getText().toString().trim();
-        if (!Utils.isValidPhone(phoneNumer)) {
+        thePhone = phone.getText().toString().trim();
+        if (!Utils.isValidPhone(thePhone)) {
             MLVoiceSynthetize.startSynthesize(getContext().getApplicationContext(), "请输入正确的手机号码", false);
             ToastUtils.showShort("请输入正确的手机号码");
             return;
         }
 
-        codeRepository.fetchCode(phone.getText().toString())
+        userRepository.isPhoneNotRegistered(thePhone)
+                .onErrorResumeNext(new Function<Throwable, ObservableSource<Object>>() {
+                    @Override
+                    public ObservableSource<Object> apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof ApiException) {
+                            if (((ApiException) throwable).code() == 600) {
+                                return Observable.just("已注册的手机号");
+                            } else if (((ApiException) throwable).code() == 200) {
+                                return Observable.error(new ApiException("手机号未注册", 200));
+                            }
+                        }
+                        return Observable.error(throwable);
+                    }
+                })
+                .flatMap(new Function<Object, ObservableSource<String>>() {
+                    @Override
+                    public ObservableSource<String> apply(Object o) throws Exception {
+                        return codeRepository
+                                .fetchCode(thePhone);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -135,6 +163,7 @@ public class FindPassWordFragment extends Fragment {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        thePhone = "";
                         countDownDisposable.dispose();
                         ToastUtils.showShort(throwable.getMessage());
                     }

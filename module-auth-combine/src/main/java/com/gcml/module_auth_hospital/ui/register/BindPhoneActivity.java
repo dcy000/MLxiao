@@ -33,11 +33,13 @@ import com.sjtu.yifei.route.Routerfit;
 
 import java.util.Locale;
 
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class BindPhoneActivity extends ToolbarBaseActivity {
@@ -162,11 +164,17 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
             return;
         }
 
+        if (TextUtils.isEmpty(thePhone) || !this.thePhone.equals(phone.getText().toString())) {
+            ToastUtils.showShort("请输入正确的手机号");
+            return;
+        }
+
         if (!this.codeNumer.equals(code.getText().toString())) {
             ToastUtils.showShort("验证码错误");
             layoutHelper = builder.newBuilder(builder.clearAll(true)).build();
             return;
         }
+
 
         if ("updatePhone".equals(fromWhere)) {
             updatePhone(phoneNumber);
@@ -300,15 +308,24 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
     private CodeRepository codeRepository = new CodeRepository();
     Disposable countDownDisposable = Disposables.empty();
 
+    private String thePhone = "";
+
     private void sendCode() {
-        final String phoneNumer = phone.getText().toString().trim();
-        if (!Utils.isValidPhone(phoneNumer)) {
+        thePhone = phone.getText().toString().trim();
+        if (!Utils.isValidPhone(thePhone)) {
             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号码", false);
             ToastUtils.showShort("请输入正确的手机号码");
             return;
         }
 
-        codeRepository.fetchCode(phone.getText().toString())
+        repository.isPhoneNotRegistered(thePhone)
+                .flatMap(new Function<Object, ObservableSource<String>>() {
+                    @Override
+                    public ObservableSource<String> apply(Object o) throws Exception {
+                        return codeRepository
+                                .fetchCode(thePhone);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -328,6 +345,7 @@ public class BindPhoneActivity extends ToolbarBaseActivity {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        thePhone = "";
                         countDownDisposable.dispose();
                         ToastUtils.showShort(throwable.getMessage());
                     }

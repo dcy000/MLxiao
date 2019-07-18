@@ -19,8 +19,11 @@ import com.gcml.common.widget.fdialog.NiceDialog;
 import com.gcml.common.widget.fdialog.ViewConvertListener;
 import com.gcml.common.widget.fdialog.ViewHolder;
 import com.gcml.module_blutooth_devices.R;
+import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
 import java.util.ArrayList;
+
+import timber.log.Timber;
 
 public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView {
     protected View view = null;
@@ -198,6 +201,8 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
     @Override
     public void onDestroy() {
         super.onDestroy();
+//        BluetoothUtils.closeBluetooth();
+//        Timber.w("----> closeBluetooth ");
         dismissLoading();
     }
 
@@ -238,4 +243,5 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
             }
         }
     }
+
 }

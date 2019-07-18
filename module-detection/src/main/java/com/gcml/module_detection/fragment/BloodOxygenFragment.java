@@ -71,7 +71,7 @@ public class BloodOxygenFragment extends BluetoothBaseFragment implements View.O
                         mTvResultMiddle.setText("--");
                     } else {
                         isMeasureFinishedOfThisTime = true;
-                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd")));
+                        mTvDetectionTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy-MM-dd hh:mm")));
                         mTvResultMiddle.setText(String.format(Locale.getDefault(), "%.0f", bloodOxygen));
                         onMeasureFinished(detectionData);
                         robotSpeak(detectionData);
