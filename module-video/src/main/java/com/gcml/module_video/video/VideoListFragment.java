@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.GridViewDividerItemDecoration;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.router.AppRouter;
@@ -170,7 +171,7 @@ public class VideoListFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ToastUtils.showShort(e.getMessage());
                     }
 
                     @Override

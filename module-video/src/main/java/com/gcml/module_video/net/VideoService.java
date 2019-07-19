@@ -26,4 +26,13 @@ public interface VideoService {
             @Query("page") int page,
             @Query("limit") int pagesize
     );
+
+    @GET("ZZB/vc/selAllUpload")
+    Observable<ApiResult<List<VideoEntity>>> getVideoListOld(
+            @Query("tag1") int tag1,
+            @Query("tag2") String tag2,
+            @Query("flag") String flag,
+            @Query("page") int page,
+            @Query("pagesize") int pagesize
+    );
 }
