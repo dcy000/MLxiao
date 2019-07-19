@@ -11,7 +11,7 @@ android {
 //            applicationId "com.example.han.referralproject.jgys"
             applicationId "com.example.han.referralproject"
             versionCode = 30
-            versionName "Robot-JGYS.1.0.2.11"
+            versionName "Robot-JGYS.1.0.2.12"
         }
 
         manifestPlaceholders = [
