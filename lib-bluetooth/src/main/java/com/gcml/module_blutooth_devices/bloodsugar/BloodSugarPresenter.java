@@ -13,6 +13,8 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import java.util.HashMap;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 public class BloodSugarPresenter extends BaseBluetooth {
     private static final String SELF_SERVICE = "00001000-0000-1000-8000-00805f9b34fb";
     private static final String SELF_NOTIFY = "00001002-0000-1000-8000-00805f9b34fb";
@@ -22,6 +24,8 @@ public class BloodSugarPresenter extends BaseBluetooth {
     private static final String THREE_SELF_SERVICE = "00001808-0000-1000-8000-00805f9b34fb";//主服务
     private static final String THREE_SELF_NOTIFY = "00002a18-0000-1000-8000-00805f9b34fb";
     DetectionData detectionData = new DetectionData();
+
+    private BloodsugarGlucWellPresenter bloodsugarGlucWellPresenter;
 
     public BloodSugarPresenter(IBluetoothView owner) {
         this(owner, true);
@@ -40,6 +44,7 @@ public class BloodSugarPresenter extends BaseBluetooth {
         detectionData.setInit(true);
         detectionData.setBloodSugar(0.0f);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.setValue(detectionData);
         BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("BLE-Glucowell")) {
             return;
@@ -59,7 +64,8 @@ public class BloodSugarPresenter extends BaseBluetooth {
     @Override
     protected boolean isSelfConnect(String name, String address) {
         if (name.startsWith("BLE-Glucowell")) {
-            new BloodsugarGlucWellPresenter(getActivity(), baseView, name, address);
+            Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
+            bloodsugarGlucWellPresenter = new BloodsugarGlucWellPresenter(getActivity(), baseView, name, address);
             return true;
         }
         if (name.startsWith("Bioland-BGM")) {
@@ -174,6 +180,14 @@ public class BloodSugarPresenter extends BaseBluetooth {
             detectionData.setCholesterol(result);
             baseView.updateData(detectionData);
             BluetoothStore.instance.detection.postValue(detectionData);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (bloodsugarGlucWellPresenter != null) {
+            bloodsugarGlucWellPresenter.onStop();
         }
     }
 }

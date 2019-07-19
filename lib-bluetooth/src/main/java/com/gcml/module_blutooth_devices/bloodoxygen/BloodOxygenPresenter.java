@@ -56,6 +56,7 @@ public class BloodOxygenPresenter extends BaseBluetooth {
         detectionData.setBloodOxygen(0.0f);
         detectionData.setPulse(0);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.setValue(detectionData);
         BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("POD")) {
             //自家血氧仪

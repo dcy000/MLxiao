@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DefaultObserver;
+import timber.log.Timber;
 
 public class BloodSugarFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private Bundle bundle;
@@ -107,6 +108,7 @@ public class BloodSugarFragment extends BluetoothBaseFragment implements View.On
             @Override
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
+                Timber.w("bt ---> data: detectionData = %s", detectionData.getBloodSugar());
                 Float bloodSugar = detectionData.getBloodSugar();
                 if (!isMeasureFinishedOfThisTime && bloodSugar != null && bloodSugar != 0) {
                     if (detectionData.isInit()) {

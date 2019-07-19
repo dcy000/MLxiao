@@ -84,6 +84,7 @@ public class WeightYikePresenter implements LifecycleObserver {
             detectionData.setWeightOver(false);
             detectionData.setWeight(0.0f);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.setValue(detectionData);
             BluetoothStore.instance.detection.postValue(detectionData);
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, bluetoothDevice.getName() + "," + bluetoothDevice.getAddress());
         }

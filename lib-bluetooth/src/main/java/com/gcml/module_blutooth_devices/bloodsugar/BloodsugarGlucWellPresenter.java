@@ -27,6 +27,8 @@ import com.vivachek.ble.sdk.outer.interfaces.OnBleListener;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleListener {
     private SupportActivity activity;
     private IBluetoothView baseView;
@@ -45,6 +47,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
     }
 
     private void connect() {
+        Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
         BleManager.getInstance().connect(activity, address);
         BleManager.getInstance().setOnBleListener(this);
     }
@@ -87,18 +90,22 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
                 detectionData.setInit(true);
                 detectionData.setBloodSugar(0.0f);
                 baseView.updateData(detectionData);
+                Timber.w("bt ---> connect isSelfConnect data: detectionData = %s", detectionData.getBloodSugar());
+                BluetoothStore.instance.detection.setValue(detectionData);
                 BluetoothStore.instance.detection.postValue(detectionData);
                 SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODSUGAR, name + "," + address);
                 BleManager.getInstance().sendGetSnCommond();
                 break;
 
             case BleConnectState.DISCONNECTED:
+                Timber.w("bt ---> connect isSelfConnect disconnected");
                 // 已断开设备的蓝牙连接
                 updateState(UM.getApp().getString(R.string.bluetooth_device_disconnected));
                 baseView.disConnected();
                 break;
 
             case BleConnectState.CONNECT_FAILURE:
+                Timber.w("bt ---> connect isSelfConnect failed");
                 // 蓝牙连接设备失败
                 updateState(UM.getApp().getString(R.string.bluetooth_device_connect_fail));
                 baseView.connectFailed();
@@ -180,6 +187,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
         float result = baseGlucoseEntity.getValue();//+ baseGlucoseEntity.getMeasureUnit();
         detectionData.setInit(false);
         detectionData.setBloodSugar(result);
+        Timber.w("bt ---> connect isSelfConnect data: detectionData = %s", detectionData.getBloodSugar());
         baseView.updateData(detectionData);
         BluetoothStore.instance.detection.postValue(detectionData);
     }
@@ -187,6 +195,13 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
+        Timber.w("bt ---> connect isSelfConnect disconnect");
+        BleManager.getInstance().close(activity);
+    }
+
+    @SuppressLint("RestrictedApi")
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
         if (activity != null) {
             BleManager.getInstance().destroy(activity);
             activity.getLifecycle().removeObserver(this);

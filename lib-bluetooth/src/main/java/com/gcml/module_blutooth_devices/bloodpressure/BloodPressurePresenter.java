@@ -69,6 +69,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
         detectionData.setLowPressure(0);
         detectionData.setPulse(0);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.setValue(detectionData);
         BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("iChoice")) {
             CHAOSI_SERVICE = "ba11f08c-5f14-0b0d-10a0-00" + address.toLowerCase().replace(":", "").substring(2);

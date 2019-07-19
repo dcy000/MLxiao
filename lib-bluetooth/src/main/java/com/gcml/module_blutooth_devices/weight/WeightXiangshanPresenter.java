@@ -57,6 +57,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                     detectionData.setWeight(0.0f);
                     baseView.updateData(detectionData);
                     Timber.w("bt ---> connect isSelfConnect data: detectionData = %s", detectionData.getWeight());
+                    BluetoothStore.instance.detection.setValue(detectionData);
                     BluetoothStore.instance.detection.postValue(detectionData);
                     SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, name + "," + address);
                 } else {

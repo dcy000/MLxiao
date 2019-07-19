@@ -88,6 +88,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
             detectionData.setWeightOver(false);
             detectionData.setWeight(0.0f);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.setValue(detectionData);
             BluetoothStore.instance.detection.postValue(detectionData);
             BluetoothDevice btDevice = vtDevice.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
@@ -118,6 +119,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
             detectionData.setWeightOver(false);
             detectionData.setWeight(0.0f);
             baseView.updateData(detectionData);
+            BluetoothStore.instance.detection.setValue(detectionData);
             BluetoothStore.instance.detection.postValue(detectionData);
             BluetoothDevice btDevice = device.getBtDevice();
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());

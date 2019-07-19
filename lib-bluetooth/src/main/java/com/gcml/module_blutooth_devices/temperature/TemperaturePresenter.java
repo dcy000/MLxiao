@@ -41,6 +41,7 @@ public class TemperaturePresenter extends BaseBluetooth {
         detectionData.setInit(true);
         detectionData.setTemperAture(0.0f);
         baseView.updateData(detectionData);
+        BluetoothStore.instance.detection.setValue(detectionData);
         BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("AET-WD")) {
             handleAilikang(address);
