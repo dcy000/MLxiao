@@ -111,6 +111,7 @@ public class BloodSugarPresenter extends BaseBluetooth {
                             float sugar = ((float) (bytes[10] << 8) + (float) (bytes[9] & 0xff)) / 18;
                             detectionData.setInit(false);
                             detectionData.setBloodSugar(sugar);
+                            Timber.w("bt ---> connect data: detectionData = %s", detectionData.getBloodSugar());
                             baseView.updateData(detectionData);
                             BluetoothStore.instance.detection.postValue(detectionData);
                         }
@@ -165,6 +166,7 @@ public class BloodSugarPresenter extends BaseBluetooth {
             detectionData.setInit(false);
             detectionData.setBloodSugar(result);
             baseView.updateData(detectionData);
+            Timber.w("bt ---> connect data: detectionData = %s", detectionData.getBloodSugar());
             BluetoothStore.instance.detection.postValue(detectionData);
         } else if (bytes[1] == 81) {//尿酸
             detectionData.setInit(false);
@@ -172,6 +174,7 @@ public class BloodSugarPresenter extends BaseBluetooth {
             detectionData.setUricAcid(result);
             detectionData.setCholesterol(0.0f);
             baseView.updateData(detectionData);
+            Timber.w("bt ---> connect data: detectionData = %s", detectionData.getBloodSugar());
             BluetoothStore.instance.detection.postValue(detectionData);
         } else if (bytes[1] == 97) {//胆固醇
             detectionData.setInit(false);
@@ -179,6 +182,7 @@ public class BloodSugarPresenter extends BaseBluetooth {
             detectionData.setUricAcid(0.0f);
             detectionData.setCholesterol(result);
             baseView.updateData(detectionData);
+            Timber.w("bt ---> connect data: detectionData = %s", detectionData.getBloodSugar());
             BluetoothStore.instance.detection.postValue(detectionData);
         }
     }

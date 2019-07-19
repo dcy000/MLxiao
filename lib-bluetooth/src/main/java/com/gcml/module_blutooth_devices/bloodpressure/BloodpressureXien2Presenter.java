@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 public class BloodpressureXien2Presenter implements LifecycleObserver {
 
     /**
@@ -57,22 +59,27 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     break;
                 // 设备超时
                 case 3:
+                    Timber.w("bt ---> connect isSelfConnect connectFailed");
                     baseView.updateState("设备连接超时");
                     baseView.connectFailed();
                     break;
                 // 充不上气
                 case 4:
+                    Timber.w("bt ---> connect isSelfConnect device cannot charge");
                     baseView.updateState("设备充不上气");
                     break;
                 // 测量中发生错误
                 case 5:
+                    Timber.w("bt ---> connect isSelfConnect device error");
                     baseView.updateState("设备检测发生错误");
                     break;
                 // 血压计低电量
                 case 6:
+                    Timber.w("bt ---> connect isSelfConnect device low power");
                     baseView.updateState("设备电量不足");
                     break;
                 case 7:
+                    Timber.w("bt ---> connect isSelfConnect disconnected");
                     baseView.disConnected();
                     break;
                 // 测量中
@@ -94,6 +101,8 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     detectionData.setHighPressure(num);
                     detectionData.setLowPressure(0);
                     detectionData.setPulse(0);
+                    Timber.w("bt ---> connect isSelfConnect data: detectionData = %s %s %s",
+                            detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                     baseView.updateData(detectionData);
                     break;
                 case 13:
@@ -112,10 +121,13 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                     detectionData.setHighPressure(high);
                     detectionData.setLowPressure(low);
                     detectionData.setPulse(pulse);
+                    Timber.w("bt ---> connect isSelfConnect data: detectionData = %s %s %s",
+                            detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                     baseView.updateData(detectionData);
                     break;
                 case 14:
                     if (BluetoothUtils.getBluetoothAdapter().isDiscovering()) {
+                        Timber.w("bt ---> connect isSelfConnect cancelDiscovery");
                         BluetoothUtils.getBluetoothAdapter().cancelDiscovery();
                     }
                     break;
@@ -135,6 +147,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
     }
 
     private void connectDevice(String name, String address) {
+        Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
         BluetoothDevice bluetoothDevice = BluetoothUtils.getRemoteDevice(address);
         if (bluetoothDevice == null) {
             return;
@@ -153,6 +166,8 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                 detectionData.setHighPressure(0);
                 detectionData.setLowPressure(0);
                 detectionData.setPulse(0);
+                Timber.w("bt ---> connect isSelfConnect data: detectionData = %s %s %s",
+                        detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                 baseView.updateData(detectionData);
                 SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, name + "," + address);
             } else {
@@ -162,6 +177,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
             isEnd = false;
         } catch (IOException e) {
             e.printStackTrace();
+            Timber.w("bt ---> connect isSelfConnect connectFailed");
             baseView.connectFailed();
         }
     }
@@ -177,6 +193,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
         if (startDeviceTask == null) {
             startDeviceTask = new StartDeviceTask();
         }
+        Timber.w("bt ---> connect isSelfConnect bySelf");
         ThreadUtils.executeByIo(startDeviceTask);
     }
 
@@ -334,13 +351,12 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
         isEnd = true;
         if (weakHandler != null) {
             weakHandler.removeCallbacksAndMessages(null);
-            weakHandler = null;
         }
         if (listNum != null) {
             listNum.clear();
-            listNum = null;
         }
         if (socket != null) {
+            Timber.w("bt ---> connect isSelfConnect disconnect");
             try {
                 socket.close();
             } catch (IOException e) {
@@ -351,11 +367,19 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
             ThreadUtils.cancel(startDeviceTask);
             startDeviceTask = null;
         }
+    }
+
+    @SuppressLint("RestrictedApi")
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
+        if (weakHandler != null) {
+            weakHandler.removeCallbacksAndMessages(null);
+            weakHandler = null;
+        }
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }
         activity = null;
         baseView = null;
-
     }
 }

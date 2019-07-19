@@ -49,6 +49,11 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
     @SuppressLint("DefaultLocale")
     @Override
     public void updateData(DetectionData detectionData) {
+        if (detectionData == null) {
+            return;
+        }
+
+
         if (detectionData.isInit()) {
             mTvGaoya.setText(String.valueOf(detectionData.getHighPressure()));
             mTvDiya.setText("0");

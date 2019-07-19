@@ -77,6 +77,14 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
             public void onChanged(@Nullable DetectionData detectionData) {
                 if (detectionData == null) return;
                 Integer highPressure = detectionData.getHighPressure();
+
+                boolean init = detectionData.getLowPressure() != null && detectionData.getLowPressure() == 0
+                        && detectionData.getPulse() != null && detectionData.getPulse() == 0;
+                if (init && isMeasureFinishedOfThisTime) {
+                    detectionData.setInit(true);
+                    isMeasureFinishedOfThisTime = false;
+                }
+
                 if (!isMeasureFinishedOfThisTime && highPressure != null && highPressure != 0) {
                     if (detectionData.isInit()) {
                         mTvResultLeft.setText(highPressure + "/--");

@@ -15,6 +15,8 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import java.util.HashMap;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 public class BloodPressurePresenter extends BaseBluetooth {
     /**
      * 超思
@@ -69,6 +71,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
         detectionData.setLowPressure(0);
         detectionData.setPulse(0);
         baseView.updateData(detectionData);
+        Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
         BluetoothStore.instance.detection.setValue(detectionData);
         BluetoothStore.instance.detection.postValue(detectionData);
         if (name.startsWith("iChoice")) {
@@ -104,6 +108,7 @@ public class BloodPressurePresenter extends BaseBluetooth {
             return false;
         }
         if (name.startsWith("Dual")) {
+            Timber.w("bt ---> connect isSelfConnect: name = %s, address = %s", name, address);
             xien2Presenter = new BloodpressureXien2Presenter(getActivity(), baseView, name, address);
             return true;
         }
@@ -149,6 +154,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure(0);
                             detectionData.setPulse(0);
                             baseView.updateData(detectionData);
+                            Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                                    detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                             BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
@@ -169,6 +176,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure((value[3] & 0xff));
                             detectionData.setPulse((value[14] & 0xff));
                             baseView.updateData(detectionData);
+                            Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                                    detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                             BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
@@ -193,6 +202,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure(0);
                             detectionData.setPulse(0);
                             baseView.updateData(detectionData);
+                            Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                                    detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                             BluetoothStore.instance.detection.postValue(detectionData);
                         } else if (bytes.length == 9 && (bytes[3] & 0xff) == 73 && (bytes[4] & 0xff) == 3) {
                             int highPress = (bytes[6] & 0xff) + 30;
@@ -204,6 +215,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
                             detectionData.setLowPressure(lowPress);
                             detectionData.setPulse(pulse);
                             baseView.updateData(detectionData);
+                            Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                                    detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                             BluetoothStore.instance.detection.postValue(detectionData);
                         }
                     }
@@ -229,6 +242,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
                                 detectionData.setLowPressure(0);
                                 detectionData.setPulse(0);
                                 baseView.updateData(detectionData);
+                                Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                                        detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                                 BluetoothStore.instance.detection.postValue(detectionData);
                                 break;
                             case 12:
@@ -239,6 +254,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
                                     detectionData.setLowPressure((bytes[4] & 0xff));
                                     detectionData.setPulse((bytes[8] & 0xff));
                                     baseView.updateData(detectionData);
+                                    Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                                            detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                                     BluetoothStore.instance.detection.postValue(detectionData);
                                 }
                                 break;
@@ -302,6 +319,8 @@ public class BloodPressurePresenter extends BaseBluetooth {
                     detectionData.setLowPressure((bytes[6] + bytes[7]));
                     detectionData.setPulse((bytes[8] + bytes[9]));
                     baseView.updateData(detectionData);
+                    Timber.w("bt ---> connect data: detectionData = %s %s %s",
+                            detectionData.getHighPressure(), detectionData.getLowPressure(), detectionData.getPulse());
                     BluetoothStore.instance.detection.postValue(detectionData);
                 }
             }
@@ -342,5 +361,13 @@ public class BloodPressurePresenter extends BaseBluetooth {
                     public void onResponse(int code) {
                     }
                 });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (xien2Presenter != null) {
+            xien2Presenter.onStop();
+        }
     }
 }

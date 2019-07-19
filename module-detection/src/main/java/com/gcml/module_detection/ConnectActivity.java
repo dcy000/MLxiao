@@ -315,9 +315,11 @@ public class ConnectActivity extends ToolbarBaseActivity
     private void showBluetoothListDialog() {
         if (dialog == null) {
             dialog = new BluetoothListDialog();
+            dialog.setConnected(connected);
             dialog.setControlBluetoothListener(this);
             dialog.show(getSupportFragmentManager());
         } else {
+            dialog.setConnected(connected);
             if (!dialog.isShow()) {
                 dialog.show(getSupportFragmentManager());
             }
@@ -360,11 +362,15 @@ public class ConnectActivity extends ToolbarBaseActivity
         showUnSearchedDeviceDialog();
     }
 
+    private boolean connected;
+
     @Override
     public void connectSuccess(BluetoothDevice device, String bluetoothName) {
+        connected = true;
         mRightView.setImageResource(R.drawable.ic_bluetooth_connected);
         dealMeasureFragment();
         if (dialog != null) {
+            dialog.setConnected(connected);
             dialog.showConnectedUI(device);
         }
 
@@ -383,11 +389,13 @@ public class ConnectActivity extends ToolbarBaseActivity
 
     @Override
     public void disConnected() {
+        connected = false;
         if (!(baseFragment instanceof ECG_PDF_Fragment)) {
             mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
             showRetryConnectDialog();
         }
         if (dialog != null) {
+            dialog.setConnected(connected);
             dialog.hideConnectedUI();
         }
     }
@@ -401,6 +409,7 @@ public class ConnectActivity extends ToolbarBaseActivity
 
     @Override
     public void connectFailed() {
+        connected = false;
         if (!(baseFragment instanceof ECG_PDF_Fragment)) {
             mRightView.setImageResource(R.drawable.ic_bluetooth_disconnected);
         }
@@ -412,6 +421,7 @@ public class ConnectActivity extends ToolbarBaseActivity
         }
 
         if (dialog != null) {
+            dialog.setConnected(connected);
             dialog.hideConnectedUI();
         }
     }

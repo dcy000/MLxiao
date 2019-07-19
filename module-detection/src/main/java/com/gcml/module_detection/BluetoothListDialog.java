@@ -43,6 +43,16 @@ public class BluetoothListDialog extends BaseNiceDialog {
     private TextView mConnectDeviceName;
     private ImageView mBtnSearchBluetooth;
 
+    private boolean connected;
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
     @Override
     public int intLayoutId() {
         return R.layout.dialog_bluetooth_devices_list;
@@ -86,6 +96,10 @@ public class BluetoothListDialog extends BaseNiceDialog {
     public void onStart() {
         super.onStart();
         //当Dialog显示的时候
+        if (connected) {
+            ToastUtils.showShort("设备已连接， 重新连接请点击刷新！");
+            return;
+        }
         startDevicesListAnim();
     }
 

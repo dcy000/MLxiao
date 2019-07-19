@@ -219,7 +219,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
             public void run() {
                 Timber.w("bt ---> isBluetoothEnabled 2:  %s", BluetoothUtils.isBluetoothEnabled());
                 if (!BluetoothUtils.isBluetoothEnabled()) {
-                    ToastUtils.showLong("蓝牙未打开或者不支持蓝牙");
+                    ToastUtils.showLong("蓝牙未打开, 请重试");
                     return;
                 }
                 connectDirectlyOrScan(type, mac, names);
