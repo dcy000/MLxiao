@@ -31,12 +31,12 @@ ext {
     ]
 
     //开发使用的IP地址
-    developUrl = api.XiongAnTest
-//    developUrl = api.heguiXunfei
+//    developUrl = api.XiongAnTest
+    developUrl = api.heguiXunfei
 
     //线上正式运行的IP地址
-    produceUrl = api.XiongAnTest
-//    produceUrl = api.heguiXunfei
+//    produceUrl = api.XiongAnTest
+    produceUrl = api.heguiXunfei
 
     android = [
             compileSdkVersion: 27,

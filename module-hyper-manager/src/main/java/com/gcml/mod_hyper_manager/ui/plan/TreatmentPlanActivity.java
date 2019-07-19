@@ -127,7 +127,7 @@ public class TreatmentPlanActivity extends ToolbarBaseActivity implements IChang
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UM.getApp(),"小E已为你生成具体计划方案，滑动屏幕可进行查看。");
+        MLVoiceSynthetize.startSynthesize(UM.getApp(), "小E已为你生成具体计划方案，滑动屏幕可进行查看。");
     }
 
     @Override
@@ -216,6 +216,7 @@ public class TreatmentPlanActivity extends ToolbarBaseActivity implements IChang
                 .getUserProvider()
                 .getUserEntity()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override

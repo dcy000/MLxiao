@@ -33,6 +33,7 @@ import java.util.Locale;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -282,7 +283,7 @@ public class FaceBdRepository {
                                 UserSpHelper.setToken(Global.TOKEN_PREFIX + userToken.getToken());
                             }
                         })
-                        .compose(RxUtils.io2Main())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
                             @Override
                             public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {

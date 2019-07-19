@@ -53,6 +53,9 @@ public interface QianYueService {
     @GET("ZZB/docter/seldoctors")
     Observable<ApiResult<List<Docter>>> doctor_list(@Query("page") int start, @Query("limit") int limit);
 
+    @GET("ZZB/docter/seldoctors")
+    Observable<ApiResult<List<Docter>>> doctorListOld(@Query("start") int start, @Query("limit") int limit);
+
     @GET("ZZB/docter/search_online_status")
     Observable<ApiResult<ArrayList<Docter>>> onlinedoctor_list(
             @Query("online_status") int online_status,

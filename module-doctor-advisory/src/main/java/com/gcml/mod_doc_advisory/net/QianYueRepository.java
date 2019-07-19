@@ -51,11 +51,17 @@ public class QianYueRepository {
     }
 
     public Observable<List<Docter>> doctor_list(int start, int limit) {
+        if (ChannelUtils.isJGYS()) {
+            // 健管演示
+            return qianYueService.doctorListOld(start, limit)
+                    .compose(RxUtils.apiResultTransformer());
+        }
         return qianYueService.doctor_list(start, limit).compose(RxUtils.apiResultTransformer());
     }
 
     public Observable<ArrayList<Docter>> onlinedoctor_list(int status, String doctorName, int page, int pageSize) {
         if (ChannelUtils.isJGYS()) {
+            // 健管演示
             return qianYueService.onlineDoctorListOld(status, doctorName, page, pageSize)
                     .compose(RxUtils.apiResultTransformer());
         }
